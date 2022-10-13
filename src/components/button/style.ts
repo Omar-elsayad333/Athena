@@ -3,7 +3,7 @@ import colors from '../../styles/colors';
 const style = {
     root: {
         fontFamily: 'Almarai, sans-serif',
-        fontSize: '34px',
+        fontSize: '30px',
         fontWeight: '700',
         padding: '20px 110px',
         color: colors.text.primary,
