@@ -3,10 +3,11 @@ import colors from "../../styles/colors";
 const style: any = {
     loginCard: {
         margin: '30px 10px',
-        padding: '25px 0',
+        padding: '25px',
         backgroundColor: 'rgba(182, 213, 240, 0.25)',
-        width: '565px',
-        height: '800px',
+        width: '500px',
+        maxWidth: '100%',
+        minHeight: '800px',
         borderRadius: '30px',
         backdropFilter: 'blur(10px)',
         borderWidth: '10px 0px',
@@ -16,15 +17,17 @@ const style: any = {
         flexDirection: 'column',
         justifyContent: 'top',
         alignItems: 'center',
-        color: colors.primary
+        color: colors.primary,
     },
     headerText: {
         fontSize: '34px',
         fontWeight: '700',
-        paddingY: '20px'
+        textAlign: 'center',
+        paddingY: '20px',
     },
     form: {
         width: '450px',
+        maxWidth: '100%',
         display: 'flex',
         flexDirection: 'column',
         gap: '30px'
@@ -47,6 +50,7 @@ const style: any = {
     },
     formOptions: {
         width: '450px',
+        maxWidth: '100%',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -59,6 +63,7 @@ const style: any = {
         alignItems: 'center'
     },
     signupBut: {
+        maxWidth: '100%',
         fontSize: '14px',
         fontWeight: '400',
     }

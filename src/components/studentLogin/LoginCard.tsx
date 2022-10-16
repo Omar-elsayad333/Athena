@@ -11,7 +11,7 @@ const LoginCard = () => {
     return (
         <Box style={style.loginCard}>
             <Box style={{width: '60%'}}>
-                <Image layout="responsive" src={logo} />
+                <Image layout="responsive" alt="Athena" src={logo} />
             </Box>
             <Typography sx={style.headerText}>
                 أهلاً بك في بوابة الطالب

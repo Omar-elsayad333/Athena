@@ -1,5 +1,4 @@
 import { NextPage } from "next";
-import colors from "../styles/colors";
 import Container from '@mui/material/Container';
 import LoginCard from "../components/studentLogin/LoginCard";
 
@@ -13,8 +12,9 @@ const classes = {
     container: {
         minHeight: '100vh',
         display: 'flex',
-        justifyContent: 'end',
+        justifyContent: 'center',
         alignItems: 'center',
+        padding: '0px 30px',
     },
 }
 
