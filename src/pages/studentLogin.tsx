@@ -12,7 +12,7 @@ const classes = {
     container: {
         minHeight: '100vh',
         display: 'flex',
-        justifyContent: 'center',
+        justifyContent: 'end',
         alignItems: 'center',
         padding: '0px 30px',
     },
@@ -21,7 +21,7 @@ const classes = {
 const studentLogin: NextPage = () => {
     return (
         <div style={classes.root}>
-            <Container maxWidth='xl' style={classes.container}>
+            <Container maxWidth='lg' style={classes.container}>
                 <LoginCard />
             </Container>
         </div>

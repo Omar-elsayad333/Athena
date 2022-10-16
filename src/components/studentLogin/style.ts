@@ -3,7 +3,6 @@ import colors from "../../styles/colors";
 const style: any = {
     loginCard: {
         margin: '30px 10px',
-        padding: '25px',
         backgroundColor: 'rgba(182, 213, 240, 0.25)',
         width: '500px',
         maxWidth: '100%',
@@ -20,8 +19,6 @@ const style: any = {
         color: colors.primary,
     },
     headerText: {
-        fontSize: '34px',
-        fontWeight: '700',
         textAlign: 'center',
         paddingY: '20px',
     },
@@ -30,12 +27,10 @@ const style: any = {
         maxWidth: '100%',
         display: 'flex',
         flexDirection: 'column',
-        gap: '30px'
+        gap: '30px',
     },
     formLabels: {
-        fontWeight: '400',
-        fontSize: '20px',
-        padding: '12px 0'
+        padding: '13px 0'
     },
     formInputs: {
         width: '100%',
@@ -54,8 +49,13 @@ const style: any = {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        paddingLeft: '10px',
-        paddingTop: '5px'
+        paddingTop: '16px'
+    },
+    checkContainer: {
+        fontWeight: '400',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     logContainer: {
         display: 'flex',

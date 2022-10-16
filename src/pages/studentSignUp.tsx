@@ -7,5 +7,5 @@ const studentSignUp: NextPage = () => {
         </>
     );
 }
- 
+
 export default studentSignUp;
