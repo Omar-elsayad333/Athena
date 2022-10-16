@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import Container from '@mui/material/Container';
-import Button from '../components/button/MyButton'
+import Button from '../components/buttons/MyButton'
 
 const Home: NextPage = () => {
   return (

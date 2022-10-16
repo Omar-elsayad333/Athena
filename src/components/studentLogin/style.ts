@@ -11,7 +11,7 @@ const style: any = {
         backdropFilter: 'blur(10px)',
         borderWidth: '10px 0px',
         borderStyle: 'solid',
-        borderColor: `${colors.primary}`,
+        borderColor: `${colors.primary}`,   
         color: colors.primary,
     },
     container: {
@@ -38,17 +38,6 @@ const style: any = {
     },
     formLabels: {
         padding: '13px 0'
-    },
-    formInputs: {
-        width: '100%',
-        height: '80px',
-        fontSize: '25px',
-        color: colors.primary,
-        borderRadius: '12px',
-        border: 'none',
-        outline: 'none',
-        background: 'rgba(232, 243, 255, 0.25)',
-        boxShadow: '0px 0px 10px rgba(28, 54, 79, 0.25)',
     },
     formOptions: {
         width: '450px',

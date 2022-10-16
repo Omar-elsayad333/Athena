@@ -2,7 +2,7 @@ import { NextPage } from "next";
 import Container from '@mui/material/Container';
 import LoginCard from "../components/studentLogin/LoginCard";
 
-const classes = {
+const classes: any = {
     root: {
         backgroundImage: 'url("./images/studentLogin.jpg")',
         backgroundPosition: 'right',
@@ -15,13 +15,16 @@ const classes = {
         justifyContent: 'end',
         alignItems: 'center',
         padding: '0px 30px',
+        '@media (max-width: 600px)': {
+            justifyContent: 'center',
+        }
     },
 }
 
 const studentLogin: NextPage = () => {
     return (
         <div style={classes.root}>
-            <Container maxWidth='xl' style={classes.container}>
+            <Container maxWidth='xl' sx={classes.container}>
                 <LoginCard />
             </Container>
         </div>

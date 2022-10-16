@@ -26,7 +26,7 @@ export const theme = createTheme({
           boxShadow: 'none'
         },
       },
-    }
+    },
   }
 });
 

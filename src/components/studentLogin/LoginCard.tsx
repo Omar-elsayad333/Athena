@@ -1,7 +1,8 @@
 import logo from '../../../public/images/Logo(2).svg'
 import Image from "next/image";
 import style from './style';
-import MyButton from "../button/MyButton";
+import MyButton from "../buttons/MyButton";
+import MyLogFormInput from '../inputs/MyLogFormInput';
 
 // MUI
 import Typography from "@mui/material/Typography";
@@ -10,9 +11,9 @@ import Checkbox from "@mui/material/Checkbox";
 
 const LoginCard = () => {
     return (
-        <Box style={style.loginCard}>
+        <Box sx={style.loginCard}>
             <Box sx={style.container}>
-                <Box style={{width: '60%'}}>
+                <Box sx={{width: '60%'}}>
                     <Image layout="responsive" alt="Athena" src={logo} />
                 </Box>
                 <Typography variant="h2" sx={style.headerText}>
@@ -23,19 +24,19 @@ const LoginCard = () => {
                         <Typography variant="h4" style={style.formLabels}>
                             أسم المستخدم، البريد الإلكتروني أو رقم الهاتف 
                         </Typography>
-                        <input style={style.formInputs} />
+                        <MyLogFormInput />
                     </Box>
                     <Box>
                         <Typography variant="h4" style={style.formLabels}>
                             الرقم السري الخاص بك    
                         </Typography>
-                        <input style={style.formInputs} />
+                        <MyLogFormInput />
                         <Box sx={style.formOptions}>
                             <Typography variant="h5">
                                 هل نسيت الرقم السري ؟
                             </Typography> 
                             <Box sx={style.checkContainer}>
-                                <Checkbox size='small'/>
+                                <Checkbox size='small' />
                                 <Typography variant="h5">
                                     تذكريني 
                                 </Typography>
