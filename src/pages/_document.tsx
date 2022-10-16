@@ -8,6 +8,7 @@ export default class MyDocument extends Document {
                 <Head>
                     {/* PWA primary color */}
                     <meta name="theme-color" content={colors.primary} />
+                    <link rel="icon" href="./images/Logo(1).svg" />
                     <link
                         rel="stylesheet"
                         href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"

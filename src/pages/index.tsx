@@ -1,6 +1,7 @@
-import type { NextPage } from 'next'
+import type { NextPage } from 'next';
 import Container from '@mui/material/Container';
-import Button from '../components/buttons/MyButton'
+import Button from '../components/buttons/MyButton';
+import Link from 'next/link';
 
 const Home: NextPage = () => {
   return (
@@ -11,20 +12,26 @@ const Home: NextPage = () => {
           <h1>
             انا مدرس
           </h1>
-          <a href='/login'>
-            <Button content='تسجيل الدخول' />
-          </a>
+          <Link href='/login'>
+            <a>
+              <Button content='تسجيل الدخول' />
+            </a>
+          </Link>
         </div>
         <div>
           <h1>
             انا طالب
           </h1>
-          <a href='/studentLogin' style={{paddingLeft: '20px'}}>
-            <Button content='تسجيل الدخول' />
-          </a>
-          <a href='/studentSignUp'>
-            <Button content='انشاء حساب' />
-          </a>
+          <Link href='/studentLogin' style={{paddingLeft: '20px'}}>
+            <a>
+              <Button content='تسجيل الدخول' />
+            </a>
+          </Link>
+          <Link href='/studentSignUp'>
+            <a>
+              <Button content='انشاء حساب' />
+            </a>
+          </Link>
         </div>
       </div>
     </Container>
