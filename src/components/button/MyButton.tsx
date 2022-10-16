@@ -9,7 +9,7 @@ type Props = {
 const MyButton: React.FC<Props> = ({content}) => {
     return (
         <Button variant="contained" style={style.root}>
-            <Typography variant='h2'>
+            <Typography variant='h3'>
                 {content}
             </Typography>
         </Button>

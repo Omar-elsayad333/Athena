@@ -6,17 +6,24 @@ const style: any = {
         backgroundColor: 'rgba(182, 213, 240, 0.25)',
         width: '500px',
         maxWidth: '100%',
-        minHeight: '800px',
+        minHeight: 'auto',
         borderRadius: '30px',
         backdropFilter: 'blur(10px)',
         borderWidth: '10px 0px',
         borderStyle: 'solid',
         borderColor: `${colors.primary}`,
+        color: colors.primary,
+    },
+    container: {
+        maxWidth: '100%',
+        padding: '40px',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'top',
         alignItems: 'center',
-        color: colors.primary,
+        '@media (max-width: 600px)': {
+            padding: '30px'
+        }
     },
     headerText: {
         textAlign: 'center',

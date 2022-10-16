@@ -21,7 +21,7 @@ const classes = {
 const studentLogin: NextPage = () => {
     return (
         <div style={classes.root}>
-            <Container maxWidth='lg' style={classes.container}>
+            <Container maxWidth='xl' style={classes.container}>
                 <LoginCard />
             </Container>
         </div>
