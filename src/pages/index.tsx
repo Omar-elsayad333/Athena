@@ -9,7 +9,7 @@ const Home: NextPage = () => {
     <Container maxWidth="xl">
       <div>
         <Image alt='athena' layout='fill' src='/images/Logo(1).svg' />
-        <div style={{'display': 'flex'}}>
+        <div>
           <h1>
             انا مدرس
           </h1>
