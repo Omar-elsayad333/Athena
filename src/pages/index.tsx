@@ -2,12 +2,13 @@ import type { NextPage } from 'next';
 import Container from '@mui/material/Container';
 import Button from '../components/buttons/MyButton';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const Home: NextPage = () => {
   return (
     <Container maxWidth="xl">
       <div>
-        <div style={{width: '100px', height: '100px', backgroundColor: 'blue', margin: '50px'}} />
+        <Image alt='athena' layout='fill' src='/images/Logo(1).svg' />
         <div>
           <h1>
             انا مدرس
