@@ -56,12 +56,11 @@ const style: any = {
     logContainer: {
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'center'
+        alignItems: 'center',
+        gap: '11px'
     },
-    signupBut: {
-        maxWidth: '100%',
-        fontSize: '14px',
-        fontWeight: '400',
+    link: {
+        color: colors.primary
     }
 }
 

@@ -1,8 +1,9 @@
-import logo from '../../../public/images/Logo(2).svg'
+import logo from '../../../public/images/Logo(2).svg';
 import Image from "next/image";
 import style from './style';
 import MyButton from "../buttons/MyButton";
 import MyLogFormInput from '../inputs/MyLogFormInput';
+import Link from 'next/link';
 
 // MUI
 import Typography from "@mui/material/Typography";
@@ -24,13 +25,13 @@ const LoginCard = () => {
                         <Typography variant="h4" style={style.formLabels}>
                             أسم المستخدم، البريد الإلكتروني أو رقم الهاتف 
                         </Typography>
-                        <MyLogFormInput />
+                        <MyLogFormInput inputType='email' />
                     </Box>
                     <Box>
                         <Typography variant="h4" style={style.formLabels}>
                             الرقم السري الخاص بك    
                         </Typography>
-                        <MyLogFormInput />
+                        <MyLogFormInput inputType='password' />
                         <Box sx={style.formOptions}>
                             <Typography variant="h5">
                                 هل نسيت الرقم السري ؟
@@ -46,7 +47,12 @@ const LoginCard = () => {
                     <Box sx={style.logContainer}>
                         <MyButton content='تسجيل الدخول' />
                         <Typography>
-                            انا طالب جديد، انشاء حساب الان         
+                            انا طالب جديد،
+                            <Link href='/studentSignUp'>
+                                <a style={style.link}>
+                                    &nbsp;انشاء حساب الان
+                                </a>
+                            </Link>
                         </Typography>
                     </Box>
                 </Box>
