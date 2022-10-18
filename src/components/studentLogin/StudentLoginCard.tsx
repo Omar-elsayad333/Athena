@@ -2,7 +2,7 @@ import logo from '../../../public/images/Logo(2).svg';
 import Image from "next/image";
 import style from './style';
 import MyButton from "../Buttons/MyButton";
-import MyLogFormInput from '../Inputs/MyLogFormInput';
+import MyLogFormInput from '../inputs/MyLogFormInput';
 import Link from 'next/link';
 
 // MUI
