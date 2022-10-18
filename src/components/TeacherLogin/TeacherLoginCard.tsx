@@ -1,7 +1,7 @@
 import logo from '../../../public/images/Logo(1).svg';
 import Image from "next/image";
 import style from './style';
-import MyButton from "../Buttons/MyButton";
+import MyButton from '../Buttons/MyButton';
 import MyLogFormInput from '../Inputs/MyLogFormInput';
 
 // MUI
