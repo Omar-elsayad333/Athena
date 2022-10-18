@@ -1,11 +1,13 @@
-import { NextPage } from "next";
+import { Typography } from "@mui/material";
 
-const studentSignUp: NextPage = () => {
+const studentSignUp = () => {
     return (
         <>
-            student sign up
+            <Typography>
+                Hello form student sign up
+            </Typography>
         </>
     );
 }
-
+ 
 export default studentSignUp;

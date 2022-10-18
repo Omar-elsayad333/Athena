@@ -1,24 +1,23 @@
-import logo from '../../../public/images/Logo(2).svg';
+import logo from '../../../public/images/Logo(1).svg';
 import Image from "next/image";
 import style from './style';
-import MyButton from "../buttons/MyButton";
-import MyLogFormInput from '../inputs/MyLogFormInput';
-import Link from 'next/link';
+import MyButton from "../Buttons/MyButton";
+import MyLogFormInput from '../Inputs/MyLogFormInput';
 
 // MUI
 import Typography from "@mui/material/Typography";
 import Box from "@mui/system/Box";
 import Checkbox from "@mui/material/Checkbox";
 
-const LoginCard = () => {
+const TeacherLoginCard = () => {
     return (
-        <Box sx={style.loginCard}>
+        <Box sx={style.TeacherLoginCard}>
             <Box sx={style.container}>
                 <Box sx={{width: '60%'}}>
                     <Image layout="responsive" alt="Athena" src={logo} />
                 </Box>
                 <Typography variant="h2" sx={style.headerText}>
-                    أهلاً بك في بوابة الطالب
+                    أهلاً بك في البوابة الرئيسية
                 </Typography>
                 <Box sx={style.form}>
                     <Box>
@@ -45,15 +44,7 @@ const LoginCard = () => {
                         </Box>
                     </Box>
                     <Box sx={style.logContainer}>
-                        <MyButton content='تسجيل الدخول' />
-                        <Typography>
-                            انا طالب جديد،
-                            <Link href='/studentSignUp'>
-                                <a style={style.link}>
-                                    &nbsp;انشاء حساب الان
-                                </a>
-                            </Link>
-                        </Typography>
+                        <MyButton content='تسجيل الدخول' color='secondary' />
                     </Box>
                 </Box>
             </Box>
@@ -61,4 +52,4 @@ const LoginCard = () => {
     )
 }   
     
-export default LoginCard;
+export default TeacherLoginCard;

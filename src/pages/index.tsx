@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
 import Container from '@mui/material/Container';
-import Button from '../components/buttons/MyButton';
+import Button from '../components/Buttons/MyButton';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -13,7 +13,7 @@ const Home: NextPage = () => {
           <h1>
             انا مدرس
           </h1>
-          <Link href='/login'>
+          <Link href='/teacherLogin'>
             <a>
               <Button content='تسجيل الدخول' />
             </a>

@@ -1,7 +1,7 @@
 import colors from "../../styles/colors";
 
 const style: any = {
-    StudentLoginCard: {
+    TeacherLoginCard: {
         margin: '30px 10px',
         backgroundColor: 'rgba(182, 213, 240, 0.25)',
         width: '500px',
@@ -11,8 +11,8 @@ const style: any = {
         backdropFilter: 'blur(10px)',
         borderWidth: '10px 0px',
         borderStyle: 'solid',
-        borderColor: `${colors.primary}`,   
-        color: colors.primary,
+        borderColor: `${colors.secondary}`,   
+        color: colors.secondary,
     },
     container: {
         maxWidth: '100%',
@@ -22,7 +22,7 @@ const style: any = {
         justifyContent: 'top',
         alignItems: 'center',
         '@media (max-width: 600px)': {
-            padding: '30px'
+            padding: '30px',
         }
     },
     headerText: {
@@ -37,7 +37,7 @@ const style: any = {
         gap: '30px',
     },
     formLabels: {
-        padding: '13px 0'
+        padding: '13px 0',
     },
     formOptions: {
         width: '450px',
@@ -45,22 +45,19 @@ const style: any = {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        paddingTop: '16px'
+        paddingTop: '16px',
+        color: colors.primary,
     },
     checkContainer: {
         fontWeight: '400',
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     logContainer: {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        gap: '11px'
-    },
-    link: {
-        color: colors.primary
     }
 }
 
