@@ -3,7 +3,7 @@ import colors from "../../styles/colors";
 const style: any = {
     TeacherLoginCard: {
         margin: '30px 10px',
-        backgroundColor: 'rgba(182, 213, 240, 0.25)',
+        backgroundColor: 'rgba(232, 243, 255, 0.4);',
         width: '500px',
         maxWidth: '100%',
         minHeight: 'auto',
