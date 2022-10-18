@@ -1,6 +1,6 @@
 import { NextPage } from "next";
 import Container from '@mui/material/Container';
-import StudentLoginCard from "../components/StudentLogin/StudentLoginCard";
+import StudentLoginCard from "../components/studentLogin/StudentLoginCard";
 
 const classes: any = {
     root: {
