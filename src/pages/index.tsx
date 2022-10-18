@@ -3,7 +3,7 @@ import Container from '@mui/material/Container';
 import MyButton from '../components/Buttons/MyButton';
 import Link from 'next/link';
 import Image from 'next/image';
-
+  
 const Home: NextPage = () => {
   return (
     <Container maxWidth="xl">
