@@ -18,7 +18,7 @@ const StudentLoginCard = () => {
                     <Image layout="responsive" alt="Athena" src={logo} />
                 </Box>
                 <Typography variant="h2" sx={style.headerText}>
-                    أهلاً بك في البوابة الرئيسية                
+                    أهلاً بك في بوابة الطالب                
                 </Typography>
                 <Box sx={style.form}>
                     <Box>
