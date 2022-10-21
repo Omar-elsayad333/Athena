@@ -7,14 +7,14 @@ import Container from '@mui/material/Container';
 const classes: any = {
     root: {
         backgroundImage: 'url("./images/brad-pouncey-raV9BAKD1eE-unsplash.jpg")',
-        backgroundPosition: 'center',
+        backgroundPosition: 'top',
         backgroundSize: 'cover',
         width: '100%',
     },
     container: {
         minHeight: '100vh',
         display: 'flex',
-        justifyContent: 'center',
+        justifyContent: 'center',   
         alignItems: 'center',
         padding: '0px 30px',
         '@media (max-width: 600px)': {

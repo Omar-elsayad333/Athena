@@ -7,7 +7,7 @@ import Link from 'next/link';
 
 // MUI
 import Typography from "@mui/material/Typography";
-import Box from "@mui/system/Box";
+import Box from '@mui/material/Box';
 import Checkbox from "@mui/material/Checkbox";
 
 const StudentLoginCard = () => {

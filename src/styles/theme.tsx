@@ -31,6 +31,7 @@ export const theme = createTheme({
 });
 
 theme.typography.h2 = {
+  fontFamily: 'Almarai, sans-serif',
   fontWeight: '700',
   fontSize: '1.5rem',
   '@media (min-width:600px)': {
@@ -42,6 +43,7 @@ theme.typography.h2 = {
 };
 
 theme.typography.h3 = {
+  fontFamily: 'Almarai, sans-serif',
   fontWeight: '700',
   fontSize: '1.2rem',
   '@media (min-width:600px)': {
@@ -53,6 +55,7 @@ theme.typography.h3 = {
 };
 
 theme.typography.h4 = {
+  fontFamily: 'Almarai, sans-serif',
   fontWeight: '400',
   fontSize: '1rem',
   '@media (min-width:600px)': {
@@ -64,6 +67,7 @@ theme.typography.h4 = {
 };
 
 theme.typography.h5 = {
+  fontFamily: 'Almarai, sans-serif',
   fontWeight: '400',
   fontSize: '0.8rem',
   '@media (min-width:600px)': {
