@@ -27,7 +27,8 @@ export const theme = createTheme({
         },
       },
     },
-  }
+  },
+  direction: 'rtl',
 });
 
 theme.typography.h2 = {
