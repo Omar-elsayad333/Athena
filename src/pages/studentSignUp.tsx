@@ -8,7 +8,9 @@ const pageStyle: object = {
     width: '100%',
     minHeight: '100vh',
     display: 'flex',
-    
+    '@media (max-width: 1000px)': {
+        flexDirection: 'column-reverse',
+    }
 }
 
 const studentSignUp = () => {

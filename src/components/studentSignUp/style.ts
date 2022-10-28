@@ -12,6 +12,9 @@ const style: any = {
         '@media (max-width: 1440px)': {
             paddingY: '20px',
         },
+        '@media (max-width: 1000px)': {
+            width: '100%',
+        },
         logo: {
             width: '100%',
             height: '8vh',
@@ -38,12 +41,17 @@ const style: any = {
         }
     },
     formSec: {
+        backgroundColor: '#E8F3FF',
+        boxShadow: '0px 0px 39px -10px #1C364F',
         boxSizing: 'border-box',
         width: '50%',
         height: '100vh',
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        '@media (max-width: 1000px)': {
+            width: '100%',
+        }
     }
 }
 

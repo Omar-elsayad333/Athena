@@ -10,7 +10,7 @@ const Home: NextPage = () => {
   return (
     <Container maxWidth="xl">
       <div>
-        <Image alt='athena' layout='fill' src='/images/Logo(1).svg' />
+        <Image alt='athena' layout='fill' src='/images/Logo(4).svg' />
         <div>
           <h1>
             انا مدرس
