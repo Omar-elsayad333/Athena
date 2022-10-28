@@ -28,7 +28,7 @@ export const theme = createTheme({
       },
     },
   },
-  // direction: 'rtl',
+  direction: 'rtl',
 });
 
 theme.typography.h2 = {
@@ -76,6 +76,18 @@ theme.typography.h5 = {
   },
   [theme.breakpoints.up('lg')]: {
     fontSize: '0.9rem',
+  }
+};
+
+theme.typography.h6 = {
+  fontFamily: 'Almarai, sans-serif',
+  fontWeight: '300',
+  fontSize: '0.6rem',
+  '@media (min-width:600px)': {
+    fontSize: '0.7rem',
+  },
+  [theme.breakpoints.up('lg')]: {
+    fontSize: '0.7rem',
   }
 };
 
