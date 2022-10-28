@@ -46,6 +46,7 @@ const style: any = {
             width: '100%',
         },
         avatar: {
+            boxSizing: 'border-box',
             width: '140px',
             height: '140px',
             border: 'solid 2.5px #8CC3F2',
@@ -127,7 +128,20 @@ const style: any = {
             alignItems: 'center',
             marginX: '20px',
         },
+        iconBackground: {
+            width: '40px',
+            height: '40px',
+            backgroundColor: colors.third,
+            borderRadius: '50%',
+            boxSizing: 'border-box',
+            display: 'flex',
+            padding: '7px',
+            justifyContent: 'center',
+            alignItems: 'center',
+        },
         active: {
+            backgroundColor: 'rgba(20, 37, 54, 0.65)',
+            color: colors.third,
         }
     },
 

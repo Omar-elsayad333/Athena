@@ -3,7 +3,7 @@ import logo from '../../../../public/images/whiteLogoText.svg';
 import Image from 'next/image';
 import me from '../../../../public/images/me.jpg';
 import menuIcon from '../../../../public/images/menu icon.svg';
-import studentIcon from '../../../../public/images/student icon.svg';
+import homeIcon from '../../../../public/images/icon test.svg';
 import NavLink from './NavLink';
 
 // MUI
@@ -30,18 +30,18 @@ const TeacherLayout: React.FC = () => {
             </Box>
             <Box sx={style.menuSec}>
                 <Box>
-                    <NavLink style={style.navLink} icon={studentIcon} content='الطلاب' />
-                    <NavLink style={style.navLink} icon={studentIcon} content='الطلاب' />
-                    <NavLink style={style.navLink} icon={studentIcon} content='الطلاب' />
-                    <NavLink style={style.navLink} icon={studentIcon} content='الطلاب' />
-                    <NavLink style={style.navLink} icon={studentIcon} content='الطلاب' />
-                    <NavLink style={style.navLink} icon={studentIcon} content='الطلاب' />
-                    <NavLink style={style.navLink} icon={studentIcon} content='الطلاب' />
-                    <NavLink style={style.navLink} icon={studentIcon} content='الطلاب' />
+                    <NavLink style={style.navLink} icon={homeIcon} content='الطلاب' />
+                    <NavLink style={style.navLink} icon={homeIcon} content='الطلاب' />
+                    <NavLink style={style.navLink} icon={homeIcon} content='الطلاب' />
+                    <NavLink style={style.navLink} icon={homeIcon} content='الطلاب' />
+                    <NavLink style={style.navLink} icon={homeIcon} content='الطلاب' />
+                    <NavLink style={style.navLink} icon={homeIcon} content='الطلاب' />
+                    <NavLink style={style.navLink} icon={homeIcon} content='الطلاب' />
+                    <NavLink style={style.navLink} icon={homeIcon} content='الطلاب' />
                 </Box>
                 <Box>
-                    <NavLink style={style.navLink} icon={studentIcon} content='الطلاب' />
-                    <NavLink style={style.navLink} icon={studentIcon} content='الطلاب' />
+                    <NavLink style={style.navLink} icon={homeIcon} content='الطلاب' />
+                    <NavLink style={style.navLink} icon={homeIcon} content='الطلاب' />
                 </Box>
             </Box>
             <Box sx={style.footerSec}>
