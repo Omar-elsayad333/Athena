@@ -2,15 +2,25 @@ import style from './style';
 import logo from '../../../public/images/logoInlineText(1).svg';
 import layer from '../../../public/images/studentSignUpLayer.svg';
 import Image from 'next/image';
+import MyButton from '../buttons/MyButton';
 
 // MUI
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 
-const LayerSection = () => {
+
+const scroll = () => {
+    const layerSection: HTMLElement = document.getElementById('layerSection')!;
+    window.scrollTo({
+        top: layerSection.scrollHeight,
+        behavior: 'smooth',
+    });
+};
+
+const LayerSection = () => {    
     return (
-        <Container sx={style.layerSec}>
+        <Container id='layerSection' sx={style.layerSec}>
             <Box sx={style.layerSec.logo}>
                 <Image alt='Athena' src={logo} />
             </Box>
@@ -23,12 +33,21 @@ const LayerSection = () => {
                     تسجيلك في منصة أثينا كطالب جديد يعني ذلك انك توافق على استخدام جميع بياناتك 
                     <br/>
                     من قبل المدرسين المشتركين بالمنصة و على 
-                    <u>
+                    <u style={style.layerSec.layer.link}>
                         &nbsp; سياسة الخصوصية 
                     </u> 
                     &nbsp;و&nbsp;
-                    <u>
+                    <u style={style.layerSec.layer.link}>
                         شروط الخدمة 
+                    </u>
+                </Typography>
+            </Box>
+            <Box sx={style.layerSec.scrollBut}>
+                <MyButton content='انشاء الحساب' color='info' onClick={scroll}/>
+                <Typography variant='h6' color='secondary'>
+                    لدي حساب بالفعل 
+                    <u style={style.layerSec.scrollBut.link}>
+                        &nbsp;تسجيل الدخول
                     </u>
                 </Typography>
             </Box>

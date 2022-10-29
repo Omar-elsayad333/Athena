@@ -15,6 +15,10 @@ export const theme = createTheme({
     secondary: {
       main: colors.secondary,
     },
+    info: {
+      main: colors.third,
+      contrastText: colors.primary,
+    }
   },
   typography: {
     fontFamily: 'Almarai, sans-serif'

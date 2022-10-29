@@ -45,7 +45,7 @@ const StudentLoginCard = () => {
                         </Box>
                     </Box>
                     <Box sx={style.logContainer}>
-                        <MyButton content='تسجيل الدخول' color='primary' />
+                        <MyButton content='تسجيل الدخول' color='primary' onClick={null} />
                         <Typography>
                             انا طالب جديد،
                             <Link href='/studentSignUp'>

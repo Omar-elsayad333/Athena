@@ -44,7 +44,7 @@ const TeacherLoginCard = () => {
                         </Box>
                     </Box>
                     <Box sx={style.logContainer}>
-                        <MyButton content='تسجيل الدخول' color='secondary' />
+                        <MyButton content='تسجيل الدخول' color='secondary' onClick={null} />
                     </Box>
                 </Box>
             </Box>

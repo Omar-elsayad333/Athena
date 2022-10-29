@@ -1,5 +1,6 @@
 const style: any = {
     layerSec: {
+        zIndex: '2',
         backgroundColor: '#F4F9FF',
         boxShadow: '0px 0px 20px 0px #3F72A440',
         boxSizing: 'border-box',
@@ -14,6 +15,7 @@ const style: any = {
         },
         '@media (max-width: 1000px)': {
             width: '100%',
+            justifyContent: 'space-between',
         },
         logo: {
             width: '100%',
@@ -23,6 +25,11 @@ const style: any = {
             flexDirection: 'column',
             justifyContent: 'end',
             alignItems: 'end',
+            '@media (max-width: 1000px)': {
+                height: '5vh',
+                alignItems: 'center',
+                marginLeft: '0',
+            },
         },
         layer: {    
             boxSizing: 'border-box',
@@ -37,12 +44,38 @@ const style: any = {
             gap: '30px',
             privacy: {
                 lineHeight: '20px',
+            },
+            link: {
+                cursor: 'pointer',
+            },
+            '@media (max-width: 1000px)': {
+                height: '50vh',
+                padding: '0',
+            },
+        },
+        scrollBut: {
+            boxSizing: 'border-box',
+            display: 'none',
+            '@media (max-width: 1000px)': {
+                height: '20vh',
+                width: '255px',
+                paddingX: '20px',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                gap: '10px',
+            },
+            '@media (max-width: 300px)': {
+                width: '200px',
+            },
+            link: {
+                cursor: 'pointer',
             }
         }
     },
     formSec: {
         backgroundColor: '#E8F3FF',
-        boxShadow: '0px 0px 39px -10px #1C364F',
         boxSizing: 'border-box',
         width: '50%',
         height: '100vh',
@@ -52,7 +85,7 @@ const style: any = {
         '@media (max-width: 1000px)': {
             width: '100%',
         }
-    }
+    },
 }
 
 export default style;
