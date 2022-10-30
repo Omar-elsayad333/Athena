@@ -23,6 +23,47 @@ const style: any = {
             fontSize: '18px'
         }
     },
+    myInput: {
+        width: '255px',
+        height: '46px',
+        color: colors.secondary,
+        borderRadius: '10px',
+        border: 'none',
+        outline: 'none',
+        background: '#E8F3FF',
+        boxShadow: '0px 0px 10px 1px #B6D5F0',
+        padding: '16px 12px',
+        fontFamily: 'Almarai',
+        fontSize: '14px',
+        fontWeight: 400,
+    },
+    mySmallInput: {
+        width: '214px',
+    },
+    container: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        gap: '10px',
+    },
+    invisiableInput: {
+        width: '150px',
+        height: '150px',
+        opacity: 0,
+        position: 'absolute',
+        cursor: 'pointer',
+    },
+    photoPLaceholder: {
+        width: '150px',
+        height: '150px',
+        backgroundColor: '#D4E7F9',
+        border: '2px dashed #1C364F',
+        borderRadius: '13px',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+    }
 };
 
 export default style;

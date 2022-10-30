@@ -1,0 +1,17 @@
+* {
+    box-sizing: border-box;
+    font-family: Almarai, sans-serif;
+}
+
+a {
+    text-decoration: none;
+}
+
+.myInput:hover {
+    box-shadow: 0px 0px 0px 1px #3F72A4;
+    border: #3F72A4 solid 2px;
+}
+.myInput::placeholder {
+    color: #3F72A4;
+}
+

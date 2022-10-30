@@ -3,7 +3,6 @@ const style: any = {
         zIndex: '2',
         backgroundColor: '#F4F9FF',
         boxShadow: '0px 0px 20px 0px #3F72A440',
-        boxSizing: 'border-box',
         width: '50%',
         height: '100vh',
         display: 'flex',
@@ -32,7 +31,6 @@ const style: any = {
             },
         },
         layer: {    
-            boxSizing: 'border-box',
             height: '92vh',
             width: '100%',
             padding: '20px',
@@ -54,7 +52,6 @@ const style: any = {
             },
         },
         scrollBut: {
-            boxSizing: 'border-box',
             display: 'none',
             '@media (max-width: 1000px)': {
                 height: '20vh',
@@ -76,14 +73,15 @@ const style: any = {
     },
     formSec: {
         backgroundColor: '#E8F3FF',
-        boxSizing: 'border-box',
         width: '50%',
         height: '100vh',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
+        gap: '20px',
         '@media (max-width: 1000px)': {
             width: '100%',
+            flexDirection: 'column',
         }
     },
 }

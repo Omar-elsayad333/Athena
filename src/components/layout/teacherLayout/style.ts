@@ -76,7 +76,6 @@ const style: any = {
         display: 'flex',
         flexDirection: 'column',
         gap: '90px',
-        boxSizing: 'border-box',
         paddingY: '10px',
         width: '100%',
         backgroundColor: colors.primary,
@@ -101,7 +100,6 @@ const style: any = {
         },
     },
     footerSec: {
-        boxSizing: 'border-box',
         padding: '20px',
         width: '100%',
         height: '85px',
@@ -133,7 +131,6 @@ const style: any = {
             height: '40px',
             backgroundColor: colors.third,
             borderRadius: '50%',
-            boxSizing: 'border-box',
             display: 'flex',
             padding: '7px',
             justifyContent: 'center',
