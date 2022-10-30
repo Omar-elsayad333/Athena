@@ -3,15 +3,52 @@
     font-family: Almarai, sans-serif;
 }
 
+:root {
+    --primary-color: #1C364F;
+    --secondary-color: #3F72A4;
+    --third-color: #8CC3F2;
+}
+
 a {
     text-decoration: none;
 }
 
-.myInput:hover {
-    box-shadow: 0px 0px 0px 1px #3F72A4;
-    border: #3F72A4 solid 2px;
-}
-.myInput::placeholder {
-    color: #3F72A4;
+/* =====================
+    start my input style
+======================== */
+
+.myInput {
+    width: 255px;
+    height: 46px;
+    color: var(--primary-color);
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    background-color: #E8F3FF;
+    box-shadow: 0px 0px 10px 1px #B6D5F0;
+    padding: 16px 12px;
+    font-size: 14px;
+    font-weight: 400;
+    transition: .2s;
 }
 
+.myInput::placeholder {
+    color: var(--secondary-color);
+}
+
+.myInput:focus {
+    box-shadow: 0px 0px 0px 1px var(--secondary-color);
+    border: solid var(--secondary-color) 1px;
+}
+
+.myInput:focus::placeholder {
+    color: transparent;
+}
+
+.mySmallInput {
+    width: 214px;
+}
+
+/* ===================
+    end my input style
+====================== */

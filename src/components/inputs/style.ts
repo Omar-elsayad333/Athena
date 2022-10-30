@@ -23,23 +23,6 @@ const style: any = {
             fontSize: '18px'
         }
     },
-    myInput: {
-        width: '255px',
-        height: '46px',
-        color: colors.secondary,
-        borderRadius: '10px',
-        border: 'none',
-        outline: 'none',
-        background: '#E8F3FF',
-        boxShadow: '0px 0px 10px 1px #B6D5F0',
-        padding: '16px 12px',
-        fontFamily: 'Almarai',
-        fontSize: '14px',
-        fontWeight: 400,
-    },
-    mySmallInput: {
-        width: '214px',
-    },
     container: {
         display: 'flex',
         flexDirection: 'column',

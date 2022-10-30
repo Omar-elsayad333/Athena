@@ -5,12 +5,15 @@ const style: any = {
         boxShadow: '0px 0px 20px 0px #3F72A440',
         width: '50%',
         height: '100vh',
+        position: 'sticky',
+        top: 0,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'start',
         '@media (max-width: 1440px)': {
             paddingY: '20px',
+            position: 'unset',
         },
         '@media (max-width: 1000px)': {
             width: '100%',
@@ -74,7 +77,7 @@ const style: any = {
     formSec: {
         backgroundColor: '#E8F3FF',
         width: '50%',
-        height: '100vh',
+        minHeight: '100vh',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
@@ -82,6 +85,29 @@ const style: any = {
         '@media (max-width: 1000px)': {
             width: '100%',
             flexDirection: 'column',
+        },
+        formLayout: {
+            width: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItem: 'center',
+            gap: '50px',
+        },
+        stepLayout: {
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'start',
+            alignItem: 'center',
+            gap: '20px'
+        },
+        inputsLayout: {
+            display: 'flex',
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            justifyContent: 'start',
+            alignItem: 'center',
+            gap: '40px',
         }
     },
 }

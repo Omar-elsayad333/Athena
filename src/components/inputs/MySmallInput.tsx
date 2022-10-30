@@ -1,5 +1,3 @@
-import style from './style'
-
 type Props = {
     inputType: any;
     placeholder: any;
@@ -7,8 +5,8 @@ type Props = {
 
 const MySmallInput: React.FC<Props> = ({inputType, placeholder}) => {
     return (
-        <input type={inputType} placeholder={placeholder} style={{...style.myInput, ...style.mySmallInput}}/>
+        <input type={inputType} placeholder={placeholder} className='myInput mySmallInput' />
     );
 }
- 
+
 export default MySmallInput;

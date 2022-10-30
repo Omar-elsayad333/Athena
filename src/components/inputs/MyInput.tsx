@@ -1,5 +1,3 @@
-import style from './style';
-
 type Props = {
     inputType: any;
     placeholder: any;
@@ -7,7 +5,7 @@ type Props = {
 
 const MyInput: React.FC<Props> = ({inputType, placeholder}) => {
     return (
-        <input type={inputType} placeholder={placeholder} style={style.myInput} className='myInput' />
+        <input type={inputType} placeholder={placeholder} className='myInput' />
     );
 }
 
