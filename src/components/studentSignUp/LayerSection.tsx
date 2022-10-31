@@ -1,7 +1,8 @@
 import style from './style';
+import Link from 'next/link';
+import Image from 'next/image';
 import logo from '../../../public/images/logoInlineText(1).svg';
 import layer from '../../../public/images/studentSignUpLayer.svg';
-import Image from 'next/image';
 import MyButton from '../buttons/MyButton';
 
 // MUI
@@ -46,9 +47,11 @@ const LayerSection = () => {
                 <MyButton content='انشاء الحساب' color='info' onClick={scroll}/>
                 <Typography variant='h6' color='secondary'>
                     لدي حساب بالفعل 
-                    <a href='/studentLogin' style={style.layerSec.scrollBut.link}>
-                        &nbsp;تسجيل الدخول
-                    </a>
+                    <Link href='/studentLogin'>
+                        <a style={style.layerSec.scrollBut.link}>
+                            &nbsp;تسجيل الدخول
+                        </a>
+                    </Link>
                 </Typography>
             </Box>
         </Container>

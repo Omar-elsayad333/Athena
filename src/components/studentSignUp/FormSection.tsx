@@ -1,4 +1,5 @@
 import style from './style';
+import Link from 'next/link';
 import MyInput from '../inputs/MyInput';
 import MyPhotoInput from '../inputs/MyPhotoInput';
 import MyButton from '../buttons/MyButton';
@@ -19,9 +20,11 @@ const FormSection = () => {
                     </Typography>
                     <Typography pb={1} variant='h5' color='primary'>
                         لدي حساب بالفعل
-                        <a href='/studentLogin' style={style.formSec.formHeader.link}>
-                            &nbsp;تسجيل الدخول
-                        </a>
+                        <Link href='/studentLogin'>
+                            <a style={style.formSec.formHeader.link}>
+                                &nbsp;تسجيل الدخول
+                            </a>
+                        </Link>
                     </Typography>
                 </Box>
                 <Box sx={style.formSec.headerPhotoInput}>
