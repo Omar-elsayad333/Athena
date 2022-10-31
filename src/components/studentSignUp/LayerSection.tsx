@@ -46,9 +46,9 @@ const LayerSection = () => {
                 <MyButton content='انشاء الحساب' color='info' onClick={scroll}/>
                 <Typography variant='h6' color='secondary'>
                     لدي حساب بالفعل 
-                    <u style={style.layerSec.scrollBut.link}>
+                    <a href='/studentLogin' style={style.layerSec.scrollBut.link}>
                         &nbsp;تسجيل الدخول
-                    </u>
+                    </a>
                 </Typography>
             </Box>
         </Container>

@@ -13,11 +13,11 @@ const style: any = {
         justifyContent: 'start',
         '@media (max-width: 1440px)': {
             paddingY: '20px',
-            position: 'unset',
         },
         '@media (max-width: 1000px)': {
             width: '100%',
             justifyContent: 'space-between',
+            position: 'unset',
         },
         logo: {
             width: '100%',
@@ -71,6 +71,8 @@ const style: any = {
             },
             link: {
                 cursor: 'pointer',
+                textDecoration: 'underline',
+                color: 'inherit',
             }
         }
     },
@@ -78,13 +80,44 @@ const style: any = {
         backgroundColor: '#E8F3FF',
         width: '50%',
         minHeight: '100vh',
+        paddingTop: '55px',
         display: 'flex',
-        justifyContent: 'center',
+        flexDirection: 'column',
+        justifyContent: 'top',
         alignItems: 'center',
         gap: '20px',
         '@media (max-width: 1000px)': {
             width: '100%',
             flexDirection: 'column',
+        },
+        headerContainer: {
+            display: 'flex',
+            gap: '140px',
+            '@media (max-width: 1500px)': {
+                gap: '70px'
+            },
+            '@media (max-width: 1000px)': {
+                paddingLeft: '50px',  
+            }
+        },
+        formHeader: {
+            height: 'fit-content',
+            display: 'flex',
+            flexWrap: 'wrap',
+            alignItems: 'end',
+            gap: '20px',
+            backgroundColor: 'rgba(182, 213, 240, 0.5)',
+            border: '2px solid #B6D5F0',
+            borderRadius: '10px',
+            padding: '11px 22px',
+            link: {
+                cursor: 'pointer',
+                textDecoration: 'underline',
+                color: 'inherit',
+            },
+            '@media (max-width: 1000px)': {
+                marginBottom: '40px',
+            }
         },
         formLayout: {
             width: '100%',
@@ -108,6 +141,31 @@ const style: any = {
             justifyContent: 'start',
             alignItem: 'center',
             gap: '40px',
+        },
+        privacy: {
+            width: '100%',
+            marginY: '55px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'flex-start'
+        },
+        submitButton: {
+            height: '20vh',
+            width: '255px',
+            alignSelf: 'start',
+            '@media (max-width: 300px)': {
+                width: '200px',
+            },
+        },
+        headerPhotoInput: {
+            '@media (max-width: 1000px)': {
+                display: 'none',
+            }
+        },
+        photoInput: {
+            '@media (min-width: 1000px)': {
+                display: 'none',
+            }
         }
     },
 }

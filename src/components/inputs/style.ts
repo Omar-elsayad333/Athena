@@ -24,6 +24,7 @@ const style: any = {
         }
     },
     container: {
+        width: 'fit-content',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',

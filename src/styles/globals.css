@@ -30,6 +30,7 @@ a {
     font-size: 14px;
     font-weight: 400;
     transition: .2s;
+    opacity: 0.65;
 }
 
 .myInput::placeholder {
@@ -47,6 +48,27 @@ a {
 
 .mySmallInput {
     width: 214px;
+}
+
+@media (max-width: 300px) {
+    .myInput {
+        width: 200px;
+        
+    }
+
+    .mySmallInput {
+        width: 190px;
+    }
+}
+
+@media (max-width: 230px) {
+    .myInput {
+        width: 150px;
+    }
+
+    .mySmallInput {
+        width: 140px;
+    }
 }
 
 /* ===================
