@@ -31,6 +31,34 @@ export const theme = createTheme({
         },
       },
     },
+    MuiTextField: {
+      styleOverrides: {
+        // Name of the slot
+        root: {
+          // Some CSS
+          boxSizing: 'border-box',
+          padding: '0',
+          margin: '0',
+          backgroundColor: '#E8F3FF',
+          width: '255px',
+          height: '46px',
+          fontSize: '2rem',
+          outline: 'none',
+          border: 'none',
+          underline: 'none' 
+
+        }
+      },
+    },
+    MuiInput: {
+      styleOverrides: {
+        root: {
+          border: 'none', 
+          outline: 'none',
+          underline: 'none'
+        }
+      }
+    }
   },
   direction: 'rtl',
 });
