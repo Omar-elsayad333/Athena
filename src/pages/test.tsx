@@ -7,7 +7,7 @@ const Test = () => {
     return (
         <Box sx={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: '20px', height: '100vh'}}>
             <InputBase placeholder='omar' />
-            <Typography sx={{fontSize: '12px', fontWeight: '200'}}>
+            <Typography sx={{fontSize: '12px', fontWeight: '300'}}>
             أكتب أسمك بالكامل
             </Typography>
             <Typography sx={{fontSize: '14px'}}>
