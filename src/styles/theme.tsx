@@ -46,19 +46,31 @@ export const theme = createTheme({
           outline: 'none',
           border: 'none',
           underline: 'none' 
-
-        }
+        },
+        
       },
     },
-    MuiInput: {
+    MuiInputBase: {
       styleOverrides: {
         root: {
-          border: 'none', 
-          outline: 'none',
-          underline: 'none'
-        }
+          boxSizing: 'border-box',
+          width: '255px',
+          height: '46px',
+          padding: '16px 14px',
+          fontSize: '14px',
+          fontWeight: '400',
+          borderRadius: '10px',
+          border: 'none',
+          color: colors.secondary,
+          backgroundColor: '#E8F3FF',
+          boxShadow: '0px 0px 10px 1px #B6D5F0',
+          "&.Mui-focused": {
+            border: 'red 1px solid'
+          },
+        },
       }
     }
+    
   },
   direction: 'rtl',
 });
