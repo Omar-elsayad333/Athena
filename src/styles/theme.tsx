@@ -27,50 +27,56 @@ export const theme = createTheme({
     MuiButton: {
       styleOverrides: {
         root: {
+          width: '100%',
           boxShadow: 'none'
         },
       },
     },
-    MuiTextField: {
-      styleOverrides: {
-        // Name of the slot
-        root: {
-          // Some CSS
-          boxSizing: 'border-box',
-          padding: '0',
-          margin: '0',
-          backgroundColor: '#E8F3FF',
-          width: '255px',
-          height: '46px',
-          fontSize: '2rem',
-          outline: 'none',
-          border: 'none',
-          underline: 'none' 
-        },
-        
-      },
-    },
-    MuiInputBase: {
-      styleOverrides: {
-        root: {
-          boxSizing: 'border-box',
-          width: '255px',
-          height: '46px',
-          padding: '16px 14px',
-          fontSize: '14px',
-          fontWeight: '400',
-          borderRadius: '10px',
-          border: 'none',
-          color: colors.secondary,
-          backgroundColor: '#E8F3FF',
-          boxShadow: '0px 0px 10px 1px #B6D5F0',
-          "&.Mui-focused": {
-            border: 'red 1px solid'
-          },
-        },
-      }
-    }
-    
+    // MuiTextField: {
+    //   styleOverrides: {
+    //     root: {
+    //       boxSizing: 'border-box',
+    //       width: '255px',
+    //       height: '46px',
+    //       '& .MuiOutlinedInput-notchedOutline': {
+    //         border: 'none',
+    //       },
+    //       '&:hover': {
+    //         '& .MuiOutlinedInput-notchedOutline': {
+    //           border: 'solid 1px transparent',
+    //         },
+    //       },
+    //     }
+    //   }
+    // },
+    // MuiOutlinedInput: {
+    //   styleOverrides: {
+    //     root: {
+    //       color: colors.secondary,
+    //       backgroundColor: '#E8F3FF',
+    //       fontSize: '14px',
+    //       fontWeight: '400',
+    //       borderRadius: '6px',
+    //       border: '1px solid transparent',
+    //       boxShadow: '0px 0px 10px 1px #B6D5F0',
+    //       transition: '.2s ease-out',
+    //       '& .MuiOutlinedInput-notchedOutline': {
+    //         border: 'solid 1px transparent',
+    //       },
+    //       '&.Mui-focused': {
+    //         '& .MuiOutlinedInput-notchedOutline': {
+    //           border: 'solid 1px transparent',
+    //         },
+    //         boxShadow: '0px 0px 0px 1px #3F72A4',
+    //       },
+    //       '&:hover': {
+    //         '& .MuiOutlinedInput-notchedOutline': {
+    //           border: 'none',
+    //         },
+    //       },  
+    //     },
+    //   },
+    // },
   },
   direction: 'rtl',
 });
