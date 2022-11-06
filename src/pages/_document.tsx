@@ -7,7 +7,7 @@ export default class MyDocument extends Document {
             <Html lang="ar" dir="rtl">
                 <Head>
                     {/* PWA primary color */}
-                    <meta name="theme-color" content={colors.primary} />
+                    <meta name="theme-color" content={colors.primary.main} />
                     <link rel="icon" href="./images/Logo.svg" />
                     <link
                         rel="stylesheet"
