@@ -1,6 +1,7 @@
 import * as yup from 'yup';
 import { useFormik } from 'formik';
 import MyInput from "../components/inputs/MyInput";
+import LogButS from '../components/buttons/LogButS';
 
 // MUI
 import { Typography, Button, Box} from "@mui/material";
@@ -72,9 +73,10 @@ const Test = () => {
                     <br/>
                     <br/>
                     <br/>
-                    <Button color="primary" variant="contained" fullWidth type="submit">
-                        Submit
-                    </Button>
+                    <LogButS 
+                        content="انشاء الحساب"
+                        onClick={() => console.log('omar')}
+                    />
                 </form>
             </div>
         </Box>

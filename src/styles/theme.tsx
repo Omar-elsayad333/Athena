@@ -10,70 +10,30 @@ type IProps = {
 export const theme = createTheme({
   palette: {
     primary: {
-      main: colors.primary,
+      main: colors.primary.main,
+      light: colors.primary.light,
+      dark: colors.primary.dark,
+      contrastText: colors.primary.contrastText,
     },
     secondary: {
-      main: colors.secondary,
-    },
+      main: colors.secondary.main,
+      light: colors.secondary.light,
+      dark: colors.secondary.dark,
+      contrastText: colors.secondary.contrastText,    },
     info: {
       main: colors.third,
-      contrastText: colors.primary,
+      contrastText: colors.primary.main,
     }
   },
   typography: {
     fontFamily: 'Almarai, sans-serif'
   },
   components: {
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          width: '100%',
-          boxShadow: 'none'
-        },
-      },
-    },
-    // MuiTextField: {
+    // MuiButton: {
     //   styleOverrides: {
     //     root: {
-    //       boxSizing: 'border-box',
-    //       width: '255px',
-    //       height: '46px',
-    //       '& .MuiOutlinedInput-notchedOutline': {
-    //         border: 'none',
-    //       },
-    //       '&:hover': {
-    //         '& .MuiOutlinedInput-notchedOutline': {
-    //           border: 'solid 1px transparent',
-    //         },
-    //       },
-    //     }
-    //   }
-    // },
-    // MuiOutlinedInput: {
-    //   styleOverrides: {
-    //     root: {
-    //       color: colors.secondary,
-    //       backgroundColor: '#E8F3FF',
-    //       fontSize: '14px',
-    //       fontWeight: '400',
-    //       borderRadius: '6px',
-    //       border: '1px solid transparent',
-    //       boxShadow: '0px 0px 10px 1px #B6D5F0',
-    //       transition: '.2s ease-out',
-    //       '& .MuiOutlinedInput-notchedOutline': {
-    //         border: 'solid 1px transparent',
-    //       },
-    //       '&.Mui-focused': {
-    //         '& .MuiOutlinedInput-notchedOutline': {
-    //           border: 'solid 1px transparent',
-    //         },
-    //         boxShadow: '0px 0px 0px 1px #3F72A4',
-    //       },
-    //       '&:hover': {
-    //         '& .MuiOutlinedInput-notchedOutline': {
-    //           border: 'none',
-    //         },
-    //       },  
+    //       width: '100%',
+    //       boxShadow: 'none'
     //     },
     //   },
     // },
