@@ -1,15 +1,16 @@
-import { styled } from '@mui/material/styles';
 import colors from '../../styles/colors';
+
+// MUI
+import { styled } from '@mui/material/styles';
 import TextField from "@mui/material/TextField";
 
-
 type Props = {
-    Id: any;
-    Name: any;
-    Value: any;
-    OnChange: any;
-    error: any;
-    HelperText: any;
+    Id?: any;
+    Name?: any;
+    Value?: any;
+    OnChange?: any;
+    error?: any;
+    HelperText?: any;
     Type: any;
     Placeholder: any;
 }

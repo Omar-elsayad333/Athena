@@ -13,6 +13,7 @@ const MyButton = styled(Button)({
     height: '46px',
     fontSize: '26px',
     fontWeight: '700',
+    boxShadow: 'none',
     '&:hover': {
         color: '#E8F3FF',
     },

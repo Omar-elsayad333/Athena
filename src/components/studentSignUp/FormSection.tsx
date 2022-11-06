@@ -41,15 +41,15 @@ const FormSection = () => {
                         <MyPhotoInput />
                     </Box>
                     <Box sx={style.formSec.inputsLayout}>
-                        <MyInput placeholder='أكتب أسمك بالكامل' inputType='text' />
-                        <MyInput placeholder='أكتب أسمك بالكامل' inputType='text' />
-                        <MyInput placeholder='أكتب أسمك بالكامل' inputType='text' />
-                        <MyInput placeholder='أكتب أسمك بالكامل' inputType='text' />
-                        <MyInput placeholder='أكتب أسمك بالكامل' inputType='text' />
-                        <MyInput placeholder='أكتب أسمك بالكامل' inputType='text' />
-                        <MyInput placeholder='أكتب أسمك بالكامل' inputType='text' />
-                        <MyInput placeholder='أكتب أسمك بالكامل' inputType='text' />
-                        <MyInput placeholder='أكتب أسمك بالكامل' inputType='text' />
+                        <MyInput Placeholder='أكتب أسمك بالكامل' Type='text' />
+                        <MyInput Placeholder='أكتب أسمك بالكامل' Type='text' />
+                        <MyInput Placeholder='أكتب أسمك بالكامل' Type='text' />
+                        <MyInput Placeholder='أكتب أسمك بالكامل' Type='text' />
+                        <MyInput Placeholder='أكتب أسمك بالكامل' Type='text' />
+                        <MyInput Placeholder='أكتب أسمك بالكامل' Type='text' />
+                        <MyInput Placeholder='أكتب أسمك بالكامل' Type='text' />
+                        <MyInput Placeholder='أكتب أسمك بالكامل' Type='text' />
+                        <MyInput Placeholder='أكتب أسمك بالكامل' Type='text' />
                     </Box>
                 </Box>
 
@@ -58,9 +58,9 @@ const FormSection = () => {
                         معلومات ولي الأمر
                     </Typography>
                     <Box sx={style.formSec.inputsLayout}>                        
-                        <MyInput placeholder='أكتب أسمك بالكامل' inputType='text' />
-                        <MyInput placeholder='أكتب أسمك بالكامل' inputType='text' />
-                        <MyInput placeholder='أكتب أسمك بالكامل' inputType='text' />
+                        <MyInput Placeholder='أكتب أسمك بالكامل' Type='text' />
+                        <MyInput Placeholder='أكتب أسمك بالكامل' Type='text' />
+                        <MyInput Placeholder='أكتب أسمك بالكامل' Type='text' />
                     </Box>
                 </Box>
 
@@ -69,9 +69,9 @@ const FormSection = () => {
                         معلومات الحساب
                     </Typography>
                     <Box sx={style.formSec.inputsLayout}>
-                        <MyInput placeholder='أكتب أسمك بالكامل' inputType='text' />
-                        <MyInput placeholder='أكتب أسمك بالكامل' inputType='text' />
-                        <MyInput placeholder='أكتب أسمك بالكامل' inputType='text' />
+                        <MyInput Placeholder='أكتب أسمك بالكامل' Type='text' />
+                        <MyInput Placeholder='أكتب أسمك بالكامل' Type='text' />
+                        <MyInput Placeholder='أكتب أسمك بالكامل' Type='text' />
                     </Box>
                 </Box>
             </Box>
