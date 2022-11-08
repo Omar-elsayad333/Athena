@@ -2,7 +2,7 @@ import style from './style';
 import Link from 'next/link';
 import MyInput from '../inputs/MyInput';
 import MyPhotoInput from '../inputs/MyPhotoInput';
-import MyButton from '../buttons/MyButton';
+import MyButton from '../buttons/LogButS';
 
 // MUI
 import Box from '@mui/material/Box';
@@ -41,15 +41,15 @@ const FormSection = () => {
                         <MyPhotoInput />
                     </Box>
                     <Box sx={style.formSec.inputsLayout}>
+                        <MyInput Placeholder='الاسم الأول' Type='text' />
+                        <MyInput Placeholder='الاسم الأخير' Type='text' />
+                        <MyInput Placeholder='الاسم الأوسط' Type='text' />
+                        <MyInput Placeholder='أكتب عنوانك بالكامل' Type='text' />
                         <MyInput Placeholder='أكتب أسمك بالكامل' Type='text' />
                         <MyInput Placeholder='أكتب أسمك بالكامل' Type='text' />
-                        <MyInput Placeholder='أكتب أسمك بالكامل' Type='text' />
-                        <MyInput Placeholder='أكتب أسمك بالكامل' Type='text' />
-                        <MyInput Placeholder='أكتب أسمك بالكامل' Type='text' />
-                        <MyInput Placeholder='أكتب أسمك بالكامل' Type='text' />
-                        <MyInput Placeholder='أكتب أسمك بالكامل' Type='text' />
-                        <MyInput Placeholder='أكتب أسمك بالكامل' Type='text' />
-                        <MyInput Placeholder='أكتب أسمك بالكامل' Type='text' />
+                        <MyInput Placeholder='البريد الإلكتروني الخاص بك' Type='text' />
+                        <MyInput Placeholder='رقم الهاتف الخاص بك' Type='text' />
+                        <MyInput Placeholder='رقم الهاتف المنزلي' Type='text' />
                     </Box>
                 </Box>
 
@@ -58,9 +58,9 @@ const FormSection = () => {
                         معلومات ولي الأمر
                     </Typography>
                     <Box sx={style.formSec.inputsLayout}>                        
-                        <MyInput Placeholder='أكتب أسمك بالكامل' Type='text' />
-                        <MyInput Placeholder='أكتب أسمك بالكامل' Type='text' />
-                        <MyInput Placeholder='أكتب أسمك بالكامل' Type='text' />
+                        <MyInput Placeholder='أسم ولي الأمر' Type='text' />
+                        <MyInput Placeholder='وظيفة ولي الأمر' Type='text' />
+                        <MyInput Placeholder='رقم هاتف ولي الأمر' Type='text' />
                     </Box>
                 </Box>
 
@@ -69,9 +69,9 @@ const FormSection = () => {
                         معلومات الحساب
                     </Typography>
                     <Box sx={style.formSec.inputsLayout}>
-                        <MyInput Placeholder='أكتب أسمك بالكامل' Type='text' />
-                        <MyInput Placeholder='أكتب أسمك بالكامل' Type='text' />
-                        <MyInput Placeholder='أكتب أسمك بالكامل' Type='text' />
+                        <MyInput Placeholder='أسم المستخدم' Type='text' />
+                        <MyInput Placeholder='كلمة السر ' Type='text' />
+                        <MyInput Placeholder='تأكيد كلمة السر' Type='text' />
                     </Box>
                 </Box>
             </Box>
@@ -82,7 +82,7 @@ const FormSection = () => {
                 </Typography>
             </Box>
             <Box sx={style.formSec.submitButton}>
-                <MyButton content='انشاء الحساب' color='info' onClick={null}/>
+                <MyButton content='انشاء الحساب' onClick={null}/>
             </Box>
         </Container>
     );

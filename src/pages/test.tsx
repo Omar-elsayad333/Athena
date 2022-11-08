@@ -2,9 +2,11 @@ import * as yup from 'yup';
 import { useFormik } from 'formik';
 import MyInput from "../components/inputs/MyInput";
 import LogButS from '../components/buttons/LogButS';
+import LogButL from '../components/buttons/LoginButDark';
 
 // MUI
 import { Typography, Button, Box} from "@mui/material";
+import MyDropDown from '../components/inputs/MyDropDown';
 
 const validationSchema = yup.object({
     email: yup
@@ -32,31 +34,6 @@ const Test = () => {
 
     return (
         <Box sx={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: '20px', height: '100vh'}}>
-            
-            <Typography sx={{fontSize: '12px', fontWeight: '300'}}>
-                أكتب أسمك بالكامل
-            </Typography>
-
-            <Typography sx={{fontSize: '14px', fontWeight: '400'}}>
-                أكتب أسمك بالكامل
-            </Typography>
-
-            <Typography sx={{fontSize: '20px', fontWeight: '400'}}>
-                أكتب أسمك بالكامل
-            </Typography>
-
-            <Typography sx={{fontSize: '25px', fontWeight: '400'}}>
-                أكتب أسمك بالكامل
-            </Typography>
-
-            <Typography sx={{fontSize: '30px', fontWeight: '400'}}>
-                أكتب أسمك بالكامل
-            </Typography>
-
-            <Typography sx={{fontSize: '35px', fontWeight: '700'}}>
-                أكتب أسمك بالكامل   
-            </Typography>
-
             <div>
                 <form onSubmit={formik.handleSubmit}>
                     <MyInput
@@ -71,9 +48,16 @@ const Test = () => {
                     />
                     <br/>
                     <br/>
+                    <MyDropDown age={''}/>
                     <br/>
                     <br/>
                     <LogButS 
+                        
+                        content="انشاء الحساب"
+                        onClick={() => console.log('omar')}
+                    />
+                    <LogButL
+                        type='submit'
                         content="انشاء الحساب"
                         onClick={() => console.log('omar')}
                     />

@@ -11,8 +11,8 @@ const style: any = {
         backdropFilter: 'blur(10px)',
         borderWidth: '10px 0px',
         borderStyle: 'solid',
-        borderColor: `${colors.primary}`,   
-        color: colors.primary,
+        borderColor: `${colors.primary.main}`,   
+        color: colors.primary.main,
     },
     container: {
         maxWidth: '100%',
@@ -23,6 +23,9 @@ const style: any = {
         alignItems: 'center',
         '@media (max-width: 600px)': {
             padding: '30px'
+        },
+        '@media (max-width: 400px)': {
+            padding: '20px'
         }
     },
     headerText: {
@@ -60,7 +63,8 @@ const style: any = {
         gap: '11px'
     },
     link: {
-        color: colors.primary
+        cursor: 'pointer',
+        color: colors.primary.dark
     }
 }
 

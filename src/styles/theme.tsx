@@ -19,85 +19,77 @@ export const theme = createTheme({
       main: colors.secondary.main,
       light: colors.secondary.light,
       dark: colors.secondary.dark,
-      contrastText: colors.secondary.contrastText,    },
-    info: {
-      main: colors.third,
-      contrastText: colors.primary.main,
-    }
+      contrastText: colors.secondary.contrastText,    
+    },
   },
   typography: {
     fontFamily: 'Almarai, sans-serif'
   },
   components: {
-    // MuiButton: {
-    //   styleOverrides: {
-    //     root: {
-    //       width: '100%',
-    //       boxShadow: 'none'
-    //     },
-    //   },
-    // },
   },
   direction: 'rtl',
 });
 
+theme.typography.h1 = {
+  fontFamily: 'Almarai, sans-serif',
+  fontWeight: '700',
+  fontSize: '30px',
+  '@media (min-width:600px)': {
+    fontSize: '32px',
+  },
+  [theme.breakpoints.up('lg')]: {
+    fontSize: '35px',
+  }
+};
+
 theme.typography.h2 = {
   fontFamily: 'Almarai, sans-serif',
   fontWeight: '700',
-  fontSize: '1.5rem',
+  fontSize: '25px',
   '@media (min-width:600px)': {
-    fontSize: '1.8rem',
+    fontSize: '27px',
   },
   [theme.breakpoints.up('lg')]: {
-    fontSize: '2rem',
+    fontSize: '30px',
   }
 };
 
 theme.typography.h3 = {
   fontFamily: 'Almarai, sans-serif',
   fontWeight: '700',
-  fontSize: '1.2rem',
+  fontSize: '20px',
   '@media (min-width:600px)': {
-    fontSize: '1.5rem',
+    fontSize: '22px',
   },
   [theme.breakpoints.up('lg')]: {
-    fontSize: '2rem',
+    fontSize: '25px',
   }
 };
 
 theme.typography.h4 = {
   fontFamily: 'Almarai, sans-serif',
   fontWeight: '400',
-  fontSize: '1rem',
-  '@media (min-width:600px)': {
-    fontSize: '1.3rem',
-  },
+  fontSize: '18px',
   [theme.breakpoints.up('lg')]: {
-    fontSize: '1.3rem',
+    fontSize: '20px',
   }
 };
 
 theme.typography.h5 = {
   fontFamily: 'Almarai, sans-serif',
   fontWeight: '400',
-  fontSize: '0.8rem',
-  '@media (min-width:600px)': {
-    fontSize: '0.9rem',
-  },
+  fontSize: '13px',
   [theme.breakpoints.up('lg')]: {
-    fontSize: '0.9rem',
+    fontSize: '14px',
   }
 };
 
 theme.typography.h6 = {
   fontFamily: 'Almarai, sans-serif',
   fontWeight: '300',
-  fontSize: '0.6rem',
-  '@media (min-width:600px)': {
-    fontSize: '0.7rem',
-  },
+  fontSize: '11px',
   [theme.breakpoints.up('lg')]: {
-    fontSize: '0.7rem',
+    fontSize: '12px',
   }
 };
 

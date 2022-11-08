@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import logo from '../../../public/images/logoInlineText(1).svg';
 import layer from '../../../public/images/studentSignUpLayer.svg';
-import MyButton from '../buttons/MyButton';
+import MyButton from '../buttons/LogButS';
 
 // MUI
 import Typography from '@mui/material/Typography';
@@ -44,7 +44,7 @@ const LayerSection = () => {
                 </Typography>
             </Box>
             <Box sx={style.layerSec.scrollBut}>
-                <MyButton content='انشاء الحساب' color='info' onClick={scroll}/>
+                <MyButton content='انشاء الحساب' onClick={scroll}/>
                 <Typography variant='h6' color='secondary'>
                     لدي حساب بالفعل 
                     <Link href='/studentLogin'>

@@ -1,8 +1,8 @@
 import logo from '../../../public/images/Logo(4).svg';
 import Image from "next/image";
 import style from './style';
-import MyButton from '../buttons/MyButton';
-import MyLogFormInput from '../inputs/MyLogFormInput';
+import MyButton from '../buttons/LoginButLight';
+import MyLoginInput from '../inputs/MyLoginInput';
 
 // MUI
 import Typography from "@mui/material/Typography";
@@ -24,19 +24,19 @@ const TeacherLoginCard = () => {
                         <Typography variant="h4" style={style.formLabels}>
                             أسم المستخدم، البريد الإلكتروني أو رقم الهاتف 
                         </Typography>
-                        <MyLogFormInput inputType='email' />
+                        <MyLoginInput Type='email' />
                     </Box>
                     <Box>
                         <Typography variant="h4" style={style.formLabels}>
                             الرقم السري الخاص بك    
                         </Typography>
-                        <MyLogFormInput inputType='password' />
+                        <MyLoginInput Type='password' />
                         <Box sx={style.formOptions}>
                             <Typography variant="h5">
                                 هل نسيت الرقم السري ؟
                             </Typography> 
                             <Box sx={style.checkContainer}>
-                                <Checkbox size='small' />
+                                <Checkbox size='small' color='primary' />
                                 <Typography variant="h5">
                                     تذكريني 
                                 </Typography>
@@ -44,7 +44,7 @@ const TeacherLoginCard = () => {
                         </Box>
                     </Box>
                     <Box sx={style.logContainer}>
-                        <MyButton content='تسجيل الدخول' color='secondary' onClick={null} />
+                        <MyButton content='تسجيل الدخول' onClick={null} />
                     </Box>
                 </Box>
             </Box>

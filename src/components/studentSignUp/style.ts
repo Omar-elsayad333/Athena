@@ -150,7 +150,7 @@ const style: any = {
             justifyContent: 'flex-start'
         },
         submitButton: {
-            height: '20vh',
+            marginBottom: '55px',
             width: '255px',
             alignSelf: 'start',
             '@media (max-width: 300px)': {

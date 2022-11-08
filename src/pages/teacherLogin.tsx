@@ -2,7 +2,7 @@ import { NextPage } from "next";
 import TeacherLoginCard from "../components/teacherLogin/TeacherLoginCard";
 
 // MUI
-import Container from '@mui/material/Container';
+import Box from "@mui/material/Box";
 
 const classes: any = {
     root: {
@@ -10,8 +10,6 @@ const classes: any = {
         backgroundPosition: 'top',
         backgroundSize: 'cover',
         width: '100%',
-    },
-    container: {
         minHeight: '100vh',
         display: 'flex',
         justifyContent: 'center',   
@@ -19,17 +17,20 @@ const classes: any = {
         padding: '0px 30px',
         '@media (max-width: 600px)': {
             justifyContent: 'center',
-        }
+            padding: '0px 25px',
+        },
+        '@media (max-width: 400px)': {
+            justifyContent: 'center',
+            padding: '0px 20px',
+        },
     },
-}
+};
 
 const teacherLogin: NextPage = () => {
     return (
-        <div style={classes.root}>
-            <Container maxWidth='xl' sx={classes.container}>
-                <TeacherLoginCard />
-            </Container>
-        </div>
+        <Box style={classes.root}>
+            <TeacherLoginCard />
+        </Box>
     );
 }
 

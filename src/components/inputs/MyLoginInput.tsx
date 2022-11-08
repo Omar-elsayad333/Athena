@@ -1,8 +1,8 @@
 import colors from '../../styles/colors';
 
 // MUI
-import { styled } from '@mui/material/styles';
-import TextField from "@mui/material/TextField";
+import styled from '@mui/material/styles/styled';
+import TextField from '@mui/material/TextField';
 
 type Props = {
     Id?: any;
@@ -12,25 +12,27 @@ type Props = {
     error?: any;
     HelperText?: any;
     Type?: any;
-    Placeholder: any;
+    Placeholder?: any;
 }
 
 const MyTextField = styled(TextField)({
-    width: '255px',
-    height: '50px',
+    width: '100%',
+    height: '80px',
     '& .MuiOutlinedInput-root': {
-        borderRadius: '7px',
-        width: '255px',
-        height: '50px',
-        fontSize: '14px',
+        borderRadius: '12px',
+        width: '100%',
+        height: '80px',
+        fontSize: '16px',
         fontWeight: '400',
         color: colors.secondary,
         border: '1px solid transparent',
-        backgroundColor: '#E8F3FF',
+        backgroundColor: 'rgba(232, 243, 255, 0.25)',
         transition: '.2s ease-out',
-        boxShadow: '0px 0px 10px 1px #B6D5F0',
+        boxShadow: '0px 0px 10px 0px #1C364F40',
         '&.Mui-focused': {
-            boxShadow: '0px 0px 0px 1px #3F72A4',
+            backgroundColor: 'rgba(232, 243, 255, 0.5)',
+            boxShadow: 'none',
+            border: '2.5px solid rgba(63, 114, 164, 1)',
         },
         '& fieldset': {
             border: '1px transparent solid',
@@ -44,7 +46,7 @@ const MyTextField = styled(TextField)({
     },
 });
 
-const MyInput: React.FC<Props> = ({Type, Placeholder, HelperText, error, OnChange, Value, Name, Id}) => {
+const MyLoginInput: React.FC<Props> = ({Id, Name, Value, OnChange, error, HelperText, Type, Placeholder}) => {
     return (
         <MyTextField     
             variant="outlined"
@@ -56,8 +58,8 @@ const MyInput: React.FC<Props> = ({Type, Placeholder, HelperText, error, OnChang
             helperText={HelperText}
             type={Type}
             placeholder={Placeholder}
-        />
-    );
+        />    
+    )
 }
 
-export default MyInput;
+export default MyLoginInput;

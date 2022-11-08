@@ -3,6 +3,7 @@ import StudentLoginCard from "../components/studentLogin/StudentLoginCard";
 
 // MUI
 import Container from '@mui/material/Container';
+import Box from "@mui/material/Box";
 
 const classes: any = {
     root: {
@@ -19,17 +20,22 @@ const classes: any = {
         padding: '0px 30px',
         '@media (max-width: 600px)': {
             justifyContent: 'center',
+            padding: '0px 25px',
+        },
+        '@media (max-width: 400px)': {
+            justifyContent: 'center',
+            padding: '0px 15px',
         }
     },
 }
 
 const studentLogin: NextPage = () => {
     return (
-        <div style={classes.root}>
+        <Box style={classes.root}>
             <Container maxWidth='xl' sx={classes.container}>
                 <StudentLoginCard />
             </Container>
-        </div>
+        </Box>
     );
 }
 

@@ -1,6 +1,8 @@
-import { Box,Button,Typography } from "@mui/material";
-import { styled } from '@mui/material/styles';
 import colors from '../../styles/colors';
+
+// MUI
+import { styled } from '@mui/material/styles';
+import Button from "@mui/material/Button";
 
 type Props = {
     content: any;
@@ -21,11 +23,9 @@ const MyButton = styled(Button)({
 
 const LogButS: React.FC<Props> = ({content, onClick}) => {
     return (
-        <Box>
-            <MyButton variant="contained" color='secondary' onClick={onClick}>
-                {content}
-            </MyButton>
-        </Box>
+        <MyButton variant="contained" color='secondary' onClick={onClick}>
+            {content}
+        </MyButton>
     );
 }
 
