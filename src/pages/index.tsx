@@ -17,7 +17,7 @@ const Home: NextPage = () => {
           </h1>
           <Link href='/teacherLogin'>
             <a>
-              <MyButton content='تسجيل الدخول' color='primary' onClick={null}/>
+              <MyButton content='تسجيل الدخول' />
             </a>
           </Link>
         </div>
@@ -27,12 +27,12 @@ const Home: NextPage = () => {
           </h1>
           <Link href='/studentLogin' style={{paddingLeft: '20px'}}>
             <a>
-              <MyButton content='تسجيل الدخول' color='primary' onClick={null} />
+              <MyButton content='تسجيل الدخول' />
             </a>
           </Link>
           <Link href='/studentSignUp'>
             <a>
-              <MyButton content='انشاء حساب' color='secondary' onClick={null}/>
+              <MyButton content='انشاء حساب' />
             </a>
           </Link>
         </div>
