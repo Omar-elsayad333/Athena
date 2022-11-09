@@ -11,7 +11,7 @@ const colors = {
         dark: '#3F72A4',
         contrastText: '#1C364F',
     },
-    third: '#8CC3F2',
+    white: '#8CC3F2',
     button: {
         primary: '#1C364F',
         secondary: '#3F72A4',

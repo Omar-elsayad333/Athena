@@ -2,86 +2,38 @@ import colors from "../../../styles/colors";
 
 const style: any = {
     container: {
-        width: '300px',
+        width: '308px',
         height: '100vh',
         '@media (max-width: 1440px)': {
             width: '250px',
         },
     },
-    meContainer: {
-        boxSizing: 'border-box',
+    header: {
         width: '100%',
-        background: `linear-gradient(180deg, ${colors.primary} 0%, ${colors.secondary} 100%)`,
-        height: '335px',
+        background: 'linear-gradient(90deg, #B6D5F0 0%, #DFEFFF 100%)',
+        height: '123px',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-        alignItems: 'end',
-        paddingLeft: '20px',
-        paddingRight: '20px',
-        '@media (max-width: 1440px)': {
-            height: '250px'
-        },
-    },
-    menuIcon: {
-        width: '30px',
-        height: '20px',
-        cursor: 'pointer',
-        '@media (max-width: 1440px)': {
-            width: '25px',
-            height: '10px',
-        },
-    },
-    meSec: {
-        width: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',   
         alignItems: 'center',
-        gap: '16px',
-        '@media (max-width: 1440px)': {
-            gap: '12px',
+        gap:'20px',
+        menuIcon: { 
+            cursor: 'pointer',
+            display: 'none',
         },
-        iconContainer: {
-            width: '100%',
-        },
-        avatar: {
-            boxSizing: 'border-box',
-            width: '140px',
-            height: '140px',
-            border: 'solid 2.5px #8CC3F2',
-            '@media (max-width: 1440px)': {
-                width: '100px',
-                height: '100px',
-            },
-        },
-        name: {
-            fontSize: '41px',
-            color: '#E8F3FF',
-            fontWeight: '700',
-            '@media (max-width: 1440px)': {
-                fontSize: '35px',
-            },
-        },
-        jobTitle: {
-            fontSize: '17px',
-            color: '#E8F3FF',
-            fontWeight: '400',
-            '@media (max-width: 1440px)': {
-                fontSize: '15px',
-            },
-        },   
     },
-    menuSec: {   
+    menu: {   
+        width: '100%',
+        height: 'calc(100% - (95px + 123px))',
+        paddingY: '17px',
         display: 'flex',
         flexDirection: 'column',
-        gap: '90px',
-        paddingY: '10px',
-        width: '100%',
-        backgroundColor: colors.primary,
-        height: 'calc(100% - 420px)',
-        borderTop: `solid 2px ${colors.third}`,
-        borderBottom: `solid 2px ${colors.third}`,
+        justifyContent: 'space-between',
+        gap: '40px',
+        backgroundColor: '#B6D5F0',
+        borderTop: `solid 1px ${colors.primary.main}`,
+        borderBottom: `solid 1px ${colors.primary.dark}`,
+        borderLeft: `solid 1px ${colors.primary.dark}`,
         overflowY: 'auto',
         '&::-webkit-scrollbar': {
             width: '7px'
@@ -91,57 +43,30 @@ const style: any = {
             webkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)'
         },
         '&::-webkit-scrollbar-thumb': {
-            backgroundColor: colors.third,
-            border: `1px solid ${colors.secondary}`,
-            borderRadius: '10px',
-        },
-        '@media (max-width: 1440px)': {
-            height: 'calc(100% - 320px)'
+            border: `1px solid ${colors.primary.main}`,
         },
     },
-    footerSec: {
+    footer: {
+        width: '100%',
+        height: '95px',
         padding: '20px',
-        width: '100%',
-        height: '85px',
-        background: `linear-gradient(90deg, ${colors.primary} 0%, ${colors.secondary} 100%)`,
+        borderLeft: `solid 1px ${colors.primary.dark}`,
+        overflowY: 'hidden',
+        background: 'linear-gradient(90deg, #B6D5F0 0%, #DFEFFF 100%)',
         display: 'flex',
-        justifyContent: 'center',
+        justifyContent: 'space-between',
         alignItems: 'centre',
-        '@media (max-width: 1440px)': {
-            height: '70px',
-        }
-    },
-    navLink: {
-        width: '100%',
-        display: 'flex',
-        justifyContent: 'start',
-        fontSize: '23px',
-        fontWeight: '700',
-        padding: '14px 0 14px 20px',
-        border: 'none',
-        color: '#E8F3FF',
-        icon: {
+        privacy: {
+            fontSize: '12px',
+            fontWeight: '700',
+            color: colors.primary.dark,
             display: 'flex',
-            justifyContent: 'center',   
-            alignItems: 'center',
-            marginX: '20px',
-        },
-        iconBackground: {
-            width: '40px',
-            height: '40px',
-            backgroundColor: colors.third,
-            borderRadius: '50%',
-            display: 'flex',
-            padding: '7px',
+            flexDirection: 'column',
+            alignItems: 'start',
             justifyContent: 'center',
-            alignItems: 'center',
-        },
-        active: {
-            backgroundColor: 'rgba(20, 37, 54, 0.65)',
-            color: colors.third,
+            gap: '7px',
         }
     },
-
 }
 
 export default style;

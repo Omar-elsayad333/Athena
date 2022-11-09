@@ -1,9 +1,7 @@
 .active {
-    background-color: rgba(20, 37, 54, 0.65);
-    color: #8CC3F2;
+    background-color: #90bae1;
 }
 
-.x:hover {
-    background-color: rgba(20, 37, 54, 0.65);
-    color: #8CC3F2;
+.myButton:hover {
+    background-color: #A4C6E5;
 }

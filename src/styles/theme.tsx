@@ -31,7 +31,7 @@ export const theme = createTheme({
 });
 
 theme.typography.h1 = {
-  fontFamily: 'Almarai, sans-serif',
+  // fontFamily: 'Almarai, sans-serif',
   fontWeight: '700',
   fontSize: '30px',
   '@media (min-width:600px)': {
@@ -43,7 +43,7 @@ theme.typography.h1 = {
 };
 
 theme.typography.h2 = {
-  fontFamily: 'Almarai, sans-serif',
+  // fontFamily: 'Almarai, sans-serif',
   fontWeight: '700',
   fontSize: '25px',
   '@media (min-width:600px)': {
@@ -55,7 +55,7 @@ theme.typography.h2 = {
 };
 
 theme.typography.h3 = {
-  fontFamily: 'Almarai, sans-serif',
+  // fontFamily: 'Almarai, sans-serif',
   fontWeight: '700',
   fontSize: '20px',
   '@media (min-width:600px)': {
@@ -67,7 +67,7 @@ theme.typography.h3 = {
 };
 
 theme.typography.h4 = {
-  fontFamily: 'Almarai, sans-serif',
+  // fontFamily: 'Almarai, sans-serif',
   fontWeight: '400',
   fontSize: '18px',
   [theme.breakpoints.up('lg')]: {
@@ -76,7 +76,7 @@ theme.typography.h4 = {
 };
 
 theme.typography.h5 = {
-  fontFamily: 'Almarai, sans-serif',
+  // fontFamily: 'Almarai, sans-serif',
   fontWeight: '400',
   fontSize: '13px',
   [theme.breakpoints.up('lg')]: {
@@ -85,7 +85,7 @@ theme.typography.h5 = {
 };
 
 theme.typography.h6 = {
-  fontFamily: 'Almarai, sans-serif',
+  // fontFamily: 'Almarai, sans-serif',
   fontWeight: '300',
   fontSize: '11px',
   [theme.breakpoints.up('lg')]: {
