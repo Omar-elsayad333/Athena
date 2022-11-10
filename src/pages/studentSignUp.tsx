@@ -1,5 +1,5 @@
-import FormSection from "../components/studentSignUp/FormSection";
-import LayerSection from "../components/studentSignUp/LayerSection";
+import FormSection from "../components/StudentSignUp/FormSection";
+import LayerSection from "../components/StudentSignUp/LayerSection";
 
 // MUI
 import Box from "@mui/material/Box";
