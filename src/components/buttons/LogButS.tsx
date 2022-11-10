@@ -1,5 +1,3 @@
-import colors from '../../styles/colors';
-
 // MUI
 import { styled } from '@mui/material/styles';
 import Button from "@mui/material/Button";

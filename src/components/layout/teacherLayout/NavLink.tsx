@@ -29,13 +29,13 @@ const NavLink: React.FC<Prop> = ({icon, content}) => {
 
 
     const select = (e: any) => {
-        const buttons = document.getElementsByClassName(myStyle.myButton);
+        const buttons = document.getElementsByClassName(`${myStyle.myButton}`);
 
         for (let i = 0; i < buttons.length; i++) {
             if(buttons[i] === e.currentTarget) {
-                buttons[i].classList.add(myStyle.active);
+                buttons[i]?.classList.add(`${myStyle.active}`);
             }else {
-                buttons[i].classList.remove(myStyle.active);
+                buttons[i]?.classList.remove(`${myStyle.active}`);
             };
         };
     };

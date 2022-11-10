@@ -4,7 +4,6 @@ import colors from '../../styles/colors';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { styled } from '@mui/material/styles';
-import { TextField, OutlinedInput } from '@mui/material';
 
 type Props = {
     age?: any;
