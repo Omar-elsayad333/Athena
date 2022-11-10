@@ -65,4 +65,4 @@ const Layout: React.FC = () => {
     );
 }
 
-export default TeacherLayout;
+export default Layout;
