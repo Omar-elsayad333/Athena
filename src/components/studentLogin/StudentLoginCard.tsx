@@ -10,7 +10,7 @@ import Typography from "@mui/material/Typography";
 import Box from '@mui/material/Box';
 import Checkbox from "@mui/material/Checkbox";
 
-const StudentLoginCard = () => {
+const StudentLoginCard: React.FC = () => {
     return (
         <Box sx={style.StudentLoginCard}>
             <Box sx={style.container}>

@@ -3,6 +3,7 @@ import LayerSection from "../components/StudentSignUp/LayerSection";
 
 // MUI
 import Box from "@mui/material/Box";
+import { NextPage } from "next";
 
 const pageStyle: object = {
     width: '100%',
@@ -13,7 +14,7 @@ const pageStyle: object = {
     }
 }
 
-const studentSignUp = () => {
+const studentSignUp: NextPage = () => {
     return (
         <Box sx={pageStyle}>
             <FormSection />

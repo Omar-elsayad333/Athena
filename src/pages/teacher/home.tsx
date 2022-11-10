@@ -1,4 +1,6 @@
-const TeacherHome = () => {
+import { NextPage } from "next";
+
+const TeacherHome: NextPage = () => {
     return (
         <>
         </>

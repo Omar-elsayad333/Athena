@@ -10,7 +10,7 @@ import Checkbox from '@mui/material/Checkbox';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
-const FormSection = () => {
+const FormSection: React.FC = () => {
     return (
         <Container sx={style.formSec}>
             <Box sx={style.formSec.headerContainer}>

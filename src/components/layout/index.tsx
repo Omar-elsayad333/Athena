@@ -1,6 +1,6 @@
 import TeacherLayout from './TeacherLayout';
 
-const Layout = () => {
+const Layout: React.FC = () => {
     return (
         <TeacherLayout />
     );

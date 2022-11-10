@@ -1,4 +1,4 @@
-const Add = () => {
+const Add: React.FC = () => {
     return (
         <>
         </>

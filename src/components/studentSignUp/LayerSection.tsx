@@ -19,7 +19,7 @@ const scroll = () => {
     });
 };
 
-const LayerSection = () => {    
+const LayerSection: React.FC = () => {    
     return (
         <Container id='layerSection' sx={style.layerSec}>
             <Box sx={style.layerSec.logo}>

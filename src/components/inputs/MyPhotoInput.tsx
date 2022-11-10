@@ -6,7 +6,7 @@ import Image from 'next/image';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
-const MyPhotoInput = () => {
+const MyPhotoInput: React.FC = () => {
     return (
         <Box sx={style.container}>
             <Box sx={style.photoPLaceholder}>
