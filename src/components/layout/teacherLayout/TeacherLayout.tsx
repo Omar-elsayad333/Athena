@@ -1,7 +1,7 @@
 import style from './style';
 import Image from 'next/image';
 import NavLink from './NavLink';
-// import logo from "../../../../public/images/secondaryInlineLogo.svg";
+import logo from "../../../../public/images/secondaryInlineLogo.svg";
 // import menu from '../../../../public/images/Menu icon.svg';
 // import logOut from '../../../../public/images/LogOut icon.svg';
 // import home from '../../../../public/images/Home icon.svg';
@@ -27,7 +27,7 @@ const TeacherLayout: React.FC = () => {
                 <Box sx={style.header.menuIcon} >
                     {/* <Image src={menu} layout='intrinsic' alt='menu icon' /> */}
                 </Box>
-                <Image src='/images/secondaryInlineLogo.svg' alt='Athena' width={228} height={43} />
+                <Image src={logo} alt='Athena' width={228} height={43} />
             </Box>
             <Box sx={style.menu}>
                 {/* <Box>
