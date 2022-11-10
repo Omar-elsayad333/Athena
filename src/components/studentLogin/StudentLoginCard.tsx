@@ -1,7 +1,7 @@
 import logo from '../../../public/images/Logo(2).svg';
 import Image from "next/image";
 import style from './style';
-import MyButton from "../Buttons/LoginButDark";
+import LoginButDark from "../Buttons/LoginButDark";
 import MyLoginInput from '../Inputs/MyLoginInput';
 import Link from 'next/link';
 
@@ -45,7 +45,7 @@ const StudentLoginCard: React.FC = () => {
                         </Box>
                     </Box>
                     <Box sx={style.logContainer}>
-                        <MyButton content='تسجيل الدخول' onClick={null} />
+                        <LoginButDark content='تسجيل الدخول' onClick={null} />
                         <Typography>
                             انا طالب جديد،
                             <Link href='/studentSignUp'>
