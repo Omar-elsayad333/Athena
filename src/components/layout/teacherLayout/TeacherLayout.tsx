@@ -21,7 +21,7 @@ import Box from '@mui/material/Box';
 import MyAvatar from '../../Avatar';
 import { Typography } from '@mui/material';
 
-const Layout: React.FC = () => {
+const TeacherLayout: React.FC = () => {
     return (
         <Box sx={style.container}>
             <Box sx={style.header}>
@@ -65,4 +65,4 @@ const Layout: React.FC = () => {
     );
 }
 
-export default Layout;
+export default TeacherLayout;
