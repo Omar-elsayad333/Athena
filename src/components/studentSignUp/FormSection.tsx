@@ -1,8 +1,8 @@
 import style from './style';
 import Link from 'next/link';
-import MyInput from '../inputs/MyInput';
-import MyPhotoInput from '../inputs/MyPhotoInput';
-import MyButton from '../buttons/LogButS';
+import MyInput from '../Inputs/MyInput';
+import MyPhotoInput from '../Inputs/MyPhotoInput';
+import MyButton from '../Buttons/LogButS';
 
 // MUI
 import Box from '@mui/material/Box';

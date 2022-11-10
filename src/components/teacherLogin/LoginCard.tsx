@@ -1,15 +1,15 @@
 import logo from '../../../public/images/Logo(4).svg';
 import Image from "next/image";
 import style from './style';
-import MyButton from '../buttons/LoginButLight';
-import MyLoginInput from '../inputs/MyLoginInput';
+import MyButton from '../Buttons/LoginButLight';
+import MyLoginInput from '../Inputs/MyLoginInput';
 
 // MUI
 import Typography from "@mui/material/Typography";
 import Box from '@mui/material/Box';
 import Checkbox from "@mui/material/Checkbox";
 
-const TeacherLoginCard = () => {
+const LoginCard = () => {
     return (
         <Box sx={style.TeacherLoginCard}>
             <Box sx={style.container}>
@@ -52,4 +52,4 @@ const TeacherLoginCard = () => {
     )
 }   
     
-export default TeacherLoginCard;
+export default LoginCard;

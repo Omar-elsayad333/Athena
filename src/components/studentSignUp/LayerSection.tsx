@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import logo from '../../../public/images/primaryInlineLogo.svg';
 import layer from '../../../public/images/studentSignUpLayer.svg';
-import MyButton from '../buttons/LogButS';
+import MyButton from '../Buttons/LogButS';
 
 // MUI
 import Typography from '@mui/material/Typography';

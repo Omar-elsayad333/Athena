@@ -1,12 +1,12 @@
 import * as yup from 'yup';
 import { useFormik } from 'formik';
-import MyInput from "../components/inputs/MyInput";
-import LogButS from '../components/buttons/LogButS';
-import LogButL from '../components/buttons/LoginButDark';
+import MyInput from "../components/Inputs/MyInput";
+import LogButS from '../components/Buttons/LogButS';
+import LogButL from '../components/Buttons/LoginButDark';
 
 // MUI
 import { Typography, Button, Box} from "@mui/material";
-import MyDropDown from '../components/inputs/MyDropDown';
+import MyDropDown from '../components/Inputs/MyDropDown';
 
 const validationSchema = yup.object({
     email: yup
