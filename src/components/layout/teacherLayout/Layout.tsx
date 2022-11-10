@@ -21,7 +21,7 @@ import Box from '@mui/material/Box';
 import MyAvatar from '../../Avatar';
 import { Typography } from '@mui/material';
 
-const TeacherLayout: React.FC = () => {
+const Layout: React.FC = () => {
     return (
         <Box sx={style.container}>
             <Box sx={style.header}>

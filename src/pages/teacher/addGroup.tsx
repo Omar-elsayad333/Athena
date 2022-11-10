@@ -1,4 +1,4 @@
-import TeacherLayout from "../../components/Layout/teacherLayout/TeacherLayout";
+import Layout from "../../components/Layout/teacherLayout/Layout";
 
 // MUI
 import Box from "@mui/material/Box";
@@ -6,7 +6,7 @@ import Box from "@mui/material/Box";
 const AddGroup = () => {
   return (
     <Box>
-      <TeacherLayout />
+      <Layout />
     </Box>
   );
 };
