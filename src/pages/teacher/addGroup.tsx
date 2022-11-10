@@ -1,4 +1,4 @@
-import TeacherLayout from "../../components/layout/teacherLayout/TeacherLayout"
+import TeacherLayout from "../../components/layout/TeacherLayout"
 
 // MUI
 import Box from "@mui/material/Box";
