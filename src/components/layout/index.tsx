@@ -1,4 +1,4 @@
-import TeacherLayout from './TeacherLayout';
+import TeacherLayout from './TeacherLayout/index';
 
 const Layout: React.FC = () => {
     return (
