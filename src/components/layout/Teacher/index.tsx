@@ -20,7 +20,7 @@ import logo from "../../../../public/images/secondaryInlineLogo.svg";
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
-const TeacherLayout: React.FC = () => {
+const Teacher: React.FC = () => {
     return (
         <Box sx={style.container}>
             <Box sx={style.header}>
@@ -64,4 +64,4 @@ const TeacherLayout: React.FC = () => {
     );
 }
 
-export default TeacherLayout;
+export default Teacher;
