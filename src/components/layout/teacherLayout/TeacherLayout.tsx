@@ -16,7 +16,6 @@ import money from '../../../../public/images/Money icon.svg';
 import employees from '../../../../public/images/Employees icon.svg';
 import setting from '../../../../public/images/Setting icon.svg';
 
-
 // MUI
 import Box from '@mui/material/Box';
 import MyAvatar from '../../Avatar';

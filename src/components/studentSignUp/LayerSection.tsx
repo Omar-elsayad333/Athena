@@ -1,7 +1,7 @@
 import style from './style';
 import Link from 'next/link';
 import Image from 'next/image';
-import logo from '../../../public/images/logoInlineText(1).svg';
+import logo from '../../../public/images/primaryInlineLogo.svg';
 import layer from '../../../public/images/studentSignUpLayer.svg';
 import MyButton from '../buttons/LogButS';
 
