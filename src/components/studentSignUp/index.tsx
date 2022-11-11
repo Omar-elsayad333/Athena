@@ -16,7 +16,7 @@ const pageStyle: object = {
 const StudentSignUp: React.FC = () => {
     return (
         <Box sx={pageStyle}>
-            <FormSection />
+            <FormSection /> 
             <LayerSection />
         </Box>
     );
