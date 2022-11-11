@@ -9,7 +9,7 @@ import Typography from "@mui/material/Typography";
 import Box from '@mui/material/Box';
 import Checkbox from "@mui/material/Checkbox";
 
-const TeacherLogin: React.FC = () => {
+const TeacherLoginCard: React.FC = () => {
     return (
         <Box sx={style.TeacherLoginCard}>
             <Box sx={style.container}>
@@ -52,4 +52,4 @@ const TeacherLogin: React.FC = () => {
     )
 }   
     
-export default TeacherLogin;
+export default TeacherLoginCard;
