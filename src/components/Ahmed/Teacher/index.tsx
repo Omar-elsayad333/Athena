@@ -2,7 +2,7 @@ import style from './style';
 import Image from 'next/image';
 import NavLink from './NavLink';
 import logo from '../../../../public/images/secondaryInlinelogo.svg';
-import menu from '../../../../public/images/Menu icon.svg';
+import menu from '../../../../public/images/MenuIcon.svg';
 import logOut from '../../../../public/images/LogOut icon.svg';
 import home from '../../../../public/images/Home icon.svg';
 import students from '../../../../public/images/Students icon.svg';
