@@ -1,13 +1,13 @@
 import logo from '../../../public/images/Logo(4).svg';
-import Image from "next/image";
+import Image from 'next/image';
 import style from './style';
 import MyButton from '../LoginButLight';
 import MyLoginInput from '../MyLoginInput';
 
 // MUI
-import Typography from "@mui/material/Typography";
+import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import Checkbox from "@mui/material/Checkbox";
+import Checkbox from '@mui/material/Checkbox';
 
 const TeacherLoginCard: React.FC = () => {
     return (
