@@ -1,4 +1,4 @@
-import StudentSignUp from 'components/StudentSignUp';
+import StudentSignUp from '../components/StudentSignUp';
 
 // MUI
 import { NextPage } from "next";
