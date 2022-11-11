@@ -1,5 +1,5 @@
 import { NextPage } from "next";
-import StudentLoginCard from "../components/StudentLogin/StudentLoginCard";
+import StudentLoginCard from "../components/StudentLoginCard";
 
 // MUI
 import Container from '@mui/material/Container';
