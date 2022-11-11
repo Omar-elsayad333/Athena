@@ -1,8 +1,8 @@
 import Layout from "../../components/Layout";
+import { NextPage } from "next";
 
 // MUI
 import Box from "@mui/material/Box";
-import { NextPage } from "next";
 
 const AddGroup: NextPage = () => {
   return (
