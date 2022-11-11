@@ -1,9 +1,9 @@
 import Teacher from './Teacher';
 
-const Layout: React.FC = () => {
+const Ahmed: React.FC = () => {
     return (
         <Teacher />
     );
 }
 
-export default Layout;
+export default Ahmed;

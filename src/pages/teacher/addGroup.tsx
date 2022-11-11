@@ -1,4 +1,4 @@
-import Ahmed from "../../components/Layout";
+import Ahmed from "../../components/Ahmed";
 import { NextPage } from "next";
 
 // MUI
