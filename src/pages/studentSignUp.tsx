@@ -1,11 +1,11 @@
-import StudentSignUp from '../components/StudentSignUp';
+import StudentSignUpCard from '../components/StudentSignUpCard';
 
 // MUI
 import { NextPage } from "next";
 
 const studentSignUp: NextPage = () => {
     return (
-        <StudentSignUp />
+        <StudentSignUpCard />
     );
 }
 

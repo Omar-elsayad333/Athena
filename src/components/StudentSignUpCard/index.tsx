@@ -13,7 +13,7 @@ const pageStyle: object = {
     }
 }
 
-const StudentSignUp: React.FC = () => {
+const StudentSignUpCard: React.FC = () => {
     return (
         <Box sx={pageStyle}>
             <FormSection /> 
@@ -22,4 +22,4 @@ const StudentSignUp: React.FC = () => {
     );
 }
  
-export default StudentSignUp;
+export default StudentSignUpCard;
