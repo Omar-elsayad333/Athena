@@ -3,8 +3,8 @@ import { styled } from '@mui/material/styles';
 import Button from "@mui/material/Button";
 
 type Props = {
-    content: any;
-    onClick: any;
+    content?: any;
+    onClick?: any;
 }
 
 const MyButton = styled(Button)({

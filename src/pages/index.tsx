@@ -1,42 +1,47 @@
 import type { NextPage } from 'next';
+import logo from '../../public/images/Logo(4).svg';
+import LoginButDark from '../components/LoginButDark';
+import LoginButLight from '../components/LoginButLight';
 
 // MUI
 import Container from '@mui/material/Container';
-import MyButton from '../components/LoginButDark';
 import Link from 'next/link';
 import Image from 'next/image';
+import { Box, Typography } from '@mui/material';
 
 const Home: NextPage = () => {
   return (
     <Container maxWidth="xl">
-      <div>
-        <Image alt='athena' layout='fill' src='/images/Logo(4).svg' />
-        <div>
-          <h1>
+      <Box sx={{width: '100%', display: 'flex', flexDirection: 'column', gap: '50px', alignItems: 'center'}}>
+        <Box >
+          <Image alt='athena' layout='intrinsic' src={logo} />
+        </Box>
+        <Box sx={{width: '100%', display: 'flex', flexDirection: 'column', gap: '20px', alignItems: 'center'}}>
+          <Typography variant='h3'>
             انا مدرس
-          </h1>
+          </Typography>
           <Link href='/teacherLogin'>
             <a>
-              <MyButton content='تسجيل الدخول' />
+              <LoginButDark content='تسجيل الدخول' />
             </a>
           </Link>
-        </div>
-        <div>
-          <h1>
+        </Box>
+        <Box sx={{display: 'flex', flexDirection: 'column', gap: '20px', alignItems: 'center'}}>
+          <Typography variant='h3'>
             انا طالب
-          </h1>
+          </Typography>
           <Link href='/studentLogin' style={{paddingLeft: '20px'}}>
             <a>
-              <MyButton content='تسجيل الدخول' />
+              <LoginButDark content='تسجيل الدخول' />
             </a>
           </Link>
           <Link href='/studentSignUp'>
             <a>
-              <MyButton content='انشاء حساب' />
+              <LoginButLight content='انشاء حساب' />
             </a>
           </Link>
-        </div>
-      </div>
+        </Box>
+      </Box>
     </Container>
   )
 }
