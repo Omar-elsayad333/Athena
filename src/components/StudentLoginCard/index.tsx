@@ -1,14 +1,14 @@
 import logo from '../../../public/images/Logo(2).svg';
-import Image from "next/image";
+import Image from 'next/image';
 import style from './style';
 import LoginButDark from "../LoginButDark";
 import MyLoginInput from '../MyLoginInput';
 import Link from 'next/link';
 
 // MUI
-import Typography from "@mui/material/Typography";
+import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import Checkbox from "@mui/material/Checkbox";
+import Checkbox from '@mui/material/Checkbox';
 
 const StudentLoginCard: React.FC = () => {
     return (

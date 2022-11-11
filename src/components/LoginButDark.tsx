@@ -1,6 +1,6 @@
 // MUI
 import { styled } from '@mui/material/styles';
-import Button from "@mui/material/Button";
+import Button from '@mui/material/Button';
 
 type Props = {
     content: any;
