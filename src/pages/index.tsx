@@ -2,7 +2,7 @@ import type { NextPage } from 'next';
 
 // MUI
 import Container from '@mui/material/Container';
-import MyButton from '../components/Buttons/LoginButDark';
+import MyButton from '../components/LoginButDark';
 import Link from 'next/link';
 import Image from 'next/image';
 

@@ -1,4 +1,4 @@
-import colors from '../../styles/colors';
+import colors from '../styles/colors';
 
 // MUI
 import Select from '@mui/material/Select';

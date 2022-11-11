@@ -1,8 +1,8 @@
 import logo from '../../../public/images/Logo(4).svg';
 import Image from "next/image";
 import style from './style';
-import MyButton from '../Buttons/LoginButLight';
-import MyLoginInput from '../Inputs/MyLoginInput';
+import MyButton from '../LoginButLight';
+import MyLoginInput from '../MyLoginInput';
 
 // MUI
 import Typography from "@mui/material/Typography";

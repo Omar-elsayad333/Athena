@@ -1,5 +1,5 @@
 import photoPlaceholder from '../../../public/images/photo-input-placeholder.svg';
-import style from './style';
+import style from './Inputs/style';
 import Image from 'next/image';
 
 // MUI

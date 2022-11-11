@@ -1,8 +1,8 @@
 import logo from '../../../public/images/Logo(2).svg';
 import Image from "next/image";
 import style from './style';
-import LoginButDark from "../Buttons/LoginButDark";
-import MyLoginInput from '../Inputs/MyLoginInput';
+import LoginButDark from "../LoginButDark";
+import MyLoginInput from '../MyLoginInput';
 import Link from 'next/link';
 
 // MUI
