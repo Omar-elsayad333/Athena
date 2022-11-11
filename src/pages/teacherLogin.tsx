@@ -1,5 +1,5 @@
 import { NextPage } from 'next';
-import TeacherLoginCard from '../components/TeacherLoginCard';
+import TeacherLogin from '../components/TeacherLogin';
 
 // MUI
 import Box from "@mui/material/Box";
@@ -29,7 +29,7 @@ const classes: any = {
 const teacherLogin: NextPage = () => {
     return (
         <Box style={classes.root}>
-            <TeacherLoginCard />
+            <TeacherLogin />
         </Box>
     );
 }

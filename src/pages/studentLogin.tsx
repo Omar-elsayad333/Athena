@@ -1,9 +1,9 @@
-import { NextPage } from "next";
-import StudentLoginCard from "../components/StudentLoginCard";
+import { NextPage } from 'next';
+import StudentLogin from '../components/StudentLogin';
 
 // MUI
 import Container from '@mui/material/Container';
-import Box from "@mui/material/Box";
+import Box from '@mui/material/Box';
 
 const classes: any = {
     root: {
@@ -33,7 +33,7 @@ const studentLogin: NextPage = () => {
     return (
         <Box style={classes.root}>
             <Container maxWidth='xl' sx={classes.container}>
-                <StudentLoginCard />
+                <StudentLogin />
             </Container>
         </Box>
     );

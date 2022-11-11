@@ -1,23 +1,24 @@
-import logo from '../../../public/images/Logo(4).svg';
+import logo from '../../../public/images/Logo(2).svg';
 import Image from 'next/image';
 import style from './style';
-import MyButton from '../LoginButLight';
+import LoginButDark from "../LoginButDark";
 import MyLoginInput from '../MyLoginInput';
+import Link from 'next/link';
 
 // MUI
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Checkbox from '@mui/material/Checkbox';
 
-const TeacherLoginCard: React.FC = () => {
+const StudentLogin: React.FC = () => {
     return (
-        <Box sx={style.TeacherLoginCard}>
+        <Box sx={style.StudentLoginCard}>
             <Box sx={style.container}>
                 <Box sx={{width: '60%'}}>
                     <Image layout="responsive" alt="Athena" src={logo} />
                 </Box>
                 <Typography variant="h2" sx={style.headerText}>
-                    أهلاً بك في البوابة الرئيسية
+                    أهلاً بك في بوابة الطالب                
                 </Typography>
                 <Box sx={style.form}>
                     <Box>
@@ -36,7 +37,7 @@ const TeacherLoginCard: React.FC = () => {
                                 هل نسيت الرقم السري ؟
                             </Typography> 
                             <Box sx={style.checkContainer}>
-                                <Checkbox size='small' color='primary' />
+                                <Checkbox size='small' />
                                 <Typography variant="h5">
                                     تذكريني 
                                 </Typography>
@@ -44,7 +45,15 @@ const TeacherLoginCard: React.FC = () => {
                         </Box>
                     </Box>
                     <Box sx={style.logContainer}>
-                        <MyButton content='تسجيل الدخول' onClick={null} />
+                        <LoginButDark content='تسجيل الدخول' onClick={null} />
+                        <Typography>
+                            انا طالب جديد،
+                            <Link href='/studentSignUp'>
+                                <u style={style.link}>
+                                    &nbsp;انشاء حساب الان
+                                </u>
+                            </Link>
+                        </Typography>
                     </Box>
                 </Box>
             </Box>
@@ -52,4 +61,4 @@ const TeacherLoginCard: React.FC = () => {
     )
 }   
     
-export default TeacherLoginCard;
+export default StudentLogin;
