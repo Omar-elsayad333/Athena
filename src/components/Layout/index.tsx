@@ -1,4 +1,4 @@
-import Teacher from './Teacher';
+import TeacherLayout from './TeacherLayout';
 
 // MUI
 import Box from '@mui/material/Box';
@@ -10,7 +10,7 @@ type IProps = {
 const Layout: React.FC<IProps> = ({ children }) => {
     return (
         <Box>
-            <Teacher />
+            <TeacherLayout />
             {children}
         </Box>
     );

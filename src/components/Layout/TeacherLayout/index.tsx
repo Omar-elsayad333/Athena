@@ -20,7 +20,7 @@ import setting from '../../../../public/images/Setting icon.svg';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
-const Teacher: React.FC = () => {
+const TeacherLayout: React.FC = () => {
     return (
         <Box sx={style.container}>
             <Box sx={style.header}>
@@ -64,4 +64,4 @@ const Teacher: React.FC = () => {
     );
 }
 
-export default Teacher;
+export default TeacherLayout;
