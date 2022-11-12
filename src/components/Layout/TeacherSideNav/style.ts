@@ -4,9 +4,10 @@ const style: any = {
     container: {
         width: '308px',
         height: 'calc(100vh - 123px)',
-        '@media (max-width: 1440px)': {
-            width: '250px',
-        },
+        // '@media (max-width: 1440px)': {
+        //     width: '250px',
+        // },
+        transition: '.5s',
     },
     menu: {   
         width: '100%',

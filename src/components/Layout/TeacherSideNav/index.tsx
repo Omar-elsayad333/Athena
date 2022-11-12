@@ -17,25 +17,39 @@ import setting from '../../../../public/images/SettingIcon.svg';
 // MUI
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import { useEffect } from 'react';
 
-const TeacherSideNav: React.FC = () => {
+type Props = {
+    sideNavState: Boolean;
+}
+
+const TeacherSideNav: React.FC<Props> = ({sideNavState}) => {
+
+    useEffect(() => {
+        if(!sideNavState) {
+            style.container.width = '76px';     
+        }else {
+            style.container.width = '308px';
+        }
+    }, [sideNavState])
+
     return (
-        <Box sx={style.container}>
+        <Box sx={style.container} className='omar'>
             <Box sx={style.menu}>
                 <Box>
-                    <NavLink path='/teacher/home' icon={home} content='الرئيسية' />
-                    <NavLink path='/teacher/students' icon={students} content='الطلاب' />
-                    <NavLink path='/teacher/groups' icon={groups} content='المجموعات' />
-                    <NavLink path='/teacher/attendance' icon={calender} content='الحضور' />
-                    <NavLink path='/teacher/exams' icon={exams} content='الامتحانات' />
-                    <NavLink path='/teacher/headquarters' icon={location} content='المقرات' />
-                    <NavLink path='/teacher/reports' icon={charts} content='التقارير' />
-                    <NavLink path='/teacher/session' icon={year} content='العام الدراسي' />
-                    <NavLink path='/teacher/expenses' icon={money} content='المصروفات' />
+                    <NavLink sideNavState={sideNavState} path='/teacher/home' icon={home} content='الرئيسية' />
+                    <NavLink sideNavState={sideNavState} path='/teacher/students' icon={students} content='الطلاب' />
+                    <NavLink sideNavState={sideNavState} path='/teacher/groups' icon={groups} content='المجموعات' />
+                    <NavLink sideNavState={sideNavState} path='/teacher/attendance' icon={calender} content='الحضور' />
+                    <NavLink sideNavState={sideNavState} path='/teacher/exams' icon={exams} content='الامتحانات' />
+                    <NavLink sideNavState={sideNavState} path='/teacher/headquarters' icon={location} content='المقرات' />
+                    <NavLink sideNavState={sideNavState} path='/teacher/reports' icon={charts} content='التقارير' />
+                    <NavLink sideNavState={sideNavState} path='/teacher/session' icon={year} content='العام الدراسي' />
+                    <NavLink sideNavState={sideNavState} path='/teacher/expenses' icon={money} content='المصروفات' />
                 </Box>
                 <Box>
-                    <NavLink path='/teacher/employees' icon={employees} content='الموظفيين' />
-                    <NavLink path='/teacher/settings' icon={setting} content='الاعدادت' />
+                    <NavLink sideNavState={sideNavState} path='/teacher/employees' icon={employees} content='الموظفيين' />
+                    <NavLink sideNavState={sideNavState} path='/teacher/settings' icon={setting} content='الاعدادت' />
                 </Box>
             </Box>
             <Box sx={style.footer}>

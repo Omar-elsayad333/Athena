@@ -18,7 +18,13 @@ const classes = {
 
 const Layout: React.FC<IProps> = ({ children }) => {
 
-    const { check, layoutState } = useLayout();
+    const { 
+        check, 
+        layoutState,
+        sideNavState, 
+        closeSideNav,
+        openSideNav
+    } = useLayout();
     
     useEffect(() => {
         check();
@@ -26,9 +32,9 @@ const Layout: React.FC<IProps> = ({ children }) => {
         
     return (
         <Box>
-            { layoutState && <TeacherNavbar /> }
+            { layoutState && <TeacherNavbar sideNavState={sideNavState} closeSideNav={closeSideNav} openSideNav={openSideNav} /> }
             <Box sx={classes.root}>
-                { layoutState && <TeacherSideNav /> }
+                { layoutState && <TeacherSideNav sideNavState={sideNavState} /> }
                 {children}
             </Box>
         </Box>

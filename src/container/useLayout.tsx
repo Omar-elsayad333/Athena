@@ -20,11 +20,20 @@ const useLayout = () => {
         };
     };
 
+    const closeSideNav = () => {
+        setSideNavState(false);
+    }
+
+    const openSideNav = () => {
+        setSideNavState(true);
+    }
+
     return ({
         check,
         layoutState,
         sideNavState,
-        setSideNavState
+        closeSideNav,
+        openSideNav,
     });
 }
  

@@ -12,6 +12,13 @@ import Avatar from '../../Avatar';
 // MUI
 import Box from '@mui/material/Box';
 import { Typography } from '@mui/material';
+import { useEffect } from 'react';
+
+type Props = {
+    sideNavState: any;
+    closeSideNav: any;
+    openSideNav: any;
+}
 
 const classes = {
     container: {
@@ -89,7 +96,12 @@ const classes = {
     },
 };
 
-const TeacherNavbar: React.FC = () => {
+const TeacherNavbar: React.FC<Props> = ({sideNavState, closeSideNav, openSideNav}) => {
+
+    useEffect(() => {
+    
+    }, [sideNavState])
+
     return (
         <Box sx={classes.container}>
             <Box sx= {classes.navItems}>
@@ -98,7 +110,7 @@ const TeacherNavbar: React.FC = () => {
                 </Box>
                 <Box sx={classes.navItems.buttonsContainer}>
                     <Box sx={classes.navItems.header.menuIcon}>
-                        <Image src={menu} layout='intrinsic' alt='menu icon' />
+                        <Image src={menu} layout='intrinsic' alt='menu icon' onClick={closeSideNav} />
                     </Box>
                     <NavbarBut content='جميع المجموعات' />
                     <NavbarSecBut content='اضافة مجموعة' />

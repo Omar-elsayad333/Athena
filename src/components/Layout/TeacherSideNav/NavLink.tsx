@@ -9,26 +9,26 @@ type Prop = {
     icon: any;
     content: string;
     path: string;
+    sideNavState: Boolean;
 }
 
-const classes = {
-    root: {
-        width: '100%',
-        height: '50px',
-        padding: '15px 20px 15px 20px',
-        display: 'flex',
-        justifyContent: 'start',
-        alignItems: 'center',
-        gap: '15px',
-        fontSize: '22px',
-        fontWeight: '700',
-        border: 'none',
-        color: '#3F72A4',
-    },
-};
+// const classes = {
+//     root: {
+//         width: '100%',
+//         height: '50px',
+//         padding: '15px 20px 15px 20px',
+//         display: 'flex',
+//         justifyContent: 'start',
+//         alignItems: 'center',
+//         gap: '15px',
+//         fontSize: '22px',
+//         fontWeight: '700',
+//         border: 'none',
+//         color: '#3F72A4',
+//     }
+// }
 
-const NavLink: React.FC<Prop> = ({icon, content, path}) => {
-
+const NavLink: React.FC<Prop> = ({icon, content, path, sideNavState}) => {
 
     const select = (e: any) => {
         const buttons = document.getElementsByClassName(`${myStyle.myButton}`);
@@ -36,7 +36,7 @@ const NavLink: React.FC<Prop> = ({icon, content, path}) => {
         for (let i = 0; i < buttons.length; i++) {
             if(buttons[i] === e.currentTarget) {
                 buttons[i]?.classList.add(`${myStyle.active}`);
-            }else {
+            }else { 
                 buttons[i]?.classList.remove(`${myStyle.active}`);
             };
         };
@@ -45,9 +45,9 @@ const NavLink: React.FC<Prop> = ({icon, content, path}) => {
     return (
         <Link href={path}>
             <a>
-                <Button sx={[classes.root]} className={myStyle.myButton} onClick={(e) => select(e)}>
+                <Button  className={ myStyle.myButton} onClick={(e) => select(e)}>
                     <Image src={icon} alt={content} layout='intrinsic' />
-                    {content}
+                    {sideNavState && content}
                 </Button>
             </a>
         </Link>
