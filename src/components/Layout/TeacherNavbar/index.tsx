@@ -99,7 +99,7 @@ const classes = {
 const TeacherNavbar: React.FC<Props> = ({sideNavState, closeSideNav, openSideNav}) => {
 
     useEffect(() => {
-    
+        console.log(openSideNav)
     }, [sideNavState])
 
     return (
