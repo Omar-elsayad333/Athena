@@ -21,11 +21,15 @@ const useLayout = () => {
     };
 
     const closeSideNav = () => {
-        setSideNavState(false);
+        if(sideNavState){
+            setSideNavState(false)
+        }else {
+            setSideNavState(true)
+        }
     }
 
     const openSideNav = () => {
-        setSideNavState(true);
+        setSideNavState(true)
     }
 
     return ({

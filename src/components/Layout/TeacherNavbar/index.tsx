@@ -12,12 +12,9 @@ import Avatar from '../../Avatar';
 // MUI
 import Box from '@mui/material/Box';
 import { Typography } from '@mui/material';
-import { useEffect } from 'react';
 
 type Props = {
-    sideNavState: any;
     closeSideNav: any;
-    openSideNav: any;
 }
 
 const classes = {
@@ -96,11 +93,7 @@ const classes = {
     },
 };
 
-const TeacherNavbar: React.FC<Props> = ({sideNavState, closeSideNav, openSideNav}) => {
-
-    useEffect(() => {
-        console.log(openSideNav)
-    }, [sideNavState])
+const TeacherNavbar: React.FC<Props> = ({closeSideNav}) => {
 
     return (
         <Box sx={classes.container}>

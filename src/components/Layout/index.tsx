@@ -23,7 +23,6 @@ const Layout: React.FC<IProps> = ({ children }) => {
         layoutState,
         sideNavState, 
         closeSideNav,
-        openSideNav
     } = useLayout();
     
     useEffect(() => {
@@ -32,7 +31,7 @@ const Layout: React.FC<IProps> = ({ children }) => {
         
     return (
         <Box>
-            { layoutState && <TeacherNavbar sideNavState={sideNavState} closeSideNav={closeSideNav} openSideNav={openSideNav} /> }
+            { layoutState && <TeacherNavbar closeSideNav={closeSideNav} /> }
             <Box sx={classes.root}>
                 { layoutState && <TeacherSideNav sideNavState={sideNavState} /> }
                 {children}
