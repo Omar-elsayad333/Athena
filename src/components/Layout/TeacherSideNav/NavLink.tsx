@@ -1,11 +1,9 @@
 import Image from 'next/image';
 import myStyle from './NavLink.module.css';
-import { useEffect } from 'react';
 
 // MUI
 import Button from '@mui/material/Button';
 import Link from 'next/link';
-import { Typography } from '@mui/material';
 
 type Prop = {
     icon: any;
