@@ -47,7 +47,7 @@ const Home: NextPage = () => {
           </Typography>
           <Link href='/teacher/home' style={{paddingLeft: '20px'}}>
             <a>
-              <LoginButDark content='اضافة مجموعة' />
+              <LoginButDark content='قسم المدرس' />
             </a>
           </Link>
         </Box>
