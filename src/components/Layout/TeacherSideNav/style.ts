@@ -3,35 +3,20 @@ import colors from "../../../styles/colors";
 const style: any = {
     container: {
         width: '308px',
-        height: '100vh',
+        height: 'calc(100vh - 123px)',
         '@media (max-width: 1440px)': {
             width: '250px',
         },
     },
-    header: {
-        width: '100%',
-        background: 'linear-gradient(90deg, #B6D5F0 0%, #DFEFFF 100%)',
-        height: '123px',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        gap:'20px',
-        menuIcon: { 
-            cursor: 'pointer',
-            display: 'none',
-        },
-    },
     menu: {   
         width: '100%',
-        height: 'calc(100% - (95px + 123px))',
+        height: 'calc(100% - 95px)',
         paddingY: '17px',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
         gap: '40px',
         backgroundColor: '#B6D5F0',
-        borderTop: `solid 1px ${colors.primary.main}`,
         borderBottom: `solid 1px ${colors.primary.dark}`,
         borderLeft: `solid 1px ${colors.primary.dark}`,
         overflowY: 'auto',

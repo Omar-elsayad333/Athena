@@ -1,17 +1,25 @@
-import Avatar from '@mui/material/Avatar';
+import Image from 'next/image';
 
 type Prop = {
-    alt: string;
-    src: any; 
-    style: object;
+    alt?: string;
+    src?: any; 
+    style?: object;
 }
 
-const MyAvatar: React.FC<Prop> = ({alt, src, style}) => {
+const classes = {
+    root: {
+        width: '100%',
+        height: '100%',
+        borderRadius: '50%',
+    }
+}
+
+const MyAvatar: React.FC<Prop> = ({alt, src}) => {
     return (
-        <Avatar 
+        <Image 
             alt={alt} 
-            src={`${src}`} 
-            sx={style}
+            src={src} 
+            style={classes.root}
         />
     );
 }

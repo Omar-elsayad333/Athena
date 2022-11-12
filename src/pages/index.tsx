@@ -12,7 +12,7 @@ import { Box, Typography } from '@mui/material';
 const Home: NextPage = () => {
   return (
     <Container maxWidth="xl">
-      <Box sx={{width: '100%', display: 'flex', flexDirection: 'column', gap: '50px', alignItems: 'center'}}>
+      <Box sx={{width: '100%', padding: '50px', display: 'flex', flexDirection: 'column', gap: '50px', alignItems: 'center'}}>
         <Box >
           <Image alt='athena' layout='intrinsic' src={logo} />
         </Box>
@@ -41,9 +41,19 @@ const Home: NextPage = () => {
             </a>
           </Link>
         </Box>
+        <Box sx={{display: 'flex', flexDirection: 'column', gap: '20px', alignItems: 'center'}}>
+          <Typography variant='h3'>
+            teacher pages
+          </Typography>
+          <Link href='/teacher/addGroup' style={{paddingLeft: '20px'}}>
+            <a>
+              <LoginButDark content='اضافة مجموعة' />
+            </a>
+          </Link>
+        </Box>
       </Box>
     </Container>
   )
-}
+} 
 
 export default Home

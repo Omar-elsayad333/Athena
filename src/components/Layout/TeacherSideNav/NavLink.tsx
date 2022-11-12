@@ -2,9 +2,9 @@ import Image from 'next/image';
 import myStyle from './NavLink.module.css';
 
 // MUI
-import Button from "@mui/material/Button";
+import Button from '@mui/material/Button';
 
-type Prop= {
+type Prop = {
     icon: any;
     content: string;
 }

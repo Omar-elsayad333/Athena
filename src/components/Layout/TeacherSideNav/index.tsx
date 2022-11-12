@@ -1,34 +1,26 @@
 import style from './style';
 import Image from 'next/image';
 import NavLink from './NavLink';
-import logo from '../../../../public/images/secondaryInlinelogo.svg';
-import menu from '../../../../public/images/MenuIcon.svg';
-import logOut from '../../../../public/images/LogOut icon.svg';
-import home from '../../../../public/images/Home icon.svg';
-import students from '../../../../public/images/Students icon.svg';
-import groups from '../../../../public/images/Groups icon.svg';
-import calender from '../../../../public/images/Calender icon.svg';
-import exams from '../../../../public/images/Exams icon.svg';
-import location from '../../../../public/images/Location icon.svg';
-import charts from '../../../../public/images/Charts icon.svg';
-import year from '../../../../public/images/Year Icon.svg';
-import money from '../../../../public/images/Money icon.svg';
-import employees from '../../../../public/images/Employees icon.svg';
-import setting from '../../../../public/images/Setting icon.svg';
+import logOut from '../../../../public/images/LogOutIcon.svg';
+import home from '../../../../public/images/HomeIcon.svg';
+import students from '../../../../public/images/StudentsIcon.svg';
+import groups from '../../../../public/images/GroupsIcon.svg';
+import calender from '../../../../public/images/CalenderIcon.svg';
+import exams from '../../../../public/images/ExamsIcon.svg';
+import location from '../../../../public/images/LocationIcon.svg';
+import charts from '../../../../public/images/ChartsIcon.svg';
+import year from '../../../../public/images/YearIcon.svg';
+import money from '../../../../public/images/MoneyIcon.svg';
+import employees from '../../../../public/images/EmployeesIcon.svg';
+import setting from '../../../../public/images/SettingIcon.svg';
 
 // MUI
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
-const TeacherLayout: React.FC = () => {
+const TeacherSideNav: React.FC = () => {
     return (
         <Box sx={style.container}>
-            <Box sx={style.header}>
-                <Box sx={style.header.menuIcon} >
-                    <Image src={menu} layout='intrinsic' alt='menu icon' />
-                </Box>
-                <Image src={logo} alt='Athena' width={228} height={43} />
-            </Box>
             <Box sx={style.menu}>
                 <Box>
                     <NavLink icon={home} content='الرئيسية' />
@@ -64,4 +56,4 @@ const TeacherLayout: React.FC = () => {
     );
 }
 
-export default TeacherLayout;
+export default TeacherSideNav;
