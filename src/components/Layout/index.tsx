@@ -31,7 +31,7 @@ const Layout: React.FC<IProps> = ({ children }) => {
         
     return (
         <Box>
-            { layoutState && <TeacherNavbar closeSideNav={closeSideNav} /> }
+            { layoutState && <TeacherNavbar closeSideNav={closeSideNav} sideNavState={sideNavState} /> }
             <Box sx={classes.root}>
                 { layoutState && <TeacherSideNav sideNavState={sideNavState} /> }
                 {children}

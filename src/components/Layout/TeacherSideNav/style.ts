@@ -2,12 +2,11 @@ import colors from "../../../styles/colors";
 
 const style: any = {
     container: {
-        width: '308px',
         height: 'calc(100vh - 123px)',
-        // '@media (max-width: 1440px)': {
-        //     width: '250px',
-        // },
         transition: '.5s',
+        '@media(max-width: 1200px)': {
+            display: 'none'
+        },
     },
     menu: {   
         width: '100%',
@@ -21,6 +20,7 @@ const style: any = {
         borderBottom: `solid 1px ${colors.primary.dark}`,
         borderLeft: `solid 1px ${colors.primary.dark}`,
         overflowY: 'auto',
+        overflowX: 'hidden',
         '&::-webkit-scrollbar': {
             width: '7px'
         },
@@ -40,7 +40,6 @@ const style: any = {
         overflowY: 'hidden',
         background: 'linear-gradient(90deg, #B6D5F0 0%, #DFEFFF 100%)',
         display: 'flex',
-        justifyContent: 'space-between',
         alignItems: 'centre',
         privacy: {
             fontSize: '12px',
