@@ -4,14 +4,14 @@ import { NextPage } from 'next';
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
-const AddGroup: NextPage = () => {
+const Employees: NextPage = () => {
     return (
         <Box p={5}>
           <Typography variant='h1'>
-            AddGroup
+            Employees
           </Typography>
         </Box>
     );
-};
-
-export default AddGroup;
+}
+ 
+export default Employees;

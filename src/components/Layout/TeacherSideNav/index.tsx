@@ -23,19 +23,19 @@ const TeacherSideNav: React.FC = () => {
         <Box sx={style.container}>
             <Box sx={style.menu}>
                 <Box>
-                    <NavLink icon={home} content='الرئيسية' />
-                    <NavLink icon={students} content='الطلاب' />
-                    <NavLink icon={groups} content='المجموعات' />
-                    <NavLink icon={calender} content='الحضور' />
-                    <NavLink icon={exams} content='الامتحانات' />
-                    <NavLink icon={location} content='المقرات' />
-                    <NavLink icon={charts} content='التقارير' />
-                    <NavLink icon={year} content='العام الدراسي' />
-                    <NavLink icon={money} content='المصروفات' />
+                    <NavLink path='/teacher/home' icon={home} content='الرئيسية' />
+                    <NavLink path='/teacher/students' icon={students} content='الطلاب' />
+                    <NavLink path='/teacher/groups' icon={groups} content='المجموعات' />
+                    <NavLink path='/teacher/attendance' icon={calender} content='الحضور' />
+                    <NavLink path='/teacher/exams' icon={exams} content='الامتحانات' />
+                    <NavLink path='/teacher/headquarters' icon={location} content='المقرات' />
+                    <NavLink path='/teacher/reports' icon={charts} content='التقارير' />
+                    <NavLink path='/teacher/session' icon={year} content='العام الدراسي' />
+                    <NavLink path='/teacher/expenses' icon={money} content='المصروفات' />
                 </Box>
                 <Box>
-                    <NavLink icon={employees} content='الموظفيين' />
-                    <NavLink icon={setting} content='الاعدادت' />
+                    <NavLink path='/teacher/employees' icon={employees} content='الموظفيين' />
+                    <NavLink path='/teacher/settings' icon={setting} content='الاعدادت' />
                 </Box>
             </Box>
             <Box sx={style.footer}>

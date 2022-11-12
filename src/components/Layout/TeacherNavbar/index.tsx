@@ -76,7 +76,8 @@ const classes = {
             alignItems: 'center',
             gap: '15px',
             border: '1px solid #E8F3FF',
-            borderRadius: '10px'
+            borderRadius: '10px',
+            boxShadow: '0px 0px 10px 0px #3F72A440',
         },
         photo: {
             display: 'flex',
@@ -84,8 +85,6 @@ const classes = {
             height: '40px',
             borderRadius: '50%',
             border: '1px solid #3F72A4',
-        },
-        text: {
         },
     },
 };
@@ -112,11 +111,11 @@ const TeacherNavbar: React.FC = () => {
                     <Box sx={classes.teacherInfo.photo}>
                         <Avatar alt='أ / محمد خليل' src={me} />
                     </Box>
-                    <Box sx={classes.teacherInfo.text}>
-                        <Typography fontWeight={700} variant='h5'>
+                    <Box>
+                        <Typography fontWeight={700} variant='h5' color='#3F72A4'>
                             أ / محمد خليل
                         </Typography>
-                        <Typography fontSize={8} >
+                        <Typography fontSize={8} color='#3F72A4'>
                             أستاذ اللغة العربية
                         </Typography>
                     </Box>

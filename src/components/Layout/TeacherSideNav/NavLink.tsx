@@ -3,10 +3,12 @@ import myStyle from './NavLink.module.css';
 
 // MUI
 import Button from '@mui/material/Button';
+import Link from 'next/link';
 
 type Prop = {
     icon: any;
     content: string;
+    path: string;
 }
 
 const classes = {
@@ -25,7 +27,7 @@ const classes = {
     },
 };
 
-const NavLink: React.FC<Prop> = ({icon, content}) => {
+const NavLink: React.FC<Prop> = ({icon, content, path}) => {
 
 
     const select = (e: any) => {
@@ -41,10 +43,14 @@ const NavLink: React.FC<Prop> = ({icon, content}) => {
     };
 
     return (
-        <Button sx={[classes.root]} className={myStyle.myButton} onClick={(e) => select(e)}>
-            <Image src={icon} alt={content} layout='intrinsic' />
-            {content}
-        </Button>
+        <Link href={path}>
+            <a>
+                <Button sx={[classes.root]} className={myStyle.myButton} onClick={(e) => select(e)}>
+                    <Image src={icon} alt={content} layout='intrinsic' />
+                    {content}
+                </Button>
+            </a>
+        </Link>
     );
 }
 

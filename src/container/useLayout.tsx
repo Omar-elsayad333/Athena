@@ -4,24 +4,27 @@ import { useState } from 'react'
 const useLayout = () => {
 
     const router = useRouter();
-    const [navState, setNavState] = useState<Boolean>(false);  
+    const [layoutState, setLayoutState] = useState<Boolean>(false);  
+    const [sideNavState, setSideNavState] = useState<Boolean>(true);  
 
     const check = () => {
         if(
             router.pathname === '/teacherLogin' || 
             router.pathname === '/studentLogin' || 
-            router.pathname === '/studentSignUp' || 
+            router.pathname === '/studentSignUp' ||
             router.pathname === '/'
         ) {
-            setNavState(false)
+            setLayoutState(false)
         }else {
-            setNavState(true);
+            setLayoutState(true);
         };
     };
 
     return ({
         check,
-        navState
+        layoutState,
+        sideNavState,
+        setSideNavState
     });
 }
  
