@@ -21,9 +21,9 @@ const Layout: React.FC<IProps> = ({ children }) => {
     const { check, navState } = useLayout();
     
     useEffect(() => {
-        check()
-    }, []);
-    
+        check();
+    });
+        
     return (
         <Box>
             { navState && <TeacherNavbar /> }
