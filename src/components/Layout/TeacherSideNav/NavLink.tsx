@@ -45,7 +45,7 @@ const NavLink: React.FC<Prop> = ({icon, content, path, sideNavState}) => {
     return (
         <Link href={path}>
             <a>
-                <Button  className={ myStyle.myButton} onClick={(e) => select(e)}>
+                <Button  className={`${myStyle.myButton}`} onClick={(e) => select(e)}>
                     <Image src={icon} alt={content} layout='intrinsic' />
                     {sideNavState && content}
                 </Button>
