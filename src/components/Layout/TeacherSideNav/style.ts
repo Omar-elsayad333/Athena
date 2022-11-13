@@ -8,7 +8,7 @@ const style: any = {
             display: 'none'
         },
     },
-    menu: {   
+    menu: {
         width: '100%',
         height: 'calc(100% - 95px)',
         paddingY: '17px',

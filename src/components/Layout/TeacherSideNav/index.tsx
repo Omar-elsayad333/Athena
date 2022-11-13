@@ -25,7 +25,7 @@ type Props = {
 const TeacherSideNav: React.FC<Props> = ({sideNavState}) => {
 
     const classes: any = {
-        root: {
+        omar: {
             width: sideNavState ? '308px' : '76px',
         },
         footer: {
@@ -37,7 +37,7 @@ const TeacherSideNav: React.FC<Props> = ({sideNavState}) => {
     }
 
     return (
-        <Box sx={[style.container, classes.root]} className='omar'>
+        <Box sx={[style.container, classes.omar]} className='omar'>
             <Box sx={style.menu}>
                 <Box>
                     <NavLink sideNavState={sideNavState} path='/teacher/home' icon={home} content='الرئيسية' />

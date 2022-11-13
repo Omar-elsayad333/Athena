@@ -30,6 +30,10 @@ const MyButton = styled(Button)({
     '@media(max-width: 1200px)': {
         padding: '9px 5px',
         borderRadius: '30px',
+    },
+    '@media(max-width: 500px)': {
+        width: '160px',
+        fontSize: '16px',
     }
 });
 

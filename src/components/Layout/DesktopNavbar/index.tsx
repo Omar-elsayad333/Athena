@@ -15,12 +15,12 @@ import Box from '@mui/material/Box';
 import { Typography } from '@mui/material';
 
 type Props = {
-    closeSideNav: any;
+    controleSideNav: any;
     sideNavState: any;
 }
 
 
-const TeacherNavbar: React.FC<Props> = ({closeSideNav, sideNavState}) => {
+const DesktopNavbar: React.FC<Props> = ({controleSideNav, sideNavState}) => {
     
     const classes = {
         navItems: {
@@ -29,7 +29,7 @@ const TeacherNavbar: React.FC<Props> = ({closeSideNav, sideNavState}) => {
                 flexDirection:  sideNavState ? 'row' : 'column-reverse',
                 width:  sideNavState ? 'fit-content' : '76px',
                 gap: sideNavState ? '0' : '20px'
-            }, 
+            },
             menuIcon: {
                 marginRight: sideNavState ? '12px' : '0',
             },
@@ -52,7 +52,7 @@ const TeacherNavbar: React.FC<Props> = ({closeSideNav, sideNavState}) => {
                         }
                     </Box>
                     <Box sx={[style.navItems.header.menuIcon, classes.navItems.menuIcon]}>
-                        <Image src={menu} layout='intrinsic' alt='menu icon' onClick={closeSideNav} />
+                        <Image src={menu} layout='intrinsic' alt='menu icon' onClick={controleSideNav} />
                     </Box>
                 </Box>
                 <Box sx={style.navItems.buttonsContainer}>
@@ -81,4 +81,4 @@ const TeacherNavbar: React.FC<Props> = ({closeSideNav, sideNavState}) => {
     );  
 }
  
-export default TeacherNavbar;
+export default DesktopNavbar;

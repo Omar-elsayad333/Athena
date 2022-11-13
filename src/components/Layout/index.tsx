@@ -1,20 +1,15 @@
 import TeacherSideNav from './TeacherSideNav';
-import TeacherNavbar from './TeacherNavbar';
+import DesktopNavbar from './DesktopNavbar';
 import useLayout from 'container/useLayout';
 
 // MUI
 import Box from '@mui/material/Box';
 import { useEffect } from 'react';
+import MobileNavbar from './MobileNavbar';
 
 type IProps = {
     children?: JSX.Element | JSX.Element[];
 };
-
-const classes = {
-    root: {
-        display: 'flex'
-    }
-}
 
 const Layout: React.FC<IProps> = ({ children }) => {
 
@@ -22,7 +17,9 @@ const Layout: React.FC<IProps> = ({ children }) => {
         check, 
         layoutState,
         sideNavState, 
-        closeSideNav,
+        controleSideNav,
+        mobileSideNavState,
+        controleMobileSideNav,
     } = useLayout();
     
     useEffect(() => {
@@ -31,8 +28,16 @@ const Layout: React.FC<IProps> = ({ children }) => {
         
     return (
         <Box>
-            { layoutState && <TeacherNavbar closeSideNav={closeSideNav} sideNavState={sideNavState} /> }
-            <Box sx={classes.root}>
+            {
+                layoutState && 
+                <>
+                    <DesktopNavbar controleSideNav={controleSideNav} sideNavState={sideNavState} /> 
+                    <MobileNavbar controleMobileSideNav={controleMobileSideNav} mobileSideNavState={mobileSideNavState} /> 
+                </>
+                    
+            }
+
+            <Box sx={{display: 'flex'}}>
                 { layoutState && <TeacherSideNav sideNavState={sideNavState} /> }
                 {children}
             </Box>

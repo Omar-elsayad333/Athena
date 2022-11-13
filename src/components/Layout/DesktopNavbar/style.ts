@@ -14,7 +14,7 @@ const style: any = {
         '@media(max-width: 1200px)': {
             width: '100%',
             height: 'auto',
-
+            display: 'none',
         }
     },
     navItems: {
@@ -39,7 +39,9 @@ const style: any = {
             '@media(max-width: 1200px)': {
                 width: '100%',
                 height: '97px',
-                justifyContent: 'space-around',
+                paddingX: '50px',
+                flexDirection: 'row-reverse',
+                justifyContent: 'space-between',
                 borderBottom: '2px solid #3F72A4',  
             }
         },
@@ -57,10 +59,11 @@ const style: any = {
             alignItems: 'center',
             gap: '35px',
             '@media(max-width: 1200px)': {
+                paddingX: '50px',
                 width: '100%',
                 height: '75px',
                 marginRight: '0',
-                justifyContent: 'space-around',
+                justifyContent: 'space-between',
                 borderBottom: '3px solid #3F72A4',  
             }
         },
