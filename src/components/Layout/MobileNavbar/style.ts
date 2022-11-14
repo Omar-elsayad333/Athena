@@ -1,4 +1,6 @@
-const style: any = {
+import colors from "styles/colors";
+
+const HeaderStyle: any = {
     container: {
         width: '100%',
         height: 'auto',
@@ -80,10 +82,70 @@ const style: any = {
             '@media(max-width: 500px)': {
                 width: '53px',
                 height: '53px',
-            }
-        }
-        
-    }
-}
+            },
+        },
+    },
+};
 
-export default style
+const MenuStyle: any = {
+    container: {
+        width: '100%',
+        position: 'absolute',
+        top: '97px',
+        transition: '1s',
+        overflow: 'hidden',
+        zIndex: '99',
+        '@media(min-width: 1200px)': {
+            display: 'none',
+        }
+    },
+    menu: {
+        width: '100%',
+        minHeight: 'calc(100vh - (95px + 97px))',
+        paddingY: '17px',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
+        backgroundColor: '#B6D5F0',
+        borderBottom: `solid 1px ${colors.primary.dark}`,
+        overflowY: 'auto',
+        overflowX: 'hidden',
+        '&::-webkit-scrollbar': {
+            width: '7px'
+        },
+        '&::-webkit-scrollbar-track': {
+            boxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)',
+            webkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)'
+        },
+        '&::-webkit-scrollbar-thumb': {
+            border: `1px solid ${colors.primary.main}`,
+        },
+    },
+    footer: {
+        width: '100%',
+        height: '95px',
+        paddingX: '50px',
+        borderLeft: `solid 1px ${colors.primary.dark}`,
+        overflowY: 'hidden',
+        background: 'linear-gradient(90deg, #B6D5F0 0%, #DFEFFF 100%)',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'centre',
+        gap: '15px',
+        '@media(max-width: 500px)': {
+            paddingX: '20px',
+        },
+        privacy: {
+            fontSize: '12px',
+            fontWeight: '700',
+            color: colors.primary.dark,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'start',
+            justifyContent: 'center',
+            gap: '7px',
+        }
+    },
+};
+
+export {HeaderStyle, MenuStyle}

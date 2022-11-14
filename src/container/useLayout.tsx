@@ -53,7 +53,6 @@ const useLayout = () => {
     }
 
     const controleMobileSideNav = () => {
-        console.log('omar');
         if(!mobileSideNavState){
             setMobileSideNavState(true)
         }else {
