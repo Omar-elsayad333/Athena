@@ -7,7 +7,6 @@ const useLayout = () => {
     const [layoutState, setLayoutState] = useState<Boolean>(false);  
     const [sideNavState, setSideNavState] = useState<Boolean>(true);  
     const [mobileSideNavState, setMobileSideNavState] = useState<Boolean>(false);  
-
     
     // useEffect(() => {
     //     function handleResize() {
@@ -34,6 +33,7 @@ const useLayout = () => {
     const check = () => {
         if(
             router.pathname === '/teacherLogin' || 
+            router.pathname === '/test' || 
             router.pathname === '/studentLogin' || 
             router.pathname === '/studentSignUp' ||
             router.pathname === '/'

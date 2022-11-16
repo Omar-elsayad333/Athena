@@ -1,69 +1,85 @@
-import * as yup from 'yup';
-import { useFormik } from 'formik';
-import MyInput from "../components/MyInput";
-import LogButS from '../components/LogButS';
-import LogButL from '../components/LoginButDark';
+// import MyInput from "../components/MyInput";
+// import LogButS from '../components/LogButS';
+// import LogButL from '../components/LoginButDark';
+// import MyDropDown from '../components/MyDropDown';
+import {useState} from 'react';
 
 // MUI
 // import { Typography, Button, Box} from "@mui/material";
 import Box from "@mui/material/Box";
-import MyDropDown from '../components/MyDropDown';
+import MenuItem from '@mui/material/MenuItem';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+// import InputLabel from '@mui/material/InputLabel';
+import FormHelperText from '@mui/material/FormHelperText';
+import FormControl from '@mui/material/FormControl';
 
-const validationSchema = yup.object({
-    email: yup
-        .string()
-        .email('Enter a valid email')
-        .required('Email is required'),
-    password: yup
-        .string()
-        .min(8, 'Password should be of minimum 8 characters length')
-        .required('Password is required'),
-});
+
+const classes = {
+    root: {
+        width:'100%',
+        height: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        gap: '20px',
+    },
+    dropMenu: {
+        height: '46px',
+        width: '255px',
+        padding: '0 12px',
+        fontSize: '14px',
+        borderRadius: '7px',
+        border: 'none',
+        boxShadow: '0px 0px 10px 1px #B6D5F0',
+        backgroundColor: '#E8F3FF',
+        color: '#3F72A4',
+        opacity: '0.65',
+        outline: 'none',
+    },
+    menuItems: {
+        margin: '12px',
+        color: '#3F72A4',
+    }
+}
 
 const Test = () => {
 
-    const formik = useFormik({
-        initialValues: {
-            email: '',
-            password: '',
-        },
-        validationSchema: validationSchema,
-        onSubmit: (values) => {
-            alert(JSON.stringify(values, null, 2));
-        },
-    });
+    const [age, setAge] = useState('omar');
+
+
+    
+    const handleChange = (event: SelectChangeEvent) => {
+        setAge(event.target.value);
+    };
 
     return (
-        <Box sx={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: '20px', height: '100vh'}}>
-            <div>
-                <form onSubmit={formik.handleSubmit}>
-                    <MyInput
-                        Id="email"
-                        Name="email"
-                        Value={formik.values.email}
-                        OnChange={formik.handleChange}
-                        error={formik.touched.email && Boolean(formik.errors.email)}
-                        HelperText={formik.touched.email && formik.errors.email}
-                        Type='text'
-                        Placeholder='أكتب عنوانك بالكامل'
-                    />
-                    <br/>
-                    <br/>
-                    <MyDropDown age={''}/>
-                    <br/>
-                    <br/>
-                    <LogButS 
-                        
-                        content="انشاء الحساب"
-                        onClick={() => console.log('omar')}
-                    />
-                    <LogButL
-                        type='submit'
-                        content="انشاء الحساب"
-                        onClick={() => console.log('omar')}
-                    />
-                </form>
-            </div>
+        <Box sx={classes.root}>
+            {/* <select style={classes.dropMenu} name="" id="">
+                <option style={classes.menuItems} value="رجل">رجل</option>
+                <option value="مرأه">مرأه</option>
+                <option value="اخري">اخري</option>  
+            </select> */}
+
+            <FormControl required sx={{ m: 1, minWidth: 120 }}>
+                {/* <InputLabel>omar</InputLabel> */}
+                <Select
+                    labelId="demo-simple-select-required-label"
+                    id="demo-simple-select-required"
+                    value={age}
+                    // label="Age *"
+                    onChange={handleChange}
+                    // placeholder='omar'
+                >
+                    <MenuItem value="">
+                        <em>None</em>
+                    </MenuItem>
+                    <MenuItem value={10}>Ten</MenuItem>
+                    <MenuItem value={20}>Twenty</MenuItem>
+                    <MenuItem value={30}>Thirty</MenuItem>
+                </Select>
+                <FormHelperText>Required</FormHelperText>
+            </FormControl>
         </Box>
     );
 }
