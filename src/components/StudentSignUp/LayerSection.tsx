@@ -47,8 +47,8 @@ const LayerSection: React.FC = () => {
                 <MyButton content='انشاء الحساب' onClick={scroll}/>
                 <Typography variant='h6' color='secondary'>
                     لدي حساب بالفعل 
-                    <Link href='/studentLogin'>
-                        <a style={style.layerSec.scrollBut.link}>
+                    <Link href='/studentLogin' style={style.layerSec.scrollBut.link}>
+                        <a>
                             &nbsp;تسجيل الدخول
                         </a>
                     </Link>

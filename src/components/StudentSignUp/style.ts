@@ -132,7 +132,7 @@ const style: any = {
             flexDirection: 'column',
             justifyContent: 'start',
             alignItem: 'center',
-            gap: '20px'
+            gap: '20px',
         },
         inputsLayout: {
             display: 'flex',

@@ -3,12 +3,18 @@ import Link from 'next/link';
 import MyInput from '../MyInput';
 import MyPhotoInput from '../MyPhotoInput';
 import MyButton from '../LogButS';
+import MySelect from 'components/MySelect';
 
 // MUI
 import Box from '@mui/material/Box';
 import Checkbox from '@mui/material/Checkbox';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
+
+const genders = [
+    'ذكر',
+    'أنثى',
+];
 
 const FormSection: React.FC = () => {
     return (
@@ -20,8 +26,8 @@ const FormSection: React.FC = () => {
                     </Typography>
                     <Typography pb={1} variant='h5' color='primary'>
                         لدي حساب بالفعل
-                        <Link href='/studentLogin'>
-                            <a style={style.formSec.formHeader.link}>
+                        <Link href='/studentLogin' style={style.formSec.formHeader.link}>
+                            <a>
                                 &nbsp;تسجيل الدخول
                             </a>
                         </Link>
@@ -44,7 +50,7 @@ const FormSection: React.FC = () => {
                         <MyInput Placeholder='الاسم الأول' Type='text' />
                         <MyInput Placeholder='الاسم الأخير' Type='text' />
                         <MyInput Placeholder='الاسم الأوسط' Type='text' />
-                        <MyInput Placeholder='أكتب عنوانك بالكامل' Type='text' />
+                        <MySelect placeholder='حدد النوع' data={genders} />
                         <MyInput Placeholder='أكتب أسمك بالكامل' Type='text' />
                         <MyInput Placeholder='أكتب أسمك بالكامل' Type='text' />
                         <MyInput Placeholder='البريد الإلكتروني الخاص بك' Type='text' />

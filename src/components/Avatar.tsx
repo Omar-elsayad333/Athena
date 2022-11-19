@@ -1,7 +1,7 @@
 import Image from 'next/image';
 
 type Prop = {
-    alt?: string;
+    alt: string;
     src?: any; 
     style?: object;
 }

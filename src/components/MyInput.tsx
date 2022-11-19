@@ -17,11 +17,11 @@ type Props = {
 
 const MyTextField = styled(TextField)({
     width: '255px',
-    height: '50px',
+    height: '46px',
     '& .MuiOutlinedInput-root': {
         borderRadius: '7px',
         width: '255px',
-        height: '50px',
+        height: '46px',
         fontSize: '14px',
         fontWeight: '400',
         color: colors.secondary,

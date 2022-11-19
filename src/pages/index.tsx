@@ -16,7 +16,7 @@ const Home: NextPage = () => {
         <Box >
           <Image alt='athena' layout='intrinsic' src={logo} />
         </Box>
-        <Box sx={{width: '100%', display: 'flex', flexDirection: 'column', gap: '20px', alignItems: 'center'}}>
+        <Box sx={{display: 'flex', flexDirection: 'column', gap: '20px', alignItems: 'center'}}>
           <Typography variant='h3'>
             انا مدرس
           </Typography>
