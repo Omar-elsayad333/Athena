@@ -5,6 +5,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 const classes = {
     root: {
@@ -15,6 +16,9 @@ const classes = {
         borderRadius: '7px',
         fontSize: '14px',
         fontWeight: '400',
+        '.MuiSelect-select': {
+            paddingRight: '14px !important',
+        },
         '.MuiOutlinedInput-notchedOutline': {
             transition: '.2s ease-out',
             borderColor: '#E8F3FF',
@@ -29,6 +33,9 @@ const classes = {
         },
         '.MuiSvgIcon-root ': {
             fill: "#3F72A4",
+            position: 'absolute',
+            left: '15px',
+            right: 'auto'
         },
         '@media(max-width: 500px)': {
             width: '214px',
@@ -42,6 +49,7 @@ const classes = {
 const MenuProps = {
     PaperProps: {
         style: {
+            boxShadow: '0px 0px 10px 1px #B6D5F0',
             color: '#3F72A4',
             backgroundColor: '#E8F3FF',
             // first number is item height, second number is item top padding
@@ -70,6 +78,7 @@ const MySelect: React.FC<Props> = ({placeholder, data}) => {
         <FormControl required>
             <Select
                 displayEmpty
+                IconComponent={KeyboardArrowDownIcon}
                 sx={classes.root}
                 value={item}
                 onChange={handleChange}
