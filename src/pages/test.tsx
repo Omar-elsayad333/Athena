@@ -2,7 +2,6 @@
 // MUI
 import Box from '@mui/material/Box';
 
-
 const classes = {
     root: {
         width:'100%',

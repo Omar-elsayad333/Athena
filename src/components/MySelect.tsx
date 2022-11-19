@@ -3,7 +3,6 @@ import { useState } from 'react';
 // MUI
 import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
@@ -97,7 +96,6 @@ const MySelect: React.FC<Props> = ({placeholder, data}) => {
                     </MenuItem>
                 ))}
             </Select>
-            <FormHelperText>Required</FormHelperText> 
         </FormControl>
     );
 }
