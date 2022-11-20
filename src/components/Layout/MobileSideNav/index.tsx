@@ -1,5 +1,5 @@
-import HeaderNav from './HeaderNav';
-import MenuNav from './MenuNav';
+import HeaderNav from './Header';
+import MenuNav from './Menu';
 
 // MUI
 import Box from '@mui/material/Box';
@@ -12,6 +12,9 @@ type Props = {
 const classes = {
     root: {
         position: 'relative',
+        '@media(min-width: 1200px)': {
+            display: 'none',
+        }
     },
 }
 
@@ -23,5 +26,5 @@ const MobileNavbar: React.FC<Props> = ({controleMobileSideNav, mobileSideNavStat
         </Box>
     );
 }
- 
+
 export default MobileNavbar;

@@ -12,7 +12,6 @@ type Prop = {
     controleMobileSideNav: Function;
 }
 
-
 const NavLink: React.FC<Prop> = ({icon, content, path, controleMobileSideNav}) => {
     
     const classes = {

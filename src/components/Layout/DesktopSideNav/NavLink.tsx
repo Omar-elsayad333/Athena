@@ -12,7 +12,6 @@ type Prop = {
     sideNavState: Boolean;
 }
 
-
 const NavLink: React.FC<Prop> = ({icon, content, path, sideNavState}) => {
     
     const classes = {
@@ -28,8 +27,9 @@ const NavLink: React.FC<Prop> = ({icon, content, path, sideNavState}) => {
             fontWeight: '700',
             border: 'none',
             color: '#3F72A4',
+            whiteSpace: 'noWrap',
         },
-    }
+    };
 
     const select = (e: any) => {
         const buttons = document.getElementsByClassName(`${myStyle.myButton}`);

@@ -1,11 +1,10 @@
-import TeacherSideNav from './TeacherSideNav';
-import DesktopNavbar from './DesktopNavbar';
+import DesktopSideNav from './DesktopSideNav';
+import MobileSideNav from './MobileSideNav';
 import useLayout from 'container/useLayout';
 
 // MUI
 import Box from '@mui/material/Box';
 import { useEffect } from 'react';
-import MobileNavbar from './MobileNavbar';
 
 type IProps = {
     children?: JSX.Element | JSX.Element[];
@@ -25,20 +24,26 @@ const Layout: React.FC<IProps> = ({ children }) => {
     useEffect(() => {
         check();
     });
-        
+
+    const style = {
+        container: {
+            display: 'flex',
+            '@media(max-width: 1200px)': {
+                flexDirection: 'column',
+            },
+        }
+    }
+    
     return (
         <Box>
-            {
-                layoutState && 
-                <>
-                    <DesktopNavbar controleSideNav={controleSideNav} sideNavState={sideNavState} /> 
-                    <MobileNavbar controleMobileSideNav={controleMobileSideNav} mobileSideNavState={mobileSideNavState} /> 
-                </>
-                    
-            }
-
-            <Box sx={{display: 'flex'}}>
-                { layoutState && <TeacherSideNav sideNavState={sideNavState} /> }
+            <Box sx={style.container}>
+                { 
+                    layoutState &&
+                    <>
+                        <DesktopSideNav controleSideNav={controleSideNav} sideNavState={sideNavState} /> 
+                        <MobileSideNav mobileSideNavState={ mobileSideNavState} controleMobileSideNav={controleMobileSideNav} />
+                    </>
+                }
                 {children}
             </Box>
         </Box>

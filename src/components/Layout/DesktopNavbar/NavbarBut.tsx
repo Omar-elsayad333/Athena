@@ -9,9 +9,9 @@ type Props = {
 }
 
 const MyButton = styled(Button)({
-    width: '261px',
-    height: '59px',
-    fontSize: '25px',
+    width: '202px',
+    height: '46px',
+    fontSize: '20px',
     fontWeight: '700',
     borderRadius: '7px',
     boxShadow: 'none',
@@ -19,19 +19,16 @@ const MyButton = styled(Button)({
     '&:hover': {
         backgroundColor: colors.primary.main,
     },
-    '@media(max-width: 1400px)': {
-        width: '200px',
-        height: '50px',
-        fontSize: '20px',
-    },
     '@media(max-width: 1200px)': {
+        width: '170px',
+        height: '40px',
         padding: '9px 5px',
-        borderRadius: '30px',
+        borderRadius: '21px',
     },
-    '@media(max-width: 500px)': {
-        width: '160px',
-        fontSize: '16px',
-    }
+    // '@media(max-width: 500px)': {
+    //     width: '160px',
+    //     fontSize: '16px',
+    // }
 });
 
 const NavbarBut: React.FC<Props> = ({content, onClick}) => {
