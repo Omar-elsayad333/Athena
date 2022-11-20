@@ -16,7 +16,6 @@ const classes = {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        gap: '20px',
         borderLeft: `solid 1px ${colors.primary.dark}`,
         background: 'linear-gradient(90deg, #B6D5F0 0%, #DFEFFF 100%)',
         overflow: 'hidden',
