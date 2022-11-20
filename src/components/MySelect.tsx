@@ -31,16 +31,18 @@ const classes = {
             borderColor: '#E8F3FF',
         },
         '.MuiSvgIcon-root ': {
+            width: '30px ',
+            height: '30px',
             fill: "#3F72A4",
-            position: 'absolute',
+            top: '20%',
             left: '15px',
-            right: 'auto'
+            right: 'auto',
         },
-        '@media(max-width: 500px)': {
-            width: '214px',
+        '@media(max-width: 300px)': {
+            width: '200px',
         },
         '@media(max-width: 250px)': {
-            width: '170px',
+            width: '150px',
         },
     },
 };
