@@ -7,8 +7,8 @@ import askIcon from '../../../../public/images/askIcon.svg';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
-const classes = {
-    footer: {
+const style = {
+    container: {
         width: '100%',
         height: '66px',
         paddingLeft: '20px',
@@ -16,6 +16,7 @@ const classes = {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
+        gap: '20px',
         borderLeft: `solid 1px ${colors.primary.dark}`,
         background: 'linear-gradient(90deg, #B6D5F0 0%, #DFEFFF 100%)',
         overflow: 'hidden',
@@ -24,7 +25,6 @@ const classes = {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            gap: '10px'
         },
     },
 }
@@ -34,9 +34,20 @@ type Props = {
 }
 
 const Footer: React.FC<Props> = ({sideNavState}) => {
+
+    const classes = {
+        container: {
+            gap: sideNavState ? '20px' : '0',
+        },
+        logout: {
+            gap: sideNavState ? '10px' : '0',
+            width: sideNavState ? 'fit-content' : '100%'
+        }
+    }
+
     return (
-        <Box sx={classes.footer}>
-            <Box sx={classes.footer.logout}>
+        <Box sx={[style.container, classes.container]}>
+            <Box sx={[style.container.logout, classes.logout]}>
                 <Image src={logOut} alt='تسجيل الخروج' style={{cursor: 'pointer'}}/>
                 {
                     sideNavState &&
