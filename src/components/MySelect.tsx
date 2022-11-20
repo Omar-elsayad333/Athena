@@ -31,11 +31,11 @@ const classes = {
             borderColor: '#E8F3FF',
         },
         '.MuiSvgIcon-root ': {
-            width: '30px ',
-            height: '30px',
+            width: '33px ',
+            height: '33px',
             fill: "#3F72A4",
-            top: '20%',
-            left: '15px',
+            top: '15%',
+            left: '10px',
             right: 'auto',
         },
         '@media(max-width: 300px)': {
