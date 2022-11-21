@@ -72,7 +72,7 @@ const popperStyle: SxProps = {
     },
     '& .PrivatePickersSlideTransition-root': {
         backgroundColor: '#E8F3FF',
-        borderRadius: '20px 20px 0 0'
+        borderRadius: '20px'
     },
     '& .MuiPickersDay-dayWithMargin': {
         color: 'rgba(63, 114, 164, .65)',
