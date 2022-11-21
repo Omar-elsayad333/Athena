@@ -2,6 +2,8 @@
 // MUI
 import Box from '@mui/material/Box';
 import MyDatePicker from 'components/MyDatePicker';
+import MyInput from 'components/MyInput';
+import MySelect from 'components/MySelect';
 
 const classes = {
     root: {
@@ -11,14 +13,16 @@ const classes = {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        gap: '20px',
+        gap: '200px',
     },
 }
 
 const Test = () => {
     return (
         <Box sx={classes.root}>
-            <MyDatePicker />
+            <MyInput Placeholder='omar' />
+            <MyDatePicker placeholder='opmar' />
+            <MySelect placeholder='my name' data={['ahmed', 'omar']}/>
         </Box>
     );
 }

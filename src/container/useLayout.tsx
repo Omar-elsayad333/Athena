@@ -31,33 +31,21 @@ const useLayout = () => {
     // }
     
     const check = () => {
-        if(
             router.pathname === '/teacherLogin' || 
             router.pathname === '/test' || 
             router.pathname === '/studentLogin' || 
             router.pathname === '/studentSignUp' ||
-            router.pathname === '/'
-        ) {
-            setLayoutState(false)
-        }else {
+            router.pathname === '/' ?
+            setLayoutState(false) :
             setLayoutState(true);
-        };
     };
 
     const controleSideNav = () => {
-        if(sideNavState){
-            setSideNavState(false)
-        }else {
-            setSideNavState(true)
-        }
+        sideNavState ? setSideNavState(false) : setSideNavState(true);
     }
 
     const controleMobileSideNav = () => {
-        if(!mobileSideNavState){
-            setMobileSideNavState(true)
-        }else {
-            setMobileSideNavState(false)
-        }
+        mobileSideNavState ? setMobileSideNavState(false) : setMobileSideNavState(true);
     }
 
     return ({

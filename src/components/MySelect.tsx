@@ -5,12 +5,13 @@ import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { SxProps, Typography } from '@mui/material';
 
 const classes = {
     root: {
         width: '255px',
         height: '46px',
-        color: 'rgba(63, 114, 164, .65)',
+        color: 'rgba(63, 114, 164, 1)',
         backgroundColor: '#E8F3FF',
         borderRadius: '7px',
         fontSize: '14px',
@@ -47,15 +48,20 @@ const classes = {
     },
 };
 
-const MenuProps = {
-    PaperProps: {
-        style: {
-            boxShadow: '0px 0px 10px 1px #B6D5F0',
-            color: '#3F72A4',
-            backgroundColor: '#E8F3FF',
-            // first number is item height, second number is item top padding
-            maxHeight: 48 * 4.5 + 8,
-        },
+const menuStyle: SxProps = {
+    '.MuiPaper-root': {
+        borderRadius: '10px',
+        backgroundColor: '#E8F3FF',
+        boxShadow: '0px 0px 10px 1px #B6D5F0',
+        // first number is item height, second number is item top padding
+        maxHeight: 48 * 4.5 + 8,
+    },
+    '.MuiMenuItem-root': {
+        color: '#3F72A4',
+        ':hover': {
+            backgroundColor: '#B6D5F0',
+            color: '#1C364F',
+        }
     },
 }
 
@@ -84,10 +90,17 @@ const MySelect: React.FC<Props> = ({placeholder, data}) => {
                 value={item}
                 onChange={handleChange}
                 renderValue={(selected) => {
-                    if (selected.length === 0) return placeholder;
+                    if (selected.length === 0) {
+                        return (
+                            <Typography fontSize={14} fontWeight={400} color={'rgba(63, 114, 164, .65)'}>
+                                {placeholder}
+                            </Typography>);
+                    }
                     return selected;
                 }}
-                MenuProps={MenuProps}
+                MenuProps={{
+                    sx: menuStyle
+                }}
             >
                 {data.map((item: any) => (
                     <MenuItem

@@ -1,4 +1,3 @@
-import colors from 'styles/colors';
 import Image from 'next/image';
 import logOut from '../../../../public/images/LogOutIcon.svg';
 import askIcon from '../../../../public/images/askIcon.svg';
@@ -17,7 +16,6 @@ const classes = {
         alignItems: 'center',
         justifyContent: 'space-between',
         gap: '20px',
-        borderLeft: `solid 1px ${colors.primary.dark}`,
         background: 'linear-gradient(90deg, #B6D5F0 0%, #DFEFFF 100%)',
         overflow: 'hidden',
         logout: {
@@ -45,5 +43,5 @@ const Footer: React.FC = () => {
         </Box>
     );
 }
- 
+
 export default Footer;

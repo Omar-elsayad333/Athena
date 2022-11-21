@@ -26,6 +26,7 @@ const classes = {
             borderColor: '#E8F3FF',
             backgroundColor: '#E8F3FF',
             '.MuiOutlinedInput-input': {
+                height: '100%',
                 '&::placeholder': {
                     color: 'rgb(63, 114, 164)',
                     opacity: .65,
