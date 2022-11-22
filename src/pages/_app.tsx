@@ -2,18 +2,18 @@ import type { AppProps } from 'next/app';
 import ThemeApp from '../styles/theme';
 import '../styles/globals.css';
 import Layout from 'components/Layout';
-import { DarkModeProvider } from 'context/DarkModeContext';
+import { DarkThemeProvider } from 'context/ThemeContext';
 
 function MyApp({ Component, pageProps }: AppProps) {
 
   return (
-    <DarkModeProvider>
+    <DarkThemeProvider>
       <ThemeApp>
         <Layout>
           <Component {...pageProps} />
         </Layout>
       </ThemeApp>
-    </DarkModeProvider>
+    </DarkThemeProvider>
   )
 }
 

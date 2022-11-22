@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useContext } from 'react';
+import { DarkThemeContext } from 'context/ThemeContext';
 import colors from './colors';
 
 // MUI
@@ -12,9 +13,9 @@ type IProps = {
 //  them component
 const ThemeApp: React.FC<IProps> = ({ children }) => {
 
-  const [darkMode, setDarkMode] = useState<Boolean>(false)
+  const {darkMode} = useContext(DarkThemeContext);
 
-  // Create a theme instance.
+  // Create a theme instance.x
   const theme = createTheme({
     palette: {
       primary: {
@@ -62,7 +63,6 @@ const ThemeApp: React.FC<IProps> = ({ children }) => {
   });
 
   theme.typography.h1 = {
-    // fontFamily: 'Almarai, sans-serif',
     fontWeight: '700',
     fontSize: '30px',
     '@media (min-width:600px)': {
@@ -74,7 +74,6 @@ const ThemeApp: React.FC<IProps> = ({ children }) => {
   };
 
   theme.typography.h2 = {
-    // fontFamily: 'Almarai, sans-serif',
     fontWeight: '700',
     fontSize: '25px',
     '@media (min-width:600px)': {
@@ -86,7 +85,6 @@ const ThemeApp: React.FC<IProps> = ({ children }) => {
   };
 
   theme.typography.h3 = {
-    // fontFamily: 'Almarai, sans-serif',
     fontWeight: '700',
     fontSize: '20px',
     '@media (min-width:600px)': {
@@ -98,7 +96,6 @@ const ThemeApp: React.FC<IProps> = ({ children }) => {
   };
 
   theme.typography.h4 = {
-    // fontFamily: 'Almarai, sans-serif',
     fontWeight: '400',
     fontSize: '18px',
     [theme.breakpoints.up('lg')]: {
@@ -107,7 +104,6 @@ const ThemeApp: React.FC<IProps> = ({ children }) => {
   };
 
   theme.typography.h5 = {
-    // fontFamily: 'Almarai, sans-serif',
     fontWeight: '400',
     fontSize: '13px',
     [theme.breakpoints.up('lg')]: {
@@ -116,7 +112,6 @@ const ThemeApp: React.FC<IProps> = ({ children }) => {
   };
 
   theme.typography.h6 = {
-    // fontFamily: 'Almarai, sans-serif',
     fontWeight: '300',
     fontSize: '11px',
     [theme.breakpoints.up('lg')]: {
