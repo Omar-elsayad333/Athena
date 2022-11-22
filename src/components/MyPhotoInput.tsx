@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import colors from '../styles/colors';
 import photoPlaceholder from '../../public/images/photo-input-placeholder.svg';
 
 // MUI
