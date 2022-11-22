@@ -34,7 +34,7 @@ const classes = {
         '.MuiSvgIcon-root ': {
             width: '33px ',
             height: '33px',
-            fill: "#3F72A4",
+            fill: "#81acd1",
             top: '15%',
             left: '10px',
             right: 'auto',

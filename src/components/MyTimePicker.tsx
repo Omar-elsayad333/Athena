@@ -42,7 +42,7 @@ const classes = {
         '.MuiSvgIcon-root': {
             width: '18px ',
             height: '18px',
-            fill: "#3F72A4",
+            fill: "#81acd1",
         },
         '.MuiIconButton-root': {
             width: '18px ',

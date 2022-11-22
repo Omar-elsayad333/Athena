@@ -43,7 +43,7 @@ const classes: SxProps = {
         '.MuiSvgIcon-root ': {
             width: '25px ',
             height: '25px',
-            fill: "#3F72A4",
+            fill: "#81acd1",
         },
         '@media(max-width: 300px)': {
             width: '200px',

@@ -28,7 +28,7 @@ const MyButton = styled(Button)({
 
 const LoginButDark: React.FC<Props> = ({content, onClick, type}) => {
     return (
-        <MyButton variant="contained" type={type} onClick={onClick}>
+        <MyButton variant="contained" color='primary' type={type} onClick={onClick}>
             {content}
         </MyButton>  
     );

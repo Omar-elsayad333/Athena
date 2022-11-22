@@ -37,7 +37,7 @@ const classes = {
             borderColor: '#E8F3FF',
         },
         '.MuiSvgIcon-root': {
-            color: '#3F72A4'
+            color: '#81acd1'
         },
         '@media(max-width: 300px)': {
             width: '200px',

@@ -2,6 +2,8 @@ import type { NextPage } from 'next';
 import logo from '../../public/images/Logo(4).svg';
 import LoginButDark from '../components/LoginButDark';
 import LoginButLight from '../components/LoginButLight';
+import { DarkModeContext } from 'context/DarkModeContext';
+import { useContext } from 'react';
 
 // MUI
 import Container from '@mui/material/Container';
@@ -10,6 +12,9 @@ import Image from 'next/image';
 import { Box, Typography } from '@mui/material';
 
 const Home: NextPage = () => {
+
+  const {handelDarkTheme} = useContext(DarkModeContext);
+
   return (
     <Container maxWidth="xl">
       <Box sx={{width: '100%', padding: '50px', display: 'flex', flexDirection: 'column', gap: '50px', alignItems: 'center'}}>
@@ -42,7 +47,7 @@ const Home: NextPage = () => {
           </Link>
         </Box>
         <Box sx={{display: 'flex', flexDirection: 'column', gap: '20px', alignItems: 'center'}}>
-          <Typography variant='h3'>
+          <Typography variant='h3' onClick={() => handelDarkTheme()}>
             teacher pages
           </Typography>
           <Link href='/teacher/home' style={{paddingLeft: '20px'}}>
