@@ -11,6 +11,7 @@ import Box from '@mui/material/Box';
 import Checkbox from '@mui/material/Checkbox';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
+import MyPassInput from 'components/MyPassInput';
 
 const genders = [
     'ذكر',
@@ -22,13 +23,13 @@ const FormSection: React.FC = () => {
         <Container sx={style.formSec}>
             <Box sx={style.formSec.headerContainer}>
                 <Box sx={style.formSec.formHeader}>
-                    <Typography variant='h2' color='primary'>
+                    <Typography fontSize={35} fontWeight={700} color={'#1C364F'}>
                         انشاء حساب جديد  
                     </Typography>
-                    <Typography pb={1} variant='h5' color='primary'>
+                    <Typography pb={1} variant='h5' color={'#1C364F'} sx={style.formSec.formHeader.link}>
                         لدي حساب بالفعل
-                        <Link href='/studentLogin' style={style.formSec.formHeader.link}>
-                            <a>
+                        <Link href='/studentLogin'>
+                            <a className='dark-link'>
                                 &nbsp;تسجيل الدخول
                             </a>
                         </Link>
@@ -41,7 +42,7 @@ const FormSection: React.FC = () => {
 
             <Box sx={style.formSec.formLayout}>
                 <Box sx={style.formSec.stepLayout}>
-                    <Typography variant='h4' fontWeight={700} color='primary'>
+                    <Typography variant='h4' fontWeight={700} color={'#1C364F'}>
                         معلومات الطالب الشخصية
                     </Typography>
                     <Box sx={style.formSec.photoInput}>
@@ -54,14 +55,14 @@ const FormSection: React.FC = () => {
                         <MySelect placeholder='حدد النوع' data={genders} />
                         <MyDatePicker placeholder='حدد تاريخ ميلادك ' />
                         <MyInput Placeholder='أكتب عنوانك بالكامل' Type='text' />
-                        <MyInput Placeholder='البريد الإلكتروني الخاص بك' Type='text' />
+                        <MyInput Placeholder='البريد الإلكتروني الخاص بك' Type='email' />
                         <MyInput Placeholder='رقم الهاتف الخاص بك' Type='text' />
                         <MyInput Placeholder='رقم الهاتف المنزلي' Type='text' />
                     </Box>
                 </Box>
 
                 <Box sx={style.formSec.stepLayout}>
-                    <Typography variant='h4' fontWeight={700} color='primary'>
+                    <Typography variant='h4' fontWeight={700} color={'#1C364F'}>
                         معلومات ولي الأمر
                     </Typography>
                     <Box sx={style.formSec.inputsLayout}>                        
@@ -72,19 +73,19 @@ const FormSection: React.FC = () => {
                 </Box>
 
                 <Box sx={style.formSec.stepLayout}>
-                    <Typography variant='h4' fontWeight={700} color='primary'>
+                    <Typography variant='h4' fontWeight={700} color={'#1C364F'}>
                         معلومات الحساب
                     </Typography>
                     <Box sx={style.formSec.inputsLayout}>
                         <MyInput Placeholder='أسم المستخدم' Type='text' />
-                        <MyInput Placeholder='كلمة السر ' Type='text' />
-                        <MyInput Placeholder='تأكيد كلمة السر' Type='text' />
+                        <MyPassInput placeholder='كلمة السر' />
+                        <MyPassInput placeholder='تأكيد كلمة السر' />
                     </Box>
                 </Box>
             </Box>
             <Box sx={style.formSec.privacy}>
-                <Checkbox size='small' color='secondary' />
-                <Typography variant="h5" color='secondary'>
+                <Checkbox size='small' color='primary' />
+                <Typography variant="h5" color='primary'>
                     عمري 13 عاما أو أكثر وأوافق على سياسة الخصوصية وشروط الخدمة     
                 </Typography>
             </Box>

@@ -3,6 +3,7 @@
 import Box from '@mui/material/Box';
 import MyDatePicker from 'components/MyDatePicker';
 import MyInput from 'components/MyInput';
+import MyPassInput from 'components/MyPassInput';
 import MySelect from 'components/MySelect';
 import MyTimePicker from 'components/MyTimePicker';
 
@@ -25,6 +26,7 @@ const Test = () => {
             <MyDatePicker placeholder='opmar' />
             <MySelect placeholder='my name' data={['ahmed', 'omar']}/>
             <MyTimePicker />
+            <MyPassInput placeholder='omar' />
         </Box>
     );
 }

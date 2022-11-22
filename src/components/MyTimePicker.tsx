@@ -23,6 +23,10 @@ const classes = {
             transition: '.2s ease-out',
             border: '1px solid #E8F3FF !important',
             paddingRight: '6px',
+            '&.Mui-focused': {
+                boxShadow: '0px 0px 0px 1px #3F72A4',
+                borderColor: '#E8F3FF',
+            },
         },
         '.MuiOutlinedInput-input': {
             textTransform: 'uppercase',
@@ -36,12 +40,13 @@ const classes = {
             borderColor: 'red !important',
         },
         '.MuiSvgIcon-root': {
+            width: '18px ',
+            height: '18px',
             fill: "#3F72A4",
         },
         '.MuiIconButton-root': {
-            width: '17px ',
-            height: '17px',
-            fill: "#3F72A4",
+            width: '18px ',
+            height: '18px',
         },
     },
 };
@@ -53,21 +58,27 @@ const popperStyle: SxProps = {
         boxShadow: '0px 0px 10px 1px #B6D5F0',
     },
     '.MuiClock-squareMask': {
-        backgroundColor: '#3F72A4',
+        backgroundColor: '#B6D5F0',
     },
     '.MuiClockNumber-root': {
+        color: '#3F72A4',
+    },
+    '.Mui-selected': {
         color: '#E8F3FF',
     },
-    '.MuiPickersArrowSwitcher-root': {
-        color: '#E8F3FF',
+    '.MuiPickersArrowSwitcher-spacer': {
+        width: '5px',
+    },
+    '.MuiSvgIcon-root': {
+        color: '#3F72A4',
     },
     '.MuiClock-amButton:hover': {
         color: '#E8F3FF',
-        backgroundColor: '#1C364F'
+        backgroundColor: '#3F72A4'
     },
     '.MuiClock-pmButton:hover': {
         color: '#E8F3FF',
-        backgroundColor: '#1C364F'
+        backgroundColor: '#3F72A4'
     },
 };
 

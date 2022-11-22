@@ -22,11 +22,9 @@ const classes = {
             fontWeight: '400',
             color: 'rgba(63, 114, 164, 1)',
             borderRadius: '7px',
-            border: '1px solid transparent',
             borderColor: '#E8F3FF',
             backgroundColor: '#E8F3FF',
             '.MuiOutlinedInput-input': {
-                height: '100%',
                 '&::placeholder': {
                     color: 'rgb(63, 114, 164)',
                     opacity: .65,

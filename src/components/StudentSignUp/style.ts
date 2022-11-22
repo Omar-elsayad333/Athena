@@ -72,12 +72,11 @@ const style: any = {
             link: {
                 cursor: 'pointer',
                 textDecoration: 'underline',
-                color: 'inherit',
+                color: '#1C364F',
             }
         }
     },
     formSec: {
-        backgroundColor: '#E8F3FF',
         width: '50%',
         minHeight: '100vh',
         paddingTop: '55px',
@@ -86,19 +85,23 @@ const style: any = {
         justifyContent: 'top',
         alignItems: 'center',
         gap: '20px',
+        backgroundColor: '#E0EEFF',
         '@media (max-width: 1000px)': {
             width: '100%',
             flexDirection: 'column',
         },
         headerContainer: {
+            width: '100%',
             display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'start',
             gap: '140px',
             '@media (max-width: 1500px)': {
                 gap: '70px'
             },
             '@media (max-width: 1000px)': {
                 paddingLeft: '50px',  
-            }
+            },
         },
         formHeader: {
             height: 'fit-content',
@@ -106,14 +109,14 @@ const style: any = {
             flexWrap: 'wrap',
             alignItems: 'end',
             gap: '20px',
-            backgroundColor: 'rgba(182, 213, 240, 0.5)',
+            backgroundColor: '#E8F3FF',
             border: '2px solid #B6D5F0',
             borderRadius: '10px',
             padding: '11px 22px',
             link: {
-                cursor: 'pointer',
-                textDecoration: 'underline',
-                color: 'inherit',
+                '@media (max-width: 1000px)': {
+                    display: 'none',
+                }
             },
             '@media (max-width: 1000px)': {
                 marginBottom: '40px',
@@ -158,6 +161,7 @@ const style: any = {
             },
         },
         headerPhotoInput: {
+            marginLeft: '50px',
             '@media (max-width: 1000px)': {
                 display: 'none',
             }

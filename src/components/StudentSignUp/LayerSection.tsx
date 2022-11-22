@@ -26,11 +26,11 @@ const LayerSection: React.FC = () => {
                 <Image alt='Athena' src={logo} />
             </Box>
             <Box sx={style.layerSec.layer}>
-                <Typography variant='h2' color='primary'>
+                <Typography variant='h1' color={'#1C364F'}>
                     اهلا بك في بوابة الطلاب     
                 </Typography>
                 <Image alt='student signup' src={layer} />
-                <Typography variant='h6' color='secondary' sx={style.layerSec.layer.privacy}>
+                <Typography fontSize={14} fontWeight={300} color='primary' sx={style.layerSec.layer.privacy}>
                     تسجيلك في منصة أثينا كطالب جديد يعني ذلك انك توافق على استخدام جميع بياناتك 
                     <br/>
                     من قبل المدرسين المشتركين بالمنصة و على 
@@ -45,10 +45,10 @@ const LayerSection: React.FC = () => {
             </Box>
             <Box sx={style.layerSec.scrollBut}>
                 <MyButton content='انشاء الحساب' onClick={scroll}/>
-                <Typography variant='h6' color='secondary'>
+                <Typography variant='h6' color={'#1C364F'}>
                     لدي حساب بالفعل 
                     <Link href='/studentLogin' style={style.layerSec.scrollBut.link}>
-                        <a>
+                        <a className='dark-link'>
                             &nbsp;تسجيل الدخول
                         </a>
                     </Link>

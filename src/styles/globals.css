@@ -9,8 +9,12 @@
     --third-color: #8CC3F2;
 }
 
-a {
-    text-decoration: none;
+.dark-link {
+    color: #1C364F;
+}
+
+.light-link {
+    color: #3F72A4;
 }
 
 /* =====================
