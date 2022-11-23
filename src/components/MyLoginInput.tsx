@@ -1,4 +1,4 @@
-import colors from '../styles/colors';
+import {lightColors} from '../styles/colors';
 
 // MUI
 import styled from '@mui/material/styles/styled';
@@ -24,7 +24,7 @@ const MyTextField = styled(TextField)({
         height: '80px',
         fontSize: '16px',
         fontWeight: '400',
-        color: colors.secondary,
+        color: lightColors.secondary,
         border: '1px solid transparent',
         backgroundColor: 'rgba(232, 243, 255, 0.25)',
         transition: '.2s ease-out',
