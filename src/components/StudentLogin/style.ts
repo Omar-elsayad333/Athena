@@ -1,4 +1,4 @@
-import colors from "../../styles/colors";
+import {lightColors} from "../../styles/colors";
 
 const style: any = {
     StudentLoginCard: {
@@ -11,8 +11,8 @@ const style: any = {
         backdropFilter: 'blur(10px)',
         borderWidth: '10px 0px',
         borderStyle: 'solid',
-        borderColor: `${colors.primary.main}`,   
-        color: colors.primary.main,
+        borderColor: `${lightColors.primary.main}`,   
+        color: lightColors.primary.main,
     },
     container: {
         maxWidth: '100%',
@@ -64,7 +64,7 @@ const style: any = {
     },
     link: {
         cursor: 'pointer',
-        color: colors.primary.dark
+        color: lightColors.primary.dark
     }
 }
 
