@@ -10,7 +10,7 @@ import Typography from "@mui/material/Typography";
 import MyInput from 'components/MyInput';
 import MySelect from 'components/MySelect';
 
-const FormSection: React.FC = () => {
+const TeacherAddGroup: React.FC = () => {
 
     const {darkMode} = useContext(DarkThemeContext);
 
@@ -51,4 +51,4 @@ const FormSection: React.FC = () => {
     );
 }
  
-export default FormSection;
+export default TeacherAddGroup;

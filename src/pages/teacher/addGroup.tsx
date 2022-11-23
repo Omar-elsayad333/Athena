@@ -3,7 +3,7 @@ import DesktopNavbar from 'components/Layout/DesktopNavbar';
 import { useContext } from "react";
 import { lightColors, darkColors } from "styles/colors";
 import { DarkThemeContext } from "context/ThemeContext";
-import FormSection from 'components/Teacher/AddGroup/FormSection';
+import TeacherAddGroup from 'components/TeacherAddGroup';
 
 // MUI
 import Box from "@mui/material/Box";
@@ -31,7 +31,7 @@ const AddGroup: NextPage = () => {
         <Box sx={style.root}>
             <DesktopNavbar /> 
             <Box p={8}>
-                <FormSection />
+                <TeacherAddGroup />
             </Box>
         </Box>    
     );
