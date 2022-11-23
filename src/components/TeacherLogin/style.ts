@@ -1,4 +1,4 @@
-import colors from "../../styles/colors";
+import {lightColors} from "../../styles/colors";
 
 const style: any = {
     TeacherLoginCard: {
@@ -11,8 +11,8 @@ const style: any = {
         backdropFilter: 'blur(10px)',
         borderWidth: '10px 0px',
         borderStyle: 'solid',
-        borderColor: `${colors.primary.dark}`,   
-        color: colors.primary.dark,
+        borderColor: `${lightColors.primary.dark}`,   
+        color: lightColors.primary.dark,
     },
     container: {
         maxWidth: '100%',
@@ -46,7 +46,7 @@ const style: any = {
         justifyContent: 'space-between',
         alignItems: 'center',
         paddingTop: '16px',
-        color: colors.primary.dark,
+        color: lightColors.primary.dark,
     },
     checkContainer: {
         fontWeight: '400',
