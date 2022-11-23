@@ -1,4 +1,4 @@
-import colors from 'styles/colors';
+import { lightColors, darkColors } from 'styles/colors';
 import NavLink from './NavLink';
 import home from '../../../../public/images/HomeIcon.svg';
 import students from '../../../../public/images/StudentsIcon.svg';
@@ -11,6 +11,8 @@ import year from '../../../../public/images/YearIcon.svg';
 import money from '../../../../public/images/MoneyIcon.svg';
 import employees from '../../../../public/images/EmployeesIcon.svg';
 import setting from '../../../../public/images/SettingIcon.svg';
+import { useContext } from 'react';
+import { DarkThemeContext } from 'context/ThemeContext';
 
 // MUI
 import Box from '@mui/material/Box';
@@ -19,35 +21,39 @@ type Props = {
     sideNavState: Boolean;
 }
 
-const classes = {
-    menu: {
-        width: '100%',
-        height: 'calc(100% - (66px + 94px))',
-        paddingY: '17px',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        gap: '40px',
-        backgroundColor: '#B6D5F0',
-        borderTop: `solid 1px ${colors.primary.dark}`,
-        borderBottom: `solid 1px ${colors.primary.dark}`,
-        borderLeft: `solid 1px ${colors.primary.dark}`,
-        overflowY: 'auto',
-        overflowX: 'hidden',
-        '&::-webkit-scrollbar': {
-            width: '7px'
-        },
-        '&::-webkit-scrollbar-track': {
-            boxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)',
-            webkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)'
-        },
-        '&::-webkit-scrollbar-thumb': {
-            border: `1px solid ${colors.primary.main}`,
-        },
-    },
-}
 
 const Menu: React.FC<Props> = ({sideNavState}) => {
+
+    const {darkMode} = useContext(DarkThemeContext);
+
+    const classes = {
+        menu: {
+            width: '100%',
+            height: 'calc(100% - (66px + 94px))',
+            paddingY: '17px',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            gap: '40px',
+            backgroundColor: darkMode ? darkColors.backgroundColor.sideNav : lightColors.backgroundColor.sideNav ,
+            borderTop: `solid 1px ${darkMode ? darkColors.primary.main : lightColors.primary.main}`,
+            borderBottom: `solid 1px ${darkMode ? darkColors.primary.main : lightColors.primary.main}`,
+            borderLeft: `solid 1px ${darkMode ? darkColors.primary.main : lightColors.primary.main}`,
+            overflowY: 'auto',
+            overflowX: 'hidden',
+            '&::-webkit-scrollbar': {
+                width: '7px'
+            },
+            '&::-webkit-scrollbar-track': {
+                boxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)',
+                webkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)'
+            },
+            '&::-webkit-scrollbar-thumb': {
+                border: `1px solid ${lightColors.primary.main}`,
+            },
+        },
+    }
+
     return (
         <Box sx={classes.menu}>
             <Box>

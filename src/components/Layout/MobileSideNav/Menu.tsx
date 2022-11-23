@@ -1,4 +1,4 @@
-import colors from "styles/colors";
+import {lightColors} from "styles/colors";
 import Footer from './Footer';
 import NavLink from "./NavLink";
 import home from '../../../../public/images/HomeIcon.svg';
@@ -38,7 +38,7 @@ const style: any = {
         flexDirection: 'column',
         justifyContent: 'flex-start',
         backgroundColor: '#B6D5F0',
-        borderBottom: `solid 1px ${colors.primary.dark}`,
+        borderBottom: `solid 1px ${lightColors.primary.dark}`,
         overflowY: 'auto',
         overflowX: 'hidden',
         '&::-webkit-scrollbar': {
@@ -49,7 +49,7 @@ const style: any = {
             webkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)'
         },
         '&::-webkit-scrollbar-thumb': {
-            border: `1px solid ${colors.primary.main}`,
+            border: `1px solid ${lightColors.primary.main}`,
         },
     },
 };

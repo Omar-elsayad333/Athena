@@ -1,4 +1,4 @@
-import colors from '../styles/colors';
+import {lightColors} from '../styles/colors';
 
 // MUI
 import { styled } from '@mui/material/styles';
@@ -17,9 +17,8 @@ const MyButton = styled(Button)({
     fontSize: '34px',
     fontWeight: '700',
     boxShadow: 'none',
-    backgroundColor: colors.primary.dark,
     '&:hover': {    
-        backgroundColor: colors.primary.main,
+        color: lightColors.primary.dark,
     },
     '@media(max-width: 500px)': {
         fontSize: '27px'
@@ -34,7 +33,7 @@ const MyButton = styled(Button)({
 
 const LoginButLight: React.FC<Props> = ({content, onClick, type}) => {
     return (
-        <MyButton variant="contained" type={type} onClick={onClick}>
+        <MyButton variant="contained" color='secondary' type={type} onClick={onClick}>
             {content}
         </MyButton>  
     );

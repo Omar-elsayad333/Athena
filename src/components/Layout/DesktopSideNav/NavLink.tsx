@@ -1,9 +1,13 @@
 import Image from 'next/image';
 import myStyle from './NavLink.module.css';
+import { useContext } from 'react';
+import { DarkThemeContext } from 'context/ThemeContext';
 
 // MUI
 import Button from '@mui/material/Button';
 import Link from 'next/link';
+import { Typography } from '@mui/material';
+import { darkColors, lightColors } from 'styles/colors';
 
 type Prop = {
     icon: any;
@@ -14,6 +18,8 @@ type Prop = {
 
 const NavLink: React.FC<Prop> = ({icon, content, path, sideNavState}) => {
     
+    const {darkMode} = useContext(DarkThemeContext);
+
     const classes = {
         root: {
             width: '100%',
@@ -26,7 +32,7 @@ const NavLink: React.FC<Prop> = ({icon, content, path, sideNavState}) => {
             fontSize: '22px',
             fontWeight: '700',
             border: 'none',
-            color: '#3F72A4',
+            color: darkMode ? darkColors.primary.main : lightColors.primary.main ,
             whiteSpace: 'noWrap',
         },
     };
@@ -48,7 +54,12 @@ const NavLink: React.FC<Prop> = ({icon, content, path, sideNavState}) => {
             <a>
                 <Button sx={classes.root} className={myStyle.myButton} onClick={(e) => select(e)}>
                     <Image src={icon} alt={content} layout='intrinsic' />
-                    { sideNavState && content }
+                    {
+                        sideNavState &&
+                        <Typography fontSize={22} fontWeight={700}>
+                            { content }
+                        </Typography>
+                    }
                 </Button>
             </a>
         </Link>

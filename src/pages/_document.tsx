@@ -1,5 +1,5 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document';
-import colors from '../styles/colors';
+import {lightColors} from '../styles/colors';
 
 export default class MyDocument extends Document {
     render() {
@@ -7,7 +7,7 @@ export default class MyDocument extends Document {
             <Html lang="ar" dir="rtl">
                 <Head>
                     {/* PWA primary color */}
-                    <meta name="theme-color" content={colors.primary.main} />
+                    <meta name="theme-color" content={lightColors.primary.main} />
                     <link rel="icon" href="./images/Logo.svg" />
                     <link
                         rel="stylesheet"

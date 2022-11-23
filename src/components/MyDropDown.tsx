@@ -1,4 +1,4 @@
-import colors from '../styles/colors';
+// import colors from '../styles/colors';
 
 // MUI
 import Select from '@mui/material/Select';
@@ -35,12 +35,12 @@ const MySelect = styled(Select)({
     height: '46px',
     borderRadius: '7px',
     backgroundColor: '#E8F3FF',
-    color: colors.primary.main,
+    // color: colors.primary.main,
     boxShadow: '0px 0px 10px 1px #B6D5F0',
     transition: '.2s',
     '& .MuiSelect-select': {
         backgroundColor: 'transparent',
-        color: colors.primary.main,
+        // color: colors.primary.main,
         fontSize: '14px',
         padding: '14px 16px',
         border: 'none',
@@ -54,7 +54,7 @@ const MySelect = styled(Select)({
         boxShadow: '0px 0px 0px 1px #3F72A4',
     },
     "& .MuiSvgIcon-root": {
-        color: colors.primary.main,
+        // color: colors.primary.main,
     },
 });
 
