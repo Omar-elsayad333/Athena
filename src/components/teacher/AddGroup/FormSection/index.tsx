@@ -10,7 +10,7 @@ import Typography from "@mui/material/Typography";
 import MyInput from 'components/MyInput';
 import MySelect from 'components/MySelect';
 
-const FormSection = () => {
+const FormSection: React.FC = () => {
 
     const {darkMode} = useContext(DarkThemeContext);
 
