@@ -8,7 +8,6 @@ import { DarkThemeContext } from "context/ThemeContext";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import MyInput from 'components/MyInput';
-import MyDropDown from 'components/MyDropDown';
 import MySelect from 'components/MySelect';
 
 const FormSection = () => {
