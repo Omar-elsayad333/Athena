@@ -54,7 +54,7 @@ const Header: React.FC<Props> = ({controleSideNav, sideNavState}) => {
                 }
             </Box>
             <Box sx={classes.menuIcon}>
-                <Image src='/images/menu-icon' width={28} height={19} layout='intrinsic' alt='menu icon' width={28} onClick={controleSideNav} />
+                <Image src='/images/menu-icon' width={28} height={19} layout='intrinsic' alt='menu icon' onClick={controleSideNav} />
             </Box>
         </Box>
     );
