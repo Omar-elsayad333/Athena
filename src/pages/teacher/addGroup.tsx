@@ -32,7 +32,7 @@ const AddGroup: NextPage = () => {
         <Box sx={style.root}>
             <DesktopNavbar /> 
             <Box p={8} sx={style.container}>
-                <PageTitle icon='/images/groups-icon' content='اضافة مجموعة جديدة' />
+                <PageTitle icon='/images/groups-icon.svg' content='اضافة مجموعة جديدة' />
                 <FormSection />
             </Box>
         </Box>    
