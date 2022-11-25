@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { lightColors, darkColors } from 'styles/colors';
 import LogOutIcon from '../../../../public/images/LogOutIcon.svg';
-// import askIcon from '../../../../public/images/AskIcon.svg';
+import omar from '../../../../public/images/omar.svg';
 import { DarkThemeContext } from 'context/ThemeContext';
 import { useContext } from 'react';
 
@@ -64,7 +64,7 @@ const Footer: React.FC<Props> = ({sideNavState}) => {
             <Box>
                 {
                     sideNavState &&
-                    <Image src='/images/omar.svg' width={25} height={25} alt='ask' style={{cursor: 'pointer'}}/>
+                    <Image src={omar} width={25} height={25} alt='ask' style={{cursor: 'pointer'}}/>
                 }
             </Box>
         </Box>
