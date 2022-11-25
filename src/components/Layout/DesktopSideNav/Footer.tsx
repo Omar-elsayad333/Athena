@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { lightColors, darkColors } from 'styles/colors';
-import logOut from '../../../../public/images/LogOutIcon.svg';
-import askIcon from '../../../../public/images/askIcon.svg';
+import LogOutIcon from '../../../../public/images/LogOutIcon.svg';
+import AskIcon from '../../../../public/images/AskIcon.svg';
 import { DarkThemeContext } from 'context/ThemeContext';
 import { useContext } from 'react';
 
@@ -53,7 +53,7 @@ const Footer: React.FC<Props> = ({sideNavState}) => {
     return (
         <Box sx={[style.container, classes.container]}>
             <Box sx={[style.container.logout, classes.logout]}>
-                <Image src={logOut} alt='تسجيل الخروج' style={{cursor: 'pointer'}}/>
+                <Image src={LogOutIcon} alt='تسجيل الخروج' style={{cursor: 'pointer'}}/>
                 {
                     sideNavState &&
                     <Typography fontSize={20} fontWeight={700} color='primary' sx={{whiteSpace: 'noWrap'}}>
@@ -64,7 +64,7 @@ const Footer: React.FC<Props> = ({sideNavState}) => {
             <Box>
                 {
                     sideNavState &&
-                    <Image src={askIcon} alt='ask' style={{cursor: 'pointer'}}/>
+                    <Image src={AskIcon} alt='ask' style={{cursor: 'pointer'}}/>
                 }
             </Box>
         </Box>
