@@ -1,14 +1,15 @@
 import { NextPage } from "next";
-import DesktopNavbar from 'components/Layout/DesktopNavbar';
 import { useContext } from "react";
-import { lightColors, darkColors } from "styles/colors";
 import { DarkThemeContext } from "context/ThemeContext";
-import TeacherAddGroup from 'components/TeacherAddGroup';
+import { lightColors, darkColors } from "styles/colors";
+import DesktopNavbar from 'components/Layout/DesktopNavbar';
+import PageTitle from 'components/Shared/PageTitle';
+import FormSection from 'components/Teacher/AddGroup/FormSection';
 
 // MUI
 import Box from "@mui/material/Box";
 
-const AddGroup: NextPage = () => {
+const addGroup: NextPage = () => {
 
     const {darkMode} = useContext(DarkThemeContext);
 
@@ -20,7 +21,7 @@ const AddGroup: NextPage = () => {
             flexDirection: 'column',
             backgroundColor: darkMode ? darkColors.backgroundColor.main : lightColors.backgroundColor.main,
         },
-        screenContainer: {
+        container: {
             display: 'flex',
             flexDirection: 'column',
             gap: '60px',
@@ -30,11 +31,12 @@ const AddGroup: NextPage = () => {
     return (
         <Box sx={style.root}>
             <DesktopNavbar /> 
-            <Box p={8}>
-                <TeacherAddGroup />
+            <Box p={8} sx={style.container}>
+                <PageTitle icon='/images/groups-icon' content='اضافة مجموعة جديدة' />
+                <FormSection />
             </Box>
         </Box>    
     );
 }
  
-export default AddGroup;
+export default addGroup;

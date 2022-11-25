@@ -3,7 +3,7 @@ import Footer from './Footer';
 import NavLink from "./NavLink";
 import home from '../../../../public/images/HomeIcon.svg';
 import students from '../../../../public/images/StudentsIcon.svg';
-import groups from '../../../../public/images/GroupsIcon.svg';
+import groups from '../../../../public/images/groups-icon.svg';
 import calender from '../../../../public/images/CalenderIcon.svg';
 import exams from '../../../../public/images/ExamsIcon.svg';
 import location from '../../../../public/images/LocationIcon.svg';

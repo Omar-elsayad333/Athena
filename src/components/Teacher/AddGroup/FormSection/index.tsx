@@ -14,11 +14,6 @@ const FormSection = () => {
     const {darkMode} = useContext(DarkThemeContext);
 
     const style = {
-        container: {
-            // display: 'flex',
-            // flexDirection: 'column',
-            // gap: '60px',
-        },
         title: {
             flex: '100%',
         },

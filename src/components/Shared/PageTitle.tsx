@@ -9,7 +9,7 @@ import Box from "@mui/material/Box";
 
 type Props = {
     content: String;
-    icon: any;
+    icon: String;
 }
 
 const PageTitle:React.FC<Props> = ({content, icon}) => {
@@ -35,7 +35,7 @@ const PageTitle:React.FC<Props> = ({content, icon}) => {
             <Typography color='primary' variant='h1'>
                 {content}
             </Typography>
-            <Image src={icon} width={36} height={27} alt='اضافة مجموعة جديدة' />
+            <Image src={`${icon}`} width={36} height={27} alt='اضافة مجموعة جديدة' />
         </Box>
     );
 }
