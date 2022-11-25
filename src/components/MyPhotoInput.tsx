@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import photoPlaceholder from '../../public/images/photo-input-placeholder.svg';
+import photoPlaceholder from '../../public/images/PhotoInputPlaceholder.svg';
 
 // MUI
 import Box from '@mui/material/Box';
