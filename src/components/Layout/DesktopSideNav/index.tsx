@@ -13,6 +13,9 @@ type Props = {
 const style: any = {
     container: {
         height: '100vh',
+        position: 'sticky',
+        top: '0',
+        zIndex: '99',
         transition: '.5s',
         '@media(max-width: 1200px)': {
             display: 'none'
