@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import logOut from '../../../../public/images/LogOutIcon.svg';
-import askIcon from '../../../../public/images/askIcon.svg';
+import omar from '../../../../public/images/omar.svg';
 
 // MUI
 import Box from '@mui/material/Box';
@@ -38,7 +38,7 @@ const Footer: React.FC = () => {
                 </Typography>
             </Box>
             <Box>
-                <Image src={askIcon} alt='ask' style={{cursor: 'pointer'}}/>
+                <Image src={omar} alt='ask' style={{cursor: 'pointer'}}/>
             </Box>
         </Box>
     );
