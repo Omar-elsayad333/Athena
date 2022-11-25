@@ -60,7 +60,7 @@ const Header: React.FC<Props> = ({controleMobileSideNav, mobileSideNavState}) =>
                 !mobileSideNavState ?
                 <Box sx={style.container}>
                     <Box sx={style.menuIcon}>
-                        <Image src='/images/menu-icon' width={28} height={19} layout='intrinsic' alt='open menu' onClick={controleMobileSideNav} />
+                        <Image src='/images/menu-icon.svg' width={28} height={19} layout='intrinsic' alt='open menu' onClick={controleMobileSideNav} />
                     </Box>
                     <Box>
                         <Image src={logo} alt='Athena' width={192} />
