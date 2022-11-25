@@ -1,7 +1,4 @@
 import Image from 'next/image';
-// import PrimaryInlinelogo from '../../../../public/images/PrimaryInlinelogo.svg';
-// import SecondaryInlinelogo from '../../../../public/images/SecondaryInlinelogo.svg';
-import MenuIcon from '../../../../public/images/MenuIcon.svg';
 import { DarkThemeContext } from 'context/ThemeContext';
 import { useContext } from 'react';
 import { lightColors, darkColors } from 'styles/colors';
@@ -57,7 +54,7 @@ const Header: React.FC<Props> = ({controleSideNav, sideNavState}) => {
                 }
             </Box>
             <Box sx={classes.menuIcon}>
-                <Image src={MenuIcon} layout='intrinsic' alt='menu icon' width={28} onClick={controleSideNav} />
+                <Image src='/images/menu-icon' layout='intrinsic' alt='menu icon' width={28} onClick={controleSideNav} />
             </Box>
         </Box>
     );
