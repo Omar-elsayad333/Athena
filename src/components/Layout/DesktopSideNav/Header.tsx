@@ -50,8 +50,8 @@ const Header: React.FC<Props> = ({controleSideNav, sideNavState}) => {
                     <>
                         {
                             darkMode ?
-                            <Image src='/images/SecondaryInlinelogo.svg' alt='Athena' width={190} height={35} /> :
-                            <Image src='/images/PrimaryInlinelogo.svg' alt='Athena' width={190} height={35} /> 
+                            <Image src='/images/secondary-inline-logo.svg' alt='Athena' width={190} height={35} /> :
+                            <Image src='/images/primary-inline-logo.svg' alt='Athena' width={190} height={35} /> 
                         }
                     </>
                 }
