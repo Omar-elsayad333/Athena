@@ -14,6 +14,11 @@ const FormSection = () => {
     const {darkMode} = useContext(DarkThemeContext);
 
     const style = {
+        container: {
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '60px',
+        },
         title: {
             flex: '100%',
         },
@@ -25,7 +30,7 @@ const FormSection = () => {
     }
 
     return (
-        <Box>
+        <Box sx={style.container}>
             <Box sx={style.inputsContainer}>
             <Typography sx={style.title} variant="h3" color={darkMode ? darkColors.title.main : lightColors.title.main}>
                 بيانات المجموعة:- 

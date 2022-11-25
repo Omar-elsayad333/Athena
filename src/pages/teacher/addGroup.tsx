@@ -9,7 +9,7 @@ import FormSection from 'components/Teacher/AddGroup/FormSection';
 // MUI
 import Box from "@mui/material/Box";
 
-const addGroup: NextPage = () => {
+const AddGroup: NextPage = () => {
 
     const {darkMode} = useContext(DarkThemeContext);
 
@@ -39,4 +39,4 @@ const addGroup: NextPage = () => {
     );
 }
  
-export default addGroup;
+export default AddGroup;
