@@ -53,7 +53,7 @@ const NavLink: React.FC<Prop> = ({icon, content, path, sideNavState}) => {
         <Link href={path}>
             <a>
                 <Button sx={classes.root} className={myStyle.myButton} onClick={(e) => select(e)}>
-                    <Image src={icon} alt={content} layout='intrinsic' />
+                    <Image src={icon} alt={content} width={25} height={25} layout='intrinsic' />
                     {
                         sideNavState &&
                         <Typography fontSize={22} fontWeight={700}>

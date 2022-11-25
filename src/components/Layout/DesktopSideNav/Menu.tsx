@@ -1,6 +1,6 @@
 import { lightColors, darkColors } from 'styles/colors';
 import NavLink from './NavLink';
-import home from '../../../../public/images/HomeIcon.svg';
+// import home from '../../../../public/images/HomeIcon.svg';
 import students from '../../../../public/images/StudentsIcon.svg';
 import groups from '../../../../public/images/GroupsIcon.svg';
 import calender from '../../../../public/images/CalenderIcon.svg';
@@ -57,7 +57,7 @@ const Menu: React.FC<Props> = ({sideNavState}) => {
     return (
         <Box sx={classes.menu}>
             <Box>
-                <NavLink sideNavState={sideNavState} path='/teacher/home' icon={home} content='الرئيسية' />
+                <NavLink sideNavState={sideNavState} path='/teacher/home' icon='/images/HomeIcon.svg' content='الرئيسية' />
                 <NavLink sideNavState={sideNavState} path='/teacher/students' icon={students} content='الطلاب' />
                 <NavLink sideNavState={sideNavState} path='/teacher/groups' icon={groups} content='المجموعات' />
                 <NavLink sideNavState={sideNavState} path='/teacher/attendance' icon={calender} content='الحضور' />
