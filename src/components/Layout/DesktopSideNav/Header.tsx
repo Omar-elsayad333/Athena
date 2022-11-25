@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import PrimaryInlinelogo from '../../../../public/images/PrimaryInlinelogo.svg';
+// import PrimaryInlinelogo from '../../../../public/images/PrimaryInlinelogo.svg';
 import SecondaryInlinelogo from '../../../../public/images/SecondaryInlinelogo.svg';
 import MenuIcon from '../../../../public/images/MenuIcon.svg';
 import { DarkThemeContext } from 'context/ThemeContext';
@@ -51,7 +51,7 @@ const Header: React.FC<Props> = ({controleSideNav, sideNavState}) => {
                         {
                             darkMode ?
                             <Image src={SecondaryInlinelogo} alt='Athena' width={190} /> :
-                            <Image src={PrimaryInlinelogo} alt='Athena' width={190} /> 
+                            <Image src='/images/PrimaryInlinelogo.svg' alt='Athena' width={190} height={35} /> 
                         }
                     </>
                 }
