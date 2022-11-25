@@ -27,7 +27,7 @@ const DesktopNavbar: React.FC = () => {
             justifyContent: 'space-between',
             alignItems: 'center',
             gap: '25px',
-            background: darkMode ? darkColors.backgroundColor.navbar : lightColors.backgroundColor.navbar,
+            background: darkMode ? darkColors.linerGradient.primary : lightColors.linerGradient.primary,
             borderBottom: `1px solid ${darkMode ? darkColors.primary.main : lightColors.primary.main}`,
             '@media(max-width: 1200px)': {
                 height: '75px',
@@ -65,7 +65,7 @@ const DesktopNavbar: React.FC = () => {
                 border: '1px solid #E8F3FF',
                 borderRadius: '7px',
                 boxShadow: '0px 0px 10px 0px #3F72A440',
-                background: darkMode ? darkColors.backgroundColor.sideNav : lightColors.linerGradient.main,
+                background: darkMode ? darkColors.linerGradient.primary : lightColors.linerGradient.primary,
             },
             photo: {
                 display: 'flex',

@@ -7,17 +7,16 @@ import { DarkThemeContext } from 'context/ThemeContext';
 import { useContext } from 'react';
 
 // MUI
-import Container from '@mui/material/Container';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Box, Typography } from '@mui/material';
 
 const Home: NextPage = () => {
 
-  const {handelDarkTheme, darkMode} = useContext(DarkThemeContext);
+  const {darkMode} = useContext(DarkThemeContext);
 
   return (
-    <Container maxWidth="xl" sx={{background: darkMode ? darkColors.backgroundColor.main : lightColors.backgroundColor.main}}>
+    <Box sx={{width: '100%', background: darkMode ? darkColors.backgroundColor.main : lightColors.backgroundColor.main}}>
       <Box sx={{width: '100%', padding: '50px', display: 'flex', flexDirection: 'column', gap: '50px', alignItems: 'center'}}>
         <Box >
           <Image alt='athena' layout='intrinsic' src={logo} />
@@ -57,9 +56,8 @@ const Home: NextPage = () => {
             </a>
           </Link>
         </Box>
-        <button onClick={() => handelDarkTheme()}>change theme</button>
       </Box>
-    </Container>
+    </Box>
   )
 } 
 

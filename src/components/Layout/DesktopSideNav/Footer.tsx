@@ -29,7 +29,7 @@ const Footer: React.FC<Props> = ({sideNavState}) => {
             justifyContent: 'space-between',
             gap: '20px',
             borderLeft: `solid 1px ${darkMode ? darkColors.primary.main : lightColors.primary.main}`,
-            background: darkMode ? darkColors.linerGradient.main : lightColors.linerGradient.main ,
+            background: darkMode ? darkColors.linerGradient.secondary : lightColors.linerGradient.secondary,
             overflow: 'hidden',
             logout: {
                 height: '100%',

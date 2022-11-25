@@ -20,7 +20,8 @@ const lightColors = {
         navbar: '#B6D5F0',
     },
     linerGradient: {
-        main: 'linear-gradient(90deg, #B6D5F0 0%, #DFEFFF 100%)',
+        primary: 'linear-gradient(180deg, #B6D5F0 0%, #DFEFFF 100%)',
+        secondary: 'linear-gradient(180deg, #DFEFFF 0%, #B6D5F0 100%)',
     },
 }
 
@@ -46,7 +47,8 @@ const darkColors = {
         navbar: 'linear-gradient(0deg, #4072A4 0%, #1D3750 100%)',
     },
     linerGradient: {
-        main: 'linear-gradient(0deg, #4072A4 0%, #1D3750 100%)',
+        primary: 'linear-gradient(0deg, #4072A4 0%, #1D3750 100%)',
+        secondary: 'linear-gradient(180deg, #3F72A4 0%, #1C364F 100%)'
     },
 }
 

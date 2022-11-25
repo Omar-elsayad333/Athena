@@ -28,7 +28,7 @@ const Header: React.FC<Props> = ({controleSideNav, sideNavState}) => {
             justifyContent: 'center',
             alignItems: 'center',
             gap: '30px',
-            background: darkMode ? darkColors.linerGradient.main : lightColors.linerGradient.main,
+            background: darkMode ? darkColors.linerGradient.primary : lightColors.linerGradient.primary,
             transition: '.5s',
         },
         menuIcon: {

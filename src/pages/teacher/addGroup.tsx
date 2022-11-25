@@ -15,7 +15,7 @@ const AddGroup: NextPage = () => {
     const style = {
         root: {
             width: '100%',
-            minHeight: '100vh',
+            minHeight: '200vh',
             display: 'flex',
             flexDirection: 'column',
             backgroundColor: darkMode ? darkColors.backgroundColor.main : lightColors.backgroundColor.main,
