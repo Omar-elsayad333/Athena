@@ -64,7 +64,7 @@ const Footer: React.FC<Props> = ({sideNavState}) => {
             <Box>
                 {
                     sideNavState &&
-                    <Image src='/images/AskIcon.svg' width={25} height={25} alt='ask' style={{cursor: 'pointer'}}/>
+                    <Image src='/public/images/AskIcon.svg' width={25} height={25} alt='ask' style={{cursor: 'pointer'}}/>
                 }
             </Box>
         </Box>
