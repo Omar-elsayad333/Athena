@@ -1,7 +1,7 @@
 import Image from 'next/image';
-import primaryLogo from '../../../../public/images/primaryInlinelogo.svg';
-import secondaryLogo from '../../../../public/images/secondaryInlinelogo.svg';
-import menu from '../../../../public/images/MenuIcon.svg';
+import PrimaryInlinelogo from '../../../../public/images/PrimaryInlinelogo.svg';
+import SecondaryInlinelogo from '../../../../public/images/SecondaryInlinelogo.svg';
+import MenuIcon from '../../../../public/images/MenuIcon.svg';
 import { DarkThemeContext } from 'context/ThemeContext';
 import { useContext } from 'react';
 import { lightColors, darkColors } from 'styles/colors';
@@ -50,14 +50,14 @@ const Header: React.FC<Props> = ({controleSideNav, sideNavState}) => {
                     <>
                         {
                             darkMode ?
-                            <Image src={secondaryLogo} alt='Athena' width={190} /> :
-                            <Image src={primaryLogo} alt='Athena' width={190} /> 
+                            <Image src={SecondaryInlinelogo} alt='Athena' width={190} /> :
+                            <Image src={PrimaryInlinelogo} alt='Athena' width={190} /> 
                         }
                     </>
                 }
             </Box>
             <Box sx={classes.menuIcon}>
-                <Image src={menu} layout='intrinsic' alt='menu icon' width={28} onClick={controleSideNav} />
+                <Image src={MenuIcon} layout='intrinsic' alt='menu icon' width={28} onClick={controleSideNav} />
             </Box>
         </Box>
     );
