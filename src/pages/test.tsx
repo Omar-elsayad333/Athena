@@ -1,11 +1,9 @@
+import { useState } from 'react';
 
 // MUI
 import Box from '@mui/material/Box';
-import MyDatePicker from 'components/MyDatePicker';
-import MyInput from 'components/MyInput';
-import MyPassInput from 'components/MyPassInput';
-import MySelect from 'components/MySelect';
-import MyTimePicker from 'components/MyTimePicker';
+import Button from '@mui/material/Button';
+import MyDaysDialog from 'components/MyDaysDialog';
 
 const classes = {
     root: {
@@ -20,13 +18,23 @@ const classes = {
 }
 
 const Test = () => {
+
+    const [open, setOpen] = useState<boolean>(false);
+  
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+  
+    const handleClose = () => {
+        setOpen(false);
+    };
+  
     return (
         <Box sx={classes.root}>
-            <MyInput Placeholder='omar' />
-            <MyDatePicker placeholder='opmar' />
-            <MySelect placeholder='my name' data={['ahmed', 'omar']}/>
-            <MyTimePicker />
-            <MyPassInput placeholder='omar' />
+            <Button variant='contained' onClick={handleClickOpen}>
+                open dialog
+            </Button>
+            <MyDaysDialog handleClose={handleClose} open={open} />
         </Box>
     );
 }
