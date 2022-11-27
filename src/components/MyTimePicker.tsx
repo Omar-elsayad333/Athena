@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 
 // MUI
 import TextField from '@mui/material/TextField';
@@ -85,6 +85,10 @@ const popperStyle: SxProps = {
 const MyTimePicker: React.FC = () => {
 
     const [ timeValue, setTimeValue] = useState<any>(new Date());
+
+    useEffect(() => {
+        console.log(timeValue.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}))
+    }, [timeValue]);
 
     return (
         <LocalizationProvider dateAdapter={AdapterDateFns}>

@@ -4,7 +4,7 @@ const useAddGroup = () => {
 
     const [selectedDays, setSelectedDays] = useState<any>([]);
     const [dialogState, setDialogState] = useState<boolean>(false);
-
+    
     const getSelectedDays = (selected: any) => {
         console.log(selected)
         setSelectedDays(selected);
