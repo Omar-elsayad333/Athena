@@ -172,7 +172,7 @@ const MyDaysDialog: React.FC<Props> = ({open, handleClose, getSelectedDays}) => 
                 </Button>
             </DialogTitle>
             <DialogContent>
-                <Box sx={style.box} data-day='saturday' className='days' onClick={(e) => selectHandle(e)}>
+                <Box sx={style.box} data-day='saturday' className='days' onClick={(e) => selectHandle(e)} onTouchStart={(e) => selectHandle(e)}>
                     السبت
                 </Box>
                 <Box sx={style.box} data-day='sunday' className='days' onClick={(e) => selectHandle(e)}>
