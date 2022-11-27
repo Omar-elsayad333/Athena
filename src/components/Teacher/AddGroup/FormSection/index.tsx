@@ -4,15 +4,24 @@ import { DarkThemeContext } from "context/ThemeContext";
 import MySelect from 'components/MySelect';
 import MyInput from 'components/MyInput';
 import AddDayBut from "./AddDayBut";
+import useAddGroup from "container/useAddGroup";
 
 // MUI
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import MyDaysDialog from "components/MyDaysDialog";
 
 
 const FormSection = () => {
 
-    const {darkMode} = useContext(DarkThemeContext);
+    const { darkMode } = useContext(DarkThemeContext);
+
+    const {
+        selectedDays,
+        getSelectedDays,
+        dialogState,
+        handleDialogState,
+    } = useAddGroup()
 
     const style = {
         container: {
@@ -39,15 +48,38 @@ const FormSection = () => {
         },
         daysList: {
             display: 'flex',
-            gap: '45px',
-        }
+            gap: '25px',
+            flexWrap: 'wrap',
+        },
+        daysBox: {
+            display: 'flex',
+            justifyContent: 'start',
+            alignItems: 'center',
+            gap: '25px',
+            flexWrap: 'wrap'
+        },
+        dayLabel: {
+            width: '109px',
+            height: '41px',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            fontWeight: '700',
+            fontSize: '20px',
+            borderRadius: '5px',
+            border: '1px solid #3F72A4',
+            background: '#B6D5F0',
+            cursor: 'pointer',
+            color: '#3F72A4',
+            transition: '.2s',
+        },
     }
 
     return (
         <Box sx={style.container}>
             <Box sx={style.inputsContainer}>
                 <Typography sx={style.title} variant="h3" color={darkMode ? darkColors.title.main : lightColors.title.main}>
-                    بيانات المجموعة:- 
+                    بيانات المجموعة:-
                 </Typography>
                 <MyInput Placeholder='أسم المجموعة' />
                 <MySelect placeholder='الصف الدراسي الخاص بالمجموعة' data={[]} />
@@ -56,19 +88,29 @@ const FormSection = () => {
             </Box>
             <Box sx={style.inputsContainer}>
                 <Typography sx={style.title} variant='h3' color={darkMode ? darkColors.title.main : lightColors.title.main}>
-                    مواعيد المجموعة:- 
+                    مواعيد المجموعة:-
                 </Typography>
                 <Box sx={style.backPaper}>
                     <Typography sx={style.title} variant='h5' color={lightColors.title.main}>
                         أيام الحضور:-
                     </Typography>
                     <Box sx={style.daysList}>
-                        <AddDayBut />
+                        <AddDayBut handleDialogState={handleDialogState} />
+                        <MyDaysDialog open={dialogState} handleClose={handleDialogState} getSelectedDays={getSelectedDays} />
+                        {
+                            selectedDays.map((item: any) => {
+                                return (
+                                    <Box key={item.name} sx={style.dayLabel}>
+                                        {item.content}
+                                    </Box>
+                                )
+                            })
+                        }
                     </Box>
                 </Box>
             </Box>
         </Box>
     );
 }
- 
+
 export default FormSection;

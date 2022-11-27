@@ -1,4 +1,5 @@
 import { useState, forwardRef } from 'react';
+import MyCss from './MyDaysDialog.module.css'
 
 // MUI
 import Box from '@mui/material/Box';
@@ -22,11 +23,12 @@ const Transition = forwardRef(function Transition(
 );
 
 type Props = {
-    handleClose: Function;
     open: boolean;
+    handleClose: Function;
+    getSelectedDays: Function;
 }
 
-const MyDaysDialog: React.FC<Props> = ({handleClose, open}) => {
+const MyDaysDialog: React.FC<Props> = ({open, handleClose, getSelectedDays}) => {
 
     const style = {
         root: {
@@ -80,17 +82,14 @@ const MyDaysDialog: React.FC<Props> = ({handleClose, open}) => {
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
+            fontWeight: '700',
+            fontSize: '19px',
             borderRadius: '5px',
             border: '1px solid #3F72A4',
             background: '#E8F3FF',
             cursor: 'pointer',
             color: '#3F72A4',
             transition: '.2s',
-            ':hover': {
-                color: '#1C364F',
-                border: '1px solid #1C364F',
-                background: '#B6D5F0',
-            }
         },
         exitBut: {
             minWidth: 'fit-content',
@@ -125,9 +124,37 @@ const MyDaysDialog: React.FC<Props> = ({handleClose, open}) => {
     }
 
     const selectHandle = (e: any) => {
-        
-    }
-  
+        e.preventDefault();
+        e.target.classList.contains(MyCss.selected) ?
+        e.target.classList.remove(MyCss.selected) :
+        e.target.classList.add(MyCss.selected);
+    };
+
+    const submitData = () => {
+        const selected = [];
+
+        const days = document.getElementsByClassName('days');
+
+        // get selected days then remove the selected class
+        for (let i = 0; i < days.length; i++) {
+            if (days[i]?.classList.contains(`${MyCss.selected}`)) {
+                const selectedData: any = {
+                    name: '',
+                    content: '',
+                };
+                selectedData['name'] = (days[i]?.getAttribute("data-day"));
+                selectedData['content'] = (days[i]?.innerHTML);
+                selected.push(selectedData);
+                days[i]?.classList.remove(`${MyCss.selected}`);
+            } else {
+                continue;
+            }
+        };
+
+        getSelectedDays(selected);
+        handleClose();
+    }       
+
     return (
         <Dialog
             sx={style.root}
@@ -145,13 +172,29 @@ const MyDaysDialog: React.FC<Props> = ({handleClose, open}) => {
                 </Button>
             </DialogTitle>
             <DialogContent>
-                <Box sx={style.box} id='السبت'>
-                    <Typography color='inherit' fontSize={19} fontWeight={700}>
-                        السبت
-                    </Typography>
+                <Box sx={style.box} data-day='saturday' className='days' onClick={(e) => selectHandle(e)}>
+                    السبت
+                </Box>
+                <Box sx={style.box} data-day='sunday' className='days' onClick={(e) => selectHandle(e)}>
+                    الاحد   
+                </Box>
+                <Box sx={style.box} data-day='monday' className='days' onClick={(e) => selectHandle(e)}>
+                    الاثنين
+                </Box>
+                <Box sx={style.box} data-day='tuesday' className='days' onClick={(e) => selectHandle(e)}>
+                    الثلاثاء
+                </Box>
+                <Box sx={style.box} data-day='wednesday' className='days' onClick={(e) => selectHandle(e)}>
+                    الاربعاء
+                </Box>
+                <Box sx={style.box} data-day='thursday' className='days' onClick={(e) => selectHandle(e)}>
+                    الخميس  
+                </Box>
+                <Box sx={style.box} data-day='friday' className='days' onClick={(e) => selectHandle(e)}>
+                    الجمعة
                 </Box>
                 <DialogActions>
-                    <Button color='primary' sx={style.addBut} onClick={() => handleClose()}>اضافة</Button>
+                    <Button color='primary' sx={style.addBut} onClick={() => submitData()}>اضافة</Button>
                 </DialogActions>
             </DialogContent>
         </Dialog>

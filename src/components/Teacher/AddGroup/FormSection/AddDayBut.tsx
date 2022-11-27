@@ -4,9 +4,9 @@ import ControlPointIcon from '@mui/icons-material/ControlPoint';
 
 const MyButton = {
     root: {
-        width: 'fit-content',
+        width: '109px',
         height: '41px',
-        paddign: '6px 16px',
+        padding: '6px 5px',
         fontSize: '14px',
         fontWeight: '700',
         borderRadius: '6px',
@@ -24,9 +24,13 @@ const MyButton = {
     }
 };
 
-const AddDayBut: React.FC = () => {
+type Props = {
+    handleDialogState: any;
+}
+
+const AddDayBut: React.FC<Props> = ({handleDialogState}) => {
     return (
-        <Button sx={MyButton.root} startIcon={<ControlPointIcon />} variant="contained" color='secondary'>
+        <Button sx={MyButton.root} onClick={handleDialogState} startIcon={<ControlPointIcon />} variant="contained" color='secondary'>
             اضافة يوم 
         </Button> 
     );
