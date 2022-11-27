@@ -124,7 +124,7 @@ const MyDaysDialog: React.FC<Props> = ({open, handleClose, getSelectedDays}) => 
     }
 
     const selectHandle = (e: any) => {
-        e.preventDefault();
+        // e.preventDefault();
         e.target.classList.contains(MyCss.selected) ?
         e.target.classList.remove(MyCss.selected) :
         e.target.classList.add(MyCss.selected);
@@ -172,7 +172,7 @@ const MyDaysDialog: React.FC<Props> = ({open, handleClose, getSelectedDays}) => 
                 </Button>
             </DialogTitle>
             <DialogContent>
-                <Box sx={style.box} data-day='saturday' className='days' onClick={(e) => selectHandle(e)} onTouchStart={(e) => selectHandle(e)}>
+                <Box sx={style.box} data-day='saturday' className='days' onClick={(e) => selectHandle(e)}>
                     السبت
                 </Box>
                 <Box sx={style.box} data-day='sunday' className='days' onClick={(e) => selectHandle(e)}>
