@@ -123,7 +123,7 @@ const MyDaysDialog: React.FC<Props> = ({open, handleClose, getSelectedDays}) => 
         },
     }
 
-    const selectHandle = (e: any) => {
+    function selectHandle (e: any) {
         // e.preventDefault();
         e.target.classList.contains(MyCss.selected) ?
         e.target.classList.remove(MyCss.selected) :
