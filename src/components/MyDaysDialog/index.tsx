@@ -1,5 +1,5 @@
 import { forwardRef } from 'react';
-import MyCss from './MyDaysDialog.module.css'
+import MyCss from './MyDaysDialog.module.css';
 
 // MUI
 import Box from '@mui/material/Box';
@@ -124,12 +124,10 @@ const MyDaysDialog: React.FC<Props> = ({open, handleClose, getSelectedDays}) => 
     }
 
     function selectHandle (e: any) {
-        // e.preventDefault();
-        return (
-            e.target.classList.contains(MyCss.selected) ?
-            e.target.classList.remove(MyCss.selected) :
-            e.target.classList.add(MyCss.selected)
-        )
+        e.preventDefault();
+        e.target.classList.contains('selected') ?
+        e.target.classList.remove('selected') :
+        e.target.classList.add('selected');
     };
 
     const submitData = () => {

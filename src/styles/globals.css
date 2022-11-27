@@ -17,6 +17,11 @@
     color: #3F72A4;
 }
 
+.selected {
+    color: #1C364F;
+    background: #B6D5F0;
+}
+
 /* =====================
     start my input style
 ======================== */
