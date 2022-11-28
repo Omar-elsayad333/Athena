@@ -16,27 +16,34 @@ const AddGroup: NextPage = () => {
     const style = {
         root: {
             width: '100%',
-            minHeight: '200vh',
+            minHeight: '100vh',
             display: 'flex',
             flexDirection: 'column',
             backgroundColor: darkMode ? darkColors.backgroundColor.main : lightColors.backgroundColor.main,
         },
         container: {
+            padding: '60px',
             display: 'flex',
             flexDirection: 'column',
             gap: '60px',
+            '@media(max-width: 450px)': {
+                padding: '40px'
+            },
+            '@media(max-width: 350px)': {
+                padding: '20px'
+            },
         }
     }
 
     return (
         <Box sx={style.root}>
             <DesktopNavbar /> 
-            <Box p={8} sx={style.container}>
+            <Box sx={style.container}>
                 <PageTitle icon='/images/groups-icon.svg' content='اضافة مجموعة جديدة' />
                 <FormSection />
             </Box>
         </Box>    
     );
 }
- 
+
 export default AddGroup;

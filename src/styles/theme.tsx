@@ -30,6 +30,12 @@ const ThemeApp: React.FC<IProps> = ({ children }) => {
         dark: lightColors.secondary.dark,
         contrastText: lightColors.secondary.contrastText,    
       },
+      error: {
+        main: lightColors.error.main,
+        light: lightColors.error.light,  
+        dark: lightColors.error.dark,
+        contrastText: lightColors.error.contrastText,    
+      },
     },
     typography: {
       fontFamily: 'Almarai, sans-serif',
@@ -102,6 +108,12 @@ const ThemeApp: React.FC<IProps> = ({ children }) => {
         light: darkColors.secondary.light,  
         dark: darkColors.secondary.dark,
         contrastText: darkColors.secondary.contrastText,    
+      },
+      error: {
+        main: darkColors.error.main,
+        light: darkColors.error.light,  
+        dark: darkColors.error.dark,
+        contrastText: darkColors.error.contrastText,    
       },
     },
     typography: {

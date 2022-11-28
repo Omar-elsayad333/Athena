@@ -11,6 +11,12 @@ const lightColors = {
         dark: '#3F72A4',
         contrastText: '#3F72A4',
     },
+    error: {
+        main: '#9C1414',
+        light: '#ffd700',
+        dark: '#581616',
+        contrastText: '#E8F3FF',
+    },
     title: {
         main: '#1C364F',
     },
@@ -33,10 +39,16 @@ const darkColors = {
         contrastText: '#1C364F',
     },
     secondary: {
-        main: 'transparent',
+        main: 'rgb(63 114 164 / 0%)',
         light: 'red',
         dark: '#E0EEFF',
         contrastText: '#E0EEFF',
+    },
+    error: {
+        main: '#9C1414',
+        light: '#ffd700',
+        dark: '#581616',
+        contrastText: '#E8F3FF',
     },
     title: {
         main: '#E0EEFF',

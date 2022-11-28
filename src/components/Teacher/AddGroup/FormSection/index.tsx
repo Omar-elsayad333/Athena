@@ -5,6 +5,8 @@ import MySelect from 'components/MySelect';
 import MyInput from 'components/MyInput';
 import AddDayBut from "./AddDayBut";
 import useAddGroup from "container/useAddGroup";
+import MyButton from "components/Buttons/MyButton";
+import MyButtonError from "components/Buttons/MyButtonError";
 
 // MUI
 import Typography from "@mui/material/Typography";
@@ -22,6 +24,7 @@ const FormSection = () => {
         getSelectedDays,
         dialogState,
         handleDialogState,
+        getSelectedTime,
     } = useAddGroup();
 
     const style = {
@@ -47,6 +50,7 @@ const FormSection = () => {
         backPaper: {
             width: 'fit-content',
             display: 'flex',
+            flexDirection: 'column',
             flexWrap: 'wrap',
             gap: '20px',
             padding: '30px',
@@ -92,9 +96,20 @@ const FormSection = () => {
         timePicker: {
             display: 'flex',
             flexDirection: 'row',
-            justifyContent: 'center',
+            justifyContent: 'start',
             alignItems: 'center',
+            flexWrap: 'wrap',
             gap: '50px',
+        },
+        buttonsContainer: {
+            marginTop: '30px',
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: '35px'
+        },
+        submitButton: {
+            width: '170px',
+            height: '40px',
         }
     }
 
@@ -114,21 +129,23 @@ const FormSection = () => {
                     مواعيد المجموعة:-
                 </Typography>
                 <Box sx={style.backPaper}>
-                    <Typography sx={style.title} variant='h5' color={lightColors.title.main}>
+                    <Typography variant='h5' color={lightColors.title.main}>
                         أيام الحضور:-
                     </Typography>
                     <Box sx={style.daysList}>
                         <AddDayBut handleDialogState={handleDialogState} />
                         <MyDaysDialog open={dialogState} handleClose={handleDialogState} getSelectedDays={getSelectedDays} />
-                        {
-                            selectedDays.map((item: any) => {
-                                return (
-                                    <Box key={item.name} sx={style.dayLabel}>
-                                        {item.content}
-                                    </Box>
-                                )
-                            })
-                        }
+                        <Box sx={style.daysList}>
+                            {
+                                selectedDays.map((item: any) => {
+                                    return (
+                                        <Box key={item.name} sx={style.dayLabel}>
+                                            {item.content}
+                                        </Box>
+                                    )
+                                })
+                            }
+                        </Box>
                     </Box>
                 </Box>
                 {
@@ -141,17 +158,19 @@ const FormSection = () => {
                                         <Box sx={style.dayLabel} ml={10}>
                                             {item.content}
                                         </Box>
-                                        <Box>
-                                            <Typography mb={3} variant='h5'>
-                                                وقت بدأ المجموعة:-
-                                            </Typography>
-                                            <MyTimePicker />
-                                        </Box>
-                                        <Box>
-                                            <Typography mb={3} variant='h5'>
-                                                وقت انتهاء المجموعة:-
-                                            </Typography>
-                                            <MyTimePicker />
+                                        <Box sx={style.timePicker} >
+                                            <Box>
+                                                <Typography mb={3} variant='h5'>
+                                                    وقت بدأ المجموعة:-
+                                                </Typography>
+                                                <MyTimePicker name='startTime' day={item.name} getSelectedTime={getSelectedTime} />
+                                            </Box>
+                                            <Box>
+                                                <Typography mb={3} variant='h5'>
+                                                    وقت انتهاء المجموعة:-
+                                                </Typography>
+                                                <MyTimePicker name='endTime' day={item.name} getSelectedTime={getSelectedTime} />
+                                            </Box>
                                         </Box>
                                     </Box>
                                 )
@@ -159,6 +178,14 @@ const FormSection = () => {
                         }
                     </Box> 
                 }
+                <Box sx={style.buttonsContainer}>
+                    <Box sx={style.submitButton}>
+                        <MyButton content='تأكيد واضافة' />
+                    </Box>
+                    <Box sx={style.submitButton}>
+                        <MyButtonError content='إلغاء العملية' />
+                    </Box>
+                </Box>
             </Box>
         </Box>
     );

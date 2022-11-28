@@ -82,12 +82,22 @@ const popperStyle: SxProps = {
     },
 };
 
-const MyTimePicker: React.FC = () => {
+type Props = {
+    getSelectedTime: Function;
+    name: string;
+    day: string;
+}
+
+const MyTimePicker: React.FC<Props> = ({getSelectedTime, name, day}) => {
 
     const [ timeValue, setTimeValue] = useState<any>(new Date());
 
     useEffect(() => {
-        console.log(timeValue.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}))
+        getSelectedTime({
+            time: timeValue.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
+            name: name,
+            day: day
+        });
     }, [timeValue]);
 
     return (
