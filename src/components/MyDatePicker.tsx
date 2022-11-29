@@ -4,7 +4,7 @@ import {useState} from 'react'
 import TextField from '@mui/material/TextField';
 import DateFnsUtils from '@date-io/date-fns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { SxProps } from '@mui/material';
 
 const classes: SxProps = {
@@ -96,7 +96,7 @@ const MyDatePicker: React.FC<Props> = ({placeholder}) => {
 
     return (
         <LocalizationProvider dateAdapter={DateFnsUtils}>
-            <DesktopDatePicker
+            <DatePicker
                 value={dateValue}
                 onChange={(newValue: any) => {
                     setDateValue(newValue);
@@ -113,6 +113,9 @@ const MyDatePicker: React.FC<Props> = ({placeholder}) => {
                     />
                 )}
                 PopperProps={{
+                    sx: popperStyle
+                }}
+                DialogProps={{
                     sx: popperStyle
                 }}
             />

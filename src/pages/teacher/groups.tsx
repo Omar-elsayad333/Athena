@@ -3,6 +3,7 @@ import DesktopNavbar from 'components/Layout/DesktopNavbar';
 import { useContext } from "react";
 import { lightColors, darkColors } from "styles/colors";
 import { DarkThemeContext } from "context/ThemeContext";
+import PageTitle from 'components/Shared/PageTitle';
 
 // MUI
 import Box from "@mui/material/Box";
@@ -19,10 +20,17 @@ const Groups: NextPage = () => {
             flexDirection: 'column',
             backgroundColor: darkMode ? darkColors.backgroundColor.main : lightColors.backgroundColor.main,
         },
-        screenContainer: {
+        container: {
+            padding: '60px',
             display: 'flex',
             flexDirection: 'column',
             gap: '60px',
+            '@media(max-width: 450px)': {
+                padding: '40px'
+            },
+            '@media(max-width: 350px)': {
+                padding: '20px'
+            },
         }
     }
 
@@ -34,8 +42,8 @@ const Groups: NextPage = () => {
                 secondPath='/teacher/addGroup' 
                 secondContent='اضافة مجموعة' 
             /> 
-            <Box p={8}>
-            
+            <Box sx={style.container}>
+                <PageTitle icon='/images/groups-icon.svg' content='جميع المجموعات الحاليه' />
             </Box>
         </Box>    
     );

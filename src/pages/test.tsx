@@ -1,6 +1,7 @@
 
 // MUI
 import Box from '@mui/material/Box';
+import MyDatePicker from 'components/MyDatePicker';
 
 const classes = {
     root: {
@@ -18,6 +19,7 @@ const Test = () => {
 
     return (
         <Box sx={classes.root}>
+            <MyDatePicker placeholder={'imar'} />
         </Box>
     );
 }
