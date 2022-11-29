@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import { lightColors, darkColors } from 'styles/colors';
 import LogOutIcon from '../../../../public/images/LogOutIcon.svg';
 import { DarkThemeContext } from 'context/ThemeContext';
 import { useContext } from 'react';
@@ -15,7 +14,7 @@ type Props = {
 
 const Footer: React.FC<Props> = ({sideNavState}) => {
     
-    const {darkMode} = useContext(DarkThemeContext);
+    const {mainColors} = useContext(DarkThemeContext);
 
     const style = {
         container: {
@@ -27,8 +26,8 @@ const Footer: React.FC<Props> = ({sideNavState}) => {
             alignItems: 'center',
             justifyContent: 'space-between',
             gap: '20px',
-            borderLeft: `solid 1px ${darkMode ? darkColors.primary.main : lightColors.primary.main}`,
-            background: darkMode ? darkColors.linerGradient.secondary : lightColors.linerGradient.secondary,
+            borderLeft: `solid 1px ${mainColors.primary.main}`,
+            background: mainColors.linerGradient.secondary,
             overflow: 'hidden',
             logout: {
                 height: '100%',
@@ -37,7 +36,7 @@ const Footer: React.FC<Props> = ({sideNavState}) => {
                 justifyContent: 'center',
             },
         },
-    }
+    };
 
     const classes = {
         container: {

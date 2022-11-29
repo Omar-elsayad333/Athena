@@ -4,6 +4,8 @@ import myStyle from './NavLink.module.css';
 // MUI
 import Button from '@mui/material/Button';
 import Link from 'next/link';
+import { useContext } from 'react';
+import { DarkThemeContext } from 'context/ThemeContext';
 
 type Prop = {
     icon: any;
@@ -14,6 +16,8 @@ type Prop = {
 
 const NavLink: React.FC<Prop> = ({icon, content, path, controleMobileSideNav}) => {
     
+    const {mainColors} = useContext(DarkThemeContext);
+
     const classes = {
         root: {
             width: '100%',
@@ -26,7 +30,7 @@ const NavLink: React.FC<Prop> = ({icon, content, path, controleMobileSideNav}) =
             fontSize: '22px',
             fontWeight: '700',
             border: 'none',
-            color: '#3F72A4',
+            color: mainColors.primary.main,
         },
     }
 

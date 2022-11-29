@@ -1,6 +1,7 @@
-import {lightColors} from "styles/colors";
 import Footer from './Footer';
 import NavLink from "./NavLink";
+import { useContext } from 'react';
+import { DarkThemeContext } from 'context/ThemeContext';
 import home from '../../../../public/images/HomeIcon.svg';
 import students from '../../../../public/images/StudentsIcon.svg';
 import groups from '../../../../public/images/groups-icon.svg';
@@ -21,47 +22,50 @@ type Props = {
     mobileSideNavState: Boolean;
 }
 
-const style: any = {
-    container: {
-        width: '100%',
-        position: 'absolute',
-        top: '80px',
-        overflow: 'hidden',
-        zIndex: '99',
-        transition: '.5s linear',
-    },
-    menu: {
-        width: '100%',
-        height: 'calc(100vh - (80px + 66px))',
-        paddingY: '17px',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'flex-start',
-        backgroundColor: '#B6D5F0',
-        borderBottom: `solid 1px ${lightColors.primary.dark}`,
-        overflowY: 'auto',
-        overflowX: 'hidden',
-        '&::-webkit-scrollbar': {
-            width: '7px'
-        },
-        '&::-webkit-scrollbar-track': {
-            boxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)',
-            webkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)'
-        },
-        '&::-webkit-scrollbar-thumb': {
-            border: `1px solid ${lightColors.primary.main}`,
-        },
-    },
-};
 
 const Menu: React.FC<Props> = ({controleMobileSideNav, mobileSideNavState}) => {
 
+    const {mainColors} = useContext(DarkThemeContext);
+    
+    const style: any = {
+        container: {
+            width: '100%',
+            position: 'absolute',
+            top: '80px',
+            overflow: 'hidden',
+            zIndex: '100',
+            transition: '.5s linear',
+        },
+        menu: {
+            width: '100%',
+            height: 'calc(100vh - (80px + 66px))',
+            paddingY: '17px',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'flex-start',
+            backgroundColor: mainColors.backgroundColor.sideNav,
+            borderBottom: `solid 1px ${mainColors.primary.dark}`,
+            overflowY: 'auto',
+            overflowX: 'hidden',
+            '&::-webkit-scrollbar': {
+                width: '7px'
+            },
+            '&::-webkit-scrollbar-track': {
+                boxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)',
+                webkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)'
+            },
+            '&::-webkit-scrollbar-thumb': {
+                border: `1px solid ${mainColors.primary.main}`,
+            },
+        },
+    };
+    
     const classes = {
         container: {
             height: mobileSideNavState ? 'calc(100vh - 80px)' : '0px',
         }
     }
-
+    
     return (
         <Box sx={[style.container, classes.container]}>
             <Box sx={style.menu}>

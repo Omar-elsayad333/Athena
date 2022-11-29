@@ -1,4 +1,3 @@
-import { darkColors, lightColors } from 'styles/colors';
 import Image from 'next/image';
 import me from '../../../../public/images/me.jpg';
 import iconBell from '../../../../public/images/iconBell.svg';
@@ -15,7 +14,7 @@ import { Typography } from '@mui/material';
 
 const DesktopNavbar: React.FC = () => {
 
-    const {darkMode} = useContext(DarkThemeContext);
+    const {mainColors} = useContext(DarkThemeContext);
 
     const style: any = {
         container: {
@@ -30,8 +29,8 @@ const DesktopNavbar: React.FC = () => {
             justifyContent: 'space-between',
             alignItems: 'center',
             gap: '25px',
-            background: darkMode ? darkColors.linerGradient.primary : lightColors.linerGradient.primary,
-            borderBottom: `1px solid ${darkMode ? darkColors.primary.main : lightColors.primary.main}`,
+            background: mainColors.linerGradient.primary,
+            borderBottom: `1px solid ${mainColors.primary.main}`,
             '@media(max-width: 1200px)': {
                 height: '75px',
                 justifyContent: 'center',
@@ -68,7 +67,7 @@ const DesktopNavbar: React.FC = () => {
                 border: '1px solid #E8F3FF',
                 borderRadius: '7px',
                 boxShadow: '0px 0px 10px 0px #3F72A440',
-                background: darkMode ? darkColors.linerGradient.primary : lightColors.linerGradient.primary,
+                background: mainColors.linerGradient.primary,
             },
             photo: {
                 display: 'flex',

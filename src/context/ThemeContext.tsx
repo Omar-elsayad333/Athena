@@ -2,12 +2,14 @@ import { useState, createContext, useEffect } from "react";
 
 const initialValues = {
     darkMode: false,
-    handelDarkTheme: Function
+    mainColors: {},
+    handelDarkTheme: Function,
 }
 
 type ContextState = {
     darkMode: Boolean | String;
     handelDarkTheme: any;
+    mainColors: any;
 };
 
 type IProps = { 
@@ -21,7 +23,6 @@ const DarkThemeProvider: React.FC<IProps> = ({ children }) => {
     
     // The theme data that gets stored in context
     const [ darkMode, setDarkMode] = useState<Boolean | String>(false);
-    const [ customColors, setCustomColors] = useState<any>();
 
     // get the last selected theme
     useEffect(() => {
@@ -30,71 +31,49 @@ const DarkThemeProvider: React.FC<IProps> = ({ children }) => {
         }
     }, [])
 
-    const initialColors = {
+    const mainColors :any = {
         primary: {
             main: darkMode ? '#E0EEFF' : '#3F72A4',
             light: darkMode ? '#ffd700' : '#ffd700',
-            dark: '#1C364F',
-            contrastText: '#E8F3FF',
+            dark: darkMode ? '#B6D5F0' : '#1C364F',
+            contrastText: darkMode ? '#1C364F' : '#E8F3FF',
         },
         secondary: {
-            main: '#E8F3FF',
+            main: darkMode ? 'rgb(63 114 164 / 0%)' : '#E8F3FF',
+            light: darkMode ? '#ffd700' : '#ffd700',
+            dark: darkMode ? '#E0EEFF' : '#3F72A4',
+            contrastText: darkMode ? '#E0EEFF' : '#3F72A4',
+        },
+        error: {
+            main: '#9C1414',
             light: '#ffd700',
-            dark: '#3F72A4',
+            dark: '#581616',
+            contrastText: '#E8F3FF',
+        },
+        title: {
+            main: darkMode ? '#E0EEFF' : '#1C364F',
+        },
+        paper: {
+            main: darkMode ? '#1C364F' : '#E8F3FF',
+            border: darkMode ? '#3F72A4' : '#B6D5F0',
+        },
+        chips: {
+            main: darkMode ? '#E0EEFF' : '#B6D5F0',
+            border: darkMode ? '#E0EEFF' : '#3F72A4',
             contrastText: '#3F72A4',
         },
-        error: {
-            main: '#9C1414',
-            light: '#ffd700',
-            dark: '#581616',
-            contrastText: '#E8F3FF',
-        },
-        title: {
-            main: '#1C364F',
+        customButton: {
+            main: darkMode ? '#162A3E' : '#E8F3FF',
         },
         backgroundColor: {
-            main: '#E0EEFF',
-            sideNav: '#B6D5F0',
-            navbar: '#B6D5F0',
+            main: darkMode ? '#162A3E' : '#E0EEFF',
+            sideNav: darkMode ? '#1C364F' : '#B6D5F0',
         },
         linerGradient: {
-            primary: 'linear-gradient(180deg, #B6D5F0 0%, #DFEFFF 100%)',
-            secondary: 'linear-gradient(180deg, #DFEFFF 0%, #B6D5F0 100%)',
+            primary: darkMode ? 'linear-gradient(0deg, #4072A4 0%, #1D3750 100%)' : 'linear-gradient(180deg, #B6D5F0 0%, #DFEFFF 100%)',
+            secondary: darkMode ? 'linear-gradient(180deg, #3F72A4 0%, #1C364F 100%)' : 'linear-gradient(180deg, #DFEFFF 0%, #B6D5F0 100%)',
         },
-    }
-
-    const darkColors = {
-        primary: {
-            main: '#E0EEFF',
-            light: 'red',
-            dark: '#B6D5F0',
-            contrastText: '#1C364F',
-        },
-        secondary: {
-            main: 'rgb(63 114 164 / 0%)',
-            light: 'red',
-            dark: '#E0EEFF',
-            contrastText: '#E0EEFF',
-        },
-        error: {
-            main: '#9C1414',
-            light: '#ffd700',
-            dark: '#581616',
-            contrastText: '#E8F3FF',
-        },
-        title: {
-            main: '#E0EEFF',
-        },
-        backgroundColor: {
-            main: '#162A3E',
-            sideNav: '#1C364F',
-            navbar: 'linear-gradient(0deg, #4072A4 0%, #1D3750 100%)',
-        },
-        linerGradient: {
-            primary: 'linear-gradient(0deg, #4072A4 0%, #1D3750 100%)',
-            secondary: 'linear-gradient(180deg, #3F72A4 0%, #1C364F 100%)'
-        },
-    }
+    };
 
     // handle change theme
     const handelDarkTheme = async () => {
@@ -103,7 +82,7 @@ const DarkThemeProvider: React.FC<IProps> = ({ children }) => {
     };
 
     return (
-        <DarkThemeContext.Provider value={{ darkMode, handelDarkTheme }}>
+        <DarkThemeContext.Provider value={{ mainColors, darkMode, handelDarkTheme }}>
             {children}
         </DarkThemeContext.Provider> 
     );

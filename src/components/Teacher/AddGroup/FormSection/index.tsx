@@ -17,7 +17,7 @@ import MyTimePicker from "components/MyTimePicker";
 
 const FormSection = () => {
 
-    const { darkMode } = useContext(DarkThemeContext);
+    const {darkMode, mainColors} = useContext(DarkThemeContext);
 
     const {
         selectedDays,
@@ -54,8 +54,8 @@ const FormSection = () => {
             flexWrap: 'wrap',
             gap: '20px',
             padding: '30px',
-            background: '#E8F3FF',
-            border: '2px solid #B6D5F0',
+            background: mainColors.paper.main,
+            border: `2px solid ${mainColors.paper.border}`,
             borderRadius: '12px',
         },
         daysList: {
@@ -79,10 +79,10 @@ const FormSection = () => {
             fontWeight: '700',
             fontSize: '20px',
             borderRadius: '5px',
-            border: '1px solid #3F72A4',
-            background: '#B6D5F0',
+            border: `1px solid ${mainColors.chips.border}`,
+            background: mainColors.chips.main,
             cursor: 'pointer',
-            color: '#3F72A4',
+            color: mainColors.chips.contrastText,
             transition: '.2s',
         },
         timePickerContainer: {
@@ -160,13 +160,13 @@ const FormSection = () => {
                                         </Box>
                                         <Box sx={style.timePicker} >
                                             <Box>
-                                                <Typography mb={3} variant='h5'>
+                                                <Typography mb={3} variant='h5' color={mainColors.title.main}>
                                                     وقت بدأ المجموعة:-
                                                 </Typography>
                                                 <MyTimePicker name='startTime' day={item.name} getSelectedTime={getSelectedTime} />
                                             </Box>
                                             <Box>
-                                                <Typography mb={3} variant='h5'>
+                                                <Typography mb={3} variant='h5' color={mainColors.title.main}>
                                                     وقت انتهاء المجموعة:-
                                                 </Typography>
                                                 <MyTimePicker name='endTime' day={item.name} getSelectedTime={getSelectedTime} />

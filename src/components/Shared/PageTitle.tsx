@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import { lightColors, darkColors } from 'styles/colors';
 import { useContext } from 'react';
 import { DarkThemeContext } from 'context/ThemeContext';
 
@@ -14,7 +13,7 @@ type Props = {
 
 const PageTitle:React.FC<Props> = ({content, icon}) => {
 
-    const {darkMode} = useContext(DarkThemeContext);
+    const {darkMode, mainColors} = useContext(DarkThemeContext);
 
     const style = {
         container: {
@@ -25,7 +24,7 @@ const PageTitle:React.FC<Props> = ({content, icon}) => {
             gap: '20px',
             borderRadius: '10px',
             border: darkMode ? '1px solid #B6D5F0' : 'none',
-            background: darkMode ? darkColors.secondary.main : lightColors.secondary.main,
+            background: mainColors.secondary.main,
             boxShadow: darkMode ? 'none' : '0px 5px 15px 0px #1C364F33',
         }
     }

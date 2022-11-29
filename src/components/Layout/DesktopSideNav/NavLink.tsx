@@ -7,7 +7,6 @@ import { DarkThemeContext } from 'context/ThemeContext';
 import Button from '@mui/material/Button';
 import Link from 'next/link';
 import { Typography } from '@mui/material';
-import { darkColors, lightColors } from 'styles/colors';
 
 type Prop = {
     icon: any;
@@ -18,7 +17,7 @@ type Prop = {
 
 const NavLink: React.FC<Prop> = ({icon, content, path, sideNavState}) => {
     
-    const {darkMode} = useContext(DarkThemeContext);
+    const {mainColors} = useContext(DarkThemeContext);
 
     const classes = {
         root: {
@@ -32,7 +31,7 @@ const NavLink: React.FC<Prop> = ({icon, content, path, sideNavState}) => {
             fontSize: '22px',
             fontWeight: '700',
             border: 'none',
-            color: darkMode ? darkColors.primary.main : lightColors.primary.main ,
+            color: mainColors.primary.main,
             whiteSpace: 'noWrap',
         },
     };

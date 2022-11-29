@@ -24,7 +24,7 @@ type Props = {
 
 const Menu: React.FC<Props> = ({sideNavState}) => {
 
-    const {darkMode} = useContext(DarkThemeContext);
+    const {mainColors} = useContext(DarkThemeContext);
 
     const classes = {
         menu: {
@@ -35,10 +35,10 @@ const Menu: React.FC<Props> = ({sideNavState}) => {
             flexDirection: 'column',
             justifyContent: 'space-between',
             gap: '40px',
-            backgroundColor: darkMode ? darkColors.backgroundColor.sideNav : lightColors.backgroundColor.sideNav ,
-            borderTop: `solid 1px ${darkMode ? darkColors.primary.main : lightColors.primary.main}`,
-            borderBottom: `solid 1px ${darkMode ? darkColors.primary.main : lightColors.primary.main}`,
-            borderLeft: `solid 1px ${darkMode ? darkColors.primary.main : lightColors.primary.main}`,
+            backgroundColor: mainColors.backgroundColor.sideNav,
+            borderTop: `solid 1px ${mainColors.primary.main}`,
+            borderBottom: `solid 1px ${mainColors.primary.main}`,
+            borderLeft: `solid 1px ${mainColors.primary.main}`,
             overflowY: 'auto',
             overflowX: 'hidden',
             '&::-webkit-scrollbar': {
@@ -49,7 +49,7 @@ const Menu: React.FC<Props> = ({sideNavState}) => {
                 webkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)'
             },
             '&::-webkit-scrollbar-thumb': {
-                border: `1px solid ${lightColors.primary.main}`,
+                border: `1px solid ${mainColors.primary.main}`,
             },
         },
     }

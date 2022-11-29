@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import { DarkThemeContext } from 'context/ThemeContext';
 import { useContext } from 'react';
-import { lightColors, darkColors } from 'styles/colors';
 
 // MUI
 import Box from '@mui/material/Box';
@@ -14,7 +13,7 @@ type Props = {
 
 const Header: React.FC<Props> = ({controleSideNav, sideNavState}) => {
     
-    const {darkMode} = useContext(DarkThemeContext);
+    const {mainColors, darkMode} = useContext(DarkThemeContext);
 
     const classes = {
         container: {
@@ -25,7 +24,7 @@ const Header: React.FC<Props> = ({controleSideNav, sideNavState}) => {
             justifyContent: 'center',
             alignItems: 'center',
             gap: '30px',
-            background: darkMode ? darkColors.linerGradient.primary : lightColors.linerGradient.primary,
+            background: mainColors.linerGradient.primary,
             transition: '.5s',
         },
         menuIcon: {

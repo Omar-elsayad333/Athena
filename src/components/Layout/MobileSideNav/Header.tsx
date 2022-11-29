@@ -5,6 +5,8 @@ import logo from '../../../../public/images/secondary-inline-logo.svg';
 import iconBell from '../../../../public/images/iconBell.svg';
 import iconEmail from '../../../../public/images/iconEmail.svg';
 import closeIcon from '../../../../public/images/CloseIcon.svg';
+import { useContext } from 'react';
+import { DarkThemeContext } from 'context/ThemeContext';
 
 // MUI
 import Box from '@mui/material/Box'
@@ -14,46 +16,50 @@ type Props = {
     mobileSideNavState: any;
 }
 
-const style = {
-    container: {
-        width: '100%',
-        height: '80px',
-        paddingX: '50px',
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        gap: '35px',
-        borderBottom: '2px solid #3F72A4',  
-        background: 'linear-gradient(90deg, #B6D5F0 0%, #DFEFFF 100%)',
-        '@media(max-width: 500px)': {
-            paddingX: '20px',
-        }
-    },
-    menuIcon: { 
-        width: '28px',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        cursor: 'pointer',
-    },
-    profile: {
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        gap: '20px',
-        '@media(max-width: 250px)': {
-            gap: '10px',
-        },
-        meImage: {
-            width: '50px',
-            height: '50px',
-            display: 'flex',
-        },
-    },
-}
 
 const Header: React.FC<Props> = ({controleMobileSideNav, mobileSideNavState}) => {
+
+    const {mainColors} = useContext(DarkThemeContext);
+    
+    const style = {
+        container: {
+            width: '100%',
+            height: '80px',
+            paddingX: '50px',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            gap: '35px',
+            borderBottom: `2px solid ${mainColors.primary.main}`,  
+            background: mainColors.linerGradient.primary,
+            '@media(max-width: 500px)': {
+                paddingX: '20px',
+            }
+        },
+        menuIcon: { 
+            width: '28px',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            cursor: 'pointer',
+        },
+        profile: {
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            gap: '20px',
+            '@media(max-width: 250px)': {
+                gap: '10px',
+            },
+            meImage: {
+                width: '50px',
+                height: '50px',
+                display: 'flex',
+            },
+        },
+    }
+
     return (
         <>
             {
