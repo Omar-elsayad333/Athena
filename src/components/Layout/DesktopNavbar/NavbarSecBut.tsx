@@ -27,8 +27,12 @@ const NavbarSecBut: React.FC<Props> = ({content, onClick}) => {
         '@media(max-width: 1200px)': {
             width: '170px',
             height: '40px',
+            fontSize: '16px',
             padding: '9px 5px',
             borderRadius: '21px',
+        },
+        '@media(max-width: 400px)': {
+            fontSize: '13px',
         },
     });
 

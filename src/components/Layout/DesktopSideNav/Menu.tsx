@@ -19,7 +19,6 @@ type Props = {
     sideNavState: Boolean;
 }
 
-
 const Menu: React.FC<Props> = ({sideNavState}) => {
 
     const {mainColors} = useContext(DarkThemeContext);

@@ -34,8 +34,9 @@ const DesktopNavbar: React.FC = () => {
             '@media(max-width: 1200px)': {
                 height: '75px',
                 justifyContent: 'center',
-                borderBottom: '3px solid #3F72A4',
+                borderBottom: `3px solid ${mainColors.primary.main}`,
                 borderRadius: '0 0 20px 20px',
+                background: mainColors.linerGradient.secondary,
             },   
             '@media(max-width: 500px)': {
                 padding: '0 20px',
