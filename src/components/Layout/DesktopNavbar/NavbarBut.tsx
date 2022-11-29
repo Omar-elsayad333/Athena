@@ -1,10 +1,11 @@
 // MUI
 import { styled } from '@mui/material/styles';
 import Button from "@mui/material/Button";
+import Link from 'next/link';
 
 type Props = {
     content?: any;
-    onClick?: any;
+    path: any;
 }
 
 const MyButton = styled(Button)({
@@ -26,11 +27,15 @@ const MyButton = styled(Button)({
     },
 });
 
-const NavbarBut: React.FC<Props> = ({content, onClick}) => {
+const NavbarBut: React.FC<Props> = ({content, path}) => {
     return (
-        <MyButton variant="contained" onClick={onClick}>
-            {content}
-        </MyButton>
+        <Link href={path || ''}>
+            <a>
+                <MyButton variant="contained">
+                    {content}
+                </MyButton>
+            </a>
+        </Link>
     );
 }
  

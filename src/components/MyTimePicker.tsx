@@ -2,11 +2,11 @@ import {useEffect, useState} from 'react'
 
 // MUI
 import TextField from '@mui/material/TextField';
+import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { SxProps } from '@mui/material';
-import { DesktopTimePicker } from '@mui/x-date-pickers/DesktopTimePicker';
-import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
+import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 
 
 const classes = {
@@ -59,12 +59,16 @@ const popperStyle: SxProps = {
     },
     '.MuiClock-squareMask': {
         backgroundColor: '#B6D5F0',
+        borderRadius: '50%',
     },
     '.MuiClockNumber-root': {
         color: '#3F72A4',
     },
     '.Mui-selected': {
         color: '#E8F3FF',
+    },
+    '.MuiTypography-root': {
+        color: '#3F72A4',
     },
     '.MuiPickersArrowSwitcher-spacer': {
         width: '5px',
@@ -102,7 +106,7 @@ const MyTimePicker: React.FC<Props> = ({getSelectedTime, name, day}) => {
 
     return (
         <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <DesktopTimePicker
+            <TimePicker
                 value={timeValue}
                 onChange={(newValue) => {
                     setTimeValue(newValue);
@@ -116,6 +120,9 @@ const MyTimePicker: React.FC<Props> = ({getSelectedTime, name, day}) => {
                     />                
                 )}
                 PopperProps={{
+                    sx: popperStyle
+                }}
+                DialogProps={{
                     sx: popperStyle
                 }}
                 components={{

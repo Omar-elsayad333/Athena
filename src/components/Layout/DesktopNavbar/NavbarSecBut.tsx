@@ -3,13 +3,14 @@ import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import { useContext } from 'react';
 import { DarkThemeContext } from 'context/ThemeContext';
+import Link from 'next/link';
 
 type Props = {
     content?: any;
-    onClick?: any;
+    path?: any;
 }
 
-const NavbarSecBut: React.FC<Props> = ({content, onClick}) => {
+const NavbarSecBut: React.FC<Props> = ({content, path}) => {
 
     const {darkMode} = useContext(DarkThemeContext);
 
@@ -37,9 +38,13 @@ const NavbarSecBut: React.FC<Props> = ({content, onClick}) => {
     });
 
     return (
-        <MyButton variant="contained" color='secondary' onClick={onClick}>
-            {content}
-        </MyButton>
+        <Link href={path || ''}>
+            <a>                
+                <MyButton variant="contained" color='secondary'>
+                    {content}
+                </MyButton>
+            </a>
+        </Link>
     );
 }
  

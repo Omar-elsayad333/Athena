@@ -34,10 +34,15 @@ const AddGroup: NextPage = () => {
             },
         }
     }
-
+    
     return (
         <Box sx={style.root}>
-            <DesktopNavbar /> 
+            <DesktopNavbar 
+                firstPath='/teacher/groups' 
+                firstContent='جميع المجموعات' 
+                secondPath='/teacher/addGroup' 
+                secondContent='اضافة مجموعة' 
+            /> 
             <Box sx={style.container}>
                 <PageTitle icon='/images/groups-icon.svg' content='اضافة مجموعة جديدة' />
                 <FormSection />

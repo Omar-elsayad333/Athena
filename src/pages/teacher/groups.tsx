@@ -28,7 +28,12 @@ const Groups: NextPage = () => {
 
     return (
         <Box sx={style.root}>
-            <DesktopNavbar /> 
+            <DesktopNavbar 
+                firstPath='/teacher/groups' 
+                firstContent='جميع المجموعات' 
+                secondPath='/teacher/addGroup' 
+                secondContent='اضافة مجموعة' 
+            /> 
             <Box p={8}>
             
             </Box>

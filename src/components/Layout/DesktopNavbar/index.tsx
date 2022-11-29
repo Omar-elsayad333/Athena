@@ -12,7 +12,14 @@ import { DarkThemeContext } from 'context/ThemeContext';
 import Box from '@mui/material/Box';
 import { Typography } from '@mui/material';
 
-const DesktopNavbar: React.FC = () => {
+type Props = {
+    firstPath?: any;
+    secondPath?: any
+    firstContent?: any;
+    secondContent?: any;
+}
+
+const DesktopNavbar: React.FC<Props> = ({firstPath, secondPath, firstContent, secondContent}) => {
 
     const {mainColors} = useContext(DarkThemeContext);
 
@@ -86,8 +93,8 @@ const DesktopNavbar: React.FC = () => {
     return (
         <Box sx={style.container}>
             <Box sx={style.buttonsContainer}>
-                <NavbarBut content='جميع المجموعات' />
-                <NavbarSecBut content='اضافة مجموعة' />
+                <NavbarBut content={firstContent} path={firstPath} />
+                <NavbarSecBut content={secondContent} path={secondPath} />
             </Box>
             <Box sx={style.teacherInfo}>
                 <Image src={iconEmail} alt='Notifications' />
