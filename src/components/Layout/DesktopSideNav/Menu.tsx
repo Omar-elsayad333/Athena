@@ -1,6 +1,4 @@
-import { lightColors, darkColors } from 'styles/colors';
 import NavLink from './NavLink';
-// import home from '../../../../public/images/HomeIcon.svg';
 import students from '../../../../public/images/StudentsIcon.svg';
 import groups from '../../../../public/images/groups-icon.svg';
 import calender from '../../../../public/images/CalenderIcon.svg';
