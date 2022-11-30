@@ -2,17 +2,17 @@ import {lightColors} from "../../styles/colors";
 
 const style: any = {
     TeacherLoginCard: {
-        margin: '30px 10px',
-        backgroundColor: 'rgba(232, 243, 255, 0.4);',
         width: '500px',
         maxWidth: '100%',
         minHeight: 'auto',
+        margin: '30px 10px',
+        backgroundColor: 'rgba(232, 243, 255, 0.4);',
         borderRadius: '30px',
         backdropFilter: 'blur(10px)',
         borderWidth: '10px 0px',
         borderStyle: 'solid',
-        borderColor: `${lightColors.primary.dark}`,   
-        color: lightColors.primary.dark,
+        borderColor: `${lightColors.primary.main}`,   
+        color: lightColors.primary.main,
     },
     container: {
         maxWidth: '100%',
@@ -25,9 +25,16 @@ const style: any = {
             padding: '30px',
         }
     },
+    imageContainer: {
+        width: '60%',
+    },
     headerText: {
         textAlign: 'center',
-        paddingY: '20px',
+        fontSize: '30px',
+        paddingBottom: '20px',
+        '@media(max-width: 500px)': {
+            fontSize: '15px',
+        },
     },
     form: {
         width: '450px',
@@ -37,27 +44,32 @@ const style: any = {
         gap: '30px',
     },
     formLabels: {
+        fontSize: '20px',
         padding: '13px 0',
+        '@media(max-width: 500px)': {
+            fontSize: '13px',
+        },
     },
     formOptions: {
-        width: '450px',
-        maxWidth: '100%',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
+        gap: '20px',
         paddingTop: '16px',
-        color: lightColors.primary.dark,
+        color: lightColors.primary.main,
     },
     checkContainer: {
-        fontWeight: '400',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
     },
+    checkBox: {
+        '.MuiSvgIcon-root': {
+            color: '#3F72A4',
+        },
+    },
     logContainer: {
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
+        width: '100%',
     }
 }
 

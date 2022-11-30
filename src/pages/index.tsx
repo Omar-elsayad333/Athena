@@ -2,7 +2,7 @@ import type { NextPage } from 'next';
 import { lightColors, darkColors } from 'styles/colors';
 import logo from '../../public/images/Logo(4).svg';
 import LoginButDark from '../components/LoginButDark';
-import LoginButLight from '../components/LoginButLight';
+import LoginButLight from '../components/TeacherLogin/LoginButton';
 import { DarkThemeContext } from 'context/ThemeContext';
 import { useContext } from 'react';
 

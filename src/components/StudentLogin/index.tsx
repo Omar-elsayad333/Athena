@@ -2,7 +2,7 @@ import logo from '../../../public/images/Logo(2).svg';
 import Image from 'next/image';
 import style from './style';
 import LoginButDark from "../LoginButDark";
-import MyLoginInput from '../MyLoginInput';
+import MyLoginInput from '../TeacherLogin/LoginInput';
 import Link from 'next/link';
 
 // MUI

@@ -38,7 +38,7 @@ const classes: SxProps = {
             border: '1px solid #E8F3FF !important',
         },
         '.Mui-error': {
-            borderColor: 'red !important',
+            borderColor: '#9C1414 !important',
         },
         '.MuiSvgIcon-root ': {
             width: '25px ',
