@@ -29,8 +29,6 @@ const LoginInput: React.FC<Props> = ({Name, Value, OnChange, error, HelperText})
                 border: '2.5px solid rgba(63, 114, 164, 0)',
                 boxShadow: '0px 0px 10px 0px #1C364F40',
                 transition: '.2s ease-out',
-                '.MuiOutlinedInput-input': {
-                },
                 '&.Mui-focused': {
                     boxShadow: 'none',
                     border: '2.5px solid rgba(63, 114, 164, 1)',
