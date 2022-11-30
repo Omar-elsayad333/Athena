@@ -1,4 +1,4 @@
-import { useState, createContext, useEffect } from "react";
+import { useState, createContext, useEffect, useContext } from "react";
 
 const initialValues = {
     darkMode: false,
@@ -17,9 +17,9 @@ type IProps = {
 };
 
 // create context for dark theme state
-const DarkThemeContext = createContext<ContextState>(initialValues);
+export const DarkThemeContext = createContext<ContextState>(initialValues);
 
-const DarkThemeProvider: React.FC<IProps> = ({ children }) => {
+export const DarkThemeProvider: React.FC<IProps> = ({ children }) => {
     
     // The theme data that gets stored in context
     const [ darkMode, setDarkMode] = useState<Boolean | String>(false);
@@ -88,4 +88,5 @@ const DarkThemeProvider: React.FC<IProps> = ({ children }) => {
     );
 };
 
-export {DarkThemeContext, DarkThemeProvider};
+// Custom hook that shorthands the context!
+export const useTheme = () => useContext(DarkThemeContext);
