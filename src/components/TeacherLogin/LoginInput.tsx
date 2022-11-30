@@ -14,7 +14,7 @@ type Props = {
     Placeholder?: any;
 }
 
-const MyLoginInput: React.FC<Props> = ({Name, Value, OnChange, error, HelperText}) => {
+const LoginInput: React.FC<Props> = ({Name, Value, OnChange, error, HelperText}) => {
     
     const classes = {
         root: {
@@ -22,23 +22,26 @@ const MyLoginInput: React.FC<Props> = ({Name, Value, OnChange, error, HelperText
             '.MuiOutlinedInput-root': {
                 height: '80px',
                 borderRadius: '12px',
-                fontSize: '16px',
+                fontSize: '18px',
                 fontWeight: '400',
                 color: lightColors.primary.main,
                 backgroundColor: 'rgba(232, 243, 255, 0.25)',
                 border: '2.5px solid rgba(63, 114, 164, 0)',
                 boxShadow: '0px 0px 10px 0px #1C364F40',
                 transition: '.2s ease-out',
+                '.MuiOutlinedInput-input': {
+                },
                 '&.Mui-focused': {
                     boxShadow: 'none',
                     border: '2.5px solid rgba(63, 114, 164, 1)',
                     backgroundColor: 'rgba(232, 243, 255, 0.5)',
                 },
                 '.MuiOutlinedInput-notchedOutline': {
+                    fontSize: '20px',
                     border: 'none',
                 },
                 '@media(max-width: 500px)': {   
-                    fontSize: '27px',
+                    fontSize: '13px',
                     height: '53px',
                 },
             },
@@ -60,4 +63,4 @@ const MyLoginInput: React.FC<Props> = ({Name, Value, OnChange, error, HelperText
     )
 }
 
-export default MyLoginInput;
+export default LoginInput;

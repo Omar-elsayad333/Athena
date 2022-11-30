@@ -1,7 +1,7 @@
 import style from './style';
 import Image from 'next/image';
 import MyButton from './LoginButton';
-import MyLoginInput from './LoginInput';
+import LoginInput from './LoginInput';
 import PasswordInput from './PasswordInput';
 
 // MUI
@@ -25,7 +25,7 @@ const TeacherLogin: React.FC = () => {
                         <Typography sx={style.formLabels}>
                             أسم المستخدم، البريد الإلكتروني أو رقم الهاتف 
                         </Typography>
-                        <MyLoginInput />
+                        <LoginInput />
                     </Box>
                     <Box sx={{width: '100%'}}>
                         <Typography sx={style.formLabels}>

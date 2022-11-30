@@ -12,8 +12,12 @@ const classes = {
     root: {
         width: '100%',
         height: '80px',
-        border: '2.5px solid rgba(63, 114, 164, 0)',
+        fontSize: '18px',
+        fontWeight: '400',
+        color: lightColors.primary.main,
         backgroundColor: 'rgba(232, 243, 255, 0.25)',
+        border: '2.5px solid rgba(63, 114, 164, 0)',
+        borderRadius: '12px',
         boxShadow: '0px 0px 10px 0px #1C364F40',
         transition: '.2s ease-out',
         '&.Mui-focused': {
@@ -21,10 +25,6 @@ const classes = {
             border: '2.5px solid rgba(63, 114, 164, 1)',
             backgroundColor: 'rgba(232, 243, 255, 0.5)',
         },
-        borderRadius: '12px',
-        fontSize: '16px',
-        fontWeight: '400',
-        color: lightColors.primary.main,
         '.MuiOutlinedInput-notchedOutline': {
             border: 'none',
         },
@@ -35,7 +35,7 @@ const classes = {
             borderColor: '#9C1414 !important',
         },
         '@media(max-width: 500px)': {   
-            fontSize: '27px',
+            fontSize: '13px',
             height: '53px',
         },
     }
