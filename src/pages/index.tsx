@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
 import { lightColors, darkColors } from 'styles/colors';
-import logo from '../../public/images/Logo(4).svg';
+import logo from '../../public/images/logo-with-text.svg';
 import LoginButDark from '../components/LoginButDark';
 import LoginButLight from '../components/TeacherLogin/LoginButton';
 import { DarkThemeContext } from 'context/ThemeContext';
