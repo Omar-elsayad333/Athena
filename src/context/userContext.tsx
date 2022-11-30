@@ -20,9 +20,9 @@ export const UserContext = createContext<ContextState>(initialValues);
 
 export const UserProvider: React.FC<IProps> = ({ children }) => {
 
-    const [user, setUser] = useState<any>(null);
-    const [authToken, setAuthToken] = useState<string>('');
-    const [loadingUser, setLoadingUser] = useState<boolean>(true);
+    const [user] = useState<any>(null);
+    const [authToken] = useState<string>('');
+    const [loadingUser] = useState<boolean>(true);
 
     return (
         <UserContext.Provider value={{user, authToken, loadingUser}}>
