@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import Avatar from '../../Avatar';
 import me from '../../../../public/images/me.jpg';
-import logo from '../../../../public/images/secondary-inline-logo.svg';
 import iconBell from '../../../../public/images/iconBell.svg';
 import iconEmail from '../../../../public/images/iconEmail.svg';
 import closeIcon from '../../../../public/images/CloseIcon.svg';
