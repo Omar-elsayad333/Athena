@@ -39,6 +39,8 @@ const DesktopNavbar: React.FC<Props> = ({firstPath, secondPath, firstContent, se
             background: mainColors.linerGradient.primary,
             borderBottom: `1px solid ${mainColors.primary.main}`,
             '@media(max-width: 1200px)': {
+                // position: 'fixed',
+                top: '80px',
                 height: '75px',
                 justifyContent: 'center',
                 borderBottom: `3px solid ${mainColors.primary.main}`,
@@ -50,13 +52,17 @@ const DesktopNavbar: React.FC<Props> = ({firstPath, secondPath, firstContent, se
             },   
         },
         buttonsContainer: {
+            overflow: 'hidden',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            gap: '30px',
+            gap: '25px',
             '@media(max-width: 1200px)': {
                 width: '100%',
                 justifyContent: 'space-between',
+            },
+            '@media(max-width: 300px)': {
+                gap: '15px',
             },
         },
         teacherInfo: {

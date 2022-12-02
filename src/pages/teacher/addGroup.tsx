@@ -4,7 +4,7 @@ import { DarkThemeContext } from "context/ThemeContext";
 import { lightColors, darkColors } from "styles/colors";
 import DesktopNavbar from 'components/Layout/DesktopNavbar';
 import PageTitle from 'components/Shared/PageTitle';
-import FormSection from 'components/Teacher/AddGroup/FormSection';
+import AddGroupC from 'components/Teacher/AddGroup';
 
 // MUI
 import Box from "@mui/material/Box";
@@ -45,7 +45,7 @@ const AddGroup: NextPage = () => {
             /> 
             <Box sx={style.container}>
                 <PageTitle icon='/images/groups-icon.svg' content='اضافة مجموعة جديدة' />
-                <FormSection />
+                <AddGroupC />
             </Box>
         </Box>    
     );

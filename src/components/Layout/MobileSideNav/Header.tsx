@@ -19,7 +19,7 @@ type Props = {
 
 const Header: React.FC<Props> = ({controleMobileSideNav, mobileSideNavState}) => {
 
-    const {mainColors} = useContext(DarkThemeContext);
+    const {mainColors, darkMode} = useContext(DarkThemeContext);
     
     const style = {
         container: {
@@ -69,7 +69,11 @@ const Header: React.FC<Props> = ({controleMobileSideNav, mobileSideNavState}) =>
                         <Image src='/images/menu-icon.svg' width={28} height={19} layout='intrinsic' alt='open menu' onClick={controleMobileSideNav} />
                     </Box>
                     <Box>
-                        <Image src={logo} alt='Athena' width={192} />
+                        {
+                            darkMode ?
+                            <Image src='/images/secondary-inline-logo.svg' alt='Athena' width={190} height={35} /> :
+                            <Image src='/images/primary-inline-logo.svg' alt='Athena' width={190} height={35} /> 
+                        }
                     </Box>
                 </Box> :
                 <Box sx={style.container}>

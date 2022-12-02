@@ -15,6 +15,11 @@ const MyButton = styled(Button)({
     fontWeight: '700',
     boxShadow: 'none',
     borderRadius: '6px',
+    color: '#E8F3FF',
+    background: '#3F72A4',
+    ':hover': {
+        background: '#1C364F',
+    },
     '@media(max-width: 500px)': {
         fontSize: '27px',
         height: '53px',
@@ -29,7 +34,7 @@ const MyButton = styled(Button)({
 
 const LoginButLight: React.FC<Props> = ({content, onClick, type}) => {
     return (
-        <MyButton variant="contained" color='primary' type={type} onClick={onClick}>
+        <MyButton variant="contained" type={type} onClick={onClick}>
             {content}
         </MyButton>  
     );

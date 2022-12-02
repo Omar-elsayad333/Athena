@@ -15,7 +15,27 @@
 
 .light-link {
     color: #3F72A4;
+    border: 4px solid #E0EEFF;
+
 }
+
+
+::-webkit-scrollbar {
+    width: 15px;
+    background-color: #E0EEFF;
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px #E0EEFF;
+    -webkit-box-shadow: inset 0 0 6px #E0EEFF;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #B6D5F0;
+    border: 3px solid #E0EEFF;
+    border-radius: 10px;
+}
+
 
 /* =====================
     start my input style

@@ -30,17 +30,14 @@ const Header: React.FC<Props> = ({controleSideNav, sideNavState}) => {
         menuIcon: {
             cursor: 'pointer'
         },
-    }
-
-    const style = {
         logo: {
             display: sideNavState ? 'block' : 'none',
         },
-    };
+    }
 
     return (
         <Box sx= {classes.container}>
-            <Box sx={style.logo}>
+            <Box sx={classes.logo}>
                 {
                     sideNavState &&
                     <>

@@ -10,7 +10,7 @@ type Props = {
     handleDialogState: any;
 }
 
-const AddDayBut: React.FC<Props> = ({handleDialogState}) => {
+const AddDayButton: React.FC<Props> = ({handleDialogState}) => {
 
     const {mainColors, darkMode} = useContext(DarkThemeContext);
 
@@ -46,5 +46,5 @@ const AddDayBut: React.FC<Props> = ({handleDialogState}) => {
         </Button> 
     );
 }
- 
-export default AddDayBut;
+
+export default AddDayButton;

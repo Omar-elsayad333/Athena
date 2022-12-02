@@ -33,6 +33,7 @@ const NavbarSecBut: React.FC<Props> = ({content, path}) => {
             borderRadius: '21px',
         },
         '@media(max-width: 400px)': {
+            width: '120px',
             fontSize: '13px',
         },
     });

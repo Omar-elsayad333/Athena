@@ -11,7 +11,9 @@ type Props = {
 
 const classes = {
     root: {
-        position: 'relative',
+        position: 'sticky',
+        top: '0',
+        zIndex: '100',
         '@media(min-width: 1200px)': {
             display: 'none',
         }
