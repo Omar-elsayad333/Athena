@@ -53,6 +53,10 @@ export const DarkThemeProvider: React.FC<IProps> = ({ children }) => {
         title: {
             main: darkMode ? '#E0EEFF' : '#1C364F',
         },
+        input: {
+            main: darkMode ? '#B6D5F0' : '#3F72A4',
+            background: darkMode ? 'rgb(63 114 164 / 0%)' : '#E8F3FF',
+        },
         paper: {
             main: darkMode ? '#1C364F' : '#E8F3FF',
             border: darkMode ? '#3F72A4' : '#B6D5F0',

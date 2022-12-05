@@ -92,7 +92,7 @@ const MyPassInput: React.FC<Props> = ({placeholder}) => {
                             onMouseDown={handleMouseDownPassword}
                             edge="end"
                         >
-                        {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                            {values.showPassword ? <VisibilityOff /> : <Visibility />}
                         </IconButton>
                     </InputAdornment>
                 }
