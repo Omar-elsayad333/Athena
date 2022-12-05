@@ -1,11 +1,11 @@
 
 // MUI
 import Box from '@mui/material/Box';
-import MyDatePicker from 'components/MyDatePicker';
 
 const classes = {
     root: {
-        width:'100%',
+        margin: 'auto',
+        width:'80%',
         height: '100vh',
         display: 'flex',
         flexDirection: 'column',
@@ -19,7 +19,6 @@ const Test = () => {
 
     return (
         <Box sx={classes.root}>
-            <MyDatePicker placeholder={'imar'} />
         </Box>
     );
 }

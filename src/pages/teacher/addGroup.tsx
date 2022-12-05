@@ -5,6 +5,7 @@ import { lightColors, darkColors } from "styles/colors";
 import DesktopNavbar from 'components/Layout/DesktopNavbar';
 import PageTitle from 'components/Shared/PageTitle';
 import AddGroupC from 'components/Teacher/AddGroup';
+import ThemeSwitcher from "components/ThemeSwitcher";
 
 // MUI
 import Box from "@mui/material/Box";
@@ -47,6 +48,7 @@ const AddGroup: NextPage = () => {
                 <PageTitle icon='/images/groups-icon.svg' content='اضافة مجموعة جديدة' />
                 <AddGroupC />
             </Box>
+            <ThemeSwitcher />
         </Box>    
     );
 }

@@ -7,7 +7,7 @@ const initialValues = {
 }
 
 type ContextState = {
-    darkMode: Boolean | String;
+    darkMode: boolean | string;
     handelDarkTheme: any;
     mainColors: any;
 };
@@ -22,7 +22,7 @@ export const DarkThemeContext = createContext<ContextState>(initialValues);
 export const DarkThemeProvider: React.FC<IProps> = ({ children }) => {
     
     // The theme data that gets stored in context
-    const [ darkMode, setDarkMode] = useState<Boolean | String>(false);
+    const [ darkMode, setDarkMode] = useState<boolean | string>(false);
 
     // get the last selected theme
     useEffect(() => {
