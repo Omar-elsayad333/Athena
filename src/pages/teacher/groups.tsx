@@ -4,6 +4,7 @@ import { useContext } from "react";
 import { lightColors, darkColors } from "styles/colors";
 import { DarkThemeContext } from "context/ThemeContext";
 import PageTitle from 'components/Shared/PageTitle';
+import ThemeSwitcher from "components/ThemeSwitcher";
 
 // MUI
 import Box from "@mui/material/Box";
@@ -45,6 +46,7 @@ const Groups: NextPage = () => {
             <Box sx={style.container}>
                 <PageTitle icon='/images/groups-icon.svg' content='جميع المجموعات الحاليه' />
             </Box>
+            <ThemeSwitcher />
         </Box>    
     );
 }
