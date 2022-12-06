@@ -19,7 +19,7 @@ const GroupCard: React.FC<Props> = ({data}) => {
         card: {
             width: '370px',
             height: '243px',
-            paddingX: '40px',
+            padding: '40px 30px',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
@@ -33,6 +33,10 @@ const GroupCard: React.FC<Props> = ({data}) => {
             transition: '.35s',
             ':hover': {
                 boxShadow: '0px 0px 15px 0px #1C364F40',
+            },
+            '@media(max-width: 400px)': {
+                gap: '25px',
+                padding: '40px 20px',
             },
         },
         content: {

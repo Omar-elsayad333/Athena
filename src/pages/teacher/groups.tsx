@@ -6,10 +6,10 @@ import { DarkThemeContext } from "context/ThemeContext";
 import PageTitle from 'components/Shared/PageTitle';
 import ThemeSwitcher from "components/ThemeSwitcher";
 import GroupsC from "components/Teacher/Groups";
+import MySearchInput from "components/MySearchInput";
 
 // MUI
 import Box from "@mui/material/Box";
-import MySearchInput from "components/MySearchInput";
 
 const Groups: NextPage = () => {
 
@@ -24,6 +24,7 @@ const Groups: NextPage = () => {
             backgroundColor: darkMode ? darkColors.backgroundColor.main : lightColors.backgroundColor.main,
         },
         container: {
+            width: '100%',
             padding: '60px',
             display: 'flex',
             flexDirection: 'column',
@@ -42,8 +43,8 @@ const Groups: NextPage = () => {
             <DesktopNavbar 
                 firstPath='/teacher/groups' 
                 firstContent='جميع المجموعات' 
-                secondPath='/teacher/addGroup' 
-                secondContent='اضافة مجموعة' 
+                secondPath='/teacher/addGroup'
+                secondContent='اضافة مجموعة'
             /> 
             <Box sx={style.container}>
                 <PageTitle icon='/images/groups-icon.svg' content='جميع المجموعات الحاليه' />

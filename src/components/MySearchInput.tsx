@@ -21,6 +21,7 @@ const MySearchInput: React.FC<Props> = ({value, onChange, error, placeholder}) =
     const classes = {
         root: {
             width: '767px',
+            maxWidth: '100%',
             height: '59px',
             paddingRight: '10px',
             fontSize: '20px',
@@ -46,11 +47,8 @@ const MySearchInput: React.FC<Props> = ({value, onChange, error, placeholder}) =
             ':hover .MuiOutlinedInput-notchedOutline': {
                 border: '1px solid #3F72A4',
             },
-            '@media(max-width: 300px)': {
-                width: '200px',
-            },
-            '@media(max-width: 250px)': {
-                width: '150px',
+            '@media(max-width: 450px)': {
+                fontSize: '14px',
             },
         }
     };
