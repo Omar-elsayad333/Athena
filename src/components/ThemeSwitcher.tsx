@@ -20,7 +20,7 @@ const ThemeSwitcher = () => {
             },
         },
         container: {
-            width: 90,
+            width: 80,
             height: 40,
             paddingX: '5px',
             position: 'relative',
@@ -28,6 +28,7 @@ const ThemeSwitcher = () => {
             justifyContent: 'space-between',
             alignItems: 'center',
             borderRadius: '20px',
+            boxShadow: '0px 0px 10px 1px #B6D5F0',
             transition: '.5s',
         },
         switcher: {
@@ -44,7 +45,7 @@ const ThemeSwitcher = () => {
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-        }
+        },
     }
 
     return (

@@ -5,9 +5,11 @@ import { lightColors, darkColors } from "styles/colors";
 import { DarkThemeContext } from "context/ThemeContext";
 import PageTitle from 'components/Shared/PageTitle';
 import ThemeSwitcher from "components/ThemeSwitcher";
+import GroupsC from "components/Teacher/Groups";
 
 // MUI
 import Box from "@mui/material/Box";
+import MySearchInput from "components/MySearchInput";
 
 const Groups: NextPage = () => {
 
@@ -45,6 +47,8 @@ const Groups: NextPage = () => {
             /> 
             <Box sx={style.container}>
                 <PageTitle icon='/images/groups-icon.svg' content='جميع المجموعات الحاليه' />
+                <MySearchInput placeholder="هل تبحث عن مجموعة معينة ؟" />
+                <GroupsC />
             </Box>
             <ThemeSwitcher />
         </Box>    

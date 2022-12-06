@@ -23,7 +23,7 @@ const MySearchInput: React.FC<Props> = ({value, onChange, error, placeholder}) =
             width: '767px',
             height: '59px',
             paddingRight: '10px',
-            fontSize: '14px',
+            fontSize: '20px',
             fontWeight: '400',
             color: mainColors.input.main,
             borderRadius: '7px',

@@ -12,13 +12,15 @@ const useThemeSwitcher = () => {
         if(darkMode && switcher && container) {
             switcher.style.right = '5px';
             switcher.style.background = '#E8F3FF';
-            container.style.background = '#1C364F';
+            container.style.background = '#3F72A4';
+            container.style.boxShadow = 'none';
         }else if(switcher && container) {
-            switcher.style.right = '55px';
+            switcher.style.right = '45px';
             switcher.style.background = '#3F72A4';
-            container.style.background = '#B6D5F0';
+            container.style.boxShadow = '0px 0px 10px 1px #B6D5F0';
+            container.style.background = '#E8F3FF';
         }
-
+        
     }, [darkMode])
 
     const handleSwitch = () => {
@@ -31,7 +33,7 @@ const useThemeSwitcher = () => {
             container.style.background = '#1C364F';
             handelDarkTheme();
         }else if(switcher && container) {
-            switcher.style.right = '55px';
+            switcher.style.right = '45px';
             switcher.style.background = '#3F72A4';
             container.style.background = '#B6D5F0';
             handelDarkTheme();
