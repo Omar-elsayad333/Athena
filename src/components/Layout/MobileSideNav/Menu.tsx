@@ -2,7 +2,6 @@ import Footer from './Footer';
 import NavLink from "./NavLink";
 import { useContext } from 'react';
 import { DarkThemeContext } from 'context/ThemeContext';
-import home from '../../../../public/images/HomeIcon.svg';
 import students from '../../../../public/images/StudentsIcon.svg';
 import groups from '../../../../public/images/groups-icon.svg';
 import calender from '../../../../public/images/CalenderIcon.svg';
