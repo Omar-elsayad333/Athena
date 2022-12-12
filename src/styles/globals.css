@@ -21,17 +21,17 @@
 
 ::-webkit-scrollbar {
     width: 15px;
-    background-color: red;
+    background-color: #E0EEFF;
 }
 
 ::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 6px blue;
-    -webkit-box-shadow: inset 0 0 6px blue;
+    box-shadow: inset 0 0 6px #E0EEFF;
+    -webkit-box-shadow: inset 0 0 6px #E0EEFF;
 }
 
 ::-webkit-scrollbar-thumb {
     background-color: #B6D5F0;
-    border: 3px solid #E0EEFF;
+    border: 3px solid yellow;
     border-radius: 10px;
 }
 
