@@ -88,8 +88,7 @@ const MyTable = () => {
         root: {
             width: '100%',
             overflowX: 'auto',
-            display: 'grid',
-            placeItems: 'center'
+            display: 'flex',
         }
     }
 

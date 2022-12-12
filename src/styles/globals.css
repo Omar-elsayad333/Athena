@@ -20,19 +20,19 @@
 
 
 ::-webkit-scrollbar {
-    width: 15px;
-    background-color: #E0EEFF;
+    width: 15px !important;
+    background-color: #E0EEFF !important;
 }
 
 ::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 6px #E0EEFF;
-    -webkit-box-shadow: inset 0 0 6px #E0EEFF;
+    box-shadow: inset 0 0 6px #E0EEFF !important;
+    -webkit-box-shadow: inset 0 0 6px #E0EEFF !important;
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: #B6D5F0;
-    border: 3px solid #E0EEFF;
-    border-radius: 10px;
+    background-color: #B6D5F0 !important;
+    border: 3px solid #E0EEFF !important;
+    border-radius: 10px !important;
 }
 
 
