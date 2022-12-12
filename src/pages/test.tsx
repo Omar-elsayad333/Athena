@@ -15,6 +15,7 @@ const Test = () => {
             width:'100%',
             height: '100vh',
             margin: 'auto',
+            padding: '50px',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
