@@ -38,6 +38,7 @@ const Menu: React.FC<Props> = ({sideNavState}) => {
             borderLeft: `solid 1px ${mainColors.primary.main}`,
             overflowY: 'auto',
             overflowX: 'hidden',
+            transition: '.2s',
             '&::-webkit-scrollbar': {
                 width: '7px'
             },
@@ -54,7 +55,7 @@ const Menu: React.FC<Props> = ({sideNavState}) => {
     return (
         <Box sx={classes.menu}>
             <Box>
-                <NavLink sideNavState={sideNavState} path='/teacher/home' icon='/images/HomeIcon.svg' content='الرئيسية' />
+                {/* <NavLink sideNavState={sideNavState} path='/teacher/home' icon='/images/HomeIcon.svg' content='الرئيسية' /> */}
                 <NavLink sideNavState={sideNavState} path='/teacher/students' icon={students} content='الطلاب' />
                 <NavLink sideNavState={sideNavState} path='/teacher/groups' icon={groups} content='المجموعات' />
                 <NavLink sideNavState={sideNavState} path='/teacher/attendance' icon={calender} content='الحضور' />

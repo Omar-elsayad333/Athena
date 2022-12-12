@@ -2,12 +2,16 @@
 // MUI
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import { useContext } from "react";
+import { DarkThemeContext } from "context/ThemeContext";
 
 type Props = {
     data: any;
 }
 
 const GroupCard: React.FC<Props> = ({data}) => {
+
+    const {mainColors} = useContext(DarkThemeContext);
 
     const classes = {
         container: {
@@ -26,13 +30,13 @@ const GroupCard: React.FC<Props> = ({data}) => {
             alignItems: 'start',
             gap: '35px',
             border: '2px solid #3F72A4',
-            background: 'linear-gradient(90deg, #B6D5F0 0%, #DFEFFF 100%)',
+            background: mainColors.linerGradient.primary,
             borderRadius: '18px',
             overflow: 'hidden',
             cursor: 'pointer',
             transition: '.35s',
             ':hover': {
-                boxShadow: '0px 0px 15px 0px #1C364F40',
+                boxShadow: '0px 0px 15px 0px #3F72A4',
             },
             '@media(max-width: 400px)': {
                 gap: '25px',

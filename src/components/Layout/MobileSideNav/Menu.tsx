@@ -70,7 +70,7 @@ const Menu: React.FC<Props> = ({controleMobileSideNav, mobileSideNavState}) => {
         <Box sx={[style.container, classes.container]}>
             <Box sx={style.menu}>
                 <Box>
-                    <NavLink controleMobileSideNav={controleMobileSideNav} path='/teacher/home' icon={home} content='الرئيسية' />
+                    {/* <NavLink controleMobileSideNav={controleMobileSideNav} path='/teacher/home' icon={home} content='الرئيسية' /> */}
                     <NavLink controleMobileSideNav={controleMobileSideNav} path='/teacher/students' icon={students} content='الطلاب' />
                     <NavLink controleMobileSideNav={controleMobileSideNav} path='/teacher/groups' icon={groups} content='المجموعات' />
                     <NavLink controleMobileSideNav={controleMobileSideNav} path='/teacher/attendance' icon={calender} content='الحضور' />

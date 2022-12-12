@@ -11,14 +11,12 @@ const useThemeSwitcher = () => {
         
         if(darkMode && switcher && container) {
             switcher.style.right = '5px';
-            switcher.style.background = '#E8F3FF';
-            container.style.background = '#3F72A4';
-            container.style.boxShadow = 'none';
+            switcher.style.background = 'linear-gradient(0deg, #4072A4 0%, #1D3750 100%)';
+            container.style.background = 'linear-gradient(90deg, #B6D5F0 0%, #DFEFFF 100%)';
         }else if(switcher && container) {
             switcher.style.right = '45px';
-            switcher.style.background = '#3F72A4';
-            container.style.boxShadow = '0px 0px 10px 1px #B6D5F0';
-            container.style.background = '#E8F3FF';
+            switcher.style.background = 'linear-gradient(180deg, #B6D5F0 0%, #DFEFFF 100%)';
+            container.style.background = 'linear-gradient(0deg, #4072A4 0%, #1D3750 100%)';
         }
         
     }, [darkMode])
@@ -29,13 +27,13 @@ const useThemeSwitcher = () => {
         
         if(darkMode && switcher && container) {
             switcher.style.right = '5px';
-            switcher.style.background = '#E8F3FF';
-            container.style.background = '#1C364F';
+            switcher.style.background = 'linear-gradient(0deg, #4072A4 0%, #1D3750 100%)';
+            container.style.background = 'linear-gradient(90deg, #B6D5F0 0%, #DFEFFF 100%)';
             handelDarkTheme();
         }else if(switcher && container) {
             switcher.style.right = '45px';
-            switcher.style.background = '#3F72A4';
-            container.style.background = '#B6D5F0';
+            switcher.style.background = 'linear-gradient(180deg, #B6D5F0 0%, #DFEFFF 100%)';
+            container.style.background = 'linear-gradient(0deg, #4072A4 0%, #1D3750 100%)';
             handelDarkTheme();
         }
     }

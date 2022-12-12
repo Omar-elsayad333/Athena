@@ -22,6 +22,7 @@ const Groups: NextPage = () => {
             display: 'flex',
             flexDirection: 'column',
             backgroundColor: darkMode ? darkColors.backgroundColor.main : lightColors.backgroundColor.main,
+            transition: '.2s',
         },
         container: {
             width: '100%',

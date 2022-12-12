@@ -25,7 +25,7 @@ const Header: React.FC<Props> = ({controleSideNav, sideNavState}) => {
             alignItems: 'center',
             gap: '30px',
             background: mainColors.linerGradient.primary,
-            transition: '.5s',
+            transition: '.2s',
         },
         menuIcon: {
             cursor: 'pointer'

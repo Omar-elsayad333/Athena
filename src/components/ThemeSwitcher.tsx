@@ -11,8 +11,8 @@ const ThemeSwitcher = () => {
     const classes = {
         root: {
             position: 'fixed',  
-            bottom: 50,
-            left: 50,
+            bottom: 40,
+            left: 40,
             zIndex: 50,
             '@media(max-width: 600px)': {
                 bottom: 20,
@@ -28,7 +28,6 @@ const ThemeSwitcher = () => {
             justifyContent: 'space-between',
             alignItems: 'center',
             borderRadius: '20px',
-            boxShadow: '0px 0px 10px 1px #B6D5F0',
             transition: '.5s',
         },
         switcher: {
@@ -54,10 +53,10 @@ const ThemeSwitcher = () => {
                 <Box sx={classes.switcher} id='switcher'>
                 </Box>
                 <Box sx={classes.icon}>
-                    <Image src='/images/day-icon.svg' width={25} height={25} alt='night' />
+                    <Image src='/images/night-icon.svg' width={25} height={25} alt='night' />
                 </Box>
                 <Box sx={classes.icon}>
-                    <Image src='/images/night-icon.svg' width={25} height={25} alt='night' />
+                    <Image src='/images/day-icon.svg' width={25} height={25} alt='night' />
                 </Box>
             </Box>
         </Box>

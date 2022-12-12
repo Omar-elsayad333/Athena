@@ -29,6 +29,7 @@ const Footer: React.FC<Props> = ({sideNavState}) => {
             borderLeft: `solid 1px ${mainColors.primary.main}`,
             background: mainColors.linerGradient.secondary,
             overflow: 'hidden',
+            transition: '.2s',
             logout: {
                 height: '100%',
                 display: 'flex',
