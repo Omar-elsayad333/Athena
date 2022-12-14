@@ -8,6 +8,7 @@ import Box from '@mui/material/Box';
 type Props = {
     controleSideNav: Function;
     sideNavState: Boolean;
+    currentPath: any;
 }
 
 const style: any = {
@@ -23,7 +24,7 @@ const style: any = {
     },
 }
 
-const DesktopSideNav: React.FC<Props> = ({controleSideNav, sideNavState}) => {
+const DesktopSideNav: React.FC<Props> = ({controleSideNav, sideNavState, currentPath}) => {
 
     const classes: any = {
         container: {
@@ -34,7 +35,7 @@ const DesktopSideNav: React.FC<Props> = ({controleSideNav, sideNavState}) => {
     return (
         <Box sx={[style.container, classes.container]}>
             <Header controleSideNav={controleSideNav} sideNavState={sideNavState} />
-            <Menu sideNavState={sideNavState} />
+            <Menu sideNavState={sideNavState} currentPath={currentPath}/>
             <Footer sideNavState={sideNavState}  />
         </Box>
     );

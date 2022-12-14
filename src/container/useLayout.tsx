@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const useLayout = () => {
 
@@ -7,6 +7,7 @@ const useLayout = () => {
     const [layoutState, setLayoutState] = useState<Boolean>(false);  
     const [sideNavState, setSideNavState] = useState<Boolean>(true);  
     const [mobileSideNavState, setMobileSideNavState] = useState<Boolean>(false);  
+    const [currentPath, setCurrentPath] = useState<string>('');  
     
     // useEffect(() => {
     //     function handleResize() {
@@ -29,6 +30,12 @@ const useLayout = () => {
     //         return null
     //     }
     // }
+
+    useEffect(() => {
+        const newPath = router.pathname.slice(9)
+        console.log(newPath);
+        setCurrentPath(newPath)
+    }, [router.pathname])
     
     const check = () => {
             router.pathname === '/teacherLogin' || 
@@ -55,6 +62,7 @@ const useLayout = () => {
         controleSideNav,
         mobileSideNavState,
         controleMobileSideNav,
+        currentPath,
     });
 }
  

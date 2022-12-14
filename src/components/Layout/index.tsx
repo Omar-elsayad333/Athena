@@ -19,6 +19,7 @@ const Layout: React.FC<IProps> = ({ children }) => {
         controleSideNav,
         mobileSideNavState,
         controleMobileSideNav,
+        currentPath,
     } = useLayout();
     
     useEffect(() => {
@@ -40,7 +41,7 @@ const Layout: React.FC<IProps> = ({ children }) => {
                 { 
                     layoutState &&
                     <>
-                        <DesktopSideNav controleSideNav={controleSideNav} sideNavState={sideNavState} /> 
+                        <DesktopSideNav controleSideNav={controleSideNav} sideNavState={sideNavState} currentPath={currentPath} /> 
                         <MobileSideNav mobileSideNavState={ mobileSideNavState} controleMobileSideNav={controleMobileSideNav} />
                     </>
                 }

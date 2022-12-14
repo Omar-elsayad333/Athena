@@ -7,9 +7,10 @@ import Box from '@mui/material/Box';
 
 type Props = {
     sideNavState: Boolean;
+    currentPath: any;
 }
 
-const Menu: React.FC<Props> = ({sideNavState}) => {
+const Menu: React.FC<Props> = ({sideNavState, currentPath}) => {
 
     const {mainColors} = useContext(DarkThemeContext);
 
@@ -45,7 +46,7 @@ const Menu: React.FC<Props> = ({sideNavState}) => {
     return (
         <Box sx={classes.menu}>
             <Box>
-                <NavLink sideNavState={sideNavState} path='/teacher/home' content='الرئيسية'>
+                <NavLink currentPath={currentPath} sideNavState={sideNavState} path='/teacher/home' content='الرئيسية'>
                     <svg width="25" height="25" viewBox="0 0 22 24" fill='transparent' stroke={mainColors.primary.main} xmlns="http://www.w3.org/2000/svg">
                         <path d="M1 8.41165L11 1L21 8.41165V20.0585C21 20.6201 20.7659 21.1588 20.3491 21.5559C19.9324 21.953 19.3671 22.1761 18.7778 22.1761H3.22222C2.63285 22.1761 2.06762 21.953 1.65087 21.5559C1.23413 21.1588 1 20.6201 1 20.0585V8.41165Z" stroke="inherit" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         <path d="M7.66626 22.1769V11.5889H14.3329V22.1769" stroke="inherit" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
