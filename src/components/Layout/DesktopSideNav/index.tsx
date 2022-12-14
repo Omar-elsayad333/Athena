@@ -16,7 +16,7 @@ const style: any = {
         position: 'sticky',
         top: '0',
         zIndex: '99',
-        transition: '.5s',
+        transition: '.2s',
         '@media(max-width: 1200px)': {
             display: 'none'
         },

@@ -105,7 +105,7 @@ const FormTimeInputs: React.FC<Props> = ({handleDialogState, dialogState, getSel
                 مواعيد المجموعة:-
             </Typography>
             <Box sx={style.backPaper}>
-                <Typography variant='h5' color={lightColors.title.main}>
+                <Typography variant='h5' color={mainColors.primary.main}>
                     أيام الحضور:-
                 </Typography>
                 <Box sx={style.daysList}>

@@ -23,7 +23,7 @@ const Menu: React.FC<Props> = ({controleMobileSideNav, mobileSideNavState}) => {
             top: '80px',
             overflow: 'hidden',
             zIndex: '100',
-            transition: '.5s linear',
+            transition: '.2s linear',
         },
         menu: {
             width: '100%',

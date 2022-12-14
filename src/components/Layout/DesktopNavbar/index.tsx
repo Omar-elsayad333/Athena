@@ -37,7 +37,6 @@ const DesktopNavbar: React.FC<Props> = ({firstPath, secondPath, firstContent, se
             borderBottom: `1px solid ${mainColors.primary.main}`,
             transition: '.2s',
             '@media(max-width: 1200px)': {
-                // position: 'fixed',
                 top: '80px',
                 height: '75px',
                 justifyContent: 'center',

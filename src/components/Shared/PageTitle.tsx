@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { useContext } from 'react';
 import { DarkThemeContext } from 'context/ThemeContext';
 
@@ -7,11 +6,11 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
 type Props = {
-    content: String;
-    icon: any;
+    content: string;
+    children: any;
 }
 
-const PageTitle:React.FC<Props> = ({content, icon}) => {
+const PageTitle:React.FC<Props> = ({children, content}) => {
 
     const {darkMode, mainColors} = useContext(DarkThemeContext);
 
@@ -34,7 +33,7 @@ const PageTitle:React.FC<Props> = ({content, icon}) => {
             <Typography color='primary' variant='h1'>
                 {content}
             </Typography>
-            <Image src={icon} width={36} height={27} alt='اضافة مجموعة جديدة' />
+            { children }
         </Box>
     );
 }

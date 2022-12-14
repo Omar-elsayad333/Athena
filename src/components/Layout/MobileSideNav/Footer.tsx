@@ -27,7 +27,7 @@ const Footer: React.FC = () => {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                gap: '10px'
+                gap: '10px',
             },
         },
     }
