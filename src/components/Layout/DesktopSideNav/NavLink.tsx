@@ -25,7 +25,7 @@ const NavLink: React.FC<Prop> = ({content, path, sideNavState, children, current
             if(buttons[i]?.name.includes(currentPath)) {
                 buttons[i]?.classList.add(`${myStyle.active}`);
             }else { 
-                buttons[i]?.classList.remove(`${myStyle.active}`);
+                // buttons[i]?.classList.remove(`${myStyle.active}`);
             };
         };
     }, [currentPath]);
