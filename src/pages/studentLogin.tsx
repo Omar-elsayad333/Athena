@@ -1,4 +1,5 @@
 import { NextPage } from 'next';
+import PageHead from 'components/Shared/PageHead';
 import StudentLogin from '../components/StudentLogin';
 
 // MUI
@@ -32,6 +33,7 @@ const classes: any = {
 const studentLogin: NextPage = () => {
     return (
         <Box style={classes.root}>
+            <PageHead title='Student Login' />
             <Container maxWidth='xl' sx={classes.container}>
                 <StudentLogin />
             </Container>

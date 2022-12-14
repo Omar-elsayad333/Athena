@@ -2,6 +2,7 @@ import { NextPage } from "next";
 import { useContext } from "react";
 import { DarkThemeContext } from "context/ThemeContext";
 import { lightColors, darkColors } from "styles/colors";
+import PageHead from "components/Shared/PageHead";
 import DesktopNavbar from 'components/Layout/DesktopNavbar';
 import PageTitle from 'components/Shared/PageTitle';
 import AddGroupC from 'components/Teacher/AddGroup';
@@ -38,11 +39,12 @@ const AddGroup: NextPage = () => {
     
     return (
         <Box sx={style.root}>
+            <PageHead title='Add Groups' />
             <DesktopNavbar 
                 firstPath='/teacher/groups' 
                 firstContent='جميع المجموعات' 
-                secondPath='/teacher/addGroup' 
-                secondContent='اضافة مجموعة' 
+                secondPath='/teacher/addGroup'
+                secondContent='اضافة مجموعة'
             /> 
             <Box sx={style.container}>
                 <PageTitle icon='/images/groups-icon.svg' content='اضافة مجموعة جديدة' />

@@ -1,4 +1,5 @@
 import { NextPage } from 'next';
+import PageHead from 'components/Shared/PageHead';
 import TeacherLogin from '../components/TeacherLogin';
 
 // MUI
@@ -29,6 +30,7 @@ const classes: any = {
 const teacherLogin: NextPage = () => {
     return (
         <Box style={classes.root}>
+            <PageHead title='Teacher Login' />
             <TeacherLogin />
         </Box>
     );

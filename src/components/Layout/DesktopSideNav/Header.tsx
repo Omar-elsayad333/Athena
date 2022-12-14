@@ -1,19 +1,18 @@
-import Image from 'next/image';
 import { DarkThemeContext } from 'context/ThemeContext';
 import { useContext } from 'react';
 
 // MUI
 import Box from '@mui/material/Box';
+import InlineLogo from 'components/Icons/InlineLogo';
 
 type Props = {
     controleSideNav: any;
     sideNavState: Boolean;
 }
 
-
 const Header: React.FC<Props> = ({controleSideNav, sideNavState}) => {
     
-    const {mainColors, darkMode} = useContext(DarkThemeContext);
+    const {mainColors} = useContext(DarkThemeContext);
 
     const classes = {
         container: {
@@ -38,19 +37,17 @@ const Header: React.FC<Props> = ({controleSideNav, sideNavState}) => {
     return (
         <Box sx= {classes.container}>
             <Box sx={classes.logo}>
-                {
-                    sideNavState &&
-                    <>
-                        {
-                            darkMode ?
-                            <Image src='/images/secondary-inline-logo.svg' alt='Athena' width={190} height={35} /> :
-                            <Image src='/images/primary-inline-logo.svg' alt='Athena' width={190} height={35} /> 
-                        }
-                    </>
+                { 
+                    sideNavState && 
+                    <InlineLogo /> 
                 }
             </Box>
             <Box sx={classes.menuIcon}>
-                <Image src='/images/menu-icon.svg' width={28} height={19} layout='intrinsic' alt='menu icon' onClick={controleSideNav} />
+                <svg width="28" height="19" viewBox="0 0 39 27" fill={mainColors.primary.main} xmlns="http://www.w3.org/2000/svg" onClick={controleSideNav}>
+                    <rect width="39" height="4.17857" rx="2.08929" fill="inherit"/>
+                    <rect y="11.1421" width="39" height="4.17857" rx="2.08929" fill="inherit"/>
+                    <rect y="22.2869" width="39" height="4.17857" rx="2.08929" fill="inherit"/>
+                </svg>
             </Box>
         </Box>
     );

@@ -32,7 +32,7 @@ const DesktopSideNav: React.FC<Props> = ({controleSideNav, sideNavState}) => {
     }
 
     return (
-        <Box sx={[style.container, classes.container]} className='omar'>
+        <Box sx={[style.container, classes.container]}>
             <Header controleSideNav={controleSideNav} sideNavState={sideNavState} />
             <Menu sideNavState={sideNavState} />
             <Footer sideNavState={sideNavState}  />

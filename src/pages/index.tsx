@@ -1,14 +1,15 @@
-import type { NextPage } from 'next';
-import { lightColors, darkColors } from 'styles/colors';
-import logo from '../../public/images/logo-with-text.svg';
-import LoginButDark from '../components/LoginButDark';
-import LoginButLight from '../components/TeacherLogin/LoginButton';
-import { DarkThemeContext } from 'context/ThemeContext';
-import { useContext } from 'react';
-
-// MUI
 import Link from 'next/link';
 import Image from 'next/image';
+import { NextPage } from 'next';
+import { lightColors, darkColors } from 'styles/colors';
+import { useContext } from 'react';
+import { DarkThemeContext } from 'context/ThemeContext';
+import PageHead from 'components/Shared/PageHead';
+import logo from '../../public/images/logo-with-text.svg';
+import LoginButLight from '../components/TeacherLogin/LoginButton';
+import LoginButDark from '../components/LoginButDark';
+
+// MUI
 import { Box, Typography } from '@mui/material';
 
 const Home: NextPage = () => {
@@ -17,6 +18,7 @@ const Home: NextPage = () => {
 
   return (
     <Box sx={{width: '100%', background: darkMode ? darkColors.backgroundColor.main : lightColors.backgroundColor.main}}>
+      <PageHead title='Athena' />
       <Box sx={{width: '100%', padding: '50px', display: 'flex', flexDirection: 'column', gap: '50px', alignItems: 'center'}}>
         <Box >
           <Image alt='athena' layout='intrinsic' src={logo} />

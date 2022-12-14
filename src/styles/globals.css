@@ -18,7 +18,6 @@
     border: 4px solid #E0EEFF;
 }
 
-
 ::-webkit-scrollbar {
     width: 12px;
     background-color: #E0EEFF;
@@ -40,7 +39,6 @@
         border: 3px solid #737577;
     }
 }
-
 
 /* =====================
     start my input style

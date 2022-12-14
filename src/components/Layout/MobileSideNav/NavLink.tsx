@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import myStyle from './NavLink.module.css';
 
 // MUI
@@ -8,13 +7,13 @@ import { useContext } from 'react';
 import { DarkThemeContext } from 'context/ThemeContext';
 
 type Prop = {
-    icon: any;
     content: string;
     path: string;
     controleMobileSideNav: Function;
+    children: any;
 }
 
-const NavLink: React.FC<Prop> = ({icon, content, path, controleMobileSideNav}) => {
+const NavLink: React.FC<Prop> = ({children, content, path, controleMobileSideNav}) => {
     
     const {mainColors} = useContext(DarkThemeContext);
 
@@ -50,8 +49,8 @@ const NavLink: React.FC<Prop> = ({icon, content, path, controleMobileSideNav}) =
         <Link href={path}>
             <a>
                 <Button sx={classes.root} className={myStyle.myButton} onClick={(e) => select(e)}>
-                    <Image src={icon} alt={content} layout='intrinsic' />
-                    {content}
+                    { children }
+                    { content }
                 </Button>
             </a>
         </Link>

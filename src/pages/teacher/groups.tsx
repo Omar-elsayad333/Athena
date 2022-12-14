@@ -1,12 +1,13 @@
 import { NextPage } from "next";
-import DesktopNavbar from 'components/Layout/DesktopNavbar';
 import { useContext } from "react";
 import { lightColors, darkColors } from "styles/colors";
 import { DarkThemeContext } from "context/ThemeContext";
+import PageHead from 'components/Shared/PageHead';
 import PageTitle from 'components/Shared/PageTitle';
-import ThemeSwitcher from "components/ThemeSwitcher";
+import DesktopNavbar from 'components/Layout/DesktopNavbar';
 import GroupsC from "components/Teacher/Groups";
 import MySearchInput from "components/MySearchInput";
+import ThemeSwitcher from "components/ThemeSwitcher";
 
 // MUI
 import Box from "@mui/material/Box";
@@ -41,6 +42,7 @@ const Groups: NextPage = () => {
 
     return (
         <Box sx={style.root}>
+            <PageHead title='Groups' />
             <DesktopNavbar 
                 firstPath='/teacher/groups' 
                 firstContent='جميع المجموعات' 

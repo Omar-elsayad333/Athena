@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import myStyle from './NavLink.module.css';
 import { useContext } from 'react';
 import { DarkThemeContext } from 'context/ThemeContext';
@@ -9,24 +8,24 @@ import Link from 'next/link';
 import { Typography } from '@mui/material';
 
 type Prop = {
-    icon: any;
     content: string;
     path: string;
     sideNavState: Boolean;
+    children: any;
 }
 
-const NavLink: React.FC<Prop> = ({icon, content, path, sideNavState}) => {
+const NavLink: React.FC<Prop> = ({content, path, sideNavState, children}) => {
     
     const {mainColors} = useContext(DarkThemeContext);
 
     const classes = {
         root: {
             width: '100%',
-            height: '50px',
+            height: '55px',
             padding: '15px 20px 15px 20px',
             display: 'flex',
             justifyContent: sideNavState ? 'start' : 'center',
-            alignItems: 'center',
+            alignItems: 'start',
             gap: '15px',
             fontSize: '22px',
             fontWeight: '700',
@@ -52,7 +51,7 @@ const NavLink: React.FC<Prop> = ({icon, content, path, sideNavState}) => {
         <Link href={path}>
             <a>
                 <Button sx={classes.root} className={myStyle.myButton} onClick={(e) => select(e)}>
-                    <Image src={icon} alt={content} width={25} height={25} layout='intrinsic' />
+                    { children }
                     {
                         sideNavState &&
                         <Typography fontSize={22} fontWeight={700}>

@@ -21,8 +21,8 @@ const Test = () => {
             justifyContent: 'center',
             alignItems: 'center',
             gap: '100px',
-            transition: '.2s',
             background: mainColors.backgroundColor.main,
+            transition: '.2s',
         },
     }
 
