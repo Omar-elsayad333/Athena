@@ -20,15 +20,17 @@ const NavLink: React.FC<Prop> = ({content, path, sideNavState, children, current
     const {mainColors} = useContext(DarkThemeContext);
 
     useEffect(() => {
-        const buttons = document.getElementsByClassName(`${myStyle.myButton}`);
-        for (let i = 0; i < buttons.length; i++) {
-            if(buttons[i]?.name.includes(currentPath)) {
-                buttons[i]?.classList.add(`${myStyle.active}`);
-            }else { 
-                // buttons[i]?.classList.remove(`${myStyle.active}`);
+        if(path && currentPath) {
+            const buttons = document.getElementsByClassName(`${myStyle.myButton}`);
+            for (let i = 0; i < buttons.length; i++) {
+                if(currentPath.includes(buttons[i]?.name)) {
+                    buttons[i]?.classList.add(`${myStyle.active}`);
+                }else{ 
+                    buttons[i]?.classList.remove(`${myStyle.active}`);
+                };
             };
-        };
-    }, [currentPath]);
+        }
+    }, [currentPath, path, sideNavState]);
 
     const classes = {
         root: {
@@ -47,22 +49,10 @@ const NavLink: React.FC<Prop> = ({content, path, sideNavState, children, current
         },
     };
 
-    const select = (e: any) => {
-        const buttons = document.getElementsByClassName(`${myStyle.myButton}`);
-        
-        for (let i = 0; i < buttons.length; i++) {
-            if(buttons[i] === e.currentTarget) {
-                buttons[i]?.classList.add(`${myStyle.active}`);
-            }else { 
-                buttons[i]?.classList.remove(`${myStyle.active}`);
-            };
-        };
-    };
-
     return (
         <Link href={path}>
             <a>
-                <Button name={path} sx={classes.root} className={myStyle.myButton} onClick={(e) => select(e)}>
+                <Button name={path.slice(9)} sx={classes.root} className={`${myStyle.myButton} active`}>
                     { children }
                     {
                         sideNavState &&

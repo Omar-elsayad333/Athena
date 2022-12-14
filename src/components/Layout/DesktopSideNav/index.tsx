@@ -36,7 +36,7 @@ const DesktopSideNav: React.FC<Props> = ({controleSideNav, sideNavState, current
         <Box sx={[style.container, classes.container]}>
             <Header controleSideNav={controleSideNav} sideNavState={sideNavState} />
             <Menu sideNavState={sideNavState} currentPath={currentPath}/>
-            <Footer sideNavState={sideNavState}  />
+            <Footer sideNavState={sideNavState} />
         </Box>
     );
 }

@@ -8,33 +8,11 @@ const useLayout = () => {
     const [sideNavState, setSideNavState] = useState<Boolean>(true);  
     const [mobileSideNavState, setMobileSideNavState] = useState<Boolean>(false);  
     const [currentPath, setCurrentPath] = useState<string>('');  
-    
-    // useEffect(() => {
-    //     function handleResize() {
-    //         setWindowDimensions(getWindowDimensions());
-    //     }
-    //     window.addEventListener('resize', handleResize);
-    //     console.log(windowDimensions)
-    //     return () => window.removeEventListener('resize', handleResize);
-    // }, []);
-    
-    // function getWindowDimensions() {
-    //     if (typeof window !== "undefined") {
-    //         // browser code
-    //         const { innerWidth: width, innerHeight: height } = window;
-    //         return {
-    //             width,
-    //             height
-    //         };
-    //     }else {
-    //         return null
-    //     }
-    // }
 
     useEffect(() => {
-        const newPath = router.pathname.slice(9)
-        console.log(newPath);
-        setCurrentPath(newPath)
+        if(router.pathname){
+            setCurrentPath(router.pathname.slice(9))
+        }
     }, [router.pathname])
     
     const check = () => {

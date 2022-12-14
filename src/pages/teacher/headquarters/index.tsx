@@ -41,7 +41,7 @@ const Headquarters: NextPage = () => {
 
     return (
         <Box sx={style.root}>
-            <PageHead title='Groups' />
+            <PageHead title='Headquarters' />
             <DesktopNavbar 
                 firstPath='/teacher/headquarters' 
                 firstContent='جميع المقرات' 

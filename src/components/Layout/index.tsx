@@ -42,7 +42,7 @@ const Layout: React.FC<IProps> = ({ children }) => {
                     layoutState &&
                     <>
                         <DesktopSideNav controleSideNav={controleSideNav} sideNavState={sideNavState} currentPath={currentPath} /> 
-                        <MobileSideNav mobileSideNavState={ mobileSideNavState} controleMobileSideNav={controleMobileSideNav} />
+                        <MobileSideNav mobileSideNavState={ mobileSideNavState} controleMobileSideNav={controleMobileSideNav} currentPath={currentPath} />
                     </>
                 }
                 {children}

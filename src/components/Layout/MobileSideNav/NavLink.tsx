@@ -1,21 +1,36 @@
+import Link from 'next/link';
+import {useEffect} from 'react';
 import myStyle from './NavLink.module.css';
+import { useContext } from 'react';
+import { DarkThemeContext } from 'context/ThemeContext';
 
 // MUI
 import Button from '@mui/material/Button';
-import Link from 'next/link';
-import { useContext } from 'react';
-import { DarkThemeContext } from 'context/ThemeContext';
 
 type Prop = {
     content: string;
     path: string;
     controleMobileSideNav: Function;
     children: any;
+    currentPath: any;
 }
 
-const NavLink: React.FC<Prop> = ({children, content, path, controleMobileSideNav}) => {
+const NavLink: React.FC<Prop> = ({children, content, path, controleMobileSideNav, currentPath}) => {
     
     const {mainColors} = useContext(DarkThemeContext);
+
+    useEffect(() => {
+        if(path && currentPath) {
+            const buttons = document.getElementsByClassName(`${myStyle.myButton}`);
+            for (let i = 0; i < buttons.length; i++) {
+                if(currentPath.includes(buttons[i]?.name)) {
+                    buttons[i]?.classList.add(`${myStyle.active}`);
+                }else{ 
+                    buttons[i]?.classList.remove(`${myStyle.active}`);
+                };
+            };
+        }
+    }, [currentPath, path]);
 
     const classes = {
         root: {
@@ -33,22 +48,10 @@ const NavLink: React.FC<Prop> = ({children, content, path, controleMobileSideNav
         },
     }
 
-    const select = (e: any) => {
-        controleMobileSideNav();
-        const buttons = document.getElementsByClassName(`${myStyle.myButton}`);
-        for (let i = 0; i < buttons.length; i++) {
-            if(buttons[i] === e.currentTarget) {
-                buttons[i]?.classList.add(`${myStyle.active}`);
-            }else { 
-                buttons[i]?.classList.remove(`${myStyle.active}`);
-            };
-        };
-    };
-
     return (
         <Link href={path}>
             <a>
-                <Button sx={classes.root} className={myStyle.myButton} onClick={(e) => select(e)}>
+                <Button name={path.slice(9)} sx={classes.root} className={myStyle.myButton} onClick={() => controleMobileSideNav()}>
                     { children }
                     { content }
                 </Button>

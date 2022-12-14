@@ -7,6 +7,7 @@ import Box from '@mui/material/Box';
 type Props = {
     controleMobileSideNav: any;
     mobileSideNavState: any;
+    currentPath: any
 }
 
 const classes = {
@@ -20,11 +21,11 @@ const classes = {
     },
 }
 
-const MobileNavbar: React.FC<Props> = ({controleMobileSideNav, mobileSideNavState}) => {
+const MobileNavbar: React.FC<Props> = ({controleMobileSideNav, mobileSideNavState, currentPath}) => {
     return (
         <Box sx={classes.root}>
             <HeaderNav controleMobileSideNav={controleMobileSideNav} mobileSideNavState={mobileSideNavState} />
-            <MenuNav controleMobileSideNav={controleMobileSideNav} mobileSideNavState={mobileSideNavState} />
+            <MenuNav currentPath={currentPath} controleMobileSideNav={controleMobileSideNav} mobileSideNavState={mobileSideNavState} />
         </Box>
     );
 }
