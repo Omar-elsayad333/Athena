@@ -17,7 +17,7 @@ type Prop = {
 
 const NavLink: React.FC<Prop> = ({content, path, sideNavState, children, currentPath}) => {
     
-    const {mainColors} = useContext(DarkThemeContext);
+    const {mainColors, darkMode} = useContext(DarkThemeContext);
 
     useEffect(() => {
         if(path && currentPath) {
@@ -30,7 +30,7 @@ const NavLink: React.FC<Prop> = ({content, path, sideNavState, children, current
                 };
             };
         }
-    }, [currentPath, path, sideNavState]);
+    }, [currentPath, path, sideNavState, darkMode]);
 
     const classes = {
         root: {
