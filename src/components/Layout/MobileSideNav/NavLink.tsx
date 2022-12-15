@@ -17,7 +17,7 @@ type Prop = {
 
 const NavLink: React.FC<Prop> = ({children, content, path, controleMobileSideNav, currentPath}) => {
     
-    const {mainColors} = useContext(DarkThemeContext);
+    const {mainColors, darkMode} = useContext(DarkThemeContext);
 
     useEffect(() => {
         if(path && currentPath) {
@@ -30,7 +30,7 @@ const NavLink: React.FC<Prop> = ({children, content, path, controleMobileSideNav
                 };
             };
         }
-    }, [currentPath, path]);
+    }, [currentPath, path, darkMode]);
 
     const classes = {
         root: {
