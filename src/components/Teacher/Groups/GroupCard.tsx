@@ -4,6 +4,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { useContext } from "react";
 import { DarkThemeContext } from "context/ThemeContext";
+import Link from "next/link";
 
 type Props = {
     data: any;
@@ -56,34 +57,38 @@ const GroupCard: React.FC<Props> = ({data}) => {
     return (
         <Box sx={classes.container}>
             {
-                data.map((item:any, index:number) => {
+                data.map((item:any) => {
                     return (
-                        <Box sx={classes.card} key={index}>
-                            <Box sx={classes.content}>
-                                <Typography color='primary' variant="h1">
-                                    {item.name}
-                                </Typography>
-                                <Typography color='primary' variant="h5">
-                                    <span style={classes.span}>
-                                        الصف الدراسي :
-                                    </span>
-                                    {` ${item.level}`}
-                                </Typography>
-                            </Box>
-                            <Box sx={classes.content}>
-                                <Typography color='primary' variant="h4">
-                                    <span style={classes.span}>
-                                        عدد الطلاب :
-                                    </span>
-                                    {` ${item.studentCount}`}
-                                </Typography>
-                                <Typography color='primary' variant="h4">
-                                    <span style={classes.span}>
-                                        المقر :
-                                    </span>
-                                    {` ${item.location}`}
-                                </Typography>   
-                            </Box>
+                        <Box key={item.id}>
+                            <Link href={`/teacher/groups/group/${item.id}`}>
+                                <Box sx={classes.card}>
+                                    <Box sx={classes.content}>
+                                        <Typography color='primary' variant="h1">
+                                            {item.name}
+                                        </Typography>
+                                        <Typography color='primary' variant="h5">
+                                            <span style={classes.span}>
+                                                الصف الدراسي :
+                                            </span>
+                                            {` ${item.level}`}
+                                        </Typography>
+                                    </Box>
+                                    <Box sx={classes.content}>
+                                        <Typography color='primary' variant="h4">
+                                            <span style={classes.span}>
+                                                عدد الطلاب :
+                                            </span>
+                                            {` ${item.studentCount}`}
+                                        </Typography>
+                                        <Typography color='primary' variant="h4">
+                                            <span style={classes.span}>
+                                                المقر :
+                                            </span>
+                                            {` ${item.location}`}
+                                        </Typography>   
+                                    </Box>
+                                </Box>
+                            </Link>
                         </Box>
                     )
                 })

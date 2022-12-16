@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
 const style = {
-    inputsContainer: {
+    container: {
         display: 'flex',
         flexWrap: 'wrap',
         gap: '40px',
@@ -23,7 +23,7 @@ const FormBasicInputs = () => {
     const {mainColors} = useContext(DarkThemeContext);
 
     return (
-        <Box sx={style.inputsContainer}>
+        <Box sx={style.container}>
             <Typography sx={style.title} variant="h3" color={mainColors.title.main}>
                 بيانات المجموعة:-
             </Typography>

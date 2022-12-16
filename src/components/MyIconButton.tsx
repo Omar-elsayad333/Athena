@@ -1,29 +1,29 @@
 import { useContext } from 'react';
-import { DarkThemeContext } from 'context/ThemeContext';``
+import { DarkThemeContext } from 'context/ThemeContext';
 
 // MUI
 import Button from '@mui/material/Button';
-import ControlPointIcon from '@mui/icons-material/ControlPoint';
-
 
 type Props = {
-    handleDialogState: any;
+    event?: any;
+    content: string;
+    icon: any;
 }
 
-const AddDayButton: React.FC<Props> = ({handleDialogState}) => {
+const MyIconButton: React.FC<Props> = ({event, content, icon}) => {
 
     const {mainColors, darkMode} = useContext(DarkThemeContext);
 
-    const MyButton = {
+    const clasess = {
         root: {
-            width: '109px',
+            width: 'fit-content',
             height: '41px',
             marginLeft: '50px',
-            padding: '6px 5px',
-            fontSize: '14px',
+            padding: '8px 16px',
+            fontSize: '20px',
             fontWeight: '700',
             borderRadius: '6px',
-            gap : '7px',
+            gap : '8px',
             border: darkMode ? 'solid 1px #E0EEFF' : 'none',
             background: mainColors.customButton.main,
             boxShadow: darkMode ? 'none' : '0px 0px 10px 1px #B6D5F0',
@@ -39,11 +39,11 @@ const AddDayButton: React.FC<Props> = ({handleDialogState}) => {
         }
     };
 
-    return (
-        <Button sx={MyButton.root} onClick={handleDialogState} startIcon={<ControlPointIcon />} variant="contained" color='secondary'>
-            اضافة يوم 
+    return ( 
+        <Button sx={clasess.root} onClick={event} startIcon={icon} variant="contained" color='secondary'>
+            {content}
         </Button> 
     );
 }
 
-export default AddDayButton;
+export default MyIconButton;
