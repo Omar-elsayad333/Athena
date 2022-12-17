@@ -1,4 +1,9 @@
 .selected {
     color: #1C364F !important;
     background: #B6D5F0 !important;
+    border: 1px solid #1C364F;
+}
+
+.darkSelected {
+    border: 1px solid #3F72A4 !important;
 }

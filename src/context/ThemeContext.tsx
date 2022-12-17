@@ -69,6 +69,10 @@ export const DarkThemeProvider: React.FC<IProps> = ({ children }) => {
         customButton: {
             main: darkMode ? '#162A3E' : '#E8F3FF',
         },
+        dialog: {
+            background: darkMode ? '#162A3E' : '#E8F3FF',
+            titleShadow: darkMode ? 'none' : 'inset 0px 0px 57px 4px rgba(63, 114, 164, 0.25)'
+        },
         backgroundColor: {
             main: darkMode ? '#162A3E' : '#E0EEFF',
             sideNav: darkMode ? '#1C364F' : '#B6D5F0',

@@ -1,5 +1,6 @@
-import { forwardRef } from 'react';
+import { forwardRef, useContext } from 'react';
 import MyCss from './MyDaysDialog.module.css';
+import { DarkThemeContext } from 'context/ThemeContext';
 
 // MUI
 import Box from '@mui/material/Box';
@@ -30,10 +31,13 @@ type Props = {
 
 const MyDaysDialog: React.FC<Props> = ({open, handleClose, getSelectedDays}) => {
 
+    const { mainColors, darkMode } = useContext(DarkThemeContext);
+
     const style = {
         root: {
             '.MuiDialog-paper': {
                 borderRadius: '17px', 
+                background: mainColors.dialog.background,
             },
             '.MuiDialogTitle-root': {
                 width: '100%',
@@ -42,9 +46,8 @@ const MyDaysDialog: React.FC<Props> = ({open, handleClose, getSelectedDays}) => 
                 justifyContent: 'center',
                 alignItems: 'center',
                 gap: '20px',
-                background: '#E5F1FE',
                 borderBottom: '2px solid #3F72A4',
-                boxShadow: 'inset 0px 0px 57px 4px rgba(63, 114, 164, 0.25)',
+                boxShadow: mainColors.dialog.titleShadow,
                 '@media(max-width: 400px)': {
                     '.MuiTypography-root': {
                         fontSize: '25px',
@@ -59,8 +62,7 @@ const MyDaysDialog: React.FC<Props> = ({open, handleClose, getSelectedDays}) => 
                 gridRowGap: '35px',
                 gridColumnGap: '25px',
                 gridTemplateColumns: 'repeat(4, 1fr)',
-                background: '#E8F3FF',
-                boxShadow: '0px 0px 25px rgba(28, 54, 79, 0.25), inset 0px 0px 57px 4px rgba(63, 114, 164, 0.25)',
+                boxShadow: 'inset 0px -20px 57px 4px rgb(63 114 164 / 25%)',
                 '@media(max-width: 1000px)': {
                     padding: '23px 45px',
                     gridTemplateColumns: 'repeat(2, 1fr)',
@@ -85,10 +87,10 @@ const MyDaysDialog: React.FC<Props> = ({open, handleClose, getSelectedDays}) => 
             fontWeight: '700',
             fontSize: '19px',
             borderRadius: '5px',
-            border: '1px solid #3F72A4',
-            background: '#E8F3FF',
+            border: `1px solid ${mainColors.primary.main}`,
+            background: mainColors.secondary.main,
+            color: mainColors.secondary.contrastText,
             cursor: 'pointer',
-            color: '#3F72A4',
             transition: '.2s',
         },
         exitBut: {
@@ -112,22 +114,18 @@ const MyDaysDialog: React.FC<Props> = ({open, handleClose, getSelectedDays}) => 
         addBut: {
             width: '109px',
             height: '41px',
-            borderRadius: '5px',
-            background: '#3F72A4',
-            color: '#E8F3FF',
             fontSize: '19px',
             fontWeight: '700',
-            '&:hover': {
-                background: '#1C364F',
-            },
+            borderRadius: '5px',
+            boxShadow: 'none',
         },
     }
 
     const selectHandle = (e: any) => {
         e.preventDefault();
-        e.target.classList.contains(MyCss.selected) ?
-        e.target.classList.remove(MyCss.selected) :
-        e.target.classList.add(MyCss.selected);
+        e.target.classList.contains( MyCss.selected ) ||  e.target.classList.contains( MyCss.darkSelected ) ?
+        e.target.classList.remove(MyCss.selected, MyCss.darkSelected) :
+        e.target.classList.add(darkMode ? MyCss.darkSelected : MyCss.selected);
     };
 
     const submitData = () => {
@@ -137,7 +135,7 @@ const MyDaysDialog: React.FC<Props> = ({open, handleClose, getSelectedDays}) => 
 
         // get selected days then remove the selected class
         for (let i = 0; i < days.length; i++) {
-            if (days[i]?.classList.contains(`${MyCss.selected}`)) {
+            if (days[i]?.classList.contains(`${MyCss.selected}`) || days[i]?.classList.contains(`${MyCss.darkSelected}`) ) {
                 const selectedData: any = {
                     name: '',
                     content: '',
@@ -147,7 +145,6 @@ const MyDaysDialog: React.FC<Props> = ({open, handleClose, getSelectedDays}) => 
                 selectedData['name'] = (days[i]?.getAttribute("data-day"));
                 selectedData['content'] = (days[i]?.innerHTML);
                 selected.push(selectedData);
-                days[i]?.classList.remove(`${MyCss.selected}`);
             } else {
                 continue;
             }
@@ -196,7 +193,7 @@ const MyDaysDialog: React.FC<Props> = ({open, handleClose, getSelectedDays}) => 
                     الجمعة
                 </Box>
                 <DialogActions>
-                    <Button color='primary' sx={style.addBut} onClick={() => submitData()}>اضافة</Button>
+                    <Button variant='contained' color='primary' sx={style.addBut} onClick={() => submitData()}>اضافة</Button>
                 </DialogActions>
             </DialogContent>
         </Dialog>
