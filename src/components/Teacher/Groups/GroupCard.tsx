@@ -23,6 +23,7 @@ const GroupCard: React.FC<Props> = ({data}) => {
         },
         card: {
             width: '370px',
+            maxWidth: '100%',
             height: '243px',
             padding: '40px 30px',
             display: 'flex',
@@ -59,37 +60,35 @@ const GroupCard: React.FC<Props> = ({data}) => {
             {
                 data.map((item:any) => {
                     return (
-                        <Box key={item.id}>
-                            <Link href={`/teacher/groups/group/${item.id}`}>
-                                <Box sx={classes.card}>
-                                    <Box sx={classes.content}>
-                                        <Typography color='primary' variant="h1">
-                                            {item.name}
-                                        </Typography>
-                                        <Typography color='primary' variant="h5">
-                                            <span style={classes.span}>
-                                                الصف الدراسي :
-                                            </span>
-                                            {` ${item.level}`}
-                                        </Typography>
-                                    </Box>
-                                    <Box sx={classes.content}>
-                                        <Typography color='primary' variant="h4">
-                                            <span style={classes.span}>
-                                                عدد الطلاب :
-                                            </span>
-                                            {` ${item.studentCount}`}
-                                        </Typography>
-                                        <Typography color='primary' variant="h4">
-                                            <span style={classes.span}>
-                                                المقر :
-                                            </span>
-                                            {` ${item.location}`}
-                                        </Typography>   
-                                    </Box>
+                        <Link key={item.id} href={`/teacher/groups/group/${item.id}`}>
+                            <Box sx={classes.card}>
+                                <Box sx={classes.content}>
+                                    <Typography color='primary' variant="h1">
+                                        {item.name}
+                                    </Typography>
+                                    <Typography color='primary' variant="h5">
+                                        <span style={classes.span}>
+                                            الصف الدراسي :
+                                        </span>
+                                        {` ${item.level}`}
+                                    </Typography>
                                 </Box>
-                            </Link>
-                        </Box>
+                                <Box sx={classes.content}>
+                                    <Typography color='primary' variant="h4">
+                                        <span style={classes.span}>
+                                            عدد الطلاب :
+                                        </span>
+                                        {` ${item.studentCount}`}
+                                    </Typography>
+                                    <Typography color='primary' variant="h4">
+                                        <span style={classes.span}>
+                                            المقر :
+                                        </span>
+                                        {` ${item.location}`}
+                                    </Typography>   
+                                </Box>
+                            </Box>
+                        </Link>
                     )
                 })
             }
