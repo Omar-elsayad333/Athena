@@ -1,8 +1,6 @@
 import { useContext } from 'react';
 import { DarkThemeContext } from 'context/ThemeContext';
 import MyIconButton from 'components/MyIconButton';
-import MyButton from 'components/Buttons/MyButton';
-import MyButtonError from 'components/Buttons/MyButtonError';
 import MyTimePicker from 'components/MyTimePicker';
 import MyDaysDialog from 'components/MyDaysDialog';
 
