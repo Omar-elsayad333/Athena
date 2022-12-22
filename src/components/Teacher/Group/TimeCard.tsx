@@ -1,22 +1,18 @@
 import { useContext } from 'react';
 import { DarkThemeContext } from 'context/ThemeContext';
-import MyIconButton from 'components/MyIconButton';
 import MyTimePicker from 'components/MyTimePicker';
-import MyDaysDialog from 'components/MyDaysDialog';
 
 // MUI
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 
 
 type Props = {
     data: any;
-    states: any;
     func: any;
 }
 
-const TimeCard: React.FC<Props> = ({data, states, func}) => {
+const TimeCard: React.FC<Props> = ({data, func}) => {
 
     const { mainColors } = useContext(DarkThemeContext);
 
@@ -106,8 +102,6 @@ const TimeCard: React.FC<Props> = ({data, states, func}) => {
                     أيام الحضور:-
                 </Typography>
                 <Box sx={style.daysList}>
-                    <MyIconButton content='تعديل' icon={<CreateOutlinedIcon />} event={func.handleDialogState} />
-                    <MyDaysDialog open={states.dialogState} handleClose={func.handleDialogState} getSelectedDays={func.getSelectedDays} />
                     <Box sx={style.daysList}>
                         {
                             data.map((item: any) => {

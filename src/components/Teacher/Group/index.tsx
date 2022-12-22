@@ -27,7 +27,6 @@ const GroupC: React.FC = () => {
 
     const {
         data,
-        states,
         func
     } = useEditGroup();
 
@@ -37,7 +36,7 @@ const GroupC: React.FC = () => {
                 بيانات المجموعة:-
             </Typography>
             <DataCard data={data} />
-            <TimeCard data={data.schedule} states={states} func={func} />
+            <TimeCard data={data.schedule} func={func} />
             <Typography variant="h3" color={mainColors.title.main}>
                 الطلاب الحاليين بالمجموعة:-
             </Typography>
