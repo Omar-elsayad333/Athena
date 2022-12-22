@@ -18,7 +18,7 @@ const AddDayButton: React.FC<Props> = ({handleDialogState}) => {
         root: {
             width: '109px',
             height: '41px',
-            marginLeft: '50px',
+            marginLeft: '22px',
             padding: '6px 5px',
             fontSize: '14px',
             fontWeight: '700',

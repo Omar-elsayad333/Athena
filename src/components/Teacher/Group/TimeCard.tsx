@@ -1,22 +1,26 @@
 import { useContext } from 'react';
-import { lightColors, darkColors } from 'styles/colors';
 import { DarkThemeContext } from 'context/ThemeContext';
+import MyIconButton from 'components/MyIconButton';
 import MyButton from 'components/Buttons/MyButton';
 import MyButtonError from 'components/Buttons/MyButtonError';
+import MyTimePicker from 'components/MyTimePicker';
+import MyDaysDialog from 'components/MyDaysDialog';
 
 // MUI
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import MyTimePicker from 'components/MyTimePicker';
+import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
+
 
 type Props = {
-    selectedDays: any;
-    getSelectedTime: Function;
+    data: any;
+    states: any;
+    func: any;
 }
 
-const TimeCard: React.FC<Props> = ({selectedDays, getSelectedTime}) => {
+const TimeCard: React.FC<Props> = ({data, states, func}) => {
 
-    const {darkMode, mainColors} = useContext(DarkThemeContext);
+    const { mainColors } = useContext(DarkThemeContext);
 
     const style = {
         title: {
@@ -96,7 +100,7 @@ const TimeCard: React.FC<Props> = ({selectedDays, getSelectedTime}) => {
 
     return (
         <Box sx={style.timeContainer}>
-            <Typography variant='h3' color={darkMode ? darkColors.title.main : lightColors.title.main}>
+            <Typography variant='h3' color={mainColors.title.main}>
                 مواعيد المجموعة:-
             </Typography>
             <Box sx={style.backPaper}>
@@ -104,11 +108,13 @@ const TimeCard: React.FC<Props> = ({selectedDays, getSelectedTime}) => {
                     أيام الحضور:-
                 </Typography>
                 <Box sx={style.daysList}>
+                    <MyIconButton content='تعديل' icon={<CreateOutlinedIcon />} event={func.handleDialogState} />
+                    <MyDaysDialog open={states.dialogState} handleClose={func.handleDialogState} getSelectedDays={func.getSelectedDays} />
                     <Box sx={style.daysList}>
                         {
-                            selectedDays.map((item: any) => {
+                            data.map((item: any) => {
                                 return (
-                                    <Box key={item.name} sx={style.dayLabel}>
+                                    <Box key={item.id} sx={style.dayLabel}>
                                         {item.content}
                                     </Box>
                                 )
@@ -118,10 +124,10 @@ const TimeCard: React.FC<Props> = ({selectedDays, getSelectedTime}) => {
                 </Box>
             </Box>
             {
-                selectedDays.length > 0 &&
+                data.length > 0 &&
                 <Box sx={[style.backPaper, style.timePickerContainer]}>
                     {
-                        selectedDays.map((item: any) => {
+                        data.map((item: any) => {
                             return (
                                 <Box sx={style.timePicker} key={item.name}>
                                     <Box sx={style.dayLabel} ml={10}>
@@ -129,16 +135,16 @@ const TimeCard: React.FC<Props> = ({selectedDays, getSelectedTime}) => {
                                     </Box>
                                     <Box sx={style.timePicker} >
                                         <Box>
-                                            <Typography mb={3} variant='h5' color={mainColors.title.main}>
+                                            <Typography mb={3} fontSize={14} color={mainColors.title.main}>
                                                 وقت بدأ المجموعة:-
                                             </Typography>
-                                            <MyTimePicker name='startTime' day={item.name} getSelectedTime={getSelectedTime} />
+                                            <MyTimePicker name='startTime' day={item.name} value={data.startTime} getSelectedTime={func.getSelectedTime} />
                                         </Box>
                                         <Box>
-                                            <Typography mb={3} variant='h5' color={mainColors.title.main}>
+                                            <Typography mb={3} fontSize={14} color={mainColors.title.main}>
                                                 وقت انتهاء المجموعة:-
                                             </Typography>
-                                            <MyTimePicker name='endTime' day={item.name} getSelectedTime={getSelectedTime} />
+                                            <MyTimePicker name='endTime' day={item.name} value={data.endTime} getSelectedTime={func.getSelectedTime} />
                                         </Box>
                                     </Box>
                                 </Box>
@@ -147,15 +153,7 @@ const TimeCard: React.FC<Props> = ({selectedDays, getSelectedTime}) => {
                     }
                 </Box> 
             }
-            <Box sx={style.buttonsContainer}>
-                <Box sx={style.submitButton}>
-                    <MyButton content='تأكيد واضافة' />
-                </Box>
-                <Box sx={style.submitButton}>
-                    <MyButtonError content='إلغاء العملية' />
-                </Box>
-            </Box>
-        </Box>    
+        </Box>   
     );
 }
 

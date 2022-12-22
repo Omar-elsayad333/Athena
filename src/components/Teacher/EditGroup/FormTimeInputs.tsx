@@ -1,7 +1,6 @@
 import { useContext } from 'react';
-import { lightColors, darkColors } from 'styles/colors';
 import { DarkThemeContext } from 'context/ThemeContext';
-import AddDayButton from './AddDayButton';
+import MyIconButton from 'components/MyIconButton';
 import MyButton from 'components/Buttons/MyButton';
 import MyButtonError from 'components/Buttons/MyButtonError';
 import MyDaysDialog from 'components/MyDaysDialog';
@@ -10,18 +9,17 @@ import MyTimePicker from 'components/MyTimePicker';
 // MUI
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 
 type Props = {
-    dialogState: boolean;
-    handleDialogState: Function;
-    selectedDays: any;
-    getSelectedDays: Function;
-    getSelectedTime: Function;
+    data: any;
+    states: any;
+    func: any;
 }
 
-const FormTimeInputs: React.FC<Props> = ({handleDialogState, dialogState, getSelectedDays, selectedDays, getSelectedTime}) => {
+const FormTimeInputs: React.FC<Props> = ({data, states, func}) => {
 
-    const {darkMode, mainColors} = useContext(DarkThemeContext);
+    const { mainColors } = useContext(DarkThemeContext);
 
     const style = {
         title: {
@@ -101,7 +99,7 @@ const FormTimeInputs: React.FC<Props> = ({handleDialogState, dialogState, getSel
 
     return (
         <Box sx={style.timeContainer}>
-            <Typography variant='h3' color={darkMode ? darkColors.title.main : lightColors.title.main}>
+            <Typography variant='h3' color={mainColors.title.main}>
                 مواعيد المجموعة:-
             </Typography>
             <Box sx={style.backPaper}>
@@ -109,13 +107,13 @@ const FormTimeInputs: React.FC<Props> = ({handleDialogState, dialogState, getSel
                     أيام الحضور:-
                 </Typography>
                 <Box sx={style.daysList}>
-                    <AddDayButton handleDialogState={handleDialogState} />
-                    <MyDaysDialog open={dialogState} handleClose={handleDialogState} getSelectedDays={getSelectedDays} />
+                    <MyIconButton content='تعديل' icon={<CreateOutlinedIcon />} event={func.handleDialogState} />
+                    <MyDaysDialog open={states.dialogState} handleClose={func.handleDialogState} getSelectedDays={func.getSelectedDays} />
                     <Box sx={style.daysList}>
                         {
-                            selectedDays.map((item: any) => {
+                            data.map((item: any) => {
                                 return (
-                                    <Box key={item.name} sx={style.dayLabel}>
+                                    <Box key={item.id} sx={style.dayLabel}>
                                         {item.content}
                                     </Box>
                                 )
@@ -125,10 +123,10 @@ const FormTimeInputs: React.FC<Props> = ({handleDialogState, dialogState, getSel
                 </Box>
             </Box>
             {
-                selectedDays.length > 0 &&
+                data.length > 0 &&
                 <Box sx={[style.backPaper, style.timePickerContainer]}>
                     {
-                        selectedDays.map((item: any) => {
+                        data.map((item: any) => {
                             return (
                                 <Box sx={style.timePicker} key={item.name}>
                                     <Box sx={style.dayLabel} ml={10}>
@@ -139,13 +137,13 @@ const FormTimeInputs: React.FC<Props> = ({handleDialogState, dialogState, getSel
                                             <Typography mb={3} fontSize={14} color={mainColors.title.main}>
                                                 وقت بدأ المجموعة:-
                                             </Typography>
-                                            <MyTimePicker name='startTime' day={item.name} getSelectedTime={getSelectedTime} />
+                                            <MyTimePicker name='startTime' day={item.name} value={data.startTime} getSelectedTime={func.getSelectedTime} />
                                         </Box>
                                         <Box>
                                             <Typography mb={3} fontSize={14} color={mainColors.title.main}>
                                                 وقت انتهاء المجموعة:-
                                             </Typography>
-                                            <MyTimePicker name='endTime' day={item.name} getSelectedTime={getSelectedTime} />
+                                            <MyTimePicker name='endTime' day={item.name} value={data.endTime} getSelectedTime={func.getSelectedTime} />
                                         </Box>
                                     </Box>
                                 </Box>
@@ -156,10 +154,10 @@ const FormTimeInputs: React.FC<Props> = ({handleDialogState, dialogState, getSel
             }
             <Box sx={style.buttonsContainer}>
                 <Box sx={style.submitButton}>
-                    <MyButton content='تأكيد واضافة' />
+                    <MyButton content='حفظ التعديلات' />
                 </Box>
                 <Box sx={style.submitButton}>
-                    <MyButtonError content='إلغاء العملية' />
+                    <MyButtonError content='حذف المجموعة' />
                 </Box>
             </Box>
         </Box>

@@ -90,11 +90,12 @@ type Props = {
     getSelectedTime: Function;
     name: string;
     day: string;
+    value?: any;
 }
 
-const MyTimePicker: React.FC<Props> = ({getSelectedTime, name, day}) => {
+const MyTimePicker: React.FC<Props> = ({getSelectedTime, name, day, value}) => {
 
-    const [ timeValue, setTimeValue] = useState<any>(new Date());
+    const [ timeValue, setTimeValue] = useState<any>(value || new Date());
 
     useEffect(() => {
         getSelectedTime({
