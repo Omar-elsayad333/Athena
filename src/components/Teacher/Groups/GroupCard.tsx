@@ -74,13 +74,13 @@ const GroupCard: React.FC<Props> = ({data}) => {
                                     </Typography>
                                 </Box>
                                 <Box sx={classes.content}>
-                                    <Typography color='primary' variant="h4">
+                                    <Typography color='primary' variant="h5">
                                         <span style={classes.span}>
                                             عدد الطلاب :
                                         </span>
                                         {` ${item.studentCount}`}
                                     </Typography>
-                                    <Typography color='primary' variant="h4">
+                                    <Typography color='primary' variant="h5">
                                         <span style={classes.span}>
                                             المقر :
                                         </span>
