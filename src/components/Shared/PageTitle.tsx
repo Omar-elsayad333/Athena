@@ -24,7 +24,7 @@ const PageTitle:React.FC<Props> = ({children, content}) => {
             borderRadius: '10px',
             border: darkMode ? '1px solid #B6D5F0' : 'none',
             background: mainColors.secondary.main,
-            boxShadow: darkMode ? 'none' : '0px 5px 15px 0px #1C364F33',
+            boxShadow: darkMode ? 'none' : '0px 5px 15px 0px #B6D5F0',
         }
     }
 
