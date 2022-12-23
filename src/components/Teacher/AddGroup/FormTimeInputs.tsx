@@ -44,6 +44,10 @@ const FormTimeInputs: React.FC<Props> = ({handleDialogState, dialogState, getSel
             border: `2px solid ${mainColors.paper.border}`,
             borderRadius: '12px',
         },
+        dayContainer: {
+            display: 'flex',
+            gap: '45px',
+        },
         daysList: {
             display: 'flex',
             gap: '25px',
@@ -108,20 +112,23 @@ const FormTimeInputs: React.FC<Props> = ({handleDialogState, dialogState, getSel
                 <Typography variant='h5' color={mainColors.primary.main}>
                     أيام الحضور:-
                 </Typography>
-                <Box sx={style.daysList}>
+                <Box sx={style.dayContainer}>
                     <AddDayButton handleDialogState={handleDialogState} />
                     <MyDaysDialog open={dialogState} handleClose={handleDialogState} getSelectedDays={getSelectedDays} />
-                    <Box sx={style.daysList}>
-                        {
-                            selectedDays.map((item: any) => {
-                                return (
-                                    <Box key={item.name} sx={style.dayLabel}>
-                                        {item.content}
-                                    </Box>
-                                )
-                            })
-                        }
-                    </Box>
+                    {
+                        selectedDays.length > 0 &&
+                        <Box sx={style.daysList}>
+                            {
+                                selectedDays.map((item: any) => {
+                                    return (
+                                        <Box key={item.name} sx={style.dayLabel}>
+                                            {item.content}
+                                        </Box>
+                                    )
+                                })
+                            }
+                        </Box>
+                    }
                 </Box>
             </Box>
             {
