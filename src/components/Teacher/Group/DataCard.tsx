@@ -1,3 +1,5 @@
+import { useContext } from 'react';
+import { DarkThemeContext } from 'context/ThemeContext';
 
 // MUI
 import Typography from '@mui/material/Typography';
@@ -8,6 +10,8 @@ type Props = {
 }
 
 const DataCard: React.FC<Props> = ({data}) => {
+
+    const { mainColors } = useContext(DarkThemeContext);
 
     const style = {
         container: {
@@ -22,14 +26,14 @@ const DataCard: React.FC<Props> = ({data}) => {
             flexWrap: 'wrap',
             alignItems: 'center',
             gap: '32px',
-            background: '#E8F3FF',
-            border: '1px solid #B6D5F0',
+            background: mainColors.paper.main,
+            border: `2px solid ${mainColors.paper.border}`,
             borderRadius: '10px',
         },
         innerCard: {
             padding: '9px 10px',
-            background: '#E0EEFF',
-            border: '1px solid #B6D5F0',
+            background: mainColors.backgroundColor.main,
+            border: `1px solid ${mainColors.paper.border}`,
             borderRadius: '8px',
         }
     }
@@ -79,5 +83,5 @@ const DataCard: React.FC<Props> = ({data}) => {
         </Box>
     );
 }
- 
+
 export default DataCard;

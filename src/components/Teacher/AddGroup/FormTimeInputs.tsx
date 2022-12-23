@@ -47,6 +47,7 @@ const FormTimeInputs: React.FC<Props> = ({handleDialogState, dialogState, getSel
         dayContainer: {
             display: 'flex',
             gap: '45px',
+            flexWrap: 'wrap',
         },
         daysList: {
             display: 'flex',
@@ -69,10 +70,10 @@ const FormTimeInputs: React.FC<Props> = ({handleDialogState, dialogState, getSel
             fontWeight: '700',
             fontSize: '20px',
             borderRadius: '5px',
-            border: `1px solid ${mainColors.chips.border}`,
-            background: mainColors.chips.main,
-            cursor: 'pointer',
             color: mainColors.chips.contrastText,
+            background: mainColors.chips.main,
+            border: `1px solid ${mainColors.chips.border}`,
+            cursor: 'pointer',
             transition: '.2s',
         },
         timePickerContainer: {

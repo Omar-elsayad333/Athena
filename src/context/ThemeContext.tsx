@@ -62,9 +62,9 @@ export const DarkThemeProvider: React.FC<IProps> = ({ children }) => {
             border: darkMode ? '#3F72A4' : '#B6D5F0',
         },
         chips: {
-            main: darkMode ? '#E0EEFF' : '#B6D5F0',
-            border: darkMode ? '#E0EEFF' : '#3F72A4',
-            contrastText: '#3F72A4',
+            main: darkMode ? '#3F72A4' : '#B6D5F0',
+            border: '#3F72A4',
+            contrastText: darkMode ? '#E0EEFF' : '#3F72A4',
         },
         customButton: {
             main: darkMode ? '#162A3E' : '#E8F3FF',
@@ -81,6 +81,12 @@ export const DarkThemeProvider: React.FC<IProps> = ({ children }) => {
             primary: darkMode ? 'linear-gradient(0deg, #4072A4 0%, #1D3750 100%)' : 'linear-gradient(180deg, #B6D5F0 0%, #DFEFFF 100%)',
             secondary: darkMode ? 'linear-gradient(180deg, #3F72A4 0%, #1C364F 100%)' : 'linear-gradient(180deg, #DFEFFF 0%, #B6D5F0 100%)',
         },
+        table: {
+            main: darkMode ? '#1C364F' : '#E8F3FF',
+            border : darkMode ? '#3F72A4' : '#B6D5F0',
+            header : darkMode ? 'linear-gradient(0deg, #4072A4 0%, #1D3750 100%)' : '#B6D5F0',
+            contrastText : darkMode ? '#E0EEFF' : '#3F72A4',
+        }
     };
 
     // handle change theme

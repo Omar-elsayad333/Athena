@@ -1,9 +1,13 @@
+import { useContext } from 'react';
+import { DarkThemeContext } from 'context/ThemeContext';
+
+// MUI
+import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Box from '@mui/material/Box';
 
 const header = [
     { 
@@ -37,6 +41,8 @@ const myData = [
 
 const MyTable = () => {
     
+    const { mainColors } = useContext(DarkThemeContext);
+
     const classes = {
         root: {
             width: 'fit-content',
@@ -44,7 +50,7 @@ const MyTable = () => {
             paddingBottom: '1px',
             borderRadius: '12px',
             borderTop: '3px solid #3F72A4',
-            background: '#B6D5F0',
+            background: mainColors.table.border,
             overflow: 'hidden',
             '.MuiTableHead-root': {
                 display: 'block',
@@ -56,8 +62,8 @@ const MyTable = () => {
                     textOverflow: 'ellipsis',
                     fontSize: '14px',
                     fontWeight: '700',
-                    color: '#3F72A4',
-                    background: '#B6D5F0',
+                    color: mainColors.table.contrastText,
+                    background: mainColors.table.header,
                     borderBottom: 'none',
                     textAlign: 'right',
                 },
@@ -72,11 +78,11 @@ const MyTable = () => {
                         maxWidth: '200px',
                         textOverflow: 'ellipsis',
                         paddingY: '27px',
-                        color: '#3F72A4',
+                        color: mainColors.table.contrastText,
                         fontSize: '14px',
                         fontWeight: '400',
-                        background: '#E8F3FF',
-                        borderBottom: '1px solid #B6D5F0',
+                        background: mainColors.table.main,
+                        borderBottom: `1px solid ${mainColors.table.border}`,
                         textAlign: 'right',
                     },
                 },

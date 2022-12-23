@@ -18,7 +18,6 @@ const MyIconButton: React.FC<Props> = ({event, content, icon}) => {
         root: {
             width: 'fit-content',
             height: '41px',
-            marginLeft: '22px',
             padding: '8px 16px',
             fontSize: '20px',
             fontWeight: '700',  

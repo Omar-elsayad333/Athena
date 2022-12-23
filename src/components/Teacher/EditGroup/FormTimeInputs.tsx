@@ -42,6 +42,11 @@ const FormTimeInputs: React.FC<Props> = ({data, states, func}) => {
             border: `2px solid ${mainColors.paper.border}`,
             borderRadius: '12px',
         },
+        dayContainer: {
+            display: 'flex',
+            gap: '45px',
+            flexWrap: 'wrap',
+        },
         daysList: {
             display: 'flex',
             gap: '25px',
@@ -106,7 +111,7 @@ const FormTimeInputs: React.FC<Props> = ({data, states, func}) => {
                 <Typography variant='h5' color={mainColors.primary.main}>
                     أيام الحضور:-
                 </Typography>
-                <Box sx={style.daysList}>
+                <Box sx={style.dayContainer}>
                     <MyIconButton content='تعديل' icon={<CreateOutlinedIcon />} event={func.handleDialogState} />
                     <MyDaysDialog open={states.dialogState} handleClose={func.handleDialogState} getSelectedDays={func.getSelectedDays} />
                     <Box sx={style.daysList}>
