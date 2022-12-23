@@ -70,7 +70,7 @@ export const DarkThemeProvider: React.FC<IProps> = ({ children }) => {
             main: darkMode ? '#162A3E' : '#E8F3FF',
         },
         dialog: {
-            background: darkMode ? '#162A3E' : '#E8F3FF',
+            background: darkMode ? '#1C364F' : '#E8F3FF',
             titleShadow: darkMode ? 'none' : 'inset 0px 0px 57px 4px rgba(63, 114, 164, 0.25)'
         },
         backgroundColor: {

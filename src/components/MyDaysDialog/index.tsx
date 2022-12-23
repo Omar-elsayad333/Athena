@@ -51,7 +51,7 @@ const MyDaysDialog: React.FC<Props> = ({open, handleClose, getSelectedDays}) => 
                 '@media(max-width: 400px)': {
                     '.MuiTypography-root': {
                         fontSize: '25px',
-                    }
+                    },
                 }
             },
             '.MuiDialogContent-root': {
