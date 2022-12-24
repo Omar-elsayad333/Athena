@@ -16,14 +16,14 @@ type Props = {
     Placeholder: any;
 }
 
-const MyInput: React.FC<Props> = ({Type, Placeholder, HelperText, error, OnChange, Value, Name, Id}) => {
+const MyInputSmall: React.FC<Props> = ({Type, Placeholder, HelperText, error, OnChange, Value, Name, Id}) => {
 
     const {darkMode} = useContext(DarkThemeContext);
 
     const classes = {
         root: {
             '.MuiOutlinedInput-root': {
-                width: '255px',
+                width: '214px',
                 height: '46px',
                 fontSize: '14px',
                 fontWeight: '400',
@@ -50,7 +50,7 @@ const MyInput: React.FC<Props> = ({Type, Placeholder, HelperText, error, OnChang
                     borderColor: 'unset',
                 },
                 '@media(max-width: 300px)': {
-                    width: '200px',
+                    width: '170px',
                 },
                 '@media(max-width: 250px)': {
                     width: '150px',
@@ -86,4 +86,4 @@ const MyInput: React.FC<Props> = ({Type, Placeholder, HelperText, error, OnChang
     );
 }
 
-export default MyInput;
+export default MyInputSmall;

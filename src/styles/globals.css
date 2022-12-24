@@ -11,6 +11,7 @@
 
 .dark-link {
     color: #1C364F;
+    border-color: initial;
 }
 
 .light-link {

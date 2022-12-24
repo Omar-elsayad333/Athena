@@ -6,6 +6,7 @@ import MyTable from 'components/MyTable';
 // MUI
 import Box from '@mui/material/Box';
 import MyInput from 'components/MyInput';
+import MyInputSmall from 'components/MyInputSmall';
 
 const Test = () => {
     
@@ -31,6 +32,7 @@ const Test = () => {
         <Box sx={classes.root}>
             <ThemeSwitcher />
             <MyInput Placeholder='أكتب أسمك بالكامل' />
+            <MyInputSmall Placeholder='أكتب أسمك بالكامل' />
         </Box>
     );
 }
