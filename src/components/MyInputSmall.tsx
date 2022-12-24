@@ -71,6 +71,7 @@ const MyInputSmall: React.FC<Props> = ({Type, Placeholder, HelperText, error, On
     return (
         <FormControl  required>
             <TextField     
+                autoComplete='off'   
                 variant="outlined"
                 sx={classes.root}
                 id={Id}

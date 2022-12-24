@@ -70,7 +70,8 @@ const MyInput: React.FC<Props> = ({Type, Placeholder, HelperText, error, OnChang
 
     return (
         <FormControl  required>
-            <TextField     
+            <TextField  
+                autoComplete='off'   
                 variant="outlined"
                 sx={classes.root}
                 id={Id}
