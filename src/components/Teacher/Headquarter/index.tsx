@@ -1,9 +1,5 @@
 import { useContext } from 'react';
 import { DarkThemeContext } from 'context/ThemeContext';
-import MyInput from 'components/MyInput';
-import MyInputSmall from 'components/MyInputSmall';
-import MyButton from 'components/Buttons/MyButton';
-import MyButtonError from 'components/Buttons/MyButtonError';
 import EmployeCard from './EmployeCard';
 
 // MUI
