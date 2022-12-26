@@ -24,7 +24,7 @@ const Footer: React.FC<Props> = ({sideNavState}) => {
             alignItems: 'center',
             justifyContent: 'space-between',
             gap: '20px',
-            borderLeft: `solid 1px ${mainColors.primary.main}`,
+            borderLeft: `solid 1px #3F72A4`,
             background: mainColors.linerGradient.secondary,
             overflow: 'hidden',
             transition: '.2s',

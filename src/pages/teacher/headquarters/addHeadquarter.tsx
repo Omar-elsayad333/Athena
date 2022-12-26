@@ -6,10 +6,10 @@ import DesktopNavbar from 'components/Layout/DesktopNavbar';
 import PageTitle from 'components/Shared/PageTitle';
 import ThemeSwitcher from "components/ThemeSwitcher";
 import AddHeadquarterC from "components/Teacher/AddHeadquarter";
+import PageFooter from "components/Shared/PageFooter";
 
 // MUI
 import Box from "@mui/material/Box";
-import PageFooter from "components/Shared/pageFooter";
 
 const AddHeadquarter: NextPage = () => {
 

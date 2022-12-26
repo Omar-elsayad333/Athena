@@ -18,12 +18,12 @@ type Props = {
 
 const DesktopNavbar: React.FC<Props> = ({firstPath, secondPath, firstContent, secondContent}) => {
 
-    const {mainColors} = useContext(DarkThemeContext);
+    const {darkMode, mainColors} = useContext(DarkThemeContext);
 
     const style: any = {
         container: {
             width: '100%',
-            height: '95px',
+            height: '94px',
             padding: '0 55px',
             position: 'sticky',
             top: '0',
@@ -34,7 +34,7 @@ const DesktopNavbar: React.FC<Props> = ({firstPath, secondPath, firstContent, se
             alignItems: 'center',
             gap: '25px',
             background: mainColors.linerGradient.primary,
-            borderBottom: `1px solid ${mainColors.primary.main}`,
+            borderBottom: `1px solid ${darkMode ? 'none' : mainColors.primary.main}`,
             transition: '.2s',
             '@media(max-width: 1200px)': {
                 top: '80px',
