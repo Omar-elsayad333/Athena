@@ -5,7 +5,7 @@ import { DarkThemeContext } from 'context/ThemeContext';
 import Box from '@mui/material/Box';
 
 
-const AddCard = () => {
+const AddCard: React.FC = () => {
     
     const { mainColors } = useContext(DarkThemeContext);
     

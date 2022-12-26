@@ -39,7 +39,7 @@ const style = {
     }
 }
 
-const AddHeadquarterC = () => {
+const AddHeadquarterC: React.FC = () => {
     
     const {mainColors} = useContext(DarkThemeContext);
 

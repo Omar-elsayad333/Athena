@@ -8,7 +8,7 @@ import Box from '@mui/material/Box';
 import MyAvatar from 'components/MyAvatar';
 
 
-const EmployeCard = () => {
+const EmployeCard: React.FC = () => {
 
     const { mainColors } = useContext(DarkThemeContext);
 

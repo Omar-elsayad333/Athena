@@ -5,7 +5,7 @@ import { DarkThemeContext } from "context/ThemeContext";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
-const PageFooter = () => {
+const PageFooter: React.FC = () => {
 
     const { mainColors } = useContext(DarkThemeContext);
 
@@ -13,6 +13,7 @@ const PageFooter = () => {
         container: {
             width: '100%',
             minHeight: '67px',
+            paddingX: '50px',
             display: 'flex',
             flexWrap: 'wrap',
             justifyContent: 'space-between',
@@ -25,7 +26,7 @@ const PageFooter = () => {
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            flexWrap: 'wrap',
+            flexWrap: 'wrap',   
             gap: '43px',
         },
         spcial: {
