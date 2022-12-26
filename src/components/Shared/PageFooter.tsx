@@ -25,6 +25,7 @@ const PageFooter: React.FC = () => {
             '@media(max-width: 1430px)': {
                 justifyContent: 'center',
                 paddingY: '20px',
+                paddingX: '30px',
             }
         },
         miniContainer: {
@@ -96,7 +97,7 @@ const PageFooter: React.FC = () => {
                     <path d="M28.9255 25.7961L28.7474 25.417H23.9919L23.8138 25.7961H28.9255Z" fill="inherit"/>
                     <path d="M28.6517 25.2203L28.3867 24.6538H24.353L24.0835 25.2203H28.6517Z" fill="inherit"/>
                 </svg>
-                <Typography variant="h5" color='primary'>
+                <Typography variant="h5" color='primary' fontWeight={700}>
                         جميع الحقوق محفوظة
                     <Box sx={style.spcial}>
                         - برنامج أثينا لادارة المؤسسات التعليمية

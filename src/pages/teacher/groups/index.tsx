@@ -7,6 +7,7 @@ import DesktopNavbar from 'components/Layout/DesktopNavbar';
 import GroupsC from "components/Teacher/Groups";
 import MySearchInput from "components/MySearchInput";
 import ThemeSwitcher from "components/ThemeSwitcher";
+import PageFooter from "components/Shared/PageFooter";
 
 // MUI
 import Box from "@mui/material/Box";
@@ -36,7 +37,10 @@ const Groups: NextPage = () => {
             '@media(max-width: 350px)': {
                 padding: '20px'
             },
-        }
+        },
+        footerContainer: {
+            marginTop: 'auto',
+        },
     }
 
     return (
@@ -60,6 +64,9 @@ const Groups: NextPage = () => {
                 </PageTitle>
                 <MySearchInput placeholder="هل تبحث عن مجموعة معينة ؟" />
                 <GroupsC />
+            </Box>
+            <Box sx={style.footerContainer}>
+                <PageFooter />
             </Box>
             <ThemeSwitcher />
         </Box>    

@@ -7,6 +7,7 @@ import DesktopNavbar from 'components/Layout/DesktopNavbar';
 import HeadquartersC from "components/Teacher/Headquarters";
 import MySearchInput from "components/MySearchInput";
 import ThemeSwitcher from "components/ThemeSwitcher";
+import PageFooter from "components/Shared/PageFooter";
 
 // MUI
 import Box from "@mui/material/Box";
@@ -36,7 +37,10 @@ const Headquarters: NextPage = () => {
             '@media(max-width: 350px)': {
                 padding: '20px'
             },
-        }
+        },
+        footerContainer: {
+            marginTop: 'auto',
+        },
     }
 
     return (
@@ -56,6 +60,9 @@ const Headquarters: NextPage = () => {
                 </PageTitle>
                 <MySearchInput placeholder='هل تبحث عن مقر معين ؟' />
                 <HeadquartersC />
+            </Box>
+            <Box sx={style.footerContainer}>
+                <PageFooter />
             </Box>
             <ThemeSwitcher />
         </Box>    

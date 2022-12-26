@@ -6,6 +6,7 @@ import DesktopNavbar from 'components/Layout/DesktopNavbar';
 import PageTitle from 'components/Shared/PageTitle';
 import ThemeSwitcher from "components/ThemeSwitcher";
 import EditGroupC from 'components/Teacher/EditGroup';
+import PageFooter from "components/Shared/PageFooter";
 
 // MUI
 import Box from "@mui/material/Box";
@@ -43,6 +44,9 @@ const EditGroup = () => {
                 padding: '20px'
             },
         },
+        footerContainer: {
+            marginTop: 'auto',
+        },
     }
     return (
         <Box sx={style.root}>
@@ -64,6 +68,9 @@ const EditGroup = () => {
                     </svg>
                 </PageTitle>
                 <EditGroupC />
+            </Box>
+            <Box sx={style.footerContainer}>
+                <PageFooter />
             </Box>
             <ThemeSwitcher />
         </Box>  

@@ -24,7 +24,6 @@ const Menu: React.FC<Props> = ({sideNavState, currentPath}) => {
             justifyContent: 'space-between',
             gap: '40px',
             backgroundColor: mainColors.backgroundColor.sideNav,
-            borderTop: `solid 1px ${darkMode ? 'none' : mainColors.primary.main}`,
             borderBottom: `solid 1px ${darkMode ? 'none' : mainColors.primary.main}`,
             borderLeft: `solid 1px #3F72A4`,
             overflowY: 'auto',

@@ -13,6 +13,7 @@ import GroupC from 'components/Teacher/Group';
 // MUI
 import Box from "@mui/material/Box";
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
+import PageFooter from "components/Shared/PageFooter";
 
 const Group: NextPage = () => {
 
@@ -53,7 +54,10 @@ const Group: NextPage = () => {
             alignItems: 'center',
             flexWrap: 'wrap',
             gap: '32px',
-        }
+        },
+        footerContainer: {
+            marginTop: 'auto',
+        },
     }
 
     return (
@@ -83,6 +87,9 @@ const Group: NextPage = () => {
                     </Link>
                 </Box>
                 <GroupC />
+            </Box>
+            <Box sx={style.footerContainer}>
+                <PageFooter />
             </Box>
             <ThemeSwitcher />
         </Box>  

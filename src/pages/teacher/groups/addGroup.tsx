@@ -6,6 +6,7 @@ import DesktopNavbar from 'components/Layout/DesktopNavbar';
 import PageTitle from 'components/Shared/PageTitle';
 import AddGroupC from 'components/Teacher/AddGroup';
 import ThemeSwitcher from "components/ThemeSwitcher";
+import PageFooter from "components/Shared/PageFooter";
 
 // MUI
 import Box from "@mui/material/Box";
@@ -34,7 +35,10 @@ const AddGroup: NextPage = () => {
             '@media(max-width: 350px)': {
                 padding: '20px'
             },
-        }
+        },
+        footerContainer: {
+            marginTop: 'auto',
+        },
     }
     
     return (
@@ -57,6 +61,9 @@ const AddGroup: NextPage = () => {
                     </svg>
                 </PageTitle>
                 <AddGroupC />
+            </Box>
+            <Box sx={style.footerContainer}>
+                <PageFooter />
             </Box>
             <ThemeSwitcher />
         </Box>    

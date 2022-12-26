@@ -35,7 +35,10 @@ const AddHeadquarter: NextPage = () => {
             '@media(max-width: 350px)': {
                 padding: '20px'
             },
-        }
+        },
+        footerContainer: {
+            marginTop: 'auto',
+        },
     }
     
     return (
@@ -55,7 +58,9 @@ const AddHeadquarter: NextPage = () => {
                 </PageTitle>
                 <AddHeadquarterC />
             </Box>
-            <PageFooter />
+            <Box sx={style.footerContainer}>
+                <PageFooter />
+            </Box>
             <ThemeSwitcher />
         </Box>    
     );

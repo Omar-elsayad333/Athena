@@ -12,7 +12,7 @@ type Props = {
 
 const Header: React.FC<Props> = ({controleSideNav, sideNavState}) => {
     
-    const {mainColors} = useContext(DarkThemeContext);
+    const {darkMode, mainColors} = useContext(DarkThemeContext);
 
     const classes = {
         container: {
@@ -24,6 +24,7 @@ const Header: React.FC<Props> = ({controleSideNav, sideNavState}) => {
             alignItems: 'center',
             gap: '30px',
             background: mainColors.linerGradient.primary,
+            borderBottom: `solid 1px ${darkMode ? 'none' : mainColors.primary.main}`,
             transition: '.2s',
         },
         menuIcon: {
