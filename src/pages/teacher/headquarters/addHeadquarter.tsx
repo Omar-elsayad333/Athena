@@ -9,6 +9,7 @@ import AddHeadquarterC from "components/Teacher/AddHeadquarter";
 
 // MUI
 import Box from "@mui/material/Box";
+import PageFooter from "components/Shared/pageFooter";
 
 const AddHeadquarter: NextPage = () => {
 
@@ -54,6 +55,7 @@ const AddHeadquarter: NextPage = () => {
                 </PageTitle>
                 <AddHeadquarterC />
             </Box>
+            <PageFooter />
             <ThemeSwitcher />
         </Box>    
     );
