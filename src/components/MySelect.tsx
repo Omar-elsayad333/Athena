@@ -31,7 +31,7 @@ const MySelect: React.FC<Props> = ({placeholder, data}) => {
             width: '255px',
             height: '46px',
             color: darkMode ? '#B6D5F0' : 'rgba(63, 114, 164, 1)',
-            backgroundColor: darkMode ? 'rgb(63 114 164 / 0%)' : '#E8F3FF',
+            backgroundColor: darkMode ? '#1C364F' : '#E8F3FF',
             borderRadius: '7px',
             fontSize: '14px',
             fontWeight: '400',
@@ -40,15 +40,15 @@ const MySelect: React.FC<Props> = ({placeholder, data}) => {
             },
             '.MuiOutlinedInput-notchedOutline': {
                 transition: '.2s ease-out',
-                borderColor: darkMode ? '#B6D5F0' : '#E8F3FF',
+                border: darkMode ? '1px solid #3F72A4' : 'none',
                 boxShadow: darkMode ? 'none' : '0px 0px 10px 1px #B6D5F0',
             },
             '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                boxShadow: darkMode ? '0px 0px 8px 0px #B6D5F0BF' : '0px 0px 0px 1px #3F72A4',
-                borderColor: darkMode ? '#E0EEFF' : '#E8F3FF',
+                border: darkMode ? '1px solid #B6D5F0' : 'none',
+                boxShadow: darkMode ? '0px 0px 7px -1px #3F72A4' : '0px 0px 0px 1px #3F72A4',
             },
             '&:hover .MuiOutlinedInput-notchedOutline': {
-                borderColor: '#E8F3FF',
+                borderColor: 'unset',
             },
             '.MuiSvgIcon-root ': {
                 width: '33px ',
@@ -70,16 +70,17 @@ const MySelect: React.FC<Props> = ({placeholder, data}) => {
     const menuStyle: SxProps = {
         '.MuiPaper-root': {
             borderRadius: '10px',
-            backgroundColor: '#E8F3FF',
-            boxShadow: '0px 0px 10px 1px #B6D5F0',
+            backgroundColor: darkMode ? '#1C364F' : '#E8F3FF',
+            boxShadow: darkMode ? '0px 0px 7px -1px #3F72A4' : '0px 0px 0px 1px #3F72A4',
+            border: darkMode ? '1px solid #B6D5F0' : 'none',
             // first number is item height, second number is item top padding
             maxHeight: 48 * 4.5 + 8,
         },
         '.MuiMenuItem-root': {
-            color: '#3F72A4',
+            color: darkMode ? '#B6D5F0' : 'rgba(63, 114, 164, 1)',
             ':hover': {
-                backgroundColor: '#B6D5F0',
-                color: '#1C364F',
+                backgroundColor: darkMode ? '#162A3E' : '#B6D5F0',
+                color: darkMode ? '#B6D5F0' : 'rgba(63, 114, 164, 1)',
             }
         },
     }

@@ -1,7 +1,7 @@
 import me from '../../../../public/images/me.jpg';
 import NavbarBut from './NavbarBut';
 import NavbarSecBut from './NavbarSecBut';
-import Avatar from 'components/Avatar';
+import Avatar from 'components/MyAvatar';
 import { useContext } from 'react';
 import { DarkThemeContext } from 'context/ThemeContext';
 

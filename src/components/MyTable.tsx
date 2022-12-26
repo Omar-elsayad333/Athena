@@ -63,7 +63,7 @@ const MyTable = () => {
                     fontSize: '14px',
                     fontWeight: '700',
                     color: mainColors.table.contrastText,
-                    background: mainColors.table.header,
+                    background: mainColors.linerGradient.primary,
                     borderBottom: 'none',
                     textAlign: 'right',
                 },

@@ -84,7 +84,7 @@ export const DarkThemeProvider: React.FC<IProps> = ({ children }) => {
         table: {
             main: darkMode ? '#1C364F' : '#E8F3FF',
             border : darkMode ? '#3F72A4' : '#B6D5F0',
-            header : darkMode ? 'linear-gradient(0deg, #4072A4 0%, #1D3750 100%)' : '#B6D5F0',
+            // header : darkMode ? 'linear-gradient(0deg, #4072A4 0%, #1D3750 100%)' : '#B6D5F0',
             contrastText : darkMode ? '#E0EEFF' : '#3F72A4',
         }
     };

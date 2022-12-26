@@ -18,7 +18,7 @@ type Props = {
 
 const MyInput: React.FC<Props> = ({Type, Placeholder, HelperText, error, OnChange, Value, Name, Id}) => {
 
-    const {darkMode} = useContext(DarkThemeContext);
+    const { darkMode } = useContext(DarkThemeContext);
 
     const classes = {
         root: {
@@ -38,8 +38,8 @@ const MyInput: React.FC<Props> = ({Type, Placeholder, HelperText, error, OnChang
                     }
                 },
                 '.MuiOutlinedInput-notchedOutline': {
-                    border: darkMode ? '1px solid #3F72A4' : 'none',
                     transition: '.2s ease-out',
+                    border: darkMode ? '1px solid #3F72A4' : 'none',
                     boxShadow: darkMode ? 'none' : '0px 0px 10px 1px #B6D5F0',
                 },
                 '&.Mui-focused .MuiOutlinedInput-notchedOutline': {

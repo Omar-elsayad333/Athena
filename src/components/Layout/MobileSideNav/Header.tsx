@@ -1,4 +1,4 @@
-import Avatar from '../../Avatar';
+import Avatar from '../../MyAvatar';
 import me from '../../../../public/images/me.jpg';
 import { useContext } from 'react';
 import { DarkThemeContext } from 'context/ThemeContext';

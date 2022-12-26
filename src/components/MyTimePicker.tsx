@@ -1,4 +1,5 @@
-import {useEffect, useState} from 'react'
+import {useEffect, useState, useContext} from 'react'
+import { DarkThemeContext } from 'context/ThemeContext';
 
 // MUI
 import TextField from '@mui/material/TextField';
@@ -8,83 +9,6 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { SxProps } from '@mui/material';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 
-const classes = {
-    root: {
-        width: '103px',
-        backgroundColor: '#E8F3FF',
-        borderRadius: '6px',
-        '.MuiOutlinedInput-root': {
-            color: 'rgba(63, 114, 164, 1)',
-            borderRadius: '7px',
-            height: '37px',
-            boxShadow: '0px 0px 10px 1px #B6D5F0',
-            backgroundColor: '#E8F3FF',
-            transition: '.2s ease-out',
-            border: '1px solid #E8F3FF !important',
-            paddingRight: '6px',
-            '&.Mui-focused': {
-                boxShadow: '0px 0px 0px 1px #3F72A4',
-                borderColor: '#E8F3FF',
-            },
-        },
-        '.MuiOutlinedInput-input': {
-            textTransform: 'uppercase',
-            fontSize: '14px',
-            fontWeight: '400',
-        },
-        '.MuiOutlinedInput-notchedOutline': {
-            border: '1px solid #E8F3FF !important',
-        },
-        '.Mui-error': {
-            borderColor: 'red !important',
-        },
-        '.MuiSvgIcon-root': {
-            width: '18px ',
-            height: '18px',
-            fill: "#81acd1",
-        },
-        '.MuiIconButton-root': {
-            width: '18px ',
-            height: '18px',
-        },
-    },
-};
-
-const popperStyle: SxProps = {
-    '.MuiPaper-root': {
-        backgroundColor: '#E8F3FF',
-        borderRadius: '20px',
-        boxShadow: '0px 0px 10px 1px #B6D5F0',
-    },
-    '.MuiClock-squareMask': {
-        backgroundColor: '#B6D5F0',
-        borderRadius: '50%',
-    },
-    '.MuiClockNumber-root': {
-        color: '#3F72A4',
-    },
-    '.Mui-selected': {
-        color: '#E8F3FF',
-    },
-    '.MuiTypography-root': {
-        color: '#3F72A4',
-    },
-    '.MuiPickersArrowSwitcher-spacer': {
-        width: '5px',
-    },
-    '.MuiSvgIcon-root': {
-        color: '#3F72A4',
-    },
-    '.MuiClock-amButton:hover': {
-        color: '#E8F3FF',
-        backgroundColor: '#3F72A4'
-    },
-    '.MuiClock-pmButton:hover': {
-        color: '#E8F3FF',
-        backgroundColor: '#3F72A4'
-    },
-};
-
 type Props = {
     getSelectedTime: Function;
     name: string;
@@ -93,9 +17,10 @@ type Props = {
 }
 
 const MyTimePicker: React.FC<Props> = ({getSelectedTime, name, day, value}) => {
-
+    
+    const { mainColors, darkMode } = useContext(DarkThemeContext);
     const [ timeValue, setTimeValue] = useState<any>(value || new Date());
-
+    
     useEffect(() => {
         getSelectedTime({
             time: timeValue.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
@@ -103,6 +28,81 @@ const MyTimePicker: React.FC<Props> = ({getSelectedTime, name, day, value}) => {
             day: day
         });
     }, [timeValue]);
+    
+    const classes = {
+        root: {
+            '.MuiOutlinedInput-root': {
+                width: '103px',
+                height: '37px',
+                paddingRight: '6px',
+                direction: 'ltr',
+                borderRadius: '7px',
+                color: darkMode ? '#E0EEFF' : 'rgba(63, 114, 164, 1)',
+                border: '1px solid #E8F3FF !important',
+                backgroundColor: darkMode ? '#1C364F' : '#E8F3FF',
+                boxShadow: darkMode ? 'none' : '0px 0px 10px 1px #B6D5F0',
+                transition: '.2s ease-out',
+                '&.Mui-focused': {
+                    borderColor: '#E8F3FF',
+                    boxShadow: darkMode ? '0px 0px 7px -1px #3F72A4' : '0px 0px 0px 1px #3F72A4',
+                },
+            },
+            '.MuiOutlinedInput-input': {
+                textTransform: 'uppercase',
+                fontSize: '14px',
+                fontWeight: '400',
+            },
+            '.MuiOutlinedInput-notchedOutline': {
+                border: 'none',
+            },
+            '.Mui-error': {
+                borderColor: `${mainColors.error.main} !important`,
+            },
+            '.MuiSvgIcon-root': {
+                width: '20px ',
+                height: '20px',
+                marginRight: '30px',
+                fill: darkMode ? '#E0EEFF' : "#81acd1",
+            },
+            '.MuiIconButton-root': {
+                width: '20px ',
+                height: '20px',
+            },
+        },
+    };
+
+    const popperStyle: SxProps = {
+        '.MuiPaper-root': {
+            borderRadius: '20px',
+            backgroundColor: darkMode ? '#1C364F' : '#E8F3FF',
+            boxShadow: darkMode ? '0px 0px 7px -1px #3F72A4' : '0px 0px 10px 1px #B6D5F0',
+        },
+        '.MuiClock-squareMask': {
+            borderRadius: '50%',
+            backgroundColor: darkMode ? '#162A3E' : '#B6D5F0',
+        },
+        '.MuiClockNumber-root': {
+            color: darkMode ? '#B6D5F0' : '#3F72A4',
+        },
+        '.Mui-selected': {
+            color: darkMode ? '#3F72A4' : '#B6D5F0',
+        },
+        '.MuiTypography-root': {
+            color: darkMode ? '#3F72A4' : '#B6D5F0',
+        },
+        '.MuiPickersArrowSwitcher-spacer': {
+            width: '5px',
+        },
+        '.MuiSvgIcon-root': {
+            color: darkMode ? '#B6D5F0' : '#3F72A4',
+        },
+        '.MuiClock-amButton:hover': {
+            backgroundColor: darkMode ? '#E8F3FF' : '#3F72A4',
+        },
+        '.MuiClock-pmButton:hover': {
+            backgroundColor: darkMode ? '#E8F3FF' : '#3F72A4',
+        },
+    };
 
     return (
         <LocalizationProvider dateAdapter={AdapterDateFns}>
