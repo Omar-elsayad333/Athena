@@ -1,3 +1,4 @@
+import { NextPage } from "next";
 import { useContext } from "react";
 // import { useRouter } from 'next/router';
 import { DarkThemeContext } from "context/ThemeContext";
@@ -11,7 +12,7 @@ import PageFooter from "components/Shared/PageFooter";
 // MUI
 import Box from "@mui/material/Box";
 
-const EditGroup = () => {
+const EditGroup: NextPage = () => {
 
     // const router = useRouter();
     // const { id } = router.query;
@@ -48,6 +49,7 @@ const EditGroup = () => {
             marginTop: 'auto',
         },
     }
+    
     return (
         <Box sx={style.root}>
             <PageHead title={data.name} />

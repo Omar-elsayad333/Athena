@@ -12,7 +12,7 @@ type Props = {
 
 const Menu: React.FC<Props> = ({sideNavState, currentPath}) => {
 
-    const {darkMode, mainColors} = useContext(DarkThemeContext);
+    const { mainColors } = useContext(DarkThemeContext);
 
     const classes = {
         menu: {
@@ -24,8 +24,8 @@ const Menu: React.FC<Props> = ({sideNavState, currentPath}) => {
             justifyContent: 'space-between',
             gap: '40px',
             backgroundColor: mainColors.backgroundColor.sideNav,
-            borderBottom: `solid 1px ${darkMode ? 'none' : mainColors.primary.main}`,
             borderLeft: `solid 1px #3F72A4`,
+            borderBottom: `solid 1px #3F72A4`,
             overflowY: 'auto',
             overflowX: 'hidden',
             transition: '.2s',

@@ -4,12 +4,12 @@ import MyInput from 'components/MyInput';
 import MyInputSmall from 'components/MyInputSmall';
 import MyButton from 'components/Buttons/MyButton';
 import MyButtonError from 'components/Buttons/MyButtonError';
+import AddCard from './AddCard';
+import EmployeCard from './EmployeCard';
 
 // MUI
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import AddCard from './AddCard';
-import EmployeCard from './EmployeCard';
 
 const style = {
     container: {
@@ -54,7 +54,7 @@ const AddHeadquarterC: React.FC = () => {
             </Typography>
             <MyInputSmall Placeholder='المدينة' />
             <MyInputSmall Placeholder='أسم المنطقة' />
-            <MyInputSmall Placeholder='أسم المنطقة' />
+            <MyInputSmall Placeholder='أسم الشارع' />
             <MyInputSmall Placeholder='رقم المبنى' />
             <Typography sx={style.title} variant="h3" color={mainColors.title.main}>
                 بيانات الاتصال:-  

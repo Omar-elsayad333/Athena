@@ -9,11 +9,11 @@ import PageTitle from 'components/Shared/PageTitle';
 import ThemeSwitcher from "components/ThemeSwitcher";
 import MyIconButton from 'components/MyIconButton';
 import GroupC from 'components/Teacher/Group';
+import PageFooter from "components/Shared/PageFooter";
 
 // MUI
 import Box from "@mui/material/Box";
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
-import PageFooter from "components/Shared/PageFooter";
 
 const Group: NextPage = () => {
 

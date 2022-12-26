@@ -4,6 +4,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { useContext } from "react";
 import { DarkThemeContext } from "context/ThemeContext";
+import Link from "next/link";
 
 type Props = {
     data: any;
@@ -56,35 +57,39 @@ const HeadquarterCard: React.FC<Props> = ({data}) => {
     return (
         <Box sx={classes.container}>
             {
-                data.map((item:any, index:number) => {
+                data.map((item:any) => {
                     return (
-                        <Box sx={classes.card} key={index}>
-                            <Box sx={classes.content}>
-                                <Typography color='primary' variant="h1">
-                                    {item.name}
-                                </Typography>
-                                <Typography color='primary' variant="h5">
-                                    <span style={classes.span}>
-                                        العنوان :
-                                    </span>
-                                    {` ${item.location}`}
-                                </Typography>
-                            </Box>
-                            <Box sx={classes.content}>
-                                <Typography color='primary' variant="h5">
-                                    <span style={classes.span}>
-                                        الموظفين :
-                                    </span>
-                                    {` ${item.employees}`}
-                                </Typography>
-                                <Typography color='primary' variant="h5">
-                                    <span style={classes.span}>
-                                        رقم التليفون :
-                                    </span>
-                                    {` ${item.phoneNumber}`}
-                                </Typography>   
-                            </Box>
-                        </Box>
+                        <Link key={item.id} href={`/teacher/headquarters/headquarter/${item.id}`}>
+                            <a>
+                                <Box sx={classes.card}>
+                                    <Box sx={classes.content}>
+                                        <Typography color='primary' variant="h1">
+                                            {item.name}
+                                        </Typography>
+                                        <Typography color='primary' variant="h5">
+                                            <span style={classes.span}>
+                                                العنوان :
+                                            </span>
+                                            {` ${item.location}`}
+                                        </Typography>
+                                    </Box>
+                                    <Box sx={classes.content}>
+                                        <Typography color='primary' variant="h5">
+                                            <span style={classes.span}>
+                                                الموظفين :
+                                            </span>
+                                            {` ${item.employees}`}
+                                        </Typography>
+                                        <Typography color='primary' variant="h5">
+                                            <span style={classes.span}>
+                                                رقم التليفون :
+                                            </span>
+                                            {` ${item.phoneNumber}`}
+                                        </Typography>   
+                                    </Box>
+                                </Box>
+                            </a>
+                        </Link>
                     )
                 })
             }

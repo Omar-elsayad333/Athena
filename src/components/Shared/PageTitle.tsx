@@ -22,7 +22,7 @@ const PageTitle:React.FC<Props> = ({children, content}) => {
             flexWrap: 'wrap',
             gap: '20px',
             borderRadius: '10px',
-            border: `1px solid ${mainColors.paper.border}`,
+            border: `1px solid ${darkMode ? mainColors.paper.border : 'unset'}`,
             background: mainColors.paper.main,
             boxShadow: darkMode ? 'none' : '0px 5px 15px 0px #B6D5F0',
         }
