@@ -77,7 +77,7 @@ const DesktopNavbar: React.FC<Props> = ({firstPath, secondPath, firstContent, se
                 gap: '9px',
                 border: '1px solid #E8F3FF',
                 borderRadius: '7px',
-                boxShadow: '0px 0px 10px 0px #3F72A440',
+                boxShadow: '0px 0px 10px 0px #3F72A440 , inset 0px 0px 10px rgba(63, 114, 164, 0.25)',
                 background: mainColors.linerGradient.primary,
             },
             photo: {
