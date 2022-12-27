@@ -13,7 +13,7 @@ const PageFooter: React.FC = () => {
         container: {
             width: '100%',
             minHeight: '67px',
-            paddingX: '50px',
+            paddingX: '60px',
             display: 'flex',
             flexWrap: 'wrap',
             justifyContent: 'space-between',
@@ -24,9 +24,13 @@ const PageFooter: React.FC = () => {
             transition: '.2s',
             '@media(max-width: 1430px)': {
                 justifyContent: 'center',
-                paddingY: '20px',
-                paddingX: '30px',
-            }
+            },
+                        '@media(max-width: 450px)': {
+                padding: '40px'
+            },
+            '@media(max-width: 350px)': {
+                padding: '20px'
+            },
         },
         miniContainer: {
             display: 'flex',
