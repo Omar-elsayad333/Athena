@@ -60,35 +60,33 @@ const HeadquarterCard: React.FC<Props> = ({data}) => {
                 data.map((item:any) => {
                     return (
                         <Link key={item.id} href={`/teacher/headquarters/headquarter/${item.id}`}>
-                            <a>
-                                <Box sx={classes.card}>
-                                    <Box sx={classes.content}>
-                                        <Typography color='primary' variant="h1">
-                                            {item.name}
-                                        </Typography>
-                                        <Typography color='primary' variant="h5">
-                                            <span style={classes.span}>
-                                                العنوان :
-                                            </span>
-                                            {` ${item.location}`}
-                                        </Typography>
-                                    </Box>
-                                    <Box sx={classes.content}>
-                                        <Typography color='primary' variant="h5">
-                                            <span style={classes.span}>
-                                                الموظفين :
-                                            </span>
-                                            {` ${item.employees}`}
-                                        </Typography>
-                                        <Typography color='primary' variant="h5">
-                                            <span style={classes.span}>
-                                                رقم التليفون :
-                                            </span>
-                                            {` ${item.phoneNumber}`}
-                                        </Typography>   
-                                    </Box>
+                            <Box sx={classes.card}>
+                                <Box sx={classes.content}>
+                                    <Typography color='primary' variant="h1">
+                                        {item.name}
+                                    </Typography>
+                                    <Typography color='primary' variant="h5">
+                                        <span style={classes.span}>
+                                            العنوان :
+                                        </span>
+                                        {` ${item.location}`}
+                                    </Typography>
                                 </Box>
-                            </a>
+                                <Box sx={classes.content}>
+                                    <Typography color='primary' variant="h5">
+                                        <span style={classes.span}>
+                                            الموظفين :
+                                        </span>
+                                        {` ${item.employees}`}
+                                    </Typography>
+                                    <Typography color='primary' variant="h5">
+                                        <span style={classes.span}>
+                                            رقم التليفون :
+                                        </span>
+                                        {` ${item.phoneNumber}`}
+                                    </Typography>   
+                                </Box>
+                            </Box>
                         </Link>
                     )
                 })
