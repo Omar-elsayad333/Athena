@@ -37,7 +37,7 @@ const HeadquarterCard: React.FC<Props> = ({data}) => {
             cursor: 'pointer',
             transition: '.35s',
             ':hover': {
-                boxShadow: '0px 0px 15px 0px #3F72A4',
+                boxShadow: '0px 0px 15px 0px rgba(63, 114, 164, .50)',
             },
             '@media(max-width: 400px)': {
                 gap: '25px',
