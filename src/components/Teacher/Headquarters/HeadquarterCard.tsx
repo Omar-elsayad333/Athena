@@ -38,7 +38,7 @@ const HeadquarterCard: React.FC<Props> = ({data}) => {
             cursor: 'pointer',
             transition: '.35s',
             ':hover': {
-                boxShadow: '0px 0px 15px 0px #3F72A4',
+                boxShadow: '0px 0px 15px 0px rgba(63, 114, 164, .50)',
             },
             '@media(max-width: 400px)': {
                 gap: '25px',
@@ -61,35 +61,33 @@ const HeadquarterCard: React.FC<Props> = ({data}) => {
                 data.map((item:any) => {
                     return (
                         <Link key={item.id} href={`/teacher/headquarters/headquarter/${item.id}`}>
-                            <a>
-                                <Box sx={classes.card}>
-                                    <Box sx={classes.content}>
-                                        <Typography color='primary' variant="h1">
-                                            {item.name}
-                                        </Typography>
-                                        <Typography color='primary' variant="h5">
-                                            <span style={classes.span}>
-                                                العنوان :
-                                            </span>
-                                            {` ${item.location}`}
-                                        </Typography>
-                                    </Box>
-                                    <Box sx={classes.content}>
-                                        <Typography color='primary' variant="h5">
-                                            <span style={classes.span}>
-                                                الموظفين :
-                                            </span>
-                                            {` ${item.employees}`}
-                                        </Typography>
-                                        <Typography color='primary' variant="h5">
-                                            <span style={classes.span}>
-                                                رقم التليفون :
-                                            </span>
-                                            {` ${item.phoneNumber}`}
-                                        </Typography>   
-                                    </Box>
+                            <Box sx={classes.card}>
+                                <Box sx={classes.content}>
+                                    <Typography color='primary' variant="h1">
+                                        {item.name}
+                                    </Typography>
+                                    <Typography color='primary' variant="h5">
+                                        <span style={classes.span}>
+                                            العنوان :
+                                        </span>
+                                        {` ${item.location}`}
+                                    </Typography>
                                 </Box>
-                            </a>
+                                <Box sx={classes.content}>
+                                    <Typography color='primary' variant="h5">
+                                        <span style={classes.span}>
+                                            الموظفين :
+                                        </span>
+                                        {` ${item.employees}`}
+                                    </Typography>
+                                    <Typography color='primary' variant="h5">
+                                        <span style={classes.span}>
+                                            رقم التليفون :
+                                        </span>
+                                        {` ${item.phoneNumber}`}
+                                    </Typography>   
+                                </Box>
+                            </Box>
                         </Link>
                     )
                 })
