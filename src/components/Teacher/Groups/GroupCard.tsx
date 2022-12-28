@@ -1,10 +1,10 @@
+import Link from "next/link";
+import { useContext } from "react";
+import { DarkThemeContext } from "context/ThemeContext";
 
 // MUI
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { useContext } from "react";
-import { DarkThemeContext } from "context/ThemeContext";
-import Link from "next/link";
 
 type Props = {
     data: any;

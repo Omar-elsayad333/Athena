@@ -10,7 +10,7 @@ type Props = {
     data: any;
 }
 
-const HeadquarterCard: React.FC<Props> = ({data}) => {
+const StudentCard: React.FC<Props> = ({data}) => {
 
     const {mainColors} = useContext(DarkThemeContext);
 
@@ -22,23 +22,23 @@ const HeadquarterCard: React.FC<Props> = ({data}) => {
             gap: '55px',
         },
         card: {
-            width: '370px',
+            width: '250px',
             maxWidth: '100%',
-            height: '243px',
+            mineHight: '250px',
             padding: '40px 30px',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'start',
             gap: '35px',
-            border: '2px solid #3F72A4',
+            border: mainColors.studentCard.border,
             background: mainColors.linerGradient.primary,
             borderRadius: '18px',
             overflow: 'hidden',
             cursor: 'pointer',
             transition: '.35s',
             ':hover': {
-                boxShadow: '0px 0px 15px 0px #3F72A4',
+                border: mainColors.studentCard.hover,
             },
             '@media(max-width: 400px)': {
                 gap: '25px',
@@ -50,7 +50,7 @@ const HeadquarterCard: React.FC<Props> = ({data}) => {
             flexDirection: 'column',
             gap: '20px',
         },
-        span: {
+        span: { 
             fontWeight: '700',
         },
     }
@@ -60,7 +60,7 @@ const HeadquarterCard: React.FC<Props> = ({data}) => {
             {
                 data.map((item:any) => {
                     return (
-                        <Link key={item.id} href={`/teacher/headquarters/headquarter/${item.id}`}>
+                        <Link key={item.id} href={`/teacher/students/students/${item.id}`}>
                             <a>
                                 <Box sx={classes.card}>
                                     <Box sx={classes.content}>
@@ -98,4 +98,4 @@ const HeadquarterCard: React.FC<Props> = ({data}) => {
     );
 }
  
-export default HeadquarterCard;
+export default StudentCard;

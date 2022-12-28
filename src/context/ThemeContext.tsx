@@ -86,7 +86,12 @@ export const DarkThemeProvider: React.FC<IProps> = ({ children }) => {
             border : darkMode ? '#3F72A4' : '#B6D5F0',
             // header : darkMode ? 'linear-gradient(0deg, #4072A4 0%, #1D3750 100%)' : '#B6D5F0',
             contrastText : darkMode ? '#E0EEFF' : '#3F72A4',
-        }
+        },
+        studentCard: {
+            border: darkMode ? '2px solid #1C364F' : '2px solid #3F72A4',
+            hover: darkMode ? '2px solid #3F72A4' : '2px solid #1C364F',
+        } 
+            
     };
 
     // handle change theme

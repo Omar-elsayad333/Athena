@@ -21,12 +21,17 @@ const NavLink: React.FC<Prop> = ({content, path, sideNavState, children, current
 
     useEffect(() => {
         if(path && currentPath) {
-            const buttons = document.getElementsByClassName(`${myStyle.myButton}`);
+            const buttons = document.getElementsByClassName('myButton');
             for (let i = 0; i < buttons.length; i++) {
                 if(currentPath.includes(buttons[i]?.name)) {
-                    buttons[i]?.classList.add(`${myStyle.active}`);
+                    if(darkMode){
+                        buttons[i]?.classList.add(`${myStyle.darkActive}`);
+                    }else {
+                        buttons[i]?.classList.add(`${myStyle.active}`);
+                    }
                 }else{ 
                     buttons[i]?.classList.remove(`${myStyle.active}`);
+                    buttons[i]?.classList.remove(`${myStyle.darkActive}`);
                 };
             };
         }
@@ -46,13 +51,16 @@ const NavLink: React.FC<Prop> = ({content, path, sideNavState, children, current
             border: 'none',
             color: mainColors.primary.main,
             whiteSpace: 'noWrap',
+            ':hover': {
+                backgroundColor: darkMode ? '#162A3E !important' : '#A4C6E5 !important',
+            }
         },
     };
 
     return (
         <Link href={path}>
             <a>
-                <Button name={path.slice(9)} sx={classes.root} className={`${myStyle.myButton} active`}>
+                <Button name={path.slice(9)} sx={classes.root} className={'myButton'}>
                     { children }
                     {
                         sideNavState &&
