@@ -5,7 +5,6 @@ import PageHead from "components/Shared/PageHead";
 import DesktopNavbar from 'components/Layout/DesktopNavbar';
 import PageTitle from 'components/Shared/PageTitle';
 import ThemeSwitcher from "components/ThemeSwitcher";
-import AddHeadquarterC from "components/Teacher/AddHeadquarter";
 import PageFooter from "components/Shared/PageFooter";
 
 // MUI
