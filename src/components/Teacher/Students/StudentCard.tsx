@@ -19,20 +19,24 @@ const StudentCard: React.FC<Props> = ({data}) => {
             display: 'flex',
             alignItems: 'start',
             flexWrap: 'wrap',
-            gap: '55px',
+            gap: '82px',
         },
         card: {
             width: '250px',
             maxWidth: '100%',
+            height: '250px',
             mineHight: '250px',
-            padding: '40px 30px',
+            padding: '10px',
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'center',
+            justifyContent: 'end',
             alignItems: 'start',
             gap: '35px',
             border: mainColors.studentCard.border,
-            background: mainColors.linerGradient.primary,
+            backgroundImage: 'url("https://firebasestorage.googleapis.com/v0/b/athena-95dab.appspot.com/o/student.jpg?alt=media&token=14df73ef-8e83-4ea3-9dc7-4b4fa325995b")',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: 'cover',
             borderRadius: '18px',
             overflow: 'hidden',
             cursor: 'pointer',
@@ -42,17 +46,29 @@ const StudentCard: React.FC<Props> = ({data}) => {
             },
             '@media(max-width: 400px)': {
                 gap: '25px',
-                padding: '40px 20px',
+                padding: '10px',
             },
         },
         content: {
+            width: '100%', 
+            minHeight: '66px',
+            padding: '10px 15px',
             display: 'flex',
             flexDirection: 'column',
-            gap: '20px',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: '10px',
+            background: 'rgba(63, 114, 164, 0.6)',
+            border: '2px solid #3F72A4',
+            borderRadius: '12px',
         },
-        span: { 
-            fontWeight: '700',
-        },
+        details: {
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            gap: '20px'
+        }
     }
 
     return (
@@ -60,36 +76,22 @@ const StudentCard: React.FC<Props> = ({data}) => {
             {
                 data.map((item:any) => {
                     return (
-                        <Link key={item.id} href={`/teacher/students/students/${item.id}`}>
-                            <a>
-                                <Box sx={classes.card}>
-                                    <Box sx={classes.content}>
-                                        <Typography color='primary' variant="h1">
-                                            {item.name}
+                        <Link key={item.id} href={`/teacher/students/student/${item.id}`}>
+                            <Box sx={classes.card}>
+                                <Box sx={classes.content}>
+                                    <Typography textAlign={'center'} color='secondary' variant="h4">
+                                        {item.name}
+                                    </Typography>
+                                    <Box sx={classes.details}>
+                                        <Typography color='secondary' variant="h6">
+                                            {item.level}
                                         </Typography>
-                                        <Typography color='primary' variant="h5">
-                                            <span style={classes.span}>
-                                                العنوان :
-                                            </span>
-                                            {` ${item.location}`}
+                                        <Typography color='secondary' variant="h6">
+                                            {item.group}
                                         </Typography>
-                                    </Box>
-                                    <Box sx={classes.content}>
-                                        <Typography color='primary' variant="h5">
-                                            <span style={classes.span}>
-                                                الموظفين :
-                                            </span>
-                                            {` ${item.employees}`}
-                                        </Typography>
-                                        <Typography color='primary' variant="h5">
-                                            <span style={classes.span}>
-                                                رقم التليفون :
-                                            </span>
-                                            {` ${item.phoneNumber}`}
-                                        </Typography>   
                                     </Box>
                                 </Box>
-                            </a>
+                            </Box>
                         </Link>
                     )
                 })

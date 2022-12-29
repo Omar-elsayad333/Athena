@@ -20,7 +20,9 @@ const StudentsC: React.FC = () => {
             homeName: '2501201',
             parentName: 'محمد عبد العزيز',
             parentJob: 'رجل أعمال',
-            parentPhone: '01154688380'
+            parentPhone: '01154688380',
+            level: 'الصف الثالث الثانوي',
+            group: 'مجموعة قاسم',
         },
         {
             id: '2',
@@ -36,7 +38,9 @@ const StudentsC: React.FC = () => {
             homeName: '2501201',
             parentName: 'محمد عبد العزيز',
             parentJob: 'رجل أعمال',
-            parentPhone: '01154688380'
+            parentPhone: '01154688380',
+            level: 'الصف الثالث الثانوي',
+            group: 'مجموعة قاسم',
         },
         {
             id: '3',
@@ -52,7 +56,9 @@ const StudentsC: React.FC = () => {
             homeName: '2501201',
             parentName: 'محمد عبد العزيز',
             parentJob: 'رجل أعمال',
-            parentPhone: '01154688380'
+            parentPhone: '01154688380',
+            level: 'الصف الثالث الثانوي',
+            group: 'مجموعة قاسم',
         },
         {
             id: '4',
@@ -68,7 +74,9 @@ const StudentsC: React.FC = () => {
             homeName: '2501201',
             parentName: 'محمد عبد العزيز',
             parentJob: 'رجل أعمال',
-            parentPhone: '01154688380'
+            parentPhone: '01154688380',
+            level: 'الصف الثالث الثانوي',
+            group: 'مجموعة قاسم',
         },
         {
             id: '5',
@@ -84,7 +92,9 @@ const StudentsC: React.FC = () => {
             homeName: '2501201',
             parentName: 'محمد عبد العزيز',
             parentJob: 'رجل أعمال',
-            parentPhone: '01154688380'
+            parentPhone: '01154688380',
+            level: 'الصف الثالث الثانوي',
+            group: 'مجموعة قاسم',
         },
         {
             id: '6',
@@ -100,7 +110,9 @@ const StudentsC: React.FC = () => {
             homeName: '2501201',
             parentName: 'محمد عبد العزيز',
             parentJob: 'رجل أعمال',
-            parentPhone: '01154688380'
+            parentPhone: '01154688380',
+            level: 'الصف الثالث الثانوي',
+            group: 'مجموعة قاسم',
         },
         {
             id: '7',
@@ -116,7 +128,9 @@ const StudentsC: React.FC = () => {
             homeName: '2501201',
             parentName: 'محمد عبد العزيز',
             parentJob: 'رجل أعمال',
-            parentPhone: '01154688380'
+            parentPhone: '01154688380',
+            level: 'الصف الثالث الثانوي',
+            group: 'مجموعة قاسم',
         },
         {
             id: '8',
@@ -132,7 +146,9 @@ const StudentsC: React.FC = () => {
             homeName: '2501201',
             parentName: 'محمد عبد العزيز',
             parentJob: 'رجل أعمال',
-            parentPhone: '01154688380'
+            parentPhone: '01154688380',
+            level: 'الصف الثالث الثانوي',
+            group: 'مجموعة قاسم',
         },
         {
             id: '9',
@@ -148,7 +164,9 @@ const StudentsC: React.FC = () => {
             homeName: '2501201',
             parentName: 'محمد عبد العزيز',
             parentJob: 'رجل أعمال',
-            parentPhone: '01154688380'
+            parentPhone: '01154688380',
+            level: 'الصف الثالث الثانوي',
+            group: 'مجموعة قاسم',
         },
         {
             id: '10',
@@ -164,7 +182,9 @@ const StudentsC: React.FC = () => {
             homeName: '2501201',
             parentName: 'محمد عبد العزيز',
             parentJob: 'رجل أعمال',
-            parentPhone: '01154688380'
+            parentPhone: '01154688380',
+            level: 'الصف الثالث الثانوي',
+            group: 'مجموعة قاسم',
         },
 
     ]
