@@ -25,6 +25,7 @@ const FilterWedgit: React.FC = () => {
             transition: '.2s ease-out',
         },
         actions: {
+            justifyItems: 'end',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
