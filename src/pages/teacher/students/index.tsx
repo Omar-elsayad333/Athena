@@ -11,6 +11,7 @@ import PageFooter from "components/Shared/PageFooter";
 
 // MUI
 import Box from "@mui/material/Box";
+import FilterWedgit from "components/Teacher/Students/FilterWedgit";
 
 const Students: NextPage = () => {
 
@@ -61,6 +62,7 @@ const Students: NextPage = () => {
                     </svg>
                 </PageTitle>
                 <MySearchInput placeholder='هل تبحث عن طالب معين ؟' />
+                <FilterWedgit />
                 <StudentsC />
             </Box>
             <Box sx={style.footerContainer}>

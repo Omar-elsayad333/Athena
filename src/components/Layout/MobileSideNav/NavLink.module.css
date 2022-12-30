@@ -1,7 +1,7 @@
-.myButton:hover {
-    background-color: #A4C6E5 !important;
-}
-
 .active {
     background-color: #90bae1 !important;
+}
+
+.darkActive {
+    background-color: #162A3E !important;
 }

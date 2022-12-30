@@ -90,8 +90,10 @@ export const DarkThemeProvider: React.FC<IProps> = ({ children }) => {
         studentCard: {
             border: darkMode ? '2px solid #1C364F' : '2px solid #3F72A4',
             hover: darkMode ? '2px solid #3F72A4' : '2px solid #1C364F',
+            detailsCard: darkMode ? 'rgba(28, 54, 79, 0.6)' : 'rgba(63, 114, 164, 0.6)', 
+            detailsCardHover: darkMode ? 'rgba(63, 114, 164, 0.6)' : 'rgba(28, 54, 79, 0.6)', 
         } 
-            
+        
     };
 
     // handle change theme

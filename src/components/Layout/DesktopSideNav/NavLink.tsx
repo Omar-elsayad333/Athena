@@ -1,10 +1,10 @@
+import Link from 'next/link';
 import myStyle from './NavLink.module.css';
 import { useContext, useEffect } from 'react';
 import { DarkThemeContext } from 'context/ThemeContext';
 
 // MUI
 import Button from '@mui/material/Button';
-import Link from 'next/link';
 import { Typography } from '@mui/material';
 
 type Prop = {

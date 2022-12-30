@@ -24,9 +24,14 @@ const NavLink: React.FC<Prop> = ({children, content, path, controleMobileSideNav
             const buttons = document.getElementsByClassName(`${myStyle.myButton}`);
             for (let i = 0; i < buttons.length; i++) {
                 if(currentPath.includes(buttons[i]?.name)) {
-                    buttons[i]?.classList.add(`${myStyle.active}`);
-                }else{ 
+                    if(darkMode){
+                        buttons[i]?.classList.add(`${myStyle.darkActive}`);
+                    }else {
+                        buttons[i]?.classList.add(`${myStyle.active}`);
+                    }
+                }else { 
                     buttons[i]?.classList.remove(`${myStyle.active}`);
+                    buttons[i]?.classList.remove(`${myStyle.darkActive}`);    
                 };
             };
         }
@@ -45,13 +50,16 @@ const NavLink: React.FC<Prop> = ({children, content, path, controleMobileSideNav
             fontWeight: '700',
             border: 'none',
             color: mainColors.primary.main,
+            ':hover': {
+                backgroundColor: darkMode ? '#162A3E !important' : '#A4C6E5 !important',
+            }
         },
     }
 
     return (
         <Link href={path}>
             <a>
-                <Button name={path.slice(9)} sx={classes.root} className={myStyle.myButton} onClick={() => controleMobileSideNav()}>
+                <Button name={path.slice(9)} sx={classes.root} className='myButton' onClick={() => controleMobileSideNav()}>
                     { children }
                     { content }
                 </Button>
