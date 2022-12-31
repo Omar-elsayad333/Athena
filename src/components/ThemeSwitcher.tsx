@@ -5,8 +5,7 @@ import { Box } from "@mui/material";
 
 const ThemeSwitcher = () => {
 
-    const {handleSwitch, data, error} = useThemeSwitcher();
-    console.log(data)
+    const {handleSwitch} = useThemeSwitcher();
 
     const classes = {
         root: {
