@@ -1,4 +1,4 @@
-import { useState, createContext, useEffect, useContext } from "react";
+import { useState, createContext, useEffect } from "react";
 
 const initialValues = {
     darkMode: false,
@@ -29,7 +29,7 @@ export const DarkThemeProvider: React.FC<IProps> = ({ children }) => {
         if(typeof window !== 'undefined') {
             localStorage.getItem('athena-theme') === 'true' && setDarkMode(true);
         }
-    }, [])
+    }, []);
 
     const mainColors :any = {
         primary: {
