@@ -1,9 +1,28 @@
+import useStudents from "container/useStudents";
+import MySearchInput from "components/MySearchInput";
+import FilterWedgit from "./FilterWedgit";
 import StudentCard from "./StudentCard";
+import StudentsTable from "./StudentsTable";
 
 // MUI
 import Box from "@mui/material/Box";
 
+
 const StudentsC: React.FC = () => {
+
+    const {
+        tableState,
+        showTable,
+        hideTable
+    } = useStudents();
+
+    const style = {
+        container: {
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '60px',
+        }
+    }
 
     const data = [
         {
@@ -190,8 +209,14 @@ const StudentsC: React.FC = () => {
     ]
 
     return (
-        <Box>
-            <StudentCard data={data} />
+        <Box sx={style.container}>
+            <MySearchInput placeholder='هل تبحث عن طالب معين ؟' />
+            <FilterWedgit showTable={showTable} hideTable={hideTable} />
+            {
+                tableState?
+                <StudentsTable />:
+                <StudentCard data={data} />
+            }
         </Box>
     );
 }
