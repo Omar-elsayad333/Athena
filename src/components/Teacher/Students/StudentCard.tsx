@@ -8,9 +8,10 @@ import Typography from "@mui/material/Typography";
 
 type Props = {
     data: any;
+    tableState: boolean;
 }
 
-const StudentCard: React.FC<Props> = ({ data }) => {
+const StudentCard: React.FC<Props> = ({ data, tableState }) => {
 
     const { mainColors } = useContext(DarkThemeContext);
 

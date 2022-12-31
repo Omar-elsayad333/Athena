@@ -4,7 +4,12 @@ import { DarkThemeContext } from "context/ThemeContext";
 // MUI
 import Box from "@mui/material/Box";
 
-const FilterWedgit: React.FC = () => {
+type Props = {
+    showTable: Function;
+    hideTable: Function;
+}
+
+const FilterWedgit: React.FC<Props> = ({showTable, hideTable}) => {
 
     const { mainColors } = useContext(DarkThemeContext);
 
@@ -39,13 +44,13 @@ const FilterWedgit: React.FC = () => {
                 
             </Box>
             <Box sx={classes.actions}>
-                <svg width="37" height="37" viewBox="0 0 37 37" fill={mainColors.primary.main} stroke={mainColors.primary.main} xmlns="http://www.w3.org/2000/svg">
+                <svg onClick={() => showTable()} width="37" height="37" viewBox="0 0 37 37" fill={mainColors.primary.main} stroke={mainColors.primary.main} xmlns="http://www.w3.org/2000/svg">
                     <rect x="0.5" y="0.5" width="36" height="36" rx="6.5" fill="none" stroke="inherit"/>
                     <path d="M25.4667 17.4209H11.1132C10.4984 17.4209 10 17.8771 10 18.4398V18.5699C10 19.1326 10.4984 19.5887 11.1132 19.5887H25.4667C26.0815 19.5887 26.58 19.1326 26.58 18.5699V18.4398C26.58 17.8771 26.0815 17.4209 25.4667 17.4209Z" fill="inherit"/>
                     <path d="M25.4667 22.8389H11.1132C10.4984 22.8389 10 23.295 10 23.8578V23.9878C10 24.5505 10.4984 25.0067 11.1132 25.0067H25.4667C26.0815 25.0067 26.58 24.5505 26.58 23.9878V23.8578C26.58 23.295 26.0815 22.8389 25.4667 22.8389Z" fill="inherit"/>
                     <path d="M25.4667 12H11.1132C10.4984 12 10 12.4562 10 13.0189V13.149C10 13.7117 10.4984 14.1678 11.1132 14.1678H25.4667C26.0815 14.1678 26.58 13.7117 26.58 13.149V13.0189C26.58 12.4562 26.0815 12 25.4667 12Z" fill="inherit"/>
                 </svg>
-                <svg width="37" height="37" viewBox="0 0 37 37" fill={mainColors.primary.main} stroke={mainColors.primary.main} xmlns="http://www.w3.org/2000/svg">
+                <svg onClick={() => hideTable()} width="37" height="37" viewBox="0 0 37 37" fill={mainColors.primary.main} stroke={mainColors.primary.main} xmlns="http://www.w3.org/2000/svg">
                     <rect x="0.5" y="0.5" width="36" height="36" rx="6.5" fill="none" stroke="inherit"/>
                     <path d="M11.369 10C10.9005 10 10.4425 10.1389 10.0529 10.3993C9.66329 10.6596 9.35964 11.0296 9.18033 11.4625C9.00103 11.8953 8.95411 12.3717 9.04552 12.8312C9.13693 13.2908 9.36256 13.7129 9.69388 14.0442C10.0252 14.3755 10.4473 14.6012 10.9069 14.6926C11.3664 14.784 11.8428 14.7371 12.2756 14.5578C12.7085 14.3785 13.0785 14.0748 13.3388 13.6852C13.5992 13.2956 13.7381 12.8376 13.7381 12.369C13.7381 11.7407 13.4885 11.1382 13.0442 10.6939C12.5999 10.2496 11.9974 10 11.369 10Z" fill="inherit"/>
                     <path d="M18.0602 10C17.5917 10 17.1336 10.1389 16.744 10.3993C16.3545 10.6596 16.0508 11.0296 15.8715 11.4625C15.6922 11.8953 15.6453 12.3717 15.7367 12.8312C15.8281 13.2908 16.0537 13.7129 16.385 14.0442C16.7164 14.3755 17.1385 14.6012 17.598 14.6926C18.0576 14.784 18.5339 14.7371 18.9668 14.5578C19.3997 14.3785 19.7697 14.0748 20.03 13.6852C20.2903 13.2956 20.4293 12.8376 20.4293 12.369C20.4293 11.7407 20.1797 11.1382 19.7354 10.6939C19.2911 10.2496 18.6885 10 18.0602 10Z" fill="inherit"/>

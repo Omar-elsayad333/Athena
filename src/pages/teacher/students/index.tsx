@@ -5,13 +5,11 @@ import PageHead from 'components/Shared/PageHead';
 import PageTitle from 'components/Shared/PageTitle';
 import DesktopNavbar from 'components/Layout/DesktopNavbar';
 import StudentsC from "components/Teacher/Students";
-import MySearchInput from "components/MySearchInput";
 import ThemeSwitcher from "components/ThemeSwitcher";
 import PageFooter from "components/Shared/PageFooter";
 
 // MUI
 import Box from "@mui/material/Box";
-import FilterWedgit from "components/Teacher/Students/FilterWedgit";
 
 const Students: NextPage = () => {
 
@@ -61,8 +59,6 @@ const Students: NextPage = () => {
                         <path d="M16.8304 17.9092C16.7437 18.5732 16.4155 19.1833 15.9073 19.6254C15.399 20.0675 14.7454 20.3113 14.0686 20.3113C13.3919 20.3113 12.7383 20.0675 12.23 19.6254C11.7218 19.1833 11.3936 18.5732 11.3069 17.9092H16.8304Z" fill="inherit"/>
                     </svg>
                 </PageTitle>
-                <MySearchInput placeholder='هل تبحث عن طالب معين ؟' />
-                <FilterWedgit />
                 <StudentsC />
             </Box>
             <Box sx={style.footerContainer}>
