@@ -215,7 +215,7 @@ const StudentsC: React.FC = () => {
             {
                 tableState?
                 <StudentsTable />:
-                <StudentCard tableState={tableState} data={data} />
+                <StudentCard data={data} />
             }
         </Box>
     );
