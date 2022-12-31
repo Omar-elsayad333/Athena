@@ -5,7 +5,7 @@ type ContextState = {
     authToken: string;
     loadingUser: boolean;
 };
-  
+
 const initialValues = {
     user: null, 
     authToken: '',

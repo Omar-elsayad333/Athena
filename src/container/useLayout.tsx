@@ -1,9 +1,11 @@
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
+import { useUser } from 'context/userContext';
 
 const useLayout = () => {
 
     const router = useRouter();
+    const auth = useUser();
     const [layoutState, setLayoutState] = useState<Boolean>(false);  
     const [sideNavState, setSideNavState] = useState<Boolean>(true);  
     const [mobileSideNavState, setMobileSideNavState] = useState<Boolean>(false);  
@@ -13,9 +15,10 @@ const useLayout = () => {
         if(router.pathname){
             setCurrentPath(router.pathname.slice(9))
         }
-    }, [router.pathname])
+    }, [router.pathname]);
     
     const check = () => {
+            !auth.user ||
             router.pathname === '/teacherLogin' || 
             router.pathname === '/test' || 
             router.pathname === '/studentLogin' || 

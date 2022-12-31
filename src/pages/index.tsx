@@ -8,6 +8,7 @@ import PageHead from 'components/Shared/PageHead';
 import logo from '../../public/images/logo-with-text.svg';
 import LoginButLight from '../components/TeacherLogin/LoginButton';
 import LoginButDark from '../components/LoginButDark';
+import { withPublic } from 'routes/withRouts';
 
 // MUI
 import { Box, Typography } from '@mui/material';
@@ -73,4 +74,4 @@ const Home: NextPage = () => {
   )
 } 
 
-export default Home
+export default withPublic(Home);

@@ -5,6 +5,7 @@ import { DarkThemeContext } from 'context/ThemeContext';
 import PageHead from 'components/Shared/PageHead';
 import DesktopNavbar from 'components/Layout/DesktopNavbar';
 import ThemeSwitcher from 'components/ThemeSwitcher';
+import { withProtected } from 'routes/withRouts';
 
 // MUI
 import Box from '@mui/material/Box';
@@ -26,4 +27,4 @@ const Home: NextPage = () => {
     );
 }
 
-export default Home;
+export default withProtected(Home);
