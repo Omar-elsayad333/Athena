@@ -20,7 +20,7 @@ export const loginHandler = (data: object) => {
         .then(
             (res) => {
                 localStorage.setItem('athena-token', res.data.token);
-                resolved(res.data);
+                resolved(res.data.token);
             },
             (rej) => {
                 rejected(rej.response.data);

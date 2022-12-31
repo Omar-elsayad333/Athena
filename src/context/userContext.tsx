@@ -11,7 +11,7 @@ const initialValues = {
     user: null, 
     authToken: '',
     loadingUser: true,
-    setUserToken: Function,
+    setUserToken: () => {},
 };
 
 type IProps = { 

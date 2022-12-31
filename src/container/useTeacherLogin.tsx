@@ -30,7 +30,7 @@ const useTeacherLogin = () => {
             .then(
                 (res: any) => {
                     console.log(res)
-                    auth.setUserToken(res.token.toString())
+                    auth.setUserToken(res)
                     router.replace('teacher/home');
                 },
                 (rej: any) => {
