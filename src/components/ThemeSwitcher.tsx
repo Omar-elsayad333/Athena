@@ -5,11 +5,12 @@ import { Box } from "@mui/material";
 
 const ThemeSwitcher = () => {
 
-    const {handleSwitch} = useThemeSwitcher();
+    const {handleSwitch, data, error} = useThemeSwitcher();
+    console.log(data)
 
     const classes = {
         root: {
-            position: 'fixed',  
+            position: 'fixed',   
             bottom: 40,
             left: 40,
             zIndex: 50,

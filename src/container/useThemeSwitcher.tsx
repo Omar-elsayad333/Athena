@@ -1,9 +1,11 @@
 import { DarkThemeContext } from "context/ThemeContext";
+import useClassifications from "hooks/useClassifications";
 import { useContext, useEffect } from "react";
 
 const useThemeSwitcher = () => {
 
     const {darkMode, handelDarkTheme} = useContext(DarkThemeContext);
+    const {data, error} = useClassifications();
 
     useEffect(() => {
         const switcher = document.getElementById('switcher');
@@ -40,7 +42,9 @@ const useThemeSwitcher = () => {
 
     return (
         {
-            handleSwitch
+            handleSwitch,
+            data,
+            error
         }
     );
 }

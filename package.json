@@ -2,6 +2,7 @@
   "name": "athena",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://athenako-001-site1.atempurl.com",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -15,6 +16,7 @@
     "@mui/icons-material": "^5.10.9",
     "@mui/material": "^5.10.9",
     "@mui/x-date-pickers": "^5.0.8",
+    "axios": "^1.2.2",
     "codemirror": "^6.0.1",
     "date-fns": "^2.29.3",
     "dayjs": "^1.11.6",
