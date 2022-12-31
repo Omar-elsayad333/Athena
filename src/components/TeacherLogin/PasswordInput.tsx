@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import {lightColors} from '../../styles/colors';
 
 // MUI
@@ -41,24 +40,21 @@ const classes = {
     }
 };
 
-const PasswordInput: React.FC = () => {
+type Props = {
+    value: any;
+    setValue: Function;
+}
 
-    const [values, setValues] = useState<any>({
-        amount: '',
-        password: '',
-        weight: '',
-        weightRange: '',
-        showPassword: false,
-    });
+const PasswordInput: React.FC<Props> = ({value, setValue}) => {
     
     const handleChange = (prop: any) => (event: React.ChangeEvent<HTMLInputElement>) => {
-        setValues({ ...values, [prop]: event.target.value });
+        setValue({ ...value, [prop]: event.target.value, ['length']: event.target.value.length });
     };
 
     const handleClickShowPassword = () => {
-        setValues({
-            ...values,
-            showPassword: !values.showPassword,
+        setValue({
+            ...value,
+            showPassword: !value.showPassword,
         });
     };
 
@@ -68,9 +64,10 @@ const PasswordInput: React.FC = () => {
     
     return (
         <OutlinedInput
+            autoComplete='off'   
             sx={classes.root}
-            type={values.showPassword ? 'text' : 'password'}
-            value={values.password}
+            type={value.showPassword ? 'text' : 'password'}
+            value={value.password}
             onChange={handleChange('password')}
             endAdornment={
                 <InputAdornment position="end">
@@ -79,7 +76,7 @@ const PasswordInput: React.FC = () => {
                         onMouseDown={handleMouseDownPassword}
                         edge="end"
                     >
-                    {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                        {value.showPassword ? <VisibilityOff /> : <Visibility />}
                     </IconButton>
                 </InputAdornment>
             }

@@ -4,12 +4,14 @@ type ContextState = {
     user: any;
     authToken: string;
     loadingUser: boolean;
+    setUserToken: Function;
 };
 
 const initialValues = {
     user: null, 
     authToken: '',
     loadingUser: true,
+    setUserToken: Function,
 };
 
 type IProps = { 
@@ -21,11 +23,15 @@ export const UserContext = createContext<ContextState>(initialValues);
 export const UserProvider: React.FC<IProps> = ({ children }) => {
 
     const [user] = useState<any>(null);
-    const [authToken] = useState<string>('');
+    const [authToken, setAuthToken] = useState<any>('');
     const [loadingUser] = useState<boolean>(true);
+    
+    const setUserToken = (token: any) => {
+        setAuthToken(token)
+    }
 
     return (
-        <UserContext.Provider value={{user, authToken, loadingUser}}>
+        <UserContext.Provider value={{user, authToken, setUserToken, loadingUser}}>
             {children}
         </UserContext.Provider>
     );

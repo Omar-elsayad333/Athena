@@ -6,15 +6,15 @@ import TextField from '@mui/material/TextField';
 type Props = {
     Id?: any;
     Name?: any;
-    Value?: any;
-    OnChange?: any;
+    value?: any;
+    setValue?: any;
     error?: any;
     HelperText?: any;
     Type?: any;
     Placeholder?: any;
 }
 
-const LoginInput: React.FC<Props> = ({Name, Value, OnChange, error, HelperText}) => {
+const LoginInput: React.FC<Props> = ({Name, value, setValue, error, HelperText}) => {
     
     const classes = {
         root: {
@@ -50,11 +50,12 @@ const LoginInput: React.FC<Props> = ({Name, Value, OnChange, error, HelperText})
     };
     
     return (
-        <TextField   
+        <TextField
+            autoComplete='off'      
             sx={classes.root}  
             name={Name}
-            value={Value}
-            onChange={OnChange}
+            value={value}
+            onChange={e => setValue(e.target.value)}
             error={error}
             helperText={HelperText}
         />    

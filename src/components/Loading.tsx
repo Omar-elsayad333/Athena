@@ -9,19 +9,22 @@ const styles: IStyle = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    zIndex: '99',
   },
   inside: {
     height: 'auto',
     marginTop: '30px',
     marginBottom: '20px',
+    zIndex: '999',
   },
   circle: {
     position: 'absolute',
     top: 0,
+    right: 0,
     bottom: 0,
     left: 0,
     margin: 'auto',
-    right: 0,
+    zIndex: '999',
   },
 };
 
@@ -31,6 +34,7 @@ type IProps = {
 };
 
 const Loading: React.FC<IProps> = ({ small, inside }) => {
+    console.log('loading');
     return (
         <>
             {inside ? (

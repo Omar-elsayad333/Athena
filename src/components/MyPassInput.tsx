@@ -80,6 +80,7 @@ const MyPassInput: React.FC<Props> = ({placeholder}) => {
     return (
         <FormControl>
             <OutlinedInput
+                autoComplete='off'   
                 sx={classes.root}
                 placeholder={placeholder}
                 type={values.showPassword ? 'text' : 'password'}

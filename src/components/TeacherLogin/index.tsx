@@ -9,7 +9,12 @@ import Box from '@mui/material/Box';
 import Checkbox from '@mui/material/Checkbox';
 import Typography from '@mui/material/Typography';
 
-const TeacherLogin: React.FC = () => {
+type Props = {
+    userInfo: any;
+    supmit: Function;
+}
+
+const TeacherLogin: React.FC<Props> = ({userInfo, supmit}) => {
 
     return (
         <Box sx={style.TeacherLoginCard}>
@@ -25,13 +30,13 @@ const TeacherLogin: React.FC = () => {
                         <Typography sx={style.formLabels}>
                             أسم المستخدم، البريد الإلكتروني أو رقم الهاتف 
                         </Typography>
-                        <LoginInput />
+                        <LoginInput value={userInfo.userName} setValue={userInfo.setUserName} />
                     </Box>
                     <Box sx={{width: '100%'}}>
                         <Typography sx={style.formLabels}>
                             الرقم السري الخاص بك    
                         </Typography>
-                        <PasswordInput />
+                        <PasswordInput value={userInfo.password} setValue={userInfo.setPassword} />
                         <Box sx={style.formOptions}>
                             <Typography variant="h5">
                                 هل نسيت الرقم السري ؟
@@ -45,7 +50,7 @@ const TeacherLogin: React.FC = () => {
                         </Box>
                     </Box>
                     <Box sx={style.logContainer}>
-                        <MyButton content='تسجيل الدخول' onClick={null} />
+                        <MyButton content='تسجيل الدخول' onClick={() => supmit()} />
                     </Box>
                 </Box>
             </Box>

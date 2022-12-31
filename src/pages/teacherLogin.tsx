@@ -1,6 +1,8 @@
 import { NextPage } from 'next';
 import PageHead from 'components/Shared/PageHead';
+import useTeacherLogin from 'container/useTeacherLogin';
 import TeacherLogin from '../components/TeacherLogin';
+import Loading from 'components/Loading';
 
 // MUI
 import Box from "@mui/material/Box";
@@ -28,10 +30,18 @@ const classes: any = {
 };
 
 const teacherLogin: NextPage = () => {
+
+    const {
+        userInfo,
+        supmit,
+        isLoading
+    } = useTeacherLogin();
+
     return (
         <Box style={classes.root}>
             <PageHead title='Teacher Login' />
-            <TeacherLogin />
+            { isLoading && <Loading /> }
+            <TeacherLogin userInfo={userInfo} supmit={supmit} />
         </Box>
     );
 }

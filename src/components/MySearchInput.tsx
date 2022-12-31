@@ -55,6 +55,7 @@ const MySearchInput: React.FC<Props> = ({value, onChange, error, placeholder}) =
 
     return (
         <OutlinedInput
+            autoComplete='off'   
             sx={classes.root}
             value={value}
             error={error}

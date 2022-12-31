@@ -18,7 +18,7 @@ const useLayout = () => {
     }, [router.pathname]);
     
     const check = () => {
-            !auth.user ||
+            !localStorage.getItem('athena-token') ||
             router.pathname === '/teacherLogin' || 
             router.pathname === '/test' || 
             router.pathname === '/studentLogin' || 
