@@ -15,7 +15,7 @@ export const loginHandler = (data: object) => {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json;charset=UTF-8'
             },  
-            data
+            data: data
         })
         .then(
             (res) => {
