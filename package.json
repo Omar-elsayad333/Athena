@@ -2,7 +2,6 @@
   "name": "athena",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://athenako-001-site1.atempurl.com",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
