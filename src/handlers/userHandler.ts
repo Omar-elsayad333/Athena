@@ -23,7 +23,7 @@ export const loginHandler = (data: object) => {
                 resolved(res.data.token);
             },
             (rej) => {
-                rejected(rej.response.data);
+                rejected(rej);
             }
         )
     });
