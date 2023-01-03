@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 const useYearsSetting = () => {
 
-    const [selectedClasses, setSelectedClasses] = useState<any>([]);
+    const [selectedClasses, setSelectedClasses] = useState<any>();
     const [selectedClassrooms, setSelectedClassrooms] = useState<any>([]);
     const [dialogState, setDialogState] = useState<boolean>(false);
 
@@ -21,6 +21,10 @@ const useYearsSetting = () => {
             setDialogState(true);
         }
     }
+
+    const getSelectedClasses = (selected: any) => {
+        setSelectedClasses(selected);
+    };
     
     return (
         {
@@ -30,6 +34,7 @@ const useYearsSetting = () => {
             handleSelectedClasserooms,
             dialogState,
             handleDialogState,
+            getSelectedClasses
         }
     );
 }

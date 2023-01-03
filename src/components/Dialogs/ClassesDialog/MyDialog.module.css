@@ -1,0 +1,9 @@
+.selected {
+    background: linear-gradient(180deg, #B6D5F0 0%, #DFEFFF 100%) !important;
+    border: 2px solid #3F72A4 !important;
+}
+
+.darkSelected {
+    border: 2px solid #3F72A4 !important;
+    background: #162A3E !important;
+}

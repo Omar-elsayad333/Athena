@@ -7,7 +7,7 @@ import DesktopNavbar from 'components/Layout/DesktopNavbar';
 import PageTitle from 'components/Shared/PageTitle';
 import ThemeSwitcher from "components/ThemeSwitcher";
 import PageFooter from "components/Shared/PageFooter";
-import YearsSettingC from "components/Teacher/Years/YearsSetting.tsx";
+import YearsSettingC from "components/Teacher/Years/YearsSetting";
 
 // MUI
 import Box from "@mui/material/Box";
