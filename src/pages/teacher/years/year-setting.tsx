@@ -7,6 +7,7 @@ import DesktopNavbar from 'components/Layout/DesktopNavbar';
 import PageTitle from 'components/Shared/PageTitle';
 import ThemeSwitcher from "components/ThemeSwitcher";
 import PageFooter from "components/Shared/PageFooter";
+import YearsSettingC from "components/Teacher/Years/YearsSetting.tsx";
 
 // MUI
 import Box from "@mui/material/Box";
@@ -47,7 +48,7 @@ const YearSetting: NextPage = () => {
             <DesktopNavbar 
                 firstPath='/teacher/years' 
                 firstContent='الأعوام الدراسية' 
-                secondPath='/teacher/years/yearSetting'
+                secondPath='/teacher/years/year-setting'
                 secondContent='الاعدادت'
             /> 
             <Box sx={style.container}>
@@ -63,7 +64,7 @@ const YearSetting: NextPage = () => {
                         <path d="M13.1887 24.4464C13.0033 24.1408 12.8981 23.7801 12.9232 23.3895C12.9883 22.4177 13.865 21.7015 14.8368 21.7015H27.825C28.0805 21.7015 28.3109 21.5361 28.3558 21.3157C28.396 21.1153 28.3259 20.97 28.2558 20.8849C28.1605 20.7696 28.0203 20.6995 27.87 20.6995L14.7814 20.6997C13.9198 20.6997 13.1335 20.1138 12.958 19.272C12.7175 18.11 13.6092 17.0831 14.7311 17.0831H15.5126V13.4516L12.3921 12.4899C11.9212 12.3447 11.9212 11.6784 12.3921 11.5332L21.2833 8.7982L26.738 10.4763V7.11523H0V25.5536C0 26.6556 0.896618 27.5522 1.99862 27.5522H10.0929C10.4337 26.0293 11.6508 24.8271 13.1885 24.4464L13.1887 24.4464ZM8.74583 15.5858H12.2471V19.0871H8.74583V15.5858ZM6.49673 24.5567H3.00028V21.0555H6.50157V24.5567H6.49673ZM6.49673 19.0871H3.00028V15.5858H6.50157V19.0871H6.49673ZM6.49673 13.6171H3.00028V10.1158H6.50157V13.6171H6.49673ZM8.74583 24.5569V21.0556H12.2471V24.5569H8.74583Z" fill="inherit"/>
                     </svg>
                 </PageTitle>
-                {/* <AddHeadquarterC /> */}
+                <YearsSettingC />
             </Box>
             <Box sx={style.footerContainer}>
                 <PageFooter />

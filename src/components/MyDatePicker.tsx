@@ -87,7 +87,7 @@ const popperStyle: SxProps = {
 };
 
 type Props = {
-    placeholder: String;
+    placeholder: string;
 }
 
 const MyDatePicker: React.FC<Props> = ({placeholder}) => {

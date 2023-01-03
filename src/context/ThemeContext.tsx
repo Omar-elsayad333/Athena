@@ -92,7 +92,10 @@ export const DarkThemeProvider: React.FC<IProps> = ({ children }) => {
             hover: darkMode ? '2px solid #3F72A4' : '2px solid #1C364F',
             detailsCard: darkMode ? 'rgba(28, 54, 79, 0.6)' : 'rgba(63, 114, 164, 0.6)', 
             detailsCardHover: darkMode ? 'rgba(63, 114, 164, 0.6)' : 'rgba(28, 54, 79, 0.6)', 
-        } 
+        },
+        icons: {
+            roundedAdd: darkMode ? 'transparent' : '#B6D5F0'
+        }
         
     };
 
