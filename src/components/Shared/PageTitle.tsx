@@ -19,6 +19,7 @@ const PageTitle:React.FC<Props> = ({children, content}) => {
             width: 'fit-content',
             padding: '16px 19px',
             display: 'flex',
+            alignItems: 'center',
             flexWrap: 'wrap',
             gap: '20px',
             borderRadius: '10px',
