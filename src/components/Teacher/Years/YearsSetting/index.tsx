@@ -49,10 +49,10 @@ const YearsSettingC: React.FC = () => {
 
     const { mainColors } = useContext(DarkThemeContext);
     const {
-        selectedClasses,
-        handleSelectedClasses,
-        selectedClassrooms,
-        handleSelectedClasserooms,
+        // selectedClasses,
+        // handleSelectedClasses,
+        // selectedClassrooms,
+        // handleSelectedClasserooms,
         dialogState,
         handleDialogState,
         getSelectedClasses,
