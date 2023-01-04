@@ -67,8 +67,12 @@ const ClassesDialog: React.FC<Props> = ({open, handleClose, getSelectedClasses})
                 flexWrap: 'wrap',
                 gap: '40px',
                 boxShadow: 'inset 0px -20px 57px 4px rgb(63 114 164 / 25%)',
-                '@media(max-width: 400px)': {
+                '@media(max-width: 450px)': {
                     padding: '35px 20px',
+                    gap: '20px'
+                },
+                '@media(max-width: 300px)': {
+                    padding: '35px 10px',
                     gap: '20px'
                 }
             },
