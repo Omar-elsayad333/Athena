@@ -7,6 +7,7 @@ import MyButtonError from 'components/Buttons/MyButtonError';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import MyInput from 'components/MyInput';
+import MyPhotoInput from 'components/MyPhotoInput';
 
 
 const YearsSettingC: React.FC = () => {
@@ -37,9 +38,10 @@ const YearsSettingC: React.FC = () => {
         },
         studentCard: {
             padding: '30px 35px',
-            display: 'content',
+            display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
+            gap: '70px',
             borderRadius: '20px',
             background: mainColors.paper.main,
             border: `2px solid ${mainColors.paper.border}`
@@ -72,7 +74,7 @@ const YearsSettingC: React.FC = () => {
                 بطاقة الطالب التعريفية:- 
             </Typography>
             <Box sx={style.studentCard}>
-                asjf;asl
+                <MyPhotoInput />
             </Box>
             <Box sx={style.buttonsContainer}>
                 <Box sx={style.submitButton}>
