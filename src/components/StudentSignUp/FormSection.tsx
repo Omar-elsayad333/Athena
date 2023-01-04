@@ -4,7 +4,7 @@ import MyInput from '../MyInput';
 import MyPhotoInput from '../MyPhotoInput';
 import MyButton from '../LogButS';
 import MySelect from 'components/MySelect';
-import MyDatePicker from 'components/MyDatePicker';
+// import MyDatePicker from 'components/MyDatePicker';
 
 // MUI
 import Box from '@mui/material/Box';
@@ -53,7 +53,7 @@ const FormSection: React.FC = () => {
                         <MyInput Placeholder='الاسم الأخير' Type='text' />
                         <MyInput Placeholder='الاسم الأوسط' Type='text' />
                         <MySelect placeholder='حدد النوع' data={genders} />
-                        <MyDatePicker placeholder='حدد تاريخ ميلادك ' />
+                        {/* <MyDatePicker placeholder='حدد تاريخ ميلادك ' /> */}
                         <MyInput Placeholder='أكتب عنوانك بالكامل' Type='text' />
                         <MyInput Placeholder='البريد الإلكتروني الخاص بك' Type='email' />
                         <MyInput Placeholder='رقم الهاتف الخاص بك' Type='text' />
