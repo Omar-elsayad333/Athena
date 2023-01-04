@@ -34,17 +34,48 @@ const YearsSettingC: React.FC = () => {
             display:  'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            gap: '50px'
+            flexWrap: 'wrap',
+            gap: '50px',
         },
         studentCard: {
             padding: '30px 35px',
             display: 'flex',
             justifyContent: 'center',
-            alignItems: 'center',
+            alignItems: 'start',
+            flexWrap: 'wrap',
             gap: '70px',
             borderRadius: '20px',
             background: mainColors.paper.main,
-            border: `2px solid ${mainColors.paper.border}`
+            border: `2px solid ${mainColors.paper.border}`,
+            dataContainer: {
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'start',
+                flexWrap: 'wrap',
+                gap: '20px',
+            },
+            row: {
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                flexWrap: 'wrap',
+                gap: '35px',
+            },
+            studentName: {
+                marginBottom: '15px',
+                padding: '10px 20px',
+                borderRadius: '10px',
+                border: `2px solid ${mainColors.icons.roundedAdd}`,
+                background: mainColors.linerGradient.primary,
+                boxShadow: '0px 5px 15px 0px #B6D5F080',
+            },
+            dataCard: {
+                padding: '10px 15px',
+                borderRadius: '5px',
+                background: mainColors.backgroundColor.main,
+                border: `1px solid ${mainColors.paper.border}`,
+            }
         },
         buttonsContainer: {
             marginTop: '30px',
@@ -74,6 +105,20 @@ const YearsSettingC: React.FC = () => {
                 بطاقة الطالب التعريفية:- 
             </Typography>
             <Box sx={style.studentCard}>
+                <Box sx={style.studentCard.dataContainer}>
+                    <Box sx={style.studentCard.row}>
+                        <Box sx={style.studentCard.studentName}>
+                            <Typography color={'primary'} variant={'h3'}>
+                                الطالب / مروان محمد عبد العزيز
+                            </Typography>
+                        </Box>
+                        <Box sx={style.studentCard.dataCard}>
+                            <Typography color={'primary'} variant='h5' fontWeight={700}>
+                                25012011
+                            </Typography>
+                        </Box>
+                    </Box>
+                </Box>
                 <MyPhotoInput />
             </Box>
             <Box sx={style.buttonsContainer}>
