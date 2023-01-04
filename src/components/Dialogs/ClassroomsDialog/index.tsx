@@ -1,7 +1,6 @@
 import { forwardRef, useContext } from 'react';
 import { DarkThemeContext } from 'context/ThemeContext';
 import MyCss from './MyDialog.module.css';
-import MySelect from './MySelect';
 
 // MUI
 import Box from '@mui/material/Box';
