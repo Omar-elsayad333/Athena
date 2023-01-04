@@ -5,59 +5,89 @@ import MyButton from 'components/Buttons/MyButton';
 import MyButtonError from 'components/Buttons/MyButtonError';
 import useYearsSetting from 'container/years/useYearsSetting';
 import ClassesDialog from 'components/Dialogs/ClassesDialog';
+import ClassroomsDialog from 'components/Dialogs/ClassroomsDialog';
 
 // MUI
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-const style = {
-    container: {
-        display: 'flex',
-        flexWrap: 'wrap',
-        gap: '40px',
-        columnGap: '104px',
-    },
-    inputContainer: {
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'start',
-        gap: '13px',
-    },
-    title: {
-        flex: '100%',
-    },
-    classes: {
-        display: 'flex',
-        flexWrap: 'wrap',
-        alignItems: 'center',
-        gap: '26px'
-    },
-    buttonsContainer: {
-        marginTop: '30px',
-        flex: '100%',
-        display: 'flex',
-        flexWrap: 'wrap',
-        gap: '35px',
-    },
-    submitButton: {
-        width: '170px',
-        height: '40px',
-    },
-}
 
 const YearsSettingC: React.FC = () => {
-
+    
     const { mainColors } = useContext(DarkThemeContext);
     const {
-        // selectedClasses,
-        // handleSelectedClasses,
-        // selectedClassrooms,
-        // handleSelectedClasserooms,
-        dialogState,
-        handleDialogState,
-        getSelectedClasses,
+        selectedClasses,
+        handleSelectedClasses,
+        selectedClassrooms,
+        handleSelectedClasserooms,
+        classesDialogState,
+        classesHandleDialogState,
+        classroomsDialogState,
+        classroomsHandleDialogState
     } = useYearsSetting();
-
+    
+    const style = {
+        container: {
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: '40px',
+            columnGap: '104px',
+        },
+        inputContainer: {
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'start',
+            gap: '13px',
+        },
+        title: {
+            flex: '100%',
+        },
+        classes: {
+            display: 'flex',
+            flexWrap: 'wrap',
+            alignItems: 'center',
+            gap: '26px'
+        },
+        selectedContainer: {
+            padding: '18px 27px',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: '28px',
+            background: mainColors.paper.main,
+            border: `solid 2px ${mainColors.paper.border}`,
+            borderRadius: '14px',
+        },
+        classesChips: {
+            width: '95px',
+            height: '95px',
+            padding: '5px',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            fontWeight: '700',
+            fontSize: '20px',
+            textAlign: 'center',
+            borderRadius: '50%',
+            border: '2px solid #3F72A4',
+            color: mainColors.secondary.contrastText,
+            background: mainColors.linerGradient.primary,
+            cursor: 'pointer',
+        },
+        buttonsContainer: {
+            marginTop: '30px',
+            flex: '100%',
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: '35px',
+        },
+        submitButton: {
+            width: '170px',
+            height: '40px',
+        },
+    }
+    
     return (
         <Box sx={style.container}>
             <Typography sx={style.title} variant="h3" color={mainColors.title.main}>
@@ -79,29 +109,54 @@ const YearsSettingC: React.FC = () => {
                 الصفوف الدراسية:- 
             </Typography>
             <Box sx={style.classes}>
-                <svg onClick={() => handleDialogState()} width="77" height="77" viewBox="0 0 77 77" stroke={mainColors.primary.main} fill={mainColors.icons.roundedAdd} xmlns="http://www.w3.org/2000/svg">
+                {
+                    selectedClasses &&
+                    <Box sx={style.selectedContainer}>
+                        {
+                            selectedClasses.map((item: any, index: any) => (
+                                <Box key={index} sx={style.classesChips}>
+                                    {item.content}
+                                </Box>
+                            ))
+                        }
+                    </Box>
+                }
+                <svg onClick={() => classesHandleDialogState()} width="77" height="77" viewBox="0 0 77 77" stroke={mainColors.primary.main} fill={mainColors.icons.roundedAdd} xmlns="http://www.w3.org/2000/svg">
                     <path d="M38.52 75.04C58.6894 75.04 75.04 58.6894 75.04 38.52C75.04 18.3506 58.6894 2 38.52 2C18.3506 2 2 18.3506 2 38.52C2 58.6894 18.3506 75.04 38.52 75.04Z" fill="inherit" stroke="inherit" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
                     <path d="M38.52 23.8994V53.1154" stroke="inherit" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
                     <path d="M23.9117 38.5195H53.1277" stroke="inherit" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
-                <ClassesDialog open={dialogState} handleClose={handleDialogState} getSelectedClasses={getSelectedClasses} />
+                <ClassesDialog open={classesDialogState} handleClose={classesHandleDialogState} getSelectedClasses={handleSelectedClasses} />
             </Box>
             <Typography sx={style.title} variant="h3" color={mainColors.title.main}>
                 الفصول الدراسية:-
             </Typography>
             <Box sx={style.classes}>
-                <svg width="48" height="48" viewBox="0 0 48 48" stroke={mainColors.primary.main} fill={mainColors.icons.roundedAdd} xmlns="http://www.w3.org/2000/svg">
+                {
+                    selectedClassrooms &&
+                    <Box sx={style.selectedContainer}>
+                        {
+                            selectedClassrooms.map((item: any, index: any) => (
+                                <Box key={index} sx={style.classesChips}>
+                                    {item.content}
+                                </Box>
+                            ))
+                        }
+                    </Box>
+                }
+                <svg onClick={() => classroomsHandleDialogState()} width="48" height="48" viewBox="0 0 48 48" stroke={mainColors.primary.main} fill={mainColors.icons.roundedAdd} xmlns="http://www.w3.org/2000/svg">
                     <path d="M23.52 46.04C35.9575 46.04 46.04 35.9575 46.04 23.52C46.04 11.0825 35.9575 1 23.52 1C11.0825 1 1 11.0825 1 23.52C1 35.9575 11.0825 46.04 23.52 46.04Z" fill="inherit" stroke="inherit" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     <path d="M23.52 14.5049V32.5209" stroke="inherit" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
                     <path d="M14.512 23.5195H32.5279" stroke="inherit" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>  
+                <ClassroomsDialog open={classroomsDialogState} handleClose={classroomsHandleDialogState} getSelectedClassrooms={handleSelectedClasserooms} />
             </Box>
             <Box sx={style.buttonsContainer}>
                 <Box sx={style.submitButton}>
                     <MyButton content='اضافة العام' />
                 </Box>
                 <Box sx={style.submitButton}>
-                    <MyButtonError content='إلغاء العملية' />
+                    <MyButtonError   content='إلغاء العملية' />
                 </Box>
             </Box>
         </Box>

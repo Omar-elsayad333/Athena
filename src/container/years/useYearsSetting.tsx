@@ -3,8 +3,9 @@ import { useState } from 'react';
 const useYearsSetting = () => {
 
     const [selectedClasses, setSelectedClasses] = useState<any>();
-    const [selectedClassrooms, setSelectedClassrooms] = useState<any>([]);
-    const [dialogState, setDialogState] = useState<boolean>(false);
+    const [selectedClassrooms, setSelectedClassrooms] = useState<any>();
+    const [classesDialogState, setClassesDialogState] = useState<boolean>(false);
+    const [classroomsDialogState, setClassroomsDialogState] = useState<boolean>(false);
 
     const handleSelectedClasses = (selectedClasses: any) => {
         setSelectedClasses(selectedClasses);
@@ -14,27 +15,32 @@ const useYearsSetting = () => {
         setSelectedClassrooms(selectedClasserooms);
     }
 
-    const handleDialogState = () => {
-        if(dialogState){
-            setDialogState(false);
+    const classesHandleDialogState = () => {
+        if(classesDialogState){
+            setClassesDialogState(false);
         }else {
-            setDialogState(true);
+            setClassesDialogState(true);
+        }
+    }
+    
+    const classroomsHandleDialogState = () => {
+        if(classroomsDialogState){
+            setClassroomsDialogState(false);
+        }else {
+            setClassroomsDialogState(true);
         }
     }
 
-    const getSelectedClasses = (selected: any) => {
-        setSelectedClasses(selected);
-    };
-    
     return (
         {
             selectedClasses,
             handleSelectedClasses,
             selectedClassrooms,
             handleSelectedClasserooms,
-            dialogState,
-            handleDialogState,
-            getSelectedClasses
+            classesDialogState,
+            classesHandleDialogState,
+            classroomsDialogState,
+            classroomsHandleDialogState
         }
     );
 }
