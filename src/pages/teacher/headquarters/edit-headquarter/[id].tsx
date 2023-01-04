@@ -50,7 +50,7 @@ const EditHeadquarter: NextPage = () => {
             <DesktopNavbar 
                 firstPath='/teacher/headquarters' 
                 firstContent='جميع المقرات' 
-                secondPath='/teacher/headquarters/addHeadquarter'
+                secondPath='/teacher/headquarters/add-headquarter'
                 secondContent='اضافة مقر'
             /> 
             <Box sx={style.container}>

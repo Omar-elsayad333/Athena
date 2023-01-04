@@ -46,7 +46,7 @@ const AddStudent: NextPage = () => {
             <DesktopNavbar 
                 firstPath='/teacher/students' 
                 firstContent='جميع الطلاب' 
-                secondPath='/teacher/students/addStudent'
+                secondPath='/teacher/students/add-student'
                 secondContent='اضافة طالب'
             /> 
             <Box sx={style.container}>

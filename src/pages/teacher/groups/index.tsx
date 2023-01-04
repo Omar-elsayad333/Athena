@@ -49,7 +49,7 @@ const Groups: NextPage = () => {
             <DesktopNavbar 
                 firstPath='/teacher/groups' 
                 firstContent='جميع المجموعات' 
-                secondPath='/teacher/groups/addGroup'
+                secondPath='/teacher/groups/add-group'
                 secondContent='اضافة مجموعة'
             /> 
             <Box sx={style.container}>
