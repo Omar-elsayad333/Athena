@@ -14,6 +14,7 @@ import Slide from '@mui/material/Slide';
 import { TransitionProps } from '@mui/material/transitions';
 import { Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import MyDatePicker from 'components/MyDatePicker';
 
 const Transition = forwardRef(function Transition(
     props: TransitionProps & {
@@ -28,9 +29,10 @@ type Props = {
     open: boolean;
     handleClose: Function;
     getSelectedClassrooms: Function;
+    date: any;
 }
 
-const ClassroomsDialog: React.FC<Props> = ({open, handleClose, getSelectedClassrooms}) => {
+const ClassroomsDialog: React.FC<Props> = ({open, handleClose, getSelectedClassrooms, date}) => {
 
     const { mainColors, darkMode } = useContext(DarkThemeContext);
 
@@ -200,7 +202,7 @@ const ClassroomsDialog: React.FC<Props> = ({open, handleClose, getSelectedClassr
                             فصل دراسي ثاني  
                         </Box>
                     </Box>
-                    <MySelect placeholder='حدد بداية الفصل الدراسي' data={['فصل دراسي أول', 'فصل دراسي ثاني']} />
+                    <MyDatePicker dateValue={date.dateValue} handleDateValue={date.handleDateValue} placeholder='حدد بداية الفصل الدراسي' />
                 </Box>
                 <DialogActions>
                     <Button variant='contained' color='primary' sx={style.addBut} onClick={() => submitData()}>

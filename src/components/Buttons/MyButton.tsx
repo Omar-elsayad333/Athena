@@ -4,9 +4,10 @@ import Button from "@mui/material/Button";
 
 type Props = {
     content: string;
+    onClick?: any;
 }
 
-const MyButton: React.FC<Props> = ({content}) => {
+const MyButton: React.FC<Props> = ({content, onClick}) => {
 
     const style = {
         root: {
@@ -19,10 +20,10 @@ const MyButton: React.FC<Props> = ({content}) => {
     }
 
     return (
-        <Button sx={style.root} variant='contained' color='primary'>
+        <Button onClick={onClick} sx={style.root} variant='contained' color='primary'>
             {content}
         </Button>
-    );
+    );  
 }
 
 export default MyButton;

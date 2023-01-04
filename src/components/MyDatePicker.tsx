@@ -1,5 +1,3 @@
-import {useState} from 'react'
-
 // MUI
 import TextField from '@mui/material/TextField';
 import DateFnsUtils from '@date-io/date-fns';
@@ -88,18 +86,18 @@ const popperStyle: SxProps = {
 
 type Props = {
     placeholder: string;
+    dateValue: string;
+    handleDateValue: Function;
 }
 
-const MyDatePicker: React.FC<Props> = ({placeholder}) => {
-
-    const [ dateValue, setDateValue] = useState<any>('');
+const MyDatePicker: React.FC<Props> = ({placeholder, dateValue, handleDateValue}) => {
 
     return (
         <LocalizationProvider dateAdapter={DateFnsUtils}>
             <DatePicker
                 value={dateValue}
                 onChange={(newValue: any) => {
-                    setDateValue(newValue);
+                    handleDateValue(newValue);
                 }}
                 renderInput={(params: any) => (
                     <TextField  
