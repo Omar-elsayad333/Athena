@@ -1,15 +1,14 @@
 import { useState } from "react";
-// import { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { useUser } from "context/userContext";
 import { 
     loginHandler, 
     userObjectHandler,
-    photoHandler
 } from 'handlers/userHandler';
 
 const useTeacherLogin = () => {
 
-    // const router = useRouter();
+    const router = useRouter();
     const auth = useUser()
     const [userName, setUserName] = useState<string>('');
     const [userNameError, setUserNameError] = useState<boolean>(false);
@@ -42,18 +41,7 @@ const useTeacherLogin = () => {
                     .then( 
                         async (res: any) => {
                             auth.setUserObject(res)
-
-                            //Get user image
-                            await photoHandler(res.imagePath, auth.authToken)
-                            .then(
-                                (res: any) => {
-                                    console.log(res);
-                                },
-                                (rej: any) => {
-                                    console.log(rej);
-                                }
-                            )
-                            // router.replace('teacher/home')
+                            router.replace('teacher/home')
                         },
                         (rej: any) => {
                             console.log(rej)                    
@@ -64,7 +52,9 @@ const useTeacherLogin = () => {
                     console.log(rej)                    
                 }
             )
-            .finally(() => setIsLoading(false))
+            .finally(
+                () => setIsLoading(false)
+            )
         }else {
             setPasswordError(true);
             setIsLoading(false)

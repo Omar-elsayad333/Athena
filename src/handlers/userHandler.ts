@@ -53,29 +53,6 @@ export const userObjectHandler = (Authorization:any ) => {
     });
 }; 
 
-// Actions to get user base
-export const photoHandler = (imagePath: any, Authorization: any) => {
-    return new Promise ((resolved, rejected) => {
-        axios({
-            url: `${URL_MAIN}/${imagePath}`,
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json;charset=UTF-8',
-                'Authorization' : `Bearer ${Authorization}`
-            },  
-        })
-        .then(
-            (res) => {
-                resolved(res);
-            },
-            (rej) => {
-                rejected(rej);
-            }
-        )
-    });
-}; 
-
 // Actions to refresh the user token
 export const refreshTokenHandler = () => {
     // function variables
