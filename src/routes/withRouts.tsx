@@ -23,13 +23,13 @@ export const withPublic = (Component: ComponentNext) => (props: any) => {
 
 export const withProtected = (Component: any) => (props: any) => {
     
-    // const router = useRouter();
+    const router = useRouter();
     
-    // if(typeof window !== 'undefined'){
-    //     if (!localStorage.getItem('athena-token')) {
-    //         router.replace(`${Routes.loginLink}`);
-    //         return <Loading />;
-    //     }
-    // }
+    if(typeof window !== 'undefined'){
+        if (!localStorage.getItem('athena-token')) {
+            router.replace(`${Routes.loginLink}`);
+            return <Loading />;
+        }
+    }
     return <Component {...props} />;
 };
