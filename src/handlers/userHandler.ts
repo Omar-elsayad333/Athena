@@ -54,7 +54,7 @@ export const userObjectHandler = (Authorization:any ) => {
 }; 
 
 // Actions to get user base
-export const photoHandler = (imagePath: any) => {
+export const photoHandler = (imagePath: any, Authorization: any) => {
     return new Promise ((resolved, rejected) => {
         axios({
             url: `${URL_MAIN}/${imagePath}`,
@@ -62,6 +62,7 @@ export const photoHandler = (imagePath: any) => {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json;charset=UTF-8',
+                'Authorization' : `Bearer ${Authorization}`
             },  
         })
         .then(

@@ -1,5 +1,6 @@
 // Main url
-export const URL_MAIN = "https://athena.linkers.at";
+//export const URL_MAIN = "https://athena.linkers.at";
+export const URL_MAIN = "https://localhost:5001";
 
 // Token urls
 export const URL_TOKENS = '/api/tokens';

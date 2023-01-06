@@ -44,7 +44,7 @@ const useTeacherLogin = () => {
                             auth.setUserObject(res)
 
                             //Get user image
-                            await photoHandler(res.imagePath)
+                            await photoHandler(res.imagePath, auth.authToken)
                             .then(
                                 (res: any) => {
                                     console.log(res);
