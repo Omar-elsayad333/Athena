@@ -1,5 +1,6 @@
 // Main url
-export const URL_MAIN = "http://athenako-001-site1.atempurl.com";
+// export const URL_MAIN = "http://athenako-001-site1.atempurl.com";
+export const URL_MAIN = "https://athena.linkers.at";
 
 // Token urls
 export const URL_TOKENS = '/api/tokens';
