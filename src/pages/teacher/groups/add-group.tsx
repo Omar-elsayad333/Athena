@@ -1,5 +1,6 @@
 import { NextPage } from "next";
 import { useContext } from "react";
+import { withProtected } from "routes/withRouts";
 import { DarkThemeContext } from "context/ThemeContext";
 import PageHead from "components/Shared/PageHead";
 import DesktopNavbar from 'components/Layout/DesktopNavbar';
@@ -70,4 +71,4 @@ const AddGroup: NextPage = () => {
     );
 }
 
-export default AddGroup;
+export default withProtected(AddGroup);

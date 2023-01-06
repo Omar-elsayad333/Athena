@@ -1,23 +1,24 @@
-import { NextComponentType, NextPageContext } from 'next';
-import { useRouter } from 'next/router';
-
-import Loading from 'components/Loading';
-import { useUser } from 'context/userContext';
-
+// import {useContext} from 'react';
+// import { UserContext } from 'context/userContext';
 import { Routes } from './Routes';
+import { useRouter } from 'next/router';
+import Loading from 'components/Loading';
+import { NextComponentType, NextPageContext } from 'next';
 
 type ComponentNext = NextComponentType<NextPageContext, any, {}>;
 
 export const withPublic = (Component: ComponentNext) => (props: any) => {
-    const auth = useUser();
-    const router = useRouter();
+    // const { user } = useContext(UserContext);
+    // const router = useRouter();
 
-    const referLink = router.asPath.split('refer=')[1];
+    // const referLink = router.asPath.split('refer=')[1];
 
-    if (auth.user) {
-        router.replace(referLink || Routes.homeLink);
-        return <Loading />;
-    }
+    // if(typeof window !== 'undefined'){
+    //     if (user) {
+    //         router.replace(Routes.teacherHome);
+    //         return <Loading />;
+    //     }
+    // }
     return <Component {...props} />;
 };
 

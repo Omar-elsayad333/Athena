@@ -1,12 +1,16 @@
-import { useRouter } from "next/router";
 import { useState } from "react";
-import { loginHandler } from 'handlers/userHandler';
+// import { useRouter } from "next/router";
 import { useUser } from "context/userContext";
+import { 
+    loginHandler, 
+    userObjectHandler,
+    photoHandler
+} from 'handlers/userHandler';
 
 const useTeacherLogin = () => {
 
-    const router = useRouter();
-    const auth = useUser();
+    // const router = useRouter();
+    const auth = useUser()
     const [userName, setUserName] = useState<string>('');
     const [userNameError, setUserNameError] = useState<boolean>(false);
     const [password, setPassword] = useState<any>({
@@ -20,18 +24,41 @@ const useTeacherLogin = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const supmit = async () => {
+        setIsLoading(true)
         if(password.length >= 8) {
             const data = {
                 'email': userName,
                 'password': password.password
             }
-            setIsLoading(true)
+
+            // Get user token
             await loginHandler(data)
-            .then(
-                (res: any) => {
-                    console.log(res)
-                    auth.setUserToken(res)
-                    router.replace('teacher/home');
+            .then( 
+                async (res: any) => {
+                    auth.userToken(res)
+
+                    // Get user base data with token
+                    await userObjectHandler(res)
+                    .then( 
+                        async (res: any) => {
+                            auth.setUserObject(res)
+
+                            //Get user image
+                            await photoHandler(res.imagePath)
+                            .then(
+                                (res: any) => {
+                                    console.log(res);
+                                },
+                                (rej: any) => {
+                                    console.log(rej);
+                                }
+                            )
+                            // router.replace('teacher/home')
+                        },
+                        (rej: any) => {
+                            console.log(rej)                    
+                        }
+                    )
                 },
                 (rej: any) => {
                     console.log(rej)                    

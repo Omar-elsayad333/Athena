@@ -16,7 +16,6 @@ import MyIconButton from "components/MyIconButton";
 import Box from "@mui/material/Box";
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 
-
 const Year: NextPage = () => {
 
     const { mainColors } = useContext(DarkThemeContext);

@@ -4,14 +4,16 @@ type ContextState = {
     user: any;
     authToken: string;
     loadingUser: boolean;
-    setUserToken: Function;
+    userToken: Function;
+    setUserObject: Function;
 };
 
 const initialValues = {
     user: null, 
     authToken: '',
     loadingUser: true,
-    setUserToken: () => {},
+    userToken: () => {},
+    setUserObject: () => {}
 };
 
 type IProps = { 
@@ -22,16 +24,35 @@ export const UserContext = createContext<ContextState>(initialValues);
 
 export const UserProvider: React.FC<IProps> = ({ children }) => {
 
-    const [user] = useState<any>(null);
+    const [user, setUser] = useState<any>({
+        address: '',
+        courseName: '',
+        email: '',
+        emailConfirmed: '',
+        firstName: '',
+        gender: '',
+        imagePath: '',
+        isActive: '',
+        lastName: '',
+        middleName: '',
+        phoneNumber: '',
+        phoneNumberConfirmed: ''
+    });
     const [authToken, setAuthToken] = useState<any>('');
     const [loadingUser] = useState<boolean>(true);
-    
-    const setUserToken = (token: any) => {
-        setAuthToken(token)
+
+    const userToken = (token: any) => {
+        setAuthToken(token);
+    }
+
+    const setUserObject = (userObject: any) => {
+        for (const item in userObject) {
+            setUser({ ...userObject, [item]: userObject[item] });
+        }
     }
 
     return (
-        <UserContext.Provider value={{user, authToken, setUserToken, loadingUser}}>
+        <UserContext.Provider value={{user, setUserObject, authToken, userToken, loadingUser}}>
             {children}
         </UserContext.Provider>
     );

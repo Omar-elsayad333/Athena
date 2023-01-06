@@ -10,6 +10,7 @@ import YearsC from "components/Teacher/Years";
 
 // MUI
 import Box from "@mui/material/Box";
+import { withProtected } from "routes/withRouts";
 
 const Years: NextPage = () => {
 
@@ -73,4 +74,4 @@ const Years: NextPage = () => {
     );
 }
  
-export default Years;
+export default withProtected(Years);

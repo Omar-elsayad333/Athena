@@ -2,6 +2,7 @@ import Link from "next/link";
 import { NextPage } from "next";
 import { useContext } from "react";
 import { useRouter } from 'next/router';
+import { withProtected } from "routes/withRouts";
 import { DarkThemeContext } from "context/ThemeContext";
 import PageHead from "components/Shared/PageHead";
 import DesktopNavbar from 'components/Layout/DesktopNavbar';
@@ -96,4 +97,4 @@ const Group: NextPage = () => {
     )
 }
 
-export default Group;
+export default withProtected(Group);

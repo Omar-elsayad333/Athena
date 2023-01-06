@@ -1,5 +1,6 @@
 import { NextPage } from "next";
 import { useContext } from "react";
+import { withProtected } from "routes/withRouts";
 import { DarkThemeContext } from "context/ThemeContext";
 import PageHead from 'components/Shared/PageHead';
 import PageTitle from 'components/Shared/PageTitle';
@@ -69,4 +70,4 @@ const Students: NextPage = () => {
     );
 }
  
-export default Students;
+export default withProtected(Students);
