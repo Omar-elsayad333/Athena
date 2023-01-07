@@ -26,6 +26,13 @@ const Loading: React.FC<IProps> = ({ small, inside }) => {
       container: {
         width: '100%',
         height: '100vh',
+        position: 'absolute',
+        top: 0,
+        right: 0,
+        bottom: 0,
+        left: 0,
+        margin: 'auto',
+        zIndex: '999',
         background: mainColors.backgroundColor.main
       },
       inside: {
