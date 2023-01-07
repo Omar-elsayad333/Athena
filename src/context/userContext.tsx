@@ -1,5 +1,3 @@
-import { Routes } from 'routes/Routes';
-import { useRouter } from 'next/router';
 import { userObjectHandler } from 'handlers/userHandler';
 import { useState, createContext, useContext, useEffect } from 'react';
 
@@ -26,7 +24,7 @@ export const UserContext = createContext<ContextState>(initialValues);
 
 export const UserProvider: React.FC<IProps> = ({ children }) => {
 
-    const router = useRouter();
+    // const router = useRouter();
     const [user, setUser] = useState<any>('');
     const [authToken, setAuthToken] = useState<any>('');
     const [loadingUser] = useState<boolean>(true);
@@ -49,8 +47,10 @@ export const UserProvider: React.FC<IProps> = ({ children }) => {
                     }
                 },
                 (rej: any) => {
-                    console.log(rej)
-                    router.replace(`${Routes.loginLink}`)
+                    console.log(rej);
+                    localStorage.removeItem('athena-token')
+                    setAuthToken('');
+                    // router.replace(`${Routes.loginLink}`)
                 }
             )
         }

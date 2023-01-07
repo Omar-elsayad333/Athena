@@ -15,13 +15,12 @@ export const withPublic = (Component: ComponentNext) => (props: any) => {
     // const referLink = router.asPath.split('refer=')[1];
 
     // if(typeof window !== 'undefined'){
-    //     if (!auth.user) {
+    //     if (!auth.user) {d   
     //         // router.replace(referLink || Routes.teacherHome);
     //         return <Loading />;
     //     }
     // }
     return <Component {...props} />;
-    
 };
 
 export const withProtected = (Component: any) => (props: any) => {  

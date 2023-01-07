@@ -113,4 +113,5 @@ export const signUpHandler = (data: object) => {
 
 export const logout = () => {
     localStorage.removeItem('athena-token');
+    window.location.reload();
 }
