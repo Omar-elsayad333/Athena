@@ -1,5 +1,8 @@
-import { useState, createContext, useContext, useEffect } from 'react';
+import { Routes } from 'routes/Routes';
+import { useRouter } from 'next/router';
 import { userObjectHandler } from 'handlers/userHandler';
+import { useState, createContext, useContext, useEffect } from 'react';
+
 
 type ContextState = {
     user: any;
@@ -23,6 +26,7 @@ export const UserContext = createContext<ContextState>(initialValues);
 
 export const UserProvider: React.FC<IProps> = ({ children }) => {
 
+    const router = useRouter();
     const [user, setUser] = useState<any>('');
     const [authToken, setAuthToken] = useState<any>('');
     const [loadingUser] = useState<boolean>(true);
@@ -38,11 +42,17 @@ export const UserProvider: React.FC<IProps> = ({ children }) => {
     useEffect(() => {
         if(authToken){
             userObjectHandler(authToken)
-            .then( (res: any) => {
-                for (const item in res) {   
-                    setUser({ ...res, [item]: res[item] });
+            .then( 
+                (res: any) => {
+                    for (const item in res) {   
+                        setUser({ ...res, [item]: res[item] });
+                    }
+                },
+                (rej: any) => {
+                    console.log(rej)
+                    router.replace(`${Routes.loginLink}`)
                 }
-            })
+            )
         }
     }, [authToken])
 
