@@ -66,25 +66,19 @@ const HeadquarterCard: React.FC<Props> = ({data}) => {
                                     <Typography color='primary' variant="h1">
                                         {item.name}
                                     </Typography>
-                                    <Typography color='primary' variant="h5">
-                                        <span style={classes.span}>
-                                            العنوان :
-                                        </span>
-                                        {` ${item.location}`}
-                                    </Typography>
                                 </Box>
                                 <Box sx={classes.content}>
                                     <Typography color='primary' variant="h5">
                                         <span style={classes.span}>
-                                            الموظفين :
+                                            العنوان :
                                         </span>
-                                        {` ${item.employees}`}
+                                        {` ${item.city} - ${item.region} - ${item.street} - ${item.building}`}
                                     </Typography>
                                     <Typography color='primary' variant="h5">
                                         <span style={classes.span}>
                                             رقم التليفون :
                                         </span>
-                                        {` ${item.phoneNumber}`}
+                                        {` ${item.headQuarterPhones[0].phone}`}
                                     </Typography>   
                                 </Box>
                             </Box>

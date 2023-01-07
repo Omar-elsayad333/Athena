@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { NextPage } from "next";
 import { useContext } from "react";
-// import { useRouter } from 'next/router';
 import { withProtected } from "routes/withRouts";
 import { DarkThemeContext } from "context/ThemeContext";
 import PageHead from "components/Shared/PageHead";
@@ -11,51 +10,21 @@ import ThemeSwitcher from "components/ThemeSwitcher";
 import HeadquarterC from 'components/Teacher/Headquarters/Headquarter';
 import PageFooter from "components/Shared/PageFooter";
 import MyIconButton from "components/MyIconButton";
+import useHeadquarter from "container/headquarter/useHeadquarter";
+import Loading from "components/Loading";
 
 // MUI
 import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 
 const Headquarter: NextPage = () => {
 
-    // const router = useRouter();
-    // const { id } = router.query;
     const { mainColors } = useContext(DarkThemeContext);
-    const data: any = {
-        id: '1',
-        name: 'مقر الشعبية',
-        city: 'المحلة الكبري',
-        area: 'منشية البكري',
-        street: 'شارع الحرية',
-        building: '25',
-        firstPhoneNumber: '01154688380',
-        secondPhoneNumber: '01154688380',
-        employee: [
-            {
-                name: 'باكينام السيد',
-                jobTitle: 'سكرتارية',
-            },
-            {
-                name: 'عمر الصياد',
-                jobTitle: 'سكرتير',
-            },
-        ],
-        groups: [
-            {
-                name: 'مجموعه قاسم'
-            },
-            {
-                name: 'مجموعة عمر'
-            },
-            {
-                name: 'مجموعة احمد'
-            },
-            {
-                name: 'مجموعة مروان'
-            },
-        ]
-    }
-    
+    const {
+        data,
+        loading
+    } = useHeadquarter();
     const style = {
         root: {
             width: '100%',
@@ -111,7 +80,14 @@ const Headquarter: NextPage = () => {
                             </a>
                     </Link>
                 </Box>
-                <HeadquarterC />
+                { loading && <Loading />}
+                {
+                    data ?
+                    <HeadquarterC data={data} /> :
+                    <Typography variant="h2" color={'primary'}>
+                        لا يوجد هذا المقر
+                    </Typography> 
+                }
             </Box>
             <Box sx={style.footerContainer}>
                 <PageFooter />

@@ -26,3 +26,49 @@ export const postHandler = (authorization: string, path: string, data: any) => {
         )
     });
 }; 
+
+// Actions to login for user and admin
+export const getHandler = (authorization: string, path: string) => {
+    return new Promise ((resolved, rejected) => {
+        axios({
+            url: `${URL_MAIN}${path}`,
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json;charset=UTF-8',
+                'Authorization': `Bearer ${authorization}`
+            },
+        })
+        .then(
+            (res) => {
+                resolved(res.data);
+            },
+            (rej) => {
+                rejected(rej);
+            }
+        )
+    });
+}; 
+
+// Actions to login for user and admin
+export const getHandlerById = (id: string, authorization: string, path: string) => {
+    return new Promise ((resolved, rejected) => {
+        axios({
+            url: `${URL_MAIN}${path}/${id}`,
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json;charset=UTF-8',
+                'Authorization': `Bearer ${authorization}`
+            },
+        })
+        .then(
+            (res) => {
+                resolved(res.data);
+            },
+            (rej) => {
+                rejected(rej);
+            }
+        )
+    });
+}; 

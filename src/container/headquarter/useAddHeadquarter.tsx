@@ -2,6 +2,7 @@ import { useState } from "react";
 import { URL_HEADQUARTERS } from 'constant/url';
 import { postHandler } from "handlers/requestHandler";
 import { useUser } from "context/userContext";
+import { useRouter } from "next/router";
 
 type Data = {
     value: string,
@@ -17,7 +18,8 @@ const initialValues = {
 
 const useAddHeadquarter = () => {
 
-    const auth = useUser()
+    const auth = useUser();
+    const router = useRouter();
     const [ loading, setLoading] = useState<boolean>(false);
     const [ name, setName] = useState<Data>(initialValues);
     const [ city, setCity] = useState<Data>(initialValues);
@@ -103,6 +105,7 @@ const useAddHeadquarter = () => {
 
     // call api for request
     const submit = async () => {
+        clearFields()
         if(validation()){
             setLoading(true);
             let data = {} 
@@ -137,12 +140,25 @@ const useAddHeadquarter = () => {
             .then((res: any) => {
                 console.log(res)
                 setLoading(false)
+                router.push(`/teacher/headquarters/headquarter/${res.data}`)
             })
             .catch((err: any) => {
                 console.log(err)
                 setLoading(false)
             })
         }
+    }
+
+    // clear fields after submit
+    const clearFields = () => {
+        setName((oldValues: any) => ({...oldValues, value: ''}))
+        setCity((oldValues: any) => ({...oldValues, value: ''}))
+        setRegion((oldValues: any) => ({...oldValues, value: ''}))
+        setStreet((oldValues: any) => ({...oldValues, value: ''}))
+        setBuilding((oldValues: any) => ({...oldValues, value: ''}))
+        setFirstPhone((oldValues: any) => ({...oldValues, value: ''}))
+        setSecondPhone((oldValues: any) => ({...oldValues, value: ''}))
+        setThirdPhone((oldValues: any) => ({...oldValues, value: ''}))
     }
 
     return (

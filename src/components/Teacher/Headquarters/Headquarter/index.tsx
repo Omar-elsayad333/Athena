@@ -1,52 +1,18 @@
 import { useContext } from 'react';
 import { DarkThemeContext } from 'context/ThemeContext';
-import EmployeCard from './EmployeCard';
 
 // MUI
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import DataCard from './DataCard';
 
-const HeadquarterC = () => {
+type Props = {
+    data: any;
+}
+
+const HeadquarterC: React.FC<Props> = ({data}) => {
 
     const {mainColors} = useContext(DarkThemeContext);
-    const data: any = {
-        name: 'مقر الشعبية',
-        city: 'المحلة الكبري',
-        area: 'منشية البكري',
-        street: 'شارع الحرية',
-        building: '25',
-        firstPhoneNumber: '01154688380',
-        secondPhoneNumber: '01154688380',
-        employee: [
-            {
-                name: 'باكينام السيد',
-                jobTitle: 'سكرتارية',
-            },
-            {
-                name: 'عمر الصياد',
-                jobTitle: 'سكرتير',
-            },
-        ],
-        groups: [
-            {
-                firstClass: [
-                    {
-                        name: 'مجموعه قاسم'
-                    },
-                    {
-                        name: 'مجموعة عمر'
-                    },
-                    {
-                        name: 'مجموعة احمد'
-                    },
-                    {
-                        name: 'مجموعة مروان'
-                    },
-                ]
-            }
-        ]
-    }
 
     const style = {
         container: {
@@ -86,19 +52,18 @@ const HeadquarterC = () => {
                 عنوان المقر:-  
             </Typography>
             <DataCard data={data.city} title='المدينة' />
-            <DataCard data={data.area} title='أسم المنطقة' />
+            <DataCard data={data.region} title='أسم المنطقة' />
             <DataCard data={data.street} title='أسم الشارع' />
             <DataCard data={data.building} title='رقم المبنى' />
             <Typography sx={style.title} variant="h3" color={mainColors.title.main}>
-                بيانات الاتصال:-  
+                بيانات الاتصال:-    
             </Typography>
-            <DataCard data={data.firstPhoneNumber} title='تليفون 1' />
-            <DataCard data={data.secondPhoneNumber} title='تليفون 2' />
-            <Typography sx={style.title} variant="h3" color={mainColors.title.main}>
-                الموظفيين:-  
-            </Typography>
-            <EmployeCard />
-            <EmployeCard />
+            <DataCard data={data.headQuarterPhones[0].phone} title='تليفون 1' />
+            <DataCard data={data.headQuarterPhones[1].phone} title='تليفون 2' />
+            {
+                data.headQuarterPhones[2] &&
+                <DataCard data={data.headQuarterPhones[2].phone} title='تليفون 3' />
+            }
         </Box>
     );
 }

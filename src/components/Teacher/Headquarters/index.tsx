@@ -1,66 +1,28 @@
+import Loading from "components/Loading";
 import HeadquarterCard from "./HeadquarterCard";
+import useHeadquarters from "container/headquarter/useHeadquarters";
 
 // MUI
-import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 
 const HeadquartersC: React.FC = () => {
 
-    const data = [
-        {
-            id: '1',
-            name: 'مقر ابو شاهين',
-            location: 'أول منشية البكري',
-            employees: 'باكينام السيد - أحمد الخولي',
-            phoneNumber: '01221660052'
-        },
-        {
-            id: '2',
-            name: 'مقر ابو شاهين',
-            location: 'أول منشية البكري',
-            employees: 'باكينام السيد - أحمد الخولي',
-            phoneNumber: '01221660052'
-        },
-        {
-            id: '3',
-            name: 'مقر ابو شاهين',
-            location: 'أول منشية البكري',
-            employees: 'باكينام السيد - أحمد الخولي',
-            phoneNumber: '01221660052'
-        },
-        {
-            id: '4',
-            name: 'مقر ابو شاهين',
-            location: 'أول منشية البكري',
-            employees: 'باكينام السيد - أحمد الخولي',
-            phoneNumber: '01221660052'
-        },
-        {
-            id: '5',
-            name: 'مقر ابو شاهين',
-            location: 'أول منشية البكري',
-            employees: 'باكينام السيد - أحمد الخولي',
-            phoneNumber: '01221660052'
-        },
-        {
-            id: '6',
-            name: 'مقر ابو شاهين',
-            location: 'أول منشية البكري',
-            employees: 'باكينام السيد - أحمد الخولي',
-            phoneNumber: '01221660052'
-        },
-        {
-            id: '7',
-            name: 'مقر ابو شاهين',
-            location: 'أول منشية البكري',
-            employees: 'باكينام السيد - أحمد الخولي',
-            phoneNumber: '01221660052'
-        },
-    ]
+    const {
+        data,
+        loading
+    } = useHeadquarters();
 
     return (
-        <Box>
-            <HeadquarterCard data={data} />
-        </Box>
+        <>
+            { loading && <Loading /> }
+            {
+                data ?
+                <HeadquarterCard data={data} /> :
+                <Typography variant="h2" color={'primary'}>
+                    لا يوجد مقرات
+                </Typography> 
+            }
+        </>
     );
 }
  
