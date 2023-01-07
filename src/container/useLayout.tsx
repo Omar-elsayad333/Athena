@@ -1,9 +1,11 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { useUser } from 'context/userContext';
 
 const useLayout = () => {
 
     const router = useRouter();
+    const auth = useUser()
     const [layoutState, setLayoutState] = useState<Boolean>(false);  
     const [sideNavState, setSideNavState] = useState<Boolean>(true);  
     const [mobileSideNavState, setMobileSideNavState] = useState<Boolean>(false);  
@@ -17,6 +19,7 @@ const useLayout = () => {
     
     const check = () => {
             !localStorage.getItem('athena-token') ||
+            !auth.user ||
             router.pathname === '/teacherLogin' || 
             router.pathname === '/test' || 
             router.pathname === '/studentLogin' || 

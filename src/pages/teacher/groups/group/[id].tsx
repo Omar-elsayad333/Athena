@@ -9,7 +9,7 @@ import DesktopNavbar from 'components/Layout/DesktopNavbar';
 import PageTitle from 'components/Shared/PageTitle';
 import ThemeSwitcher from "components/ThemeSwitcher";
 import MyIconButton from 'components/MyIconButton';
-import GroupC from 'components/Teacher/Group';
+import GroupC from 'components/Teacher/Groups/Group';
 import PageFooter from "components/Shared/PageFooter";
 
 // MUI

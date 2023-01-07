@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { DarkThemeContext } from 'context/ThemeContext';
-import me from '../../../../public/images/me.jpg'
+import me from '../../../../../public/images/me.jpg'
 
 // MUI
 import Typography from '@mui/material/Typography';

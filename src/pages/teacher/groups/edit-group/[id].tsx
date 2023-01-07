@@ -7,7 +7,7 @@ import PageHead from "components/Shared/PageHead";
 import DesktopNavbar from 'components/Layout/DesktopNavbar';
 import PageTitle from 'components/Shared/PageTitle';
 import ThemeSwitcher from "components/ThemeSwitcher";
-import EditGroupC from 'components/Teacher/EditGroup';
+import EditGroupC from 'components/Teacher/Groups/EditGroup';
 import PageFooter from "components/Shared/PageFooter";
 
 // MUI

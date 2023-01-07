@@ -4,8 +4,6 @@ import MyInput from 'components/MyInput';
 import MyInputSmall from 'components/MyInputSmall';
 import MyButton from 'components/Buttons/MyButton';
 import MyButtonError from 'components/Buttons/MyButtonError';
-import AddCard from './AddCard';
-import EmployeCard from './EmployeCard';
 
 // MUI
 import Typography from '@mui/material/Typography';
@@ -71,11 +69,6 @@ const AddHeadquarterC: React.FC = () => {
                 </Typography>
                 <MyInput Placeholder='رقم الهاتف' />
             </Box>
-            <Typography sx={style.title} variant="h3" color={mainColors.title.main}>
-                الموظفيين:-  
-            </Typography>
-            <AddCard />
-            <EmployeCard />
             <Box sx={style.buttonsContainer}>
                 <Box sx={style.submitButton}>
                     <MyButton content='تأكيد واضافة' />

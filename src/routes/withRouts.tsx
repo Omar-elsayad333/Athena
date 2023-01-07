@@ -4,26 +4,29 @@ import { Routes } from './Routes';
 import { useRouter } from 'next/router';
 import Loading from 'components/Loading';
 import { NextComponentType, NextPageContext } from 'next';
+import { useUser } from 'context/userContext';
 
 type ComponentNext = NextComponentType<NextPageContext, any, {}>;
 
 export const withPublic = (Component: ComponentNext) => (props: any) => {
-    // const { user } = useContext(UserContext);
+    // const auth = useUser();
     // const router = useRouter();
 
     // const referLink = router.asPath.split('refer=')[1];
 
     // if(typeof window !== 'undefined'){
-    //     if (user) {
-    //         router.replace(Routes.teacherHome);
+    //     if (!auth.user) {
+    //         // router.replace(referLink || Routes.teacherHome);
     //         return <Loading />;
     //     }
     // }
     return <Component {...props} />;
+    
 };
 
-export const withProtected = (Component: any) => (props: any) => {
-    
+export const withProtected = (Component: any) => (props: any) => {  
+
+    const auth = useUser();
     const router = useRouter();
     
     if(typeof window !== 'undefined'){
@@ -32,5 +35,10 @@ export const withProtected = (Component: any) => (props: any) => {
             return <Loading />;
         }
     }
+    
+    if(!auth.user){
+        return <Loading />;
+    }
+    
     return <Component {...props} />;
 };

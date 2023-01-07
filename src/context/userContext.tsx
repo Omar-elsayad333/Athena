@@ -1,11 +1,11 @@
-import { useState, createContext, useContext } from 'react';
+import { useState, createContext, useContext, useEffect } from 'react';
+import { userObjectHandler } from 'handlers/userHandler';
 
 type ContextState = {
     user: any;
     authToken: string;
     loadingUser: boolean;
     userToken: Function;
-    setUserObject: Function;
 };
 
 const initialValues = {
@@ -13,7 +13,6 @@ const initialValues = {
     authToken: '',
     loadingUser: true,
     userToken: () => {},
-    setUserObject: () => {}
 };
 
 type IProps = { 
@@ -24,35 +23,39 @@ export const UserContext = createContext<ContextState>(initialValues);
 
 export const UserProvider: React.FC<IProps> = ({ children }) => {
 
-    const [user, setUser] = useState<any>({
-        address: '',
-        courseName: '',
-        email: '',
-        emailConfirmed: '',
-        firstName: '',
-        gender: '',
-        imagePath: '',
-        isActive: '',
-        lastName: '',
-        middleName: '',
-        phoneNumber: '',
-        phoneNumberConfirmed: ''
-    });
+    const [user, setUser] = useState<any>('');
     const [authToken, setAuthToken] = useState<any>('');
     const [loadingUser] = useState<boolean>(true);
+
+    useEffect(() => {
+        if(typeof window !== 'undefined'){
+            if (localStorage.getItem('athena-token')) {
+                setAuthToken(localStorage.getItem('athena-token'))
+            }
+        }
+    }, [])
+
+    useEffect(() => {
+        if(authToken){
+            userObjectHandler(authToken)
+            .then( (res: any) => {
+                for (const item in res) {   
+                    setUser({ ...res, [item]: res[item] });
+                }
+            })
+        }
+    }, [authToken])
+
+    useEffect(() => {
+        console.log(user)
+    }, [user])
 
     const userToken = (token: any) => {
         setAuthToken(token);
     }
 
-    const setUserObject = (userObject: any) => {
-        for (const item in userObject) {
-            setUser({ ...userObject, [item]: userObject[item] });
-        }
-    }
-
     return (
-        <UserContext.Provider value={{user, setUserObject, authToken, userToken, loadingUser}}>
+        <UserContext.Provider value={{user, authToken, userToken, loadingUser}}>
             {children}
         </UserContext.Provider>
     );

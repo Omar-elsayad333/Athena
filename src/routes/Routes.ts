@@ -13,31 +13,41 @@ export class Routes {
     // =========================| Teacher |================================ //
 
     static teacherHome = '/teacher/home';
+    
+    // Years
+    static teacherYears = '/teacher/years';
 
-    // Groups
-    static teacherGroups = '/teacher/groups';
+    static teacherYear = '/teacher/years/year';
 
-    static teacherGroup = '/teacher/groups/group';
+    static teacherYearSetting = '/teacher/years/year-setting';
 
-    static teacherAddGroup = '/teacher/addGroup';
-
-    static teacherEditGroup = '/teacher/editGroup';
+    static teacherEditYear = '/teacher/years/edit-year';
 
     // Headquarters
     static teacherheadquarters = '/teacher/headquarters';
 
     static teacherHeadquarter = '/teacher/headquarters/headquarter';
 
-    static teacherAddHeadquarters = '/teacher/addHeadquarters';
+    static teacherAddHeadquarters = '/teacher/headquarters/add-headquarters';
 
-    static teacherEditHeadquarters = '/teacher/editHeadquarters';
+    static teacherEditHeadquarters = '/teacher/headquarters/edit-headquarters';
+
+    // Groups
+    static teacherGroups = '/teacher/groups';
+
+    static teacherGroup = '/teacher/groups/group';
+
+    static teacherAddGroup = '/teacher/groups/add-group';
+
+    static teacherEditGroup = '/teacher/groups/edit-group';
 
     // Students
     static teacherStudents = '/teacher/students';
 
     static teacherStudent = '/teacher/students/student';
 
-    static teacherAddStudents = '/teacher/addStudents';
+    static teacherAddStudents = '/teacher/students/add-students';
+
     
     // =========================| End Teacher |================================ //
 

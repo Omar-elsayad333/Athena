@@ -5,7 +5,7 @@ import { DarkThemeContext } from "context/ThemeContext";
 import PageHead from "components/Shared/PageHead";
 import DesktopNavbar from 'components/Layout/DesktopNavbar';
 import PageTitle from 'components/Shared/PageTitle';
-import AddGroupC from 'components/Teacher/AddGroup';
+import AddGroupC from 'components/Teacher/Groups/AddGroup';
 import ThemeSwitcher from "components/ThemeSwitcher";
 import PageFooter from "components/Shared/PageFooter";
 

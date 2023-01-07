@@ -40,7 +40,7 @@ const useTeacherLogin = () => {
                     await userObjectHandler(res)
                     .then( 
                         async (res: any) => {
-                            auth.setUserObject(res)
+                            console.log(res)
                             router.replace('teacher/home')
                         },
                         (rej: any) => {
