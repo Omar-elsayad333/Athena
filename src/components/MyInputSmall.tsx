@@ -6,19 +6,17 @@ import TextField from "@mui/material/TextField";
 import FormControl from '@mui/material/FormControl';
 
 type Props = {
-    Id?: any;
-    Name?: any;
-    Value?: any;
-    OnChange?: any;
-    error?: any;
-    HelperText?: any;
-    Type?: any;
-    Placeholder: any;
+    name?: string;
+    value: string;
+    helperText?: string;
+    placeholder: string;
+    error?: boolean;
+    onChange: Function;
 }
 
-const MyInputSmall: React.FC<Props> = ({Type, Placeholder, HelperText, error, OnChange, Value, Name, Id}) => {
+const MyInputSmall: React.FC<Props> = ({placeholder, helperText, error, onChange, value, name}) => {
 
-    const {darkMode} = useContext(DarkThemeContext);
+    const { mainColors, darkMode} = useContext(DarkThemeContext);
 
     const classes = {
         root: {
@@ -68,21 +66,27 @@ const MyInputSmall: React.FC<Props> = ({Type, Placeholder, HelperText, error, On
         }
     };
 
+    const style = {
+        root: {
+            marginTop: '5px',
+            fontSize: '14px', 
+            color: mainColors.error.main,
+        },
+    }
+
     return (
         <FormControl  required>
             <TextField     
                 autoComplete='off'   
                 variant="outlined"
                 sx={classes.root}
-                id={Id}
-                name={Name}
-                value={Value}
-                onChange={OnChange}
+                name={name}
+                value={value}
+                onChange={e => onChange(e.target.value)}
                 error={error}
-                helperText={HelperText}
-                type={Type}
-                placeholder={Placeholder}
+                placeholder={placeholder}
             />
+            <label style={style.root}>{helperText}</label>
         </FormControl>
     );
 }

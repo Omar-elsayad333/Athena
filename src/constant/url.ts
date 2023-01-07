@@ -15,3 +15,4 @@ export const URL_EMPLOYEE = '/api/employee';
 export const URL_LEVELS = '/api/levels';
 export const URL_COURSES = '/api/courses';
 export const URL_CLASSIFICATIONS = '/api/classifications';
+export const URL_HEADQUARTERS = '/api/headquarters';

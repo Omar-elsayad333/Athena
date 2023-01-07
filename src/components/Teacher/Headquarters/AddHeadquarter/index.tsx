@@ -4,6 +4,8 @@ import MyInput from 'components/MyInput';
 import MyInputSmall from 'components/MyInputSmall';
 import MyButton from 'components/Buttons/MyButton';
 import MyButtonError from 'components/Buttons/MyButtonError';
+import useAddHeadquarter from 'container/headquarter/useAddHeadquarter';
+import Loading from 'components/Loading';
 
 // MUI
 import Typography from '@mui/material/Typography';
@@ -40,20 +42,65 @@ const style = {
 const AddHeadquarterC: React.FC = () => {
     
     const {mainColors} = useContext(DarkThemeContext);
+    const {       
+        data,
+        dataHandlers,
+        submit,
+        loading
+    } = useAddHeadquarter();          
 
     return (
         <Box sx={style.container}>
+            {
+                loading &&
+                <Loading />
+            }
             <Typography sx={style.title} variant="h3" color={mainColors.title.main}>
                 بيانات المقر:- 
             </Typography>
-            <MyInput Placeholder='أسم المقر' />
+            <MyInput 
+                placeholder='أسم المقر' 
+                name='headquarter name' 
+                value={data.name.value} 
+                error={data.name.error} 
+                helperText={data.name.helperText} 
+                onChange={dataHandlers.nameHandle} 
+            />
             <Typography sx={style.title} variant="h3" color={mainColors.title.main}>
                 عنوان المقر:-  
             </Typography>
-            <MyInputSmall Placeholder='المدينة' />
-            <MyInputSmall Placeholder='أسم المنطقة' />
-            <MyInputSmall Placeholder='أسم الشارع' />
-            <MyInputSmall Placeholder='رقم المبنى' />
+            <MyInputSmall 
+                placeholder='المدينة' 
+                name='headquarter city' 
+                value={data.city.value} 
+                error={data.city.error}
+                helperText={data.city.helperText} 
+                onChange={dataHandlers.cityHandle} 
+            />
+            <MyInputSmall 
+                placeholder='أسم المنطقة'
+                name='headquarter region' 
+                value={data.region.value} 
+                error={data.region.error} 
+                helperText={data.region.helperText} 
+                onChange={dataHandlers.regionHandle} 
+            />
+            <MyInputSmall 
+                placeholder='أسم الشارع' 
+                name='headquarter street' 
+                value={data.street.value} 
+                error={data.street.error} 
+                helperText={data.street.helperText} 
+                onChange={dataHandlers.streetHandle} 
+            />
+            <MyInputSmall 
+                placeholder='رقم المبنى' 
+                name='headquarter bulding' 
+                value={data.building.value} 
+                error={data.building.error} 
+                helperText={data.building.helperText} 
+                onChange={dataHandlers.buildingHandle} 
+            />
             <Typography sx={style.title} variant="h3" color={mainColors.title.main}>
                 بيانات الاتصال:-  
             </Typography>
@@ -61,17 +108,45 @@ const AddHeadquarterC: React.FC = () => {
                 <Typography variant='h5' color={mainColors.primary.dark}>
                     رقم الهاتف الأول
                 </Typography>
-                <MyInput Placeholder='رقم الهاتف' />
+                <MyInput 
+                    type='number'
+                    placeholder='رقم الهاتف' 
+                    name='headquarter phone 1' 
+                    value={data.firstPhone.value} 
+                    error={data.firstPhone.error} 
+                    helperText={data.firstPhone.helperText} 
+                    onChange={dataHandlers.firstPhonesHandle} 
+                />
             </Box>
             <Box sx={style.inputContainer}>
                 <Typography variant='h5' color={mainColors.primary.dark}>
                     رقم الهاتف الثاني
                 </Typography>
-                <MyInput Placeholder='رقم الهاتف' />
+                <MyInput 
+                    type='number'
+                    placeholder='رقم الهاتف' 
+                    name='headquarter phone 2' 
+                    value={data.secondPhone.value} 
+                    error={data.secondPhone.error} 
+                    helperText={data.secondPhone.helperText} 
+                    onChange={dataHandlers.secondPhonesHandle} 
+                />
+            </Box>
+            <Box sx={style.inputContainer}>
+                <Typography variant='h5' color={mainColors.primary.dark}>
+                    رقم الهاتف الثالث
+                </Typography>
+                <MyInput 
+                    type='number'
+                    placeholder='رقم الهاتف' 
+                    name='headquarter phone 3' 
+                    value={data.thirdPhone.value}
+                    onChange={dataHandlers.thirdPhonesHandle} 
+                />
             </Box>
             <Box sx={style.buttonsContainer}>
                 <Box sx={style.submitButton}>
-                    <MyButton content='تأكيد واضافة' />
+                    <MyButton content='تأكيد واضافة' onClick={submit} />
                 </Box>
                 <Box sx={style.submitButton}>
                     <MyButtonError content='إلغاء العملية' />
