@@ -96,7 +96,7 @@ const YearsSettingC: React.FC = () => {
                 الكود الخاص بالطالب:-
             </Typography>
             <Box sx={style.codeContainer}>
-                <MyInput Placeholder={'أدخل كود الطالب'} />
+                <MyInput placeholder={'أدخل كود الطالب'} onChange={() => {}} />
                 <Box sx={style.submitButton}>
                     <MyButton content='تأكيد' />
                 </Box>
