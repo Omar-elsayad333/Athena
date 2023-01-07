@@ -1,10 +1,9 @@
-import me from '../../../../public/images/me.jpg';
-import NavbarBut from './NavbarBut';
 import { useContext } from 'react';
 import { useUser } from 'context/userContext';
+import { DarkThemeContext } from 'context/ThemeContext';
+import NavbarBut from './NavbarBut';
 import NavbarSecBut from './NavbarSecBut';
 import Avatar from 'components/MyAvatar';
-import { DarkThemeContext } from 'context/ThemeContext';
 
 // MUI
 import Box from '@mui/material/Box';
