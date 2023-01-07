@@ -49,7 +49,7 @@ const FormSection: React.FC = () => {
                         <MyPhotoInput />
                     </Box>
                     <Box sx={style.formSec.inputsLayout}>
-                        <MyInput Placeholder='الاسم الأول' Type='text' />
+                        <MyInput placeholder='الاسم الأول' type='text' onChange={() => {}}/>
                         <MyInput Placeholder='الاسم الأخير' Type='text' />
                         <MyInput Placeholder='الاسم الأوسط' Type='text' />
                         <MySelect placeholder='حدد النوع' data={genders} />
@@ -83,12 +83,14 @@ const FormSection: React.FC = () => {
                     </Box>
                 </Box>
             </Box>
+            
             <Box sx={style.formSec.privacy}>
                 <Checkbox size='small' color='primary' />
                 <Typography variant="h5" color='primary'>
                     عمري 13 عاما أو أكثر وأوافق على سياسة الخصوصية وشروط الخدمة     
                 </Typography>
             </Box>
+            
             <Box sx={style.formSec.submitButton}>
                 <MyButton content='انشاء الحساب' onClick={null}/>
             </Box>
