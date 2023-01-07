@@ -24,11 +24,12 @@ const PageFooter: React.FC = () => {
             transition: '.2s',
             '@media(max-width: 1430px)': {
                 justifyContent: 'center',
+                paddingY: '20px'
             },
-                        '@media(max-width: 450px)': {
+            '@media(max-width: 450px)': {
                 padding: '40px'
             },
-            '@media(max-width: 350px)': {
+            '@media(max-width: 350px)': {   
                 padding: '20px'
             },
         },
