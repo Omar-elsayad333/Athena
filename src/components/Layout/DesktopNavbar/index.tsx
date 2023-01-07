@@ -1,8 +1,9 @@
 import me from '../../../../public/images/me.jpg';
 import NavbarBut from './NavbarBut';
+import { useContext } from 'react';
+import { useUser } from 'context/userContext';
 import NavbarSecBut from './NavbarSecBut';
 import Avatar from 'components/MyAvatar';
-import { useContext } from 'react';
 import { DarkThemeContext } from 'context/ThemeContext';
 
 // MUI
@@ -19,6 +20,7 @@ type Props = {
 const DesktopNavbar: React.FC<Props> = ({firstPath, secondPath, firstContent, secondContent}) => {
 
     const {darkMode, mainColors} = useContext(DarkThemeContext);
+    const auth = useUser()
 
     const style: any = {
         container: {
@@ -108,11 +110,11 @@ const DesktopNavbar: React.FC<Props> = ({firstPath, secondPath, firstContent, se
                 </svg>  
                 <Box sx={style.teacherInfo.profile}>
                     <Box sx={style.teacherInfo.photo}>
-                        <Avatar alt='أ / محمد خليل' src={me} />
+                        <Avatar alt={`أ / ${auth.user.firstName} ${auth.user.lastName}`} src={auth.user.imagePath} width={34} height={34} />
                     </Box>
                     <Box>
                         <Typography fontWeight={700} fontSize={14} color='primary'>
-                            أ / محمد خليل
+                            {`أ / ${auth.user.firstName} ${auth.user.lastName}`}
                         </Typography>
                     </Box>
                 </Box>

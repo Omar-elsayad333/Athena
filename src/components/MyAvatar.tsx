@@ -1,25 +1,21 @@
 import Image from 'next/image';
+import { URL_MAIN } from 'constant/url';
 
 type Prop = {
     alt: string;
     src?: any; 
-    style?: object;
+    width?: any;
+    height?: any;
 }
 
-const classes = {
-    root: {
-        width: '100%',
-        height: '100%',
-        borderRadius: '50%',
-    }
-}
-
-const MyAvatar: React.FC<Prop> = ({alt, src}) => {
+const MyAvatar: React.FC<Prop> = ({alt, src, width, height}) => {
     return (
         <Image 
             alt={alt} 
-            src={src} 
-            style={classes.root}
+            src={`${URL_MAIN}/${src}`} 
+            width={width}
+            height={height}
+            style={{borderRadius: '50%'}}
         />
     );
 }

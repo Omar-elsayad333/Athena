@@ -18,10 +18,10 @@ const Home: NextPage = () => {
     return (
         <Box sx={{width: '100%', minHeight: '100vh', backgroundColor: darkMode ? darkColors.backgroundColor.main : lightColors.backgroundColor.main }}>
             <PageHead title='Home' />
-                <DesktopNavbar /> 
-                <Typography variant='h1' color='primary' p={5}>
-                    home
-                </Typography>
+            <DesktopNavbar /> 
+            <Typography variant='h1' color='primary' p={5}>
+                home
+            </Typography>
             <ThemeSwitcher />
         </Box>    
     );
