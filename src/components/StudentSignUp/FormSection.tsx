@@ -50,14 +50,14 @@ const FormSection: React.FC = () => {
                     </Box>
                     <Box sx={style.formSec.inputsLayout}>
                         <MyInput placeholder='الاسم الأول' type='text' onChange={() => {}}/>
-                        <MyInput Placeholder='الاسم الأخير' Type='text' />
-                        <MyInput Placeholder='الاسم الأوسط' Type='text' />
+                        <MyInput placeholder='الاسم الأخير' type='text' onChange={() => {}} />
+                        <MyInput placeholder='الاسم الأوسط' type='text' onChange={() => {}} />
                         <MySelect placeholder='حدد النوع' data={genders} />
                         {/* <MyDatePicker placeholder='حدد تاريخ ميلادك ' /> */}
-                        <MyInput Placeholder='أكتب عنوانك بالكامل' Type='text' />
-                        <MyInput Placeholder='البريد الإلكتروني الخاص بك' Type='email' />
-                        <MyInput Placeholder='رقم الهاتف الخاص بك' Type='text' />
-                        <MyInput Placeholder='رقم الهاتف المنزلي' Type='text' />
+                        <MyInput placeholder='أكتب عنوانك بالكامل' type='text' onChange={() => {}} />
+                        <MyInput placeholder='البريد الإلكتروني الخاص بك' type='email' onChange={() => {}} />
+                        <MyInput placeholder='رقم الهاتف الخاص بك' type='text' onChange={() => {}} />
+                        <MyInput placeholder='رقم الهاتف المنزلي' type='text' onChange={() => {}} />
                     </Box>
                 </Box>
 
@@ -66,9 +66,9 @@ const FormSection: React.FC = () => {
                         معلومات ولي الأمر
                     </Typography>
                     <Box sx={style.formSec.inputsLayout}>                        
-                        <MyInput Placeholder='أسم ولي الأمر' Type='text' />
-                        <MyInput Placeholder='وظيفة ولي الأمر' Type='text' />
-                        <MyInput Placeholder='رقم هاتف ولي الأمر' Type='text' />
+                        <MyInput placeholder='أسم ولي الأمر' type='text' onChange={() => {}} />
+                        <MyInput placeholder='وظيفة ولي الأمر' type='text' onChange={() => {}} />
+                        <MyInput placeholder='رقم هاتف ولي الأمر' type='text' onChange={() => {}} />
                     </Box>
                 </Box>
 
@@ -77,7 +77,7 @@ const FormSection: React.FC = () => {
                         معلومات الحساب
                     </Typography>
                     <Box sx={style.formSec.inputsLayout}>
-                        <MyInput Placeholder='أسم المستخدم' Type='text' />
+                        <MyInput placeholder='أسم المستخدم' type='text' onChange={() => {}} />
                         <MyPassInput placeholder='كلمة السر' />
                         <MyPassInput placeholder='تأكيد كلمة السر' />
                     </Box>
