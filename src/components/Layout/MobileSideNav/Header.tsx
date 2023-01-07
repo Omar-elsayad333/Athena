@@ -75,8 +75,8 @@ const Header: React.FC<Props> = ({controleMobileSideNav, mobileSideNavState}) =>
                 <Box sx={style.container}>
                     <Box sx={style.menuIcon}>
                         <svg width="29" height="29" viewBox="0 0 29 29" stroke={mainColors.primary.main} onClick={controleMobileSideNav} xmlns="http://www.w3.org/2000/svg">
-                            <path d="M26.28 2L2 26.28" stroke="inherit" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M2 2L14.14 14.14L26.28 26.28" stroke="inhherit" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M26.28 2L2 26.28" stroke="inherit" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M2 2L14.14 14.14L26.28 26.28" stroke="inhherit" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>                  
                     </Box>
                     <Box sx={style.profile}>

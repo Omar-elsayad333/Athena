@@ -119,9 +119,9 @@ const YearsSettingC: React.FC = () => {
                     </Box>
                 }
                 <svg onClick={() => dialogs.classesHandleDialogState()} width="77" height="77" viewBox="0 0 77 77" stroke={mainColors.primary.main} fill={mainColors.icons.roundedAdd} xmlns="http://www.w3.org/2000/svg">
-                    <path d="M38.52 75.04C58.6894 75.04 75.04 58.6894 75.04 38.52C75.04 18.3506 58.6894 2 38.52 2C18.3506 2 2 18.3506 2 38.52C2 58.6894 18.3506 75.04 38.52 75.04Z" fill="inherit" stroke="inherit" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M38.52 23.8994V53.1154" stroke="inherit" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M23.9117 38.5195H53.1277" stroke="inherit" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M38.52 75.04C58.6894 75.04 75.04 58.6894 75.04 38.52C75.04 18.3506 58.6894 2 38.52 2C18.3506 2 2 18.3506 2 38.52C2 58.6894 18.3506 75.04 38.52 75.04Z" fill="inherit" stroke="inherit" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M38.52 23.8994V53.1154" stroke="inherit" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M23.9117 38.5195H53.1277" stroke="inherit" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
                 <ClassesDialog open={dialogs.classesDialogState} handleClose={dialogs.classesHandleDialogState} getSelectedClasses={classes.handleSelectedClasses} />
             </Box>
@@ -142,9 +142,9 @@ const YearsSettingC: React.FC = () => {
                     </Box>
                 }
                 <svg onClick={() => dialogs.classroomsHandleDialogState()} width="48" height="48" viewBox="0 0 48 48" stroke={mainColors.primary.main} fill={mainColors.icons.roundedAdd} xmlns="http://www.w3.org/2000/svg">
-                    <path d="M23.52 46.04C35.9575 46.04 46.04 35.9575 46.04 23.52C46.04 11.0825 35.9575 1 23.52 1C11.0825 1 1 11.0825 1 23.52C1 35.9575 11.0825 46.04 23.52 46.04Z" fill="inherit" stroke="inherit" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M23.52 14.5049V32.5209" stroke="inherit" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M14.512 23.5195H32.5279" stroke="inherit" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M23.52 46.04C35.9575 46.04 46.04 35.9575 46.04 23.52C46.04 11.0825 35.9575 1 23.52 1C11.0825 1 1 11.0825 1 23.52C1 35.9575 11.0825 46.04 23.52 46.04Z" fill="inherit" stroke="inherit" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M23.52 14.5049V32.5209" stroke="inherit" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M14.512 23.5195H32.5279" stroke="inherit" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>  
                 <ClassroomsDialog date={date} open={dialogs.classroomsDialogState} handleClose={dialogs.classroomsHandleDialogState} getSelectedClassrooms={classrooms.handleSelectedClasserooms} />
             </Box>
