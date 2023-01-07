@@ -1,11 +1,9 @@
 import { useContext } from 'react';
 import { DarkThemeContext } from 'context/ThemeContext';
-import me from '../../../../public/images/me.jpg'
 
 // MUI
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import MyAvatar from 'components/MyAvatar';
 
 
 const EmployeCard: React.FC = () => {
@@ -48,7 +46,7 @@ const EmployeCard: React.FC = () => {
             </svg>
             </Box>
             <Box sx={style.avatar}>
-                <MyAvatar alt='باكينام السيد' src={me} />
+                {/* <MyAvatar alt='باكينام السيد' src={me} /> */}
             </Box>
             <Typography variant='h5' color='primary' fontWeight={700}>
                 باكينام السيد
