@@ -41,7 +41,7 @@ const FormBasicInputs: React.FC<Props> = ({data}) => {
                 <Typography variant='h5' color={mainColors.primary.dark}>
                     أسم المجموعة    
                 </Typography>
-                <MyInput Placeholder={data.name} />
+                <MyInput placeholder={data.name} onChange={() => {}} />
             </Box>
             <Box sx={style.inputContainer}>
                 <Typography variant='h5' color={mainColors.primary.dark}>
@@ -59,7 +59,7 @@ const FormBasicInputs: React.FC<Props> = ({data}) => {
                 <Typography variant='h5' color={mainColors.primary.dark}>
                     الحد القصى للطلاب   
                 </Typography>
-                <MyInput Placeholder={data.limit} />
+                <MyInput placeholder={data.limit} onChange={() => {}} />
             </Box>
         </Box>
     );

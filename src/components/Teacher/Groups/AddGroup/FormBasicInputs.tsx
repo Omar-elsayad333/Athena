@@ -27,10 +27,10 @@ const FormBasicInputs = () => {
             <Typography sx={style.title} variant="h3" color={mainColors.title.main}>
                 بيانات المجموعة:-
             </Typography>
-            <MyInput Placeholder='أسم المجموعة' />
+            <MyInput placeholder='أسم المجموعة' onChange={() => {}} />
             <MySelect placeholder='الصف الدراسي الخاص بالمجموعة' data={[]} />
             <MySelect placeholder='المقر الخاص بالمجموعة' data={[]} />
-            <MyInput Placeholder='الحد الاقصى لعدد الطلاب' />
+            <MyInput placeholder='الحد الاقصى لعدد الطلاب' onChange={() => {}} />
         </Box>
     );
 }

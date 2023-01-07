@@ -7,7 +7,7 @@ import FormControl from '@mui/material/FormControl';
 
 type Props = {
     name?: string;
-    value: string;
+    value?: string;
     helperText?: string;
     placeholder: string;
     error?: boolean;

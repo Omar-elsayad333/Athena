@@ -88,7 +88,7 @@ const EditHeadquarterC = () => {
                 <Typography variant='h5' color={mainColors.primary.dark}>
                     أسم المقر
                 </Typography>
-                <MyInput Placeholder={data.name} />
+                <MyInput placeholder={data.name} onChange={() => {}} />
             </Box>
             <Typography sx={style.title} variant="h3" color={mainColors.title.main}>
                 عنوان المقر:-  
@@ -97,25 +97,25 @@ const EditHeadquarterC = () => {
                 <Typography variant='h5' color={mainColors.primary.dark}>
                     المدينة
                 </Typography>
-                <MyInputSmall Placeholder={data.city} />
+                <MyInputSmall placeholder={data.city} onChange={() => {}} />
             </Box>
             <Box sx={style.inputContainer}>
                 <Typography variant='h5' color={mainColors.primary.dark}>
                     أسم المنطقة 
                 </Typography>
-                <MyInputSmall Placeholder={data.area} />
+                <MyInputSmall placeholder={data.area} onChange={() => {}} />
             </Box>
             <Box sx={style.inputContainer}>
                 <Typography variant='h5' color={mainColors.primary.dark}>
                     أسم الشارع
                 </Typography>
-                <MyInputSmall Placeholder={data.street} />
+                <MyInputSmall placeholder={data.street} onChange={() => {}} />
             </Box>
             <Box sx={style.inputContainer}>
                 <Typography variant='h5' color={mainColors.primary.dark}>
                     رقم المبنى
                 </Typography>
-                <MyInputSmall Placeholder={data.building} />
+                <MyInputSmall placeholder={data.building} onChange={() => {}} />
             </Box>
             <Typography sx={style.title} variant="h3" color={mainColors.title.main}>
                 بيانات الاتصال:-  
@@ -124,13 +124,13 @@ const EditHeadquarterC = () => {
                 <Typography variant='h5' color={mainColors.primary.dark}>
                     رقم الهاتف الأول
                 </Typography>
-                <MyInput Placeholder={data.firstPhoneNumber} />
+                <MyInput placeholder={data.firstPhoneNumber} onChange={() => {}} />
             </Box>
             <Box sx={style.inputContainer}>
                 <Typography variant='h5' color={mainColors.primary.dark}>
                     رقم الهاتف الثاني
                 </Typography>
-                <MyInput Placeholder={data.secondPhoneNumber} />
+                <MyInput placeholder={data.secondPhoneNumber} onChange={() => {}} />
             </Box>
             <Typography sx={style.title} variant="h3" color={mainColors.title.main}>
                 الموظفيين:-  
