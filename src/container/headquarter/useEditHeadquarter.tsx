@@ -120,9 +120,7 @@ const useEditHeadquarter = () => {
                 }
             ]
 
-            data['newPhones'] = [
-                ""
-            ]
+            data['newPhone'] = null
 
         }else if(thirdPhone.value && thirdPhoneState) {
             data['phones'] = [
@@ -138,9 +136,7 @@ const useEditHeadquarter = () => {
                 }
             ]
 
-            data['newPhones'] = [
-                thirdPhone.value
-            ]
+            data['newPhone'] = thirdPhone.value
 
         }else {
             data['phones'] = [
@@ -155,9 +151,7 @@ const useEditHeadquarter = () => {
                     isDeleted: false
                 }   
             ]
-            data['newPhones'] = [
-                ""
-            ]
+            data['newPhones'] = null
         }
 
         return data
