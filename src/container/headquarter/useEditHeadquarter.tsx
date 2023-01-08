@@ -102,7 +102,7 @@ const useEditHeadquarter = () => {
         };
 
         if(oldData.headQuarterPhones[2]){
-            data['phone'] = [
+            data['phones'] = [
                 {
                     id: oldData.headQuarterPhones[0].id,
                     phone: firstPhone.value ? firstPhone.value : oldData.headQuarterPhones[0].phone,
@@ -120,7 +120,9 @@ const useEditHeadquarter = () => {
                 }
             ]
 
-            data['newPhones'] = []
+            data['newPhones'] = [
+                ""
+            ]
 
         }else if(thirdPhone.value && thirdPhoneState) {
             data['phones'] = [
