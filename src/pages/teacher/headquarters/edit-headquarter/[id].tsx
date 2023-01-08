@@ -22,8 +22,8 @@ const EditHeadquarter: NextPage = () => {
         thirdPhone,
         oldData,
         loading,
-        submit,
-        deleteHeadquarter
+        submitActions,
+        dialog
     } = useEditHeadquarter();
     const { mainColors } = useContext(DarkThemeContext);
     
@@ -74,10 +74,10 @@ const EditHeadquarter: NextPage = () => {
                     <EditHeadquarterC 
                         data={data}
                         dataHandlers={dataHandlers} 
-                        submit={submit} 
                         oldData={oldData} 
                         thirdPhone={thirdPhone} 
-                        deleteHeadquarter={deleteHeadquarter}
+                        dialog={dialog}
+                        submitActions={submitActions}
                     />
                 </Box>
             }

@@ -54,6 +54,12 @@ const MyInput: React.FC<Props> = ({type, placeholder, helperText, error, onChang
                 '@media(max-width: 250px)': {
                     width: '150px',
                 },
+            },  
+            "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
+                display: "none",
+            },
+            "& input[type=number]": {
+                MozAppearance: "textfield",
             },
             '.Mui-error': {
                 border: darkMode ? 'none' : 'solid 1px red !important',

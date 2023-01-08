@@ -5,7 +5,9 @@ import MyInputSmall from 'components/MyInputSmall';
 import MyButton from 'components/Buttons/MyButton';
 import MyButtonError from 'components/Buttons/MyButtonError';
 import useAddHeadquarter from 'container/headquarter/useAddHeadquarter';
+import BasicDialog from 'components/Dialogs/BasicDialogs';
 import Loading from 'components/Loading/Loading';
+import PageError from 'components/Shared/PageError';
 
 // MUI
 import Typography from '@mui/material/Typography';
@@ -45,8 +47,9 @@ const AddHeadquarterC: React.FC = () => {
     const {       
         data,
         dataHandlers,
-        submit,
-        loading
+        submitActions,
+        loading,
+        dialog
     } = useAddHeadquarter();          
 
     return (
@@ -144,14 +147,16 @@ const AddHeadquarterC: React.FC = () => {
                     onChange={dataHandlers.thirdPhonesHandle} 
                 />
             </Box>
+            <PageError infoObject={submitActions.submitError} />
             <Box sx={style.buttonsContainer}>
-                <Box sx={style.submitButton}>
-                    <MyButton content='تأكيد واضافة' onClick={submit} />
+                <Box sx={style.submitButton}> 
+                    <MyButton content='تأكيد واضافة' onClick={submitActions.submit} />
                 </Box>
                 <Box sx={style.submitButton}>
-                    <MyButtonError content='إلغاء العملية' />
+                    <MyButtonError content='إلغاء العملية' onClick={dialog.actions.handleDialogState} />
                 </Box>
             </Box>
+            <BasicDialog state={dialog.content.state} content={dialog.content} actions={dialog.actions} />
         </Box>
     );
 }

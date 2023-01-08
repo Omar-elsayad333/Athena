@@ -16,6 +16,23 @@ const initialValues = {
     helperText: ''
 }
 
+type Dialog = {
+    state: boolean,
+    main: string,
+    title: string,
+    actionContent: any   
+}
+
+const dialogInitialValues = {
+    state: false,
+    main: 'تأكيد إلغاء هذه العملية نهائياً',
+    title: 'إلغاء العملية',
+    actionContent: {
+        first: 'تأكيد',
+        second: 'إلغاء'
+    }
+}
+
 const useAddHeadquarter = () => {
 
     const auth = useUser();
@@ -29,6 +46,16 @@ const useAddHeadquarter = () => {
     const [ firstPhone, setFirstPhone] = useState<Data>(initialValues);
     const [ secondPhone, setSecondPhone] = useState<Data>(initialValues);
     const [ thirdPhone, setThirdPhone] = useState<Data>(initialValues);
+    const [ submitError, setSubmitError] = useState<Data>(initialValues);
+    const [ content, setContent] = useState<Dialog>(dialogInitialValues);
+
+    const handleDialogState = () => {
+        if(content.state){
+            setContent((oldData) => ({...oldData, state: false}));
+        }else {
+            setContent((oldData) => ({...oldData, state: true}));
+        }
+    }
 
     const nameHandle = (data: string) => {
         setName((oldData: any) => ({...oldData, value: data, error: false, helperText: ''}));
@@ -144,10 +171,15 @@ const useAddHeadquarter = () => {
                 router.push(`/teacher/headquarters/headquarter/${res}`)
             })
             .catch((err: any) => {
-                console.log(err)
+                setSubmitError((oldValues) => ({...oldValues, value: err, error: true}));
                 setLoading(false)
             })
         }
+    }
+
+    const deleteAction = () => {
+        clearFields();
+        router.push('/teacher/headquarters');
     }
 
     // clear fields after submit
@@ -160,6 +192,7 @@ const useAddHeadquarter = () => {
         setFirstPhone((oldValues: any) => ({...oldValues, value: ''}))
         setSecondPhone((oldValues: any) => ({...oldValues, value: ''}))
         setThirdPhone((oldValues: any) => ({...oldValues, value: ''}))
+        setSubmitError((oldValues) => ({...oldValues, value: '', error: false}));
     }
 
     return (
@@ -184,7 +217,17 @@ const useAddHeadquarter = () => {
                 secondPhonesHandle,
                 thirdPhonesHandle
             },
-            submit,
+            dialog: {
+                content,
+                actions: {
+                    handleDialogState,
+                    submitDialog: deleteAction
+                }
+            },
+            submitActions: {
+                submit,
+                submitError
+            },        
             loading
         }
     );

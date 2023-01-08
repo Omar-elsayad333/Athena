@@ -21,7 +21,7 @@ export const postHandler = (authorization: string, path: string, data: any) => {
                 resolved(res.data);
             },
             (rej) => {
-                rejected(rej);
+                rejected(rej.response.data.messages[0]);
             }
         )
     });
@@ -114,7 +114,7 @@ export const deleteHandler = (id: string | string[] | undefined, authorization: 
                 resolved(res.data);
             },
             (rej) => {
-                rejected(rej);
+                rejected(rej.response.data.messages[0]);
             }
         )
     });

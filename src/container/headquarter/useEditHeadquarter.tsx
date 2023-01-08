@@ -16,6 +16,23 @@ const initialValues = {
     helperText: ''
 }
 
+type Dialog = {
+    state: boolean,
+    main: string,
+    title: string,
+    actionContent: any   
+}
+
+const dialogInitialValues = {
+    state: false,
+    main: 'تأكيد حذف هذا المقر نهائياً',
+    title: 'حذف المقر',
+    actionContent: {
+        first: 'حذف',
+        second: 'إلغاء'
+    }
+}
+
 const useEditHeadquarter = () => {
 
     const auth = useUser();
@@ -32,6 +49,8 @@ const useEditHeadquarter = () => {
     const [ firstPhone, setFirstPhone] = useState<Data>(initialValues);
     const [ secondPhone, setSecondPhone] = useState<Data>(initialValues);
     const [ thirdPhone, setThirdPhone] = useState<Data>(initialValues);
+    const [ submitError, setSubmitError] = useState<Data>(initialValues);
+    const [ content, setContent] = useState<Dialog>(dialogInitialValues);
 
     useEffect(() => {
         setLoading(true);
@@ -49,6 +68,14 @@ const useEditHeadquarter = () => {
             setLoading(false);
         })
     }, [])
+
+    const handleDialogState = () => {
+        if(content.state){
+            setContent((oldData) => ({...oldData, state: false}));
+        }else {
+            setContent((oldData) => ({...oldData, state: true}));
+        }
+    }
 
     const nameHandle = (data: string) => {
         setName((oldData: any) => ({...oldData, value: data, error: false, helperText: ''}));
@@ -160,6 +187,7 @@ const useEditHeadquarter = () => {
     // call api for request
     const submit = () => {
         setLoading(true);
+        handleDialogState();
         const data = prepareData();
         console.log(data)
         if(data) {
@@ -180,16 +208,19 @@ const useEditHeadquarter = () => {
     }
 
     const deleteHeadquarter = () => {
+        setLoading(true);
+        handleDialogState();
         deleteHandler(id, auth.authToken, URL_HEADQUARTERS)
         .then((res: any) => {
-            console.log(res)
             setLoading(false)
-            clearFields()
+            console.log(res)
+            clearFields();
             router.push(`/teacher/headquarters`)
         })
         .catch((err: any) => {
-            console.log(err)
             setLoading(false)
+            console.log(err)
+            setSubmitError((oldValues) => ({...oldValues, value: err, error: true}));
         })
     }
 
@@ -203,6 +234,7 @@ const useEditHeadquarter = () => {
         setFirstPhone((oldValues: any) => ({...oldValues, value: ''}))
         setSecondPhone((oldValues: any) => ({...oldValues, value: ''}))
         setThirdPhone((oldValues: any) => ({...oldValues, value: ''}))
+        setSubmitError((oldValues) => ({...oldValues, value: '', error: false}));
     }
 
     return (
@@ -215,7 +247,7 @@ const useEditHeadquarter = () => {
                 building,
                 firstPhone,
                 secondPhone,
-                thirdPhone
+                thirdPhone,
             },
             dataHandlers: {
                 nameHandle,
@@ -231,10 +263,19 @@ const useEditHeadquarter = () => {
                 thirdPhoneState,
                 thirdPhoneHandle
             },
+            dialog: {
+                content,
+                actions: {
+                    handleDialogState,
+                    submitDialog : deleteHeadquarter
+                }
+            },
             oldData,
             loading,
-            submit,
-            deleteHeadquarter
+            submitActions: {
+                submit,
+                submitError
+            }
         }
     );
 }
