@@ -2,7 +2,7 @@ import { NextPage } from 'next';
 import PageHead from 'components/Shared/PageHead';
 import useTeacherLogin from 'container/useTeacherLogin';
 import TeacherLogin from '../components/TeacherLogin';
-import Loading from 'components/Loading';
+import Loading from 'components/Loading/Loading';
 
 // MUI
 import Box from "@mui/material/Box";

@@ -1,27 +1,14 @@
-import Loading from "components/Loading";
 import HeadquarterCard from "./HeadquarterCard";
-import useHeadquarters from "container/headquarter/useHeadquarters";
 
-// MUI
-import Typography from "@mui/material/Typography";
+type Props = {
+    data: any;
+}
 
-const HeadquartersC: React.FC = () => {
-
-    const {
-        data,
-        loading
-    } = useHeadquarters();
+const HeadquartersC: React.FC<Props> = ({data}) => {
 
     return (
         <>
-            { loading && <Loading /> }
-            {
-                data ?
-                <HeadquarterCard data={data} /> :
-                <Typography variant="h2" color={'primary'}>
-                    لا يوجد مقرات
-                </Typography> 
-            }
+            <HeadquarterCard data={data} /> :
         </>
     );
 }

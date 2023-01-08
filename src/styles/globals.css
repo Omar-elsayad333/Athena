@@ -41,6 +41,10 @@
     }
 }
 
+svg {
+    cursor: pointer;
+}
+
 /* =====================
     start my input style
 ======================== */

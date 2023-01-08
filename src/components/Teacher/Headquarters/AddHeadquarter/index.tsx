@@ -5,7 +5,7 @@ import MyInputSmall from 'components/MyInputSmall';
 import MyButton from 'components/Buttons/MyButton';
 import MyButtonError from 'components/Buttons/MyButtonError';
 import useAddHeadquarter from 'container/headquarter/useAddHeadquarter';
-import Loading from 'components/Loading';
+import Loading from 'components/Loading/Loading';
 
 // MUI
 import Typography from '@mui/material/Typography';
@@ -53,7 +53,7 @@ const AddHeadquarterC: React.FC = () => {
         <Box sx={style.container}>
             {
                 loading &&
-                <Loading />
+                <Loading inside={true} />
             }
             <Typography sx={style.title} variant="h3" color={mainColors.title.main}>
                 بيانات المقر:- 

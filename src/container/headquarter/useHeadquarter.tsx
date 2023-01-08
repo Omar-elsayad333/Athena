@@ -6,7 +6,7 @@ import { getHandlerById } from 'handlers/requestHandler';
 
 const useHeadquarter = () => {
 
-     const router = useRouter();
+    const router = useRouter();
     const { id } = router.query;
     const auth = useUser();
     const [ data, setData] = useState<any>('');

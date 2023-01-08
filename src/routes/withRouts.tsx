@@ -2,7 +2,7 @@
 // import { UserContext } from 'context/userContext';
 import { Routes } from './Routes';
 import { useRouter } from 'next/router';
-import Loading from 'components/Loading';
+import Loading from 'components/Loading/Loading';
 import { NextComponentType, NextPageContext } from 'next';
 import { useUser } from 'context/userContext';
 

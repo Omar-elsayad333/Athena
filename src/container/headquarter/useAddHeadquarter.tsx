@@ -105,7 +105,6 @@ const useAddHeadquarter = () => {
 
     // call api for request
     const submit = async () => {
-        clearFields()
         if(validation()){
             setLoading(true);
             let data = {} 
@@ -140,7 +139,9 @@ const useAddHeadquarter = () => {
             .then((res: any) => {
                 console.log(res)
                 setLoading(false)
-                router.push(`/teacher/headquarters/headquarter/${res.data}`)
+                clearFields()
+                console.log(res)
+                router.push(`/teacher/headquarters/headquarter/${res}`)
             })
             .catch((err: any) => {
                 console.log(err)
