@@ -12,14 +12,14 @@ type ContextState = {
     mainColors: any;
 };
 
-type IProps = { 
+type Props = { 
     children: React.ReactElement<any, any> & React.ReactNode;
 };
 
 // create context for dark theme state
 export const DarkThemeContext = createContext<ContextState>(initialValues);
 
-export const DarkThemeProvider: React.FC<IProps> = ({ children }) => {
+export const DarkThemeProvider: React.FC<Props> = ({ children }) => {
     
     // The theme data that gets stored in context
     const [ darkMode, setDarkMode] = useState<boolean | string>(false);
