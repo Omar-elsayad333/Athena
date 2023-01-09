@@ -4,9 +4,6 @@ import ThemeSwitcher from 'components/ThemeSwitcher';
 
 // MUI
 import Box from '@mui/material/Box';
-import AlertNotify from 'components/AlertNotify';
-import { useError } from 'context/ErrorContext';
-import useTest from 'container/useTest';
 
 const Test = () => {
     
@@ -28,22 +25,9 @@ const Test = () => {
         },
     }
 
-    const {
-        msg,
-        state,
-        msgType,
-        handleState
-    } = useError();
-
-    const {
-        
-    } = useTest()
-    
-
     return (
         <Box sx={classes.root}>
             <ThemeSwitcher />
-            <AlertNotify msg={msg} msgType={msgType} state={state} handleState={handleState} />
         </Box>
     );
 }
