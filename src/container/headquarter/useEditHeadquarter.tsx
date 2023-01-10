@@ -197,7 +197,7 @@ const useEditHeadquarter = () => {
                 console.log(res)
                 setLoading(false)
                 clearFields()
-                setSuccessMessage('asjdlkfjaslkf;')
+                setSuccessMessage('تمت التعديلات بنجاح')
                 router.push(`/teacher/headquarters/headquarter/${res}`)
             })
             .catch((err: any) => {
