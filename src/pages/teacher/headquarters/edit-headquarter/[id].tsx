@@ -86,6 +86,7 @@ const EditHeadquarter: NextPage = () => {
                         thirdPhone={thirdPhone} 
                         dialog={dialog}
                         submitActions={submitActions}
+                        loading={loading}
                     />
                 </Box>
             }

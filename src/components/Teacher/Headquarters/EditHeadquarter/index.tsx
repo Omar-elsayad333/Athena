@@ -5,11 +5,11 @@ import MyInputSmall from 'components/MyInputSmall';
 import MyButton from 'components/Buttons/MyButton';
 import MyButtonError from 'components/Buttons/MyButtonError';
 import BasicDialog from 'components/Dialogs/BasicDialogs';
+import PageError from 'components/Shared/PageError';
 
 // MUI
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import PageError from 'components/Shared/PageError';
 
 const style = {
     container: {
@@ -56,9 +56,10 @@ type Props = {
     dataHandlers: any;
     dialog: any;
     submitActions: any;
+    loading: boolean;
 }
 
-const EditHeadquarterC: React.FC<Props> = ({oldData, data, dataHandlers, thirdPhone, submitActions, dialog}) => {
+const EditHeadquarterC: React.FC<Props> = ({oldData, data, dataHandlers, thirdPhone, submitActions, dialog, loading}) => {
 
     const {mainColors} = useContext(DarkThemeContext);
 
@@ -175,10 +176,10 @@ const EditHeadquarterC: React.FC<Props> = ({oldData, data, dataHandlers, thirdPh
             <PageError infoObject={submitActions.submitError} />
             <Box sx={style.buttonsContainer}>
                 <Box sx={style.submitButton}>
-                    <MyButton content='حفظ التعديلات' onClick={submitActions.submit} />
+                    <MyButton content='حفظ التعديلات' loading={loading} onClick={submitActions.submit} />
                 </Box>
                 <Box sx={style.submitButton}>
-                    <MyButtonError content='حذف المجموعة' onClick={dialog.actions.handleDialogState} />
+                    <MyButtonError content='حذف المجموعة' loading={loading} onClick={dialog.actions.handleDialogState} />
                 </Box>
             </Box>
             <BasicDialog state={dialog.content.state} content={dialog.content} actions={dialog.actions} />

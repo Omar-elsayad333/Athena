@@ -150,10 +150,10 @@ const AddHeadquarterC: React.FC = () => {
             <PageError infoObject={submitActions.submitError} />
             <Box sx={style.buttonsContainer}>
                 <Box sx={style.submitButton}> 
-                    <MyButton content='تأكيد واضافة' onClick={submitActions.submit} />
+                    <MyButton content='تأكيد واضافة' loading={loading} onClick={submitActions.submit} />
                 </Box>
                 <Box sx={style.submitButton}>
-                    <MyButtonError content='إلغاء العملية' onClick={dialog.actions.handleDialogState} />
+                    <MyButtonError loading={loading} content='إلغاء العملية' onClick={dialog.actions.handleDialogState} />
                 </Box>
             </Box>
             <BasicDialog state={dialog.content.state} content={dialog.content} actions={dialog.actions} />

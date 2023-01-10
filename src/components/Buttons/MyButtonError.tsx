@@ -5,9 +5,10 @@ import Button from "@mui/material/Button";
 type Props = {
     content: string;
     onClick?: any;
+    loading?: boolean;
 }
 
-const MyButton: React.FC<Props> = ({content, onClick}) => {
+const MyButton: React.FC<Props> = ({content, onClick, loading}) => {
 
     const style = {
         root: {
@@ -20,7 +21,7 @@ const MyButton: React.FC<Props> = ({content, onClick}) => {
     }
 
     return (
-        <Button onClick={onClick} sx={style.root} variant='contained' color='error'>
+        <Button onClick={onClick} sx={style.root} variant='contained' disabled={loading} color='error'>
             {content}
         </Button>
     );
