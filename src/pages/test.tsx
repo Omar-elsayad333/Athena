@@ -1,13 +1,15 @@
 import { useContext } from 'react';
-import { DarkThemeContext } from 'context/ThemeContext';
+import useTest from 'container/useTest';
 import ThemeSwitcher from 'components/ThemeSwitcher';
+import { DarkThemeContext } from 'context/ThemeContext';
 
 // MUI
 import Box from '@mui/material/Box';
 
 const Test = () => {
     
-    const {mainColors} = useContext(DarkThemeContext);
+    useTest();
+    const { mainColors } = useContext(DarkThemeContext);
 
     const classes = {
         root: {

@@ -9,13 +9,21 @@ import ThemeSwitcher from "components/ThemeSwitcher";
 import PageFooter from "components/Shared/PageFooter";
 import EditHeadquarterC from 'components/Teacher/Headquarters/EditHeadquarter';
 import useEditHeadquarter from "container/headquarter/useEditHeadquarter";
+import AlertNotify from "components/AlertNotify";
+import Loading from "components/Loading/Loading";
+import { useError } from "context/ErrorContext";
 
 // MUI
 import Box from "@mui/material/Box";
-import Loading from "components/Loading/Loading";
 
 const EditHeadquarter: NextPage = () => {
 
+    const {
+        msg,
+        state,
+        msgType,
+        handleState
+    } = useError();
     const {
         data,
         dataHandlers,
@@ -84,6 +92,7 @@ const EditHeadquarter: NextPage = () => {
             <Box sx={style.footerContainer}>
                 <PageFooter />
             </Box>
+            <AlertNotify msg={msg} state={state} handleState={handleState} msgType={msgType} />
             <ThemeSwitcher />
         </Box> 
     );

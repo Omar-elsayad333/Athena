@@ -30,11 +30,29 @@ const ThemeApp: React.FC<IProps> = ({ children }) => {
         dark: lightColors.secondary.dark,
         contrastText: lightColors.secondary.contrastText,    
       },
+      success: {
+        main: lightColors.success.main,
+        light: lightColors.success.light,  
+        dark: lightColors.success.dark,
+        contrastText: lightColors.success.contrastText,  
+      },
       error: {
         main: lightColors.error.main,
         light: lightColors.error.light,  
         dark: lightColors.error.dark,
         contrastText: lightColors.error.contrastText,    
+      },
+      warning: {
+        main: lightColors.warning.main,
+        light: lightColors.warning.light,  
+        dark: lightColors.warning.dark,
+        contrastText: lightColors.warning.contrastText,  
+      },
+      info: {
+        main: lightColors.info.main,
+        light: lightColors.info.light,  
+        dark: lightColors.info.dark,
+        contrastText: lightColors.info.contrastText,  
       },
     },
     typography: {
@@ -109,11 +127,29 @@ const ThemeApp: React.FC<IProps> = ({ children }) => {
         dark: darkColors.secondary.dark,
         contrastText: darkColors.secondary.contrastText,    
       },
+      success: {
+        main: darkColors.success.main,
+        light: darkColors.success.light,  
+        dark: darkColors.success.dark,
+        contrastText: darkColors.success.contrastText,  
+      },
       error: {
         main: darkColors.error.main,
         light: darkColors.error.light,  
         dark: darkColors.error.dark,
         contrastText: darkColors.error.contrastText,    
+      },
+      warning: {
+        main: darkColors.warning.main,
+        light: darkColors.warning.light,  
+        dark: darkColors.warning.dark,
+        contrastText: darkColors.warning.contrastText,  
+      },
+      info: {
+        main: darkColors.info.main,
+        light: darkColors.info.light,  
+        dark: darkColors.info.dark,
+        contrastText: darkColors.info.contrastText,  
       },
     },
     typography: {

@@ -1,32 +1,27 @@
+import { AlertColor } from '@mui/material';
 import { useState, useContext, createContext} from 'react';
 
 type ContextState = {
     msg: string;
     state: boolean;
     handleState: Function;
-    msgType: object;
+    msgType: AlertColor;
     setInfoMessage: (message: string) => void | null;
     setErrorMessage: (message: string) => void | null;
+    setWarningMessage: (message: string) => void | null;
     setSuccessMessage: (message: string) => void | null;
 };
 
 const ErrorContext = createContext<ContextState>({
     msg: '',
     state: false,
-    msgType: {value: ''},
+    msgType: 'info',
     handleState: () => {},
     setInfoMessage: () => {},
     setErrorMessage: () => {},
+    setWarningMessage: () => {},
     setSuccessMessage: () => {}
 });
-
-type MsgType = {
-    value: string;
-};
-
-const msgTypeInitialValues = {
-    value: ''
-};
 
 type Props = {
     children: React.ReactElement<any, any> & React.ReactNode;
@@ -36,38 +31,34 @@ const ErrorProvider: React.FC<Props> = ({ children }) => {
 
     const [msg, setMsg] = useState<string>('');
     const [state, setState] = useState<boolean>(false);
-    const [msgType, setMsgType] = useState<MsgType>(msgTypeInitialValues);
+    const [msgType, setMsgType] = useState<AlertColor>('info');
 
     const handleState = () => {
-        if(state){
-            setState(false);
-        }else {
-            setState(true);
-        };
+        setState(false);
     };
 
     const setErrorMessage = (errorMessage: string) => {
         setState(true);
         setMsg(errorMessage);
-        setMsgType(() => ({
-            value: 'error'
-        }));
+        setMsgType('error');
     };
   
     const setSuccessMessage = (successMessage: string) => {
         setState(true);
         setMsg(successMessage);
-        setMsgType(() => ({
-            value: 'success'
-        }));
+        setMsgType('success');
+    };
+
+    const setWarningMessage = (warningMessage: string) => {
+        setState(true);
+        setMsg(warningMessage);
+        setMsgType('warning');
     };
     
     const setInfoMessage = (infoMessage: string) => {
         setState(true);
         setMsg(infoMessage);
-        setMsgType(() => ({
-            value: 'info'
-        }));
+        setMsgType('info');
     };
     
     const contextValue = {
@@ -77,9 +68,9 @@ const ErrorProvider: React.FC<Props> = ({ children }) => {
         handleState,
         setInfoMessage,
         setErrorMessage,
+        setWarningMessage,
         setSuccessMessage
     };
-    
     
     return (
         <ErrorContext.Provider value={contextValue}>

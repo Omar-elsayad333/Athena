@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useUser } from 'context/userContext';
 import { URL_HEADQUARTERS } from 'constant/url';
 import { getHandlerById, putHandler, deleteHandler } from 'handlers/requestHandler';
+import { useError } from 'context/ErrorContext';
 
 type Data = {
     value: string,
@@ -36,6 +37,7 @@ const dialogInitialValues = {
 const useEditHeadquarter = () => {
 
     const auth = useUser();
+    const { setSuccessMessage } = useError();
     const router = useRouter();
     const { id } = router.query;
     const [ oldData, setOldData] = useState<any>('');
@@ -187,7 +189,6 @@ const useEditHeadquarter = () => {
     // call api for request
     const submit = () => {
         setLoading(true);
-        handleDialogState();
         const data = prepareData();
         console.log(data)
         if(data) {
@@ -196,6 +197,7 @@ const useEditHeadquarter = () => {
                 console.log(res)
                 setLoading(false)
                 clearFields()
+                setSuccessMessage('asjdlkfjaslkf;')
                 router.push(`/teacher/headquarters/headquarter/${res}`)
             })
             .catch((err: any) => {

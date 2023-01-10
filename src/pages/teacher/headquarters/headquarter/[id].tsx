@@ -12,6 +12,8 @@ import PageFooter from "components/Shared/PageFooter";
 import MyIconButton from "components/MyIconButton";
 import useHeadquarter from "container/headquarter/useHeadquarter";
 import Loading from "components/Loading/Loading";
+import { useError } from "context/ErrorContext";
+import AlertNotify from "components/AlertNotify";
 
 // MUI
 import Box from "@mui/material/Box";
@@ -19,11 +21,18 @@ import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 
 const Headquarter: NextPage = () => {
 
-    const { mainColors } = useContext(DarkThemeContext);
+    const {
+        msg,
+        state,
+        msgType,
+        handleState
+    } = useError();
     const {
         data,
         loading
     } = useHeadquarter();
+    const { mainColors } = useContext(DarkThemeContext);
+
     const style = {
         root: {
             width: '100%',
@@ -88,6 +97,7 @@ const Headquarter: NextPage = () => {
             <Box sx={style.footerContainer}>
                 <PageFooter />
             </Box>
+            <AlertNotify msg={msg} state={state} handleState={handleState} msgType={msgType} />
             <ThemeSwitcher />
         </Box> 
     );
