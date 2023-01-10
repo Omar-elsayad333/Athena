@@ -14,12 +14,13 @@ import useHeadquarters from "container/headquarter/useHeadquarters";
 
 // MUI
 import Box from "@mui/material/Box";
+import { IStyle } from "styles/IStyle";
 
 const Headquarters: NextPage = () => {
 
     const {mainColors} = useContext(DarkThemeContext);
 
-    const style = {
+    const style: IStyle = {
         root: {
             width: '100%',
             minHeight: '100vh',
@@ -60,7 +61,7 @@ const Headquarters: NextPage = () => {
                 secondPath='/teacher/headquarters/add-headquarter'
                 secondContent='اضافة مقر'
             /> 
-            { loading && <Loading inside={true} /> }
+            { loading && <Loading /> }
             {
                 data &&
                 <Box sx={style.container}>

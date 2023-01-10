@@ -113,8 +113,10 @@ export const DarkThemeProvider: React.FC<Props> = ({ children }) => {
         },
         icons: {
             roundedAdd: darkMode ? 'transparent' : '#B6D5F0'
-        }
-        
+        },
+        loader: {
+            main: darkMode ? 'rgba(28, 54, 79, .4)' : 'rgba(224, 238, 255, .4)'
+        }  
     };
 
     // handle change theme
