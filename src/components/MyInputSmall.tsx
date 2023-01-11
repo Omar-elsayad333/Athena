@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { IStyle } from "styles/IStyle";
 import { DarkThemeContext } from "context/ThemeContext";
 
 // MUI
@@ -8,21 +9,22 @@ import FormControl from '@mui/material/FormControl';
 type Props = {
     name?: string;
     value?: string;
+    onChange: Function;
+    error?: boolean;
     helperText?: string;
     placeholder: string;
-    error?: boolean;
-    onChange: Function;
+    type?: string;
 }
 
-const MyInputSmall: React.FC<Props> = ({placeholder, helperText, error, onChange, value, name}) => {
+const MyInputSmall: React.FC<Props> = ({placeholder, helperText, error, onChange, value, name, type}) => {
 
     const { mainColors, darkMode} = useContext(DarkThemeContext);
 
-    const classes = {
+    const classes: IStyle = {
         root: {
             '.MuiOutlinedInput-root': {
                 width: '214px',
-                height: '46px',
+                height: '46px', 
                 fontSize: '14px',
                 fontWeight: '400',
                 border: 'none',
@@ -36,8 +38,8 @@ const MyInputSmall: React.FC<Props> = ({placeholder, helperText, error, onChange
                     }
                 },
                 '.MuiOutlinedInput-notchedOutline': {
-                    border: darkMode ? '1px solid #3F72A4' : 'none',
                     transition: '.2s ease-out',
+                    border: darkMode ? '1px solid #3F72A4' : 'none',
                     boxShadow: darkMode ? 'none' : '0px 0px 10px 1px #B6D5F0',
                 },
                 '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
@@ -55,24 +57,30 @@ const MyInputSmall: React.FC<Props> = ({placeholder, helperText, error, onChange
                 },
             },
             '.Mui-error': {
-                border: darkMode ? 'none' : 'solid 1px red !important',
                 transition: '.2s ease-out',
+                border: darkMode ? 'none' : `solid 1px ${mainColors.error.main} !important`,
             },
             '.Mui-focused': {
                 '&.Mui-error': {
                     border: darkMode ? 'none' : '1px solid transparent !important',
                 },
             },
+            "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
+                display: "none",
+            },
+            "& input[type=number]": {
+                MozAppearance: "textfield",
+            },
         }
     };
 
     const style = {
         root: {
-            marginTop: '5px',
+            marginTop: '10px',
             fontSize: '14px', 
             color: mainColors.error.main,
         },
-    }
+    }   
 
     return (
         <FormControl  required>
@@ -85,8 +93,11 @@ const MyInputSmall: React.FC<Props> = ({placeholder, helperText, error, onChange
                 onChange={e => onChange(e.target.value)}
                 error={error}
                 placeholder={placeholder}
+                type={type}
             />
-            <label style={style.root}>{helperText}</label>
+            <label style={style.root}>
+                {helperText}
+            </label>
         </FormControl>
     );
 }

@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { IStyle } from "styles/IStyle";
 import { DarkThemeContext } from "context/ThemeContext";
 
 // MUI
@@ -19,7 +20,7 @@ const MyInput: React.FC<Props> = ({type, placeholder, helperText, error, onChang
 
     const { mainColors, darkMode } = useContext(DarkThemeContext);
 
-    const classes = {
+    const classes: IStyle = {
         root: {
             '.MuiOutlinedInput-root': {
                 width: '255px',
@@ -55,27 +56,27 @@ const MyInput: React.FC<Props> = ({type, placeholder, helperText, error, onChang
                     width: '150px',
                 },
             },  
-            "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
-                display: "none",
-            },
-            "& input[type=number]": {
-                MozAppearance: "textfield",
-            },
             '.Mui-error': {
-                border: darkMode ? 'none' : 'solid 1px red !important',
                 transition: '.2s ease-out',
+                border: darkMode ? 'none' : `solid 1px ${mainColors.error.main} !important`,
             },
             '.Mui-focused': {
                 '&.Mui-error': {
                     border: darkMode ? 'none' : '1px solid transparent !important',
                 },
             },
+            "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
+                display: "none",
+            },
+            "& input[type=number]": {
+                MozAppearance: "textfield",
+            },
         }
     };
 
     const style = {
         root: {
-            marginTop: '5px',
+            marginTop: '10px',
             fontSize: '14px', 
             color: mainColors.error.main,
         },
@@ -94,7 +95,9 @@ const MyInput: React.FC<Props> = ({type, placeholder, helperText, error, onChang
                 placeholder={placeholder}
                 type={type}
             />
-            <label style={style.root}>{helperText}</label>
+            <label style={style.root}>
+                {helperText}
+            </label>
         </FormControl>
     );
 }
