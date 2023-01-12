@@ -4,7 +4,6 @@ import MyDatePicker from 'components/MyDatePicker';
 import MyButton from 'components/Buttons/MyButton';
 import MyButtonError from 'components/Buttons/MyButtonError';
 import useYearsSetting from 'container/years/useYearsSetting';
-import ClassesDialog from 'components/Dialogs/ClassesDialog';
 import ClassroomsDialog from 'components/Dialogs/ClassroomsDialog';
 
 // MUI
@@ -118,12 +117,11 @@ const EditYearC: React.FC = () => {
                         }
                     </Box>
                 }
-                <svg onClick={() => dialogs.classesHandleDialogState()} width="77" height="77" viewBox="0 0 77 77" stroke={mainColors.primary.main} fill={mainColors.icons.roundedAdd} xmlns="http://www.w3.org/2000/svg">
+                <svg width="77" height="77" viewBox="0 0 77 77" stroke={mainColors.primary.main} fill={mainColors.icons.roundedAdd} xmlns="http://www.w3.org/2000/svg">
                     <path d="M38.52 75.04C58.6894 75.04 75.04 58.6894 75.04 38.52C75.04 18.3506 58.6894 2 38.52 2C18.3506 2 2 18.3506 2 38.52C2 58.6894 18.3506 75.04 38.52 75.04Z" fill="inherit" stroke="inherit" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
                     <path d="M38.52 23.8994V53.1154" stroke="inherit" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
                     <path d="M23.9117 38.5195H53.1277" stroke="inherit" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
-                <ClassesDialog open={dialogs.classesDialogState} handleClose={dialogs.classesHandleDialogState} getSelectedClasses={classes.handleSelectedClasses} />
             </Box>
             <Typography sx={style.title} variant="h3" color={mainColors.title.main}>
                 الفصول الدراسية:-
