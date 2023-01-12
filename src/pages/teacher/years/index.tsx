@@ -48,8 +48,8 @@ const Years: NextPage = () => {
             <DesktopNavbar 
                 firstPath='/teacher/years' 
                 firstContent='الأعوام الدراسية' 
-                secondPath='/teacher/years/year-setting'
-                secondContent='الاعدادت'
+                secondPath='/teacher/years/add-year'
+                secondContent='بداية عام جديد'
             /> 
             <Box sx={style.container}>
                 <PageTitle content='الأعوام الدراسية'>

@@ -10,8 +10,15 @@ const useHeadquarters = () => {
     const [ loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
+        if(auth.authToken){
+            getData();
+        }
+    }, [])
+
+
+    const getData = async () => {        
         setLoading(true);
-        getHandler(auth.authToken, URL_HEADQUARTERS)
+        await getHandler(auth.authToken, URL_HEADQUARTERS)
         .then((res) => {
             console.log(res);
             setData(res);
@@ -21,7 +28,8 @@ const useHeadquarters = () => {
             console.log(rej);
             setLoading(false);
         })
-    }, [])
+    }
+
 
     return (
         {

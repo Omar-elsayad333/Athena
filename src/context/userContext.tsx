@@ -56,9 +56,9 @@ export const UserProvider: React.FC<IProps> = ({ children }) => {
         }
     }, [authToken])
 
-    // useEffect(() => {
-    //     console.log(user)
-    // }, [user])
+    useEffect(() => {
+        console.table(user)
+    }, [user])
 
     const userToken = (token: any) => {
         setAuthToken(token);

@@ -6,15 +6,21 @@ import { getHandlerById } from 'handlers/requestHandler';
 
 const useHeadquarter = () => {
 
+    const auth = useUser();
     const router = useRouter();
     const { id } = router.query;
-    const auth = useUser();
     const [ data, setData] = useState<any>('');
     const [ loading, setLoading] = useState<boolean>(true);
 
-    useEffect(() => {
+    useEffect(()  => {
+        if(id && auth.authToken){
+            getData();
+        }
+    }, [id])
+    
+    const getData = async () => {        
         setLoading(true);
-        getHandlerById(`${id}`, auth.authToken, URL_HEADQUARTERS)
+        await getHandlerById(`${id}`, auth.authToken, URL_HEADQUARTERS)
         .then((res) => {
             console.log(res);
             setData(res);
@@ -24,7 +30,7 @@ const useHeadquarter = () => {
             console.log(rej);
             setLoading(false);
         })
-    }, [])
+    }
 
     return (
         {
