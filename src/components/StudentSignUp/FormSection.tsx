@@ -3,7 +3,7 @@ import Link from 'next/link';
 import MyInput from '../MyInput';
 import MyPhotoInput from '../MyPhotoInput';
 import MyButton from '../LogButS';
-import MySelect from 'components/MySelect';
+// import MySelect from 'components/MySelect';
 // import MyDatePicker from 'components/MyDatePicker';
 
 // MUI
@@ -13,10 +13,10 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import MyPassInput from 'components/MyPassInput';
 
-const genders = [
-    'ذكر',
-    'أنثى',
-];
+// const genders = [
+//     'ذكر',
+//     'أنثى',
+// ];
 
 const FormSection: React.FC = () => {
     return (
@@ -52,7 +52,7 @@ const FormSection: React.FC = () => {
                         <MyInput placeholder='الاسم الأول' type='text' onChange={() => {}}/>
                         <MyInput placeholder='الاسم الأخير' type='text' onChange={() => {}} />
                         <MyInput placeholder='الاسم الأوسط' type='text' onChange={() => {}} />
-                        <MySelect placeholder='حدد النوع' data={genders} />
+                        {/* <MySelect placeholder='حدد النوع' data={genders} /> */}
                         {/* <MyDatePicker placeholder='حدد تاريخ ميلادك ' /> */}
                         <MyInput placeholder='أكتب عنوانك بالكامل' type='text' onChange={() => {}} />
                         <MyInput placeholder='البريد الإلكتروني الخاص بك' type='email' onChange={() => {}} />
