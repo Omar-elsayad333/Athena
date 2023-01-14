@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { DarkThemeContext } from 'context/ThemeContext';
-import MySelect from 'components/MySelect';
+// import MySelect from 'components/MySelect';
 import MyInput from 'components/MyInput';
 
 // MUI
@@ -28,8 +28,8 @@ const FormBasicInputs = () => {
                 بيانات المجموعة:-
             </Typography>
             <MyInput placeholder='أسم المجموعة' onChange={() => {}} />
-            <MySelect placeholder='الصف الدراسي الخاص بالمجموعة' data={[]} />
-            <MySelect placeholder='المقر الخاص بالمجموعة' data={[]} />
+            {/* <MySelect placeholder='الصف الدراسي الخاص بالمجموعة' data={[]} /> */}
+            {/* <MySelect placeholder='المقر الخاص بالمجموعة' data={[]} /> */}
             <MyInput placeholder='الحد الاقصى لعدد الطلاب' onChange={() => {}} />
         </Box>
     );
