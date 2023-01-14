@@ -13,7 +13,6 @@ import Slide from '@mui/material/Slide';
 import { TransitionProps } from '@mui/material/transitions';
 import { Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import MyDatePicker from 'components/MyDatePicker';
 
 const Transition = forwardRef(function Transition(
     props: TransitionProps & {
@@ -28,10 +27,9 @@ type Props = {
     open: boolean;
     handleClose: Function;
     getSelectedClassrooms: Function;
-    date: any;
 }
 
-const ClassroomsDialog: React.FC<Props> = ({open, handleClose, getSelectedClassrooms, date}) => {
+const SemestersDialog: React.FC<Props> = ({open, handleClose, getSelectedClassrooms}) => {
 
     const { mainColors, darkMode } = useContext(DarkThemeContext);
 
@@ -52,14 +50,13 @@ const ClassroomsDialog: React.FC<Props> = ({open, handleClose, getSelectedClassr
                 gap: '20px',
                 borderBottom: '2px solid #3F72A4',
                 boxShadow: mainColors.dialog.titleShadow,
-                '@media(max-width: 400px)': {
+                '@media(max-width: 450px)': {
                     '.MuiTypography-root': {
                         fontSize: '25px',
                     },
                 }
             },
             '.MuiDialogContent-root': {
-                width: 'fit-content',
                 padding: '35px 80px',
                 overflow: 'hidden',
                 display: 'flex',
@@ -69,49 +66,41 @@ const ClassroomsDialog: React.FC<Props> = ({open, handleClose, getSelectedClassr
                 flexWrap: 'wrap',
                 gap: '40px',
                 boxShadow: 'inset 0px -20px 57px 4px rgb(63 114 164 / 25%)',
-                '@media(max-width: 450px)': {
+                '@media(max-width: 400px)': {
                     padding: '35px 20px',
-                    gap: '20px'
+                    gap: '30px'
                 },
                 '@media(max-width: 300px)': {
                     padding: '35px 10px',
-                    gap: '20px'
+                    gap: '30px'
                 }
             },
             '.MuiDialogActions-root': {
                 padding: '0px',
-                width: '100%'
             },
         },
-        container: {
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-            flexWrap: 'wrap',
-            gap: '40px',
-        },
-        chipsContainer: {
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            flexWrap: 'wrap',
-            gap: '40px',
+        boxContainer: {
+            display: 'grid',
+            gridRowGap: '31px',
+            gridColumnGap: '35px',
+            gridTemplateColumns: 'repeat(2, 1fr)',
+            '@media screen and (max-width: 600px) ': {
+                gridTemplateColumns: 'repeat(1, 1fr)',
+            }
         },
         box: {
-            width: '140px',
-            // height: '95px',
-            padding: '7px 10px',
+            width: '154px',
+            height: '41px',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            fontWeight: '700',
             fontSize: '14px',
-            textAlign: 'center',
-            borderRadius: '7px',
+            fontWeight: '700',
+            textAlign: 'center',    
+            cursor: 'pointer',
+            borderRadius: '5px',
             color: mainColors.secondary.contrastText,
             background: mainColors.chips.main,
-            cursor: 'pointer',
         },
         exitBut: {
             minWidth: 'fit-content',
@@ -132,12 +121,15 @@ const ClassroomsDialog: React.FC<Props> = ({open, handleClose, getSelectedClassr
             }
         },
         addBut: {
-            width: '100%',
+            width: '343px',    
             height: '41px',
             fontSize: '19px',
             fontWeight: '700',
             borderRadius: '5px',
             boxShadow: 'none',
+            '@media screen and (max-width: 600px) ': {
+                width: '154px',
+            }
         },
     }
 
@@ -192,16 +184,13 @@ const ClassroomsDialog: React.FC<Props> = ({open, handleClose, getSelectedClassr
                 <Typography variant='h4' color='primary' textAlign={'center'}>
                     حدد الفصول الدراسية المناسبة لك
                 </Typography>
-                <Box sx={style.container}>
-                    <Box sx={style.chipsContainer}>
-                        <Box sx={style.box} data-day='فصل دراسي أول' className='classes' onClick={(e) => selectHandle(e)}>
-                            فصل دراسي أول
-                        </Box>
-                        <Box sx={style.box} data-day='فصل دراسي ثاني' className='classes' onClick={(e) => selectHandle(e)}>
-                            فصل دراسي ثاني  
-                        </Box>
+                <Box sx={style.boxContainer}>
+                    <Box sx={style.box} data-day='فصل دراسي أول' className='classes' onClick={(e) => selectHandle(e)}>
+                        فصل دراسي أول
                     </Box>
-                    <MyDatePicker dateValue={date.dateValue} handleDateValue={date.handleDateValue} placeholder='حدد بداية الفصل الدراسي' />
+                    <Box sx={style.box} data-day='فصل دراسي ثاني' className='classes' onClick={(e) => selectHandle(e)}>
+                        فصل دراسي ثاني  
+                    </Box>
                 </Box>
                 <DialogActions>
                     <Button variant='contained' color='primary' sx={style.addBut} onClick={() => submitData()}>
@@ -213,4 +202,4 @@ const ClassroomsDialog: React.FC<Props> = ({open, handleClose, getSelectedClassr
     );
 }
 
-export default ClassroomsDialog;
+export default SemestersDialog;

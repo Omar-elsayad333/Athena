@@ -3,12 +3,12 @@ import { DarkThemeContext } from 'context/ThemeContext';
 import MyDatePicker from 'components/MyDatePicker';
 import MyButton from 'components/Buttons/MyButton';
 import MyButtonError from 'components/Buttons/MyButtonError';
-import useYearsSetting from 'container/years/useYearsSetting';
-import ClassroomsDialog from 'components/Dialogs/ClassroomsDialog';
+import useYearsSetting from 'container/years/useAddYear';
+import ClassroomsDialog from 'components/Dialogs/SemestersDialog';
 
 // MUI
-import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
 
 const EditYearC: React.FC = () => {

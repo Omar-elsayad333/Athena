@@ -1,6 +1,6 @@
+import MyCss from './MyDialog.module.css';
 import { forwardRef, useContext } from 'react';
 import { DarkThemeContext } from 'context/ThemeContext';
-import MyCss from './MyDialog.module.css';
 
 // MUI
 import Box from '@mui/material/Box';
@@ -25,11 +25,12 @@ const Transition = forwardRef(function Transition(
 
 type Props = {
     open: boolean;
+    data?: any;
     handleClose: Function;
     getSelectedClasses: Function;
 }
 
-const ClassesDialog: React.FC<Props> = ({open, handleClose, getSelectedClasses}) => {
+const ClassesDialog: React.FC<Props> = ({open, handleClose, getSelectedClasses, data}) => {
 
     const { mainColors, darkMode } = useContext(DarkThemeContext);
 
@@ -50,14 +51,13 @@ const ClassesDialog: React.FC<Props> = ({open, handleClose, getSelectedClasses})
                 gap: '20px',
                 borderBottom: '2px solid #3F72A4',
                 boxShadow: mainColors.dialog.titleShadow,
-                '@media(max-width: 400px)': {
+                '@media(max-width: 450px)': {
                     '.MuiTypography-root': {
                         fontSize: '25px',
                     },
                 }
             },
             '.MuiDialogContent-root': {
-                width: 'fit-content',
                 padding: '35px 80px',
                 overflow: 'hidden',
                 display: 'flex',
@@ -67,13 +67,13 @@ const ClassesDialog: React.FC<Props> = ({open, handleClose, getSelectedClasses})
                 flexWrap: 'wrap',
                 gap: '40px',
                 boxShadow: 'inset 0px -20px 57px 4px rgb(63 114 164 / 25%)',
-                '@media(max-width: 450px)': {
+                '@media(max-width: 400px)': {
                     padding: '35px 20px',
-                    gap: '20px'
+                    gap: '30px'
                 },
                 '@media(max-width: 300px)': {
                     padding: '35px 10px',
-                    gap: '20px'
+                    gap: '30px'
                 }
             },
             '.MuiDialogActions-root': {
@@ -81,26 +81,30 @@ const ClassesDialog: React.FC<Props> = ({open, handleClose, getSelectedClasses})
             },
         },
         boxContainer: {
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            flexWrap: 'wrap',
-            gap: '28px',
+            display: 'grid',
+            gridRowGap: '31px',
+            gridColumnGap: '35px',
+            gridTemplateColumns: 'repeat(3, 1fr)',
+            '@media screen and (max-width: 825px) ': {
+                gridTemplateColumns: 'repeat(2, 1fr)',
+            },
+            '@media screen and (max-width: 600px) ': {
+                gridTemplateColumns: 'repeat(1, 1fr)',
+            }
         },
         box: {
-            width: '95px',
-            height: '95px',
-            padding: '5px',
+            width: '154px',
+            height: '41px',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
+            fontSize: '14px',
             fontWeight: '700',
-            fontSize: '20px',
-            textAlign: 'center',
-            borderRadius: '50%',
+            textAlign: 'center',    
+            cursor: 'pointer',
+            borderRadius: '5px',
             color: mainColors.secondary.contrastText,
             background: mainColors.chips.main,
-            cursor: 'pointer',
         },
         exitBut: {
             minWidth: 'fit-content',
@@ -121,12 +125,18 @@ const ClassesDialog: React.FC<Props> = ({open, handleClose, getSelectedClasses})
             }
         },
         addBut: {
-            width: '109px',
+            width: '295px',
             height: '41px',
             fontSize: '19px',
             fontWeight: '700',
             borderRadius: '5px',
             boxShadow: 'none',
+            '@media screen and (max-width: 825px) ': {
+                width: '343px',    
+            },
+            '@media screen and (max-width: 600px) ': {
+                width: '154px',
+            }
         },
     }
 
@@ -146,11 +156,11 @@ const ClassesDialog: React.FC<Props> = ({open, handleClose, getSelectedClasses})
         for (let i = 0; i < classes.length; i++) {
             if (classes[i]?.classList.contains(`${MyCss.selected}`) || classes[i]?.classList.contains(`${MyCss.darkSelected}`) ) {
                 const selectedData: any = {
-                    name: '',
-                    content: '',
+                    id: '',
+                    name: ''
                 };
-                selectedData['name'] = (classes[i]?.getAttribute("data-day"));
-                selectedData['content'] = (classes[i]?.innerHTML);
+                selectedData['id'] = (classes[i]?.getAttribute("data-id"));
+                selectedData['name'] = (classes[i]?.innerHTML);
                 selected.push(selectedData);
             } else {
                 continue;
@@ -182,27 +192,30 @@ const ClassesDialog: React.FC<Props> = ({open, handleClose, getSelectedClasses})
                     حدد الصفوف الدراسية المناسبة لك
                 </Typography>
                 <Box sx={style.boxContainer}>
-                    <Box sx={style.box} data-day='أولى إعدادي' className='classes' onClick={(e) => selectHandle(e)}>
-                        أولى إعدادي
-                    </Box>
-                    <Box sx={style.box} data-day='ثانية إعدادي' className='classes' onClick={(e) => selectHandle(e)}>
-                        ثانية إعدادي   
-                    </Box>
-                    <Box sx={style.box} data-day='ثالثة إعدادي' className='classes' onClick={(e) => selectHandle(e)}>
-                        ثالثة إعدادي
-                    </Box>
-                    <Box sx={style.box} data-day='أولى ثانوي' className='classes' onClick={(e) => selectHandle(e)}>
-                        أولى ثانوي
-                    </Box>
-                    <Box sx={style.box} data-day='ثانية ثانوي' className='classes' onClick={(e) => selectHandle(e)}>
-                        ثانية ثانوي
-                    </Box>
-                    <Box sx={style.box} data-day='ثالثة ثانوي' className='classes' onClick={(e) => selectHandle(e)}>
-                        ثالثة ثانوي  
-                    </Box>
+                    {
+                        data && 
+                        data.map((item: any) => (
+                            <Box 
+                                sx={style.box}
+                                key={item.teacherCourseLevelId}
+                                data-id={item.teacherCourseLevelId} 
+                                className='classes' 
+                                onClick={(e) => selectHandle(e)}
+                            >
+                                {item.levelName}
+                            </Box>
+                        ))
+                    }
                 </Box>
                 <DialogActions>
-                    <Button variant='contained' color='primary' sx={style.addBut} onClick={() => submitData()}>تأكيد</Button>
+                    <Button 
+                        variant='contained' 
+                        color='primary' 
+                        sx={style.addBut} 
+                        onClick={() => submitData()}
+                    >
+                        تأكيد واضافة
+                    </Button>
                 </DialogActions>
             </DialogContent>
         </Dialog>

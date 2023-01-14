@@ -61,7 +61,7 @@ const MyDaysDialog: React.FC<Props> = ({open, handleClose, getSelectedDays}) => 
                 placeItems: 'center',
                 gridRowGap: '35px',
                 gridColumnGap: '25px',
-                gridTemplateColumns: 'repeat(4, 1fr)',
+                gridTemplateColumns: 'auto-fill',
                 boxShadow: 'inset 0px -20px 57px 4px rgb(63 114 164 / 25%)',
                 '@media(max-width: 1000px)': {
                     padding: '23px 45px',

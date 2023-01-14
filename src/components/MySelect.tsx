@@ -1,29 +1,26 @@
-import { useState } from 'react';
 import { useContext } from "react";
 import { DarkThemeContext } from "context/ThemeContext";
 
 // MUI
 import MenuItem from '@mui/material/MenuItem';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Select from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { SxProps, Typography } from '@mui/material';
 
 type Props = {
-    placeholder: string;
     data: any;
+    value: string;
+    getSelected: Function;
+    placeholder: string;
 }
 
-const MySelect: React.FC<Props> = ({placeholder, data}) => {
+const MySelect: React.FC<Props> = ({value, getSelected, placeholder, data}) => {
 
     const {darkMode} = useContext(DarkThemeContext);
-    const [item, setItem] = useState<string>('');
 
-    const handleChange = (event: SelectChangeEvent<typeof item>) => {
-        const {
-            target: { value },
-        } = event;
-        setItem(value);
+    const handleChange = (event: any) => {
+        getSelected(event.target.value);
     };
 
     const classes = {
@@ -91,12 +88,20 @@ const MySelect: React.FC<Props> = ({placeholder, data}) => {
                 displayEmpty
                 IconComponent={KeyboardArrowDownIcon}
                 sx={classes.root}
-                value={item}
+                value={value}
                 onChange={handleChange}
                 renderValue={(selected) => {
                     if (selected.length === 0) {
                         return (
-                            <Typography fontSize={14} fontWeight={400} color={ darkMode ? 'rgb(182 213 240 / 65%)': 'rgba(63, 114, 164, .65)'}>
+                            <Typography 
+                                fontSize={14}
+                                fontWeight={400} 
+                                color={ 
+                                    darkMode ?
+                                    'rgb(182 213 240 / 65%)' :
+                                    'rgba(63, 114, 164, .65)'
+                                }
+                            >
                                 {placeholder}
                             </Typography>);
                     }
