@@ -187,7 +187,7 @@ const AddYearC: React.FC = () => {
                     </Box>
                     <Box sx={style.classroomsSecondBackPaper}>
                         {
-                            data.selectedClasses.map((item: any) => {
+                            data.selectedClasses.map(() => {
                                 return (
                                     // <Box key={item.id} sx={style.classesLabel}>
                                     //     {item.name}
