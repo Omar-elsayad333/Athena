@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { DarkThemeContext } from 'context/ThemeContext';
-import MySelect from 'components/MySelect';
+// import MySelect from 'components/MySelect';
 import MyInput from 'components/MyInput';
 
 // MUI
@@ -47,13 +47,13 @@ const FormBasicInputs: React.FC<Props> = ({data}) => {
                 <Typography variant='h5' color={mainColors.primary.dark}>
                     الصف الدراسي الخاص بالمجموعة   
                 </Typography>
-                <MySelect placeholder={data.level} data={[]} />
+                {/* <MySelect placeholder={data.level} data={[]} /> */}
             </Box>
             <Box sx={style.inputContainer}>
                 <Typography variant='h5' color={mainColors.primary.dark}>
                     المقر الخاص بالمجموعة   
                 </Typography>
-                <MySelect placeholder={data.location} data={[]} />
+                {/* <MySelect placeholder={data.location} data={[]} /> */}
             </Box>
             <Box sx={style.inputContainer}>
                 <Typography variant='h5' color={mainColors.primary.dark}>
