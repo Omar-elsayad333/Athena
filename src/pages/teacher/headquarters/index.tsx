@@ -11,10 +11,12 @@ import ThemeSwitcher from "components/ThemeSwitcher";
 import PageFooter from "components/Shared/PageFooter";
 import Loading from "components/Loading/Loading";
 import useHeadquarters from "container/headquarter/useHeadquarters";
+import { IStyle } from "styles/IStyle";
+import { useError } from "context/ErrorContext";
+import AlertNotify from "components/AlertNotify";
 
 // MUI
 import Box from "@mui/material/Box";
-import { IStyle } from "styles/IStyle";
 
 const Headquarters: NextPage = () => {
 
@@ -48,6 +50,13 @@ const Headquarters: NextPage = () => {
     }
 
     const {
+        msg,
+        state,
+        msgType,
+        handleState
+    } = useError();
+
+    const {
         data,
         loading
     } = useHeadquarters();
@@ -78,6 +87,7 @@ const Headquarters: NextPage = () => {
                 <PageFooter />
             </Box>
             <ThemeSwitcher />
+            <AlertNotify msg={msg} state={state} handleState={handleState} msgType={msgType} />
         </Box>    
     );
 }

@@ -20,7 +20,7 @@ type AlertNotifyProps = {
 
 const AlertNotify: React.FC<AlertNotifyProps> = ({ msg, state, msgType, handleState }) => {
 
-    const { mainColors } = useContext(DarkThemeContext)
+    const { mainColors, darkMode } = useContext(DarkThemeContext)
 
     const style: IStyle = {
         root: {
@@ -28,7 +28,7 @@ const AlertNotify: React.FC<AlertNotifyProps> = ({ msg, state, msgType, handleSt
                 gap: '25px',
                 fontSize: '14px',
                 fontWeight: '700',
-                background: 'transparent',
+                background: darkMode ? 'rgba(20, 28, 38, 0.75)' : 'rgba(63, 114, 164, 0.75)',
                 borderRadius: '10px',
                 border: '2px solid',    
                 borderColor: () => {

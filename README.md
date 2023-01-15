@@ -11,8 +11,6 @@ UI/UX notes
 
 Back-End notes
 
-* remove condetion ( phone nunber lenth = 11 )
-
 ------------------------------------------------
 
 End Of Project notes

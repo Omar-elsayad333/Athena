@@ -5,6 +5,7 @@ import { DarkThemeContext } from 'context/ThemeContext';
 
 // MUI
 import Box from '@mui/material/Box';
+import AlertNotify from 'components/AlertNotify';
 
 const Test = () => {
     

@@ -3,6 +3,7 @@ import { URL_HEADQUARTERS } from 'constant/url';
 import { postHandler } from "handlers/requestHandler";
 import { useUser } from "context/userContext";
 import { useRouter } from "next/router";
+import { useError } from "context/ErrorContext";
 
 type Data = {
     value: string,
@@ -37,6 +38,7 @@ const useAddHeadquarter = () => {
 
     const auth = useUser();
     const router = useRouter();
+    const { setSuccessMessage, setErrorMessage } = useError()
     const [ loading, setLoading] = useState<boolean>(false);
     const [ name, setName] = useState<Data>(initialValues);
     const [ city, setCity] = useState<Data>(initialValues);
@@ -167,7 +169,7 @@ const useAddHeadquarter = () => {
                 console.log(res)
                 setLoading(false)
                 clearFields()
-                console.log(res)
+                setSuccessMessage('تم اضافة المقر بنجاح')
                 router.push(`/teacher/headquarters/headquarter/${res}`)
             })
             .catch((err: any) => {
@@ -179,6 +181,7 @@ const useAddHeadquarter = () => {
 
     const deleteAction = () => {
         clearFields();
+        setErrorMessage('تم الغاء العمليه بنجاح');
         router.push('/teacher/headquarters');
     }
 

@@ -1,6 +1,6 @@
-import { forwardRef, useContext } from 'react';
-import { DarkThemeContext } from 'context/ThemeContext';
 import MyCss from './MyDialog.module.css';
+import { forwardRef, useContext, useEffect } from 'react';
+import { DarkThemeContext } from 'context/ThemeContext';
 
 // MUI
 import Box from '@mui/material/Box';
@@ -25,11 +25,12 @@ const Transition = forwardRef(function Transition(
 
 type Props = {
     open: boolean;
+    name?: string;
     handleClose: Function;
     getSelectedClassrooms: Function;
 }
 
-const SemestersDialog: React.FC<Props> = ({open, handleClose, getSelectedClassrooms}) => {
+const SemestersDialog: React.FC<Props> = ({open, name, handleClose, getSelectedClassrooms}) => {
 
     const { mainColors, darkMode } = useContext(DarkThemeContext);
 
@@ -141,26 +142,28 @@ const SemestersDialog: React.FC<Props> = ({open, handleClose, getSelectedClassro
     };
 
     const submitData = () => {
-        const selected = [];
-
-        const classes = document.getElementsByClassName('classes');
+        const semester = document.getElementsByClassName('semester');
+        const selectedData: any = {
+            id: name,
+            first: false,
+            second: false,
+        };
 
         // get selected days then remove the selected class
-        for (let i = 0; i < classes.length; i++) {
-            if (classes[i]?.classList.contains(`${MyCss.selected}`) || classes[i]?.classList.contains(`${MyCss.darkSelected}`) ) {
-                const selectedData: any = {
-                    name: '',
-                    content: '',
-                };
-                selectedData['name'] = (classes[i]?.getAttribute("data-day"));
-                selectedData['content'] = (classes[i]?.innerHTML);
-                selected.push(selectedData);
+        for (let i = 0; i < semester.length; i++) {
+            if (semester[i]?.classList.contains(`${MyCss.selected}`) || semester[i]?.classList.contains(`${MyCss.darkSelected}`) ) {
+                if(semester[i]?.getAttribute("data-definition") == 'first'){
+                    selectedData['first'] = true;
+                }else {
+                    selectedData['second'] = true;
+                }
             } else {
                 continue;
             }
         };
 
-        getSelectedClassrooms(selected);
+        
+        getSelectedClassrooms(selectedData);
         handleClose();
     }       
 
@@ -185,10 +188,10 @@ const SemestersDialog: React.FC<Props> = ({open, handleClose, getSelectedClassro
                     حدد الفصول الدراسية المناسبة لك
                 </Typography>
                 <Box sx={style.boxContainer}>
-                    <Box sx={style.box} data-day='فصل دراسي أول' className='classes' onClick={(e) => selectHandle(e)}>
+                    <Box sx={style.box} data-definition='first' className='semester' onClick={(e) => selectHandle(e)}>
                         فصل دراسي أول
                     </Box>
-                    <Box sx={style.box} data-day='فصل دراسي ثاني' className='classes' onClick={(e) => selectHandle(e)}>
+                    <Box sx={style.box} data-definition='second' className='semester' onClick={(e) => selectHandle(e)}>
                         فصل دراسي ثاني  
                     </Box>
                 </Box>

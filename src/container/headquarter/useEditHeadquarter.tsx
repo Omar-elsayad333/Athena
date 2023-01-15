@@ -37,7 +37,7 @@ const dialogInitialValues = {
 const useEditHeadquarter = () => {
 
     const auth = useUser();
-    const { setSuccessMessage } = useError();
+    const { setSuccessMessage, setErrorMessage } = useError();
     const router = useRouter();
     const { id } = router.query;
     const [ oldData, setOldData] = useState<any>('');
@@ -213,10 +213,10 @@ const useEditHeadquarter = () => {
         setLoading(true);
         handleDialogState();
         deleteHandler(id, auth.authToken, URL_HEADQUARTERS)
-        .then((res: any) => {
+        .then(() => {
             setLoading(false)
-            console.log(res)
             clearFields();
+            setErrorMessage('تم حذف المقر بنجاح')
             router.push(`/teacher/headquarters`)
         })
         .catch((err: any) => {

@@ -93,8 +93,8 @@ const EditHeadquarter: NextPage = () => {
             <Box sx={style.footerContainer}>
                 <PageFooter />
             </Box>
-            <AlertNotify msg={msg} state={state} handleState={handleState} msgType={msgType} />
             <ThemeSwitcher />
+            <AlertNotify msg={msg} state={state} handleState={handleState} msgType={msgType} />
         </Box> 
     );
 }

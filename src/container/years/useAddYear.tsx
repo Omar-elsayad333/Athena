@@ -4,14 +4,30 @@ import { yearsToSelect } from 'constant/staticData';
 import { getHandler } from 'handlers/requestHandler';
 import { URL_YEARS_REQUIRED } from 'constant/url';
 
-type ActiveYear = {
+interface ActiveYear {
     name: string;
     state: boolean;
 }
 
-const ActiveYearInitialValue = {
+const YearActiveInitialValue = {
     name: '',
     state: false
+}
+
+interface TeacherCoureLevels {
+    id: string;
+    first: boolean;
+    second: boolean;
+}
+
+interface Data {
+    start: number;
+    teacherCoureLevels: TeacherCoureLevels[] 
+}
+
+const dataInitialValues = {
+    start: 0,
+    teacherCoureLevels: []
 }
 
 const useYearsSetting = () => {
@@ -19,11 +35,10 @@ const useYearsSetting = () => {
     const auth = useUser(); 
     const [ loading, setLoading ] = useState<boolean>(false);
     const [ requiredData, setRequiredData ] = useState<any>('');
-    const [ yearActive, setYearActive] = useState<ActiveYear>(ActiveYearInitialValue);
-    const [ selectedClasses, setSelectedClasses] = useState<object[]>([]);
+    const [ yearActive, setYearActive] = useState<ActiveYear>(YearActiveInitialValue);
+    const [ selectedClasses, setSelectedClasses] = useState<any[]>([]);
     const [ classesDialogState, setClassesDialogState] = useState<boolean>(false);
-    const [ selectedSemesters, setSelectedSemesters] = useState<any>();
-    const [ semetersDialogState, setSemestersDialogState] = useState<boolean>(false);
+    const [ dataToSubmit, setDataToSubmit] = useState<Data>(dataInitialValues)
 
     // Get the required data for this page
     useEffect(() => {
@@ -67,10 +82,15 @@ const useYearsSetting = () => {
             setYearActive((oldData) => ({...oldData, state: true}))
         }
     }
+
+    useEffect(() => {
+        console.log(dataToSubmit);
+    }, [dataToSubmit])
     
     // Get active year
     const getSelectedYear = (selected: string) => {
         setYearActive((oldData) => ({...oldData, name: selected }));
+        setDataToSubmit(oldData => ({...oldData, start: parseInt(selected)}))
     }
 
     // Get available classes from db
@@ -89,13 +109,15 @@ const useYearsSetting = () => {
     }
 
     // Get the selected Classes
-    const handleSelectedClasses = (selectedClasses: any) => {
-        setSelectedClasses(selectedClasses);
-    }
-
-    // Get the selected Semesters
-    const handleSelectedSemesters = (selectedClasserooms: any) => {
-        setSelectedSemesters(selectedClasserooms);
+    const handleSelectedClasses = (selected: any) => {
+        setSelectedClasses(selected);
+        classesLoop: for(let i = 0; i < selected.length; i++){
+            dataToSubmit.teacherCoureLevels.push({
+                id: selected[i].id,
+                first: false,
+                second: false
+            })
+        }
     }
 
     // Open and close classes dialog
@@ -108,19 +130,39 @@ const useYearsSetting = () => {
     }
     
     // Open and close semesters dialog
-    const semestersHandleDialog = () => {
-        if(semetersDialogState){
-            setSemestersDialogState(false);
-        }else {
-            setSemestersDialogState(true);
+    const semestersHandler = (selectedClass: string, selectedSemester: string) => {
+        classesLoop: for(let i = 0; i < dataToSubmit.teacherCoureLevels.length; i++){
+            if(dataToSubmit.teacherCoureLevels[i]?.id == selectedClass && selectedSemester == 'first') {
+                if(dataToSubmit.teacherCoureLevels[i]?.first){
+                    dataToSubmit.teacherCoureLevels[i]!.first = false;
+                }else {
+                    dataToSubmit.teacherCoureLevels[i]!.first = true;
+                }
+            }
+            if(dataToSubmit.teacherCoureLevels[i]?.id == selectedClass && selectedSemester == 'second') {
+                if(dataToSubmit.teacherCoureLevels[i]?.first){
+                    dataToSubmit.teacherCoureLevels[i]!.second = false;
+                }else {
+                    dataToSubmit.teacherCoureLevels[i]!.second = true;
+                }
+            }
         }
     }
 
     const submit = () => {
-        console.table({
-            selectedClasses: selectedClasses,
-            selectedClassrooms: selectedSemesters,
-        })
+        // setLoading(true)
+        // collectData();
+        console.log(dataToSubmit)
+        // try {
+        //     const res = postHandler(auth.authToken, URL_YEARS, dataToSubmit)
+        //     console.log(res);
+        // }
+        // catch(error) {
+        //     console.log(error);
+        // }
+        // finally {
+        //     setLoading(false)
+        // }
     }
 
     return (
@@ -132,8 +174,7 @@ const useYearsSetting = () => {
                 classesHandleDialog,
                 handleSelectedClasses,
 
-                semestersHandleDialog,
-                handleSelectedSemesters,
+                semestersHandler,
 
                 submit
             },
@@ -141,7 +182,6 @@ const useYearsSetting = () => {
                 loading,
                 yearActive,
                 classesDialogState,
-                semetersDialogState,
             },
             data: {
                 requiredData,

@@ -8,7 +8,7 @@ const HeadquartersC: React.FC<Props> = ({data}) => {
 
     return (
         <>
-            <HeadquarterCard data={data} /> :
+            <HeadquarterCard data={data} />
         </>
     );
 }
