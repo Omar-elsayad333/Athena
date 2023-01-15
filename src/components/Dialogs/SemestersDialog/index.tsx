@@ -1,5 +1,5 @@
 import MyCss from './MyDialog.module.css';
-import { forwardRef, useContext, useEffect } from 'react';
+import { forwardRef, useContext } from 'react';
 import { DarkThemeContext } from 'context/ThemeContext';
 
 // MUI
