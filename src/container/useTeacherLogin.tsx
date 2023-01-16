@@ -26,8 +26,8 @@ const useTeacherLogin = () => {
         setIsLoading(true)
         if(password.length >= 8) {
             const data = {
-                'email': userName,
-                'password': password.password
+                'email': userName.trim(),
+                'password': password.password.trim()
             }
 
             // Get user token
