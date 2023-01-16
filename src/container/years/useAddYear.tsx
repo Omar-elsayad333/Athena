@@ -45,8 +45,6 @@ const useYearsSetting = () => {
         if(auth) {
             getClassesData();
         }
-        
-        document.addEventListener('contextmenu', event => event.preventDefault());
     }, [auth])
 
     // year animation
