@@ -179,7 +179,7 @@ const EditHeadquarterC: React.FC<Props> = ({oldData, data, dataHandlers, thirdPh
                     <MyButton content='حفظ التعديلات' loading={loading} onClick={submitActions.submit} />
                 </Box>
                 <Box sx={style.submitButton}>
-                    <MyButtonError content='حذف المجموعة' loading={loading} onClick={dialog.actions.handleDialogState} />
+                    <MyButtonError content="حذف المقر" loading={loading} onClick={dialog.actions.handleDialogState} />
                 </Box>
             </Box>
             <BasicDialog state={dialog.content.state} content={dialog.content} actions={dialog.actions} />
