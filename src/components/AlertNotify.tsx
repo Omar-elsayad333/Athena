@@ -28,7 +28,7 @@ const AlertNotify: React.FC<AlertNotifyProps> = ({ msg, state, msgType, handleSt
                 gap: '25px',
                 fontSize: '14px',
                 fontWeight: '700',
-                background: darkMode ? 'rgba(20, 28, 38, 0.75)' : 'rgba(63, 114, 164, 0.75)',
+                background: darkMode ? 'rgba(20, 28, 38, 0.50)' : 'rgba(63, 114, 164, 0.50)',
                 borderRadius: '10px',
                 border: '2px solid',    
                 borderColor: () => {
