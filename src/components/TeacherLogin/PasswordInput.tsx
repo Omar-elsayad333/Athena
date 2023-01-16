@@ -48,7 +48,7 @@ type Props = {
 const PasswordInput: React.FC<Props> = ({value, setValue}) => {
     
     const handleChange = (prop: any) => (event: React.ChangeEvent<HTMLInputElement>) => {
-        setValue({ ...value, [prop]: event.target.value, ['length']: event.target.value.length });
+        setValue({ ...value, [prop]: event.target.value.trim(), length: event.target.value.trim().length });
     };
 
     const handleClickShowPassword = () => {

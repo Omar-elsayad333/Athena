@@ -55,7 +55,7 @@ const LoginInput: React.FC<Props> = ({Name, value, setValue, error, HelperText})
             sx={classes.root}  
             name={Name}
             value={value}
-            onChange={e => setValue(e.target.value)}
+            onChange={e => setValue(e.target.value.trim())}
             error={error}
             helperText={HelperText}
         />    
