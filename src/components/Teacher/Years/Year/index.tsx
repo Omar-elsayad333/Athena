@@ -14,7 +14,7 @@ type Props = {
     dialogs: any;
 }
 
-const YearC: React.FC<Props> = ({data, states, actions, dialogs}) => {
+const YearC: React.FC<Props> = ({data, states}) => {
 
     const { mainColors } = useContext(DarkThemeContext)
 
