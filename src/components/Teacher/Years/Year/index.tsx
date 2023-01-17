@@ -1,5 +1,7 @@
 import { useContext } from 'react';
 import { IStyle } from 'styles/IStyle';
+import { useError } from 'context/ErrorContext';
+import AlertNotify from 'components/AlertNotify';
 import Loading from "components/Loading/Loading";
 import { DarkThemeContext } from "context/ThemeContext";
 
@@ -16,7 +18,13 @@ type Props = {
 
 const YearC: React.FC<Props> = ({data, states}) => {
 
-    const { mainColors } = useContext(DarkThemeContext)
+    const { mainColors } = useContext(DarkThemeContext);
+    const {
+        msg,
+        state,
+        msgType,
+        handleState
+    } = useError();
 
     const style: IStyle = {
         container: {
@@ -46,10 +54,13 @@ const YearC: React.FC<Props> = ({data, states}) => {
         periodBreak: {
             width: '2px',
             height: '100%',
-            background: mainColors.paper.border
+            background: mainColors.paper.border,
+            '@media screen and (max-width: 500px)': {
+                height: '2px',
+                width: '100%'
+            }
         },
         backPaper: {
-            width: 'fit-content',
             padding: '26px 42px',
             display: 'flex',
             flexWrap: 'wrap',
@@ -114,17 +125,6 @@ const YearC: React.FC<Props> = ({data, states}) => {
         title: {
             flex: '100%',
         },
-        buttonsContainer: {
-            marginTop: '30px',
-            flex: '100%',
-            display: 'flex',
-            flexWrap: 'wrap',
-            gap: '35px'
-        },
-        submitButton: {
-            width: '170px',
-            height: '40px',
-        }
     }
 
     return (  
@@ -170,48 +170,37 @@ const YearC: React.FC<Props> = ({data, states}) => {
                     })
                 }
             </Box>
+            <Typography sx={style.title} variant="h3" color={mainColors.title.main}>
+                الفصول الدراسية:-
+            </Typography>
             {
-                // data.selectedClasses.length > 0 &&
-                // <Box sx={style.semestersBackPaper}>
-                //     {
-                //         data.selectedClasses.map((item: any, index: number) => {
-                //             return (
-                //                 <Box key={item.id} sx={style.semeterContainer}>
-                //                     <Box sx={style.classesLabel}>
-                //                         {item.name}
-                //                     </Box>
-                //                     <Box sx={style.semestersBox}>
-                //                         {
-                //                             data.classes[index]?.first ?
-                //                             <Box sx={style.semesterChip} onClick={() => actions.removeSemester(item.id, 'first')}>
-                //                                 الفصل الدراسي الاول
-                //                             </Box> : 
-                //                             <MyIconButton 
-                //                                 event={() => actions.addSemester(item.id, 'first')} 
-                //                                 content='الفصول الدراسية '
-                //                                 icon={<ControlPointIcon />} 
-                //                             />
-                //                         }
-                //                         {
-                //                             data.classes[index]?.second ?
-                //                             <Box sx={style.semesterChip} onClick={() => actions.removeSemester(item.id, 'second')}>
-                //                                 الفصل الدراسي الثاني
-                //                             </Box> : 
-                //                             <Box sx={style.semestersBox}>
-                //                                 <MyIconButton 
-                //                                     event={() => actions.addSemester(item.id, 'second')} 
-                //                                     content='الفصول الدراسية '   
-                //                                     icon={<ControlPointIcon />} 
-                //                                     />
-                //                             </Box>
-                //                         }
-                //                     </Box>
-                //                 </Box>
-                //             )
-                //         })
-                //     }
-                // </Box>
+                data.pageData &&
+                <Box sx={style.semestersBackPaper}>
+                    {
+                        data.pageData.levels.map((item: any, index: number) => {
+                            return (
+                                <Box key={item.id} sx={style.semeterContainer}>
+                                    <Box sx={style.classesLabel}>
+                                        {item.levelName}
+                                    </Box>
+                                    <Box sx={style.semestersBox}>
+                                        {
+                                            data.pageData.levels[index].semsters.map((item: any) => {
+                                                return (
+                                                    <Box sx={style.semesterChip}>
+                                                        {item.semster}
+                                                    </Box>
+                                                )
+                                            })
+                                        }
+                                    </Box>
+                                </Box>
+                            )
+                        })
+                    }
+                </Box>
             }
+            <AlertNotify msg={msg} state={state} handleState={handleState} msgType={msgType} />
         </Box>
     );
 }
