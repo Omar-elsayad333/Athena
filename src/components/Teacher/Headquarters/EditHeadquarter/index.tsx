@@ -173,7 +173,7 @@ const EditHeadquarterC: React.FC<Props> = ({oldData, data, dataHandlers, thirdPh
                     <path d="M2 2L17.28 17.28" stroke="#3F72A4" strokeWidth="2.38" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
             </Box>
-            <PageError infoObject={submitActions.submitError} />
+            <PageError errorInfo={submitActions.submitError} />
             <Box sx={style.buttonsContainer}>
                 <Box sx={style.submitButton}>
                     <MyButton content='حفظ التعديلات' loading={loading} onClick={submitActions.submit} />
