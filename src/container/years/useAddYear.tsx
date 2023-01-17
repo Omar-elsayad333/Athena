@@ -259,9 +259,9 @@ const useYearsSetting = () => {
             if(data) {
                 try {
                     setLoading(true);
-                    postHandler(auth.authToken, URL_YEARS, data)
+                    const res = postHandler(auth.authToken, URL_YEARS, data)
                     setSuccessMessage('تم بدأ عام جديد بنجاح');
-                    
+                    router.push(`/teacher/years/year/${res}`)
                 }
                 catch(error) {
                     console.log(error);
