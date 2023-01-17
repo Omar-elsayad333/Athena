@@ -13,11 +13,12 @@ type Props = {
     value: string;
     getSelected: Function;
     placeholder: string;
+    error: boolean;
 }
 
-const MySelect: React.FC<Props> = ({value, getSelected, placeholder, data}) => {
+const MySelect: React.FC<Props> = ({value, getSelected, placeholder, data, error}) => {
 
-    const {darkMode} = useContext(DarkThemeContext);
+    const { mainColors, darkMode} = useContext(DarkThemeContext);
 
     const handleChange = (event: any) => {
         getSelected(event.target.value);
@@ -55,6 +56,15 @@ const MySelect: React.FC<Props> = ({value, getSelected, placeholder, data}) => {
                 left: '10px',
                 right: 'auto',
             },
+            '&.Mui-error': {
+                transition: '.2s ease-out',
+                border: darkMode ? 'none' : `solid 1px ${mainColors.error.main} !important`,
+            },
+            '&.Mui-focused': {
+                '&.Mui-error': {
+                    border: darkMode ? 'none' : '1px solid transparent !important',
+                },
+            },
             '@media(max-width: 300px)': {
                 width: '200px',
             },
@@ -89,6 +99,7 @@ const MySelect: React.FC<Props> = ({value, getSelected, placeholder, data}) => {
                 IconComponent={KeyboardArrowDownIcon}
                 sx={classes.root}
                 value={value}
+                error={error}
                 onChange={handleChange}
                 renderValue={(selected) => {
                     if (selected.length === 0) {

@@ -13,6 +13,8 @@ import MyButtonError from 'components/Buttons/MyButtonError';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import ControlPointIcon from '@mui/icons-material/ControlPoint';
+import PageError from 'components/Shared/PageError';
+import BasicDialog from 'components/Dialogs/BasicDialogs';
 
 
 const AddYearC: React.FC = () => {
@@ -22,6 +24,7 @@ const AddYearC: React.FC = () => {
         data,
         states,
         actions,
+        dialog
     } = useAddYear();
     
     const style: IStyle = {
@@ -84,7 +87,7 @@ const AddYearC: React.FC = () => {
             display: 'flex',
             flexDirection: 'column',
             flexWrap: 'wrap',
-            gap: '46px',
+            gap: '60px',
             borderRadius: '12px',
             background: mainColors.paper.main,
             border: `2px solid ${mainColors.paper.border}`,
@@ -98,9 +101,23 @@ const AddYearC: React.FC = () => {
         },
         semestersBox: {
             display: 'flex',
-            flexDirection: 'column',
             flexWrap: 'wrap',
-            gap: '18px'
+            gap: '29px'
+        },
+        semesterChip: {
+            width: '154px',
+            height: '41px',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            fontSize: '14px',
+            fontWeight: '700',
+            textAlign: 'center',    
+            cursor: 'pointer',
+            borderRadius: '5px',
+            border: `solid 1px ${mainColors.chips.border}`,
+            color: mainColors.secondary.contrastText,
+            background: mainColors.linerGradient.primary,
         },
         title: {
             flex: '100%',
@@ -138,6 +155,7 @@ const AddYearC: React.FC = () => {
                 </Box>
                 <Box className='classes-section'>
                     <MySelect 
+                        error={states.yearActive.error}
                         value={states.yearActive.name} 
                         getSelected={actions.getSelectedYear} 
                         placeholder='تحديد العام الدراسي' 
@@ -179,31 +197,37 @@ const AddYearC: React.FC = () => {
                 data.selectedClasses.length > 0 &&
                 <Box sx={style.semestersBackPaper}>
                     {
-                        data.selectedClasses.map((item: any) => {
+                        data.selectedClasses.map((item: any, index: number) => {
                             return (
                                 <Box key={item.id} sx={style.semeterContainer}>
                                     <Box sx={style.classesLabel}>
                                         {item.name}
                                     </Box>
                                     <Box sx={style.semestersBox}>
-                                        <Typography color={mainColors.title.main} variant='h5'>
-                                            الفصل الدراسي الاول 
-                                        </Typography>
-                                        <MyIconButton 
-                                            event={() => actions.semestersHandler(item.id, 'first')} 
-                                            content='بداية الفصل الدراسي'
-                                            icon={<ControlPointIcon />} 
-                                        />
-                                    </Box>
-                                    <Box sx={style.semestersBox}>
-                                        <Typography color={mainColors.title.main} variant='h5'>
-                                            الفصل الدراسي الثاني   
-                                        </Typography>
-                                        <MyIconButton 
-                                            event={() => actions.semestersHandler(item.id, 'second')} 
-                                            content='بداية الفصل الدراسي'   
-                                            icon={<ControlPointIcon />} 
-                                        />
+                                        {
+                                            data.classes[index]?.first ?
+                                            <Box sx={style.semesterChip} onClick={() => actions.removeSemester(item.id, 'first')}>
+                                                الفصل الدراسي الاول
+                                            </Box> : 
+                                            <MyIconButton 
+                                                event={() => actions.addSemester(item.id, 'first')} 
+                                                content='الفصول الدراسية '
+                                                icon={<ControlPointIcon />} 
+                                            />
+                                        }
+                                        {
+                                            data.classes[index]?.second ?
+                                            <Box sx={style.semesterChip} onClick={() => actions.removeSemester(item.id, 'second')}>
+                                                الفصل الدراسي الثاني
+                                            </Box> : 
+                                            <Box sx={style.semestersBox}>
+                                                <MyIconButton 
+                                                    event={() => actions.addSemester(item.id, 'second')} 
+                                                    content='الفصول الدراسية '   
+                                                    icon={<ControlPointIcon />} 
+                                                    />
+                                            </Box>
+                                        }
                                     </Box>
                                 </Box>
                             )
@@ -211,14 +235,16 @@ const AddYearC: React.FC = () => {
                     }
                 </Box>
             }
+            <PageError errorInfo={states.errorLabel} />
             <Box sx={style.buttonsContainer}  className='classes-section'>
                 <Box sx={style.submitButton}>
                     <MyButton onClick={actions.submit} loading={states.loading} content='تأكيد واضافة' />
                 </Box>
                 <Box sx={style.submitButton}>
-                    <MyButtonError loading={states.loading} content='إلغاء العملية' />
+                    <MyButtonError loading={states.loading} content='إلغاء العملية' onClick={dialog.actions.handleDialogState} />
                 </Box>
             </Box>
+            <BasicDialog state={dialog.content.state} content={dialog.content} actions={dialog.actions} />
         </Box>
     );
 }

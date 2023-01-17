@@ -2,19 +2,19 @@ import { useContext } from "react";
 import { DarkThemeContext } from "context/ThemeContext";
 
 type Props = {
-    infoObject: any;
+    errorInfo: any;
 }
 
-const PageError: React.FC<Props> = ({infoObject}) => {
+const PageError: React.FC<Props> = ({errorInfo}) => {
 
     const { mainColors } = useContext(DarkThemeContext);
 
     return (
         <>
             {
-                infoObject.error &&
+                errorInfo.error &&
                 <label style={{color: mainColors.error.main, fontSize: '14px', flex: '100%'}}>
-                    {infoObject.value}
+                    {errorInfo.value}
                 </label>
             }
         </>

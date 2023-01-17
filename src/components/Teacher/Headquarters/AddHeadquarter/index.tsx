@@ -147,7 +147,7 @@ const AddHeadquarterC: React.FC = () => {
                     onChange={dataHandlers.thirdPhonesHandle} 
                 />
             </Box>
-            <PageError infoObject={submitActions.submitError} />
+            <PageError errorInfo={submitActions.submitError} />
             <Box sx={style.buttonsContainer}>
                 <Box sx={style.submitButton}> 
                     <MyButton content='تأكيد واضافة' loading={loading} onClick={submitActions.submit} />
