@@ -8,12 +8,12 @@ import DesktopNavbar from 'components/Layout/DesktopNavbar';
 import PageTitle from 'components/Shared/PageTitle';
 import ThemeSwitcher from "components/ThemeSwitcher";
 import PageFooter from "components/Shared/PageFooter";
-import EditYearC from "components/Teacher/Years/EditYear";
 // import useYear from "container/years/useYear";
 // import MyIconButton from "components/MyIconButton";
 
 // MUI
 import Box from "@mui/material/Box";
+import YearsC from "components/Teacher/Years";
 // import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 
 const Year: NextPage = () => {
@@ -83,7 +83,7 @@ const Year: NextPage = () => {
                             </a>
                     </Link> */}
                 </Box>
-                <EditYearC />
+                <YearsC />
             </Box>
             <Box sx={style.footerContainer}>
                 <PageFooter />
