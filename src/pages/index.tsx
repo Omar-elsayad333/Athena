@@ -62,6 +62,16 @@ const Home: NextPage = () => {
         </Box>
         <Box sx={{display: 'flex', flexDirection: 'column', gap: '20px', alignItems: 'center'}}>
           <Typography variant='h3' color='primary'>
+            Dashboard Section
+          </Typography>
+          <Link href='/dashbord' style={{paddingLeft: '20px'}}>
+            <a>
+              <LoginButDark content='Dashboard' />
+            </a>
+          </Link>
+        </Box>
+        <Box sx={{display: 'flex', flexDirection: 'column', gap: '20px', alignItems: 'center'}}>
+          <Typography variant='h3' color='primary'>
             Test Section
           </Typography>
           <Link href='/test' style={{paddingLeft: '20px'}}>

@@ -54,7 +54,7 @@ const dialogInitialValues = {
 const useYearsSetting = () => {
 
     const auth = useUser(); 
-    const router = useRouter();
+    const router = useRouter(); 
     const { setSuccessMessage, setWarningMessage } = useError()
     const [ loading, setLoading ] = useState<boolean>(false);
     const [ requiredData, setRequiredData ] = useState<any>('');
@@ -94,7 +94,7 @@ const useYearsSetting = () => {
             }
         }
 
-    }, [yearActive.state])
+    }, [yearActive])
 
     // Open and close cansel submit dialog
     const handleDialogState = () => {
@@ -250,7 +250,7 @@ const useYearsSetting = () => {
         return data;        
     }
 
-    const submit = () => {
+    const submit = async () => {
         validate();
         if(validate()) {
             // Collect data
@@ -259,7 +259,7 @@ const useYearsSetting = () => {
             if(data) {
                 try {
                     setLoading(true);
-                    const res = postHandler(auth.authToken, URL_YEARS, data)
+                    const res = await postHandler(auth.authToken, URL_YEARS, data)
                     setSuccessMessage('تم بدأ عام جديد بنجاح');
                     router.push(`/teacher/years/year/${res}`)
                 }
