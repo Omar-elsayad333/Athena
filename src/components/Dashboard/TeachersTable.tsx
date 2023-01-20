@@ -20,8 +20,8 @@ const TeachersTable: React.FC = () => {
 
     return (
         <Box sx={style.container}>
-            <Typography variant="h3" color={'primary'}>
-                teachers table
+            <Typography variant="h2" color={'#3F72A4'} fontWeight={700}>
+                Teachers Table
             </Typography>
         </Box>
     );

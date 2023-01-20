@@ -43,7 +43,9 @@ const AddTeacherForm: React.FC = () => {
                 </Typography>
             </Box>
             <Button sx={style.submitButton}>
-                Confirm
+                <Typography variant="h4" color={'#3F72A4'} fontWeight={700} >
+                    Confirm
+                </Typography>
             </Button>
         </Box>
     );
