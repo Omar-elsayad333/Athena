@@ -76,7 +76,17 @@ const MySelect: React.FC<Props> = ({value, getSelected, placeholder, data, error
 
     const menuStyle: SxProps = {
         '.MuiPaper-root': {
-            borderRadius: '10px',
+            // borderRadius: '10px',
+            '::-webkit-scrollbar': {
+                width: '10px',
+                backgroundColor: 'transparent',
+            },
+            '::-webkit-scrollbar-track': {
+                boxShadow: 'none'
+            },
+            '::-webkit-scrollbar-thumb': {
+                border: '2px solid transparent',
+            },  
             backgroundColor: darkMode ? '#1C364F' : '#E8F3FF',
             boxShadow: darkMode ? '0px 0px 7px -1px #3F72A4' : '0px 0px 0px 1px #3F72A4',
             border: darkMode ? '1px solid #B6D5F0' : 'none',

@@ -72,30 +72,6 @@ const useYearsSetting = () => {
         }
     }, [auth])
 
-    // year animation
-    useEffect(() => {
-        const classesSection: any = document.getElementsByClassName('classes-section');
-
-        if(yearActive.state){
-            if(classesSection){
-                for(let i = 0; i < classesSection.length; i++){
-                    // classesSection[i].style.display = 'block';
-                    classesSection[i].style.opacity = '1';
-                    // classesSection[i].style.transition = '.5s';
-                }
-            }
-        }else {
-            if(classesSection){
-                for(let i = 0; i < classesSection.length; i++){
-                    classesSection[i].style.opacity = '0';
-                    // classesSection[i].style.transition = '.5s';
-                    // classesSection[i].style.display = 'none';
-                }
-            }
-        }
-
-    }, [yearActive])
-
     // Open and close cansel submit dialog
     const handleDialogState = () => {
         if(content.state){

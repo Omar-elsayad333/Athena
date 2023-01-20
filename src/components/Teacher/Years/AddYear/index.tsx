@@ -34,23 +34,6 @@ const AddYearC: React.FC = () => {
             gap: '40px',
             columnGap: '104px',
         },
-        startYearContainer: {
-            display: 'flex',
-            justifyContent: 'start',
-            alignItems: 'center',
-            flexWrap: 'wrap',
-            gap: '43px',
-        },
-        startButton: {
-            width: '214px',
-            height: '40px',
-            display: 'grid',
-            placeItems: 'center',
-            cursor: 'pointer',
-            borderRadius: '7px',
-            border: states.yearActive.state ? `solid 1px ${mainColors.chips.border}` : 'none',
-            background: states.yearActive.state ? mainColors.linerGradient.primary : mainColors.chips.main,
-        },
         backPaper: {
             width: 'fit-content',
             padding: '30px',
@@ -137,36 +120,17 @@ const AddYearC: React.FC = () => {
     
     return (
         <Box sx={style.container}>
-            {
-                states.loading &&
-                <Loading />
-            }
-            <ClassesDialog 
-                data={data.requiredData} 
-                open={states.classesDialogState} 
-                handleClose={actions.classesHandleDialog} 
-                getSelectedClasses={actions.handleSelectedClasses} 
+            <MySelect
+                value={states.yearActive.name}
+                error={states.yearActive.error}
+                getSelected={actions.getSelectedYear} 
+                placeholder='تحديد العام الدراسي' 
+                data={data.yearsToSelect}
             />
-            <Box sx={style.startYearContainer}>
-                <Box onClick={() => actions.activeYear()} sx={style.startButton} id='start-year-but'>
-                    <Typography fontWeight={700} variant='h4' color='primary'>
-                        بداية عام جديد
-                    </Typography>
-                </Box>
-                <Box className='classes-section'>
-                    <MySelect 
-                        error={states.yearActive.error}
-                        value={states.yearActive.name} 
-                        getSelected={actions.getSelectedYear} 
-                        placeholder='تحديد العام الدراسي' 
-                        data={data.yearsToSelect}
-                    />
-                </Box>
-            </Box>
-            <Typography className='classes-section' sx={style.title} variant="h3" color={mainColors.title.main}>
+            <Typography sx={style.title} variant="h3" color={mainColors.title.main}>
                 تحديد الصفوف الدراسية:-
             </Typography>
-            <Box sx={style.backPaper} className='classes-section'>
+            <Box sx={style.backPaper}>
                 <MyIconButton 
                     event={actions.classesHandleDialog} 
                     icon={<ControlPointIcon />} 
@@ -189,7 +153,7 @@ const AddYearC: React.FC = () => {
             </Box>
             {
                 data.selectedClasses.length > 0 &&
-                <Typography className='classes-section' sx={style.title} variant="h3" color={mainColors.title.main}>
+                <Typography sx={style.title} variant="h3" color={mainColors.title.main}>
                     تحديد الفصول الدراسية:-
                 </Typography>
             }
@@ -235,8 +199,7 @@ const AddYearC: React.FC = () => {
                     }
                 </Box>
             }
-            <PageError errorInfo={states.errorLabel} />
-            <Box sx={style.buttonsContainer}  className='classes-section'>
+            <Box sx={style.buttonsContainer}>
                 <Box sx={style.submitButton}>
                     <MyButton onClick={actions.submit} loading={states.loading} content='تأكيد واضافة' />
                 </Box>
@@ -244,7 +207,15 @@ const AddYearC: React.FC = () => {
                     <MyButtonError loading={states.loading} content='إلغاء العملية' onClick={dialog.actions.handleDialogState} />
                 </Box>
             </Box>
+            { states.loading && <Loading /> }
+            <PageError errorInfo={states.errorLabel} />
             <BasicDialog state={dialog.content.state} content={dialog.content} actions={dialog.actions} />
+            <ClassesDialog 
+                data={data.requiredData} 
+                open={states.classesDialogState} 
+                handleClose={actions.classesHandleDialog} 
+                getSelectedClasses={actions.handleSelectedClasses} 
+            />
         </Box>
     );
 }
