@@ -137,10 +137,10 @@ const AddYearC: React.FC = () => {
                     content='الصفوف الدراسية'
                 />
                 {
-                    data.selectedClasses.length > 0 &&
+                    data.classes.length > 0 &&
                     <Box sx={style.classesList}>
                         {
-                            data.selectedClasses.map((item: any) => {
+                            data.classes.map((item: any) => {
                                 return (
                                     <Box key={item.id} sx={style.classesLabel}>
                                         {item.name}
@@ -152,16 +152,16 @@ const AddYearC: React.FC = () => {
                 }
             </Box>
             {
-                data.selectedClasses.length > 0 &&
+                data.classes.length > 0 &&
                 <Typography sx={style.title} variant="h3" color={mainColors.title.main}>
                     تحديد الفصول الدراسية:-
                 </Typography>
             }
             {
-                data.selectedClasses.length > 0 &&
+                data.classes.length > 0 &&
                 <Box sx={style.semestersBackPaper}>
                     {
-                        data.selectedClasses.map((item: any, index: number) => {
+                        data.classes.map((item: any) => {
                             return (
                                 <Box key={item.id} sx={style.semeterContainer}>
                                     <Box sx={style.classesLabel}>
@@ -169,7 +169,7 @@ const AddYearC: React.FC = () => {
                                     </Box>
                                     <Box sx={style.semestersBox}>
                                         {
-                                            data.classes[index]?.first ?
+                                            item.first ?
                                             <Box sx={style.semesterChip} onClick={() => actions.removeSemester(item.id, 'first')}>
                                                 الفصل الدراسي الاول
                                             </Box> : 
@@ -180,7 +180,7 @@ const AddYearC: React.FC = () => {
                                             />
                                         }
                                         {
-                                            data.classes[index]?.second ?
+                                            item.second ?
                                             <Box sx={style.semesterChip} onClick={() => actions.removeSemester(item.id, 'second')}>
                                                 الفصل الدراسي الثاني
                                             </Box> : 

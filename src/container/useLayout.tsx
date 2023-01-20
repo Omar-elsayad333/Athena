@@ -24,6 +24,7 @@ const useLayout = () => {
             router.pathname === '/test' || 
             router.pathname === '/studentLogin' || 
             router.pathname === '/studentSignUp' ||
+            router.pathname === '/dashboard' ||
             router.pathname === '/' ?
             setLayoutState(false) :
             setLayoutState(true);

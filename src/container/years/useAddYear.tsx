@@ -16,20 +16,19 @@ const ErrorLabelInitialValue = {
     value: ''
 }
 
-interface ActiveYear {
+interface Year {
     name: string;
-    state: boolean;
     error: boolean;
 }
 
-const YearActiveInitialValue = {
+const YearInitialValue = {
     name: '',
-    state: false,
     error: false
 }
 
 interface TeacherCoureLevels {
     id: string;
+    name: string;
     first: boolean;
     second: boolean; 
 }
@@ -55,11 +54,10 @@ const useYearsSetting = () => {
 
     const auth = useUser(); 
     const router = useRouter(); 
-    const { setSuccessMessage, setWarningMessage } = useError()
+    const { setSuccessMessage, setWarningMessage } = useError();
     const [ loading, setLoading ] = useState<boolean>(false);
     const [ requiredData, setRequiredData ] = useState<any>('');
-    const [ yearActive, setYearActive] = useState<ActiveYear>(YearActiveInitialValue);
-    const [ selectedClasses, setSelectedClasses] = useState<any[]>([]);
+    const [ yearActive, setYearActive] = useState<Year>(YearInitialValue);
     const [ classesDialogState, setClassesDialogState] = useState<boolean>(false);
     const [ classes, setClasses] = useState<TeacherCoureLevels[]>([]);
     const [ errorLabel, setErrorLabel] = useState<ErrorLabel>(ErrorLabelInitialValue);
@@ -72,7 +70,7 @@ const useYearsSetting = () => {
         }
     }, [auth])
 
-    // Open and close cansel submit dialog
+    // Open and close cancel submit dialog
     const handleDialogState = () => {
         if(content.state){
             setContent((oldData) => ({...oldData, state: false}));
@@ -80,26 +78,21 @@ const useYearsSetting = () => {
             setContent((oldData) => ({...oldData, state: true}));
         }
     }
-
-    // Function to active and dis active year
-    const activeYear = () => {
-        const startBut = document.getElementById('start-year-but');
-
-        // Remove and add active class bassed on yearActive state
-        if(yearActive.state){
-            startBut?.classList.remove('active-year');
-            setYearActive((oldData) => ({...oldData, state: false, name: ''}))
+    
+    // Open and close classes dialog
+    const classesHandleDialog = () => {
+        if(classesDialogState){
+            setClassesDialogState(false);
         }else {
-            startBut?.classList.add('active-year');
-            setYearActive((oldData) => ({...oldData, state: true}))
+            setClassesDialogState(true);
         }
     }
-    
-    // Get active year
+
+    // Get user selected year
     const getSelectedYear = (selected: string) => {
         setYearActive((oldData) => ({...oldData, name: selected, error: false}));
     }
-
+    
     // Get available classes from db
     const getClassesData = async () => {
         try {
@@ -114,27 +107,19 @@ const useYearsSetting = () => {
             setLoading(false);
         }
     }
-
+    
     // Get the selected Classes
     const handleSelectedClasses = (selected: any) => {
-        setSelectedClasses(selected);
+        setClasses([]);
         classesLoop: for(let i = 0; i < selected.length; i++){
-            classes.push({
+            setClasses(oldValues => [...oldValues, {
                 id: selected[i].id,
+                name: selected[i].name,
                 first: false,
                 second: false
-            })
-        }
-    }
-
-    // Open and close classes dialog
-    const classesHandleDialog = () => {
-        if(classesDialogState){
-            setClassesDialogState(false);
-        }else {
-            setClassesDialogState(true);
-        }
-    }
+            }]);
+        };
+    };
     
     // Add semester to class
     const addSemester = (selectedClass: string, semesterType: string) => {
@@ -165,7 +150,7 @@ const useYearsSetting = () => {
         setClasses(newValues);
     }
 
-    // Remove semester from class and close semesters dialog
+    // Remove semester from class
     const removeSemester = (selectedClass: string, semesterType: string) => {
         let newValues: TeacherCoureLevels[] = []
         if( semesterType == 'first'){
@@ -194,6 +179,7 @@ const useYearsSetting = () => {
         setClasses(newValues);
     }
 
+    // Validate all data before collect it
     const validate = () => {
         
         let approvation = true;
@@ -207,16 +193,17 @@ const useYearsSetting = () => {
         }
 
         // Check for classes selection
-        if(selectedClasses.length == 0){
+        if(classes.length == 0){
             setErrorLabel({...errorLabel, error: true, value: 'يجب تحديد صف دراسي واحد علي الأقل'});
             approvation = false;
         }else {
-            setErrorLabel({...errorLabel, error: false, value: ''})
+            setErrorLabel({...errorLabel, error: false, value: ''});
         }
         
         return approvation;
     }
 
+    // Prepare data for request
     const collectData = () => {
         const data = {
             start: parseInt(yearActive.name.slice(0, 4)),
@@ -226,6 +213,7 @@ const useYearsSetting = () => {
         return data;        
     }
 
+    // Call api to submit data
     const submit = async () => {
         validate();
         if(validate()) {
@@ -250,6 +238,7 @@ const useYearsSetting = () => {
         }
     }
 
+    // Cancel the progress
     const cancelSubmit = () => {
         setWarningMessage('تم الغاء العمليه بنجاح');
         router.push('/teacher/years');
@@ -258,7 +247,6 @@ const useYearsSetting = () => {
     return (
         {
             actions: {
-                activeYear,
                 getSelectedYear,
 
                 classesHandleDialog,
@@ -279,7 +267,6 @@ const useYearsSetting = () => {
             data: {
                 requiredData,
                 yearsToSelect,
-                selectedClasses,
                 classes
             },
             dialog: {

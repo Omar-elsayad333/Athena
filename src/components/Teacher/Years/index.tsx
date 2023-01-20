@@ -1,12 +1,14 @@
 import Link from "next/link";
 import { useContext } from "react";
 import useYears from "container/years/useYears";
+import { useError } from "context/ErrorContext";
+import AlertNotify from "components/AlertNotify";
+import Loading from "components/Loading/Loading";
 import { DarkThemeContext } from "context/ThemeContext";
 
 // MUI
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import Loading from "components/Loading/Loading";
 
 const YearsC: React.FC = () => {
 
@@ -14,6 +16,12 @@ const YearsC: React.FC = () => {
         data,
         states
     } = useYears();
+    const {
+        msg,
+        state,
+        msgType,
+        handleState
+    } = useError();
     const {mainColors} = useContext(DarkThemeContext);
 
     const style = {
@@ -110,6 +118,7 @@ const YearsC: React.FC = () => {
                     </Typography>   
                 </Box>
             </Link>
+            <AlertNotify msg={msg} state={state} handleState={handleState} msgType={msgType} />
         </Box>        
     );
 }

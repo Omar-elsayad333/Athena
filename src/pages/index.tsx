@@ -64,7 +64,7 @@ const Home: NextPage = () => {
           <Typography variant='h3' color='primary'>
             Dashboard Section
           </Typography>
-          <Link href='/dashbord' style={{paddingLeft: '20px'}}>
+          <Link href='/dashboard' style={{paddingLeft: '20px'}}>
             <a>
               <LoginButDark content='Dashboard' />
             </a>
