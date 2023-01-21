@@ -120,6 +120,7 @@ const AddYearC: React.FC = () => {
     
     return (
         <Box sx={style.container}>
+            { states.loading && <Loading /> }
             <MySelect
                 value={states.yearActive.name}
                 error={states.yearActive.error}
@@ -207,7 +208,6 @@ const AddYearC: React.FC = () => {
                     <MyButtonError loading={states.loading} content='إلغاء العملية' onClick={dialog.actions.handleDialogState} />
                 </Box>
             </Box>
-            { states.loading && <Loading /> }
             <PageError errorInfo={states.errorLabel} />
             <BasicDialog state={dialog.content.state} content={dialog.content} actions={dialog.actions} />
             <ClassesDialog 

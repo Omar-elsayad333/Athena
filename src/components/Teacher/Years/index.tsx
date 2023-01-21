@@ -9,6 +9,7 @@ import { DarkThemeContext } from "context/ThemeContext";
 // MUI
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import { IStyle } from "styles/IStyle";
 
 const YearsC: React.FC = () => {
 
@@ -24,8 +25,9 @@ const YearsC: React.FC = () => {
     } = useError();
     const {mainColors} = useContext(DarkThemeContext);
 
-    const style = {
+    const style: IStyle = {
         container: {
+            position: 'relative',
             display: 'flex',
             alignItems: 'start',
             flexWrap: 'wrap',
