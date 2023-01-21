@@ -46,7 +46,7 @@ const YearsC: React.FC = () => {
             border: '2px solid #3F72A4',
             background: mainColors.linerGradient.primary,
             borderRadius: '18px',
-            overflow: 'hidden',
+            overflow: 'hidden', 
             cursor: 'pointer',
             transition: '.35s',
             ':hover': {
