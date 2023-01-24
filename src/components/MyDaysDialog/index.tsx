@@ -135,7 +135,7 @@ const MyDaysDialog: React.FC<Props> = ({open, handleClose, getSelectedDays}) => 
 
         // get selected days then remove the selected class
         for (let i = 0; i < days.length; i++) {
-            if (days[i]?.classList.contains(`${MyCss.selected}`) || days[i]?.classList.contains(`${MyCss.darkSelected}`) ) {
+            if (days[i]?.classList.contains('selected') || days[i]?.classList.contains('darkSelected') ) {
                 const selectedData: any = {
                     name: '',
                     content: '',

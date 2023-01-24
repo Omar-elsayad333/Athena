@@ -1,12 +1,17 @@
 import { useContext } from 'react';
 import MyInput from 'components/MyInput';
 import MySelect from 'components/MySelect';
-import FormTimeInputs from './FormTimeInputs';
 import { DarkThemeContext } from 'context/ThemeContext';
+import MyIconButton from 'components/MyIconButton';
+import MyButton from 'components/Buttons/MyButton';
+import MyButtonError from 'components/Buttons/MyButtonError';
+import MyDaysDialog from 'components/MyDaysDialog';
+import MyTimePicker from 'components/MyTimePicker';
 
 // MUI
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 
 
 type Props = {
@@ -23,7 +28,7 @@ const EditGroupC: React.FC<Props> = ({data, states, actions, dialogs}) => {
     const style = {
         container: {
             display: 'flex',
-            flexDirection: 'column',
+            flexDirection: 'column',    
             gap: '60px',
         },
         formContainer: {
@@ -39,6 +44,81 @@ const EditGroupC: React.FC<Props> = ({data, states, actions, dialogs}) => {
             flexDirection: 'column',
             alignItems: 'start',
             gap: '13px',
+        },
+        timeContainer: {
+            display: 'flex',
+            flexDirection: 'column',
+            flexWrap: 'wrap',
+            gap: '40px',
+        },
+        backPaper: {
+            width: 'fit-content',
+            display: 'flex',
+            flexDirection: 'column',
+            flexWrap: 'wrap',
+            gap: '20px',
+            padding: '30px',
+            background: mainColors.paper.main,
+            border: `2px solid ${mainColors.paper.border}`,
+            borderRadius: '12px',
+        },
+        dayContainer: {
+            display: 'flex',
+            gap: '45px',
+            flexWrap: 'wrap',
+        },
+        daysList: {
+            display: 'flex',
+            gap: '25px',
+            flexWrap: 'wrap',
+        },
+        daysBox: {
+            display: 'flex',
+            justifyContent: 'start',
+            alignItems: 'center',
+            gap: '25px',
+            flexWrap: 'wrap'
+        },
+        dayLabel: {
+            width: '109px',
+            height: '41px',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            fontWeight: '700',
+            fontSize: '20px',
+            borderRadius: '5px',
+            border: `1px solid ${mainColors.chips.border}`,
+            background: mainColors.chips.main,
+            cursor: 'pointer',
+            color: mainColors.chips.contrastText,
+            transition: '.2s',
+        },
+        timePickerContainer: {
+            padding: '40px 30px',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            gap: '65px',
+        },
+        timePicker: {
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'start',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: '50px',
+        },
+        buttonsContainer: {
+            marginTop: '30px',
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: '35px'
+        },
+        submitButton: {
+            width: '170px',
+            height: '40px',
         }
     }
 
@@ -114,7 +194,83 @@ const EditGroupC: React.FC<Props> = ({data, states, actions, dialogs}) => {
                     />
                 </Box>
             </Box>
-            <FormTimeInputs data={data} states={states} actions={actions} dialogs={dialogs} />
+            <Box sx={style.timeContainer}>
+                <Typography variant='h3' color={mainColors.title.main}>
+                    مواعيد المجموعة:-
+                </Typography>
+                <Box sx={style.backPaper}>
+                    <Typography variant='h5' color={mainColors.primary.main}>
+                        أيام الحضور:-
+                    </Typography>
+                    <Box sx={style.dayContainer}>
+                        <MyIconButton content='تعديل' icon={<CreateOutlinedIcon />} event={dialogs.handleDaysDialogState} />
+                        <MyDaysDialog open={dialogs.dialogState} handleClose={dialogs.handleDaysDialogState} getSelectedDays={actions.getSelectedDays} />
+                            {
+                                states.selectedDays ?
+                                <Box sx={style.daysList}>
+                                    {
+                                        states.selectedDays.map((item: any) => {
+                                            return (
+                                                <Box key={item.name} sx={style.dayLabel}>
+                                                    {item.content}
+                                                </Box>
+                                            )
+                                        })
+                                    }
+                                </Box> : 
+                                <>oamr</>
+                            }
+                    </Box>
+                </Box>
+                {
+                    data?.groupScaduals?.length > 0 &&
+                    <Box sx={[style.backPaper, style.timePickerContainer]}>
+                        {
+                            data.groupScaduals.map((item: any) => {
+                                return (
+                                    <Box sx={style.timePicker} key={item.name}>
+                                        <Box sx={style.dayLabel} ml={10}>
+                                            {actions.dayTranslate(item.day)}
+                                        </Box>
+                                        <Box sx={style.timePicker} >
+                                            <Box>
+                                                <Typography mb={3} fontSize={14} color={mainColors.title.main}>
+                                                    وقت بدأ المجموعة:-
+                                                </Typography>
+                                                <MyTimePicker 
+                                                    name='startTime' 
+                                                    day={item.name} 
+                                                    value={new Date(`01-01-2023 ${item.startTime}`)}
+                                                    getSelectedTime={actions.getSelectedTime}
+                                                />
+                                            </Box>
+                                            <Box>
+                                                <Typography mb={3} fontSize={14} color={mainColors.title.main}>
+                                                    وقت انتهاء المجموعة:-
+                                                </Typography>
+                                                <MyTimePicker 
+                                                    name='endTime' 
+                                                    day={item.name} 
+                                                    value={new Date(`01-01-2023 ${item.endTime}`)}
+                                                    getSelectedTime={actions.getSelectedTime} 
+                                                />
+                                            </Box>
+                                        </Box>
+                                    </Box>
+                                )
+                            })
+                        }
+                    </Box> 
+                }
+                <Box sx={style.buttonsContainer}>
+                    <Box sx={style.submitButton}>
+                        <MyButton content='حفظ التعديلات' />
+                    </Box>
+                    <Box sx={style.submitButton}>
+                        <MyButtonError content='حذف المجموعة' />
+                    </Box>
+                </Box>
+            </Box>
         </Box>
     );
 }

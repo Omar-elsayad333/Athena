@@ -135,6 +135,10 @@ const useAddGroup = () => {
         }
     }, [selectedYear])
 
+    useEffect(() => {
+        console.log(selectedDays)
+    }, [selectedDays])
+
     // Call api to get the required data for the page
     const getRequiredData = async () => {
         try {

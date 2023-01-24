@@ -116,7 +116,7 @@ const FormTimeInputs: React.FC<Props> = ({data, states, actions, dialogs}) => {
                     <MyIconButton content='تعديل' icon={<CreateOutlinedIcon />} event={dialogs.handleDaysDialogState} />
                     <MyDaysDialog open={dialogs.dialogState} handleClose={dialogs.handleDaysDialogState} getSelectedDays={actions.getSelectedDays} />
                         {
-                            states.selectedDays?.length > 0 &&
+                            states.selectedDays ?
                             <Box sx={style.daysList}>
                                 {
                                     states.selectedDays.map((item: any) => {
@@ -127,7 +127,8 @@ const FormTimeInputs: React.FC<Props> = ({data, states, actions, dialogs}) => {
                                         )
                                     })
                                 }
-                            </Box>
+                            </Box> : 
+                            <>oamr</>
                         }
                 </Box>
             </Box>

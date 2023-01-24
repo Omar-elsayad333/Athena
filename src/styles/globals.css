@@ -49,6 +49,64 @@ svg {
     start my input style
 ======================== */
 
+.myInput {
+    width: 255px;
+    height: 46px;
+    color: var(--primary-color);
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    background-color: #E8F3FF;
+    box-shadow: 0px 0px 10px 1px #B6D5F0;
+    padding: 16px 12px;
+    font-size: 14px;
+    font-weight: 400;
+    transition: .2s;
+    opacity: 0.65;
+}
+
+.myInput::placeholder {
+    color: var(--secondary-color);
+}
+
+a {
+    text-decoration: none;
+}
+
+.myInput:focus {
+    box-shadow: 0px 0px 0px 1px var(--secondary-color);
+    border: solid var(--secondary-color) 1px;
+}
+
+.myInput:focus::placeholder {
+    color: transparent;
+}
+
+.mySmallInput {
+    width: 214px;
+}
+
+@media (max-width: 300px) {
+    .myInput {
+        width: 200px;
+        
+    }
+
+    .mySmallInput {
+        width: 190px;
+    }
+}
+
+@media (max-width: 230px) {
+    .myInput {
+        width: 150px;
+    }
+
+    .mySmallInput {
+        width: 140px;
+    }
+}
+
 .selected {
     color: #1C364F !important;
     background: #B6D5F0 !important;

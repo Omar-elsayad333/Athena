@@ -143,7 +143,7 @@ const useEditGroup = () => {
             const res = await getHandlerById(id, auth.authToken, URL_GROUPS);
             setGroupData(res);
             console.log(res);
-            selectedDays && updateSelectedDays();
+            updateSelectedDays();
         }
         catch(error) {
             console.log(error);
@@ -280,6 +280,10 @@ const useEditGroup = () => {
 
         getSelectedDays(selected);
     }
+
+    useEffect(() => {
+        console.log(selectedDays);
+    }, [selectedDays])
 
     return (
         {
