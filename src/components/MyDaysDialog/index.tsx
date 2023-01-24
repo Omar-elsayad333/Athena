@@ -1,5 +1,4 @@
 import { forwardRef, useContext } from 'react';
-import MyCss from './MyDaysDialog.module.css';
 import { DarkThemeContext } from 'context/ThemeContext';
 
 // MUI
