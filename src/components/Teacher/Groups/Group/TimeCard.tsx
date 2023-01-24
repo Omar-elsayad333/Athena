@@ -130,13 +130,13 @@ const TimeCard: React.FC<Props> = ({data, func}) => {
                                             <Typography mb={3} fontSize={14} color={mainColors.title.main}>
                                                 وقت بدأ المجموعة:-
                                             </Typography>
-                                            <MyTimePicker name='startTime' day={item.name} value={data.startTime} getSelectedTime={func.getSelectedTime} />
+                                            <MyTimePicker name='startTime' day={item.name} getSelectedTime={func.getSelectedTime} />
                                         </Box>
                                         <Box>
                                             <Typography mb={3} fontSize={14} color={mainColors.title.main}>
                                                 وقت انتهاء المجموعة:-
                                             </Typography>
-                                            <MyTimePicker name='endTime' day={item.name} value={data.endTime} getSelectedTime={func.getSelectedTime} />
+                                            <MyTimePicker name='endTime' day={item.name} getSelectedTime={func.getSelectedTime} />
                                         </Box>
                                     </Box>
                                 </Box>
