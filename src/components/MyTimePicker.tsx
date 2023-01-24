@@ -11,12 +11,11 @@ import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 
 type Props = {
     day: string;
-    value: any;
     name: string;
     getSelectedTime: Function;
 }
 
-const MyTimePicker: React.FC<Props> = ({getSelectedTime, name, day, value}) => {
+const MyTimePicker: React.FC<Props> = ({getSelectedTime, name, day}) => {
     
     const { mainColors, darkMode } = useContext(DarkThemeContext);
     const [ timeValue, setTimeValue] = useState<any>(new Date());

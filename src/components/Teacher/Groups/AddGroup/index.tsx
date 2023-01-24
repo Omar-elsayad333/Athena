@@ -208,7 +208,6 @@ const AddGroupC: React.FC<Props> = ({states, actions, dialogs}) => {
                                                 <MyTimePicker 
                                                     day={item.name} 
                                                     name='startTime' 
-                                                    value={item.startTime}
                                                     getSelectedTime={actions.getSelectedTime}
                                                 />
                                             </Box>
@@ -219,7 +218,6 @@ const AddGroupC: React.FC<Props> = ({states, actions, dialogs}) => {
                                                 <MyTimePicker
                                                     name='endTime' 
                                                     day={item.name}
-                                                    value={item.endTime}
                                                     getSelectedTime={actions.getSelectedTime} 
                                                 />
                                             </Box>
