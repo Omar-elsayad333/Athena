@@ -14,10 +14,11 @@ import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 type Props = {
     data: any;
     states: any;
-    func: any;
+    actions: any;
+    dialogs: any;
 }
 
-const FormTimeInputs: React.FC<Props> = ({data, states, func}) => {
+const FormTimeInputs: React.FC<Props> = ({data, states, actions, dialogs}) => {
 
     const { mainColors } = useContext(DarkThemeContext);
 
@@ -112,43 +113,56 @@ const FormTimeInputs: React.FC<Props> = ({data, states, func}) => {
                     أيام الحضور:-
                 </Typography>
                 <Box sx={style.dayContainer}>
-                    <MyIconButton content='تعديل' icon={<CreateOutlinedIcon />} event={func.handleDialogState} />
-                    <MyDaysDialog open={states.dialogState} handleClose={func.handleDialogState} getSelectedDays={func.getSelectedDays} />
-                    <Box sx={style.daysList}>
+                    <MyIconButton content='تعديل' icon={<CreateOutlinedIcon />} event={dialogs.handleDaysDialogState} />
+                    <MyDaysDialog open={dialogs.dialogState} handleClose={dialogs.handleDaysDialogState} getSelectedDays={actions.getSelectedDays} />
                         {
-                            data.map((item: any) => {
-                                return (
-                                    <Box key={item.id} sx={style.dayLabel}>
-                                        {item.content}
-                                    </Box>
-                                )
-                            })
+                            states.selectedDays?.length > 0 &&
+                            <Box sx={style.daysList}>
+                                {
+                                    states.selectedDays.map((item: any) => {
+                                        return (
+                                            <Box key={item.name} sx={style.dayLabel}>
+                                                {item.content}
+                                            </Box>
+                                        )
+                                    })
+                                }
+                            </Box>
                         }
-                    </Box>
                 </Box>
             </Box>
             {
-                data.length > 0 &&
+                data?.groupScaduals?.length > 0 &&
                 <Box sx={[style.backPaper, style.timePickerContainer]}>
                     {
-                        data.map((item: any) => {
+                        data.groupScaduals.map((item: any) => {
                             return (
                                 <Box sx={style.timePicker} key={item.name}>
                                     <Box sx={style.dayLabel} ml={10}>
-                                        {item.content}
+                                        {actions.dayTranslate(item.day)}
                                     </Box>
                                     <Box sx={style.timePicker} >
                                         <Box>
                                             <Typography mb={3} fontSize={14} color={mainColors.title.main}>
                                                 وقت بدأ المجموعة:-
                                             </Typography>
-                                            <MyTimePicker name='startTime' day={item.name} getSelectedTime={func.getSelectedTime} />
+                                            <MyTimePicker 
+                                                name='startTime' 
+                                                day={item.name} 
+                                                value={new Date(`01-01-2023 ${item.startTime}`)}
+                                                getSelectedTime={actions.getSelectedTime}
+                                            />
                                         </Box>
                                         <Box>
                                             <Typography mb={3} fontSize={14} color={mainColors.title.main}>
                                                 وقت انتهاء المجموعة:-
                                             </Typography>
-                                            <MyTimePicker name='endTime' day={item.name} getSelectedTime={func.getSelectedTime} />
+                                            <MyTimePicker 
+                                                name='endTime' 
+                                                day={item.name} 
+                                                value={new Date(`01-01-2023 ${item.endTime}`)}
+                                                getSelectedTime={actions.getSelectedTime} 
+                                            />
                                         </Box>
                                     </Box>
                                 </Box>

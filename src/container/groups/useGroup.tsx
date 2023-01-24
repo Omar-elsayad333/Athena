@@ -35,6 +35,7 @@ const useGroup = () => {
         }
     }
 
+    // Translate day into arabic
     const dayTranslate = (day: string) => {
         if(day == 'Monday')
             return 'الأثنان'

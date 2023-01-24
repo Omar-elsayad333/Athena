@@ -1,6 +1,5 @@
 import { NextPage } from "next";
 import { useContext } from "react";
-// import { useRouter } from 'next/router';
 import { withProtected } from "routes/withRouts";
 import { DarkThemeContext } from "context/ThemeContext";
 import PageHead from "components/Shared/PageHead";
@@ -9,21 +8,21 @@ import PageTitle from 'components/Shared/PageTitle';
 import ThemeSwitcher from "components/ThemeSwitcher";
 import EditGroupC from 'components/Teacher/Groups/EditGroup';
 import PageFooter from "components/Shared/PageFooter";
+import Loading from "components/Loading/Loading";
 
 // MUI
 import Box from "@mui/material/Box";
+import useEditGroup from "container/groups/useEditGroup";
 
 const EditGroup: NextPage = () => {
 
-    // const router = useRouter();
-    // const { id } = router.query;
     const { mainColors } = useContext(DarkThemeContext);
-    const data = {
-        name: 'مجموعة قاسم',
-        level: 'الصف الثالث الثانوي',
-        studentCount: '60',
-        location: 'الشون'
-    }
+    const {
+        data,
+        states,
+        actions,
+        dialogs
+    } = useEditGroup();
     
     const style = {
         root: {
@@ -53,13 +52,14 @@ const EditGroup: NextPage = () => {
     
     return (
         <Box sx={style.root}>
-            <PageHead title={data.name} />
+            <PageHead title={data.groupData.name} />
             <DesktopNavbar 
                 firstPath='/teacher/groups' 
                 firstContent='جميع المجموعات' 
                 secondPath='/teacher/groups/add-group'
                 secondContent='اضافة مجموعة'
             /> 
+            { states.loading && <Loading /> }
             <Box sx={style.container}>
                 <PageTitle content='تعديل بيانات المجموعة'>
                     <svg width="35" height="35" viewBox="0 0 24 20" fill={mainColors.primary.main} xmlns="http://www.w3.org/2000/svg">
@@ -70,7 +70,12 @@ const EditGroup: NextPage = () => {
                         <path d="M21.3621 9.43004C21.3598 9.32835 21.3216 9.2317 21.2558 9.16071C21.19 9.08972 21.1017 9.05001 21.0098 9.05004H12.754V6.93004C12.7517 6.8274 12.7139 6.72967 12.6483 6.65707C12.5827 6.58448 12.4944 6.54257 12.4017 6.54004H11.7062C11.6144 6.54265 11.5271 6.58489 11.463 6.65774C11.3988 6.7306 11.363 6.82831 11.363 6.93004V9.05004H3.08006C3.03423 9.0487 2.98862 9.05755 2.94593 9.07604C2.90324 9.09454 2.86432 9.12232 2.83149 9.15774C2.79865 9.19316 2.77256 9.2355 2.75475 9.28227C2.73694 9.32904 2.72777 9.37928 2.72778 9.43004V9.57004V12.66C2.72778 12.7635 2.7649 12.8627 2.83096 12.9358C2.89703 13.009 2.98663 13.05 3.08006 13.05H3.77557C3.86742 13.0474 3.95472 13.0052 4.01885 12.9323C4.08297 12.8595 4.11884 12.7618 4.11881 12.66V10.58H11.3449V12.7C11.3449 12.8018 11.3808 12.8995 11.4449 12.9723C11.509 13.0452 11.5963 13.0874 11.6882 13.09H12.3837C12.4764 13.0875 12.5647 13.0456 12.6302 12.973C12.6958 12.9004 12.7337 12.8027 12.7359 12.7V10.58H19.9621V12.77C19.9609 12.8208 19.9688 12.8713 19.9855 12.9185C20.0023 12.9658 20.0274 13.0089 20.0593 13.0452C20.0913 13.0816 20.1296 13.1105 20.1718 13.1302C20.2141 13.1499 20.2595 13.1601 20.3053 13.16H21.0008C21.0474 13.1614 21.0938 13.1523 21.1371 13.1332C21.1804 13.114 21.2197 13.0854 21.2527 13.0489C21.2856 13.0124 21.3115 12.9688 21.3288 12.9209C21.3461 12.873 21.3543 12.8216 21.3531 12.77V9.54004L21.3621 9.43004Z" fill="inherit"/>
                     </svg>
                 </PageTitle>
-                <EditGroupC />
+                <EditGroupC
+                    data={data.groupData}
+                    states={states}
+                    actions={actions}
+                    dialogs={dialogs}
+                />
             </Box>
             <Box sx={style.footerContainer}>
                 <PageFooter />

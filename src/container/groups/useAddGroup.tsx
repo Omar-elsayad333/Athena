@@ -321,8 +321,8 @@ const useAddGroup = () => {
             const data = collectData();
             try {
                 setLoading(true);
-                await postHandler(auth.authToken, URL_GROUPS, data);
-                const res = setSuccessMessage('تم اضافة المجموعه بنجاح');
+                const res =await postHandler(auth.authToken, URL_GROUPS, data);
+                setSuccessMessage('تم اضافة المجموعه بنجاح');
                 router.push(`/teacher/groups/group/${res}`);
             }
             catch(error) {

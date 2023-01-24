@@ -123,9 +123,9 @@ const MyDaysDialog: React.FC<Props> = ({open, handleClose, getSelectedDays}) => 
 
     const selectHandle = (e: any) => {
         e.preventDefault();
-        e.target.classList.contains( MyCss.selected ) ||  e.target.classList.contains( MyCss.darkSelected ) ?
-        e.target.classList.remove(MyCss.selected, MyCss.darkSelected) :
-        e.target.classList.add(darkMode ? MyCss.darkSelected : MyCss.selected);
+        e.target.classList.contains( 'selected' ) ||  e.target.classList.contains( 'darkSelected' ) ?
+        e.target.classList.remove('selected', 'darkSelected') :
+        e.target.classList.add(darkMode ? 'darkSelected' : 'selected');
     };
 
     const submitData = () => {
