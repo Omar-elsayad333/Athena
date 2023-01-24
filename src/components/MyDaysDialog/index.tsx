@@ -48,7 +48,7 @@ const MyDaysDialog: React.FC<Props> = ({open, handleClose, getSelectedDays}) => 
                 gap: '20px',
                 borderBottom: '2px solid #3F72A4',
                 boxShadow: mainColors.dialog.titleShadow,
-                '@media(max-width: 400px)': {
+                '@media screen and (max-width: 400px)': {
                     '.MuiTypography-root': {
                         fontSize: '25px',
                     },
@@ -61,14 +61,14 @@ const MyDaysDialog: React.FC<Props> = ({open, handleClose, getSelectedDays}) => 
                 placeItems: 'center',
                 gridRowGap: '35px',
                 gridColumnGap: '25px',
-                gridTemplateColumns: 'auto-fill',
+                gridTemplateColumns: 'repeat(4, 1fr)',
                 boxShadow: 'inset 0px -20px 57px 4px rgb(63 114 164 / 25%)',
-                '@media(max-width: 1000px)': {
+                '@media screen and (max-width: 1000px)': {
                     padding: '23px 45px',
                     gridTemplateColumns: 'repeat(2, 1fr)',
                     gridRowGap: '22px',
                 },
-                '@media(max-width: 400px)': {
+                '@media screen and (max-width: 400px)': {
                     padding: '23px 23px',
                     gridTemplateColumns: 'repeat(1, 1fr)',
                     gridRowGap: '22px',
@@ -103,7 +103,7 @@ const MyDaysDialog: React.FC<Props> = ({open, handleClose, getSelectedDays}) => 
                 width: '40px',
                 height: '40px'
             },
-            '@media(max-width: 400px)': {
+            '@media screen and (max-width: 400px)': {
                 position: 'static',
                 '.MuiSvgIcon-root': {
                     width: '30px',
@@ -139,8 +139,8 @@ const MyDaysDialog: React.FC<Props> = ({open, handleClose, getSelectedDays}) => 
                 const selectedData: any = {
                     name: '',
                     content: '',
-                    startTime: '',
-                    endTime: ''
+                    startTime: new Date(),
+                    endTime: new Date()
                 };
                 selectedData['name'] = (days[i]?.getAttribute("data-day"));
                 selectedData['content'] = (days[i]?.innerHTML);
@@ -171,25 +171,25 @@ const MyDaysDialog: React.FC<Props> = ({open, handleClose, getSelectedDays}) => 
                 </Button>
             </DialogTitle>
             <DialogContent>
-                <Box sx={style.box} data-day='saturday' className='days' onClick={(e) => selectHandle(e)}>
+                <Box sx={style.box} data-day='Saturday' className='days' onClick={(e) => selectHandle(e)}>
                     السبت
                 </Box>
-                <Box sx={style.box} data-day='sunday' className='days' onClick={(e) => selectHandle(e)}>
+                <Box sx={style.box} data-day='Sunday' className='days' onClick={(e) => selectHandle(e)}>
                     الاحد   
                 </Box>
-                <Box sx={style.box} data-day='monday' className='days' onClick={(e) => selectHandle(e)}>
+                <Box sx={style.box} data-day='Monday' className='days' onClick={(e) => selectHandle(e)}>
                     الاثنين
                 </Box>
-                <Box sx={style.box} data-day='tuesday' className='days' onClick={(e) => selectHandle(e)}>
+                <Box sx={style.box} data-day='Tuesday' className='days' onClick={(e) => selectHandle(e)}>
                     الثلاثاء
                 </Box>
-                <Box sx={style.box} data-day='wednesday' className='days' onClick={(e) => selectHandle(e)}>
+                <Box sx={style.box} data-day='Wednesday' className='days' onClick={(e) => selectHandle(e)}>
                     الاربعاء
                 </Box>
-                <Box sx={style.box} data-day='thursday' className='days' onClick={(e) => selectHandle(e)}>
+                <Box sx={style.box} data-day='Thursday' className='days' onClick={(e) => selectHandle(e)}>
                     الخميس  
                 </Box>
-                <Box sx={style.box} data-day='friday' className='days' onClick={(e) => selectHandle(e)}>
+                <Box sx={style.box} data-day='Friday' className='days' onClick={(e) => selectHandle(e)}>
                     الجمعة
                 </Box>
                 <DialogActions>

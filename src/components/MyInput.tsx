@@ -74,7 +74,7 @@ const MyInput: React.FC<Props> = ({type, placeholder, helperText, error, onChang
         }
     };
 
-    const style = {
+    const errorStyle = {
         root: {
             marginTop: '10px',
             fontSize: '14px', 
@@ -95,7 +95,7 @@ const MyInput: React.FC<Props> = ({type, placeholder, helperText, error, onChang
                 placeholder={placeholder}
                 type={type}
             />
-            <label style={style.root}>
+            <label style={errorStyle.root}>
                 {helperText}
             </label>
         </FormControl>

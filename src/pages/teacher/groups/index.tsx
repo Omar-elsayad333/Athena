@@ -9,6 +9,8 @@ import GroupsC from "components/Teacher/Groups";
 import MySearchInput from "components/MySearchInput";
 import ThemeSwitcher from "components/ThemeSwitcher";
 import PageFooter from "components/Shared/PageFooter";
+import useGroups from "container/groups/useGroups";
+import Loading from "components/Loading/Loading";
 
 // MUI
 import Box from "@mui/material/Box";
@@ -16,6 +18,10 @@ import Box from "@mui/material/Box";
 const Groups: NextPage = () => {
 
     const {mainColors} = useContext(DarkThemeContext);
+    const { 
+        data,
+        states
+    } = useGroups();
 
     const style = {
         root: {
@@ -53,6 +59,7 @@ const Groups: NextPage = () => {
                 secondPath='/teacher/groups/add-group'
                 secondContent='اضافة مجموعة'
             /> 
+            { states.loading && <Loading /> }
             <Box sx={style.container}>
                 <PageTitle content='جميع المجموعات الحاليه'>
                     <svg width="35" height="35" viewBox="0 0 24 20" fill={mainColors.primary.main} xmlns="http://www.w3.org/2000/svg">
@@ -64,7 +71,9 @@ const Groups: NextPage = () => {
                     </svg>
                 </PageTitle>
                 <MySearchInput placeholder="هل تبحث عن مجموعة معينة ؟" />
-                <GroupsC />
+                <GroupsC
+                    data={data.pageData}
+                />
             </Box>
             <Box sx={style.footerContainer}>
                 <PageFooter />

@@ -22,7 +22,7 @@ export const postHandler = (authorization: string, path: string, data: any) => {
             },
             (rej) => {
                 console.log(rej)
-                rejected(rej.response.data.messages[0]);
+                rejected(rej);
             }
         )
     });

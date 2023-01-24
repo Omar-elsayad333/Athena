@@ -1,65 +1,97 @@
-import GroupCard from "./GroupCard";
+import Link from "next/link";
+import { useContext } from "react";
+import { DarkThemeContext } from "context/ThemeContext";
 
 // MUI
 import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 
-const GroupsC: React.FC = () => {
+type Props = {
+    data: any;
+}
 
-    const data = [
-        {
-            id: '1',
-            name: 'مجموعة قاسم',
-            level: 'الصف الثالث الثانوي',
-            studentCount: '60',
-            location: 'الشون'
+const GroupsC: React.FC<Props> = ({data}) => {
+
+    const {mainColors} = useContext(DarkThemeContext);
+    const style = {
+        container: {
+            display: 'flex',
+            alignItems: 'start',
+            flexWrap: 'wrap',
+            gap: '55px',
         },
-        {
-            id: '2',
-            name: 'مجموعة قاسم',
-            level: 'الصف الثالث الثانوي',
-            studentCount: '60',
-            location: 'الشون'
+        card: {
+            width: '370px',
+            maxWidth: '100%',
+            height: '243px',
+            padding: '40px 30px',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'start',
+            gap: '35px',
+            border: '2px solid #3F72A4',
+            background: mainColors.linerGradient.primary,
+            borderRadius: '18px',
+            overflow: 'hidden',
+            cursor: 'pointer',
+            transition: '.35s',
+            ':hover': {
+                boxShadow: '0px 0px 15px 0px rgba(63, 114, 164, .50)',
+            },
+            '@media(max-width: 400px)': {
+                gap: '25px',
+                padding: '40px 20px',
+            },
         },
-        {
-            id: '3',
-            name: 'مجموعة قاسم',
-            level: 'الصف الثالث الثانوي',
-            studentCount: '60',
-            location: 'الشون'
+        content: {
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '20px',
         },
-        {
-            id: '4',
-            name: 'مجموعة قاسم',
-            level: 'الصف الثالث الثانوي',
-            studentCount: '60',
-            location: 'الشون'
+        span: {
+            fontWeight: '700',
         },
-        {
-            id: '5',
-            name: 'مجموعة قاسم',
-            level: 'الصف الثالث الثانوي',
-            studentCount: '60',
-            location: 'الشون'
-        },
-        {
-            id: '6',
-            name: 'مجموعة قاسم',
-            level: 'الصف الثالث الثانوي',
-            studentCount: '60',
-            location: 'الشون'
-        },
-        {
-            id: '7',
-            name: 'مجموعة قاسم',
-            level: 'الصف الثالث الثانوي',
-            studentCount: '60',
-            location: 'الشون'
-        },
-    ]
+    }
 
     return (
-        <Box>
-            <GroupCard data={data} />
+        <Box sx={style.container}>
+            {
+                data &&
+                data.map((item:any) => {
+                    return (
+                        <Link key={item.id} href={`/teacher/groups/group/${item.id}`}>
+                            <Box sx={style.card}>
+                                <Box sx={style.content}>
+                                    <Typography color='primary' variant="h1">
+                                        {item.name}
+                                    </Typography>
+                                    <Typography color='primary' variant="h5">
+                                        <span style={style.span}>
+                                            الصف الدراسي :
+                                        </span>
+                                        {` ${item.level}`}
+                                    </Typography>
+                                </Box>
+                                <Box sx={style.content}>
+                                    <Typography color='primary' variant="h5">
+                                        <span style={style.span}>
+                                            عدد الطلاب :
+                                        </span>
+                                        {` ${item.studentsCount}`}
+                                    </Typography>
+                                    <Typography color='primary' variant="h5">
+                                        <span style={style.span}>
+                                            المقر :
+                                        </span>
+                                        {` ${item.headQuarter}`}
+                                    </Typography>   
+                                </Box>
+                            </Box>
+                        </Link>
+                    )
+                })
+            }
         </Box>
     );
 }

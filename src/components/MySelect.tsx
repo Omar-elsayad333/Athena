@@ -9,19 +9,32 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { SxProps, Typography } from '@mui/material';
 
 type Props = {
-    data: any;
+    data: any[];
     value: string;
     getSelected: Function;
     placeholder: string;
     error: boolean;
+    disabled?: boolean;
+    helperText?: string;
 }
 
-const MySelect: React.FC<Props> = ({value, getSelected, placeholder, data, error}) => {
+const MySelect: React.FC<Props> = ({value, getSelected, placeholder, data, error, disabled = false, helperText}) => {
 
     const { mainColors, darkMode} = useContext(DarkThemeContext);
 
-    const handleChange = (event: any) => {
-        getSelected(event.target.value);
+    const handleChange = (e: any) => {
+        if(data){
+            let selected = ''
+            for(let i = 0; i < data.length; i++){
+                if(data[i].name == e.target.value){
+                    selected = data[i].id
+                } 
+            }
+            getSelected({
+                id: selected,
+                name: e.target.value
+            });
+        }
     };
 
     const classes = {
@@ -102,17 +115,26 @@ const MySelect: React.FC<Props> = ({value, getSelected, placeholder, data, error
         },
     }
 
+    const errorStyle = {
+        root: {
+            marginTop: '10px',
+            fontSize: '14px', 
+            color: mainColors.error.main,
+        },
+    }
+
     return (
         <FormControl required>
             <Select
                 displayEmpty
+                disabled={disabled}
                 IconComponent={KeyboardArrowDownIcon}
                 sx={classes.root}
                 value={value}
                 error={error}
                 onChange={handleChange}
                 renderValue={(selected) => {
-                    if (selected.length === 0) {
+                    if (selected?.length == 0) {
                         return (
                             <Typography 
                                 fontSize={14}
@@ -124,7 +146,8 @@ const MySelect: React.FC<Props> = ({value, getSelected, placeholder, data, error
                                 }
                             >
                                 {placeholder}
-                            </Typography>);
+                            </Typography>
+                        );
                     }
                     return selected;
                 }}
@@ -132,15 +155,21 @@ const MySelect: React.FC<Props> = ({value, getSelected, placeholder, data, error
                     sx: menuStyle
                 }}
             >
-                {data.map((item: any) => (
-                    <MenuItem
-                        key={item}
-                        value={item}
-                    >
-                        {item}
-                    </MenuItem>
-                ))}
+                {   
+                    data?.length > 0 &&
+                    data.map((item: any) => (
+                        <MenuItem
+                            key={item.id}
+                            value={item.name}
+                        >
+                            {item.name}
+                        </MenuItem>
+                    ))
+                }
             </Select>
+            <label style={errorStyle.root}>
+                {helperText}
+            </label>
         </FormControl>
     );
 }

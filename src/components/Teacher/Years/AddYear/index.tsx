@@ -121,13 +121,13 @@ const AddYearC: React.FC = () => {
     return (
         <Box sx={style.container}>
             { states.loading && <Loading /> }
-            <MySelect
+            {/* <MySelect
                 value={states.yearActive.name}
                 error={states.yearActive.error}
                 getSelected={actions.getSelectedYear} 
                 placeholder='تحديد العام الدراسي' 
                 data={data.yearsToSelect}
-            />
+            /> */}
             <Typography sx={style.title} variant="h3" color={mainColors.title.main}>
                 تحديد الصفوف الدراسية:-
             </Typography>
