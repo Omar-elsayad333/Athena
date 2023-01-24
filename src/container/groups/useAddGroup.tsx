@@ -87,7 +87,7 @@ const useAddGroup = () => {
     const [ cancelContent, setCancelContent] = useState<CancelDialog>(dialogInitialValues);
 
     
-    // Call getRequiredData function if the user is authenticated
+    // Call getRequiredData function if the user is authorized
     useEffect(() => {
         if(auth.authToken) {
             getRequiredData();
@@ -315,6 +315,7 @@ const useAddGroup = () => {
         return data
     }
 
+    // Call api to submit data
     const submit = async () => {
         if(validation()){
             const data = collectData();
@@ -333,6 +334,7 @@ const useAddGroup = () => {
         }
     }
 
+    // Cancel proccess
     const cancelSubmit = () => {
         setName(initialValues);
         setLimit(initialValues);

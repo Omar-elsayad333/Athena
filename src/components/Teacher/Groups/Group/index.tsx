@@ -1,46 +1,40 @@
 import { useContext } from 'react';
-import { DarkThemeContext } from 'context/ThemeContext';
-import useEditGroup from 'container/useEditGroup';
 import DataCard from './DataCard';
 import TimeCard from './TimeCard';
+import { DarkThemeContext } from 'context/ThemeContext';
 
 // MUI
-import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import MyTable from 'components/MyTable';
+import Typography from '@mui/material/Typography';
 
-const style = {
-    inputsContainer: {
-        display: 'flex',
-        flexDirection: 'column',
-        flexWrap: 'wrap',
-        gap: '60px',
-    },
-    title: {
-        flex: '100%',
-    },
+type Props = {
+    data: any;
+    actions: any;
 }
 
-const GroupC: React.FC = () => {
+const GroupC: React.FC<Props> = ({data, actions}) => {
 
     const {mainColors} = useContext(DarkThemeContext);
 
-    const {
-        data,
-        func
-    } = useEditGroup();
-
+    const style = {
+        inputsContainer: {
+            display: 'flex',
+            flexDirection: 'column',
+            flexWrap: 'wrap',
+            gap: '60px',
+        },
+        title: {
+            flex: '100%',
+        },
+    }
+    
     return (
         <Box sx={style.inputsContainer}>
             <Typography variant="h3" color={mainColors.title.main}>
                 بيانات المجموعة:-
             </Typography>
-            <DataCard data={data} />
-            <TimeCard data={data.schedule} func={func} />
-            <Typography variant="h3" color={mainColors.title.main}>
-                الطلاب الحاليين بالمجموعة:-
-            </Typography>
-            <MyTable />
+            <DataCard data={data.groupData} />
+            <TimeCard data={data.groupData.groupScaduals} actions={actions} />
         </Box>
     );
 }

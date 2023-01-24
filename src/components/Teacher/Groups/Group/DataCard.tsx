@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
 type Props = {
-    data?: any;
+    data: any;
 }
 
 const DataCard: React.FC<Props> = ({data}) => {
@@ -56,7 +56,7 @@ const DataCard: React.FC<Props> = ({data}) => {
                 </Typography>
                 <Box sx={style.innerCard}>
                     <Typography variant='h3' color='primary' fontWeight={400}>
-                        {data.location}
+                        {data.headQuarter}
                     </Typography>
                 </Box>
             </Box>
@@ -66,7 +66,7 @@ const DataCard: React.FC<Props> = ({data}) => {
                 </Typography>
                 <Box sx={style.innerCard}>
                     <Typography variant='h3' color='primary' fontWeight={400}>
-                        250
+                        {data.limit}
                     </Typography>
                 </Box>
             </Box>
@@ -76,7 +76,7 @@ const DataCard: React.FC<Props> = ({data}) => {
                 </Typography>
                 <Box sx={style.innerCard}>
                     <Typography variant='h3' color='primary' fontWeight={400}>
-                        {data.studentCount}
+                        {data.studentsCount}
                     </Typography>
                 </Box>
             </Box>

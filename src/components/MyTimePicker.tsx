@@ -10,12 +10,14 @@ import { SxProps } from '@mui/material';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 
 type Props = {
-    day: string;
+    value?: any;
+    day?: string;
     name: string;
-    getSelectedTime: Function;
+    readOnly?: boolean;
+    getSelectedTime?: Function;
 }
 
-const MyTimePicker: React.FC<Props> = ({getSelectedTime, name, day}) => {
+const MyTimePicker: React.FC<Props> = ({getSelectedTime, name, day, value, readOnly}) => {
     
     const { mainColors, darkMode } = useContext(DarkThemeContext);
     const [ timeValue, setTimeValue] = useState<any>(new Date());
@@ -26,8 +28,7 @@ const MyTimePicker: React.FC<Props> = ({getSelectedTime, name, day}) => {
             name: name,
             day: day
         }
-        // console.log(newTimeValue)
-        getSelectedTime(newTimeValue);
+        getSelectedTime && getSelectedTime(newTimeValue);
     }, [timeValue]);
     
     const classes = {
@@ -108,7 +109,8 @@ const MyTimePicker: React.FC<Props> = ({getSelectedTime, name, day}) => {
     return (
         <LocalizationProvider dateAdapter={AdapterDateFns}>
             <TimePicker
-                value={timeValue}
+                readOnly={readOnly}
+                value={value || timeValue}
                 onChange={
                     (newValue) => setTimeValue(newValue)}
                 renderInput={(params) => (

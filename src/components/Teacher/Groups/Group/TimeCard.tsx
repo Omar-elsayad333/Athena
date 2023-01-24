@@ -9,10 +9,10 @@ import Box from '@mui/material/Box';
 
 type Props = {
     data: any;
-    func: any;
+    actions: any;
 }
 
-const TimeCard: React.FC<Props> = ({data, func}) => {
+const TimeCard: React.FC<Props> = ({data, actions}) => {
 
     const { mainColors } = useContext(DarkThemeContext);
 
@@ -104,10 +104,11 @@ const TimeCard: React.FC<Props> = ({data, func}) => {
                 <Box sx={style.daysList}>
                     <Box sx={style.daysList}>
                         {
+                            data &&
                             data.map((item: any) => {
                                 return (
                                     <Box key={item.id} sx={style.dayLabel}>
-                                        {item.content}
+                                        {actions.dayTranslate(item.day)}
                                     </Box>
                                 )
                             })
@@ -116,27 +117,37 @@ const TimeCard: React.FC<Props> = ({data, func}) => {
                 </Box>
             </Box>
             {
-                data.length > 0 &&
+                data?.length > 0 &&
                 <Box sx={[style.backPaper, style.timePickerContainer]}>
                     {
                         data.map((item: any) => {
                             return (
                                 <Box sx={style.timePicker} key={item.name}>
                                     <Box sx={style.dayLabel} ml={10}>
-                                        {item.content}
+                                        {actions.dayTranslate(item.day)}
                                     </Box>
                                     <Box sx={style.timePicker} >
                                         <Box>
                                             <Typography mb={3} fontSize={14} color={mainColors.title.main}>
                                                 وقت بدأ المجموعة:-
                                             </Typography>
-                                            <MyTimePicker name='startTime' day={item.name} getSelectedTime={func.getSelectedTime} />
+                                            <MyTimePicker 
+                                                readOnly={true}
+                                                name='startTime'    
+                                                day={item.name}
+                                                value={new Date(`01-01-2023 ${item.startTime}`)}
+                                            />  
                                         </Box>
                                         <Box>
                                             <Typography mb={3} fontSize={14} color={mainColors.title.main}>
                                                 وقت انتهاء المجموعة:-
                                             </Typography>
-                                            <MyTimePicker name='endTime' day={item.name} getSelectedTime={func.getSelectedTime} />
+                                            <MyTimePicker 
+                                                readOnly={true}
+                                                name='endTime' 
+                                                day={item.name} 
+                                                value={new Date(`01-01-2023 ${item.endTime}`)}
+                                            />
                                         </Box>
                                     </Box>
                                 </Box>
