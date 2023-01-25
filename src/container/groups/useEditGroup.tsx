@@ -275,7 +275,17 @@ const useEditGroup = () => {
     }
 
     const collectData = () => {
-        const oldData : any= {}
+        const oldData : any= {
+            id: groupData.id,
+            name: name.value.trim() != '' ? name.value : groupData.name,
+            limit: limit.value.trim() != '' ? limit.value : groupData.limit,
+        }
+
+        if(limit.value != '') {
+            oldData['limit'] = limit.value
+        }else {
+            oldData['limit'] = groupData.limit
+        }
 
         for(let item of headquarters) {
             if(item.name == groupData.headQuarter) {
@@ -283,14 +293,32 @@ const useEditGroup = () => {
             }
         }
 
-        
+        if(selectedYear.id.trim() != '') {
+            for(let classroom of classrooms) {
+                if(classroom.name == selectedClassroom.name) {
+                    oldData['teacherCourseLevelYearId'] = classroom.id
+                }
+            }
+        } else {
+            for(let item of requiredData.yearLevels) {
+                if(groupData.startYear == item.start && groupData.endYear == item.end) {
+                    for(let classroom of item.teacherCourseLevelYears) {
+                        if(classroom.levelName == groupData.level) {
+                            oldData['teacherCourseLevelYearId'] = classroom.teacherCourseLevelYearId
+                        }
+                    }
+                }
+            }
+        }
+
+        return oldData
     }
 
     const submit = () => {
 
-        // console.log(headquarters)
+        console.log(selectedClassroom)
         console.log(groupData)
-        collectData()
+        console.log(collectData())
         const data = {
             id: groupData.id,
             name: name.value.trim() != '' ? name.value : groupData.name ,
