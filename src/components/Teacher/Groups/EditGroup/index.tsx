@@ -268,7 +268,7 @@ const EditGroupC: React.FC<Props> = ({data, states, actions, dialogs}) => {
                 }
                 <Box sx={style.buttonsContainer}>
                     <Box sx={style.submitButton}>
-                        <MyButton content='حفظ التعديلات' />
+                        <MyButton content='حفظ التعديلات' onClick={actions.submit} />
                     </Box>
                     <Box sx={style.submitButton}>
                         <MyButtonError content='حذف المجموعة' />

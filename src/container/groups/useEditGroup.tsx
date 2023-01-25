@@ -5,6 +5,7 @@ import { useUser } from 'context/userContext';
 import { getHandler, getHandlerById } from 'handlers/requestHandler';
 import { DarkThemeContext } from 'context/ThemeContext';
 import { dayTranslateToArabic } from 'utils/content';
+import { group } from 'console';
 
 interface Data {
     value: string;
@@ -273,6 +274,48 @@ const useEditGroup = () => {
         return result;
     }
 
+    const collectData = () => {
+        const oldData : any= {}
+
+        for(let item of headquarters) {
+            if(item.name == groupData.headQuarter) {
+                oldData['headquarterId'] = item.id
+            }
+        }
+
+        
+    }
+
+    const submit = () => {
+
+        // console.log(headquarters)
+        console.log(groupData)
+        collectData()
+        const data = {
+            id: groupData.id,
+            name: name.value.trim() != '' ? name.value : groupData.name ,
+            // headQuarterId: selectedHeadquarter.id.trim() != '' ? selectedHeadquarter.id : groupData. ,
+            teacherCourseLevelYearId: "string",
+            limit: 0,
+            groupScaduals: [
+                {
+                    "id": "string",
+                    "day": "string",
+                    "startTime": "02:00:00",
+                    "endTime": "02:00:00",
+                    "isDeleted": false
+                }
+            ],
+            newGroupScaduals: [
+                {
+                    "day": "string",
+                    "startTime": "02:00:00",
+                    "endTime": "02:00:00"
+                }
+            ]
+        }
+    }
+
     useEffect(() => {
         console.log(selectedDays)
     }, [selectedDays])
@@ -303,7 +346,8 @@ const useEditGroup = () => {
                 classroomHandler,
                 limitHandler,
                 getSelectedDays,
-                updateItem
+                updateItem,
+                submit
             },
             dialogs: {
                 dialogState,
