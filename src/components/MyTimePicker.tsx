@@ -1,4 +1,4 @@
-import {useEffect, useState, useContext} from 'react'
+import { useContext } from 'react'
 import { DarkThemeContext } from 'context/ThemeContext';
 
 // MUI
@@ -10,26 +10,27 @@ import { SxProps } from '@mui/material';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 
 type Props = {
-    value?: any;
-    day?: string;
+    value: any;
+    day: string;
     name: string;
     readOnly?: boolean;
-    getSelectedTime?: Function;
+    getSelectedTime: Function;
 }
 
-const MyTimePicker: React.FC<Props> = ({getSelectedTime, name, day, value, readOnly}) => {
+const MyTimePicker: React.FC<Props> = ({getSelectedTime, name, day, value, readOnly= false}) => {
     
     const { mainColors, darkMode } = useContext(DarkThemeContext);
-    const [ timeValue, setTimeValue] = useState<any>(new Date());
+    // const [ timeValue, setTimeValue] = useState<any>(new Date());
     
-    useEffect(() => {
-        const newTimeValue = {
-            time: timeValue.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', second:'2-digit', hour12: false}),
-            name: name,
-            day: day
-        }
-        getSelectedTime && getSelectedTime(newTimeValue);
-    }, [timeValue]);
+    // useEffect(() => {
+    //     // const newTimeValue = {
+    //     //     time: timeValue.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', second:'2-digit', hour12: false}),
+    //     //     name: name,
+    //     //     day: day
+    //     // }
+    //     // getSelectedTime && getSelectedTime(newTimeValue);
+    //     console.log(value)
+    // }, []);
     
     const classes = {
         root: {
@@ -110,9 +111,10 @@ const MyTimePicker: React.FC<Props> = ({getSelectedTime, name, day, value, readO
         <LocalizationProvider dateAdapter={AdapterDateFns}>
             <TimePicker
                 readOnly={readOnly}
-                value={value || timeValue}
-                onChange={
-                    (newValue) => setTimeValue(newValue)}
+                value={value}
+                onChange={(newValue) => 
+                    getSelectedTime(newValue, day, name)
+                }
                 renderInput={(params) => (
                     <TextField
                         {...params}

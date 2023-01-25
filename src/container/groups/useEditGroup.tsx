@@ -4,6 +4,7 @@ import { useState, useEffect, useContext } from 'react';
 import { useUser } from 'context/userContext';
 import { getHandler, getHandlerById } from 'handlers/requestHandler';
 import { DarkThemeContext } from 'context/ThemeContext';
+import { dayTranslateToArabic } from 'utils/content';
 
 interface Data {
     value: string;
@@ -40,7 +41,6 @@ const useEditGroup = () => {
     const [ loading, setLoading] = useState<boolean>(false);
     const [ groupData, setGroupData] = useState<any>('');
     const [ requiredData, setRequiredData] = useState<any>('');
-
     const [ name, setName] = useState<Data>(initialValues);
     const [ years, setYears] = useState<DropDown[]>([]);
     const [ selectedYear, setSelectedYear] = useState<DropDown>(DropDownInitialValues);
@@ -49,21 +49,22 @@ const useEditGroup = () => {
     const [ classrooms, setClassrooms] = useState<DropDown[]>([]);
     const [ selectedClassroom, setSelectedClassroom] = useState<DropDown>(DropDownInitialValues)
     const [ limit, setLimit] = useState<Data>(initialValues);
-    const [ selectedDays, setSelectedDays] = useState<any>([]);
+    const [ selectedDays, setSelectedDays] = useState<any[]>([]);
     const [ dialogState, setDialogState] = useState<boolean>(false);
 
-    // Remove old data
-    useEffect(() => {
-        setSelectedYear(DropDownInitialValues)
-    });
-
-    // Call getGroupData functionl if user is authorized
+    // Call api to get required data if user is authorized
     useEffect(() => {
         if(auth.authToken) {
-            getGroupData();
             getRequiredData();
         }
-    }, [auth.authToken])
+    }, [auth.authToken]);
+
+    // Call api to get group data if required data is available
+    useEffect(() => {
+        if(requiredData != '') {
+            getGroupData();
+        }
+    }, [requiredData]);
 
     // Update required data from api to useable data
     useEffect(() => {
@@ -85,54 +86,72 @@ const useEditGroup = () => {
                 setHeadquarters((headquarters: any) => [...headquarters, newData]);
             }
         }
-        oldSelectedDays()
-    }, [requiredData])
+        // oldSelectedDays()
+    }, [requiredData]);
 
-    // Filter classrooms data according to the selected year
+    // Filter classrooms data according to the selected year from db
     useEffect(() => {
-        if(selectedYear.name.length > 0 && requiredData) {
-            loopInYear:for(let item of requiredData.yearLevels) {
-                if(item.id == selectedYear.id){
-                    setClassrooms([])
-                    setSelectedClassroom(oldValues => ({...oldValues, name: '', id: ''}))
-                    loopInClassrooms:for(let classroom of item.teacherCourseLevelYears) {
+        if(groupData && requiredData && !selectedYear.id && classrooms.length == 0) {
+            for(let item of requiredData.yearLevels) {
+                if(item.start == groupData.startYear && item.end == groupData.endYear) {
+                    for(let level of item.teacherCourseLevelYears) {
                         const newData = {
-                            id: classroom.teacherCourseLevelYearId,
-                            name: classroom.levelName,
+                            id: level.teacherCourseLevelYearId,
+                            name: level.levelName
                         }
-                        setClassrooms((classrooms: any) => [...classrooms, newData]);
-                    }
-                }
-            }
-        }else if(groupData && requiredData) {
-            loopInYear:for(let item of requiredData.yearLevels) {
-                if(item.start == groupData.startYear && item.end == groupData.endYear){
-                    setClassrooms([])
-                    setSelectedClassroom(oldValues => ({...oldValues, name: '', id: ''}))
-                    loopInClassrooms:for(let classroom of item.teacherCourseLevelYears) {
-                        const newData = {
-                            id: classroom.teacherCourseLevelYearId,
-                            name: classroom.levelName,
-                        }
-                        setClassrooms((classrooms: any) => [...classrooms, newData]);
+                        setClassrooms((oldValues: any) => [ ...oldValues, newData])
                     }
                 }
             }
         }
-    }, [selectedYear, groupData])
+        if(groupData) {
+            updateSelectedDaysFromDB();
+        }
+    }, [groupData]);
+
+    // Filter classrooms data according to the selected year from user
+    useEffect(() => {
+        if(requiredData && selectedYear.id) {
+            for(let item of requiredData.yearLevels) {
+                if(`${item.start} / ${item.end}` == selectedYear.name) {
+                    setClassrooms([])
+                    for(let level of item.teacherCourseLevelYears) {
+                        const newData = {
+                            id: level.teacherCourseLevelYearId,
+                            name: level.levelName
+                        }
+                        setClassrooms((oldValues: any) => [ ...oldValues, newData])
+                    }
+                }
+            }
+        }
+    }, [selectedYear]);
+
+    // Update dialog UI according to selected days
+    useEffect(() => {
+        if(selectedDays.length > 0) {
+            const dialogDays = document.getElementsByClassName('days');
+
+            loopInDialogDays: for(let i = 0; i < dialogDays.length; i++) {
+                loopInSelectedDays: for(let item of selectedDays) {
+                    if(dialogDays[i]?.getAttribute('data-day') == item.name) {
+                        dialogDays[i]?.classList.add(darkMode ? 'darkSelected' : 'selected');
+                    }
+                }
+            }
+        }
+    }, [selectedDays])
 
     // Call api to get the required data for the page
     const getRequiredData = async () => {
         try {
             setLoading(true);
-            const res: any = await getHandler(auth.authToken, URL_GROUPS_REQUIRED);
+            const res = await getHandler(auth.authToken, URL_GROUPS_REQUIRED);
             setRequiredData(res);
+            // console.log(res)
         }
         catch(error) {
             console.log(error)
-        }
-        finally {
-            setLoading(false)
         }
     }
     
@@ -142,8 +161,6 @@ const useEditGroup = () => {
             setLoading(true);
             const res = await getHandlerById(id, auth.authToken, URL_GROUPS);
             setGroupData(res);
-            console.log(res);
-            updateSelectedDays();
         }
         catch(error) {
             console.log(error);
@@ -151,32 +168,6 @@ const useEditGroup = () => {
         finally {
             setLoading(false);
         }
-    }
-
-    // Translate day into arabic
-    const dayTranslate = (day: string) => {
-        if(day == 'Monday')
-            return 'الأثنان'
-
-        if(day == 'Tuesday')
-            return 'الثلاثاء'
-
-        if(day == 'Wednesday')
-            return 'الأربعاء'
-
-        if(day == 'Thursday')
-            return 'الخميس'
-
-        if(day == 'Friday')
-            return 'الجمعه'
-
-        if(day == 'Saturday')
-            return 'السبت'
-
-        if(day == 'Sunday')
-            return 'الحد'
-
-        return 'يوم -'
     }
 
     // Get group name from user
@@ -191,13 +182,14 @@ const useEditGroup = () => {
 
     // Get the year that the user selected
     const yearHandler = (selectedYear: DropDown) => {
-        setSelectedYear(oldValues => ({
-            ...oldValues, 
-            id: selectedYear.id, 
-            name: selectedYear.name,
-            error: false,
-            helperText: ''
-        }));
+        setSelectedYear(
+            {
+                id: selectedYear.id, 
+                name: selectedYear.name,
+                error: false,
+                helperText: ''
+            }
+        );
     }
     
     // Get the year that the user selected
@@ -232,28 +224,40 @@ const useEditGroup = () => {
         }));
     }
 
-    const oldSelectedDays = () => {
-        const days = document.getElementsByClassName('days');
-
-        if(days && groupData) {
-
-            loopInGroupData: for(let i in groupData.groupScaduals) {
-                const ahmed = groupData?.groupScaduals[i]?.day;
-
-                loopInDays: for(let y = 0; y < days.length; y++) {
-                    const omar = days[y]!.getAttribute('data-day');
-                    if(ahmed == omar) {
-                        days[y]?.classList.add(darkMode ? 'darkSelected' : 'selected')
-                    }
-                }
+    // Update selected days from db 
+    const updateSelectedDaysFromDB = () => {
+        if(groupData && selectedDays.length == 0) {
+            loopInGroupData: for(let item of groupData.groupScaduals) {
+                const newData: any = {
+                    name: item.day,
+                    content: dayTranslateToArabic(item.day),
+                    startTime: `01-01-2023 ${item.startTime}`,
+                    endTime: `01-01-2023 ${item.endTime}`
+                };
+                setSelectedDays((oldValues: any) => [...oldValues, newData]);
             }
-
         }
     }
 
     // Get the days that the user selected
-    const getSelectedDays = (selected: any) => {
-        setSelectedDays(selected);
+    const getSelectedDays = (selectedDays: any) => {
+        setSelectedDays(selectedDays);
+    }
+
+    const updateItem =(newTime: any, day: any, name: any)=> {
+        var index = selectedDays.findIndex(x => x.name === day);
+
+        console.log(index)
+
+        let g: any = selectedDays[index]
+        g[name] = newTime
+        
+        if (index === -1){
+            // handle error
+            console.log('no match')
+        } else {   
+            setSelectedDays([...selectedDays.slice(0,index), g, ...selectedDays.slice(index+1)]);
+        }
     }
 
     // Open and close days dialog
@@ -262,27 +266,15 @@ const useEditGroup = () => {
         setDialogState(false) : 
         setDialogState(true);
     }
-    
-    const updateSelectedDays = () => {
-        const selected = [];
-        
-        for (let i = 0; i < groupData.groupScaduals.length; i++) {
-            const selectedData: any = {
-                name: '',
-                content: '',
-                startTime: new Date(),
-                endTime: new Date()
-            };
-            selectedData['name'] = (groupData.groupScaduals[i].day);
-            selectedData['content'] = (dayTranslate(groupData.groupScaduals[i].day));
-            selected.push(selectedData);
-        };
 
-        getSelectedDays(selected);
+    // Translate day labels to arabic
+    const dayTranslate = (day: string) => {
+        const result = dayTranslateToArabic(day);
+        return result;
     }
 
     useEffect(() => {
-        console.log(selectedDays);
+        console.log(selectedDays)
     }, [selectedDays])
 
     return (
@@ -301,6 +293,7 @@ const useEditGroup = () => {
                 classrooms,
                 selectedClassroom,
                 limit,
+                selectedDays
             },
             actions: {
                 dayTranslate,
@@ -310,7 +303,7 @@ const useEditGroup = () => {
                 classroomHandler,
                 limitHandler,
                 getSelectedDays,
-                selectedDays
+                updateItem
             },
             dialogs: {
                 dialogState,

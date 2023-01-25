@@ -187,7 +187,7 @@ const EditGroupC: React.FC<Props> = ({data, states, actions, dialogs}) => {
                     <MyInput    
                         value={states.limit.value}
                         error={states.limit.error}
-                        placeholder='الحد الاقصى لعدد الطلاب' 
+                        placeholder={data.limit}
                         onChange={actions.limitHandler}
                         type='number'
                         helperText={states.limit.helperText}
@@ -204,9 +204,14 @@ const EditGroupC: React.FC<Props> = ({data, states, actions, dialogs}) => {
                     </Typography>
                     <Box sx={style.dayContainer}>
                         <MyIconButton content='تعديل' icon={<CreateOutlinedIcon />} event={dialogs.handleDaysDialogState} />
-                        <MyDaysDialog open={dialogs.dialogState} handleClose={dialogs.handleDaysDialogState} getSelectedDays={actions.getSelectedDays} />
+                        <MyDaysDialog
+                            open={dialogs.dialogState} 
+                            handleClose={dialogs.handleDaysDialogState} 
+                            getSelectedDays={actions.getSelectedDays} 
+                            data={states.selectedDays}
+                        />
                             {
-                                states.selectedDays ?
+                                states.selectedDays.length > 0 &&
                                 <Box sx={style.daysList}>
                                     {
                                         states.selectedDays.map((item: any) => {
@@ -217,20 +222,19 @@ const EditGroupC: React.FC<Props> = ({data, states, actions, dialogs}) => {
                                             )
                                         })
                                     }
-                                </Box> : 
-                                <>oamr</>
+                                </Box> 
                             }
                     </Box>
                 </Box>
                 {
-                    data?.groupScaduals?.length > 0 &&
+                    states.selectedDays.length > 0 &&
                     <Box sx={[style.backPaper, style.timePickerContainer]}>
                         {
-                            data.groupScaduals.map((item: any) => {
+                            states.selectedDays.map((item: any) => {
                                 return (
                                     <Box sx={style.timePicker} key={item.name}>
                                         <Box sx={style.dayLabel} ml={10}>
-                                            {actions.dayTranslate(item.day)}
+                                            {item.content}
                                         </Box>
                                         <Box sx={style.timePicker} >
                                             <Box>
@@ -238,10 +242,10 @@ const EditGroupC: React.FC<Props> = ({data, states, actions, dialogs}) => {
                                                     وقت بدأ المجموعة:-
                                                 </Typography>
                                                 <MyTimePicker 
-                                                    name='startTime' 
-                                                    day={item.name} 
-                                                    value={new Date(`01-01-2023 ${item.startTime}`)}
-                                                    getSelectedTime={actions.getSelectedTime}
+                                                    name='startTime'
+                                                    day={item.name}
+                                                    value={new Date(item.startTime)}
+                                                    getSelectedTime={actions.updateItem}
                                                 />
                                             </Box>
                                             <Box>
@@ -249,10 +253,10 @@ const EditGroupC: React.FC<Props> = ({data, states, actions, dialogs}) => {
                                                     وقت انتهاء المجموعة:-
                                                 </Typography>
                                                 <MyTimePicker 
-                                                    name='endTime' 
+                                                    name='endTime'
                                                     day={item.name} 
-                                                    value={new Date(`01-01-2023 ${item.endTime}`)}
-                                                    getSelectedTime={actions.getSelectedTime} 
+                                                    value={new Date(item.endTime)}
+                                                    getSelectedTime={actions.updateItem} 
                                                 />
                                             </Box>
                                         </Box>

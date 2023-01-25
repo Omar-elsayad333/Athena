@@ -1,4 +1,5 @@
 import { forwardRef, useContext } from 'react';
+import { dayTranslateToArabic } from 'utils/content';
 import { DarkThemeContext } from 'context/ThemeContext';
 
 // MUI
@@ -26,9 +27,10 @@ type Props = {
     open: boolean;
     handleClose: Function;
     getSelectedDays: Function;
+    data?: any;
 }
 
-const MyDaysDialog: React.FC<Props> = ({open, handleClose, getSelectedDays}) => {
+const MyDaysDialog: React.FC<Props> = ({open, handleClose, getSelectedDays, data}) => {
 
     const { mainColors, darkMode } = useContext(DarkThemeContext);
 
@@ -129,26 +131,62 @@ const MyDaysDialog: React.FC<Props> = ({open, handleClose, getSelectedDays}) => 
 
     const submitData = () => {
         const selected = [];
-
         const days = document.getElementsByClassName('days');
 
         // get selected days then remove the selected class
         for (let i = 0; i < days.length; i++) {
-            if (days[i]?.classList.contains('selected') || days[i]?.classList.contains('darkSelected') ) {
-                const selectedData: any = {
-                    name: '',
-                    content: '',
-                    startTime: new Date(),
-                    endTime: new Date()
-                };
-                selectedData['name'] = (days[i]?.getAttribute("data-day"));
-                selectedData['content'] = (days[i]?.innerHTML);
-                selected.push(selectedData);
-            } else {
-                continue;
+            if(data) {
+                let dayState: boolean = false;
+
+                for(let oldData of data) {
+                    if(days[i]?.getAttribute('data-day') == oldData.name) {
+                        dayState = true
+                        if (days[i]?.classList.contains('selected') || days[i]?.classList.contains('darkSelected') ) {
+                            const selectedData: any = {
+                                name: oldData.name,
+                                content: oldData.content,
+                                startTime: oldData.startTime,
+                                endTime: oldData.endTime
+                            };
+                            selected.push(selectedData);
+                        } else {
+                            continue;
+                        }
+                    }else {
+                    }
+                }
+                
+                if(!dayState) {
+                    if (days[i]?.classList.contains('selected') || days[i]?.classList.contains('darkSelected') ) {
+                        const selectedData: any = {
+                            name: '',
+                            content: '',
+                            startTime: new Date(),
+                            endTime: new Date()
+                        };
+                        selectedData.name = days[i]?.getAttribute('data-day');
+                        selectedData.content = dayTranslateToArabic(days[i]?.getAttribute('data-day'))
+                        selected.push(selectedData);
+                    } else {
+                        continue;
+                    }
+                }
+            }else {
+                if (days[i]?.classList.contains('selected') || days[i]?.classList.contains('darkSelected') ) {
+                    const selectedData: any = {
+                        name: '',
+                        content: '',
+                        startTime: new Date(),
+                        endTime: new Date()
+                    };
+                    selectedData.name = days[i]?.getAttribute('data-day');
+                    selectedData.content = dayTranslateToArabic(days[i]?.getAttribute('data-day'))
+                    selected.push(selectedData);
+                } else {
+                    continue;
+                }
             }
         };
-
         getSelectedDays(selected);
         handleClose();
     }       

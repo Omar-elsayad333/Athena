@@ -132,6 +132,7 @@ const TimeCard: React.FC<Props> = ({data, actions}) => {
                                                 وقت بدأ المجموعة:-
                                             </Typography>
                                             <MyTimePicker 
+                                                getSelectedTime={() => {}}
                                                 readOnly={true}
                                                 name='startTime'    
                                                 day={item.name}
@@ -143,6 +144,7 @@ const TimeCard: React.FC<Props> = ({data, actions}) => {
                                                 وقت انتهاء المجموعة:-
                                             </Typography>
                                             <MyTimePicker 
+                                                getSelectedTime={() => {}}
                                                 readOnly={true}
                                                 name='endTime' 
                                                 day={item.name} 
