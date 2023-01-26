@@ -4,7 +4,6 @@ import MySelect from 'components/MySelect';
 import MyIconButton from 'components/MyIconButton';
 import { DarkThemeContext } from 'context/ThemeContext';
 import ClassesDialog from 'components/Dialogs/ClassesDialog';
-import Loading from 'components/Loading/Loading';
 import MyButton from 'components/Buttons/MyButton';
 import MyButtonError from 'components/Buttons/MyButtonError';
 import BasicDialog from 'components/Dialogs/BasicDialogs';
