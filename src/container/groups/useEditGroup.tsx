@@ -279,6 +279,8 @@ const useEditGroup = () => {
             id: groupData.id,
             name: name.value.trim() != '' ? name.value : groupData.name,
             limit: limit.value.trim() != '' ? limit.value : groupData.limit,
+            groupScaduals: [],
+            newGroupScaduals: []
         }
 
         if(limit.value != '') {
@@ -289,11 +291,11 @@ const useEditGroup = () => {
 
         for(let item of headquarters) {
             if(item.name == groupData.headQuarter) {
-                oldData['headquarterId'] = item.id
+                oldData['headQuarterId'] = item.id
             }
         }
 
-        if(selectedYear.id.trim() != '') {
+        if(selectedClassroom.id.trim() != '') {
             for(let classroom of classrooms) {
                 if(classroom.name == selectedClassroom.name) {
                     oldData['teacherCourseLevelYearId'] = classroom.id
@@ -311,20 +313,33 @@ const useEditGroup = () => {
             }
         }
 
+        for(let selectedDay of selectedDays) {
+            let state: boolean = false;
+            for(let oldSelectedDays of groupData.groupScaduals) {
+                if(selectedDay.name == oldSelectedDays.day) {
+                    state = true;
+                    oldData.groupScaduals.push(
+                        {
+                            id: '',
+                            day: '',
+                            startTime: '',
+                            endTime: '',
+                            isDeleted: false
+                        }
+                    )
+                }
+            }
+        }
+
         return oldData
     }
 
     const submit = () => {
 
-        console.log(selectedClassroom)
-        console.log(groupData)
+        // console.log(selectedDays)
+        // console.log(groupData)
         console.log(collectData())
         const data = {
-            id: groupData.id,
-            name: name.value.trim() != '' ? name.value : groupData.name ,
-            // headQuarterId: selectedHeadquarter.id.trim() != '' ? selectedHeadquarter.id : groupData. ,
-            teacherCourseLevelYearId: "string",
-            limit: 0,
             groupScaduals: [
                 {
                     "id": "string",
