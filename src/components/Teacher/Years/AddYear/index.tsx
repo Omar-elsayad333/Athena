@@ -4,28 +4,27 @@ import MySelect from 'components/MySelect';
 import MyIconButton from 'components/MyIconButton';
 import { DarkThemeContext } from 'context/ThemeContext';
 import ClassesDialog from 'components/Dialogs/ClassesDialog';
-import useAddYear from 'container/years/useAddYear';
 import Loading from 'components/Loading/Loading';
 import MyButton from 'components/Buttons/MyButton';
 import MyButtonError from 'components/Buttons/MyButtonError';
+import BasicDialog from 'components/Dialogs/BasicDialogs';
+import PageError from 'components/Shared/PageError';
 
 // MUI
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import ControlPointIcon from '@mui/icons-material/ControlPoint';
-import PageError from 'components/Shared/PageError';
-import BasicDialog from 'components/Dialogs/BasicDialogs';
 
+type Props = {
+    data: any;
+    states: any;
+    actions: any;
+    dialog: any;
+} 
 
-const AddYearC: React.FC = () => {
+const AddYearC: React.FC<Props> = ({data, states, actions, dialog}) => {
     
     const { mainColors } = useContext(DarkThemeContext);
-    const {
-        data,
-        states,
-        actions,
-        dialog
-    } = useAddYear();
     
     const style: IStyle = {
         container: {
@@ -120,7 +119,6 @@ const AddYearC: React.FC = () => {
     
     return (
         <Box sx={style.container}>
-            { states.loading && <Loading /> }
             <MySelect
                 value={states.yearActive.name}
                 error={states.yearActive.error}

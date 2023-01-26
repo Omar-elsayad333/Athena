@@ -11,6 +11,8 @@ import ThemeSwitcher from "components/ThemeSwitcher";
 import PageFooter from "components/Shared/PageFooter";
 import useGroups from "container/groups/useGroups";
 import Loading from "components/Loading/Loading";
+import { useError } from "context/ErrorContext";
+import AlertNotify from "components/AlertNotify";
 
 // MUI
 import Box from "@mui/material/Box";
@@ -22,6 +24,12 @@ const Groups: NextPage = () => {
         data,
         states
     } = useGroups();
+    const {
+        msg,
+        state,
+        msgType,
+        handleState
+    } = useError();
 
     const style = {
         root: {
@@ -59,7 +67,9 @@ const Groups: NextPage = () => {
                 secondPath='/teacher/groups/add-group'
                 secondContent='اضافة مجموعة'
             /> 
-            { states.loading && <Loading /> }
+            { 
+                states.loading ?
+                <Loading /> :
             <Box sx={style.container}>
                 <PageTitle content='جميع المجموعات الحاليه'>
                     <svg width="35" height="35" viewBox="0 0 24 20" fill={mainColors.primary.main} xmlns="http://www.w3.org/2000/svg">
@@ -75,10 +85,12 @@ const Groups: NextPage = () => {
                     data={data.pageData}
                 />
             </Box>
+            }
             <Box sx={style.footerContainer}>
                 <PageFooter />
             </Box>
             <ThemeSwitcher />
+            <AlertNotify msg={msg} state={state} handleState={handleState} msgType={msgType} />
         </Box>    
     );
 }

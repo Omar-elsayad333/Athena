@@ -70,8 +70,9 @@ const EditHeadquarter: NextPage = () => {
                 secondPath='/teacher/headquarters/add-headquarter'
                 secondContent='اضافة مقر'
             /> 
-            { loading && <Loading inside={true} /> }
-            {
+            { 
+                loading ?
+                <Loading /> :
                 oldData && thirdPhone &&
                 <Box sx={style.container}>
                     <PageTitle content='تعديل بيانات المقر'>

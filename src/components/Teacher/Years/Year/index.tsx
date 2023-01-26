@@ -2,7 +2,6 @@ import { useContext } from 'react';
 import { IStyle } from 'styles/IStyle';
 import { useError } from 'context/ErrorContext';
 import AlertNotify from 'components/AlertNotify';
-import Loading from "components/Loading/Loading";
 import { DarkThemeContext } from "context/ThemeContext";
 
 // MUI
@@ -129,10 +128,6 @@ const YearC: React.FC<Props> = ({data, states}) => {
 
     return (  
         <Box sx={style.container}>
-            {
-                states.loading &&
-                <Loading />
-            }
             <Typography sx={style.title} variant="h3" color={mainColors.title.main}>
                 الفترة الزمنية:-
             </Typography>

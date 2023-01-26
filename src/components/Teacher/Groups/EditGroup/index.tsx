@@ -12,6 +12,7 @@ import MyTimePicker from 'components/MyTimePicker';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
+import BasicDialog from 'components/Dialogs/BasicDialogs';
 
 
 type Props = {
@@ -268,12 +269,13 @@ const EditGroupC: React.FC<Props> = ({data, states, actions, dialogs}) => {
                 }
                 <Box sx={style.buttonsContainer}>
                     <Box sx={style.submitButton}>
-                        <MyButton content='حفظ التعديلات' onClick={actions.submit} />
+                        <MyButton content='حفظ التعديلات' loading={states.loading} onClick={actions.submit} />
                     </Box>
                     <Box sx={style.submitButton}>
-                        <MyButtonError content='حذف المجموعة' />
+                        <MyButtonError content='حذف المجموعة' loading={states.loading} onClick={dialogs.actions.handleDialogState} />
                     </Box>
                 </Box>
+                <BasicDialog state={dialogs.content.state} content={dialogs.content} actions={dialogs.actions} />
             </Box>
         </Box>
     );

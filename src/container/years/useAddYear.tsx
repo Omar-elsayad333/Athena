@@ -50,7 +50,7 @@ const dialogInitialValues = {
     }
 }
 
-const useYearsSetting = () => {
+const useAddYear = () => {
 
     const auth = useUser(); 
     const router = useRouter(); 
@@ -280,4 +280,4 @@ const useYearsSetting = () => {
     );
 }
 
-export default useYearsSetting;
+export default useAddYear;

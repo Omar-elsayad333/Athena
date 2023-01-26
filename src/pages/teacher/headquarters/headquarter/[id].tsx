@@ -75,8 +75,9 @@ const Headquarter: NextPage = () => {
                 secondPath='/teacher/headquarters/add-headquarter'
                 secondContent='اضافة مقر'
             /> 
-            { loading && <Loading inside={true} />}
-            {
+            { 
+                loading ?
+                <Loading /> :
                 data &&
                 <Box sx={style.container}>
                     <Box sx={style.header}>

@@ -70,8 +70,9 @@ const Headquarters: NextPage = () => {
                 secondPath='/teacher/headquarters/add-headquarter'
                 secondContent='اضافة مقر'
             /> 
-            { loading && <Loading /> }
-            {
+            { 
+                loading ? 
+                <Loading /> :
                 data &&
                 <Box sx={style.container}>
                     <PageTitle content='جميع المقرات الحاليين'>

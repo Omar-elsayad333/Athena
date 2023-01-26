@@ -2,10 +2,11 @@ import { useRouter } from 'next/router';
 import { URL_GROUPS, URL_GROUPS_REQUIRED } from 'constant/url';
 import { useState, useEffect, useContext } from 'react';
 import { useUser } from 'context/userContext';
-import { getHandler, getHandlerById } from 'handlers/requestHandler';
+import { deleteHandler, getHandler, getHandlerById, putHandler } from 'handlers/requestHandler';
 import { DarkThemeContext } from 'context/ThemeContext';
 import { dayTranslateToArabic } from 'utils/content';
-import { group } from 'console';
+import { convertTimeFromDB, convertTimeToDB } from 'utils/converts';
+import { useError } from 'context/ErrorContext';
 
 interface Data {
     value: string;
@@ -33,9 +34,27 @@ const DropDownInitialValues = {
     helperText: ''
 }
 
+type Dialog = {
+    state: boolean,
+    main: string,
+    title: string,
+    actionContent: any   
+}
+
+const dialogInitialValues = {
+    state: false,
+    main: 'تأكيد حذف هذه المجوعه نهائياً',
+    title: 'حذف المجموعه',
+    actionContent: {
+        first: 'حذف',
+        second: 'إلغاء'
+    }
+}
+
 const useEditGroup = () => {
 
     const { darkMode } = useContext(DarkThemeContext);
+    const { setSuccessMessage, setErrorMessage } = useError()
     const auth = useUser();
     const router = useRouter();
     const { id } = router.query;
@@ -52,6 +71,8 @@ const useEditGroup = () => {
     const [ limit, setLimit] = useState<Data>(initialValues);
     const [ selectedDays, setSelectedDays] = useState<any[]>([]);
     const [ dialogState, setDialogState] = useState<boolean>(false);
+    const [ content, setContent] = useState<Dialog>(dialogInitialValues);
+
 
     // Call api to get required data if user is authorized
     useEffect(() => {
@@ -232,15 +253,15 @@ const useEditGroup = () => {
                 const newData: any = {
                     name: item.day,
                     content: dayTranslateToArabic(item.day),
-                    startTime: `01-01-2023 ${item.startTime}`,
-                    endTime: `01-01-2023 ${item.endTime}`
+                    startTime: convertTimeFromDB(item.startTime),
+                    endTime: convertTimeFromDB(item.endTime)
                 };
                 setSelectedDays((oldValues: any) => [...oldValues, newData]);
             }
         }
     }
 
-    // Get the days that the user selected
+    // Get the days tha t the user selected
     const getSelectedDays = (selectedDays: any) => {
         setSelectedDays(selectedDays);
     }
@@ -268,6 +289,14 @@ const useEditGroup = () => {
         setDialogState(true);
     }
 
+    const handleDialogState = () => {
+        if(content.state){
+            setContent((oldData) => ({...oldData, state: false}));
+        }else {
+            setContent((oldData) => ({...oldData, state: true}));
+        }
+    }
+
     // Translate day labels to arabic
     const dayTranslate = (day: string) => {
         const result = dayTranslateToArabic(day);
@@ -275,7 +304,7 @@ const useEditGroup = () => {
     }
 
     const collectData = () => {
-        const oldData : any= {
+        const dataToSubmit : any= {
             id: groupData.id,
             name: name.value.trim() != '' ? name.value : groupData.name,
             limit: limit.value.trim() != '' ? limit.value : groupData.limit,
@@ -283,22 +312,25 @@ const useEditGroup = () => {
             newGroupScaduals: []
         }
 
+        // Push the selected or old limit to submit object
         if(limit.value != '') {
-            oldData['limit'] = limit.value
+            dataToSubmit['limit'] = limit.value
         }else {
-            oldData['limit'] = groupData.limit
+            dataToSubmit['limit'] = groupData.limit
         }
 
+        // Push the selected headquarter to the submit object
         for(let item of headquarters) {
             if(item.name == groupData.headQuarter) {
-                oldData['headQuarterId'] = item.id
+                dataToSubmit['headQuarterId'] = item.id
             }
         }
 
+        // Push the selected or old Classroom to submit object 
         if(selectedClassroom.id.trim() != '') {
             for(let classroom of classrooms) {
                 if(classroom.name == selectedClassroom.name) {
-                    oldData['teacherCourseLevelYearId'] = classroom.id
+                    dataToSubmit['teacherCourseLevelYearId'] = classroom.id
                 }
             }
         } else {
@@ -306,62 +338,98 @@ const useEditGroup = () => {
                 if(groupData.startYear == item.start && groupData.endYear == item.end) {
                     for(let classroom of item.teacherCourseLevelYears) {
                         if(classroom.levelName == groupData.level) {
-                            oldData['teacherCourseLevelYearId'] = classroom.teacherCourseLevelYearId
+                            dataToSubmit['teacherCourseLevelYearId'] = classroom.teacherCourseLevelYearId
                         }
                     }
                 }
             }
         }
 
+        // Push the new and old data to submit object
         for(let selectedDay of selectedDays) {
             let state: boolean = false;
             for(let oldSelectedDays of groupData.groupScaduals) {
                 if(selectedDay.name == oldSelectedDays.day) {
                     state = true;
-                    oldData.groupScaduals.push(
+                    dataToSubmit.groupScaduals.push(
                         {
-                            id: '',
-                            day: '',
-                            startTime: '',
-                            endTime: '',
+                            id: oldSelectedDays.id,
+                            day: selectedDay.name,
+                            startTime: convertTimeToDB(selectedDay.startTime),
+                            endTime: convertTimeToDB(selectedDay.endTime),
                             isDeleted: false
                         }
                     )
                 }
             }
+
+            if(!state) {
+                dataToSubmit.newGroupScaduals.push(
+                    {
+                        day: selectedDay.name,
+                        startTime: convertTimeToDB(selectedDay.startTime),
+                        endTime: convertTimeToDB(selectedDay.endTime),
+                    }
+                )
+            }
         }
 
-        return oldData
+        // Push the deleted days to submit object
+        for(let oldSelectedDay of groupData.groupScaduals) {
+            let state: boolean = false;
+            for(let selectedDay of selectedDays) {
+                if(oldSelectedDay.day == selectedDay.name) {
+                    state = true;
+                }
+            }
+            
+            if(!state) {
+                dataToSubmit.groupScaduals.push(
+                    {
+                        id: oldSelectedDay.id,
+                        day: oldSelectedDay.day,
+                        startTime: oldSelectedDay.startTime,
+                        endTime: oldSelectedDay.endTime,
+                        isDeleted: true
+                    }
+                )
+            }
+        }
+
+        return dataToSubmit
     }
 
-    const submit = () => {
-
-        // console.log(selectedDays)
-        // console.log(groupData)
-        console.log(collectData())
-        const data = {
-            groupScaduals: [
-                {
-                    "id": "string",
-                    "day": "string",
-                    "startTime": "02:00:00",
-                    "endTime": "02:00:00",
-                    "isDeleted": false
-                }
-            ],
-            newGroupScaduals: [
-                {
-                    "day": "string",
-                    "startTime": "02:00:00",
-                    "endTime": "02:00:00"
-                }
-            ]
+    const submit = async () => {
+        try {
+            setLoading(true);
+            const data = collectData();
+            const res = await putHandler(groupData.id, auth.authToken, URL_GROUPS, data);
+            setSuccessMessage('تم تعديل بيانات المجموعه بنجاح');
+            router.push(`teacher/groups/group/${res}`);
+        }
+        catch(error) {
+            console.log(error);
+        }
+        finally {
+            setLoading(false);
         }
     }
 
-    useEffect(() => {
-        console.log(selectedDays)
-    }, [selectedDays])
+    const deleteGroup = async () => {
+        try {
+            setLoading(true);
+            handleDialogState();
+            await deleteHandler(groupData.id, auth.authToken, URL_GROUPS);
+            setErrorMessage('تم حذف المجموعه بنجاح');
+            router.replace('teacher/groups');
+        }
+        catch(error) {
+            console.log(error);
+        }
+        finally {
+            setLoading(false);
+        }
+    }
 
     return (
         {
@@ -390,11 +458,17 @@ const useEditGroup = () => {
                 limitHandler,
                 getSelectedDays,
                 updateItem,
-                submit
+                submit,
+                deleteGroup
             },
             dialogs: {
                 dialogState,
                 handleDaysDialogState,
+                content,
+                actions: {
+                    handleDialogState,
+                    submitDialog : deleteGroup
+                }
             }
         }
     );

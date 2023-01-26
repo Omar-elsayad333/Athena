@@ -1,29 +1,28 @@
 import Link from "next/link";
 import { useContext } from "react";
-import useYears from "container/years/useYears";
 import { useError } from "context/ErrorContext";
 import AlertNotify from "components/AlertNotify";
-import Loading from "components/Loading/Loading";
 import { DarkThemeContext } from "context/ThemeContext";
+import { IStyle } from "styles/IStyle";
 
 // MUI
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { IStyle } from "styles/IStyle";
 
-const YearsC: React.FC = () => {
+type Props = {
+    data: any;
+    states: any;
+}
 
-    const { 
-        data,
-        states
-    } = useYears();
+const YearsC: React.FC<Props> = ({data, states}) => {
+
+    const {mainColors} = useContext(DarkThemeContext);
     const {
         msg,
         state,
         msgType,
         handleState
     } = useError();
-    const {mainColors} = useContext(DarkThemeContext);
 
     const style: IStyle = {
         container: {
@@ -91,9 +90,6 @@ const YearsC: React.FC = () => {
 
     return (
         <Box sx={style.container}>
-            {
-                states.loading && <Loading />
-            }
             {
                 data.yearsData &&
                 data.yearsData.map((item:any) => {
