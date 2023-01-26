@@ -16,11 +16,8 @@ import Box from "@mui/material/Box";
 
 const Years: NextPage = () => {
 
+    const { data } = useYears();
     const {mainColors} = useContext(DarkThemeContext);
-    const {
-        data,
-        states
-    } = useYears();
 
     const style = {
         root: {
@@ -75,7 +72,6 @@ const Years: NextPage = () => {
                     </PageTitle>
                     <YearsC
                         data={data}
-                        states={states}
                     />
                 </Box>
             }
