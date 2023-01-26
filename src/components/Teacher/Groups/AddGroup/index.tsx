@@ -206,10 +206,10 @@ const AddGroupC: React.FC<Props> = ({states, actions, dialogs}) => {
                                                     وقت بدأ المجموعة:-
                                                 </Typography>
                                                 <MyTimePicker 
-                                                    value={new Date(item.startTime)}
                                                     day={item.name} 
                                                     name='startTime' 
-                                                    getSelectedTime={actions.getSelectedTime}
+                                                    value={new Date(item.startTime)}
+                                                    getSelectedTime={actions.updateItem}
                                                 />
                                             </Box>
                                             <Box>
@@ -217,10 +217,10 @@ const AddGroupC: React.FC<Props> = ({states, actions, dialogs}) => {
                                                     وقت انتهاء المجموعة:-
                                                 </Typography>
                                                 <MyTimePicker
-                                                    value={new Date(item.startTime)}
                                                     name='endTime' 
                                                     day={item.name}
-                                                    getSelectedTime={actions.getSelectedTime} 
+                                                    value={new Date(item.endTime)}
+                                                    getSelectedTime={actions.updateItem} 
                                                 />
                                             </Box>
                                         </Box>
@@ -228,7 +228,7 @@ const AddGroupC: React.FC<Props> = ({states, actions, dialogs}) => {
                                 )
                             })
                         }
-                    </Box> 
+                    </Box>
                 }
                 <Box sx={style.buttonsContainer}>
                     <PageError errorInfo={states.errorLabel} />

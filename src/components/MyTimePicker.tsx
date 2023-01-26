@@ -20,17 +20,6 @@ type Props = {
 const MyTimePicker: React.FC<Props> = ({getSelectedTime, name, day, value, readOnly= false}) => {
     
     const { mainColors, darkMode } = useContext(DarkThemeContext);
-    // const [ timeValue, setTimeValue] = useState<any>(new Date());
-    
-    // useEffect(() => {
-    //     // const newTimeValue = {
-    //     //     time: timeValue.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', second:'2-digit', hour12: false}),
-    //     //     name: name,
-    //     //     day: day
-    //     // }
-    //     // getSelectedTime && getSelectedTime(newTimeValue);
-    //     console.log(value)
-    // }, []);
     
     const classes = {
         root: {

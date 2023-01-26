@@ -303,6 +303,7 @@ const useEditGroup = () => {
         return result;
     }
 
+    // Collect data to send it to api
     const collectData = () => {
         const dataToSubmit : any= {
             id: groupData.id,
@@ -399,13 +400,14 @@ const useEditGroup = () => {
         return dataToSubmit
     }
 
+    // Call api to submit data
     const submit = async () => {
         try {
             setLoading(true);
             const data = collectData();
             const res = await putHandler(groupData.id, auth.authToken, URL_GROUPS, data);
             setSuccessMessage('تم تعديل بيانات المجموعه بنجاح');
-            router.push(`teacher/groups/group/${res}`);
+            router.push(`/teacher/groups/group/${res}`);
         }
         catch(error) {
             console.log(error);
@@ -415,13 +417,14 @@ const useEditGroup = () => {
         }
     }
 
+    // Call api to delete group
     const deleteGroup = async () => {
         try {
             setLoading(true);
             handleDialogState();
             await deleteHandler(groupData.id, auth.authToken, URL_GROUPS);
             setErrorMessage('تم حذف المجموعه بنجاح');
-            router.replace('teacher/groups');
+            router.replace('/teacher/groups');
         }
         catch(error) {
             console.log(error);

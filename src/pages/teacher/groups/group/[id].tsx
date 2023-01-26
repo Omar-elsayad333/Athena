@@ -12,6 +12,8 @@ import GroupC from 'components/Teacher/Groups/Group';
 import PageFooter from "components/Shared/PageFooter";
 import Loading from "components/Loading/Loading";
 import useGroup from "container/groups/useGroup";
+import { useError } from "context/ErrorContext";
+import AlertNotify from "components/AlertNotify";
 
 // MUI
 import Box from "@mui/material/Box";
@@ -24,7 +26,13 @@ const Group: NextPage = () => {
         data,
         states,
         actions
-    } = useGroup()
+    } = useGroup();
+    const {
+        msg,
+        state,
+        msgType,
+        handleState
+    } = useError();
     
     const style = {
         root: {
@@ -98,6 +106,7 @@ const Group: NextPage = () => {
                 <PageFooter />
             </Box>
             <ThemeSwitcher />
+            <AlertNotify msg={msg} state={state} handleState={handleState} msgType={msgType} />
         </Box>  
     )
 }

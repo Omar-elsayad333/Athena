@@ -4,6 +4,7 @@ import { URL_GROUPS, URL_GROUPS_REQUIRED } from 'constant/url';
 import { getHandler, postHandler } from 'handlers/requestHandler';
 import { useError } from 'context/ErrorContext';
 import { useRouter } from 'next/router';
+import { convertTimeToDB } from 'utils/converts';
 
 interface Data {
     value: string;
@@ -213,19 +214,19 @@ const useAddGroup = () => {
     }
 
     // Get the selected time and update the selected days with the new time
-    const getSelectedTime = (selectedTime: any) => {
-        if(selectedTime.name === 'startTime'){
-            for (let i = 0; i < selectedDays.length; i++) {
-                if (selectedDays[i].name === selectedTime.day) {
-                    selectedDays[i].startTime = selectedTime.time
-                }
-            }
-        }else {
-            for (let i = 0; i < selectedDays.length; i++) {
-                if (selectedDays[i].name === selectedTime.day) {
-                    selectedDays[i].endTime = selectedTime.time
-                }
-            }
+    const updateItem =(newTime: any, day: any, name: any)=> {
+        var index = selectedDays.findIndex((x: any) => x.name === day);
+
+        console.log(index)
+
+        let g: any = selectedDays[index]
+        g[name] = newTime
+        
+        if (index === -1){
+            // handle error
+            console.log('no match')
+        } else {   
+            setSelectedDays([...selectedDays.slice(0,index), g, ...selectedDays.slice(index+1)]);
         }
     }
 
@@ -310,8 +311,8 @@ const useAddGroup = () => {
         for(let item of selectedDays) {
             const newData: any = {
                 day: item.name,
-                startTime: item.startTime,
-                endTime: item.endTime
+                startTime: convertTimeToDB(item.startTime),
+                endTime: convertTimeToDB(item.endTime)
             }
             data.groupScaduals.push(newData)
         }
@@ -381,7 +382,7 @@ const useAddGroup = () => {
                 classroomHandler,
                 limitHandler,
                 getSelectedDays,
-                getSelectedTime,
+                updateItem,
                 submit,
                 cancelSubmit
             },
