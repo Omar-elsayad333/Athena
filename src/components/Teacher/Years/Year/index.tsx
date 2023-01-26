@@ -10,12 +10,9 @@ import Typography from "@mui/material/Typography";
 
 type Props = {
     data: any;
-    states: any;
-    actions: any;
-    dialogs: any;
 }
 
-const YearC: React.FC<Props> = ({data, states}) => {
+const YearC: React.FC<Props> = ({data}) => {
 
     const { mainColors } = useContext(DarkThemeContext);
     const {

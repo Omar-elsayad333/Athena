@@ -22,9 +22,7 @@ const Year: NextPage = () => {
     const { mainColors } = useContext(DarkThemeContext);
     const { 
         data,
-        states,
-        actions,
-        dialogs
+        states
     } = useYear()
 
     const style = {
@@ -94,9 +92,6 @@ const Year: NextPage = () => {
                     </Box>
                     <YearC 
                         data={data}
-                        states={states}
-                        dialogs={dialogs}
-                        actions={actions}
                     />
                 </Box>
             }
