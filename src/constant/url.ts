@@ -13,6 +13,7 @@ export const URL_TEACHERS_BASE: string = '/api/teachers/base';
 
 // App sections urls
 export const URL_YEARS: string = '/api/years';
+export const URL_YEARS_END: string = '/api/years/end';
 export const URL_LEVELS: string = '/api/levels';
 export const URL_COURSES: string = '/api/courses';
 export const URL_GROUPS: string = '/api/groups';

@@ -24,7 +24,7 @@ type Props = {
 const AddYearC: React.FC<Props> = ({data, states, actions, dialog}) => {
     
     const { mainColors } = useContext(DarkThemeContext);
-    
+
     const style: IStyle = {
         container: {
             display: 'flex',
@@ -198,6 +198,7 @@ const AddYearC: React.FC<Props> = ({data, states, actions, dialog}) => {
                 </Box>
             }
             <Box sx={style.buttonsContainer}>
+                <PageError errorInfo={states.errorLabel} />
                 <Box sx={style.submitButton}>
                     <MyButton onClick={actions.submit} loading={states.loading} content='تأكيد واضافة' />
                 </Box>
@@ -205,7 +206,6 @@ const AddYearC: React.FC<Props> = ({data, states, actions, dialog}) => {
                     <MyButtonError loading={states.loading} content='إلغاء العملية' onClick={dialog.actions.handleDialogState} />
                 </Box>
             </Box>
-            <PageError errorInfo={states.errorLabel} />
             <BasicDialog state={dialog.content.state} content={dialog.content} actions={dialog.actions} />
             <ClassesDialog 
                 data={data.requiredData} 

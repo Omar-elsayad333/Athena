@@ -29,6 +29,30 @@ export const postHandler = (authorization: string, path: string, data: any) => {
 }; 
 
 // Actions to login for user and admin
+export const postHandlerById = (id: string | string[] | undefined, authorization: string, path: string, data: any) => {
+    return new Promise ((resolved, rejected) => {
+        axios({
+            url: `${URL_MAIN}${path}/${id}`,
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${authorization}`
+            },
+            data
+        })
+        .then(
+            (res) => {
+                resolved(res.data);
+            },
+            (rej) => {
+                rejected(rej);
+            }
+        )
+    });
+};
+
+// Actions to login for user and admin
 export const getHandler = (authorization: string, path: string) => {
     return new Promise ((resolved, rejected) => {
         axios({

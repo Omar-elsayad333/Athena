@@ -68,7 +68,7 @@ const useAddYear = () => {
         if(auth) {
             getClassesData();
         }
-    }, [auth])
+    }, [auth]);
 
     // Open and close cancel submit dialog
     const handleDialogState = () => {
@@ -89,8 +89,8 @@ const useAddYear = () => {
     }
 
     // Get user selected year
-    const getSelectedYear = (selected: string) => {
-        setYearActive((oldData) => ({...oldData, name: selected, error: false}));
+    const getSelectedYear = (selected: any) => {
+        setYearActive((oldData) => ({...oldData, name: selected.name, error: false}));
     }
     
     // Get available classes from db
