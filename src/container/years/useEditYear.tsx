@@ -17,10 +17,10 @@ const YearInitialValue = {
 }
 
 interface semester {
-    id: string;
+    id?: string;
     name: string;
-    startDate: string | null;
-    endDate: string | null;
+    startDate?: string | null;
+    endDate?: string | null;
     state: string;
 }
 
@@ -163,6 +163,59 @@ const useEditYear = () => {
         setSelectedYear((oldData) => ({...oldData, name: selected.name, error: false}));
     }
 
+    // Get the selected Classes
+    const handleSelectedClasses = (selected: any) => {
+        classesLoop: for(let selectedClass of selected){
+            const index = classes.findIndex(item => item.name === selectedClass.name)
+
+            console.log(index)
+
+            if(index !== -1) {
+                console.log('already exist');
+            } else {
+                setClasses(oldValues => [...oldValues, {
+                    id: selectedClass.id,
+                    name: selectedClass.name,
+                    first: selectedClass.first,
+                    second: selectedClass.second
+                }]);
+            }
+        };
+    };
+
+    // Add semester to class
+    const addSemester = (selectedClassId: string, semesterType: string) => {
+        const index = classes.findIndex(item => item.id == selectedClassId);
+        
+        if (index === -1){
+            // handle error
+            console.log('no match');
+        } else {              
+            let newSemester: any = classes[index]
+            newSemester[semesterType] = {
+                endDate: null,
+                startDate: null,
+                state: 'Disactive',
+                name: semesterType == 'first' ? 'الفصل الدراسى الأول' : 'الفصل الدراسى الثانى'
+            }
+            setClasses([...classes.slice(0,index), newSemester, ...classes.slice(index+1)]);
+        }
+    }
+
+    // Remove semester from class
+    const removeSemester = (selectedClassId: string, semesterType: string) => {
+        const index = classes.findIndex(item => item.id == selectedClassId);
+        
+        if (index === -1){
+            // handle error
+            console.log('no match');
+        } else {              
+            let newSemester: any = classes[index]
+            newSemester[semesterType] = null
+            setClasses([...classes.slice(0,index), newSemester, ...classes.slice(index+1)]);
+        }
+    }
+
     // Call api to end  year
     const endYear = async () => {
         try {
@@ -209,7 +262,7 @@ const useEditYear = () => {
     }
 
     useEffect(() => {
-        console.log(classes)
+        console.log(classes);
     }, [classes])
 
     return (
@@ -217,19 +270,24 @@ const useEditYear = () => {
             data: {
                 requiredData,
                 yearData,
-                yearsToSelect
+                yearsToSelect,
+                classes
             },
             states: {
                 loading,
                 errorLabel,
                 year,
-                selectedYear
+                selectedYear,
+                classesDialogState
             },
             actions: {
                 getSelectedYear,
                 classesHandleDialog,
                 endYear,
-                deleteYear
+                deleteYear,
+                handleSelectedClasses,
+                addSemester,
+                removeSemester
             },
             dialogs: {
                 classesDialogState,

@@ -149,7 +149,6 @@ const ClassesDialog: React.FC<Props> = ({open, handleClose, getSelectedClasses, 
 
     const submitData = () => {
         const selected = [];
-
         const classes = document.getElementsByClassName('classes');
 
         // get selected days then remove the selected class
@@ -157,7 +156,9 @@ const ClassesDialog: React.FC<Props> = ({open, handleClose, getSelectedClasses, 
             if (classes[i]?.classList.contains(`${MyCss.selected}`) || classes[i]?.classList.contains(`${MyCss.darkSelected}`) ) {
                 const selectedData: any = {
                     id: '',
-                    name: ''
+                    name: '',
+                    first: null,
+                    second: null
                 };
                 selectedData['id'] = (classes[i]?.getAttribute("data-id"));
                 selectedData['name'] = (classes[i]?.innerHTML);
@@ -203,6 +204,7 @@ const ClassesDialog: React.FC<Props> = ({open, handleClose, getSelectedClasses, 
                                 onClick={(e) => selectHandle(e)}
                             >
                                 {item.levelName}
+                                {console.log(item)}
                             </Box>
                         ))
                     }

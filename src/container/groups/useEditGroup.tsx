@@ -268,9 +268,7 @@ const useEditGroup = () => {
 
     const updateItem =(newTime: any, day: any, name: any)=> {
         var index = selectedDays.findIndex(x => x.name === day);
-
-        console.log(index)
-
+        
         let g: any = selectedDays[index]
         g[name] = newTime
         

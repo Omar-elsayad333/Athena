@@ -175,7 +175,7 @@ const EditYearC: React.FC<Props> = ({data, states, actions}) => {
                     icon={<ControlPointIcon />} 
                     content='الصفوف الدراسية'
                 />
-                {/* {
+                {
                     data.classes.length > 0 &&
                     <Box sx={style.classesList}>
                         {
@@ -188,55 +188,55 @@ const EditYearC: React.FC<Props> = ({data, states, actions}) => {
                             })
                         }
                     </Box>
-                } */}
+                }
             </Box>
             {
-                // data.classes.length > 0 &&
-                // <Typography sx={style.title} variant="h3" color={mainColors.title.main}>
-                //     تحديد الفصول الدراسية:-
-                // </Typography>
+                data.classes.length > 0 &&
+                <Typography sx={style.title} variant="h3" color={mainColors.title.main}>
+                    تحديد الفصول الدراسية:-
+                </Typography>
             }
             {
-                // data.classes.length > 0 &&
-                // <Box sx={style.semestersBackPaper}>
-                //     {
-                //         data.classes.map((item: any) => {
-                //             return (
-                //                 <Box key={item.id} sx={style.semeterContainer}>
-                //                     <Box sx={style.classesLabel}>
-                //                         {item.name}
-                //                     </Box>
-                //                     <Box sx={style.semestersBox}>
-                //                         {
-                //                             item.first ?
-                //                             <Box sx={style.semesterChip} onClick={() => actions.removeSemester(item.id, 'first')}>
-                //                                 الفصل الدراسي الاول
-                //                             </Box> : 
-                //                             <MyIconButton 
-                //                                 event={() => actions.addSemester(item.id, 'first')} 
-                //                                 content='الفصول الدراسية '
-                //                                 icon={<ControlPointIcon />} 
-                //                             />
-                //                         }
-                //                         {
-                //                             item.second ?
-                //                             <Box sx={style.semesterChip} onClick={() => actions.removeSemester(item.id, 'second')}>
-                //                                 الفصل الدراسي الثاني
-                //                             </Box> : 
-                //                             <Box sx={style.semestersBox}>
-                //                                 <MyIconButton 
-                //                                     event={() => actions.addSemester(item.id, 'second')} 
-                //                                     content='الفصول الدراسية '   
-                //                                     icon={<ControlPointIcon />} 
-                //                                     />
-                //                             </Box>
-                //                         }
-                //                     </Box>
-                //                 </Box>
-                //             )
-                //         })
-                //     }
-                // </Box>
+                data.classes.length > 0 &&
+                <Box sx={style.semestersBackPaper}>
+                    {
+                        data.classes.map((item: any) => {
+                            return (
+                                <Box key={item.id} sx={style.semeterContainer}>
+                                    <Box sx={style.classesLabel}>
+                                        {item.name}
+                                    </Box>
+                                    <Box sx={style.semestersBox}>
+                                        {
+                                            item.first ?
+                                            <Box sx={style.semesterChip} onClick={() => actions.removeSemester(item.id, 'first')}>
+                                                الفصل الدراسي الاول
+                                            </Box> : 
+                                            <MyIconButton 
+                                                event={() => actions.addSemester(item.id, 'first')} 
+                                                content='الفصول الدراسية '
+                                                icon={<ControlPointIcon />} 
+                                            />
+                                        }
+                                        {
+                                            item.second ?
+                                            <Box sx={style.semesterChip} onClick={() => actions.removeSemester(item.id, 'second')}>
+                                                الفصل الدراسي الثاني
+                                            </Box> : 
+                                            <Box sx={style.semestersBox}>
+                                                <MyIconButton 
+                                                    event={() => actions.addSemester(item.id, 'second')} 
+                                                    content='الفصول الدراسية '   
+                                                    icon={<ControlPointIcon />} 
+                                                    />
+                                            </Box>
+                                        }
+                                    </Box>
+                                </Box>
+                            )
+                        })
+                    }
+                </Box>
             }
             {/* <Box sx={style.buttonsContainer}>
                 <PageError errorInfo={states.errorLabel} />
