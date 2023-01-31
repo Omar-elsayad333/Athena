@@ -35,7 +35,7 @@ const useStudentSignUp = () => {
 
     useEffect(() => {
         if(levels) {
-            setClassification([])
+            setClassifications([])
         }
     }, [levels])
 
