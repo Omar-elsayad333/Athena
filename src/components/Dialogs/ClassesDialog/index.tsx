@@ -204,7 +204,6 @@ const ClassesDialog: React.FC<Props> = ({open, handleClose, getSelectedClasses, 
                                 onClick={(e) => selectHandle(e)}
                             >
                                 {item.levelName}
-                                {console.log(item)}
                             </Box>
                         ))
                     }

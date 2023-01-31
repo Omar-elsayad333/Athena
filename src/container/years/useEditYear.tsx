@@ -165,15 +165,18 @@ const useEditYear = () => {
 
     // Get the selected Classes
     const handleSelectedClasses = (selected: any) => {
-        classesLoop: for(let selectedClass of selected){
-            const index = classes.findIndex(item => item.name === selectedClass.name)
 
-            console.log(index)
+        // Remove classes
+        deleteClass(selected);
+
+        // Add new classes
+        classesLoop: for(let selectedClass of selected){            
+            const index = classes.findIndex(item => item.name === selectedClass.name);
 
             if(index !== -1) {
                 console.log('already exist');
             } else {
-                setClasses(oldValues => [...oldValues, {
+                setClasses([...classes, {
                     id: selectedClass.id,
                     name: selectedClass.name,
                     first: selectedClass.first,
@@ -182,6 +185,21 @@ const useEditYear = () => {
             }
         };
     };
+
+    // Remove class
+    const deleteClass = async (newSelectedClasses: any) => {
+        for(let oldClasses of classes) {
+            const index = newSelectedClasses.findIndex((item: any) => item.name === oldClasses.name) 
+
+            if(index == -1) {
+                for(let i in classes) {
+                    if(classes[i]?.name == oldClasses.name) {
+                        setClasses([...classes.slice(0, parseInt(i)), ...classes.slice(parseInt(i) + 1)])
+                    }
+                }
+            }
+        }
+    }
 
     // Add semester to class
     const addSemester = (selectedClassId: string, semesterType: string) => {

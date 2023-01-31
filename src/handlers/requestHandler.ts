@@ -53,6 +53,28 @@ export const postHandlerById = (id: string | string[] | undefined, authorization
 };
 
 // Actions to login for user and admin
+export const publicGetHandler = (path: string) => {
+    return new Promise ((resolved, rejected) => {
+        axios({
+            url: `${URL_MAIN}${path}`,
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(
+            (res) => {
+                resolved(res.data);
+            },
+            (rej) => {
+                rejected(rej);
+            }
+        )
+    });
+};
+
+// Actions to login for user and admin
 export const getHandler = (authorization: string, path: string) => {
     return new Promise ((resolved, rejected) => {
         axios({

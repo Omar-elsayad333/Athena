@@ -1,6 +1,6 @@
 // MUI
-import { styled } from '@mui/material/styles';
 import Button from "@mui/material/Button";
+import { styled } from '@mui/material/styles';
 
 type Props = {
     content?: any;
@@ -14,17 +14,24 @@ const MyButton = styled(Button)({
     fontSize: '26px',
     fontWeight: '700',
     boxShadow: 'none',
+    background: '#B6D5F0',
+    color: '#1C364F',
     '&:hover': {
         color: '#E8F3FF',
+        background: '#3F72A4',
     },
+    '@media screen and (max-width: 300px)': {
+        width: '170px',
+        fontSize: '20px',
+    }
 });
 
-const LogButS: React.FC<Props> = ({content, onClick}) => {
+const SButtonSubmit: React.FC<Props> = ({content, onClick}) => {
     return (
-        <MyButton variant="contained" color='secondary' onClick={onClick}>
+        <MyButton variant="contained" onClick={onClick}>
             {content}
         </MyButton>
     );
 }
 
-export default LogButS;
+export default SButtonSubmit;

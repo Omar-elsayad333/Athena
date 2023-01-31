@@ -1,24 +1,26 @@
 import style from './style';
 import Link from 'next/link';
-import MyInput from '../MyInput';
+import { useContext } from 'react';
+import SInput from './Inputs/SInput';
 import MyPhotoInput from '../MyPhotoInput';
-import MyButton from '../LogButS';
-// import MySelect from 'components/MySelect';
-// import MyDatePicker from 'components/MyDatePicker';
+import MySelect from 'components/MySelect';
+import MyDatePicker from 'components/MyDatePicker';
+import MyPassInput from 'components/MyPassInput';
+import SButtonSubmit from './Inputs/SButtonSubmit';
+import { DarkThemeContext } from 'context/ThemeContext';
+import useStudentSignUp from 'container/useStudentSignUp';
 
 // MUI
 import Box from '@mui/material/Box';
 import Checkbox from '@mui/material/Checkbox';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
-import MyPassInput from 'components/MyPassInput';
-
-// const genders = [
-//     'ذكر',
-//     'أنثى',
-// ];
 
 const FormSection: React.FC = () => {
+
+    const { darkMode } = useContext(DarkThemeContext);
+    const { data, states, actions } = useStudentSignUp();
+    
     return (
         <Container sx={style.formSec}>
             <Box sx={style.formSec.headerContainer}>
@@ -49,15 +51,92 @@ const FormSection: React.FC = () => {
                         <MyPhotoInput />
                     </Box>
                     <Box sx={style.formSec.inputsLayout}>
-                        <MyInput placeholder='الاسم الأول' type='text' onChange={() => {}}/>
-                        <MyInput placeholder='الاسم الأخير' type='text' onChange={() => {}} />
-                        <MyInput placeholder='الاسم الأوسط' type='text' onChange={() => {}} />
-                        {/* <MySelect placeholder='حدد النوع' data={genders} /> */}
-                        {/* <MyDatePicker placeholder='حدد تاريخ ميلادك ' /> */}
-                        <MyInput placeholder='أكتب عنوانك بالكامل' type='text' onChange={() => {}} />
-                        <MyInput placeholder='البريد الإلكتروني الخاص بك' type='email' onChange={() => {}} />
-                        <MyInput placeholder='رقم الهاتف الخاص بك' type='text' onChange={() => {}} />
-                        <MyInput placeholder='رقم الهاتف المنزلي' type='text' onChange={() => {}} />
+                        <SInput 
+                            placeholder='الاسم الأول' 
+                            value={states.firstName.value}
+                            error={states.firstName.error}
+                            onChange={actions.firstNameHandler}
+                            helperText={states.firstName.helperText}
+                        />
+                        <SInput 
+                            placeholder='الاسم الأخير'  
+                            value={states.lastName.value}
+                            error={states.lastName.error}
+                            onChange={actions.lastNameHandler} 
+                            helperText={states.lastName.helperText}
+                        />
+                        <SInput 
+                            placeholder='الاسم الأوسط' 
+                            value={states.middleName.value}
+                            error={states.middleName.error}
+                            onChange={actions.middleNameHandler}
+                            helperText={states.middleName.helperText}
+                        />
+                        <MySelect 
+                            placeholder='حدد النوع' 
+                            data={data.genders} 
+                            value={states.gender.value}
+                            error={states.gender.error}
+                            getSelected={actions.genderHandler}
+                        />
+                        <MyDatePicker 
+                            placeholder='حدد تاريخ ميلادك ' 
+                            dateValue={states.birthDate}
+                            handleDateValue={actions.birthDateHandler}
+                        />
+                        <SInput 
+                            placeholder='أكتب عنوانك بالكامل' 
+                            value={states.address.value}
+                            error={states.address.error}
+                            onChange={actions.addressHandler}
+                            helperText={states.address.helperText}
+                        />
+                        <SInput 
+                            type='email' 
+                            placeholder='البريد الإلكتروني الخاص بك' 
+                            value={states.email.value}
+                            error={states.email.error}
+                            onChange={actions.emailHandler}
+                            helperText={states.email.helperText} 
+                        />
+                        <SInput 
+                            type='number'
+                            placeholder='رقم الهاتف الخاص بك' 
+                            value={states.phoneNumber.value}
+                            error={states.phoneNumber.error}
+                            onChange={actions.phoneNumberHandler}
+                            helperText={states.phoneNumber.helperText} 
+                        />
+                        <SInput 
+                            type='number' 
+                            placeholder='رقم الهاتف المنزلي' 
+                            value={states.homePhone.value}
+                            error={states.homePhone.error}
+                            onChange={actions.homePhoneHandler}
+                            helperText={states.homePhone.helperText} 
+                        />
+                        <SInput 
+                            type='number' 
+                            placeholder='المدرسة' 
+                            value={states.school.value}
+                            error={states.school.error}
+                            onChange={actions.schoolHandler}
+                            helperText={states.school.helperText}  
+                        />
+                        <MySelect 
+                            placeholder='الصف الدراسي الخاص بك'
+                            data={data.levels} 
+                            value={states.level.value}
+                            error={states.level.error}
+                            getSelected={actions.levelHandler}
+                        />
+                        <MySelect 
+                            placeholder='الشعبة العلمية'
+                            data={data.levels} 
+                            value={states.level.value}
+                            error={states.level.error}
+                            getSelected={actions.levelHandler}
+                        />
                     </Box>
                 </Box>
 
@@ -66,9 +145,19 @@ const FormSection: React.FC = () => {
                         معلومات ولي الأمر
                     </Typography>
                     <Box sx={style.formSec.inputsLayout}>                        
-                        <MyInput placeholder='أسم ولي الأمر' type='text' onChange={() => {}} />
-                        <MyInput placeholder='وظيفة ولي الأمر' type='text' onChange={() => {}} />
-                        <MyInput placeholder='رقم هاتف ولي الأمر' type='text' onChange={() => {}} />
+                        <SInput 
+                            placeholder='أسم ولي الأمر' 
+                            onChange={() => {}} 
+                        />
+                        <SInput 
+                            placeholder='وظيفة ولي الأمر' 
+                            onChange={() => {}}
+                        />
+                        <SInput 
+                            placeholder='رقم هاتف ولي الأمر' 
+                            type='number' 
+                            onChange={() => {}} 
+                            />
                     </Box>
                 </Box>
 
@@ -77,22 +166,29 @@ const FormSection: React.FC = () => {
                         معلومات الحساب
                     </Typography>
                     <Box sx={style.formSec.inputsLayout}>
-                        <MyInput placeholder='أسم المستخدم' type='text' onChange={() => {}} />
-                        <MyPassInput placeholder='كلمة السر' />
-                        <MyPassInput placeholder='تأكيد كلمة السر' />
+                        <SInput 
+                            placeholder='أسم المستخدم' 
+                            onChange={() => {}} 
+                        />
+                        <MyPassInput
+                            placeholder='كلمة السر' 
+                        />
+                        <MyPassInput 
+                            placeholder='تأكيد كلمة السر' 
+                        />
                     </Box>
                 </Box>
             </Box>
             
             <Box sx={style.formSec.privacy}>
-                <Checkbox size='small' color='primary' />
-                <Typography variant="h5" color='primary'>
+                <Checkbox size='small' color={darkMode ? 'secondary' : 'primary'} />
+                <Typography variant="h5" color='#3F72A4'>
                     عمري 13 عاما أو أكثر وأوافق على سياسة الخصوصية وشروط الخدمة     
                 </Typography>
             </Box>
             
             <Box sx={style.formSec.submitButton}>
-                <MyButton content='انشاء الحساب' onClick={null}/>
+                <SButtonSubmit content='انشاء الحساب' onClick={null}/>
             </Box>
         </Container>
     );

@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 const MyPhotoInput: React.FC = () => {
     
     const { mainColors } = useTheme();
-    const [ selectedImage, setSelectedImage] = useState<any>('');
+    const [ selectedImage, setSelectedImage] = useState<any>([]);
 
     const style: any = {
         container: {
@@ -30,7 +30,7 @@ const MyPhotoInput: React.FC = () => {
             width: '150px',
             height: '150px',
             background: () => {
-                if(selectedImage){
+                if(selectedImage.length > 0){
                     return(`url(${selectedImage})`)
                 }else {
                     return(mainColors.icons.roundedAdd)
@@ -49,14 +49,16 @@ const MyPhotoInput: React.FC = () => {
 
     const handleImageChange = (e: any) => {
         console.log(e.target.files)
-        setSelectedImage(URL.createObjectURL(e.target.files[0]))
+        if(e.target.files) {
+            setSelectedImage(URL.createObjectURL(new Blob(e.target.files)))
+        }
     };
 
     return (
         <Box sx={style.container}>
             <Box sx={style.photoPLaceholder}>
                 {
-                    !selectedImage && 
+                    selectedImage.length == 0 && 
                     <svg width="100" height="100" viewBox="0 0 100 100" fill={mainColors.primary.main} xmlns="http://www.w3.org/2000/svg">
                         <g clip-path="url(#clip0_328_1250)">
                             <path d="M73.8932 39.0484C73.8942 43.775 72.4935 48.3958 69.8682 52.3262C67.2429 56.2567 63.5109 59.3203 59.1443 61.1296C54.7777 62.9388 49.9727 63.4125 45.3368 62.4906C40.701 61.5688 36.4427 59.2928 33.1005 55.9506C29.7583 52.6084 27.4823 48.3501 26.5605 43.7143C25.6386 39.0785 26.1123 34.2734 27.9216 29.9068C29.7308 25.5402 32.7944 21.8082 36.7249 19.1829C40.6554 16.5576 45.2761 15.1569 50.0027 15.158C56.3384 15.1594 62.4142 17.6768 66.8942 22.1569C71.3743 26.6369 73.8917 32.7127 73.8932 39.0484Z" fill="inherit"/>

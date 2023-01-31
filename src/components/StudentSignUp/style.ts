@@ -11,10 +11,10 @@ const style: any = {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'start',
-        '@media (max-width: 1440px)': {
+        '@media screen and (max-width: 1440px)': {
             paddingY: '20px',
         },
-        '@media (max-width: 1000px)': {
+        '@media screen and (max-width: 1000px)': {
             width: '100%',
             justifyContent: 'space-between',
             position: 'unset',
@@ -27,7 +27,7 @@ const style: any = {
             flexDirection: 'column',
             justifyContent: 'end',
             alignItems: 'end',
-            '@media (max-width: 1000px)': {
+            '@media screen and (max-width: 1000px)': {
                 height: '5vh',
                 alignItems: 'center',
                 marginLeft: '0',
@@ -45,18 +45,21 @@ const style: any = {
             gap: '30px',
             privacy: {
                 lineHeight: '20px',
+                '@media screen and (max-width: 1000px)': {
+                    display: 'none'
+                }
             },
             link: {
                 cursor: 'pointer',
             },
-            '@media (max-width: 1000px)': {
+            '@media screen and (max-width: 1000px)': {
                 height: '50vh',
                 padding: '0',
             },
         },
         scrollBut: {
             display: 'none',
-            '@media (max-width: 1000px)': {
+            '@media screen and (max-width: 1000px)': {
                 height: '20vh',
                 width: '255px',
                 paddingX: '20px',
@@ -66,7 +69,7 @@ const style: any = {
                 alignItems: 'center',
                 gap: '10px',
             },
-            '@media (max-width: 300px)': {
+            '@media screen and (max-width: 300px)': {
                 width: '200px',
             },
             link: {
@@ -86,7 +89,7 @@ const style: any = {
         alignItems: 'center',
         gap: '20px',
         backgroundColor: '#E0EEFF',
-        '@media (max-width: 1000px)': {
+        '@media screen and (max-width: 1000px)': {
             width: '100%',
             flexDirection: 'column',
         },
@@ -96,10 +99,10 @@ const style: any = {
             justifyContent: 'space-between',
             alignItems: 'start',
             gap: '140px',
-            '@media (max-width: 1500px)': {
+            '@media screen and (max-width: 1500px)': {
                 gap: '70px'
             },
-            '@media (max-width: 1000px)': {
+            '@media screen and (max-width: 1000px)': {
                 paddingLeft: '50px',  
             },
         },
@@ -114,11 +117,11 @@ const style: any = {
             borderRadius: '10px',
             padding: '11px 22px',
             link: {
-                '@media (max-width: 1000px)': {
+                '@media screen and (max-width: 1000px)': {
                     display: 'none',
                 }
             },
-            '@media (max-width: 1000px)': {
+            '@media screen and (max-width: 1000px)': {
                 marginBottom: '40px',
             }
         },
@@ -156,18 +159,18 @@ const style: any = {
             marginBottom: '55px',
             width: '255px',
             alignSelf: 'start',
-            '@media (max-width: 300px)': {
+            '@media screen and (max-width: 300px)': {
                 width: '200px',
             },
         },
         headerPhotoInput: {
             marginLeft: '50px',
-            '@media (max-width: 1000px)': {
+            '@media screen and (max-width: 1000px)': {
                 display: 'none',
             }
         },
         photoInput: {
-            '@media (min-width: 1000px)': {
+            '@media screen and  (min-width: 1000px)': {
                 display: 'none',
             }
         }

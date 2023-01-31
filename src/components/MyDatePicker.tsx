@@ -86,7 +86,7 @@ const popperStyle: SxProps = {
 
 type Props = {
     placeholder: string;
-    dateValue: string;
+    dateValue?: Date;
     handleDateValue: Function;
 }
 

@@ -32,3 +32,14 @@ export const yearsToSelect: any[] = [
         id: 8
     }
 ]
+
+export const genders: any[] = [
+    {   
+        id: 1,
+        name: 'ذكر'
+    },
+    {
+        id: 2,
+        name: 'انثي'
+    }
+]
