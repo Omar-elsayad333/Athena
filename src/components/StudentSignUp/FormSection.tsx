@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { useContext } from 'react';
 import SInput from './Inputs/SInput';
 import MyPhotoInput from '../MyPhotoInput';
-import MySelect from 'components/MySelect';
 import MyDatePicker from 'components/MyDatePicker';
 import MyPassInput from 'components/MyPassInput';
 import SButtonSubmit from './Inputs/SButtonSubmit';
