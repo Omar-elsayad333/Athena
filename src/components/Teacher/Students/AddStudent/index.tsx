@@ -7,7 +7,7 @@ import MyButtonError from 'components/Buttons/MyButtonError';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import MyInput from 'components/MyInput';
-import MyPhotoInput from 'components/MyPhotoInput';
+// import MyPhotoInput from 'components/MyPhotoInput';
 
 
 const YearsSettingC: React.FC = () => {
@@ -119,7 +119,7 @@ const YearsSettingC: React.FC = () => {
                         </Box>
                     </Box>
                 </Box>
-                <MyPhotoInput />
+                {/* <MyPhotoInput /> */}
             </Box>
             <Box sx={style.buttonsContainer}>
                 <Box sx={style.submitButton}>
