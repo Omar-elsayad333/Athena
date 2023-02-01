@@ -2,13 +2,15 @@ import { URL_LEVELS, URL_STUDENTS } from 'constant/url';
 import { useState, useEffect } from 'react';
 import { genders } from "constant/staticData";
 import { publicGetHandler } from 'handlers/requestHandler';
+import { signUpHandler } from 'handlers/userHandler';
+import { imageInitialValues, ImageProps } from 'interfaces/shared/image';
 import {
     InputProps,
     inputInitialValues,
     DropMenuProps,
     dropMenuInitialValues
 } from 'interfaces/student/studenSignUp';
-import { signUpHandler } from 'handlers/userHandler';
+import { InputPasswordProps, passwordInitialValues } from 'interfaces/shared/inputPassword';
 
 const useStudentSignUp = () => {
 
@@ -16,6 +18,7 @@ const useStudentSignUp = () => {
     const [ levels, setLevels ] = useState<any>('')
     const [ classifications, setClassifications ] = useState<any>([]) 
 
+    const [ image, setImage ] = useState<ImageProps>(imageInitialValues)
     const [ firstName, setFirstName ] = useState<InputProps>(inputInitialValues)
     const [ lastName, setLastName ] = useState<InputProps>(inputInitialValues)
     const [ middleName, setMiddleName ] = useState<InputProps>(inputInitialValues)
@@ -32,8 +35,8 @@ const useStudentSignUp = () => {
     const [ parentJob, setParentJop ] = useState<InputProps>(inputInitialValues)
     const [ parentPhone, setParentPhone ] = useState<InputProps>(inputInitialValues)
     const [ userName, setUserName ] = useState<InputProps>(inputInitialValues)
-    const [ password, setPassword ] = useState<InputProps>(inputInitialValues)
-    const [ confirmPassword, setConfirmPassword ] = useState<InputProps>(inputInitialValues)
+    const [ password, setPassword ] = useState<InputPasswordProps>(passwordInitialValues)
+    const [ confirmPassword, setConfirmPassword ] = useState<InputPasswordProps>(passwordInitialValues)
 
     // Get levels Data from api
     useEffect(() => {
@@ -66,6 +69,28 @@ const useStudentSignUp = () => {
             setLoading(false)
         }
     }
+
+    const imageHandler = (e: any) => {
+        const selectedfile = e.target.files;
+        console.log(selectedfile)
+        if (selectedfile.length > 0) {
+            const [imageFile] = selectedfile;
+            const fileReader = new FileReader();
+            fileReader.onload = () => {
+                const srcData = fileReader.result;
+                setImage(
+                    {
+                        error: false,
+                        helperText: '',
+                        extension: `.${selectedfile[0].type.slice(6)}`,
+                        base64Image: srcData,
+                        mainImage: URL.createObjectURL(new Blob(selectedfile))
+                    }
+                )
+            };
+            fileReader.readAsDataURL(imageFile);
+        }
+    };
 
     // Get the first name from user
     const firstNameHandler = (selectedFirstName: any) => {
@@ -312,6 +337,18 @@ const useStudentSignUp = () => {
         )
     }
 
+    // Show and hide password
+    const passwordShowHandler = () => {
+        setPassword(
+            password => (
+                {
+                    ...password, 
+                    show: !password.show,
+                }
+            )
+        )
+    }
+
     // Get the parent name from user
     const confirmPasswordHandler = (selectedConfirmPassword: any) => {
         setConfirmPassword(
@@ -327,10 +364,27 @@ const useStudentSignUp = () => {
         )
     }
 
+    // Show and hide confirm password
+    const confirmPasswordShowHandler = () => {
+        setConfirmPassword(
+            confirmPassword => (
+                {
+                    ...confirmPassword, 
+                    show: !confirmPassword.show,
+                }
+            )
+        )
+    }
+
     // Validate the date before send it to db
     const validation = () => {
 
         let validationState = true
+
+        if(!image.base64Image) {
+            validationState = false
+            setImage(image => ({...image, error: true, helperText: 'يجب رفع صوره شخصيه'}))
+        }
 
         if(firstName.length == 0) {
             validationState = false
@@ -342,7 +396,7 @@ const useStudentSignUp = () => {
             setLastName(lastName => ({...lastName, error: true, helperText: 'يجب ادخال الأسم الأخير'}))
         }
             
-        if(setMiddleName.length == 0) {
+        if(middleName.length == 0) {
             validationState = false
             setMiddleName(middleName => ({...middleName, error: true, helperText: 'يجب ادخال الأسم الأوسط'}))
         }
@@ -420,7 +474,10 @@ const useStudentSignUp = () => {
             setPassword(password => ({...password, error: true, helperText: 'يجب ادخال كلمة السر'}))
         }
 
-        if(confirmPassword.value !== password.value) {
+        if(confirmPassword.length == 0) {
+            validationState = false
+            setConfirmPassword(confirmPassword => ({...confirmPassword, error: true, helperText: 'يجب ادخال كلمة السر مره اخري'}))
+        }else if(confirmPassword.value !== password.value) {
             validationState = false
             setConfirmPassword(confirmPassword => ({...confirmPassword, error: true, helperText: 'يجب أدخال كلمة السر الصحيحه'}))
         }
@@ -443,9 +500,9 @@ const useStudentSignUp = () => {
                 phoneNumber: phoneNumber.value
             },
             image: {
-                name: "string",
-                extension: "strin",
-                data: "string"
+                name: userName.value,
+                extension: image.extension,
+                data: image.base64Image
             },
             address: address.value,
             birthDay: birthDate,
@@ -480,6 +537,10 @@ const useStudentSignUp = () => {
         }
     }
 
+    useEffect(() => {
+        console.log(classification)
+    }, [classification])
+
     return (
         {
             data: {
@@ -489,6 +550,7 @@ const useStudentSignUp = () => {
             },
             states: {
                 loading,
+                image,
                 firstName,
                 lastName,
                 middleName,
@@ -509,6 +571,7 @@ const useStudentSignUp = () => {
                 confirmPassword
             },
             actions: {
+                imageHandler,
                 firstNameHandler,
                 lastNameHandler,
                 middleNameHandler,
@@ -526,7 +589,9 @@ const useStudentSignUp = () => {
                 parentPhoneHandler,
                 userNameHandler,
                 passwordHandler,
+                passwordShowHandler,
                 confirmPasswordHandler,
+                confirmPasswordShowHandler,
                 submit
             },
         }

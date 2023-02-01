@@ -15,7 +15,7 @@ type Props = {
     placeholder: string;
     error: boolean;
     disabled?: boolean;
-    helperText?: string;
+    helperText: string;
 }
 
 const SDropDown: React.FC<Props> = ({value, getSelected, placeholder, data, error, disabled = false, helperText}) => {

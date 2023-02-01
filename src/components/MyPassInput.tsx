@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useTheme } from 'context/ThemeContext';
 
 // MUI
 import FormControl from '@mui/material/FormControl';
@@ -49,29 +49,26 @@ const classes = {
 };
 
 type Props = {
+    value: string;
+    show: boolean;
     placeholder: string;
+    helperText: string;
+    showHandler: Function;
+    onChange: Function;
+    error: boolean;
 }
 
-const MyPassInput: React.FC<Props> = ({placeholder}) => {
+const MyPassInput: React.FC<Props> = ({placeholder, helperText, value, showHandler, show, onChange, error}) => {
 
-    const [values, setValues] = useState<any>({
-        amount: '',
-        password: '',
-        weight: '',
-        weightRange: '',
-        showPassword: false,
-    });
-    
-    const handleChange = (prop: any) => (event: React.ChangeEvent<HTMLInputElement>) => {
-        setValues({ ...values, [prop]: event.target.value });
-    };
+    const { mainColors } = useTheme()
 
-    const handleClickShowPassword = () => {
-        setValues({
-            ...values,
-            showPassword: !values.showPassword,
-        });
-    };
+    const errorStyle = {
+        root: {
+            marginTop: '10px',
+            fontSize: '14px', 
+            color: mainColors.error.main,
+        },
+    }
 
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
@@ -80,24 +77,28 @@ const MyPassInput: React.FC<Props> = ({placeholder}) => {
     return (
         <FormControl>
             <OutlinedInput
-                autoComplete='off'   
+                autoComplete='off'
+                error={error} 
                 sx={classes.root}
                 placeholder={placeholder}
-                type={values.showPassword ? 'text' : 'password'}
-                value={values.password}
-                onChange={handleChange('password')}
+                type={show ? 'text' : 'password'}
+                value={value}
+                onChange={e => onChange(e.target.value)}
                 endAdornment={
                     <InputAdornment position="end">
                         <IconButton
-                            onClick={handleClickShowPassword}
+                            onClick={() => showHandler()}
                             onMouseDown={handleMouseDownPassword}
                             edge="end"
                         >
-                            {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                            {show ? <VisibilityOff /> : <Visibility />}
                         </IconButton>
                     </InputAdornment>
                 }
             />
+            <label style={errorStyle.root}>
+                {helperText}
+            </label>
         </FormControl>
     );
 }

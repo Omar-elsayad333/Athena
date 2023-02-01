@@ -38,7 +38,12 @@ const FormSection: React.FC = () => {
                     </Typography>
                 </Box>
                 <Box sx={style.formSec.headerPhotoInput}>
-                    <MyPhotoInput />
+                    <MyPhotoInput
+                        value={states.image.mainImage}
+                        error={states.image.error}
+                        helperText={states.image.helperText}
+                        changeHandler={actions.imageHandler}
+                    />
                 </Box>
             </Box>
 
@@ -48,7 +53,12 @@ const FormSection: React.FC = () => {
                         معلومات الطالب الشخصية
                     </Typography>
                     <Box sx={style.formSec.photoInput}>
-                        <MyPhotoInput />
+                        <MyPhotoInput
+                            value={states.image}
+                            error={states.image.error}
+                            helperText={states.image.helperText}
+                            changeHandler={actions.imageHandler}
+                        />                 
                     </Box>
                     <Box sx={style.formSec.inputsLayout}>
                         <SInput 
@@ -77,6 +87,7 @@ const FormSection: React.FC = () => {
                             data={data.genders} 
                             value={states.gender.value}
                             error={states.gender.error}
+                            helperText={states.gender.helperText}
                             getSelected={actions.genderHandler}
                         />
                         <MyDatePicker 
@@ -134,6 +145,7 @@ const FormSection: React.FC = () => {
                             data={data.levels} 
                             value={states.level.value}
                             error={states.level.error}
+                            helperText={states.level.helperText}
                             getSelected={actions.levelHandler}
                         />
                         <SDropDown 
@@ -141,8 +153,9 @@ const FormSection: React.FC = () => {
                             data={data.classifications} 
                             value={states.classification.value}
                             error={states.classification.error}
+                            helperText={states.classification.helperText}
                             getSelected={actions.classificationHandler}
-                            disabled={data.classifications ? false : true}
+                            disabled={data.classifications.length > 0 ? false : true}
                         />
                     </Box>
                 </Box>
@@ -190,9 +203,21 @@ const FormSection: React.FC = () => {
                         />
                         <MyPassInput
                             placeholder='كلمة السر' 
+                            show={states.password.show}
+                            value={states.password.value}
+                            error={states.password.error}
+                            onChange={actions.passwordHandler}
+                            helperText={states.password.helperText}
+                            showHandler={actions.passwordShowHandler}
                         />
                         <MyPassInput 
                             placeholder='تأكيد كلمة السر' 
+                            show={states.confirmPassword.show}
+                            value={states.confirmPassword.value}
+                            error={states.confirmPassword.error}
+                            onChange={actions.confirmPasswordHandler}
+                            helperText={states.confirmPassword.helperText}
+                            showHandler={actions.confirmPasswordShowHandler}
                         />
                     </Box>
                 </Box>
@@ -206,7 +231,7 @@ const FormSection: React.FC = () => {
             </Box>
             
             <Box sx={style.formSec.submitButton}>
-                <SButtonSubmit content='انشاء الحساب' onClick={null}/>
+                <SButtonSubmit content='انشاء الحساب' onClick={actions.submit}/>
             </Box>
         </Container>
     );
