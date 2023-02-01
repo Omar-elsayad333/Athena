@@ -116,6 +116,13 @@ const FormSection: React.FC = () => {
                             onChange={actions.homePhoneHandler}
                             helperText={states.homePhone.helperText} 
                         />
+                    </Box>
+                </Box>
+                <Box sx={style.formSec.stepLayout}>
+                    <Typography variant='h4' fontWeight={700} color={'#1C364F'}>
+                        معلومات الطالب الدراسية
+                    </Typography>
+                    <Box sx={style.formSec.inputsLayout}>                        
                         <SInput 
                             placeholder='المدرسة' 
                             value={states.school.value}
@@ -131,41 +138,12 @@ const FormSection: React.FC = () => {
                             getSelected={actions.levelHandler}
                         />
                         <SDropDown 
-                            disabled={data.classifications ? false : true}
                             placeholder='الشعبة العلمية'
                             data={data.classifications} 
                             value={states.classification.value}
                             error={states.classification.error}
                             getSelected={actions.classificationHandler}
-                        />
-                    </Box>
-                </Box>
-                <Box sx={style.formSec.stepLayout}>
-                    <Typography variant='h4' fontWeight={700} color={'#1C364F'}>
-                        معلومات الطالب الدراسية
-                    </Typography>
-                    <Box sx={style.formSec.inputsLayout}>                        
-                    <SInput 
-                            type='number' 
-                            placeholder='المدرسة' 
-                            value={states.school.value}
-                            error={states.school.error}
-                            onChange={actions.schoolHandler}
-                            helperText={states.school.helperText}  
-                        />
-                        <MySelect 
-                            placeholder='الصف الدراسي الخاص بك'
-                            data={data.levels} 
-                            value={states.level.value}
-                            error={states.level.error}
-                            getSelected={actions.levelHandler}
-                        />
-                        <MySelect 
-                            placeholder='الشعبة العلمية'
-                            data={data.levels} 
-                            value={states.level.value}
-                            error={states.level.error}
-                            getSelected={actions.levelHandler}
+                            disabled={data.classifications ? false : true}
                         />
                     </Box>
                 </Box>
