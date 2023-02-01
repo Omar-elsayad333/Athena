@@ -15,6 +15,7 @@ import Box from '@mui/material/Box';
 import Checkbox from '@mui/material/Checkbox';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
+import SDropDown from './Inputs/SDropDown';
 
 const FormSection: React.FC = () => {
 
@@ -72,7 +73,7 @@ const FormSection: React.FC = () => {
                             onChange={actions.middleNameHandler}
                             helperText={states.middleName.helperText}
                         />
-                        <MySelect 
+                        <SDropDown 
                             placeholder='حدد النوع' 
                             data={data.genders} 
                             value={states.gender.value}
@@ -116,26 +117,26 @@ const FormSection: React.FC = () => {
                             helperText={states.homePhone.helperText} 
                         />
                         <SInput 
-                            type='number' 
                             placeholder='المدرسة' 
                             value={states.school.value}
                             error={states.school.error}
                             onChange={actions.schoolHandler}
                             helperText={states.school.helperText}  
                         />
-                        <MySelect 
+                        <SDropDown 
                             placeholder='الصف الدراسي الخاص بك'
                             data={data.levels} 
                             value={states.level.value}
                             error={states.level.error}
                             getSelected={actions.levelHandler}
                         />
-                        <MySelect 
+                        <SDropDown 
+                            disabled={data.classifications ? false : true}
                             placeholder='الشعبة العلمية'
-                            data={data.levels} 
-                            value={states.level.value}
-                            error={states.level.error}
-                            getSelected={actions.levelHandler}
+                            data={data.classifications} 
+                            value={states.classification.value}
+                            error={states.classification.error}
+                            getSelected={actions.classificationHandler}
                         />
                     </Box>
                 </Box>

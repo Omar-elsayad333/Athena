@@ -34,10 +34,14 @@ const useStudentSignUp = () => {
     }, [])
 
     useEffect(() => {
-        if(levels) {
-            setClassifications([])
+        if(level.id) {
+            const index = levels.findIndex((x: any) => x.id == level.id);
+            const dataClass = levels[index].classifications
+            for(let item of dataClass){
+                setClassifications([...classifications, {id: item.levelClassificationId, name: item.name}])
+            }
         }
-    }, [levels])
+    }, [level])
 
     // Call api to get levels data
     const getLevel = async () => {
