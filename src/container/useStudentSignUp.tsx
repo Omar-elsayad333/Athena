@@ -26,7 +26,13 @@ const useStudentSignUp = () => {
     const [ homePhone, setHomePhone ] = useState<InputProps>(inputInitialValues)
     const [ school, setSchool ] = useState<InputProps>(inputInitialValues)
     const [ level, setLevel ] = useState<DropMenuProps>(dropMenuInitialValues)
-    const [ classification, setClassification ] = useState<DropMenuProps>(dropMenuInitialValues) 
+    const [ classification, setClassification ] = useState<DropMenuProps>(dropMenuInitialValues)
+    const [ parentName, setParentName ] = useState<InputProps>(inputInitialValues)
+    const [ parentJob, setParentJop ] = useState<InputProps>(inputInitialValues)
+    const [ parentPhone, setParentPhone ] = useState<InputProps>(inputInitialValues)
+    const [ userName, setUserName ] = useState<InputProps>(inputInitialValues)
+    const [ password, setPassword ] = useState<InputProps>(inputInitialValues)
+    const [ confirmPassword, setConfirmPassword ] = useState<InputProps>(inputInitialValues)
 
     // Get levels Data from api
     useEffect(() => {
@@ -222,6 +228,96 @@ const useStudentSignUp = () => {
         )
     }
 
+    // Get the parent name from user
+    const parentNameHandler = (selectedParentName: any) => {
+        setParentName(
+            parentName => (
+                {
+                    ...parentName, 
+                    value: selectedParentName,
+                    length: selectedParentName.length,
+                    error: false,
+                    helperText: ''
+                }
+            )
+        )
+    }
+
+    // Get the parent name from user
+    const parentJobHandler = (selectedParentJob: any) => {
+        setParentJop(
+            parentJob => (
+                {
+                    ...parentJob, 
+                    value: selectedParentJob,
+                    length: selectedParentJob.length,
+                    error: false,
+                    helperText: ''
+                }
+            )
+        )
+    }
+
+    // Get the parent name from user
+    const parentPhoneHandler = (selecteParentPhone: any) => {
+        setParentPhone(
+            parentPhone => (
+                {
+                    ...parentPhone, 
+                    value: selecteParentPhone,
+                    length: selecteParentPhone.length,
+                    error: false,
+                    helperText: ''
+                }
+            )
+        )
+    }
+
+    // Get the parent name from user
+    const userNameHandler = (selecteUserName: any) => {
+        setUserName(
+            userName => (
+                {
+                    ...userName, 
+                    value: selecteUserName,
+                    length: selecteUserName.length,
+                    error: false,
+                    helperText: ''
+                }
+            )
+        )
+    }
+
+    // Get the parent name from user
+    const passwordHandler = (selectePassword: any) => {
+        setPassword(
+            password => (
+                {
+                    ...password, 
+                    value: selectePassword,
+                    length: selectePassword.length,
+                    error: false,
+                    helperText: ''
+                }
+            )
+        )
+    }
+
+    // Get the parent name from user
+    const confirmPasswordHandler = (selectedConfirmPassword: any) => {
+        setConfirmPassword(
+            confirmPassword => (
+                {
+                    ...confirmPassword, 
+                    value: selectedConfirmPassword,
+                    length: selectedConfirmPassword.length,
+                    error: false,
+                    helperText: ''
+                }
+            )
+        )
+    }
+
     return (
         {
             data: {
@@ -242,7 +338,13 @@ const useStudentSignUp = () => {
                 homePhone,
                 school,
                 level,
-                classification
+                classification,
+                parentName,
+                parentJob,
+                parentPhone,
+                userName,
+                password,
+                confirmPassword
             },
             actions: {
                 firstNameHandler,
@@ -256,7 +358,13 @@ const useStudentSignUp = () => {
                 homePhoneHandler,
                 schoolHandler,
                 levelHandler,
-                classificationHandler
+                classificationHandler,
+                parentNameHandler,
+                parentJobHandler,
+                parentPhoneHandler,
+                userNameHandler,
+                passwordHandler,
+                confirmPasswordHandler
             },
             dialogs: {
 

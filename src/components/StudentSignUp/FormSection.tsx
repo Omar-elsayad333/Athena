@@ -140,7 +140,35 @@ const FormSection: React.FC = () => {
                         />
                     </Box>
                 </Box>
-
+                <Box sx={style.formSec.stepLayout}>
+                    <Typography variant='h4' fontWeight={700} color={'#1C364F'}>
+                        معلومات الطالب الدراسية
+                    </Typography>
+                    <Box sx={style.formSec.inputsLayout}>                        
+                    <SInput 
+                            type='number' 
+                            placeholder='المدرسة' 
+                            value={states.school.value}
+                            error={states.school.error}
+                            onChange={actions.schoolHandler}
+                            helperText={states.school.helperText}  
+                        />
+                        <MySelect 
+                            placeholder='الصف الدراسي الخاص بك'
+                            data={data.levels} 
+                            value={states.level.value}
+                            error={states.level.error}
+                            getSelected={actions.levelHandler}
+                        />
+                        <MySelect 
+                            placeholder='الشعبة العلمية'
+                            data={data.levels} 
+                            value={states.level.value}
+                            error={states.level.error}
+                            getSelected={actions.levelHandler}
+                        />
+                    </Box>
+                </Box>
                 <Box sx={style.formSec.stepLayout}>
                     <Typography variant='h4' fontWeight={700} color={'#1C364F'}>
                         معلومات ولي الأمر
@@ -148,17 +176,26 @@ const FormSection: React.FC = () => {
                     <Box sx={style.formSec.inputsLayout}>                        
                         <SInput 
                             placeholder='أسم ولي الأمر' 
-                            onChange={() => {}} 
+                            value={states.parentName.value}
+                            error={states.parentName.error}
+                            onChange={actions.parentNameHandler}
+                            helperText={states.parentName.helperText}  
                         />
                         <SInput 
                             placeholder='وظيفة ولي الأمر' 
-                            onChange={() => {}}
+                            value={states.parentJob.value}
+                            error={states.parentJob.error}
+                            onChange={actions.parentJobHandler}
+                            helperText={states.parentJob.helperText}  
                         />
                         <SInput 
-                            placeholder='رقم هاتف ولي الأمر' 
                             type='number' 
-                            onChange={() => {}} 
-                            />
+                            placeholder='رقم هاتف ولي الأمر' 
+                            value={states.parentPhone.value}
+                            error={states.parentPhone.error}
+                            onChange={actions.parentPhoneHandler}
+                            helperText={states.parentPhone.helperText}   
+                        />
                     </Box>
                 </Box>
 
@@ -169,7 +206,10 @@ const FormSection: React.FC = () => {
                     <Box sx={style.formSec.inputsLayout}>
                         <SInput 
                             placeholder='أسم المستخدم' 
-                            onChange={() => {}} 
+                            value={states.userName.value}
+                            error={states.userName.error}
+                            onChange={actions.userNameHandler}
+                            helperText={states.userName.helperText}  
                         />
                         <MyPassInput
                             placeholder='كلمة السر' 
