@@ -4,20 +4,20 @@ import { genders } from "constant/staticData";
 import { publicGetHandler } from 'handlers/requestHandler';
 import { signUpHandler } from 'handlers/userHandler';
 import { imageInitialValues, ImageProps } from 'interfaces/shared/image';
+import { checkBoxInitialValues, CheckBoxProps } from 'interfaces/shared/checkBox';
+import { InputPasswordProps, passwordInitialValues } from 'interfaces/shared/inputPassword';
 import {
     InputProps,
     inputInitialValues,
     DropMenuProps,
     dropMenuInitialValues
 } from 'interfaces/student/studenSignUp';
-import { InputPasswordProps, passwordInitialValues } from 'interfaces/shared/inputPassword';
 
 const useStudentSignUp = () => {
 
     const [ loading, setLoading ] = useState<boolean>(false)
     const [ levels, setLevels ] = useState<any>('')
     const [ classifications, setClassifications ] = useState<any>([]) 
-
     const [ image, setImage ] = useState<ImageProps>(imageInitialValues)
     const [ firstName, setFirstName ] = useState<InputProps>(inputInitialValues)
     const [ lastName, setLastName ] = useState<InputProps>(inputInitialValues)
@@ -37,6 +37,7 @@ const useStudentSignUp = () => {
     const [ userName, setUserName ] = useState<InputProps>(inputInitialValues)
     const [ password, setPassword ] = useState<InputPasswordProps>(passwordInitialValues)
     const [ confirmPassword, setConfirmPassword ] = useState<InputPasswordProps>(passwordInitialValues)
+    const [ ageCheck, setAgeCheck ] = useState<CheckBoxProps>(checkBoxInitialValues)
 
     // Get levels Data from api
     useEffect(() => {
@@ -48,8 +49,13 @@ const useStudentSignUp = () => {
         if(level.id) {
             const newClassificationData = []
             const index = levels.findIndex((x: any) => x.id == level.id)
-            for(let i = 0; i < levels[index]['classifications'].length; i++){
-                newClassificationData.push(levels[index]['classifications'][i])
+            for(let item of levels[index]['classifications']){
+                newClassificationData.push(
+                    {
+                        id: item.levelClassificationId,
+                        name: item.name
+                    }
+                )
             }
             setClassifications(newClassificationData)
         }
@@ -72,7 +78,6 @@ const useStudentSignUp = () => {
 
     const imageHandler = (e: any) => {
         const selectedfile = e.target.files;
-        console.log(selectedfile)
         if (selectedfile.length > 0) {
             const [imageFile] = selectedfile;
             const fileReader = new FileReader();
@@ -376,6 +381,18 @@ const useStudentSignUp = () => {
         )
     }
 
+    // Get the age checking state from user
+    const ageCheckHandler = (event: any) => {
+        setAgeCheck(
+            {
+                ...ageCheck, 
+                state: event.target.checked,
+                error: false, 
+                helperText: ''
+            }
+        )
+    }
+
     // Validate the date before send it to db
     const validation = () => {
 
@@ -482,6 +499,11 @@ const useStudentSignUp = () => {
             setConfirmPassword(confirmPassword => ({...confirmPassword, error: true, helperText: 'يجب أدخال كلمة السر الصحيحه'}))
         }
 
+        if(!ageCheck.state) {
+            validationState = false
+            setAgeCheck({...ageCheck, error: true, helperText: 'يجب الموافقه علي سياسة الخصوصيه وشروط الخدمه'})
+        }
+
         return validationState
     }
 
@@ -518,13 +540,14 @@ const useStudentSignUp = () => {
     }
 
     // Call api to submit data
-    const submit = () => {
+    const submit = async () => {
         if(validation()) {
             const data = collectData();
+            console.log(data)
             if(data) {
                 try {
                     setLoading(true)
-                    const res = signUpHandler(data, URL_STUDENTS)
+                    const res = await signUpHandler(data, URL_STUDENTS)
                     console.log(res)
                 }
                 catch(error) {
@@ -536,10 +559,6 @@ const useStudentSignUp = () => {
             }
         }
     }
-
-    useEffect(() => {
-        console.log(classification)
-    }, [classification])
 
     return (
         {
@@ -568,7 +587,8 @@ const useStudentSignUp = () => {
                 parentPhone,
                 userName,
                 password,
-                confirmPassword
+                confirmPassword,
+                ageCheck
             },
             actions: {
                 imageHandler,
@@ -592,6 +612,7 @@ const useStudentSignUp = () => {
                 passwordShowHandler,
                 confirmPasswordHandler,
                 confirmPasswordShowHandler,
+                ageCheckHandler,
                 submit
             },
         }

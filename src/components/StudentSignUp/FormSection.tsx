@@ -18,7 +18,7 @@ import SDropDown from './Inputs/SDropDown';
 
 const FormSection: React.FC = () => {
 
-    const { darkMode } = useContext(DarkThemeContext);
+    const { mainColors } = useContext(DarkThemeContext);
     const { data, states, actions } = useStudentSignUp();
     
     return (
@@ -93,6 +93,8 @@ const FormSection: React.FC = () => {
                         <MyDatePicker 
                             placeholder='حدد تاريخ ميلادك ' 
                             dateValue={states.birthDate}
+                            // error={states.birthDate.error}
+                            // helperText={states.birthDate.helperText}
                             handleDateValue={actions.birthDateHandler}
                         />
                         <SInput 
@@ -224,8 +226,16 @@ const FormSection: React.FC = () => {
             </Box>
             
             <Box sx={style.formSec.privacy}>
-                <Checkbox size='small' color={darkMode ? 'secondary' : 'primary'} />
-                <Typography variant="h5" color='#3F72A4'>
+                <Checkbox 
+                    sx={{
+                        color: states.ageCheck.error ? mainColors.error.main : '#3F72A4',
+                        '&.Mui-checked': {
+                            color: '#3F72A4',
+                        },
+                    }}
+                    onChange={e => actions.ageCheckHandler(e)}
+                />
+                <Typography variant="h5" color={states.ageCheck.error ? mainColors.error.main : '#3F72A4'}>
                     عمري 13 عاما أو أكثر وأوافق على سياسة الخصوصية وشروط الخدمة     
                 </Typography>
             </Box>

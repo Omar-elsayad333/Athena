@@ -4,6 +4,7 @@ import DateFnsUtils from '@date-io/date-fns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { SxProps } from '@mui/material';
+import { useTheme } from 'context/ThemeContext';
 
 const classes: SxProps = {
     root: {
@@ -85,15 +86,27 @@ const popperStyle: SxProps = {
 };
 
 type Props = {
+    error?: boolean;
+    helperText?: string;
     placeholder: string;
     dateValue?: Date | string;
     handleDateValue: Function;
 }
 
-const MyDatePicker: React.FC<Props> = ({placeholder, dateValue, handleDateValue}) => {
+const MyDatePicker: React.FC<Props> = ({placeholder, dateValue, handleDateValue, helperText, error}) => {
+
+    const { mainColors } = useTheme()
+
+    const errorStyle = {
+        root: {
+            marginTop: '10px',
+            fontSize: '14px', 
+            color: mainColors.error.main,
+        },
+    }
 
     return (
-        <LocalizationProvider dateAdapter={DateFnsUtils}>
+        <LocalizationProvider error={error} dateAdapter={DateFnsUtils}>
             <DatePicker
                 value={dateValue}
                 onChange={(newValue: any) => {
@@ -117,6 +130,9 @@ const MyDatePicker: React.FC<Props> = ({placeholder, dateValue, handleDateValue}
                     sx: popperStyle
                 }}
             />
+            <label style={errorStyle.root}>
+                {helperText}
+            </label>
         </LocalizationProvider>
     );
 }
