@@ -46,7 +46,6 @@ const FormSection: React.FC = () => {
                     />
                 </Box>
             </Box>
-
             <Box sx={style.formSec.formLayout}>
                 <Box sx={style.formSec.stepLayout}>
                     <Typography variant='h4' fontWeight={700} color={'#1C364F'}>
@@ -54,7 +53,7 @@ const FormSection: React.FC = () => {
                     </Typography>
                     <Box sx={style.formSec.photoInput}>
                         <MyPhotoInput
-                            value={states.image}
+                            value={states.image.mainImage}
                             error={states.image.error}
                             helperText={states.image.helperText}
                             changeHandler={actions.imageHandler}
