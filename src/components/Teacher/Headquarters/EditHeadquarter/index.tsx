@@ -73,6 +73,7 @@ const EditHeadquarterC: React.FC<Props> = ({oldData, data, dataHandlers, thirdPh
                     أسم المقر
                 </Typography>
                 <MyInput
+                    helperText=''
                     value={data.name.value} 
                     placeholder={oldData.name}
                     onChange={dataHandlers.nameHandle} 
@@ -129,6 +130,7 @@ const EditHeadquarterC: React.FC<Props> = ({oldData, data, dataHandlers, thirdPh
                     رقم الهاتف الأول
                 </Typography>
                 <MyInput
+                    helperText=''
                     value={data.firstPhone.value}
                     placeholder={oldData.headQuarterPhones[0].phone}
                     onChange={dataHandlers.firstPhonesHandle} 
@@ -139,6 +141,7 @@ const EditHeadquarterC: React.FC<Props> = ({oldData, data, dataHandlers, thirdPh
                     رقم الهاتف الثاني
                 </Typography>
                 <MyInput
+                    helperText=''
                     value={data.secondPhone.value}
                     placeholder={oldData.headQuarterPhones[1].phone}
                     onChange={dataHandlers.secondPhonesHandle} 
@@ -155,11 +158,13 @@ const EditHeadquarterC: React.FC<Props> = ({oldData, data, dataHandlers, thirdPh
                             {
                                 oldData.headQuarterPhones[2] ?
                                 <MyInput 
+                                    helperText=''
                                     value={data.thirdPhone.value}
                                     placeholder={oldData.headQuarterPhones[2].phone} 
                                     onChange={dataHandlers.thirdPhonesHandle} 
                                 /> :
                                 <MyInput 
+                                    helperText=''
                                     value={data.thirdPhone.value}
                                     placeholder='رقم الهاتف' 
                                     onChange={dataHandlers.thirdPhonesHandle} 
