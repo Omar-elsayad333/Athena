@@ -31,7 +31,7 @@ export const loginHandler = (data: object) => {
 }; 
 
 // Actions to get user base
-export const userObjectHandler = (Authorization:any ) => {
+export const userObjectHandler = (Authorization:any) => {
     return new Promise ((resolved, rejected) => {
         axios({
             url: `${URL_MAIN}${URL_TEACHERS_BASE}`,
@@ -87,10 +87,10 @@ export const refreshTokenHandler = () => {
 };
 
 // Actions to regester for user
-export const signUpHandler = (data: object) => {
+export const signUpHandler = (data: any, supUrl: string) => {
     return new Promise ((resolved, rejected) => {
         axios({
-            // url: `${URL_MAIN}${REGISTER_URL}`,
+            url: `${URL_MAIN}${supUrl}`,
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -100,8 +100,6 @@ export const signUpHandler = (data: object) => {
         })
         .then(
             (res) => {
-                localStorage.setItem('role', res.data.roles)
-                localStorage.setItem('token', res.data.accessToken);
                 resolved(res);
             },
             (rej) => {

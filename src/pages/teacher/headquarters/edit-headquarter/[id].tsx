@@ -8,7 +8,7 @@ import PageTitle from 'components/Shared/PageTitle';
 import ThemeSwitcher from "components/ThemeSwitcher";
 import PageFooter from "components/Shared/PageFooter";
 import EditHeadquarterC from 'components/Teacher/Headquarters/EditHeadquarter';
-import useEditHeadquarter from "container/headquarter/useEditHeadquarter";
+import useEditHeadquarter from "container/headquarters/useEditHeadquarter";
 import AlertNotify from "components/AlertNotify";
 import Loading from "components/Loading/Loading";
 import { useError } from "context/ErrorContext";

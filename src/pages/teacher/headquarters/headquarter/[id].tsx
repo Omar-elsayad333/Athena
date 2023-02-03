@@ -10,7 +10,7 @@ import ThemeSwitcher from "components/ThemeSwitcher";
 import HeadquarterC from 'components/Teacher/Headquarters/Headquarter';
 import PageFooter from "components/Shared/PageFooter";
 import MyIconButton from "components/MyIconButton";
-import useHeadquarter from "container/headquarter/useHeadquarter";
+import useHeadquarter from "container/headquarters/useHeadquarter";
 import Loading from "components/Loading/Loading";
 import { useError } from "context/ErrorContext";
 import AlertNotify from "components/AlertNotify";

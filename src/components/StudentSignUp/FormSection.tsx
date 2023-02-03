@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { useContext } from 'react';
 import SInput from './Inputs/SInput';
 import MyPhotoInput from '../MyPhotoInput';
-import MySelect from 'components/MySelect';
 import MyDatePicker from 'components/MyDatePicker';
 import MyPassInput from 'components/MyPassInput';
 import SButtonSubmit from './Inputs/SButtonSubmit';
@@ -15,10 +14,11 @@ import Box from '@mui/material/Box';
 import Checkbox from '@mui/material/Checkbox';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
+import SDropDown from './Inputs/SDropDown';
 
 const FormSection: React.FC = () => {
 
-    const { darkMode } = useContext(DarkThemeContext);
+    const { mainColors } = useContext(DarkThemeContext);
     const { data, states, actions } = useStudentSignUp();
     
     return (
@@ -38,17 +38,26 @@ const FormSection: React.FC = () => {
                     </Typography>
                 </Box>
                 <Box sx={style.formSec.headerPhotoInput}>
-                    <MyPhotoInput />
+                    <MyPhotoInput
+                        value={states.image.mainImage}
+                        error={states.image.error}
+                        helperText={states.image.helperText}
+                        changeHandler={actions.imageHandler}
+                    />
                 </Box>
             </Box>
-
             <Box sx={style.formSec.formLayout}>
                 <Box sx={style.formSec.stepLayout}>
                     <Typography variant='h4' fontWeight={700} color={'#1C364F'}>
                         معلومات الطالب الشخصية
                     </Typography>
                     <Box sx={style.formSec.photoInput}>
-                        <MyPhotoInput />
+                        <MyPhotoInput
+                            value={states.image.mainImage}
+                            error={states.image.error}
+                            helperText={states.image.helperText}
+                            changeHandler={actions.imageHandler}
+                        />                 
                     </Box>
                     <Box sx={style.formSec.inputsLayout}>
                         <SInput 
@@ -72,16 +81,19 @@ const FormSection: React.FC = () => {
                             onChange={actions.middleNameHandler}
                             helperText={states.middleName.helperText}
                         />
-                        <MySelect 
+                        <SDropDown 
                             placeholder='حدد النوع' 
                             data={data.genders} 
                             value={states.gender.value}
                             error={states.gender.error}
+                            helperText={states.gender.helperText}
                             getSelected={actions.genderHandler}
                         />
                         <MyDatePicker 
                             placeholder='حدد تاريخ ميلادك ' 
-                            dateValue={states.birthDate}
+                            dateValue={states.birthDate.value}
+                            error={states.birthDate.error}
+                            helperText={states.birthDate.helperText}
                             handleDateValue={actions.birthDateHandler}
                         />
                         <SInput 
@@ -115,28 +127,6 @@ const FormSection: React.FC = () => {
                             onChange={actions.homePhoneHandler}
                             helperText={states.homePhone.helperText} 
                         />
-                        <SInput 
-                            type='number' 
-                            placeholder='المدرسة' 
-                            value={states.school.value}
-                            error={states.school.error}
-                            onChange={actions.schoolHandler}
-                            helperText={states.school.helperText}  
-                        />
-                        <MySelect 
-                            placeholder='الصف الدراسي الخاص بك'
-                            data={data.levels} 
-                            value={states.level.value}
-                            error={states.level.error}
-                            getSelected={actions.levelHandler}
-                        />
-                        <MySelect 
-                            placeholder='الشعبة العلمية'
-                            data={data.levels} 
-                            value={states.level.value}
-                            error={states.level.error}
-                            getSelected={actions.levelHandler}
-                        />
                     </Box>
                 </Box>
                 <Box sx={style.formSec.stepLayout}>
@@ -144,27 +134,29 @@ const FormSection: React.FC = () => {
                         معلومات الطالب الدراسية
                     </Typography>
                     <Box sx={style.formSec.inputsLayout}>                        
-                    <SInput 
-                            type='number' 
+                        <SInput 
                             placeholder='المدرسة' 
                             value={states.school.value}
                             error={states.school.error}
                             onChange={actions.schoolHandler}
                             helperText={states.school.helperText}  
                         />
-                        <MySelect 
+                        <SDropDown 
                             placeholder='الصف الدراسي الخاص بك'
                             data={data.levels} 
                             value={states.level.value}
                             error={states.level.error}
+                            helperText={states.level.helperText}
                             getSelected={actions.levelHandler}
                         />
-                        <MySelect 
+                        <SDropDown 
                             placeholder='الشعبة العلمية'
-                            data={data.levels} 
-                            value={states.level.value}
-                            error={states.level.error}
-                            getSelected={actions.levelHandler}
+                            data={data.classifications} 
+                            value={states.classification.value}
+                            error={states.classification.error}
+                            helperText={states.classification.helperText}
+                            getSelected={actions.classificationHandler}
+                            disabled={data.classifications.length > 0 ? false : true}
                         />
                     </Box>
                 </Box>
@@ -197,7 +189,6 @@ const FormSection: React.FC = () => {
                         />
                     </Box>
                 </Box>
-
                 <Box sx={style.formSec.stepLayout}>
                     <Typography variant='h4' fontWeight={700} color={'#1C364F'}>
                         معلومات الحساب
@@ -212,23 +203,42 @@ const FormSection: React.FC = () => {
                         />
                         <MyPassInput
                             placeholder='كلمة السر' 
+                            show={states.password.show}
+                            value={states.password.value}
+                            error={states.password.error}
+                            onChange={actions.passwordHandler}
+                            helperText={states.password.helperText}
+                            showHandler={actions.passwordShowHandler}
                         />
                         <MyPassInput 
                             placeholder='تأكيد كلمة السر' 
+                            show={states.confirmPassword.show}
+                            value={states.confirmPassword.value}
+                            error={states.confirmPassword.error}
+                            onChange={actions.confirmPasswordHandler}
+                            helperText={states.confirmPassword.helperText}
+                            showHandler={actions.confirmPasswordShowHandler}
                         />
                     </Box>
                 </Box>
             </Box>
-            
             <Box sx={style.formSec.privacy}>
-                <Checkbox size='small' color={darkMode ? 'secondary' : 'primary'} />
-                <Typography variant="h5" color='#3F72A4'>
+                <Checkbox 
+                    sx={{
+                        color: states.ageCheck.error ? mainColors.error.main : '#3F72A4',
+                        '&.Mui-checked': {
+                            color: '#3F72A4',
+                        },
+                    }}
+                    onChange={e => actions.ageCheckHandler(e)}
+                />
+                <Typography variant="h5" color={states.ageCheck.error ? mainColors.error.main : '#3F72A4'}>
                     عمري 13 عاما أو أكثر وأوافق على سياسة الخصوصية وشروط الخدمة     
                 </Typography>
             </Box>
             
             <Box sx={style.formSec.submitButton}>
-                <SButtonSubmit content='انشاء الحساب' onClick={null}/>
+                <SButtonSubmit content='انشاء الحساب' onClick={actions.submit}/>
             </Box>
         </Container>
     );

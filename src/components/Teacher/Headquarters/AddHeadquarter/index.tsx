@@ -4,7 +4,7 @@ import MyInput from 'components/MyInput';
 import MyInputSmall from 'components/MyInputSmall';
 import MyButton from 'components/Buttons/MyButton';
 import MyButtonError from 'components/Buttons/MyButtonError';
-import useAddHeadquarter from 'container/headquarter/useAddHeadquarter';
+import useAddHeadquarter from 'container/headquarters/useAddHeadquarter';
 import BasicDialog from 'components/Dialogs/BasicDialogs';
 import Loading from 'components/Loading/Loading';
 import PageError from 'components/Shared/PageError';
@@ -144,6 +144,7 @@ const AddHeadquarterC: React.FC = () => {
                     placeholder='رقم الهاتف' 
                     name='headquarter phone 3' 
                     value={data.thirdPhone.value}
+                    helperText={''}
                     onChange={dataHandlers.thirdPhonesHandle} 
                 />
             </Box>
