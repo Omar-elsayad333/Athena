@@ -144,6 +144,7 @@ const AddHeadquarterC: React.FC = () => {
                     placeholder='رقم الهاتف' 
                     name='headquarter phone 3' 
                     value={data.thirdPhone.value}
+                    helperText={''}
                     onChange={dataHandlers.thirdPhonesHandle} 
                 />
             </Box>
