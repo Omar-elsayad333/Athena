@@ -1,10 +1,11 @@
-import { URL_LEVELS, URL_STUDENTS } from 'constant/url';
 import { useState, useEffect } from 'react';
 import { genders } from "constant/staticData";
-import { publicGetHandler } from 'handlers/requestHandler';
 import { signUpHandler } from 'handlers/userHandler';
+import { URL_LEVELS, URL_STUDENTS } from 'constant/url';
+import { publicGetHandler } from 'handlers/requestHandler';
 import { imageInitialValues, ImageProps } from 'interfaces/shared/image';
 import { checkBoxInitialValues, CheckBoxProps } from 'interfaces/shared/checkBox';
+import { datePickerInitialValues, DatePickerProps } from 'interfaces/shared/datePicker';
 import { InputPasswordProps, passwordInitialValues } from 'interfaces/shared/inputPassword';
 import {
     InputProps,
@@ -23,7 +24,7 @@ const useStudentSignUp = () => {
     const [ lastName, setLastName ] = useState<InputProps>(inputInitialValues)
     const [ middleName, setMiddleName ] = useState<InputProps>(inputInitialValues)
     const [ gender, setGender ] = useState<DropMenuProps>(dropMenuInitialValues)
-    const [ birthDate, setBirthDate ] = useState<Date>(new Date())
+    const [ birthDate, setBirthDate ] = useState<DatePickerProps>(datePickerInitialValues)
     const [ address, setAddress ] = useState<InputProps>(inputInitialValues)
     const [ email, setEmail ] = useState<InputProps>(inputInitialValues)
     const [ phoneNumber, setPhoneNumber ] = useState<InputProps>(inputInitialValues)
@@ -159,7 +160,16 @@ const useStudentSignUp = () => {
 
     // Get the selected birth date from user
     const birthDateHandler = (selectedBirthDate: any) => {
-        setBirthDate(selectedBirthDate.toISOString())
+        setBirthDate(
+            birthDate => (
+                {
+                    ...birthDate,
+                    value: selectedBirthDate.toISOString(),
+                    error: false,
+                    helperText: ''
+                }
+            )
+        )
     }
 
     // Get the address from user
@@ -423,9 +433,9 @@ const useStudentSignUp = () => {
             setGender(gender => ({...gender, error: true, helperText: 'يجب تحديدالنوع'}))
         }
 
-        if(!birthDate) {
+        if(parseInt(birthDate.value.slice(0,4)) == 2023) {
             validationState = false
-            console.log('error birth date')
+            setBirthDate(({...birthDate, error: true, helperText: 'يجب ادخال تاريخ ميلادك'}))
         }
         
         if(address.length == 0) {

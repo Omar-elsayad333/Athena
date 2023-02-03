@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { IStyle } from "styles/IStyle";
+import InputError from "components/Shared/InputError";
 import { DarkThemeContext } from "context/ThemeContext";
 
 // MUI
@@ -11,15 +12,14 @@ type Props = {
     value?: string;
     onChange: Function;
     error?: boolean;
-    helperText?: string;
+    helperText: string;
     placeholder: string;
     type?: string;
 }
 
 const SInput: React.FC<Props> = ({type= 'text', placeholder, helperText, error, onChange, value, name}) => {
 
-    const { mainColors } = useContext(DarkThemeContext);
-
+    const { mainColors } = useContext(DarkThemeContext)
     const classes: IStyle = {
         root: {
             '.MuiOutlinedInput-root': {
@@ -67,14 +67,6 @@ const SInput: React.FC<Props> = ({type= 'text', placeholder, helperText, error, 
                 MozAppearance: "textfield",
             },
         }
-    };
-
-    const errorStyle = {
-        root: {
-            marginTop: '10px',
-            fontSize: '14px', 
-            color: mainColors.error.main,
-        },
     }
 
     return (
@@ -90,9 +82,7 @@ const SInput: React.FC<Props> = ({type= 'text', placeholder, helperText, error, 
                 placeholder={placeholder}
                 type={type}
             />
-            <label style={errorStyle.root}>
-                {helperText}
-            </label>
+            <InputError content={helperText} type='error' />
         </FormControl>
     );
 }

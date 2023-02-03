@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import InputError from "components/Shared/InputError";
 import { DarkThemeContext } from "context/ThemeContext";
 
 // MUI
@@ -115,14 +116,6 @@ const SDropDown: React.FC<Props> = ({value, getSelected, placeholder, data, erro
         },
     }
 
-    const errorStyle = {
-        root: {
-            marginTop: '10px',
-            fontSize: '14px', 
-            color: mainColors.error.main,
-        },
-    }
-
     return (
         <FormControl required>
             <Select
@@ -163,9 +156,7 @@ const SDropDown: React.FC<Props> = ({value, getSelected, placeholder, data, erro
                     ))
                 }
             </Select>
-            <label style={errorStyle.root}>
-                {helperText}
-            </label>
+            <InputError content={helperText} type='error' />
         </FormControl>
     );
 }

@@ -92,9 +92,9 @@ const FormSection: React.FC = () => {
                         />
                         <MyDatePicker 
                             placeholder='حدد تاريخ ميلادك ' 
-                            dateValue={states.birthDate}
-                            // error={states.birthDate.error}
-                            // helperText={states.birthDate.helperText}
+                            dateValue={states.birthDate.value}
+                            error={states.birthDate.error}
+                            helperText={states.birthDate.helperText}
                             handleDateValue={actions.birthDateHandler}
                         />
                         <SInput 
@@ -190,7 +190,6 @@ const FormSection: React.FC = () => {
                         />
                     </Box>
                 </Box>
-
                 <Box sx={style.formSec.stepLayout}>
                     <Typography variant='h4' fontWeight={700} color={'#1C364F'}>
                         معلومات الحساب
@@ -224,7 +223,6 @@ const FormSection: React.FC = () => {
                     </Box>
                 </Box>
             </Box>
-            
             <Box sx={style.formSec.privacy}>
                 <Checkbox 
                     sx={{
