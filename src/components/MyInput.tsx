@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { IStyle } from "styles/IStyle";
+import InputError from "./Shared/InputError";
 import { DarkThemeContext } from "context/ThemeContext";
 
 // MUI
@@ -11,7 +12,7 @@ type Props = {
     value?: string;
     onChange: Function;
     error?: boolean;
-    helperText?: string;
+    helperText: string;
     placeholder: string;
     type?: string;
 }
@@ -74,14 +75,6 @@ const MyInput: React.FC<Props> = ({type, placeholder, helperText, error, onChang
         }
     };
 
-    const errorStyle = {
-        root: {
-            marginTop: '10px',
-            fontSize: '14px', 
-            color: mainColors.error.main,
-        },
-    }
-
     return (
         <FormControl  required>
             <TextField  
@@ -95,9 +88,7 @@ const MyInput: React.FC<Props> = ({type, placeholder, helperText, error, onChang
                 placeholder={placeholder}
                 type={type}
             />
-            <label style={errorStyle.root}>
-                {helperText}
-            </label>
+            <InputError content={helperText} type='error' />
         </FormControl>
     );
 }

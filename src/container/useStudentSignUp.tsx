@@ -12,7 +12,7 @@ import {
     inputInitialValues,
     DropMenuProps,
     dropMenuInitialValues
-} from 'interfaces/student/studenSignUp';
+} from 'interfaces/shared/input';
 
 const useStudentSignUp = () => {
 

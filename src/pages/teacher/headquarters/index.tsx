@@ -10,7 +10,7 @@ import MySearchInput from "components/MySearchInput";
 import ThemeSwitcher from "components/ThemeSwitcher";
 import PageFooter from "components/Shared/PageFooter";
 import Loading from "components/Loading/Loading";
-import useHeadquarters from "container/headquarter/useHeadquarters";
+import useHeadquarters from "container/headquarters/useHeadquarters";
 import { IStyle } from "styles/IStyle";
 import { useError } from "context/ErrorContext";
 import AlertNotify from "components/AlertNotify";

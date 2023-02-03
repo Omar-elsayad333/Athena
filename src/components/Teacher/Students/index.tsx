@@ -1,4 +1,4 @@
-import useStudents from "container/useStudents";
+import useStudents from "container/students/useStudents";
 import MySearchInput from "components/MySearchInput";
 import FilterWedgit from "./FilterWedgit";
 import StudentCard from "./StudentCard";
