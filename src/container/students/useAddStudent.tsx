@@ -54,15 +54,16 @@ const useAddStudent = () => {
                 console.log(res)
             }
             catch(error: any) {
-                if(error.response.status) {
-                    setCodeError(
-                        {
-                            ...codeError,
-                            value: 'هذا الطالب غير موجود في المنظومه !',
-                            error: true
-                        }
-                    )
-                }
+                console.log(error)
+                // if(error.response.status) {
+                //     setCodeError(
+                //         {
+                //             ...codeError,
+                //             value: 'هذا الطالب غير موجود في المنظومه !',
+                //             error: true
+                //         }
+                //     )
+                // }
             }
             finally {
                 setLoading(false)

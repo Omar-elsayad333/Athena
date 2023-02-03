@@ -101,8 +101,7 @@ export const getHandler = (authorization: string, path: string) => {
 export const getHandlerById = (id: string | string[] | undefined, authorization: string, path: string) => {
     return new Promise ((resolved, rejected) => {
         axios({
-            url: `${URL_MAIN}${path}`,
-            params: id,
+            url: `${URL_MAIN}${path}/${id}`,
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
