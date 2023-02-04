@@ -5,3 +5,7 @@ export const convertTimeFromDB = (date: string) => {
 export const convertTimeToDB = (data: Date) => {
     return data.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', second:'2-digit', hour12: false})
 }
+
+export const convertHashSign = (data: string) => {
+    return data.replace("#", "%23")
+}
