@@ -112,13 +112,13 @@ const AddStudentC: React.FC<Props> = ({ data, states, actions, dialogs }) => {
         photoPLaceholder: {
             width: '150px',
             height: '150px',
-            // background: () => {
-            //     if(value){
-            //         return(`url(${value})`)
-            //     }else {
-            //         return '#B6D5F0'
-            //     }
-            // },
+            background: () => {
+                if(data.studentData.image){
+                    return(`url(${data.studentData.image})`)
+                }else {
+                    return '#B6D5F0'
+                }
+            },
             backgroundPosition: 'center',
             backgroundSize: 'cover',
             zIndex: '50',
