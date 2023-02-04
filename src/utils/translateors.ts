@@ -19,3 +19,15 @@ export const dayTranslateToArabic = (day: string | undefined | null) => {
             return 'يوم -'          
     }
 }
+
+// Translate gender into arabic
+export const genderTranslate = (gender: string) => {
+    switch(gender) {
+        case 'male': 
+            return 'ذكر'
+        case 'female':
+            return 'انثي'
+        default:
+            return ''
+    }
+} 

@@ -1,5 +1,5 @@
-import { forwardRef, useContext } from 'react';
-import { DarkThemeContext } from 'context/ThemeContext';
+import { forwardRef } from 'react';
+import { useTheme } from 'context/ThemeContext';
 
 // MUI
 import Button from '@mui/material/Button';
@@ -22,15 +22,14 @@ const Transition = forwardRef(function Transition(
 );
 
 type Props = {
-    state: boolean;
+    state: boolean; 
     actions: any;
     content: any;
 }
 
 const BasicDialog: React.FC<Props> = ({state, content, actions}) => {
     
-    const { mainColors } = useContext(DarkThemeContext);
-
+    const { mainColors } = useTheme();
     const style = {
         root: {
             '.MuiDialog-paper': {
@@ -135,26 +134,26 @@ const BasicDialog: React.FC<Props> = ({state, content, actions}) => {
             open={state}
             TransitionComponent={Transition}
             keepMounted
-            onClose={() => actions.handleDialogState()}
+            onClose={() => actions.reject()}
         >
             <DialogTitle> 
                 <Typography variant='h1' color='primary'>
                     {content.title}
                 </Typography>  
-                <Button sx={style.exitBut} onClick={() => actions.handleDialogState()}>
+                <Button sx={style.exitBut} onClick={() => actions.reject()}>
                     <CloseIcon />
                 </Button>
             </DialogTitle>
             <DialogContent>
                 <Typography variant='h4' color='primary' textAlign={'center'}>
-                    {content.main}
+                    {content.dialog}
                 </Typography>
                 <DialogActions>
-                    <Button onClick={() => actions.submitDialog()} variant='contained' color='error' sx={style.addBut}>
-                        {content.actionContent.first}
+                    <Button onClick={() => actions.accept()} variant='contained' color='error' sx={style.addBut}>
+                        {content.accept}
                     </Button>
-                    <Button onClick={() => actions.handleDialogState()} variant='contained' color='primary' sx={style.addBut}>
-                        {content.actionContent.second}
+                    <Button onClick={() => actions.reject()} variant='contained' color='primary' sx={style.addBut}>
+                        {content.reject}
                     </Button>
                 </DialogActions>
             </DialogContent>

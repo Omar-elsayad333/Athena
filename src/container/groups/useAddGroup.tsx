@@ -4,7 +4,7 @@ import { URL_GROUPS, URL_GROUPS_REQUIRED } from 'constant/url';
 import { getHandler, postHandler } from 'handlers/requestHandler';
 import { useError } from 'context/ErrorContext';
 import { useRouter } from 'next/router';
-import { convertTimeToDB } from 'utils/converts';
+import { convertTimeToDB } from 'utils/converters';
 
 interface Data {
     value: string;

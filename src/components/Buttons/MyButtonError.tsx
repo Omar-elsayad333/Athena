@@ -21,7 +21,7 @@ const MyButton: React.FC<Props> = ({content, onClick, loading}) => {
     }
 
     return (
-        <Button onClick={onClick} sx={style.root} variant='contained' disabled={loading} color='error'>
+        <Button onClick={() => onClick()} sx={style.root} variant='contained' disabled={loading} color='error'>
             {content}
         </Button>
     );

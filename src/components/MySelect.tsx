@@ -78,7 +78,7 @@ const MySelect: React.FC<Props> = ({value, getSelected, placeholder, data, error
                     border: darkMode ? 'none' : '1px solid transparent !important',
                 },
             },
-            '@media(max-width: 300px)': {
+            '@media(max-width: 400px)': {
                 width: '200px',
             },
             '@media(max-width: 250px)': {

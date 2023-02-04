@@ -1,13 +1,16 @@
 import { IStyle } from 'styles/IStyle';
 import MyInput from 'components/MyInput';
+import MySelect from 'components/MySelect';
 import { useTheme } from 'context/ThemeContext';
 import MyButton from 'components/Buttons/MyButton';
-// import MyButtonError from 'components/Buttons/MyButtonError';
+import PageError from 'components/Shared/PageError';
+import { genderTranslate } from 'utils/translateors';
+import BasicDialog from 'components/Dialogs/BasicDialogs';
+import MyButtonError from 'components/Buttons/MyButtonError';
 
 // MUI
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import MySelect from 'components/MySelect';
 
 type Props = {
     data: any;
@@ -16,7 +19,7 @@ type Props = {
     dialogs: any;
 }
 
-const AddStudentC: React.FC<Props> = ({ data, states, actions }) => {
+const AddStudentC: React.FC<Props> = ({ data, states, actions, dialogs }) => {
     
     const { mainColors } = useTheme();    
     const style: IStyle = {
@@ -169,7 +172,10 @@ const AddStudentC: React.FC<Props> = ({ data, states, actions }) => {
             gap: '50px',
             borderRadius: '15px',
             background: mainColors.paper.main,
-            border: `2px solid ${mainColors.paper.border}`    
+            border: `2px solid ${mainColors.paper.border}`,
+            '@media screen and (max-width: 450px)': {
+                padding: '25px 30px'
+            }    
         },
         buttonsContainer: {
             marginTop: '30px',
@@ -198,7 +204,7 @@ const AddStudentC: React.FC<Props> = ({ data, states, actions }) => {
                     helperText={states.studentCode.helperText}
                 />
                 <Box sx={style.submitButton}>
-                    <MyButton content='تأكيد' onClick={actions.submitCode} />
+                    <MyButton loading={states.loading} content='تأكيد' onClick={actions.submitCode} />
                 </Box>
             </Box>
             {
@@ -337,7 +343,7 @@ const AddStudentC: React.FC<Props> = ({ data, states, actions }) => {
                             </Typography>
                             <Box sx={style.bigInfoChip}>
                                 <Typography variant='h5' color={'primary'} fontWeight={700}>
-                                    {data.studentData.gender}
+                                    {genderTranslate(data.studentData.gender)}
                                 </Typography>
                             </Box>
                         </Box>
@@ -432,27 +438,41 @@ const AddStudentC: React.FC<Props> = ({ data, states, actions }) => {
                         placeholder={'الأعوام الدراسيه'}
                         getSelected={actions.yearHandler}
                     />
-                    <Box>
-                        <MySelect
-                            data={data.groups}
-                            placeholder={'المجموعات'}
-                            error={states.group.error}
-                            value={states.group.value}
-                            getSelected={actions.groupHandler}
-                            disabled={data.groups.length ? false : true}
+                    <MySelect
+                        data={data.groups}
+                        placeholder={'المجموعات'}
+                        error={states.group.error}
+                        value={states.group.value}
+                        getSelected={actions.groupHandler}
+                        disabled={data.groups.length ? false : true}
+                    />
+                </Box>
+            }
+            {
+                data.studentData && 
+                <Box sx={style.buttonsContainer}>
+                    <PageError errorInfo={states.pageError} />
+                    <Box sx={style.submitButton}>
+                        <MyButton 
+                            loading={states.loading} 
+                            content='تأكيد واضافة'
+                            onClick={actions.submit}
                         />
-                        <MyButton content={'اضافة'} />
+                    </Box>
+                    <Box sx={style.submitButton}>
+                        <MyButtonError 
+                            loading={states.loading} 
+                            content='إلغاء العملية' 
+                            onClick={actions.basicDialogHandler} 
+                        />
                     </Box>
                 </Box>
             }
-            {/* <Box sx={style.buttonsContainer}>
-                <Box sx={style.submitButton}>
-                    <MyButton content='تأكيد واضافة' />
-                </Box>
-                <Box sx={style.submitButton}>
-                    <MyButtonError content='إلغاء العملية' />
-                </Box>
-            </Box> */}
+            <BasicDialog 
+                state={dialogs.basicDialog.state} 
+                actions={dialogs.actions} 
+                content={dialogs.basicDialog.content} 
+            />
         </Box>
     );
 }

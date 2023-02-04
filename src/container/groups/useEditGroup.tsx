@@ -4,8 +4,8 @@ import { useState, useEffect, useContext } from 'react';
 import { useUser } from 'context/userContext';
 import { deleteHandler, getHandler, getHandlerById, putHandler } from 'handlers/requestHandler';
 import { DarkThemeContext } from 'context/ThemeContext';
-import { dayTranslateToArabic } from 'utils/content';
-import { convertTimeFromDB, convertTimeToDB } from 'utils/converts';
+import { dayTranslateToArabic } from 'utils/translateors';
+import { convertTimeFromDB, convertTimeToDB } from 'utils/converters';
 import { useError } from 'context/ErrorContext';
 
 interface Data {

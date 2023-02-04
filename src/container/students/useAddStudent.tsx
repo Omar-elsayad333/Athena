@@ -1,13 +1,12 @@
+import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react'
 import { useUser } from 'context/userContext';
-import { convertHashSign } from 'utils/converts';
-import { getHandler, getHandlerById, postHandler } from 'handlers/requestHandler';
+import { useError } from 'context/ErrorContext';
+import { convertHashSign } from 'utils/converters';
+import { getHandlerById, postHandler } from 'handlers/requestHandler';
 import { errorInitialValues, ErrorProps } from 'interfaces/shared/errors';
-import { 
-    URL_TEACHERSTUDENT_ASSIGN,
-    URL_TEACHERSTUDENT_CODE, 
-    URL_TEACHERSTUDENT_REQUIRED 
-} from 'constant/url';
+import { basicDialogInitialValues, BasicDialogProps } from 'interfaces/shared/basicDialog';
+import { URL_TEACHERSTUDENT_ASSIGN, URL_TEACHERSTUDENT_CODE } from 'constant/url';
 import { 
     dropMenuInitialValues, 
     DropMenuProps, 
@@ -18,7 +17,9 @@ import {
 const useAddStudent = () => {
 
     const auth = useUser()
+    const router = useRouter()
     const [ loading, setLoading ] = useState<boolean>(false)
+    const { setSuccessMessage, setWarningMessage } = useError() 
     const [ studentCode, setStudentCode ] = useState<InputProps>(inputInitialValues)
     const [ codeError, setCodeError ] = useState<ErrorProps>(errorInitialValues)
     const [ studentData, setStudentData ] = useState<any>('')
@@ -27,10 +28,13 @@ const useAddStudent = () => {
     const [ year, setYear ] = useState<DropMenuProps>(dropMenuInitialValues)
     const [ groups, setGroups ] = useState<any[]>([])
     const [ group, setGroup ] = useState<DropMenuProps>(dropMenuInitialValues)
+    const [ basicDialog, setBasicDialog ] = useState<BasicDialogProps>(basicDialogInitialValues)
+    const [ pageError, setPageError ] = useState<ErrorProps>(errorInitialValues)
 
     // Update groups data if the user selected a year
     useEffect(() => {
         if(year.id) {
+            setGroups([])
             for(let item of yearsFromDB) {
                 if(item.id == year.id) {
                     console.log(item.groups)
@@ -104,17 +108,24 @@ const useAddStudent = () => {
         if(studentCodeValidation()) {
             try {
                 setLoading(true)
-                const res = await getHandlerById(convertHashSign(studentCode.value), auth.authToken, URL_TEACHERSTUDENT_CODE);
+                const res: any = await getHandlerById(convertHashSign(studentCode.value), auth.authToken, URL_TEACHERSTUDENT_CODE);
                 setStudentData(res)
-                const dbYear = await getHandler(auth.authToken, URL_TEACHERSTUDENT_REQUIRED)
-                updateYearData(dbYear)
+                updateYearData(res.yearGroups)
             }
             catch(error: any) {
-                if(error.response.status) {
+                if(error.response.status == 404) {
                     setCodeError(
                         {
                             ...codeError,
                             value: 'هذا الطالب غير موجود في المنظومه !',
+                            error: true
+                        }
+                    )
+                }else if(error.response.status == 409) {
+                    setCodeError(
+                        {
+                            ...codeError,
+                            value: 'هذا الطالب تم اضافته مسبقا',
                             error: true
                         }
                     )
@@ -150,6 +161,12 @@ const useAddStudent = () => {
                 helperText: ''
             }
         )
+        setPageError(
+            {
+                value: '',
+                error: false
+            }
+        )
     }
 
     // Validate data before submit it
@@ -158,6 +175,12 @@ const useAddStudent = () => {
         
         if(!group.id) {
             validationState = false
+            setPageError(
+                {
+                    value: 'يجب اختيار مجموعه للطالب',
+                    error: true
+                }
+            )
         }
         
         return validationState
@@ -179,15 +202,57 @@ const useAddStudent = () => {
             try {
                 setLoading(true)
                 const data = collectData()
-                const res = postHandler(auth.authToken, URL_TEACHERSTUDENT_ASSIGN, data)
-                console.log(res)
+                const res = await postHandler(auth.authToken, URL_TEACHERSTUDENT_ASSIGN, data)
+                setSuccessMessage('تم اضافة الطالب بنجاح')
+                router.replace(`/teacher/students/student/${res}`)
             }
             catch(error) {
-    
+                setPageError(
+                    {
+                        value: 'خطاء في اضافة الطالب',
+                        error: true
+                    }
+                )
             }
             finally {
                 setLoading(false)
             }
+        }
+    }
+
+    // Cancle submit and redirect the user
+    const cancelSubmit = () => {
+        basicDialogHandler()
+        setWarningMessage('تم الغاء العمليه بنجاح')
+        router.push('/teacher/students')
+    }
+
+    // Open and close basic dialog
+    const basicDialogHandler = () => {
+        if(basicDialog.state) {
+            setBasicDialog(
+                {
+                    state: false,
+                    content: {
+                        title: '',
+                        dialog: '',
+                        accept: '',
+                        reject: ''
+                    }
+                }
+            )
+        }else {
+            setBasicDialog(
+                {
+                    state: true,
+                    content: {
+                        title: 'إلغاء العملية',
+                        dialog: 'تأكيد إلغاء هذه العملية نهائياً',
+                        accept: 'تأكيد',
+                        reject: 'إلغاء'
+                    }
+                }
+            )
         }
     }
     
@@ -203,17 +268,23 @@ const useAddStudent = () => {
                 studentCode,
                 codeError,
                 year,
-                group
+                group,
+                pageError
             },
             actions: {
                 studentCodeHandler,
                 submitCode,
                 yearHandler,
                 groupHandler,
-                submit
+                submit,
+                basicDialogHandler
             },
             dialogs: {
-
+                basicDialog,
+                actions: {
+                    accept: cancelSubmit,
+                    reject: basicDialogHandler
+                }
             }
         }
     );

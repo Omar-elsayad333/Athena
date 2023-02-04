@@ -1,5 +1,5 @@
 import { forwardRef, useContext } from 'react';
-import { dayTranslateToArabic } from 'utils/content';
+import { dayTranslateToArabic } from 'utils/translateors';
 import { DarkThemeContext } from 'context/ThemeContext';
 
 // MUI
