@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { genders } from "constant/staticData";
+import { genderTranslate } from 'utils/translateors';
 import { signUpHandler } from 'handlers/userHandler';
 import { URL_LEVELS, URL_STUDENTS } from 'constant/url';
 import { publicGetHandler } from 'handlers/requestHandler';
@@ -524,7 +525,7 @@ const useStudentSignUp = () => {
                 firstName: firstName.value,
                 middleName: middleName.value,
                 lastName: lastName.value,
-                gender: gender.value,
+                gender: genderTranslate(gender.value),
                 email: email.value,
                 userName: userName.value,
                 password: password.value,
@@ -537,7 +538,7 @@ const useStudentSignUp = () => {
                 data: image.base64Image
             },
             address: address.value,
-            birthDay: birthDate,
+            birthDay: birthDate.value,
             parentName: parentName.value,
             parentJob: parentJob.value,
             parentPhone: parentPhone.value,

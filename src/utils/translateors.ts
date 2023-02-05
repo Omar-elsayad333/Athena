@@ -27,6 +27,10 @@ export const genderTranslate = (gender: string) => {
             return 'ذكر'
         case 'female':
             return 'انثي'
+        case 'ذكر': 
+            return 'male'
+        case 'انثي':
+            return 'female'
         default:
             return ''
     }
