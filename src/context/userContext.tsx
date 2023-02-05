@@ -12,7 +12,7 @@ type ContextState = {
 const initialValues = {
     user: null, 
     authToken: '',
-    loadingUser: true,
+    loadingUser: false,
     userToken: () => {},
 };
 
@@ -32,7 +32,7 @@ export const UserProvider: React.FC<IProps> = ({ children }) => {
     useEffect(() => {
         if(typeof window !== 'undefined'){
             if (localStorage.getItem('athena-token')) {
-                setAuthToken(localStorage.getItem('athena-token'))
+                userToken(localStorage.getItem('athena-token'))
             }
         }
     }, [])
@@ -60,7 +60,7 @@ export const UserProvider: React.FC<IProps> = ({ children }) => {
         console.table(user)
     }, [user])
 
-    const userToken = (token: any) => {
+    const userToken = (token: string | null) => {
         setAuthToken(token);
     }
 

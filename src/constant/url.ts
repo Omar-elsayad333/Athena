@@ -19,8 +19,9 @@ export const URL_COURSES: string = '/api/courses';
 export const URL_GROUPS: string = '/api/groups';
 export const URL_HEADQUARTERS: string = '/api/headquarters';
 export const URL_CLASSIFICATIONS: string = '/api/classifications';
-export const URL_TEACHERSTUDENT_CODE: string = '/api/teacherstudents/code';
-export const URL_TEACHERSTUDENT_ASSIGN: string = '/api/teacherstudents/assign';
+export const URL_TEACHERSTUDENTS: string = '/api/teacherstudents';
+export const URL_TEACHERSTUDENTS_CODE: string = '/api/teacherstudents/code';
+export const URL_TEACHERSTUDENTS_ASSIGN: string = '/api/teacherstudents/assign';
 
 // App sections required urls
 export const URL_YEARS_REQUIRED: string = '/api/years/required';

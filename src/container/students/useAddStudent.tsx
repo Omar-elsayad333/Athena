@@ -6,7 +6,7 @@ import { convertHashSign } from 'utils/converters';
 import { getHandlerById, postHandler } from 'handlers/requestHandler';
 import { errorInitialValues, ErrorProps } from 'interfaces/shared/errors';
 import { basicDialogInitialValues, BasicDialogProps } from 'interfaces/shared/basicDialog';
-import { URL_TEACHERSTUDENT_ASSIGN, URL_TEACHERSTUDENT_CODE } from 'constant/url';
+import { URL_TEACHERSTUDENTS_ASSIGN, URL_TEACHERSTUDENTS_CODE } from 'constant/url';
 import { 
     dropMenuInitialValues, 
     DropMenuProps, 
@@ -108,7 +108,7 @@ const useAddStudent = () => {
         if(studentCodeValidation()) {
             try {
                 setLoading(true)
-                const res: any = await getHandlerById(convertHashSign(studentCode.value), auth.authToken, URL_TEACHERSTUDENT_CODE);
+                const res: any = await getHandlerById(convertHashSign(studentCode.value), auth.authToken, URL_TEACHERSTUDENTS_CODE);
                 setStudentData(res)
                 updateYearData(res.yearGroups)
             }
@@ -202,7 +202,7 @@ const useAddStudent = () => {
             try {
                 setLoading(true)
                 const data = collectData()
-                const res = await postHandler(auth.authToken, URL_TEACHERSTUDENT_ASSIGN, data)
+                const res = await postHandler(auth.authToken, URL_TEACHERSTUDENTS_ASSIGN, data)
                 setSuccessMessage('تم اضافة الطالب بنجاح')
                 router.replace(`/teacher/students/student/${res}`)
             }
