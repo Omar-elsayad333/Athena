@@ -1,7 +1,7 @@
 import { IStyle } from "styles/IStyle";
 import StudentCard from "./StudentCard";
 import MyTable from "components/MyTable";
-import FilterWedgit from "./FilterWedgit";
+import FilterWedgit from "../../FilterWedgit";
 import MySelect from "components/MySelect";
 import { useTheme } from "context/ThemeContext";
 import { studentTable } from "content/tableHeader";

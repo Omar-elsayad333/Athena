@@ -35,7 +35,7 @@ const FilterWedgit: React.FC<Props> = ({ filters, getSelected, allFilter = '' })
             alignItems: 'center',
             cursor: 'pointer',
             borderRadius: '7px',
-            background: '#E0EEFF',
+            background: mainColors.backgroundColor.main,
             border: '1px solid #B6D5F0',
         }
     }
