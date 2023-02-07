@@ -121,7 +121,30 @@ export const getHandlerById = (id: string | string[] | undefined, authorization:
 };
 
 // Actions to login for user and admin
-export const putHandler = (id: string | string[] | undefined, authorization: string, path: string, data: any) => {
+export const putHandler = (authorization: string, path: string, data: any) => {
+    return new Promise ((resolved, rejected) => {
+        axios({
+            url: `${URL_MAIN}${path}`,
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${authorization}`
+            },
+            data
+        })
+        .then(
+            (res) => {
+                resolved(res.data);
+            },
+            (rej) => {
+                rejected(rej);
+            }
+        )
+    });
+};
+
+export const putHandlerById = (id: string | string[] | undefined, authorization: string, path: string, data: any) => {
     return new Promise ((resolved, rejected) => {
         axios({
             url: `${URL_MAIN}${path}/${id}`,

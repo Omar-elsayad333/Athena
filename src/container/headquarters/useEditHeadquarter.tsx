@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import { useUser } from 'context/userContext';
 import { URL_HEADQUARTERS } from 'constant/url';
-import { getHandlerById, putHandler, deleteHandler } from 'handlers/requestHandler';
+import { getHandlerById, putHandlerById, deleteHandler } from 'handlers/requestHandler';
 import { useError } from 'context/ErrorContext';
 
 type Data = {
@@ -192,7 +192,7 @@ const useEditHeadquarter = () => {
         const data = prepareData();
         console.log(data)
         if(data) {
-            putHandler(id, auth.authToken, URL_HEADQUARTERS, data)
+            putHandlerById(id, auth.authToken, URL_HEADQUARTERS, data)
             .then((res: any) => {
                 console.log(res)
                 setLoading(false)

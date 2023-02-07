@@ -1,7 +1,7 @@
 import { NextPage } from "next";
-import { useContext } from "react";
+import { useTheme } from "context/ThemeContext";
 import { withProtected } from "routes/withRouts";
-import { DarkThemeContext } from "context/ThemeContext";
+import Loading from "components/Loading/Loading";
 import PageHead from "components/Shared/PageHead";
 import DesktopNavbar from 'components/Layout/DesktopNavbar';
 import PageTitle from 'components/Shared/PageTitle';
@@ -12,11 +12,10 @@ import useAddStudent from "container/students/useAddStudent";
 
 // MUI
 import Box from "@mui/material/Box";
-import Loading from "components/Loading/Loading";
 
 const AddStudent: NextPage = () => {
 
-    const {mainColors} = useContext(DarkThemeContext);
+    const {mainColors} = useTheme();
     const { data, states, actions, dialogs } = useAddStudent()
 
     const style = {

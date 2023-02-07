@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { URL_GROUPS, URL_GROUPS_REQUIRED } from 'constant/url';
 import { useState, useEffect, useContext } from 'react';
 import { useUser } from 'context/userContext';
-import { deleteHandler, getHandler, getHandlerById, putHandler } from 'handlers/requestHandler';
+import { deleteHandler, getHandler, getHandlerById, putHandlerById } from 'handlers/requestHandler';
 import { DarkThemeContext } from 'context/ThemeContext';
 import { dayTranslateToArabic } from 'utils/translateors';
 import { convertTimeFromDB, convertTimeToDB } from 'utils/converters';
@@ -403,7 +403,7 @@ const useEditGroup = () => {
         try {
             setLoading(true);
             const data = collectData();
-            const res = await putHandler(groupData.id, auth.authToken, URL_GROUPS, data);
+            const res = await putHandlerById(groupData.id, auth.authToken, URL_GROUPS, data);
             setSuccessMessage('تم تعديل بيانات المجموعه بنجاح');
             router.push(`/teacher/groups/group/${res}`);
         }

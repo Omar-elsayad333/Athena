@@ -22,6 +22,8 @@ export const URL_CLASSIFICATIONS: string = '/api/classifications';
 export const URL_TEACHERSTUDENTS: string = '/api/teacherstudents';
 export const URL_TEACHERSTUDENTS_CODE: string = '/api/teacherstudents/code';
 export const URL_TEACHERSTUDENTS_ASSIGN: string = '/api/teacherstudents/assign';
+export const URL_TEACHERSTUDENTS_INFO: string = '/api/teacherstudents/info';
+export const URL_TEACHERSTUDENTS_GROUP: string = '/api/teacherstudents/group';
 
 // App sections required urls
 export const URL_YEARS_REQUIRED: string = '/api/years/required';

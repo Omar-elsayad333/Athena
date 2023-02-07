@@ -18,11 +18,11 @@ const FilterWedgit: React.FC<Props> = ({ filters, getSelected, allFilter = '' })
         filterContainer: {   
             maxWidth: '900px',
             padding: '11px 11px',
+            width: 'auto',
             display: 'flex',
-            justifyContent: 'space-between',
             alignItems: 'center',
-            flexWrap: 'wrap',
             gap: '15px',
+            overflow: 'auto',
             background: mainColors.paper.main,
             border: `1px solid ${mainColors.paper.border}`,
             borderRadius: '10px',
@@ -30,6 +30,7 @@ const FilterWedgit: React.FC<Props> = ({ filters, getSelected, allFilter = '' })
         },
         option: {
             padding: '10px 22px',
+            minWidth: 'fit-content',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
