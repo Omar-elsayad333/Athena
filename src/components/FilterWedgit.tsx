@@ -43,7 +43,7 @@ const FilterWedgit: React.FC<Props> = ({ filters, getSelected, allFilter = '' })
     const selectFilter = (event: any) => {
         const filters = Array.from(document.getElementsByClassName('filter') as HTMLCollectionOf<HTMLElement>)
         filters.forEach((element) => {
-            element.style.background = mainColors.paper.main;
+            element.style.background = mainColors.backgroundColor.main;
             element.style.boxShadow = 'none';
         })
         event.currentTarget.style.background = mainColors.linerGradient.primary
