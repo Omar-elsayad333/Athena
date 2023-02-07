@@ -1,4 +1,5 @@
 import { NextPage } from "next";
+import { IStyle } from "styles/IStyle";
 import { useTheme } from "context/ThemeContext";
 import { withProtected } from "routes/withRouts";
 import PageHead from 'components/Shared/PageHead';
@@ -15,8 +16,8 @@ import useStudents from "container/students/useStudents";
 const Students: NextPage = () => {
 
     const {mainColors} = useTheme()
-    const { data, states, actions, dialogs } = useStudents()
-    const style = {
+    const { data, states, actions } = useStudents()
+    const style: IStyle = {
         root: {
             width: '100%',
             minHeight: '100vh',
@@ -64,7 +65,6 @@ const Students: NextPage = () => {
                     data={data}
                     states={states}
                     actions={actions}
-                    dialogs={dialogs}
                 />
             </Box>
             <Box sx={style.footerContainer}>

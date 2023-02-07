@@ -10,11 +10,12 @@ type Props = {
     value?: string;
     onChange?: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
     error?: boolean;
+    disabled?: boolean;
     helperText?: string;
     placeholder?: string;
 }
 
-const MySearchInput: React.FC<Props> = ({value, onChange, error, placeholder}) => {
+const MySearchInput: React.FC<Props> = ({value, onChange, error, placeholder, disabled}) => {
 
     const {mainColors} = useContext(DarkThemeContext);
 
@@ -55,7 +56,8 @@ const MySearchInput: React.FC<Props> = ({value, onChange, error, placeholder}) =
 
     return (
         <OutlinedInput
-            autoComplete='off'   
+            autoComplete='off' 
+            disabled={disabled}  
             sx={classes.root}
             value={value}
             error={error}

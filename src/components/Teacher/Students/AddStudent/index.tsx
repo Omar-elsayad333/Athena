@@ -1,4 +1,5 @@
 import { IStyle } from 'styles/IStyle';
+import { URL_MAIN } from 'constant/url';
 import MyInput from 'components/MyInput';
 import MySelect from 'components/MySelect';
 import { useTheme } from 'context/ThemeContext';
@@ -114,7 +115,7 @@ const AddStudentC: React.FC<Props> = ({ data, states, actions, dialogs }) => {
             height: '150px',
             background: () => {
                 if(data.studentData.image){
-                    return(`url(${data.studentData.image})`)
+                    return(`url(${URL_MAIN}/${data.studentData.image})`)
                 }else {
                     return '#B6D5F0'
                 }

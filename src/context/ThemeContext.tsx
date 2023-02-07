@@ -99,6 +99,9 @@ export const DarkThemeProvider: React.FC<Props> = ({ children }) => {
             primary: darkMode ? 'linear-gradient(0deg, #4072A4 0%, #1D3750 100%)' : 'linear-gradient(180deg, #B6D5F0 0%, #DFEFFF 100%)',
             secondary: darkMode ? 'linear-gradient(180deg, #3F72A4 0%, #1C364F 100%)' : 'linear-gradient(180deg, #DFEFFF 0%, #B6D5F0 100%)',
         },
+        shadow: {
+            main: darkMode ? '' : '5px 5px 10px 0px #B6D5F080',
+        },
         table: {
             main: darkMode ? '#1C364F' : '#E8F3FF',
             border : darkMode ? '#3F72A4' : '#B6D5F0',

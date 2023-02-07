@@ -5,6 +5,7 @@ import { DarkThemeContext } from "context/ThemeContext";
 // MUI
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import { URL_MAIN } from "constant/url";
 
 type Props = {
     data: any;
@@ -13,7 +14,6 @@ type Props = {
 const StudentCard: React.FC<Props> = ({ data }) => {
 
     const { mainColors } = useContext(DarkThemeContext);
-
     const classes = {
         container: {
             display: 'flex',
@@ -34,7 +34,6 @@ const StudentCard: React.FC<Props> = ({ data }) => {
             gap: '35px',
             border: mainColors.studentCard.border,
             backgroundColor: mainColors.studentCard.detailsCard,
-            backgroundImage: 'url("https://firebasestorage.googleapis.com/v0/b/athena-95dab.appspot.com/o/student.jpg?alt=media&token=14df73ef-8e83-4ea3-9dc7-4b4fa325995b")',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
             backgroundSize: 'cover',
@@ -45,7 +44,6 @@ const StudentCard: React.FC<Props> = ({ data }) => {
             ':hover': {
                 border: mainColors.studentCard.hover,
                 backgroundColor: mainColors.studentCard.detailsCardHover,
-
             },
             '@media(max-width: 400px)': {
                 gap: '25px',
@@ -78,20 +76,20 @@ const StudentCard: React.FC<Props> = ({ data }) => {
     return (
         <Box sx={classes.container}>
             {
-                data.map((item: any) => {
+                data.map((student: any) => {
                     return (
-                        <Link key={item.id} href={`/teacher/students/student/${item.id}`}>
-                            <Box sx={classes.card}>
+                        <Link key={student.id} href={`/teacher/students/student/${student.id}`}>
+                            <Box sx={[classes.card , {backgroundImage: `url(${URL_MAIN}/${student.imagePath})`}]}>
                                 <Box sx={classes.content}>
                                     <Typography textAlign={'center'} color='#E0EEFF' variant="h4">
-                                        {item.name}
+                                        {`${student.firstName} ${student.middleName} ${student.lastName}`}
                                     </Typography>
                                     <Box sx={classes.details}>
                                         <Typography color='#E0EEFF' variant="h6">
-                                            {item.level}
+                                            {student.levelName}
                                         </Typography>
                                         <Typography color='#E0EEFF' variant="h6">
-                                            {item.group}
+                                            {student.groupName}
                                         </Typography>
                                     </Box>
                                 </Box>
