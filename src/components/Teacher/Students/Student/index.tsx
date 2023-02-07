@@ -13,10 +13,9 @@ type Props = {
     data: any;
     states: any;
     actions: any;
-    dialogs: any;
 }
 
-const StudentC: React.FC<Props> = ({ data, states, actions, dialogs}) => {
+const StudentC: React.FC<Props> = ({ data, states, actions }) => {
 
     const { mainColors } = useTheme();  
     const style: IStyle = {

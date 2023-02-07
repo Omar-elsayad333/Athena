@@ -16,7 +16,7 @@ import Box from "@mui/material/Box";
 const Student: NextPage = () => {
 
     const {mainColors} = useTheme();
-    const { data, states, actions, dialogs } = useStudent()
+    const { data, states, actions } = useStudent()
 
     const style = {
         root: {
@@ -68,7 +68,6 @@ const Student: NextPage = () => {
                         data={data}
                         states={states}
                         actions={actions}
-                        dialogs={dialogs}
                     />
                 </Box>
             }
