@@ -46,12 +46,19 @@ const Student: NextPage = () => {
     
     return (
         <Box sx={style.root}>
-            <PageHead title='Add Student' />
+            <PageHead 
+                title={`
+                    ${data.studentData.gender == 'male' ? 'الطالب' : 'الطالبه'} / 
+                    ${data.studentData.firstName} 
+                    ${data.studentData.middleName}
+                    ${data.studentData.lastName}
+                `} 
+            />
             <DesktopNavbar 
                 firstPath='/teacher/students' 
                 firstContent='جميع الطلاب' 
                 secondPath='/teacher/students/add-student'
-                secondContent='اضافة طالب'
+                secondContent={'أضافة طالب'}
             /> 
             {
                 states.loading ?
