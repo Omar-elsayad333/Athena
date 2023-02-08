@@ -29,7 +29,7 @@ const Home: NextPage = () => {
           <Typography variant='h3' color='primary'>
             انا مدرس
           </Typography>
-          <Link href='/teacherLogin'>
+          <Link href='/teacher-login'>
             <a>
               <LoginButDark content='تسجيل الدخول' />
             </a>
@@ -44,7 +44,7 @@ const Home: NextPage = () => {
               <LoginButDark content='تسجيل الدخول' />
             </a>
           </Link>
-          <Link href='/studentSignUp'>
+          <Link href='/student-signup'>
             <a>
               <LoginButLight content='انشاء حساب' />
             </a>
