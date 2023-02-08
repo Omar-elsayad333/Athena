@@ -4,7 +4,9 @@ export class Routes {
 
     static homeLink = '/';
 
-    static loginLink = '/teacherLogin';
+    static loginLink = '/teacher-login';
+
+    static signUpStudent = '/student-signup'
 
     // =========================| End General |================================ //
 
