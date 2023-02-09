@@ -1,10 +1,10 @@
-import DesktopSideNav from './DesktopSideNav';
-import MobileSideNav from './MobileSideNav';
 import useLayout from 'container/useLayout';
+import MobileSideNav from './MobileSideNav';
+import DesktopSideNav from './DesktopSideNav';
 
 // MUI
 import Box from '@mui/material/Box';
-import { useEffect } from 'react';
+import { withProtected } from 'routes/withRouts';
 
 type IProps = {
     children?: JSX.Element | JSX.Element[];
@@ -13,18 +13,12 @@ type IProps = {
 const Layout: React.FC<IProps> = ({ children }) => {
 
     const { 
-        check, 
-        layoutState,
         sideNavState, 
         controleSideNav,
         mobileSideNavState,
         controleMobileSideNav,
         currentPath,
     } = useLayout();
-    
-    useEffect(() => {
-        check();
-    });
 
     const style = {
         container: {
@@ -37,18 +31,13 @@ const Layout: React.FC<IProps> = ({ children }) => {
     
     return (
         <Box>
-            <Box sx={style.container}>
-                { 
-                    layoutState &&
-                    <>
-                        <DesktopSideNav controleSideNav={controleSideNav} sideNavState={sideNavState} currentPath={currentPath} /> 
-                        <MobileSideNav mobileSideNavState={ mobileSideNavState} controleMobileSideNav={controleMobileSideNav} currentPath={currentPath} />
-                    </>
-                }
+            <Box sx={style.container}>    
+                <DesktopSideNav controleSideNav={controleSideNav} sideNavState={sideNavState} currentPath={currentPath} /> 
+                <MobileSideNav mobileSideNavState={ mobileSideNavState} controleMobileSideNav={controleMobileSideNav} currentPath={currentPath} />
                 {children}
             </Box>
         </Box>
     );
 }
 
-export default Layout;
+export default withProtected(Layout);

@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import { logout } from 'handlers/userHandler';
 import { DarkThemeContext } from 'context/ThemeContext';
 
 // MUI
@@ -33,6 +34,7 @@ const Footer: React.FC<Props> = ({sideNavState}) => {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
+                cursor: 'pointer'
             },
         },
     };
@@ -49,7 +51,7 @@ const Footer: React.FC<Props> = ({sideNavState}) => {
 
     return (
         <Box sx={[style.container, classes.container]}>
-            <Box sx={[style.container.logout, classes.logout]}>
+            <Box sx={[style.container.logout, classes.logout]} onClick={() => logout()}>
                 <svg width="25" height="25" viewBox="0 0 22 25" fill={mainColors.primary.main} xmlns="http://www.w3.org/2000/svg">
                     <path d="M9.15857 0V12.2114H12.2114V0H9.15857ZM5.25091 4.39611L4.09083 5.3425C1.61801 7.29632 0 10.3492 0 13.7378C0 19.6299 4.79299 24.4228 10.685 24.4228C16.577 24.4228 21.37 19.6299 21.37 13.7378C21.37 10.3492 19.752 7.29632 17.2792 5.3425L16.1191 4.39611L14.1958 6.77734L15.3559 7.72372C17.1265 9.12804 18.3171 11.2956 18.3171 13.7378C18.3171 17.9813 14.9285 21.37 10.685 21.37C6.44153 21.37 3.05286 17.9813 3.05286 13.7378C3.05286 11.2956 4.15189 9.12804 5.92254 7.72372L7.17421 6.77734L5.25091 4.39611Z" fill="inherit"/>
                 </svg>

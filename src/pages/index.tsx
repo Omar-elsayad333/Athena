@@ -9,7 +9,6 @@ import logo from '../../public/images/logo-with-text.svg';
 import LoginButLight from '../components/TeacherLogin/LoginButton';
 import LoginButDark from '../components/LoginButDark';
 import { withPublic } from 'routes/withRouts';
-import { logout } from 'handlers/userHandler';
 
 // MUI
 import { Box, Typography } from '@mui/material';
@@ -29,7 +28,7 @@ const Home: NextPage = () => {
           <Typography variant='h3' color='primary'>
             انا مدرس
           </Typography>
-          <Link href='/teacher-login'>
+          <Link href='/login-teacher'>
             <a>
               <LoginButDark content='تسجيل الدخول' />
             </a>
@@ -79,12 +78,6 @@ const Home: NextPage = () => {
               <LoginButDark content='Test' />
             </a>
           </Link>
-        </Box>
-        <Box sx={{display: 'flex', flexDirection: 'column', gap: '20px', alignItems: 'center'}}>
-          <Typography variant='h3' color='primary'>
-            Log Out
-          </Typography>
-          <LoginButDark content='Log Out' onClick={() => logout()} />
         </Box>
       </Box>
     </Box>

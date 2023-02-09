@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useUser } from "context/userContext";
 import { 
@@ -21,6 +21,12 @@ const useTeacherLogin = () => {
     });
     const [passwordError, setPasswordError] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
+
+    useEffect(() => {
+        if(auth.authToken) {
+            router.replace('/teacher/home')
+        }
+    }, [auth.authToken])
 
     const supmit = async () => {
         setIsLoading(true)

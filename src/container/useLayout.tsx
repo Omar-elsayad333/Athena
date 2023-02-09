@@ -1,12 +1,9 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { useUser } from 'context/userContext';
 
 const useLayout = () => {
 
     const router = useRouter();
-    const auth = useUser()
-    const [layoutState, setLayoutState] = useState<Boolean>(false);  
     const [sideNavState, setSideNavState] = useState<Boolean>(true);  
     const [mobileSideNavState, setMobileSideNavState] = useState<Boolean>(false);  
     const [currentPath, setCurrentPath] = useState<string>('');  
@@ -16,19 +13,6 @@ const useLayout = () => {
             setCurrentPath(router.pathname.slice(9))
         }
     }, [router.pathname]);
-    
-    const check = () => {
-            !localStorage.getItem('athena-token') ||
-            !auth.user ||
-            router.pathname === '/teacherLogin' || 
-            router.pathname === '/test' || 
-            router.pathname === '/studentLogin' || 
-            router.pathname === '/studentSignUp' ||
-            router.pathname === '/dashboard' ||
-            router.pathname === '/' ?
-            setLayoutState(false) :
-            setLayoutState(true);
-    };
 
     const controleSideNav = () => {
         sideNavState ? setSideNavState(false) : setSideNavState(true);
@@ -39,8 +23,6 @@ const useLayout = () => {
     }
 
     return ({
-        check,
-        layoutState,
         sideNavState,
         controleSideNav,
         mobileSideNavState,

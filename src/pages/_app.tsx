@@ -5,22 +5,39 @@ import Layout from 'components/Layout';
 import { DarkThemeProvider } from 'context/ThemeContext';
 import { UserProvider } from 'context/userContext';
 import { ErrorProvider } from 'context/ErrorContext';
+import { useRouter } from 'next/router';
 
 function MyApp({ Component, pageProps }: AppProps) {
 
-  return (
-    <UserProvider>
-      <ErrorProvider>
-        <DarkThemeProvider>
-          <ThemeApp>
-            <Layout>
+  const router = useRouter()
+
+  if(router.pathname.startsWith('/teacher')) {
+    return (
+      <UserProvider>
+        <ErrorProvider>
+          <DarkThemeProvider>
+            <ThemeApp>
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            </ThemeApp>
+          </DarkThemeProvider>
+        </ErrorProvider>
+      </UserProvider>
+    )
+  }else {
+    return (
+      <UserProvider>
+        <ErrorProvider>
+          <DarkThemeProvider>
+            <ThemeApp>
               <Component {...pageProps} />
-            </Layout>
-          </ThemeApp>
-        </DarkThemeProvider>
-      </ErrorProvider>
-    </UserProvider>
-  )
+            </ThemeApp>
+          </DarkThemeProvider>
+        </ErrorProvider>
+      </UserProvider>
+    )
+  }
 }
 
 export default MyApp
