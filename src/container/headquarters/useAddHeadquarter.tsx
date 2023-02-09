@@ -168,7 +168,6 @@ const useAddHeadquarter = () => {
             .then((res: any) => {
                 console.log(res)
                 setLoading(false)
-                clearFields()
                 setSuccessMessage('تم اضافة المقر بنجاح')
                 router.push(`/teacher/headquarters/headquarter/${res}`)
             })
