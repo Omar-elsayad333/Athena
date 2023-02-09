@@ -48,7 +48,7 @@ const useTeacherLogin = () => {
                     .then( 
                         async (res: any) => {
                             console.log(res)
-                            router.replace('teacher/home')
+                            router.replace('/teacher/home')
                         },
                         (rej: any) => {
                             console.log(rej)                    

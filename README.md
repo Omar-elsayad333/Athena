@@ -1,18 +1,19 @@
 Athena notes
 
-
 UI/UX notes
 
-* plus icon
+- plus icon
 
-* select time icon hover bug
+- select time icon hover bug
 
-------------------------------------------------
+- 404 page
+
+---
 
 Back-End notes
 
-------------------------------------------------
+---
 
 End Of Project notes
 
-* Try remove all the conditional props for all component
+- Try remove all the conditional props for all component

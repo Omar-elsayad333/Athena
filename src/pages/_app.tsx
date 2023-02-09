@@ -25,7 +25,19 @@ function MyApp({ Component, pageProps }: AppProps) {
         </ErrorProvider>
       </UserProvider>
     )
-  }else {
+  }else if(router.pathname.startsWith('/student')) {
+    return (
+      <UserProvider>
+        <ErrorProvider>
+          <DarkThemeProvider>
+            <ThemeApp>
+              <Component {...pageProps} />
+            </ThemeApp>
+          </DarkThemeProvider>
+        </ErrorProvider>
+      </UserProvider>
+    )
+  } else {
     return (
       <UserProvider>
         <ErrorProvider>
