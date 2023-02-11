@@ -1,16 +1,16 @@
 import axios from "axios";
 import { 
     URL_MAIN,
-    URL_TOKENS,
-    URL_TOKENS_REFRESH,
-    URL_TEACHERS_BASE
+    URL_AUTH_TOKENS,
+    URL_AUTH_TOKENS_REFRESH,
+    URL_DASHBOARD_TEACHERS_BASE
 } from 'constant/url';
 
 // Actions to login for user and admin
 export const loginHandler = (data: object) => {
     return new Promise ((resolved, rejected) => {
         axios({
-            url: `${URL_MAIN}${URL_TOKENS}`,
+            url: `${URL_MAIN}${URL_AUTH_TOKENS}`,
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -34,7 +34,7 @@ export const loginHandler = (data: object) => {
 export const userObjectHandler = (Authorization:any) => {
     return new Promise ((resolved, rejected) => {
         axios({
-            url: `${URL_MAIN}${URL_TEACHERS_BASE}`,
+            url: `${URL_MAIN}${URL_DASHBOARD_TEACHERS_BASE}`,
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -60,7 +60,7 @@ export const refreshTokenHandler = () => {
 
     // function logic
     axios({
-        url: `${URL_MAIN}${URL_TOKENS_REFRESH}`,
+        url: `${URL_MAIN}${URL_AUTH_TOKENS_REFRESH}`,
         method: 'POST',
         headers: {
             'Accept': 'application/json',

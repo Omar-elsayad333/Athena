@@ -1,7 +1,6 @@
 import { userObjectHandler } from 'handlers/userHandler';
 import { useState, createContext, useContext, useEffect } from 'react';
 
-
 type ContextState = {
     user: any;
     authToken: string;
@@ -26,13 +25,13 @@ export const UserProvider: React.FC<IProps> = ({ children }) => {
 
     // const router = useRouter();
     const [user, setUser] = useState<any>('');
-    const [authToken, setAuthToken] = useState<any>('');
-    const [loadingUser] = useState<boolean>(true);
+    const [authToken, setAuthToken] = useState<string>('');
+    const [loadingUser] = useState<boolean>(false);
 
     useEffect(() => {
         if(typeof window !== 'undefined'){
-            if (localStorage.getItem('athena-token')) {
-                userToken(localStorage.getItem('athena-token'))
+            if (localStorage.getItem('athena-token') && authToken == '') {
+                userToken(localStorage.getItem('athena-token')!)
             }
         }
     }, [])
@@ -60,7 +59,7 @@ export const UserProvider: React.FC<IProps> = ({ children }) => {
         console.table(user)
     }, [user])
 
-    const userToken = (token: string | null) => {
+    const userToken = async (token: string) => {
         setAuthToken(token);
     }
 
