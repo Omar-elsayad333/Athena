@@ -66,7 +66,12 @@ const Exams: NextPage = () => {
                             <path className="cls-1" d="M15.36,21.63V24l4-3.78H16.78a1.45,1.45,0,0,0-1.42,1.46Z"  fill="inherit"/>
                         </svg>
                     </PageTitle>
-                    <ExamsC />
+                    <ExamsC
+                        data={data}
+                        states={states}
+                        actions={actions}
+                        dialogs={dialogs}
+                    />
                 </Box> 
             }
             <Box sx={style.footerContainer}>
