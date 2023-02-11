@@ -1,5 +1,5 @@
 import { IStyle } from "styles/IStyle";
-import CreateExam from "./steps/createExam";
+import CreateExam from "./steps/CreateExam";
 import { useTheme } from "context/ThemeContext";
 // import TeacherAddExamLayer from "components/BigImages/TeacherAddExamLayer";
 
