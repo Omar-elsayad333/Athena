@@ -2,6 +2,7 @@ import MyInput from "components/MyInput";
 import MySelect from "components/MySelect";
 import { useTheme } from "context/ThemeContext";
 import MyDatePicker from "components/MyDatePicker";
+import TeacherAddExamLayer from "components/BigImages/TeacherAddExamLayer";
 
 // MUI
 import Box from "@mui/material/Box";
@@ -18,6 +19,7 @@ const CreateExam: React.FC<Props> = ({ data, states, actions }) => {
     const { mainColors } = useTheme()
     const style = {
         container: {
+            width: '100%',
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'start',
@@ -42,9 +44,9 @@ const CreateExam: React.FC<Props> = ({ data, states, actions }) => {
 
     return (
         <Box sx={style.container}>
-            <Box sx={style.radioChoose}>
+            {/* <Box sx={style.radioChoose}>
 
-            </Box>
+            </Box> */}
             <Box sx={style.inputsContainer}>
                 <Box sx={style.inputWithLabel}>
                     <Typography
@@ -114,7 +116,7 @@ const CreateExam: React.FC<Props> = ({ data, states, actions }) => {
                     />
                 </Box>
             </Box>
-            {/* <TeacherAddExamLayer /> */}
+            <TeacherAddExamLayer />
     </Box>
     );
 }

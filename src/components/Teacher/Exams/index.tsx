@@ -11,5 +11,5 @@ const ExamsC: React.FC<Props> = () => {
         </>
     );
 }
- 
+
 export default ExamsC;
