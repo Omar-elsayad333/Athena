@@ -289,6 +289,55 @@ const useAddExam = () => {
         )
     }
 
+    // Get the sectiom paragraph from user
+    const sectionParagraphHandler = (selectedParagraph: string, index: any) => {
+        let newValue = sections[index]
+        
+        if(newValue!.paragraph.length < 5000) {
+            newValue!.paragraph = selectedParagraph
+            
+            setSections(
+                [
+                    ...sections.slice(0,index),
+                    newValue,
+                    ...sections.slice(index+1)
+                ]
+            )
+        }
+    }
+
+    // Get the sectiom paragraph from user
+    const sectionParagraphImageHandler = (image: any, index: any) => {
+        const newValue = sections[index]
+        const newImageIndex = newValue!.images?.length
+        const selectedfile = image;
+
+        if (selectedfile.length > 0 && newImageIndex! < 3) {
+            const [imageFile] = selectedfile;
+            const fileReader = new FileReader();
+            fileReader.onload = () => {
+                const srcData: any = fileReader.result;
+                newValue!.images?.push(
+                    {
+                        index: newImageIndex,
+                        image: {
+                            extension: `.${selectedfile[0].type.slice(6)}`,
+                            data: srcData,
+                        }  
+                    }
+                ) 
+            }
+            fileReader.readAsDataURL(imageFile)
+            setSections(
+                [
+                    ...sections.slice(0,index),
+                    newValue,
+                    ...sections.slice(index+1)
+                ]
+            )
+        };
+    }
+
     // Set question to prime
     const primeQuestion = (sectionIndex: number, index: number) => {
         let newValue = sections[sectionIndex]
@@ -370,8 +419,8 @@ const useAddExam = () => {
                         index: newImageIndex,
                         image: {
                             extension: `.${selectedfile[0].type.slice(6)}`,
-                            data: srcData,
-                        }  
+                            data: srcData
+                        }
                     }
                 ) 
             }
@@ -540,6 +589,8 @@ const useAddExam = () => {
                 primeSection,
                 notPrimeSection,
                 sectionNameHandler,
+                sectionParagraphHandler,
+                sectionParagraphImageHandler,
                 primeQuestion,
                 notPrimeQuestion,
                 questionDegreeHandler,

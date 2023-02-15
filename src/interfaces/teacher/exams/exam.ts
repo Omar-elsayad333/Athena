@@ -33,11 +33,11 @@ export interface SectionProps {
     titleState: boolean;
     index: number;
     name: string;
-    title: string;
+    paragraph: string;
     degree: number;
     isPrime: boolean; 
     time: string | null;
-    image: ImagesProps[] | null;
+    images: ImagesProps[] | null;
     questions: (Questions | undefined)[];
 }
 
@@ -68,7 +68,7 @@ const choiceInitialValues = [
     }
 ]
 
-const json = JSON.stringify(choiceInitialValues);
+const choiceJson = JSON.stringify(choiceInitialValues);
 
 export const questionInitialValues = {
     index: 0,
@@ -78,13 +78,29 @@ export const questionInitialValues = {
     degree: 0,
     isPrime: false,
     images: [],
-    choices: JSON.parse(json)
+    choices: JSON.parse(choiceJson)
 }
 
+export const question2InitialValues = {
+    index: 1,
+    name: '',
+    type: 'MCQ',
+    answer: null,
+    degree: 0,
+    isPrime: false,
+    images: [],
+    choices: JSON.parse(choiceJson)
+}
+
+const questionJson = JSON.stringify(questionInitialValues);
+const question2Json = JSON.stringify(question2InitialValues);
+
 const questionsInitialValues = [
-    {...questionInitialValues},
-    {...questionInitialValues}
+    JSON.parse(questionJson),
+    JSON.parse(question2Json)
 ]
+
+const questionsJson = JSON.stringify(questionsInitialValues);
 
 export const sectionInitialValues = [
     {
@@ -92,12 +108,12 @@ export const sectionInitialValues = [
         titleState: true,
         index: 0,
         name: 'السؤال الأول',
-        title: '',
+        paragraph: '',
         degree: 0,
         isPrime: false,
         time: null,
-        image: null,
-        questions: Array.from(questionsInitialValues)
+        images: [],
+        questions: JSON.parse(questionsJson)
     }
 ]
 
@@ -154,4 +170,23 @@ export const sectionInitialValues = [
 //             ]
 //         }
 //     ]
+// }
+
+
+
+// let fileInput = document.getElementById('fileInput')
+
+// fileInput.addEventListener('change', async function(){
+//     let url = await base64Url(fileInput.files[0])
+//     console.log(url)
+// })
+
+
+// function base64Url(file){
+//     return new Promise(function(resolve,reject){
+//         const reader = new FileReader();
+//         reader.onload = () => resolve(reader.result) 
+//         reader.onerror = (error) => reject(error)
+//         reader.readAsDataURL(file);
+//     })
 // }

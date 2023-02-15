@@ -7,6 +7,7 @@ import { useTheme } from 'context/ThemeContext';
 // MUI
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
+import { URL_MAIN } from 'constant/url';
 
 type Props = {
     data: any;
@@ -59,6 +60,10 @@ const Sections: React.FC<Props> = ({ data, actions}) => {
             alignItems: 'center',
             flexWrap: 'wrap',
             gap: '40px'
+        },
+        paragraphImages: {
+            display: 'flex',
+            gap: '35px',
         }
     }
 
@@ -117,12 +122,31 @@ const Sections: React.FC<Props> = ({ data, actions}) => {
                                     />
                                 </Box>
                                 <MyTextArea 
-                                    value={section.title}
                                     helperText=''
-                                    onChange={() => {}}
+                                    indexes={index}
+                                    value={section.paragraph}
+                                    onChange={actions.sectionParagraphHandler}
+                                    addImage={actions.sectionParagraphImageHandler}
                                     placeholder='أكتب الفقرة الخاصة بالسؤال إن وجد:-'
-                                    name={index}
                                 />
+                                <Box sx={style.paragraphImages}>
+                                    {
+                                        section.images.map((image: any) => (
+                                            <Box sx={
+                                                    {
+                                                        backgroundImage: `url('${image.image.data}')`,
+                                                        backgroundSize: 'cover',
+                                                        backgroundPosition: 'center',
+                                                        width: '170px',
+                                                        height: '170px',
+                                                        border: '2px solid #3F72A4',
+                                                        borderRadius: '10px'            
+                                                    }
+                                                }
+                                            />
+                                        ))
+                                    }
+                                </Box>
                                 <Questions
                                     data={section.questions}
                                     actions={actions}
