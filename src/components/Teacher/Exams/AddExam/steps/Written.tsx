@@ -6,13 +6,12 @@ import Typography from "@mui/material/Typography";
 import BigInputWithImage from "../fields/BigInputWithImage";
 
 type Props = {
-    data: any;
     actions: any;
     grandParentIndex: number;
     parentIndex: number;
 }
 
-const Written: React.FC<Props> = ({ data, actions, grandParentIndex, parentIndex }) => {
+const Written: React.FC<Props> = ({ actions, grandParentIndex, parentIndex }) => {
 
     const { mainColors } = useTheme()
     const style = {
