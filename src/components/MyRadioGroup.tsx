@@ -40,7 +40,7 @@ const MyRadioGroup: React.FC<Props> = ({ data, getSelected, indexes }) => {
                 onChange={(e) => getSelected(e, indexes)}
             >
                 {
-                    data.map((item: any, index: number) => (
+                    data.map((item: any) => (
                         <FormControlLabel
                             sx={style.root}
                             key={item.id}
