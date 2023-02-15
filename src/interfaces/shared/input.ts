@@ -25,3 +25,14 @@ export const dropMenuInitialValues = {
     error: false,
     helperText: ''
 }
+
+export interface RadioProps extends parent {
+    id: string
+}
+
+export const radioInitialValues = {
+    id: '',
+    value: '',
+    error: false,
+    helperText: ''
+}

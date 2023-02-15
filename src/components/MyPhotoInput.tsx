@@ -79,7 +79,7 @@ const MyPhotoInput: React.FC<Props> = ({changeHandler, value, helperText, error}
                     type='file' 
                     onChange={(e) => changeHandler(e)} 
                     style={style.invisiableInput} 
-                    accept="image/png, image/jpeg"
+                    accept="image/png, image/jpeg, image/jpg"
                 />
             </Box>
             <Typography variant='h6' color='#1C364F'>

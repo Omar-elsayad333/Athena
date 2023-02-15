@@ -43,3 +43,21 @@ export const genders: any[] = [
         name: 'انثي'
     }
 ]
+
+export const examQuestionTypes: any[] = [
+    {   
+        id: 'MCQ',
+        name: 'اختيار من متعدد - MCQ'
+    },
+    {
+        id: 'written',
+        name: 'سؤال مقالي'
+    }
+]
+
+export const examChoicesPlaceholder: any[] = [
+    'الاختيار الاول',
+    'الاختيار الثاني',
+    'الاختيار الثالث',
+    'الاختيار الرابع'
+]

@@ -118,6 +118,19 @@ a {
     background: #162A3E !important;
 }
 
+
 /* ===================
-    end my input style
+end my input style
 ====================== */
+
+
+.lightTextarea:focus {
+    outline: none !important;
+    box-shadow: 0px 0px 0px 1px #3F72A4 !important;
+}
+
+.darkTextArea:focus {
+    outline: none !important;
+    border: 1px solid #B6D5F0 !important;
+    box-shadow: 0px 0px 7px -1px #3F72A4 !important;
+}

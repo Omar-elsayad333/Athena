@@ -1,10 +1,11 @@
 import { IStyle } from "styles/IStyle";
 import CreateExam from "./steps/CreateExam";
 import { useTheme } from "context/ThemeContext";
-// import TeacherAddExamLayer from "components/BigImages/TeacherAddExamLayer";
+import AdvancedDataForm from "./steps/AdvancedDataForm";
 
 // MUI
 import Box from "@mui/material/Box";
+import Sections from "./steps/Sections";
 
 type Props = {
     data: any;
@@ -19,6 +20,7 @@ const AddExamC: React.FC<Props> = ({ data, states, actions}) => {
     const style: IStyle = {
         container: {
             display: 'flex',
+            flexDirection: 'column',
             alignItems: 'start',
             flexWrap: 'wrap',
             gap: '95px',
@@ -29,6 +31,19 @@ const AddExamC: React.FC<Props> = ({ data, states, actions}) => {
         <Box sx={style.container}>
             <CreateExam 
                 data={data}
+                states={states}
+                actions={actions}
+            />
+            {
+                states.examReady &&
+                <AdvancedDataForm 
+                    data={data}
+                    states={states}
+                    actions={actions}
+                />
+            }
+            <Sections 
+                data={data.sections}
                 states={states}
                 actions={actions}
             />

@@ -22,7 +22,7 @@ export const DarkThemeContext = createContext<ContextState>(initialValues);
 export const DarkThemeProvider: React.FC<Props> = ({ children }) => {
     
     // The theme data that gets stored in context
-    const [ darkMode, setDarkMode] = useState<boolean | string>(false);
+    const [ darkMode, setDarkMode ] = useState<boolean | string>(false);
 
     // get the last selected theme
     useEffect(() => {
