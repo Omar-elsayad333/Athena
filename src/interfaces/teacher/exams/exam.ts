@@ -112,53 +112,53 @@ export const sectionInitialValues = [
 
 
 
-const example = {
-    "sections": [
-        {
-            "index": 0,
-            "name": "string",
-            "title": "string",
-            "degree": 0,
-            "isPrime": true,
-            "time": "02:00:00",
-            "images": [
-                {
-                    "image": {
-                        "extension": "strin",
-                        "data": "string"
-                    },
-                    "index": 9
-                }
-            ],
-            "questions": [
-                {
-                    "index": 0,
-                    "name": "string",
-                    "type": "string",
-                    "answer": "string",
-                    "degree": 2,
-                    "isPrime": true,
-                    "images": [
-                        {
-                            "image": {
-                                "extension": "strin",
-                                "data": "string"
-                            },
-                            "index": 9
-                        }
-                    ],
-                    "choices": [
-                        {
-                            "name": "string",
-                            "image": {
-                                "extension": "strin",
-                                "data": "string"
-                            },
-                            "isRightChoice": true
-                        }
-                    ]
-                }
-            ]
-        }
-    ]
-}
+// const example = {
+//     "sections": [
+//         {
+//             "index": 0,
+//             "name": "string",
+//             "title": "string",
+//             "degree": 0,
+//             "isPrime": true,
+//             "time": "02:00:00",
+//             "images": [
+//                 {
+//                     "image": {
+//                         "extension": "strin",
+//                         "data": "string"
+//                     },
+//                     "index": 9
+//                 }
+//             ],
+//             "questions": [
+//                 {
+//                     "index": 0,
+//                     "name": "string",
+//                     "type": "string",
+//                     "answer": "string",
+//                     "degree": 2,
+//                     "isPrime": true,
+//                     "images": [
+//                         {
+//                             "image": {
+//                                 "extension": "strin",
+//                                 "data": "string"
+//                             },
+//                             "index": 9
+//                         }
+//                     ],
+//                     "choices": [
+//                         {
+//                             "name": "string",
+//                             "image": {
+//                                 "extension": "strin",
+//                                 "data": "string"
+//                             },
+//                             "isRightChoice": true
+//                         }
+//                     ]
+//                 }
+//             ]
+//         }
+//     ]
+// }
