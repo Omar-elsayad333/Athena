@@ -70,34 +70,27 @@ const choiceInitialValues = [
 
 const json = JSON.stringify(choiceInitialValues);
 
+export const questionInitialValues = {
+    index: 0,
+    name: '',
+    type: 'MCQ',
+    answer: null,
+    degree: 0,
+    isPrime: false,
+    images: [],
+    choices: JSON.parse(json)
+}
+
 const questionsInitialValues = [
-    {
-        index: 1,
-        name: '',
-        type: '',
-        answer: null,
-        degree: 0,
-        isPrime: false,
-        images: null,
-        choices: JSON.parse(json)
-    },
-    {
-        index: 2,
-        name: '',
-        type: '',
-        answer: null,
-        degree: 0,
-        isPrime: false,
-        images: null,
-        choices: JSON.parse(json)
-    }
+    {...questionInitialValues},
+    {...questionInitialValues}
 ]
 
 export const sectionInitialValues = [
     {
         open: true,
         titleState: true,
-        index: 1,
+        index: 0,
         name: 'السؤال الأول',
         title: '',
         degree: 0,

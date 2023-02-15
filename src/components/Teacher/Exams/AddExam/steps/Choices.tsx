@@ -65,13 +65,26 @@ const Choices: React.FC<Props> = ({ actions, grandParentIndex, parentIndex, data
                                 }
                             />
                             <Checkbox
-                                // sx={{
-                                //     color: states.ageCheck.error ? mainColors.error.main : '#3F72A4',
-                                //     '&.Mui-checked': {
-                                //         color: '#3F72A4',
-                                //     },
-                                // }}
-                                onChange={e => actions.ageCheckHandler(e)}
+                                checked={choice.isRightChoice}
+                                sx={
+                                    {
+                                        color: '#3F72A4',
+                                        '&.Mui-checked': {
+                                            color: '#3F72A4',
+                                        },
+                                    }  
+                                }
+                                onChange={e => 
+                                    actions.choiceIsRightHandler(
+                                        e, 
+                                        {
+                                            grandParent: grandParentIndex,
+                                            parent: parentIndex, 
+                                            child: index
+                                        }
+                                    )
+                                }
+                                
                             />
                             {
                                 index > 1 &&

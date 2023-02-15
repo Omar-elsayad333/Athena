@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useUser } from 'context/userContext'
 import { getHandler } from 'handlers/requestHandler'
 import { URL_TEACHER_EXAMS_REQUIRED } from 'constant/url'
-import { sectionInitialValues, SectionProps } from 'interfaces/teacher/exams/exam'
+import { sectionInitialValues, SectionProps, questionInitialValues } from 'interfaces/teacher/exams/exam'
 import { datePickerInitialValues, DatePickerProps } from 'interfaces/shared/datePicker'
 import { 
     dropMenuInitialValues, 
@@ -417,10 +417,28 @@ const useAddExam = () => {
 
     // Get question images from user
     const choiceNameHandler = (selectedName: string, indexes: any) => {
-        const newValue = sections[indexes.grandParent]
-        console.log(selectedName)
-        
+        const newValue = sections[indexes.grandParent]        
         newValue!.questions[indexes.parent]!.choices[indexes.child]!.name = selectedName
+
+        setSections(
+            [
+                ...sections.slice(0,indexes.grandParent),
+                newValue,
+                ...sections.slice(indexes.grandParent+1)
+            ]
+        ) 
+    }
+    
+    // Get question images from user
+    const choiceIsRightHandler = (event: any, indexes: any) => {
+        const newValue = sections[indexes.grandParent]
+        
+        newValue!.questions[indexes.parent]!.choices[indexes.child]!.isRightChoice = event.target.checked
+        for(let i = 0; i < newValue!.questions[indexes.parent]!.choices.length; i++) {
+            if(i !== indexes.child) {
+                newValue!.questions[indexes.parent]!.choices[i]!.isRightChoice = false
+            }
+        }
         setSections(
             [
                 ...sections.slice(0,indexes.grandParent),
@@ -428,8 +446,64 @@ const useAddExam = () => {
                 ...sections.slice(indexes.grandParent+1)
             ]
         )
+    }
 
-        
+    // Get question images from user
+    const questionAnswerImagesHandler = (image: any, indexes: any) => {
+        const newValue = sections[indexes.grandParent]
+        const newImageIndex = newValue!.questions[indexes.parent]!.images!.length
+        const selectedfile = image.target.files;
+
+        if (selectedfile.length > 0 && newImageIndex < 3) {
+            const [imageFile] = selectedfile;
+            const fileReader = new FileReader();
+            fileReader.onload = () => {
+                const srcData: any = fileReader.result;
+                newValue!.questions[indexes.parent]!.images?.push({
+                    index: newImageIndex,
+                    image: {
+                        extension: `.${selectedfile[0].type.slice(6)}`,
+                        data: srcData,
+                    }  
+                })
+            }
+            fileReader.readAsDataURL(imageFile)
+            setSections(
+                [
+                    ...sections.slice(0,indexes.grandParent),
+                    newValue,
+                    ...sections.slice(indexes.grandParent+1)
+                ]
+            )
+        };
+    }
+
+    // Get question images from user
+    const questionAnswerHandler = (selectedAnswer: string, indexes: any) => {
+        const newValue = sections[indexes.grandParent]
+        newValue!.questions[indexes.parent]!.answer = selectedAnswer
+        setSections(
+            [
+                ...sections.slice(0,indexes.grandParent),
+                newValue,
+                ...sections.slice(indexes.grandParent+1)
+            ]
+        )
+    }
+
+    // Add question to section
+    const addQuestion = (indexes: any) => {
+        const newValue = sections[indexes.parent]
+        const newValueWithIndex = questionInitialValues
+        newValueWithIndex.index = newValue!.questions.length
+        newValue!.questions.push({...newValueWithIndex})
+        setSections(
+            [
+                ...sections.slice(0,indexes.parent),
+                newValue,
+                ...sections.slice(indexes.parent+1)
+            ]
+        )
     }
 
     useEffect(() => {
@@ -474,6 +548,10 @@ const useAddExam = () => {
                 questionImagesHandler,
                 choiceImagesHandler,
                 choiceNameHandler,
+                choiceIsRightHandler,
+                questionAnswerImagesHandler,
+                questionAnswerHandler,
+                addQuestion
             },
             dialogs: {
 

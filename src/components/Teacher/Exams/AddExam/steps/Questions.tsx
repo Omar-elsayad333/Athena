@@ -1,6 +1,8 @@
 import Choices from "./Choices";
+import Written from "./Written";
 import MyInput from "components/MyInput";
 import { useTheme } from "context/ThemeContext";
+import MyButton from "components/Buttons/MyButton";
 import MyRadioGroup from "components/MyRadioGroup";
 import { examQuestionTypes } from 'constant/staticData'
 import BigInputWithImage from "../fields/BigInputWithImage";
@@ -62,6 +64,13 @@ const Questions: React.FC<Props> = ({ data, actions, parentIndex }) => {
         breaker: {
             border: `1px solid ${mainColors.paper.border}`,
             width: '100%'
+        },
+        sectionButtons: {
+            display: 'flex',
+            justifyContent: 'start',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: '42px'
         }
     }
 
@@ -96,7 +105,7 @@ const Questions: React.FC<Props> = ({ data, actions, parentIndex }) => {
                                 error={false}
                                 helperText=''
                                 type="number"
-                                value={question.degree}
+                                value={question.degree != 0 && question.degree}
                                 placeholder='حدد عدد درجات السؤال'  
                                 onChange={actions.questionDegreeHandler}
                                 indexes={{parent: parentIndex, child: index}}
@@ -132,12 +141,21 @@ const Questions: React.FC<Props> = ({ data, actions, parentIndex }) => {
                                 indexes={{parent: parentIndex, child: index}}
                             /> 
                         </Box>
-                        <Choices
-                            actions={actions}
-                            data={question.choices} 
-                            grandParentIndex={parentIndex}
-                            parentIndex={index}
-                        />
+                        {
+                            question.type == 'MCQ' ?
+                            <Choices
+                                actions={actions}
+                                data={question.choices} 
+                                grandParentIndex={parentIndex}
+                                parentIndex={index}
+                            /> : 
+                            <Written
+                                data={question.answer}
+                                actions={actions}
+                                grandParentIndex={parentIndex}
+                                parentIndex={index}
+                            />
+                        }
                         {
                             index+1 != data.length &&
                             <hr style={style.breaker}></hr>
@@ -145,6 +163,15 @@ const Questions: React.FC<Props> = ({ data, actions, parentIndex }) => {
                     </Box>
                 ))
             }
+            <Box sx={style.sectionButtons}>
+                <MyButton
+                    onClick={() => actions.addQuestion({parent: parentIndex})}
+                    content='اضافة سؤال فرعي'
+                />
+                <MyButton
+                    content='اضافة سؤال فرعي'
+                />
+            </Box>
         </Box>
     );
 }
