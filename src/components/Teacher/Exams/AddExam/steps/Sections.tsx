@@ -62,16 +62,18 @@ const Sections: React.FC<Props> = ({ data, actions}) => {
             gap: '40px'
         },
         paragraphImages: {
+            maxWidth: '100%',
             display: 'flex',
+            overflow: 'auto',
             gap: '35px',
-        }
+        },
     }
 
     return (
-        <Box sx={style.container}>
+        <Box sx={style.container}>  
             {
                 data.map((section: any, index: number) => (
-                    <Box sx={style.sectionContainer}>
+                    <Box key={index} sx={style.sectionContainer}>
                         <Box key={index} sx={style.cardName}>
                             <Typography variant={'h2'} color='primary'>
                                 {`${index+1}- ${section.name}`}
@@ -88,15 +90,11 @@ const Sections: React.FC<Props> = ({ data, actions}) => {
                                 }
                                 {
                                     !section.open ?
-                                    <svg onClick={() => actions.openSection(index)} width="38" height="38" viewBox="0 0 38 38" fill="none" stroke={mainColors.primary.main} xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M19.02 36.04C28.4199 36.04 36.04 28.4199 36.04 19.02C36.04 9.62011 28.4199 2 19.02 2C9.62011 2 2 9.62011 2 19.02C2 28.4199 9.62011 36.04 19.02 36.04Z" stroke="inherit" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M19.02 12.207V25.823" stroke="inherit" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M12.2126 19.0195H25.8286" stroke="inherit" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <svg onClick={() => actions.openSection(index)} width="40" height="40" viewBox="0 0 40 40" fill={mainColors.primary.main} xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M19.5449 26.0595C19.1643 26.0603 18.7955 25.9277 18.5025 25.6849L8.72999 17.5412C8.39737 17.2647 8.1882 16.8674 8.14849 16.4368C8.10879 16.0061 8.24179 15.5773 8.51825 15.2446C8.79472 14.912 9.19199 14.7029 9.62267 14.6631C10.0534 14.6234 10.4822 14.7564 10.8148 15.0329L19.5449 22.3297L28.275 15.2935C28.4416 15.1582 28.6333 15.0572 28.8391 14.9962C29.0448 14.9352 29.2606 14.9155 29.474 14.9382C29.6875 14.961 29.8943 15.0256 30.0826 15.1285C30.271 15.2314 30.4371 15.3705 30.5715 15.5378C30.7207 15.7053 30.8337 15.9018 30.9034 16.1149C30.9731 16.3281 30.998 16.5533 30.9766 16.7766C30.9552 16.9998 30.8879 17.2162 30.779 17.4123C30.67 17.6083 30.5218 17.7797 30.3435 17.9158L20.571 25.7827C20.2695 25.9871 19.9083 26.0846 19.5449 26.0595Z" fill="inherit"/>
                                     </svg> :
-                                    <svg onClick={() => actions.closeSection(index)} width="38" height="38" viewBox="0 0 38 38" fill="none" stroke={mainColors.primary.main} xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M19.02 36.04C28.4199 36.04 36.04 28.4199 36.04 19.02C36.04 9.62011 28.4199 2 19.02 2C9.62011 2 2 9.62011 2 19.02C2 28.4199 9.62011 36.04 19.02 36.04Z" stroke="inherit" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M14.2061 14.2021L23.834 23.8301" stroke="inherit" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M14.2066 23.834L23.8346 14.206" stroke="inherit" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <svg onClick={() => actions.closeSection(index)} width="40" height="40" viewBox="0 0 40 40" fill={mainColors.primary.main} xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M19.545 13.0313C19.9255 13.0305 20.2943 13.1631 20.5874 13.4059L30.3599 21.5496C30.6925 21.8261 30.9016 22.2234 30.9414 22.6541C30.9811 23.0847 30.8481 23.5136 30.5716 23.8462C30.2951 24.1788 29.8979 24.388 29.4672 24.4277C29.0365 24.4674 28.6077 24.3344 28.2751 24.0579L19.545 16.7611L10.8149 23.7973C10.6483 23.9326 10.4566 24.0336 10.2508 24.0946C10.045 24.1556 9.82921 24.1753 9.6158 24.1526C9.40238 24.1299 9.19556 24.0652 9.00722 23.9623C8.81887 23.8594 8.65272 23.7203 8.51831 23.553C8.36915 23.3855 8.25619 23.1891 8.18649 22.9759C8.11679 22.7627 8.09186 22.5375 8.11327 22.3142C8.13468 22.091 8.20195 21.8746 8.31089 21.6786C8.41983 21.4825 8.56808 21.3111 8.74634 21.175L18.5188 13.3082C18.8203 13.1037 19.1816 13.0062 19.545 13.0313Z" fill="inherit"/>
                                     </svg>
                                 }   
                             </Box>
@@ -137,7 +135,7 @@ const Sections: React.FC<Props> = ({ data, actions}) => {
                                                         backgroundImage: `url('${image.image.data}')`,
                                                         backgroundSize: 'cover',
                                                         backgroundPosition: 'center',
-                                                        width: '170px',
+                                                        minWidth: '170px',
                                                         height: '170px',
                                                         border: '2px solid #3F72A4',
                                                         borderRadius: '10px'            

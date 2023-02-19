@@ -33,7 +33,7 @@ const Choices: React.FC<Props> = ({ actions, grandParentIndex, parentIndex, data
             flexWrap: 'wrap',
             columnGap: '32px',
             rowGap: '5px'
-        },
+        }
     }
 
     return (
@@ -49,7 +49,7 @@ const Choices: React.FC<Props> = ({ actions, grandParentIndex, parentIndex, data
                 {
                     data &&
                     data.map((choice: any, index: number) => (
-                        <Box sx={style.choicesContainer}>
+                        <Box key={index} sx={style.choicesContainer}>
                             <MyInputWithImage 
                                 helperText=''
                                 placeholder={examChoicesPlaceholder[index]}
@@ -64,6 +64,21 @@ const Choices: React.FC<Props> = ({ actions, grandParentIndex, parentIndex, data
                                     }
                                 }
                             />
+                            {
+                                choice.image &&
+                                <Box sx={
+                                        {
+                                            backgroundImage: `url('${choice.image.image.data}')`,
+                                            backgroundSize: 'cover',
+                                            backgroundPosition: 'center',
+                                            minWidth: '46px',
+                                            height: '46px',
+                                            border: '2px solid #3F72A4',
+                                            borderRadius: '10px'            
+                                        }
+                                    }
+                                />   
+                            }
                             <Checkbox
                                 checked={choice.isRightChoice}
                                 sx={

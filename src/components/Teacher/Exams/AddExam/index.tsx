@@ -1,11 +1,9 @@
 import { IStyle } from "styles/IStyle";
+import Sections from "./steps/Sections";
 import CreateExam from "./steps/CreateExam";
-import { useTheme } from "context/ThemeContext";
-import AdvancedDataForm from "./steps/AdvancedDataForm";
 
 // MUI
 import Box from "@mui/material/Box";
-import Sections from "./steps/Sections";
 
 type Props = {
     data: any;
@@ -16,7 +14,6 @@ type Props = {
 
 const AddExamC: React.FC<Props> = ({ data, states, actions}) => {
 
-    const {  } = useTheme()
     const style: IStyle = {
         container: {
             display: 'flex',
@@ -24,7 +21,7 @@ const AddExamC: React.FC<Props> = ({ data, states, actions}) => {
             alignItems: 'start',
             flexWrap: 'wrap',
             gap: '95px',
-        },
+        }
     }
 
     return (
@@ -36,17 +33,12 @@ const AddExamC: React.FC<Props> = ({ data, states, actions}) => {
             />
             {
                 states.examReady &&
-                <AdvancedDataForm 
-                    data={data}
+                <Sections 
+                    data={data.sections}
                     states={states}
                     actions={actions}
                 />
             }
-            <Sections 
-                data={data.sections}
-                states={states}
-                actions={actions}
-            />
         </Box>
     );
 }

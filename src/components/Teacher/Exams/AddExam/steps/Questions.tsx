@@ -71,7 +71,13 @@ const Questions: React.FC<Props> = ({ data, actions, parentIndex }) => {
             alignItems: 'center',
             flexWrap: 'wrap',
             gap: '42px'
-        }
+        },
+        questionImages: {
+            maxWidth: '100%',
+            display: 'flex',
+            overflow: 'auto',
+            gap: '35px',
+        },
     }
 
     return (
@@ -140,6 +146,24 @@ const Questions: React.FC<Props> = ({ data, actions, parentIndex }) => {
                                 helperText=""
                                 indexes={{parent: parentIndex, child: index}}
                             /> 
+                            <Box sx={style.questionImages}>
+                                {
+                                    question.images.map((image: any) => (
+                                        <Box sx={
+                                                {
+                                                    backgroundImage: `url('${image.image.data}')`,
+                                                    backgroundSize: 'cover',
+                                                    backgroundPosition: 'center',
+                                                    minWidth: '100px',
+                                                    height: '100px',
+                                                    border: '2px solid #3F72A4',
+                                                    borderRadius: '10px'            
+                                                }
+                                            }
+                                        />
+                                    ))
+                                }
+                            </Box>
                         </Box>
                         {
                             question.type == 'MCQ' ?

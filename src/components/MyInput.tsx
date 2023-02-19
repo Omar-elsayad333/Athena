@@ -88,7 +88,10 @@ const MyInput: React.FC<Props> = ({type, placeholder, helperText, error, onChang
                 placeholder={placeholder}
                 type={type}
             />
-            <InputError content={helperText} type='error' />
+            {
+                helperText &&
+                <InputError content={helperText} type='error' />
+            }
         </FormControl>
     );
 }

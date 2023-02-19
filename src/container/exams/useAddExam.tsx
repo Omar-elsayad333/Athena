@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react'
 import { useUser } from 'context/userContext'
 import { getHandler } from 'handlers/requestHandler'
+import { convertFileToBase64 } from 'utils/converters'
 import { URL_TEACHER_EXAMS_REQUIRED } from 'constant/url'
-import { sectionInitialValues, SectionProps, questionInitialValues } from 'interfaces/teacher/exams/exam'
 import { datePickerInitialValues, DatePickerProps } from 'interfaces/shared/datePicker'
+import { sectionInitialValues, SectionProps, questionInitialValues } from 'interfaces/teacher/exams/exam'
 import { 
     dropMenuInitialValues, 
     DropMenuProps, 
@@ -12,6 +13,7 @@ import {
     radioInitialValues, 
     RadioProps
 } from 'interfaces/shared/input'
+import { examSectionsNames } from 'constant/staticData'
 
 const useAddExam = () => {
 
@@ -26,9 +28,11 @@ const useAddExam = () => {
     const [ selectedLevel, setSelectedLevel ] = useState<DropMenuProps>(dropMenuInitialValues)
     const [ examName, setExamName ] = useState<InputProps>(inputInitialValues)
     const [ examStartDate, setExamStartDate ] = useState<DatePickerProps>(datePickerInitialValues)
-    const [ examReady, setExamReady ] = useState<boolean>(true)
+    const [ sectionCount, setSectionCount ] = useState<InputProps>(inputInitialValues)
+    const [ examDegree, setExamDegree ] = useState<InputProps>(inputInitialValues)
+    const [ examReady, setExamReady ] = useState<boolean>(false)
     const [ spcialExam, setSpcialExam ] = useState<boolean>(false)
-    const [ sections, setSections ] = useState<(SectionProps | undefined)[]>(sectionInitialValues)
+    const [ sections, setSections ] = useState<(SectionProps | undefined)[]>([])
 
     // Get required data if the user is authorized
     useEffect(() => {
@@ -87,7 +91,6 @@ const useAddExam = () => {
     // Update exam types data
     const updateExamType = () => {  
         if(examTypes.length == 0) {
-            console.log(requiredData.examTypes)
             setExamTypes(requiredData.examTypes)
         }
     }
@@ -135,8 +138,8 @@ const useAddExam = () => {
                     [
                         ...levelsData,
                         {
-                            id: level.id,
-                            name: level.name
+                            id: level.teacherCourseLevelYearId,
+                            name: level.levelName
                         }
                     ]
                 )
@@ -182,6 +185,60 @@ const useAddExam = () => {
         )
     }
 
+    // Get exam section count from user 
+    const examSectionCountsHandler = (count: any) => {
+        setSectionCount(
+            {
+                value: count,
+                length: count.length,
+                error: false,
+                helperText: ''
+            }
+        )   
+        if(parseInt(count) > 0 && parseInt(count) <= 10) {
+            updateSections(parseInt(count))
+        }
+    }
+
+    // Update section abond user selection
+    const updateSections = (count: number) => {
+        if(count > sections.length) {
+            for(let i = 0; i < count; i++) {
+                if(i > (sections.length - 1)) {
+                    const newValueWithIndex = {...sectionInitialValues}
+                    newValueWithIndex.index = sections.length
+                    newValueWithIndex.name = examSectionsNames[i]
+                    setSections(sections =>
+                        [
+                            ...sections,
+                            newValueWithIndex,
+                        ]
+                    )
+                }
+            }
+        }else {
+            const newCount = count - sections.length
+                setSections((sections: any) => 
+                    (
+                        sections.slice(0, newCount)
+                    )
+                )
+            
+        }
+    }
+
+    // Get exam degree from user
+    const examDegreeHandler = (degree: any) => {
+        setExamDegree(
+            {
+                value: degree,
+                length: degree.length,
+                error: false,
+                helperText: ''
+            }
+        )
+    }
+
     // Validate exam basic data
     const basicDataValidation = () => {
         let state = true
@@ -218,10 +275,7 @@ const useAddExam = () => {
 
     // Set exam to spcial or not
     const spcialExamHandler = () => {
-        if(spcialExam) {
-            return setSpcialExam(false)
-        }
-        setSpcialExam(true)
+        setSpcialExam(!spcialExam)
     }
 
     // Open section to write
@@ -307,27 +361,22 @@ const useAddExam = () => {
     }
 
     // Get the sectiom paragraph from user
-    const sectionParagraphImageHandler = (image: any, index: any) => {
+    const sectionParagraphImageHandler = async (image: any, index: any) => {
         const newValue = sections[index]
         const newImageIndex = newValue!.images?.length
-        const selectedfile = image;
+        const [fileToConvert] = image;
+        const convertedImage: any = await convertFileToBase64(fileToConvert)
 
-        if (selectedfile.length > 0 && newImageIndex! < 3) {
-            const [imageFile] = selectedfile;
-            const fileReader = new FileReader();
-            fileReader.onload = () => {
-                const srcData: any = fileReader.result;
-                newValue!.images?.push(
-                    {
-                        index: newImageIndex,
-                        image: {
-                            extension: `.${selectedfile[0].type.slice(6)}`,
-                            data: srcData,
-                        }  
-                    }
-                ) 
-            }
-            fileReader.readAsDataURL(imageFile)
+        if (image.length > 0 && newImageIndex! < 3) {
+            newValue!.images?.push(
+                {
+                    index: newImageIndex,
+                    image: {
+                        extension: `.${image[0].type.slice(6)}`,
+                        data: convertedImage,
+                    }  
+                }
+            ) 
             setSections(
                 [
                     ...sections.slice(0,index),
@@ -404,27 +453,23 @@ const useAddExam = () => {
     }
 
     // Get question images from user
-    const questionImagesHandler = (image: any, indexes: any) => {
+    const questionImagesHandler = async (image: any, indexes: any) => {
         const newValue = sections[indexes.parent]
         const newImageIndex = newValue!.questions[indexes.child]!.images?.length
-        const selectedfile = image.target.files;
+        const selectedfile = image
+        const [fileToConvert] = image
 
         if (selectedfile.length > 0 && newImageIndex! < 3) {
-            const [imageFile] = selectedfile;
-            const fileReader = new FileReader();
-            fileReader.onload = () => {
-                const srcData: any = fileReader.result;
-                newValue!.questions[indexes.child]!.images?.push(
-                    {
-                        index: newImageIndex,
-                        image: {
-                            extension: `.${selectedfile[0].type.slice(6)}`,
-                            data: srcData
-                        }
+            const convertedImage: any = await convertFileToBase64(fileToConvert)
+            newValue!.questions[indexes.child]!.images?.push(
+                {
+                    index: newImageIndex,
+                    image: {
+                        extension: `.${selectedfile[0].type.slice(6)}`,
+                        data: convertedImage
                     }
-                ) 
-            }
-            fileReader.readAsDataURL(imageFile)
+                }
+            ) 
             setSections(
                 [
                     ...sections.slice(0,indexes.parent),
@@ -435,25 +480,21 @@ const useAddExam = () => {
         };
     }
     
-    // Get question images from user
-    const choiceImagesHandler = (image: any, indexes: any) => {
+    // Get choice images from user
+    const choiceImagesHandler = async (image: any, indexes: any) => {
         const newValue = sections[indexes.grandParent]
-        const selectedfile = image.target.files;
+        const selectedfile = image
+        const [fileToConvert] = image
 
         if (selectedfile.length > 0) {
-            const [imageFile] = selectedfile;
-            const fileReader = new FileReader();
-            fileReader.onload = () => {
-                const srcData: any = fileReader.result;
-                newValue!.questions[indexes.parent]!.choices[indexes.child]!.image = {
-                    index: 0,
-                    image: {
-                        extension: `.${selectedfile[0].type.slice(6)}`,
-                        data: srcData,
-                    }  
-                }
+            const convertedImage: any = await convertFileToBase64(fileToConvert)
+            newValue!.questions[indexes.parent]!.choices[indexes.child]!.image = {
+                index: 0,
+                image: {
+                    extension: `.${selectedfile[0].type.slice(6)}`,
+                    data: convertedImage,
+                }  
             }
-            fileReader.readAsDataURL(imageFile)
             setSections(
                 [
                     ...sections.slice(0,indexes.grandParent),
@@ -464,7 +505,7 @@ const useAddExam = () => {
         };
     }
 
-    // Get question images from user
+    // Get choice value from user
     const choiceNameHandler = (selectedName: string, indexes: any) => {
         const newValue = sections[indexes.grandParent]        
         newValue!.questions[indexes.parent]!.choices[indexes.child]!.name = selectedName
@@ -478,7 +519,7 @@ const useAddExam = () => {
         ) 
     }
     
-    // Get question images from user
+    // Get choice right of false from user
     const choiceIsRightHandler = (event: any, indexes: any) => {
         const newValue = sections[indexes.grandParent]
         
@@ -497,37 +538,7 @@ const useAddExam = () => {
         )
     }
 
-    // Get question images from user
-    const questionAnswerImagesHandler = (image: any, indexes: any) => {
-        const newValue = sections[indexes.grandParent]
-        const newImageIndex = newValue!.questions[indexes.parent]!.images!.length
-        const selectedfile = image.target.files;
-
-        if (selectedfile.length > 0 && newImageIndex < 3) {
-            const [imageFile] = selectedfile;
-            const fileReader = new FileReader();
-            fileReader.onload = () => {
-                const srcData: any = fileReader.result;
-                newValue!.questions[indexes.parent]!.images?.push({
-                    index: newImageIndex,
-                    image: {
-                        extension: `.${selectedfile[0].type.slice(6)}`,
-                        data: srcData,
-                    }  
-                })
-            }
-            fileReader.readAsDataURL(imageFile)
-            setSections(
-                [
-                    ...sections.slice(0,indexes.grandParent),
-                    newValue,
-                    ...sections.slice(indexes.grandParent+1)
-                ]
-            )
-        };
-    }
-
-    // Get question images from user
+    // Get question written answer from user
     const questionAnswerHandler = (selectedAnswer: string, indexes: any) => {
         const newValue = sections[indexes.grandParent]
         newValue!.questions[indexes.parent]!.answer = selectedAnswer
@@ -540,7 +551,7 @@ const useAddExam = () => {
         )
     }
 
-    // Add question to section
+    // Add question to the section
     const addQuestion = (indexes: any) => {
         const newValue = sections[indexes.parent]
         const newValueWithIndex = questionInitialValues
@@ -573,6 +584,8 @@ const useAddExam = () => {
                 selectedLevel,
                 examName,
                 examStartDate,
+                sectionCount,
+                examDegree,
                 examReady,
                 spcialExam
             },
@@ -582,6 +595,8 @@ const useAddExam = () => {
                 examNameHandler,
                 examStartDateHandler,
                 examTypesHandler,
+                examSectionCountsHandler,
+                examDegreeHandler,
                 submitBasicData,
                 spcialExamHandler,
                 openSection,
@@ -600,9 +615,8 @@ const useAddExam = () => {
                 choiceImagesHandler,
                 choiceNameHandler,
                 choiceIsRightHandler,
-                questionAnswerImagesHandler,
                 questionAnswerHandler,
-                addQuestion
+                addQuestion,
             },
             dialogs: {
 

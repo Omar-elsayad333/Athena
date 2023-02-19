@@ -9,3 +9,12 @@ export const convertTimeToDB = (data: Date) => {
 export const convertHashSign = (data: string) => {
     return data.replace("#", "%23")
 }
+
+export const convertFileToBase64 = (file: any) => {
+    return new Promise(function(resolve,reject){
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result) 
+        reader.onerror = (error) => reject(error)
+        reader.readAsDataURL(file);
+    })
+}

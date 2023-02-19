@@ -1,9 +1,9 @@
+import MyBigInput from "components/MyBigInput";
 import { useTheme } from "context/ThemeContext";
 
 // MUI
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import BigInputWithImage from "../fields/BigInputWithImage";
 
 type Props = {
     actions: any;
@@ -42,8 +42,7 @@ const Written: React.FC<Props> = ({ actions, grandParentIndex, parentIndex }) =>
             >
                 الاجابة الصحيحة (التقريبية):-
             </Typography> 
-            <BigInputWithImage
-                addImage={actions.questionAnswerImagesHandler}
+            <MyBigInput
                 onChange={actions.questionAnswerHandler}
                 placeholder=''
                 helperText=""

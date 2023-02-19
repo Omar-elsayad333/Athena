@@ -102,23 +102,18 @@ const questionsInitialValues = [
 
 const questionsJson = JSON.stringify(questionsInitialValues);
 
-export const sectionInitialValues = [
-    {
-        open: true,
-        titleState: true,
-        index: 0,
-        name: 'السؤال الأول',
-        paragraph: '',
-        degree: 0,
-        isPrime: false,
-        time: null,
-        images: [],
-        questions: JSON.parse(questionsJson)
-    }
-]
-
-
-
+export const sectionInitialValues = {
+    open: true,
+    titleState: true,
+    index: 0,
+    name: 'السؤال الأول',
+    paragraph: '',
+    degree: 0,
+    isPrime: false,
+    time: null,
+    images: [],
+    questions: JSON.parse(questionsJson)
+}
 
 
 // const example = {
