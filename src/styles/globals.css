@@ -136,3 +136,7 @@ end my input style
     box-shadow: 0px 0px 7px -1px #3F72A4 !important;
     position: relative;
 }
+
+.global-no-wrap {
+    white-space: nowrap;
+}

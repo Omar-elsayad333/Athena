@@ -87,7 +87,9 @@ const Questions: React.FC<Props> = ({ data, actions, parentIndex }) => {
                     <Box sx={style.questionContainer} key={index}>
                         <Box sx={style.cardName}>
                             <Typography variant={'h3'} color='primary'>
-                                {`السؤال الفرعي رقم ( ${index+1} ):-`}
+                                السؤال الفرعي رقم 
+                                <span className="global-no-wrap"> ( {index+1} )</span>
+                                :-
                             </Typography>
                             {
                                 !question.isPrime ?

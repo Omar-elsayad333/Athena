@@ -10,6 +10,7 @@ import TeacherAddExamLayer from "components/BigImages/TeacherAddExamLayer";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import MyBigTimePicker from "components/MyBigTimePicker";
 
 type Props = {
     data: any;
@@ -167,12 +168,10 @@ const CreateExam: React.FC<Props> = ({ data, states, actions }) => {
                         >
                             وقت بدأ الامتحان:-
                         </Typography>
-                        <MyInput 
+                        <MyBigTimePicker 
                             placeholder='حدد وقت بدأ الامتحان'
-                            value={states.examName.value}
-                            error={states.examName.error}
-                            onChange={actions.examNameHandler}
-                            helperText={states.examName.helperText}
+                            value={states.examStartTime.value}
+                            getSelectedTime={actions.examStartTimeHandler}
                         />
                     </Box>
                     <Box sx={style.inputWithLabel}>
@@ -184,6 +183,7 @@ const CreateExam: React.FC<Props> = ({ data, states, actions }) => {
                             المدة الزمنية:-  
                         </Typography>
                         <MyInput 
+                            type='number'
                             placeholder='حدد المدة الزمنية بالدقيقة'
                             value={states.examName.value}
                             error={states.examName.error}

@@ -14,6 +14,7 @@ import {
     RadioProps
 } from 'interfaces/shared/input'
 import { examSectionsNames } from 'constant/staticData'
+import { timePickerInitialValues, TimePickerProps } from 'interfaces/shared/timePicker'
 
 const useAddExam = () => {
 
@@ -21,7 +22,7 @@ const useAddExam = () => {
     const [ loading, setLoading ] = useState<boolean>(false)
     const [ requiredData, setRequiredData ] = useState<any>('')
     const [ examTypes, setExamTypes ] = useState<any[]>([])
-    const [ , setSelectedExamType ] = useState<RadioProps>(radioInitialValues)
+    const [ selectedExamType, setSelectedExamType ] = useState<RadioProps>(radioInitialValues)
     const [ yearsData, setYearsData ] = useState<any[]>([])
     const [ selectedYear, setSelectedYear ] = useState<DropMenuProps>(dropMenuInitialValues)
     const [ levelsData, setLevelsData ] = useState<any[]>([])
@@ -29,8 +30,10 @@ const useAddExam = () => {
     const [ examName, setExamName ] = useState<InputProps>(inputInitialValues)
     const [ examStartDate, setExamStartDate ] = useState<DatePickerProps>(datePickerInitialValues)
     const [ sectionCount, setSectionCount ] = useState<InputProps>(inputInitialValues)
+    const [ examTime, setExamTime ] = useState<InputProps>(inputInitialValues)
+    const [ examStartTime, setExamStartTime ] = useState<TimePickerProps>(timePickerInitialValues)
     const [ examDegree, setExamDegree ] = useState<InputProps>(inputInitialValues)
-    const [ examReady, setExamReady ] = useState<boolean>(false)
+    const [ examReady, setExamReady ] = useState<boolean>(true)
     const [ spcialExam, setSpcialExam ] = useState<boolean>(false)
     const [ sections, setSections ] = useState<(SectionProps | undefined)[]>([])
 
@@ -205,13 +208,14 @@ const useAddExam = () => {
         if(count > sections.length) {
             for(let i = 0; i < count; i++) {
                 if(i > (sections.length - 1)) {
-                    const newValueWithIndex = {...sectionInitialValues}
-                    newValueWithIndex.index = sections.length
-                    newValueWithIndex.name = examSectionsNames[i]
+                    const newValueWithAdjust = sectionInitialValues
+                    newValueWithAdjust.index = sections.length
+                    newValueWithAdjust.name = examSectionsNames[i]
+                    const newValue = JSON.stringify(newValueWithAdjust)
                     setSections(sections =>
                         [
                             ...sections,
-                            newValueWithIndex,
+                            JSON.parse(newValue),
                         ]
                     )
                 }
@@ -225,6 +229,17 @@ const useAddExam = () => {
                 )
             
         }
+    }
+
+    //  Get exam start time from user
+    const examStartTimeHandler = (time: any) => {
+        setExamStartTime(
+            {
+                value: time,
+                error: false,
+                helperText: ''
+            }
+        )
     }
 
     // Get exam degree from user
@@ -585,6 +600,7 @@ const useAddExam = () => {
                 examName,
                 examStartDate,
                 sectionCount,
+                examStartTime,
                 examDegree,
                 examReady,
                 spcialExam
@@ -596,6 +612,7 @@ const useAddExam = () => {
                 examStartDateHandler,
                 examTypesHandler,
                 examSectionCountsHandler,
+                examStartTimeHandler,
                 examDegreeHandler,
                 submitBasicData,
                 spcialExamHandler,
