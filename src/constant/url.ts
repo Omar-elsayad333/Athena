@@ -11,7 +11,7 @@ export const URL_TEACHERS: string = '/api/teachers';
 export const URL_EMPLOYEE: string = '/api/employee';
 export const URL_DASHBOARD_TEACHERS_BASE: string = '/api/dashboard/teachers/base';
 
-// App sections urls
+// Teacher app sections urls
 export const URL_YEARS: string = '/api/teacher/years';
 export const URL_YEARS_END: string = '/api/teacher/years/end';
 export const URL_LEVELS: string = '/api/teacher/levels';
@@ -24,6 +24,9 @@ export const URL_TEACHERSTUDENTS_CODE: string = '/api/teacher/teacherstudents/co
 export const URL_TEACHERSTUDENTS_ASSIGN: string = '/api/teacher/teacherstudents/assign';
 export const URL_TEACHERSTUDENTS_INFO: string = '/api/teacher/teacherstudents/info';
 export const URL_TEACHERSTUDENTS_GROUP: string = '/api/teacher/teacherstudents/group';
+export const URL_TEACHER_EXAMS: string = '/api/teacher/exams';
+ 
+// Student app sections urls
 
 // App sections required urls
 export const URL_YEARS_REQUIRED: string = '/api/teacher/years/required';

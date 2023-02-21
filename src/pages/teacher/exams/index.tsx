@@ -1,11 +1,11 @@
 import { NextPage } from "next";
 import ExamsC from "components/Teacher/Exams";
 import { useTheme } from "context/ThemeContext";
+import useExams from "container/exams/useExams";
 import Loading from "components/Loading/Loading";
 import { withProtected } from "routes/withRouts";
 import PageHead from "components/Shared/PageHead";
 import PageTitle from 'components/Shared/PageTitle';
-import useAddExam from "container/exams/useAddExam";
 import ThemeSwitcher from "components/ThemeSwitcher";
 import PageFooter from "components/Shared/PageFooter";
 import DesktopNavbar from 'components/Layout/DesktopNavbar';
@@ -20,7 +20,7 @@ const Exams: NextPage = () => {
         states,
         actions,
         dialogs
-    } = useAddExam()
+    } = useExams()
     const style = {
         root: {
             width: '100%',
@@ -49,7 +49,7 @@ const Exams: NextPage = () => {
 
     return (
         <Box sx={style.root}>
-            <PageHead title='Add Exam' />
+            <PageHead title='Exams' />
             <DesktopNavbar 
                 firstPath='/teacher/exams' 
                 firstContent='جميع الأمتحانات' 
