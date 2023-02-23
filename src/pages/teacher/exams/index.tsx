@@ -19,7 +19,6 @@ const Exams: NextPage = () => {
         data,
         states,
         actions,
-        dialogs
     } = useExams()
     const style = {
         root: {
@@ -70,7 +69,6 @@ const Exams: NextPage = () => {
                         data={data}
                         states={states}
                         actions={actions}
-                        dialogs={dialogs}
                     />
                 </Box> 
             }

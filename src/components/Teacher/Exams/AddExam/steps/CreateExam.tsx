@@ -185,17 +185,17 @@ const CreateExam: React.FC<Props> = ({ data, states, actions }) => {
                         <MyInput 
                             type='number'
                             placeholder='حدد المدة الزمنية بالدقيقة'
-                            value={states.examName.value}
-                            error={states.examName.error}
-                            onChange={actions.examNameHandler}
-                            helperText={states.examName.helperText}
+                            value={states.examTime.value}
+                            error={states.examTime.error}
+                            onChange={actions.examTimeHandler}
+                            helperText={states.examTime.helperText}
                         />
                     </Box>
                     <Box sx={style.inputWithLabel}>
                         <Typography
                             variant='h3'
                             fontWeight={700}
-                            color={mainColors.title.main}
+                            color={mainColors.title.main}   
                         >
                             الدرجة الكلية:-
                         </Typography>

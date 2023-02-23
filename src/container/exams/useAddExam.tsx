@@ -242,6 +242,18 @@ const useAddExam = () => {
         )
     }
 
+    //  Get exam time from user
+    const examTimeHandler = (time: any) => {
+        setExamTime(
+            {
+                value: time,
+                length: time.length,
+                error: false,
+                helperText: ''
+            }
+        )
+    }
+
     // Get exam degree from user
     const examDegreeHandler = (degree: any) => {
         setExamDegree(
@@ -281,7 +293,7 @@ const useAddExam = () => {
         return state
     }
 
-    // Start taking exam Q if the basic data is ready
+    // Start taking exam questions if the basic data is ready
     const submitBasicData = () => {
         if(basicDataValidation()) {
             setExamReady(true)
@@ -581,6 +593,40 @@ const useAddExam = () => {
         )
     }
 
+    // Check that all data is good to send
+    const validate = () => {
+        let state = true
+
+        return state
+    }
+
+    // Collect final data to send it
+    const collectData = () => {
+        const finalData = {
+            name: examName,
+            description: null,
+            finalDegree: examDegree,
+            allowedTime: examTime.value,
+            publishedDate: examStartDate.value,
+            publishedTime: examStartTime.value,
+            isPrime: spcialExam,
+            teacherCourseLevelYearId: selectedLevel.id,
+            examTypeId: selectedExamType.id,
+            groupIds: [],
+            sections: sections 
+        }
+
+        return finalData
+    }
+
+    // Send data to review section
+    const sendDataToReview = () => {
+        if(validate()) {
+            const data = collectData()
+            console.log(data)
+        }
+    }
+
     useEffect(() => {
         console.log(sections)
     }, [sections])
@@ -601,6 +647,7 @@ const useAddExam = () => {
                 examStartDate,
                 sectionCount,
                 examStartTime,
+                examTime,
                 examDegree,
                 examReady,
                 spcialExam
@@ -613,6 +660,7 @@ const useAddExam = () => {
                 examTypesHandler,
                 examSectionCountsHandler,
                 examStartTimeHandler,
+                examTimeHandler,
                 examDegreeHandler,
                 submitBasicData,
                 spcialExamHandler,
@@ -634,6 +682,7 @@ const useAddExam = () => {
                 choiceIsRightHandler,
                 questionAnswerHandler,
                 addQuestion,
+                sendDataToReview
             },
             dialogs: {
 

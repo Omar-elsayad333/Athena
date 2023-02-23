@@ -7,7 +7,7 @@ import Typography from "@mui/material/Typography";
 
 type Props = {
     allFilter?: string;
-    filters: any;
+    filters: any[];
     getSelected: Function;
 }
 
@@ -16,9 +16,9 @@ const FilterWedgit: React.FC<Props> = ({ filters, getSelected, allFilter = '' })
     const { mainColors } = useTheme()
     const style: IStyle = {
         filterContainer: {   
+            width: 'fit-content',
             maxWidth: '900px',
             padding: '11px 11px',
-            width: 'auto',
             display: 'flex',
             alignItems: 'center',
             gap: '15px',
@@ -75,17 +75,17 @@ const FilterWedgit: React.FC<Props> = ({ filters, getSelected, allFilter = '' })
             }
             {
                 filters.length > 0 &&
-                filters.map((item: any) => {
+                filters.map((item: any, index: number) => {
                     return (
                         <Box 
                             sx={style.option} 
                             className={'filter'}  
-                            key={item.id} 
+                            key={index} 
                             onClick={(event) => {
                                 getSelected(
                                     {
                                         name: item.name, 
-                                        id: item.id
+                                        id: item?.id
                                     }
                                 );
                                 selectFilter(event)
