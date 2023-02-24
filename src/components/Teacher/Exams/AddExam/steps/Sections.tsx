@@ -7,7 +7,6 @@ import { useTheme } from 'context/ThemeContext';
 // MUI
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
-import { URL_MAIN } from 'constant/url';
 
 type Props = {
     data: any;
