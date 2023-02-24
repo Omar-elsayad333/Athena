@@ -6,12 +6,13 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
 type Props = {
+    data: any;
     actions: any;
     grandParentIndex: number;
     parentIndex: number;
 }
 
-const Written: React.FC<Props> = ({ actions, grandParentIndex, parentIndex }) => {
+const Written: React.FC<Props> = ({ data, actions, grandParentIndex, parentIndex }) => {
 
     const { mainColors } = useTheme()
     const style = {
@@ -43,6 +44,7 @@ const Written: React.FC<Props> = ({ actions, grandParentIndex, parentIndex }) =>
                 الاجابة الصحيحة (التقريبية):-
             </Typography> 
             <MyBigInput
+                value={data}
                 onChange={actions.questionAnswerHandler}
                 placeholder=''
                 helperText=""

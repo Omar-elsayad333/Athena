@@ -178,6 +178,7 @@ const Questions: React.FC<Props> = ({ data, actions, parentIndex }) => {
                                 parentIndex={index}
                             /> : 
                             <Written
+                                data={question.answer}
                                 actions={actions}
                                 grandParentIndex={parentIndex}
                                 parentIndex={index}
