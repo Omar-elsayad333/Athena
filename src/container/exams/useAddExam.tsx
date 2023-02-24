@@ -33,7 +33,7 @@ const useAddExam = () => {
     const [ examStartTime, setExamStartTime ] = useState<TimePickerProps>(timePickerInitialValues)
     const [ examTime, setExamTime ] = useState<InputProps>(inputInitialValues)
     const [ examDegree, setExamDegree ] = useState<InputProps>(inputInitialValues)
-    const [ examReady, setExamReady ] = useState<boolean>(true)
+    const [ examReady, setExamReady ] = useState<boolean>(false)
     const [ examShowenDate, setExamShowenDate ] = useState<any>('') 
     const [ spcialExam, setSpcialExam ] = useState<boolean>(false)
     const [ sections, setSections ] = useState<(SectionProps | undefined)[]>([])
