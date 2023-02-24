@@ -5,7 +5,7 @@ export interface DatePickerProps {
 }
 
 export const datePickerInitialValues = {
-    value: new Date().toISOString(),
+    value: '',
     error: false,
     helperText: ''
 }

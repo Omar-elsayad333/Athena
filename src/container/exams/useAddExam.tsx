@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useUser } from 'context/userContext'
 import { getHandler } from 'handlers/requestHandler'
-import { convertFileToBase64 } from 'utils/converters'
+import { convertDateToShortDate, convertFileToBase64 } from 'utils/converters'
 import { URL_TEACHER_EXAMS_REQUIRED } from 'constant/url'
 import { datePickerInitialValues, DatePickerProps } from 'interfaces/shared/datePicker'
 import { sectionInitialValues, SectionProps, questionInitialValues } from 'interfaces/teacher/exams/exam'
@@ -30,10 +30,11 @@ const useAddExam = () => {
     const [ examName, setExamName ] = useState<InputProps>(inputInitialValues)
     const [ examStartDate, setExamStartDate ] = useState<DatePickerProps>(datePickerInitialValues)
     const [ sectionCount, setSectionCount ] = useState<InputProps>(inputInitialValues)
-    const [ examTime, setExamTime ] = useState<InputProps>(inputInitialValues)
     const [ examStartTime, setExamStartTime ] = useState<TimePickerProps>(timePickerInitialValues)
+    const [ examTime, setExamTime ] = useState<InputProps>(inputInitialValues)
     const [ examDegree, setExamDegree ] = useState<InputProps>(inputInitialValues)
-    const [ examReady, setExamReady ] = useState<boolean>(true)
+    const [ examReady, setExamReady ] = useState<boolean>(false)
+    const [ examShowenDate, setExamShowenDate ] = useState<any>('') 
     const [ spcialExam, setSpcialExam ] = useState<boolean>(false)
     const [ sections, setSections ] = useState<(SectionProps | undefined)[]>([])
 
@@ -209,7 +210,7 @@ const useAddExam = () => {
             for(let i = 0; i < count; i++) {
                 if(i > (sections.length - 1)) {
                     const newValueWithAdjust = sectionInitialValues
-                    newValueWithAdjust.index = sections.length
+                    newValueWithAdjust.index = i
                     newValueWithAdjust.name = examSectionsNames[i]
                     const newValue = JSON.stringify(newValueWithAdjust)
                     setSections(sections =>
@@ -269,6 +270,11 @@ const useAddExam = () => {
     // Validate exam basic data
     const basicDataValidation = () => {
         let state = true
+
+        if(!selectedExamType.id) {
+            state = false
+            setSelectedExamType({...selectedExamType, helperText: 'يجب اختيار نوع الأمتحان'})
+        }
         
         if(examName.length == 0) {
             state = false
@@ -290,12 +296,34 @@ const useAddExam = () => {
             setExamStartDate({...examStartDate, error: true, helperText: 'يجب تحديد تاريخ الأصدار'})
         }
 
+        if(sectionCount.length == 0) {
+            state = false
+            setSectionCount({...sectionCount, error: true, helperText: 'يجب تحديد عدد اساله الأمتحان'})
+        }
+
+        if(sectionCount.length == 0) {
+            state = false
+            setExamStartTime({...examStartTime, error: true, helperText: 'يجب اختيار وقت بدأ الأمتحان'})
+        }
+
+        if(examTime.length == 0 || parseInt(examTime.value) <= 0) {
+            state = false
+            setExamTime({...examTime, error: true, helperText: 'يجب تحديد المده الزمنيه للأمتحان'})
+        }
+
+        if(examDegree.length == 0 || parseInt(examTime.value) < 0) {
+            state = false
+            setExamDegree({...examDegree, error: true, helperText: 'يجب تحديد الدرجه الكليه للأمتحان'})
+        }
+
         return state
     }
 
     // Start taking exam questions if the basic data is ready
-    const submitBasicData = () => {
+    const submitBasicData = async () => {
         if(basicDataValidation()) {
+            const date = await convertDateToShortDate(examStartDate.value)
+            setExamShowenDate(date);
             setExamReady(true)
         }
     }
@@ -603,9 +631,9 @@ const useAddExam = () => {
     // Collect final data to send it
     const collectData = () => {
         const finalData = {
-            name: examName,
+            name: examName.value,
             description: null,
-            finalDegree: examDegree,
+            finalDegree: examDegree.value,
             allowedTime: examTime.value,
             publishedDate: examStartDate.value,
             publishedTime: examStartTime.value,
@@ -620,7 +648,7 @@ const useAddExam = () => {
     }
 
     // Send data to review section
-    const sendDataToReview = () => {
+    const sendDataToReview = async () => {
         if(validate()) {
             const data = collectData()
             console.log(data)
@@ -637,10 +665,11 @@ const useAddExam = () => {
                 yearsData,
                 levelsData,
                 examTypes,
-                sections,
+                sections
             },
             states: {
                 loading,
+                selectedExamType,
                 selectedYear,
                 selectedLevel,
                 examName,
@@ -650,6 +679,7 @@ const useAddExam = () => {
                 examTime,
                 examDegree,
                 examReady,
+                examShowenDate,
                 spcialExam
             },
             actions: {

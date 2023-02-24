@@ -5,7 +5,7 @@ export interface TimePickerProps {
 }
 
 export const timePickerInitialValues = {
-    value: new Date(),
+    value: '',
     error: false,
     helperText: ''
 }

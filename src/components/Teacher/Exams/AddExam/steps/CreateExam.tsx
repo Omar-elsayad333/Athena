@@ -169,8 +169,10 @@ const CreateExam: React.FC<Props> = ({ data, states, actions }) => {
                             وقت بدأ الامتحان:-
                         </Typography>
                         <MyBigTimePicker 
+                            error={states.examStartTime.error}
                             placeholder='حدد وقت بدأ الامتحان'
                             value={states.examStartTime.value}
+                            helperText={states.examStartTime.helperText}
                             getSelectedTime={actions.examStartTimeHandler}
                         />
                     </Box>
@@ -209,6 +211,12 @@ const CreateExam: React.FC<Props> = ({ data, states, actions }) => {
                         />
                     </Box>
                 </Box>
+                {
+                    states.selectedExamType.helperText &&
+                    <Typography variant="h4" color='error'>
+                        {states.selectedExamType.helperText}
+                    </Typography>
+                }
                 <Button variant="contained" color={'primary'} onClick={() => actions.submitBasicData()}>
                     <Typography variant="h3" fontWeight={700}>
                         إنشاء نموذج
@@ -226,7 +234,7 @@ const CreateExam: React.FC<Props> = ({ data, states, actions }) => {
                                     {states.selectedLevel.value}
                                 </Typography>
                                 <Typography variant='h5' color={'primary'}>
-                                    {states.selectedLevel.value}
+                                    {`تاريخ الإنشاء : ${states.examShowenDate}`}
                                 </Typography>
                             </Box>
                         </Box>

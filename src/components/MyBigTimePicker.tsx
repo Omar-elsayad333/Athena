@@ -1,13 +1,15 @@
 import { useContext } from 'react'
+import InputError from './Shared/InputError';
 import { DarkThemeContext } from 'context/ThemeContext';
 
 // MUI
+import { SxProps } from '@mui/material';
 import TextField from '@mui/material/TextField';
+import FormControl from '@mui/material/FormControl';
+import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { SxProps } from '@mui/material';
-import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 
 type Props = {
     value: any;
@@ -15,10 +17,12 @@ type Props = {
     name?: string;
     readOnly?: boolean;
     getSelectedTime: Function;
-    placeholder?: string
+    placeholder?: string;
+    error: boolean;
+    helperText: string;
 }
 
-const MyBigTimePicker: React.FC<Props> = ({getSelectedTime, name, day, value, readOnly= false, placeholder}) => {
+const MyBigTimePicker: React.FC<Props> = ({getSelectedTime, name, day, value, readOnly= false, placeholder, error, helperText}) => {
     
     const { mainColors, darkMode } = useContext(DarkThemeContext);
     
@@ -95,33 +99,43 @@ const MyBigTimePicker: React.FC<Props> = ({getSelectedTime, name, day, value, re
     };
 
     return (
-        <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <TimePicker
-                readOnly={readOnly}
-                value={value}
-                onChange={(newValue) => 
-                    getSelectedTime(newValue, day, name)
-                }
-                renderInput={(params) => (
-                    <TextField
-                        {...params}
-                        error={false}
-                        sx={classes.root} 
-                        inputProps={{...params.inputProps,}}
-                        placeholder={placeholder}  
-                    />                
-                )}
-                PopperProps={{
-                    sx: popperStyle
-                }}
-                DialogProps={{
-                    sx: popperStyle
-                }}
-                components={{
-                    OpenPickerIcon: AccessAlarmIcon
-                }}            
-            />
-        </LocalizationProvider>
+        <FormControl>
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <TimePicker
+                    readOnly={readOnly}
+                    value={value}
+                    onChange={(newValue) => 
+                        getSelectedTime(newValue, day, name)
+                    }
+                    renderInput={(params) => (
+                        <TextField
+                            {...params}
+                            error={error}
+                            sx={classes.root} 
+                            inputProps={
+                                {
+                                    ...params.inputProps,
+                                    placeholder: placeholder
+                                }
+                            }
+                        />                
+                    )}
+                    PopperProps={{
+                        sx: popperStyle
+                    }}
+                    DialogProps={{
+                        sx: popperStyle
+                    }}
+                    components={{
+                        OpenPickerIcon: AccessAlarmIcon
+                    }}            
+                />
+            </LocalizationProvider>
+            {
+                helperText &&
+                <InputError content={helperText} type='error' />
+            }
+        </FormControl>
     );
 }
 

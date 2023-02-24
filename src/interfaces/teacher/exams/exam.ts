@@ -103,7 +103,7 @@ const questionsInitialValues = [
 const questionsJson = JSON.stringify(questionsInitialValues);
 
 export const sectionInitialValues = {
-    open: true,
+    open: false,
     titleState: true,
     index: 0,
     name: 'السؤال الأول',

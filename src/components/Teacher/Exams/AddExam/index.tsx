@@ -1,6 +1,8 @@
 import { IStyle } from "styles/IStyle";
 import Sections from "./steps/Sections";
 import CreateExam from "./steps/CreateExam";
+import MyButton from "components/Buttons/MyButton";
+import MyButtonError from "components/Buttons/MyButtonError";
 
 // MUI
 import Box from "@mui/material/Box";
@@ -21,6 +23,16 @@ const AddExamC: React.FC<Props> = ({ data, states, actions}) => {
             alignItems: 'start',
             flexWrap: 'wrap',
             gap: '95px',
+        },
+        buttonsContainer: {
+            marginTop: '30px',
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: '35px'
+        },
+        submitButton: {
+            width: '170px',
+            height: '40px',
         }
     }
 
@@ -38,6 +50,17 @@ const AddExamC: React.FC<Props> = ({ data, states, actions}) => {
                     states={states}
                     actions={actions}
                 />
+            }
+            {
+                states.examReady &&
+                <Box sx={style.buttonsContainer}>
+                    <Box sx={style.submitButton}> 
+                        <MyButton content='تأكيد واضافة' loading={states.loading} onClick={actions.sendDataToReview} />
+                    </Box>
+                    <Box sx={style.submitButton}>
+                        <MyButtonError loading={states.loading} content='إلغاء العملية' onClick={() => {}} />
+                    </Box>
+                </Box>
             }
         </Box>
     );
