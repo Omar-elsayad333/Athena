@@ -44,7 +44,6 @@ const Sections: React.FC<Props> = ({ data, actions}) => {
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            flexWrap: 'wrap',
             gap: '18px'
         },
         sectionDetails: {
