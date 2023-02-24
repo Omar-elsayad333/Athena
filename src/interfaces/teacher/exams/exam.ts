@@ -1,5 +1,9 @@
 // interfaces //
 
+interface ErrorProps {
+    name: string;
+    value: string;
+}
 
 interface ImageProps {
     extension: string;
@@ -12,9 +16,10 @@ interface ImagesProps {
 }
 
 interface Choice {
+    index: number;
     name: string | null;
     image: ImagesProps | null;
-    isRightChoice: boolean
+    isRightChoice: boolean;
 }
 
 interface Questions {
@@ -26,6 +31,7 @@ interface Questions {
     isPrime: boolean;
     images: ImagesProps[] | null;
     choices: (Choice | null)[];
+    error: ErrorProps[];
 }
 
 export interface SectionProps {
@@ -47,21 +53,25 @@ export interface SectionProps {
 
 const choiceInitialValues = [
     {
+        index: 0,
         name: '',
         image: null,
         isRightChoice: false
     },
     {
+        index: 1,
         name: '',
         image: null,
         isRightChoice: false
     },
     {
+        index: 2,
         name: '',
         image: null,
         isRightChoice: false
     },
     {
+        index: 3,
         name: '',
         image: null,
         isRightChoice: false
@@ -78,7 +88,8 @@ export const questionInitialValues = {
     degree: 0,
     isPrime: false,
     images: [],
-    choices: JSON.parse(choiceJson)
+    choices: JSON.parse(choiceJson),
+    error: []
 }
 
 export const question2InitialValues = {
@@ -89,7 +100,8 @@ export const question2InitialValues = {
     degree: 0,
     isPrime: false,
     images: [],
-    choices: JSON.parse(choiceJson)
+    choices: JSON.parse(choiceJson),
+    error: []
 }
 
 const questionJson = JSON.stringify(questionInitialValues);
@@ -114,74 +126,3 @@ export const sectionInitialValues = {
     images: [],
     questions: JSON.parse(questionsJson)
 }
-
-
-// const example = {
-//     "sections": [
-//         {
-//             "index": 0,
-//             "name": "string",
-//             "title": "string",
-//             "degree": 0,
-//             "isPrime": true,
-//             "time": "02:00:00",
-//             "images": [
-//                 {
-//                     "image": {
-//                         "extension": "strin",
-//                         "data": "string"
-//                     },
-//                     "index": 9
-//                 }
-//             ],
-//             "questions": [
-//                 {
-//                     "index": 0,
-//                     "name": "string",
-//                     "type": "string",
-//                     "answer": "string",
-//                     "degree": 2,
-//                     "isPrime": true,
-//                     "images": [
-//                         {
-//                             "image": {
-//                                 "extension": "strin",
-//                                 "data": "string"
-//                             },
-//                             "index": 9
-//                         }
-//                     ],
-//                     "choices": [
-//                         {
-//                             "name": "string",
-//                             "image": {
-//                                 "extension": "strin",
-//                                 "data": "string"
-//                             },
-//                             "isRightChoice": true
-//                         }
-//                     ]
-//                 }
-//             ]
-//         }
-//     ]
-// }
-
-
-
-// let fileInput = document.getElementById('fileInput')
-
-// fileInput.addEventListener('change', async function(){
-//     let url = await base64Url(fileInput.files[0])
-//     console.log(url)
-// })
-
-
-// function base64Url(file){
-//     return new Promise(function(resolve,reject){
-//         const reader = new FileReader();
-//         reader.onload = () => resolve(reader.result) 
-//         reader.onerror = (error) => reject(error)
-//         reader.readAsDataURL(file);
-//     })
-// }

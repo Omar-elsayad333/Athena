@@ -101,12 +101,6 @@ const Choices: React.FC<Props> = ({ actions, grandParentIndex, parentIndex, data
                                 }
                                 
                             />
-                            {
-                                index > 1 &&
-                                <Typography variant='h5' color={mainColors.error.main}>
-                                    حذف الاختيار
-                                </Typography>
-                            }
                         </Box>
                     ))
                 }

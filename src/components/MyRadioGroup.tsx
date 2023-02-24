@@ -11,9 +11,10 @@ type Props = {
     data: any;
     getSelected: Function;
     indexes?: any;
+    value: string;
 }
 
-const MyRadioGroup: React.FC<Props> = ({ data, getSelected, indexes }) => {
+const MyRadioGroup: React.FC<Props> = ({ data, getSelected, indexes, value }) => {
 
     const { mainColors } = useTheme()
     const style: IStyle = {
@@ -47,6 +48,7 @@ const MyRadioGroup: React.FC<Props> = ({ data, getSelected, indexes }) => {
                             value={item.id}
                             name={item.name}
                             label={item.name}
+                            checked={value == item.id ? true : false}
                             control={<Radio />} 
                         />
                     ))

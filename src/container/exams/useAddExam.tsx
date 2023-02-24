@@ -33,7 +33,7 @@ const useAddExam = () => {
     const [ examStartTime, setExamStartTime ] = useState<TimePickerProps>(timePickerInitialValues)
     const [ examTime, setExamTime ] = useState<InputProps>(inputInitialValues)
     const [ examDegree, setExamDegree ] = useState<InputProps>(inputInitialValues)
-    const [ examReady, setExamReady ] = useState<boolean>(false)
+    const [ examReady, setExamReady ] = useState<boolean>(true)
     const [ examShowenDate, setExamShowenDate ] = useState<any>('') 
     const [ spcialExam, setSpcialExam ] = useState<boolean>(false)
     const [ sections, setSections ] = useState<(SectionProps | undefined)[]>([])
@@ -621,11 +621,128 @@ const useAddExam = () => {
         )
     }
 
-    // Check that all data is good to send
-    const validate = () => {
-        let state = true
-
+    // Check that questions data is good to send
+    const questionsValidation = () => {
+        let state = true    
+        sectionLoop: for(let i = 0; i < sections.length; i++) {
+            questionLoop: for(let y = 0; y < sections[i]!.questions.length; y++) {
+                if(sections[i]?.questions[y]?.name == '' &&  sections[i]!.questions[y]!.images!.length == 0) {
+                    state = false
+                    const newValue = sections[i]
+                    if(checkError('questionName', i, y)) {
+                        newValue?.questions[y]?.error.push(
+                            {
+                                name: 'questionName',
+                                value: 'يجب اضافه رأس السؤال او صوره لرأس السؤال'
+                            }
+                        )
+                        setSections(
+                            [
+                                ...sections.slice(0,i),
+                                newValue,
+                                ...sections.slice(i+1)
+                            ]
+                        )
+                    }
+                }
+            }
+        }   
         return state
+    }
+
+    // Check that the choices data is good to send
+    const choisesValidation = () => {
+        let state = true
+        sectionLoop: for(let i = 0; i < sections.length; i++) {
+            questionLoop: for(let y = 0; y < sections[i]!.questions.length; y++) {
+                choicesLoop: for(let x = 0; x < sections[i]!.questions[y]!.choices.length; x++) {
+                    if(sections[i]?.questions[y]?.choices[x]!.name == '' && sections[i]?.questions[y]?.choices[x]!.image == null) {
+                        state = false
+                        const newValue = sections[i]
+                        if(checkError('choiceName', i, y)) {
+                            newValue?.questions[y]?.error.push(
+                                {
+                                    name: 'choiceName',
+                                    value: 'يجب اضافه اختيار او صوره'
+                                }
+                            )
+                            setSections(
+                                [
+                                    ...sections.slice(0,i),
+                                    newValue,
+                                    ...sections.slice(i+1)
+                                ]
+                            )
+                        }
+                        break;
+                    }
+                }
+            }
+        }   
+        return state
+    }
+
+    // Check that the choices has right one
+    const choisesIsRightValidation = () => {
+        let state = true
+        sectionLoop: for(let i = 0; i < sections.length; i++) {
+            questionLoop: for(let y = 0; y < sections[i]!.questions.length; y++) {
+                let choiceState = false
+                choicesLoop: for(let x = 0; x < sections[i]!.questions[y]!.choices.length; x++) {
+                    if(sections[i]?.questions[y]?.choices[x]!.isRightChoice == true) {
+                        choiceState = true
+                    }
+                }
+                if(choiceState == false) {
+                    state = false
+                    const newValue = sections[i]
+                    if(checkError('choiceIsRight', i, y)) {
+                        newValue?.questions[y]?.error.push(
+                            {
+                                name: 'choiceIsRight',
+                                value: 'يجب اختيار اجابه صحيحه'
+                            }
+                        )
+                        setSections(
+                            [
+                                ...sections.slice(0,i),
+                                newValue,
+                                ...sections.slice(i+1)
+                            ]
+                        )
+                    }
+                }
+            }
+        }   
+        return state
+    }
+
+    // Check if the error is added before
+    const checkError = (errorName: string, sIndex: number, qIndex: number) => {
+        let state = true
+        for(let error of sections[sIndex]!.questions[qIndex]!.error) {
+            if(error.name == errorName) {
+                state = false
+            }
+        } 
+        return state
+    }
+
+    // Remove Errors
+    const removeErrors = () => {
+        sectionLoop: for(let i = 0; i < sections.length; i++) {
+            questionLoop: for(let y = 0; y < sections[i]!.questions.length; y++) {
+                const newValue = sections[i]
+                newValue!.questions[y]!.error = []
+                setSections(
+                    [
+                        ...sections.slice(0,i),
+                        newValue,
+                        ...sections.slice(i+1)
+                    ]
+                )
+            }
+        }  
     }
 
     // Collect final data to send it
@@ -649,7 +766,11 @@ const useAddExam = () => {
 
     // Send data to review section
     const sendDataToReview = async () => {
-        if(validate()) {
+        let state1 = questionsValidation()
+        let state2 = choisesValidation()
+        let state3 = choisesIsRightValidation()
+        if(state1 && state2 && state3) {
+            removeErrors()
             const data = collectData()
             console.log(data)
         }

@@ -30,7 +30,7 @@ const useExams = () => {
 
     // Call function to update years data if there is years data
     useEffect(() => {
-        if(exams && years.length == 0) {
+        if(examsData.length > 0 && years.length == 0) {
             updateYearsData()
         }
     }, [examsData])
@@ -60,7 +60,7 @@ const useExams = () => {
     
     // Update years data to show it to user
     const updateYearsData = () => {
-        for(let year of exams) {
+        for(let year of examsData) {
             setYears(years =>
                 [
                     ...years,
@@ -122,9 +122,7 @@ const useExams = () => {
     // Get selected exam type to filter exams for the user
     const getSelectedExamType = (selectedExamType: any) => {
         if(selectedExamType.name == 'all') 
-            return updateExamData()
-        
-        
+            return updateExamData()   
     }
 
     return (

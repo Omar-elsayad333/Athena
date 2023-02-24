@@ -74,7 +74,14 @@ const CreateExam: React.FC<Props> = ({ data, states, actions }) => {
     return (
         <Box sx={style.container}>
             <Box sx={style.formContainer}>
-                <MyRadioGroup getSelected={actions.examTypesHandler} data={data.examTypes} />
+                {
+                    data.examTypes.length > 0 &&
+                    <MyRadioGroup 
+                        getSelected={actions.examTypesHandler} 
+                        data={data.examTypes} 
+                        value={states.selectedExamType.value == '' ? data.examTypes[0]['id'] : states.selectedExamType.id}
+                    />
+                }
                 <Box sx={style.inputsContainer}>
                     <Box sx={style.inputWithLabel}>
                         <Typography

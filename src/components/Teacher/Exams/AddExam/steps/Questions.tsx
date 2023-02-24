@@ -128,6 +128,7 @@ const Questions: React.FC<Props> = ({ data, actions, parentIndex }) => {
                                 حدد نوع السؤال الفرعي:-
                             </Typography>
                             <MyRadioGroup 
+                                value={question.type}
                                 indexes={{parent: parentIndex, child: index} } 
                                 getSelected={actions.questionTypeHandler} 
                                 data={examQuestionTypes} 
@@ -142,6 +143,7 @@ const Questions: React.FC<Props> = ({ data, actions, parentIndex }) => {
                                 حدد رأس السؤال الفرعي:-
                             </Typography> 
                             <BigInputWithImage 
+                                value={question.name}
                                 addImage={actions.questionImagesHandler}
                                 onChange={actions.questionNameHandler}
                                 placeholder=''
@@ -180,6 +182,14 @@ const Questions: React.FC<Props> = ({ data, actions, parentIndex }) => {
                                 grandParentIndex={parentIndex}
                                 parentIndex={index}
                             />
+                        }
+                        {
+                            question.error.length > 0 &&
+                            question.error.map((error: any) => (
+                                <Typography variant="h4" color={'error'}>
+                                    {error.value}
+                                </Typography>
+                            ))
                         }
                         {
                             index+1 != data.length &&
