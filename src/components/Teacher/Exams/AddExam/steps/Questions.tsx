@@ -152,8 +152,10 @@ const Questions: React.FC<Props> = ({ data, actions, parentIndex }) => {
                             /> 
                             <Box sx={style.questionImages}>
                                 {
-                                    question.images.map((image: any) => (
-                                        <Box sx={
+                                    question.images.map((image: any, index: number) => (
+                                        <Box 
+                                            key={index}
+                                            sx={
                                                 {
                                                     backgroundImage: `url('${image.image.data}')`,
                                                     backgroundSize: 'cover',

@@ -1,9 +1,12 @@
+import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import { useUser } from 'context/userContext'
 import { getHandler } from 'handlers/requestHandler'
-import { convertDateToShortDate, convertFileToBase64 } from 'utils/converters'
+import { examSectionsNames } from 'constant/staticData'
 import { URL_TEACHER_EXAMS_REQUIRED } from 'constant/url'
+import { convertDateToShortDate, convertFileToBase64 } from 'utils/converters'
 import { datePickerInitialValues, DatePickerProps } from 'interfaces/shared/datePicker'
+import { timePickerInitialValues, TimePickerProps } from 'interfaces/shared/timePicker'
 import { sectionInitialValues, SectionProps, questionInitialValues } from 'interfaces/teacher/exams/exam'
 import { 
     dropMenuInitialValues, 
@@ -13,11 +16,10 @@ import {
     radioInitialValues, 
     RadioProps
 } from 'interfaces/shared/input'
-import { examSectionsNames } from 'constant/staticData'
-import { timePickerInitialValues, TimePickerProps } from 'interfaces/shared/timePicker'
 
 const useAddExam = () => {
 
+    const router = useRouter()
     const { authToken } = useUser()
     const [ loading, setLoading ] = useState<boolean>(false)
     const [ requiredData, setRequiredData ] = useState<any>('')
@@ -33,7 +35,7 @@ const useAddExam = () => {
     const [ examStartTime, setExamStartTime ] = useState<TimePickerProps>(timePickerInitialValues)
     const [ examTime, setExamTime ] = useState<InputProps>(inputInitialValues)
     const [ examDegree, setExamDegree ] = useState<InputProps>(inputInitialValues)
-    const [ examReady, setExamReady ] = useState<boolean>(false)
+    const [ examReady, setExamReady ] = useState<boolean>(true)
     const [ examShowenDate, setExamShowenDate ] = useState<any>('') 
     const [ spcialExam, setSpcialExam ] = useState<boolean>(false)
     const [ sections, setSections ] = useState<(SectionProps | undefined)[]>([])
@@ -769,10 +771,14 @@ const useAddExam = () => {
         let state1 = questionsValidation()
         let state2 = choisesValidation()
         let state3 = choisesIsRightValidation()
-        if(state1 && state2 && state3) {
+        if(!state1 && !state2 && !state3) { 
             removeErrors()
-            const data = collectData()
-            console.log(data)
+            const data: any = collectData()
+            const jsonData = JSON.stringify(data)
+            if(jsonData) {
+                window.localStorage.setItem('athena-exam-data', jsonData)
+                router.push("/teacher/exams/review-exam")
+            }
         }
     }
 
