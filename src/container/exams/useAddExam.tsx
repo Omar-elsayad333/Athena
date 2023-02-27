@@ -750,15 +750,17 @@ const useAddExam = () => {
     // Collect final data to send it
     const collectData = () => {
         const finalData = {
-            name: examName.value,
+            name: examName,
             description: null,
-            finalDegree: examDegree.value,
-            allowedTime: examTime.value,
-            publishedDate: examStartDate.value,
-            publishedTime: examStartTime.value,
+            finalDegree: examDegree,
+            allowedTime: examTime,
+            publishedDate: examStartDate,
+            publishedTime: examStartTime,
             isPrime: spcialExam,
-            teacherCourseLevelYearId: selectedLevel.id,
-            examTypeId: selectedExamType.id,
+            sectionCount: sectionCount,
+            selectedYear: selectedYear,
+            teacherCourseLevelYearId: selectedLevel,
+            examTypeId: selectedExamType,   
             groupIds: [],
             sections: sections 
         }
@@ -768,18 +770,18 @@ const useAddExam = () => {
 
     // Send data to review section
     const sendDataToReview = async () => {
-        let state1 = questionsValidation()
-        let state2 = choisesValidation()
-        let state3 = choisesIsRightValidation()
-        if(!state1 && !state2 && !state3) { 
-            removeErrors()
+        // let state1 = questionsValidation()
+        // let state2 = choisesValidation()
+        // let state3 = choisesIsRightValidation()
+        // if(!state1 && !state2 && !state3) { 
+            // removeErrors()
             const data: any = collectData()
             const jsonData = JSON.stringify(data)
             if(jsonData) {
                 window.localStorage.setItem('athena-exam-data', jsonData)
                 router.push("/teacher/exams/review-exam")
             }
-        }
+        // }
     }
 
     useEffect(() => {

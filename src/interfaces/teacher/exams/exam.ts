@@ -1,8 +1,8 @@
 // interfaces //
 
 interface ErrorProps {
-    name: string;
-    value: string;
+    error: boolean;
+    helperText: string;
 }
 
 interface ImageProps {
@@ -20,6 +20,7 @@ interface Choice {
     name: string | null;
     image: ImagesProps | null;
     isRightChoice: boolean;
+    error: ErrorProps;
 }
 
 interface Questions {
@@ -31,11 +32,14 @@ interface Questions {
     isPrime: boolean;
     images: ImagesProps[] | null;
     choices: (Choice | null)[];
-    error: ErrorProps[];
+    answerError: ErrorProps;
+    degreeError: ErrorProps;
+    isRightChoiceError: ErrorProps;
 }
 
 export interface SectionProps {
     open: boolean;
+    openToEdit: boolean;
     titleState: boolean;
     index: number;
     name: string;
@@ -50,31 +54,43 @@ export interface SectionProps {
 
 // interfaces initial Values //
 
+const errorInitialValues = {
+    error: false,
+    helperText: ''
+}
+
+const errorJson = JSON.stringify(errorInitialValues);
+
 
 const choiceInitialValues = [
     {
         index: 0,
         name: '',
         image: null,
-        isRightChoice: false
+        isRightChoice: false,
+        error: JSON.parse(errorJson)
     },
     {
         index: 1,
         name: '',
         image: null,
-        isRightChoice: false
+        isRightChoice: false,
+        error: JSON.parse(errorJson)
     },
     {
         index: 2,
         name: '',
         image: null,
-        isRightChoice: false
+        isRightChoice: false,
+        error: JSON.parse(errorJson)
+
     },
     {
         index: 3,
         name: '',
         image: null,
-        isRightChoice: false
+        isRightChoice: false,
+        error: JSON.parse(errorJson)
     }
 ]
 
@@ -89,7 +105,9 @@ export const questionInitialValues = {
     isPrime: false,
     images: [],
     choices: JSON.parse(choiceJson),
-    error: []
+    answerError: JSON.parse(errorJson),
+    degreeError: JSON.parse(errorJson),
+    isRightChoiceError: JSON.parse(errorJson)
 }
 
 export const question2InitialValues = {
@@ -101,7 +119,9 @@ export const question2InitialValues = {
     isPrime: false,
     images: [],
     choices: JSON.parse(choiceJson),
-    error: []
+    answerError: JSON.parse(errorJson),
+    degreeError: JSON.parse(errorJson),
+    isRightChoiceError: JSON.parse(errorJson)
 }
 
 const questionJson = JSON.stringify(questionInitialValues);
@@ -116,6 +136,7 @@ const questionsJson = JSON.stringify(questionsInitialValues);
 
 export const sectionInitialValues = {
     open: false,
+    openToEdit: false,
     titleState: true,
     index: 0,
     name: 'السؤال الأول',
