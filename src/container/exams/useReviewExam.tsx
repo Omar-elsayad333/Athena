@@ -34,7 +34,6 @@ const useReviewExam = () => {
     const [ examDegree, setExamDegree ] = useState<InputProps>(inputInitialValues)
     const [ examShowenDate, setExamShowenDate ] = useState<any>('') 
     const [ spcialExam, setSpcialExam ] = useState<boolean>(false)
-    const [ openToEdit, setOpenToEdit ] = useState<boolean>(false)
     const [ sections, setSections ] = useState<(SectionProps | undefined)[]>([])
 
     // Get exam data from local storage
@@ -356,6 +355,19 @@ const useReviewExam = () => {
         )
     }
 
+    // Open section to edit
+    const openSectionToEdit = (index: number) => {
+        let newValue = sections[index]
+        newValue!.openToEdit = true
+        setSections(
+            [
+                ...sections.slice(0,index),
+                newValue,
+                ...sections.slice(index+1)
+            ]
+        )
+    }
+
     // Set section to prime
     const primeSection = (index: number) => {
         let newValue = sections[index]
@@ -603,12 +615,10 @@ const useReviewExam = () => {
         )
     }
 
-    // Add question to the section
-    const addQuestion = (indexes: any) => {
+    // Delete question
+    const deleteQuetion = (indexes: any) => {
         const newValue = sections[indexes.parent]
-        const newValueWithIndex = questionInitialValues
-        newValueWithIndex.index = newValue!.questions.length
-        newValue!.questions.push({...newValueWithIndex})
+        newValue!.questions.splice(indexes.child, 1)
         setSections(
             [
                 ...sections.slice(0,indexes.parent),
@@ -616,6 +626,26 @@ const useReviewExam = () => {
                 ...sections.slice(indexes.parent+1)
             ]
         )
+    }
+
+    // Add question to the section
+    const addQuestion = (indexes: any) => {
+        const newValue = sections[indexes.parent]
+        const stringQuestionInitialValues = JSON.stringify(questionInitialValues)
+        const newValueWithIndex = JSON.parse(stringQuestionInitialValues)
+        newValueWithIndex.index = newValue!.questions.length
+        newValue!.questions.push(newValueWithIndex)
+        setSections(
+            [
+                ...sections.slice(0,indexes.parent),
+                newValue,
+                ...sections.slice(indexes.parent+1)
+            ]
+        )
+    }
+
+    const submitSection = (indexes: any) => {
+        
     }
 
     // Collect final data to send it
@@ -674,7 +704,6 @@ const useReviewExam = () => {
                 examDegree,
                 examShowenDate,
                 spcialExam,
-                openToEdit
             },
             actions: {
                 selectedYearHandler,
@@ -689,6 +718,7 @@ const useReviewExam = () => {
                 spcialExamHandler,
                 openSection,
                 closeSection,
+                openSectionToEdit,
                 primeSection,
                 notPrimeSection,
                 sectionNameHandler,
@@ -704,7 +734,9 @@ const useReviewExam = () => {
                 choiceNameHandler,
                 choiceIsRightHandler,
                 questionAnswerHandler,
+                deleteQuetion,
                 addQuestion,
+                submitSection,
                 // sendDataToReview
             },
             dialogs: {

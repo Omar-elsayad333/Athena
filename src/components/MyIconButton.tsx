@@ -1,5 +1,4 @@
-import { useContext } from 'react';
-import { DarkThemeContext } from 'context/ThemeContext';
+import { useTheme } from 'context/ThemeContext';
 
 // MUI
 import Button from '@mui/material/Button';
@@ -12,9 +11,8 @@ type Props = {
 
 const MyIconButton: React.FC<Props> = ({event, content, icon}) => {
 
-    const {mainColors, darkMode} = useContext(DarkThemeContext);
-
-    const clasess = {
+    const {mainColors, darkMode} = useTheme();
+    const style = {
         root: {
             width: 'fit-content',
             height: '41px',
@@ -39,7 +37,7 @@ const MyIconButton: React.FC<Props> = ({event, content, icon}) => {
     };
 
     return ( 
-        <Button sx={clasess.root} onClick={event} startIcon={icon} variant="contained" color='secondary'>
+        <Button sx={style.root} onClick={event} startIcon={icon} variant="contained" color='secondary'>
             {content}
         </Button> 
     );

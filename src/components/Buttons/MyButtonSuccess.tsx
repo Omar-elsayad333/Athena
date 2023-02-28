@@ -1,3 +1,4 @@
+import { IStyle } from "styles/IStyle";
 import { useTheme } from "context/ThemeContext";
 
 // MUI
@@ -7,13 +8,13 @@ import Typography from "@mui/material/Typography";
 type Props = {
     content: string;
     onClick?: any;
-    loading?: boolean
+    loading?: boolean;
 }
 
-const MyButton: React.FC<Props> = ({content, onClick, loading}) => {
+const MyButtonSuccess: React.FC<Props> = ({content, onClick, loading}) => {
 
     const { mainColors } = useTheme()
-    const style = {
+    const style: IStyle = {
         root: {
             boxShadow: 'none',
             padding: '9px 16px',
@@ -22,12 +23,12 @@ const MyButton: React.FC<Props> = ({content, onClick, loading}) => {
     }
 
     return (
-        <Button onClick={onClick} sx={style.root} variant='contained' color='primary' disabled={loading}>
+        <Button onClick={() => onClick()} sx={style.root} variant='contained' disabled={loading} color='success'>
             <Typography variant="h4" color={mainColors.backgroundColor.main} fontWeight={700}>
                 {content}
             </Typography>
         </Button>
-    );  
+    );
 }
 
-export default MyButton;
+export default MyButtonSuccess;

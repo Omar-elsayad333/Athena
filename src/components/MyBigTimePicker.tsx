@@ -43,6 +43,12 @@ const MyBigTimePicker: React.FC<Props> = ({getSelectedTime, name, day, value, re
                     borderColor: '#E8F3FF',
                     boxShadow: darkMode ? '0px 0px 7px -1px #3F72A4' : '0px 0px 0px 1px #3F72A4',
                 },
+                '@media(max-width: 300px)': {
+                    width: '200px',
+                },
+                '@media(max-width: 250px)': {
+                    width: '150px',
+                },
             },
             '.MuiOutlinedInput-input': {
                 textTransform: 'uppercase',

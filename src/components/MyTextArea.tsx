@@ -1,5 +1,5 @@
-import { useTheme } from 'context/ThemeContext';
 import InputError from './Shared/InputError';
+import { useTheme } from 'context/ThemeContext';
 
 // MUI
 import Box from '@mui/material/Box';
@@ -22,8 +22,8 @@ const MyTextArea: React.FC<Props> = ({helperText, value, onChange, name, placeho
     const style = {
         root: {
             padding: '20px',
-            width: '100%',
-            maxWidth: '580px',
+            width: '580px',
+            maxWidth: '100%',
             minWidth: '200px',
             height: '250px',
             minHeight: '250px',
@@ -50,7 +50,7 @@ const MyTextArea: React.FC<Props> = ({helperText, value, onChange, name, placeho
     }
 
     return (
-        <FormControl fullWidth>
+        <FormControl sx={{maxWidth: '100%'}}>
             <textarea
                 value={value}
                 style={style.root}

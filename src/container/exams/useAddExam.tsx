@@ -608,12 +608,26 @@ const useAddExam = () => {
         )
     }
 
+    // Delete question
+    const deleteQuetion = (indexes: any) => {
+        const newValue = sections[indexes.parent]
+        newValue!.questions.splice(indexes.child, 1)
+        setSections(
+            [
+                ...sections.slice(0,indexes.parent),
+                newValue,
+                ...sections.slice(indexes.parent+1)
+            ]
+        )
+    }
+
     // Add question to the section
     const addQuestion = (indexes: any) => {
         const newValue = sections[indexes.parent]
-        const newValueWithIndex = questionInitialValues
+        const stringQuestionInitialValues = JSON.stringify(questionInitialValues)
+        const newValueWithIndex = JSON.parse(stringQuestionInitialValues)
         newValueWithIndex.index = newValue!.questions.length
-        newValue!.questions.push({...newValueWithIndex})
+        newValue!.questions.push(newValueWithIndex)
         setSections(
             [
                 ...sections.slice(0,indexes.parent),
@@ -840,6 +854,7 @@ const useAddExam = () => {
                 choiceNameHandler,
                 choiceIsRightHandler,
                 questionAnswerHandler,
+                deleteQuetion,
                 addQuestion,
                 sendDataToReview
             },

@@ -77,6 +77,13 @@ const Sections: React.FC<Props> = ({ data, states, actions}) => {
             overflow: 'auto',
             gap: '35px',
         },
+        sectionButtons: {
+            display: 'flex',
+            justifyContent: 'start',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: '42px'
+        },
     }
 
     return (
