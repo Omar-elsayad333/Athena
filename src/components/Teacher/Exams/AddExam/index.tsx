@@ -55,7 +55,7 @@ const AddExamC: React.FC<Props> = ({ data, states, actions}) => {
                 states.examReady &&
                 <Box sx={style.buttonsContainer}>
                     <Box sx={style.submitButton}> 
-                        <MyButton content='تأكيد واضافة' loading={states.loading} onClick={actions.sendDataToReview} />
+                        <MyButton content='مراجعة الامتحان' loading={states.loading} onClick={actions.sendDataToReview} />
                     </Box>
                     <Box sx={style.submitButton}>
                         <MyButtonError loading={states.loading} content='إلغاء العملية' onClick={() => {}} />

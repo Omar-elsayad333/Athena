@@ -81,8 +81,8 @@ const ReviewSections: React.FC<Props> = ({ data, index, actions}) => {
 
     return (
         <Box sx={style.container}>  
-            <Box key={index} sx={style.sectionContainer}>
-                <Box key={index} sx={style.cardName}>   
+            <Box sx={style.sectionContainer}>
+                <Box sx={style.cardName}>   
                     <Typography variant={'h2'} color='primary'>
                         {`${index+1}- ${data.name}`}
                     </Typography>
@@ -135,24 +135,27 @@ const ReviewSections: React.FC<Props> = ({ data, index, actions}) => {
                                 </Box>
                             </Box>
                         }
-                        <Box sx={style.paragraphImages}>
-                            {
-                                data.images.map((image: any) => (
-                                    <Box sx={
-                                            {
-                                                backgroundImage: `url('${image.image.data}')`,
-                                                backgroundSize: 'cover',
-                                                backgroundPosition: 'center',
-                                                minWidth: '170px',
-                                                height: '170px',
-                                                border: '2px solid #3F72A4',
-                                                borderRadius: '10px'            
+                        {
+                            data.images.length > 0 &&
+                            <Box sx={style.paragraphImages}>
+                                {
+                                    data.images.map((image: any) => (
+                                        <Box sx={
+                                                {
+                                                    backgroundImage: `url('${image.image.data}')`,
+                                                    backgroundSize: 'cover',
+                                                    backgroundPosition: 'center',
+                                                    minWidth: '170px',
+                                                    height: '170px',
+                                                    border: '2px solid #3F72A4',
+                                                    borderRadius: '10px'            
+                                                }
                                             }
-                                        }
-                                    />
-                                ))
-                            }
-                        </Box>
+                                        />
+                                    ))
+                                }
+                            </Box>
+                        }
                         <ReviewQuestions
                             data={data.questions}
                         />

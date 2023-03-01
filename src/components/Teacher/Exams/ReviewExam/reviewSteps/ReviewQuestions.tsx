@@ -94,26 +94,29 @@ const ReviewQuestions: React.FC<Props> = ({ data }) => {
                                     </Typography>
                                 </Box>
                             }
-                            <Box sx={style.questionImages}>
-                                {
-                                    question.images.map((image: any, index: number) => (
-                                        <Box 
-                                            key={index}
-                                            sx={
-                                                {
-                                                    backgroundImage: `url('${image.image.data}')`,
-                                                    backgroundSize: 'cover',
-                                                    backgroundPosition: 'center',
-                                                    minWidth: '100px',
-                                                    height: '100px',
-                                                    border: '2px solid #3F72A4',
-                                                    borderRadius: '10px'            
+                            {
+                                question.images.length > 0 &&
+                                <Box sx={style.questionImages}>
+                                    {
+                                        question.images.map((image: any, index: number) => (
+                                            <Box 
+                                                key={index}
+                                                sx={
+                                                    {
+                                                        backgroundImage: `url('${image.image.data}')`,
+                                                        backgroundSize: 'cover',
+                                                        backgroundPosition: 'center',
+                                                        minWidth: '100px',
+                                                        height: '100px',
+                                                        border: '2px solid #3F72A4',
+                                                        borderRadius: '10px'            
+                                                    }
                                                 }
-                                            }
-                                        />
-                                    ))
-                                }
-                            </Box>
+                                            />
+                                        ))
+                                    }
+                                </Box>
+                            }
                         </Box>
                         {
                             question.type == 'MCQ' ?

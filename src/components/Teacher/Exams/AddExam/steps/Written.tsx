@@ -44,10 +44,11 @@ const Written: React.FC<Props> = ({ data, actions, grandParentIndex, parentIndex
                 الاجابة الصحيحة (التقريبية):-
             </Typography> 
             <MyBigInput
-                value={data}
-                onChange={actions.questionAnswerHandler}
                 placeholder=''
-                helperText=""
+                value={data.answer}
+                error={data.answerError.error}
+                onChange={actions.questionAnswerHandler}
+                helperText={data.answerError.helperText}
                 indexes={
                     {
                         grandParent: grandParentIndex,

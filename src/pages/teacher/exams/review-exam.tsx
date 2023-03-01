@@ -1,7 +1,9 @@
 import { NextPage } from "next";
 import { useTheme } from "context/ThemeContext";
+import { useError } from "context/ErrorContext";
 import { withProtected } from "routes/withRouts";
 import Loading from "components/Loading/Loading";
+import AlertNotify from "components/AlertNotify";
 import PageHead from "components/Shared/PageHead";
 import PageTitle from 'components/Shared/PageTitle';
 import ThemeSwitcher from "components/ThemeSwitcher";
@@ -21,6 +23,12 @@ const ReviewExam: NextPage = () => {
         actions,
         dialogs
     } = useReviewExam()
+    const {
+        msg,
+        state,
+        msgType,
+        handleState
+    } = useError();
     const style = {
         root: {
             width: '100%',
@@ -78,6 +86,7 @@ const ReviewExam: NextPage = () => {
                 <PageFooter />
             </Box>
             <ThemeSwitcher />
+            <AlertNotify msg={msg} state={state} handleState={handleState} msgType={msgType} />
         </Box>  
     );
 }

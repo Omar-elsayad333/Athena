@@ -1,12 +1,18 @@
 import { useState, useEffect } from 'react'
 import { useUser } from 'context/userContext'
+import { useError } from 'context/ErrorContext'
 import { getHandler } from 'handlers/requestHandler'
 import { examSectionsNames } from 'constant/staticData'
 import { URL_TEACHER_EXAMS_REQUIRED } from 'constant/url'
-import { convertDateToShortDate, convertFileToBase64 } from 'utils/converters'
+import { convertDateToShortDate, convertFileToBase64, convertTimeToDB } from 'utils/converters'
 import { datePickerInitialValues, DatePickerProps } from 'interfaces/shared/datePicker'
 import { timePickerInitialValues, TimePickerProps } from 'interfaces/shared/timePicker'
-import { sectionInitialValues, SectionProps, questionInitialValues } from 'interfaces/teacher/exams/exam'
+import { 
+    sectionInitialValues,
+    SectionProps, 
+    questionInitialValues, 
+    choiceJson 
+} from 'interfaces/teacher/exams/exam'
 import { 
     dropMenuInitialValues, 
     DropMenuProps, 
@@ -19,6 +25,7 @@ import {
 const useReviewExam = () => {
 
     const { authToken } = useUser()
+    const { setErrorMessage } = useError()
     const [ loading, setLoading ] = useState<boolean>(false)
     const [ requiredData, setRequiredData ] = useState<any>('') 
     const [ selectedExamType, setSelectedExamType ] = useState<RadioProps>(radioInitialValues)
@@ -56,9 +63,16 @@ const useReviewExam = () => {
     // Update years data if there is required data
     useEffect(() => {
         if(requiredData) {
-            // updateYearsData()
+            updateYearsData()
         }
     }, [requiredData])
+
+    // Update levels data if there is selected year
+    useEffect(() => {
+        if(selectedYear.id && requiredData) {
+            updateLevelsData()
+        }
+    }, [selectedYear, requiredData])
 
     // Call api to get required data
     const getRequiredData = async () => {
@@ -75,53 +89,69 @@ const useReviewExam = () => {
         }
     }
 
-    // // Update years data
-    // const updateYearsData = () => {
-    //     if(yearsData.length == 0) {
-    //         for(let year of requiredData.years) {
-    //             setYearsData(yearsData => 
-    //                 [
-    //                     ...yearsData,
-    //                     {
-    //                         id: year.id,
-    //                         name: `${year.start} / ${year.end}`
-    //                     }
-    //                 ]
-    //             )
-    //         }
-    //     }
-    // }
+    // Update years data
+    const updateYearsData = () => {
+        if(yearsData.length == 0) {
+            for(let year of requiredData.years) {
+                setYearsData(yearsData => 
+                    [
+                        ...yearsData,
+                        {
+                            id: year.id,
+                            name: `${year.start} / ${year.end}`
+                        }
+                    ]
+                )
+            }
+        }
+    }
 
-    // // Update levels data
-    // const updateLevelsData = () => {
-    //     const yearIndex = requiredData.years.findIndex((x: any) => x.id == selectedYear.id)
+    // Update levels data
+    const updateLevelsData = () => {
+        const yearIndex = requiredData.years.findIndex((x: any) => x.id == selectedYear.id)
 
-    //     if(yearIndex !== -1) {
-    //         setLevelsData([])
-    //         setSelectedLevel(
-    //             {
-    //                 id: '',
-    //                 value: '',
-    //                 error: false,
-    //                 helperText: ''
-    //             }
-    //         )
-    //         for(let level of requiredData.years[yearIndex].levels) {
-    //             setLevelsData(levelsData => 
-    //                 [
-    //                     ...levelsData,
-    //                     {
-    //                         id: level.teacherCourseLevelYearId,
-    //                         name: level.levelName
-    //                     }
-    //                 ]
-    //             )
-    //         }
-    //     }
-    // }
+        if(yearIndex !== -1) {
+            setLevelsData([])
+            if (localStorage.getItem('athena-exam-data')) {
+                const data: any = localStorage.getItem('athena-exam-data')
+                const parsedData = JSON.parse(data) 
+                if(parsedData.selectedYear.id == selectedYear.id) {
+                    setSelectedLevel(
+                        {
+                            id: parsedData.teacherCourseLevelYearId.id,
+                            value: parsedData.teacherCourseLevelYearId.value,
+                            error: false,
+                            helperText: ''
+                        }
+                    )
+                }else {
+                    setSelectedLevel(
+                        {
+                            id: '',
+                            value: '',
+                            error: false,
+                            helperText: ''
+                        }
+                    )
+                }
+            }
+
+            for(let level of requiredData.years[yearIndex].levels) {
+                setLevelsData(levelsData => 
+                    [
+                        ...levelsData,
+                        {
+                            id: level.teacherCourseLevelYearId,
+                            name: level.levelName
+                        }
+                    ]
+                )
+            }
+        }
+    }
 
     // Update exam data after get it from local storage
-    const updateStatesData = (data: any) => {
+    const updateStatesData = async (data: any) => {
         setExamName(data.name)
         setSelectedYear(data.selectedYear)
         setSelectedLevel(data.teacherCourseLevelYearId)
@@ -132,8 +162,9 @@ const useReviewExam = () => {
         setExamDegree(data.finalDegree)
         setSections(data.sections)
         setSpcialExam(data.isPrime)
-        setExamShowenDate(convertDateToShortDate(data.publishedDate))
         setSelectedExamType(data.examTypeId)
+        const date: any = await convertDateToShortDate(data.publishedDate.value)
+        setExamShowenDate(date)
     }
 
     // Get the selected year from user
@@ -173,17 +204,16 @@ const useReviewExam = () => {
     }
 
     // Get the selected exam start date from user
-    const examStartDateHandler = (selectedExamStartDate: any) => {
+    const examStartDateHandler = async (selectedExamStartDate: any) => {
         setExamStartDate(
-            examStartDate => (
-                {
-                    ...examStartDate,
-                    value: selectedExamStartDate.toISOString(),
-                    error: false,
-                    helperText: ''
-                }
-            )
+            {
+                value: selectedExamStartDate.toISOString(),
+                error: false,
+                helperText: ''
+            }
         )
+        const date: any = await convertDateToShortDate(selectedExamStartDate)
+        setExamShowenDate(date)
     }
 
     // Get exam section count from user 
@@ -313,15 +343,11 @@ const useReviewExam = () => {
             setExamDegree({...examDegree, error: true, helperText: 'يجب تحديد الدرجه الكليه للأمتحان'})
         }
 
-        return state
-    }
-
-    // Start taking exam questions if the basic data is ready
-    const submitBasicData = async () => {
-        if(basicDataValidation()) {
-            const date = await convertDateToShortDate(examStartDate.value)
-            setExamShowenDate(date);
+        if(!state) {
+            setErrorMessage('يوجد خطاء يرجي مراجعة المدخلات')
         }
+
+        return state
     }
 
     // Set exam to spcial or not
@@ -481,6 +507,8 @@ const useReviewExam = () => {
     const questionDegreeHandler = (degree: number, indexes: any) => {
         let newValue = sections[indexes.parent]
         newValue!.questions[indexes.child]!.degree = degree
+        newValue!.questions[indexes.child]!.degreeError!.error = false
+        newValue!.questions[indexes.child]!.degreeError!.helperText = ''
         setSections(
             [
                 ...sections.slice(0,indexes.parent),
@@ -507,6 +535,8 @@ const useReviewExam = () => {
     const questionNameHandler = (name: string, indexes: any) => {
         let newValue = sections[indexes.parent]
         newValue!.questions[indexes.child]!.name = name
+        newValue!.questions[indexes.child]!.nameError!.error = false
+        newValue!.questions[indexes.child]!.nameError!.helperText = ''
         setSections(
             [
                 ...sections.slice(0,indexes.parent),
@@ -534,6 +564,8 @@ const useReviewExam = () => {
                     }
                 }
             ) 
+            newValue!.questions[indexes.child]!.nameError!.error = false
+            newValue!.questions[indexes.child]!.nameError!.helperText = ''
             setSections(
                 [
                     ...sections.slice(0,indexes.parent),
@@ -552,13 +584,15 @@ const useReviewExam = () => {
 
         if (selectedfile.length > 0) {
             const convertedImage: any = await convertFileToBase64(fileToConvert)
-            newValue!.questions[indexes.parent]!.choices[indexes.child]!.image = {
+            newValue!.questions[indexes.parent]!.choices![indexes.child]!.image = {
                 index: 0,
                 image: {
                     extension: `.${selectedfile[0].type.slice(6)}`,
                     data: convertedImage,
                 }  
             }
+            newValue!.questions[indexes.parent]!.choices![indexes.child]!.error!.error = false
+            newValue!.questions[indexes.parent]!.choices![indexes.child]!.error!.helperText = ''
             setSections(
                 [
                     ...sections.slice(0,indexes.grandParent),
@@ -572,8 +606,9 @@ const useReviewExam = () => {
     // Get choice value from user
     const choiceNameHandler = (selectedName: string, indexes: any) => {
         const newValue = sections[indexes.grandParent]        
-        newValue!.questions[indexes.parent]!.choices[indexes.child]!.name = selectedName
-
+        newValue!.questions[indexes.parent]!.choices![indexes.child]!.name = selectedName
+        newValue!.questions[indexes.parent]!.choices![indexes.child]!.error!.error = false
+        newValue!.questions[indexes.parent]!.choices![indexes.child]!.error!.helperText = ''
         setSections(
             [
                 ...sections.slice(0,indexes.grandParent),
@@ -587,11 +622,46 @@ const useReviewExam = () => {
     const choiceIsRightHandler = (event: any, indexes: any) => {
         const newValue = sections[indexes.grandParent]
         
-        newValue!.questions[indexes.parent]!.choices[indexes.child]!.isRightChoice = event.target.checked
-        for(let i = 0; i < newValue!.questions[indexes.parent]!.choices.length; i++) {
+        newValue!.questions[indexes.parent]!.choices![indexes.child]!.isRightChoice = event.target.checked
+        for(let i = 0; i < newValue!.questions[indexes.parent]!.choices!.length; i++) {
             if(i !== indexes.child) {
-                newValue!.questions[indexes.parent]!.choices[i]!.isRightChoice = false
+                newValue!.questions[indexes.parent]!.choices![i]!.isRightChoice = false
             }
+        }   
+        newValue!.questions[indexes.parent]!.isRightChoiceError!.error = false
+        newValue!.questions[indexes.parent]!.isRightChoiceError!.helperText = ''
+        setSections(
+            [
+                ...sections.slice(0,indexes.grandParent),
+                newValue,
+                ...sections.slice(indexes.grandParent+1)
+            ]
+        )
+    }
+
+    // Add choice
+    const addChoice = (indexes: any) => {
+        const newValue = sections[indexes.grandParent]
+        const newChoice = JSON.parse(choiceJson)
+        newChoice.index = newValue!.questions[indexes.parent]!.choices!.length
+        if(newValue!.questions[indexes.parent]!.choices!.length < 5) {
+            newValue!.questions[indexes.parent]!.choices!.push(newChoice)
+        }
+        setSections(
+            [
+                ...sections.slice(0,indexes.grandParent),
+                newValue,
+                ...sections.slice(indexes.grandParent+1)
+            ]
+        )
+    }
+
+    // Delete choice
+    const deleteChoice = (indexes: any) => {
+        const newValue = sections[indexes.grandParent]
+        newValue!.questions[indexes.parent]!.choices!.splice(indexes.child, 1)
+        for(let i = 0; i <  newValue!.questions[indexes.parent]!.choices!.length; i++) {
+            newValue!.questions[indexes.parent]!.choices![i]!.index = i
         }
         setSections(
             [
@@ -644,24 +714,124 @@ const useReviewExam = () => {
         )
     }
 
+    // Validate section to make it ready 
     const submitSection = (indexes: any) => {
+        let state = true    
+        const selectedSection = sections[indexes.parent]
+        for(let question of selectedSection!.questions) {
+
+            // Validate question degree
+            if(question?.degree == 0) {
+                state = false 
+                question.degreeError!.error = true
+                question.degreeError!.helperText = 'يجب تحديد درجة السؤال'
+            }
+
+            // Validate question name
+            if(question?.name == '' && question.images?.length == 0) {
+                state = false
+                question.nameError!.error = true
+                question.nameError!.helperText = 'يجب كتابة رأس السؤال'
+            }
+            
+            // Validate question answer
+            if(question?.type == 'MCQ') {
+                let choicesIsRightState = false
+                loopForChoices: for(let choice of question!.choices!) {
+                    if(choice?.name == '' && choice.image == null) {
+                        state = false
+                        choice.error!.error = true
+                        choice.error!.helperText = 'يجب كتابة الأجابه'
+                    }
+                    if(choice?.isRightChoice == true) {
+                        choicesIsRightState = true
+                    }
+                }
+                if(!choicesIsRightState) {
+                    question!.isRightChoiceError!.error = true
+                    question!.isRightChoiceError!.helperText = 'يجب اختيار اجابه صحيحه'
+                }
+            }else {
+                if(question?.answer == '') {
+                    question.answerError!.error = true
+                    question.answerError!.helperText = 'يجب كتابة أجابه السؤال'
+                }
+            }
+        }
         
+        if(!state) {
+            setErrorMessage('يوجد خطاء يرجي مراجعة المدخلات')
+        }else {
+            selectedSection!.open = false
+            selectedSection!.openToEdit = false   
+        }
+
+        setSections(
+            [
+                ...sections.slice(0,indexes.parent),
+                selectedSection,
+                ...sections.slice(indexes.parent+1)
+            ]
+        )
+
+        return state
+    }
+
+    // Adjust data to send it to api
+    const adjustDataToSubmit = () => {
+        for(let section of sections) {
+            delete section!.open
+            delete section!.openToEdit  
+            delete section!.titleState  
+            if(section?.images?.length == 0) {
+                section.images = null
+            }
+            for(let question of section!.questions!) {
+                delete question!.nameError
+                delete question!.answerError
+                delete question!.degreeError
+                delete question!.isRightChoiceError
+                if(question?.type == 'MCQ') {   
+                    question.answer = null 
+                    question.images = null
+                    for(let choice of question!.choices!){
+                        delete choice!.error
+                        if(choice.name == '') {
+                            choice.name = null
+                        }
+                        if(choice.image?.image.data == '') {
+                            choice.image = null
+                        }
+                    }
+                }else if(question?.type == 'written') {
+                    question!.choices = null
+                    if(question.answer == '') {
+                        question.answer = null
+                    }
+                    if(question.images!.length == 0) {
+                        question.images = null
+                    }
+                }
+            }
+        }
     }
 
     // Collect final data to send it
     const collectData = () => {
+
+        // Remove data that backend don't need
+        adjustDataToSubmit()
+
         const finalData = {
-            name: examName,
+            name: examName.value,
             description: null,
-            finalDegree: examDegree,
-            allowedTime: examTime,
-            publishedDate: examStartDate,
-            publishedTime: examStartTime,
+            finalDegree: examDegree.value,
+            allowedTime: examTime.value,
+            publishedDate: examStartDate.value,
+            publishedTime: convertTimeToDB(examStartTime.value),
             isPrime: spcialExam,
-            sectionCount: sectionCount,
-            selectedYear: selectedYear,
-            teacherCourseLevelYearId: selectedLevel,
-            examTypeId: selectedExamType,   
+            teacherCourseLevelYearId: selectedLevel.id,
+            examTypeId: selectedExamType.id,   
             groupIds: [],
             sections: sections 
         }
@@ -669,21 +839,35 @@ const useReviewExam = () => {
         return finalData
     }
 
+    // Validate all data before send it
+    const validateData = () => {
+        let state = true
+
+        // Validate basic data
+        if(!basicDataValidation())
+            state = false
+
+        // Validate sections data
+        for(let i = 0; i < sections.length; i++) {
+            if(!submitSection({parent: i})) {
+                state = false
+            }
+        }
+
+        return state
+    }
+
     // Send data to review section
-    // const sendDataToReview = async () => {
-    //     let state1 = questionsValidation()
-    //     let state2 = choisesValidation()
-    //     let state3 = choisesIsRightValidation()
-    //     if(!state1 && !state2 && !state3) { 
-    //         removeErrors()
-    //         const data: any = collectData()
-    //         const jsonData = JSON.stringify(data)
-    //         if(jsonData) {
-    //             window.localStorage.setItem('athena-exam-data', jsonData)
-    //             // router.push("/teacher/exams/review-exam")
-    //         }
-    //     }
-    // }
+    const sendDataToReview = async () => {
+        if(validateData()) { 
+            const data: any = collectData()
+            console.log(data)
+        }
+    }
+
+    useEffect(() => {
+        console.log(sections)
+    }, [sections])
 
     return (
         {
@@ -714,7 +898,6 @@ const useReviewExam = () => {
                 examStartTimeHandler,
                 examTimeHandler,
                 examDegreeHandler,
-                submitBasicData,
                 spcialExamHandler,
                 openSection,
                 closeSection,
@@ -733,11 +916,13 @@ const useReviewExam = () => {
                 choiceImagesHandler,
                 choiceNameHandler,
                 choiceIsRightHandler,
+                addChoice,
+                deleteChoice,
                 questionAnswerHandler,
                 deleteQuetion,
                 addQuestion,
                 submitSection,
-                // sendDataToReview
+                sendDataToReview
             },
             dialogs: {
 

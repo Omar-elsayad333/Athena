@@ -1,13 +1,19 @@
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import { useUser } from 'context/userContext'
+import { useError } from 'context/ErrorContext'
 import { getHandler } from 'handlers/requestHandler'
 import { examSectionsNames } from 'constant/staticData'
 import { URL_TEACHER_EXAMS_REQUIRED } from 'constant/url'
 import { convertDateToShortDate, convertFileToBase64 } from 'utils/converters'
 import { datePickerInitialValues, DatePickerProps } from 'interfaces/shared/datePicker'
 import { timePickerInitialValues, TimePickerProps } from 'interfaces/shared/timePicker'
-import { sectionInitialValues, SectionProps, questionInitialValues } from 'interfaces/teacher/exams/exam'
+import { 
+    sectionInitialValues,
+    SectionProps,
+    questionInitialValues,
+    choiceJson 
+} from 'interfaces/teacher/exams/exam'
 import { 
     dropMenuInitialValues, 
     DropMenuProps, 
@@ -21,6 +27,7 @@ const useAddExam = () => {
 
     const router = useRouter()
     const { authToken } = useUser()
+    const { setErrorMessage } = useError()
     const [ loading, setLoading ] = useState<boolean>(false)
     const [ requiredData, setRequiredData ] = useState<any>('')
     const [ examTypes, setExamTypes ] = useState<any[]>([])
@@ -35,7 +42,7 @@ const useAddExam = () => {
     const [ examStartTime, setExamStartTime ] = useState<TimePickerProps>(timePickerInitialValues)
     const [ examTime, setExamTime ] = useState<InputProps>(inputInitialValues)
     const [ examDegree, setExamDegree ] = useState<InputProps>(inputInitialValues)
-    const [ examReady, setExamReady ] = useState<boolean>(true)
+    const [ examReady, setExamReady ] = useState<boolean>(false)
     const [ examShowenDate, setExamShowenDate ] = useState<any>('') 
     const [ spcialExam, setSpcialExam ] = useState<boolean>(false)
     const [ sections, setSections ] = useState<(SectionProps | undefined)[]>([])
@@ -98,6 +105,14 @@ const useAddExam = () => {
     const updateExamType = () => {  
         if(examTypes.length == 0) {
             setExamTypes(requiredData.examTypes)
+            setSelectedExamType(
+                {
+                    id: requiredData.examTypes[0]['id'],
+                    value: requiredData.examTypes[0]['name'],
+                    error: false,
+                    helperText: ''
+                }
+            )
         }
     }
 
@@ -318,6 +333,10 @@ const useAddExam = () => {
             setExamDegree({...examDegree, error: true, helperText: 'يجب تحديد الدرجه الكليه للأمتحان'})
         }
 
+        if(!state) {
+            setErrorMessage('يوجد خطاء يرجي مراجعة المدخلات')
+        }
+
         return state
     }
 
@@ -474,6 +493,8 @@ const useAddExam = () => {
     const questionDegreeHandler = (degree: number, indexes: any) => {
         let newValue = sections[indexes.parent]
         newValue!.questions[indexes.child]!.degree = degree
+        newValue!.questions[indexes.child]!.degreeError.error = false
+        newValue!.questions[indexes.child]!.degreeError.helperText = ''
         setSections(
             [
                 ...sections.slice(0,indexes.parent),
@@ -500,6 +521,8 @@ const useAddExam = () => {
     const questionNameHandler = (name: string, indexes: any) => {
         let newValue = sections[indexes.parent]
         newValue!.questions[indexes.child]!.name = name
+        newValue!.questions[indexes.child]!.nameError.error = false
+        newValue!.questions[indexes.child]!.nameError.helperText = ''
         setSections(
             [
                 ...sections.slice(0,indexes.parent),
@@ -527,6 +550,8 @@ const useAddExam = () => {
                     }
                 }
             ) 
+            newValue!.questions[indexes.child]!.nameError.error = false
+            newValue!.questions[indexes.child]!.nameError.helperText = ''
             setSections(
                 [
                     ...sections.slice(0,indexes.parent),
@@ -552,6 +577,8 @@ const useAddExam = () => {
                     data: convertedImage,
                 }  
             }
+            newValue!.questions[indexes.parent]!.choices[indexes.child]!.error.error = false
+            newValue!.questions[indexes.parent]!.choices[indexes.child]!.error.helperText = ''
             setSections(
                 [
                     ...sections.slice(0,indexes.grandParent),
@@ -566,7 +593,8 @@ const useAddExam = () => {
     const choiceNameHandler = (selectedName: string, indexes: any) => {
         const newValue = sections[indexes.grandParent]        
         newValue!.questions[indexes.parent]!.choices[indexes.child]!.name = selectedName
-
+        newValue!.questions[indexes.parent]!.choices[indexes.child]!.error.error = false
+        newValue!.questions[indexes.parent]!.choices[indexes.child]!.error.helperText = ''
         setSections(
             [
                 ...sections.slice(0,indexes.grandParent),
@@ -586,6 +614,41 @@ const useAddExam = () => {
                 newValue!.questions[indexes.parent]!.choices[i]!.isRightChoice = false
             }
         }
+        newValue!.questions[indexes.parent]!.isRightChoiceError.error = false
+        newValue!.questions[indexes.parent]!.isRightChoiceError.helperText = ''
+        setSections(
+            [
+                ...sections.slice(0,indexes.grandParent),
+                newValue,
+                ...sections.slice(indexes.grandParent+1)
+            ]
+        )
+    }
+
+    // Add choice
+    const addChoice = (indexes: any) => {
+        const newValue = sections[indexes.grandParent]
+        const newChoice = JSON.parse(choiceJson)
+        newChoice.index = newValue!.questions[indexes.parent]!.choices.length
+        if(newValue!.questions[indexes.parent]!.choices.length < 5) {
+            newValue!.questions[indexes.parent]!.choices.push(newChoice)
+        }
+        setSections(
+            [
+                ...sections.slice(0,indexes.grandParent),
+                newValue,
+                ...sections.slice(indexes.grandParent+1)
+            ]
+        )
+    }
+
+    // Delete choice
+    const deleteChoice = (indexes: any) => {
+        const newValue = sections[indexes.grandParent]
+        newValue!.questions[indexes.parent]!.choices.splice(indexes.child, 1)
+        for(let i = 0; i <  newValue!.questions[indexes.parent]!.choices.length; i++) {
+            newValue!.questions[indexes.parent]!.choices[i]!.index = i
+        }
         setSections(
             [
                 ...sections.slice(0,indexes.grandParent),
@@ -599,6 +662,8 @@ const useAddExam = () => {
     const questionAnswerHandler = (selectedAnswer: string, indexes: any) => {
         const newValue = sections[indexes.grandParent]
         newValue!.questions[indexes.parent]!.answer = selectedAnswer
+        newValue!.questions[indexes.parent]!.answerError.error = false
+        newValue!.questions[indexes.parent]!.answerError.helperText = ''
         setSections(
             [
                 ...sections.slice(0,indexes.grandParent),
@@ -637,128 +702,67 @@ const useAddExam = () => {
         )
     }
 
-    // Check that questions data is good to send
-    const questionsValidation = () => {
+    // Validate section to make it ready 
+    const submitSection = (indexes: any) => {
         let state = true    
-        sectionLoop: for(let i = 0; i < sections.length; i++) {
-            questionLoop: for(let y = 0; y < sections[i]!.questions.length; y++) {
-                if(sections[i]?.questions[y]?.name == '' &&  sections[i]!.questions[y]!.images!.length == 0) {
-                    state = false
-                    const newValue = sections[i]
-                    if(checkError('questionName', i, y)) {
-                        newValue?.questions[y]?.error.push(
-                            {
-                                name: 'questionName',
-                                value: 'يجب اضافه رأس السؤال او صوره لرأس السؤال'
-                            }
-                        )
-                        setSections(
-                            [
-                                ...sections.slice(0,i),
-                                newValue,
-                                ...sections.slice(i+1)
-                            ]
-                        )
-                    }
-                }
-            }
-        }   
-        return state
-    }
+        const selectedSection = sections[indexes.parent]
+        for(let question of selectedSection!.questions) {
 
-    // Check that the choices data is good to send
-    const choisesValidation = () => {
-        let state = true
-        sectionLoop: for(let i = 0; i < sections.length; i++) {
-            questionLoop: for(let y = 0; y < sections[i]!.questions.length; y++) {
-                choicesLoop: for(let x = 0; x < sections[i]!.questions[y]!.choices.length; x++) {
-                    if(sections[i]?.questions[y]?.choices[x]!.name == '' && sections[i]?.questions[y]?.choices[x]!.image == null) {
-                        state = false
-                        const newValue = sections[i]
-                        if(checkError('choiceName', i, y)) {
-                            newValue?.questions[y]?.error.push(
-                                {
-                                    name: 'choiceName',
-                                    value: 'يجب اضافه اختيار او صوره'
-                                }
-                            )
-                            setSections(
-                                [
-                                    ...sections.slice(0,i),
-                                    newValue,
-                                    ...sections.slice(i+1)
-                                ]
-                            )
-                        }
-                        break;
-                    }
-                }
+            // Validate question degree
+            if(question?.degree == 0) {
+                state = false 
+                question.degreeError.error = true
+                question.degreeError.helperText = 'يجب تحديد درجة السؤال'
             }
-        }   
-        return state
-    }
 
-    // Check that the choices has right one
-    const choisesIsRightValidation = () => {
-        let state = true
-        sectionLoop: for(let i = 0; i < sections.length; i++) {
-            questionLoop: for(let y = 0; y < sections[i]!.questions.length; y++) {
-                let choiceState = false
-                choicesLoop: for(let x = 0; x < sections[i]!.questions[y]!.choices.length; x++) {
-                    if(sections[i]?.questions[y]?.choices[x]!.isRightChoice == true) {
-                        choiceState = true
-                    }
-                }
-                if(choiceState == false) {
-                    state = false
-                    const newValue = sections[i]
-                    if(checkError('choiceIsRight', i, y)) {
-                        newValue?.questions[y]?.error.push(
-                            {
-                                name: 'choiceIsRight',
-                                value: 'يجب اختيار اجابه صحيحه'
-                            }
-                        )
-                        setSections(
-                            [
-                                ...sections.slice(0,i),
-                                newValue,
-                                ...sections.slice(i+1)
-                            ]
-                        )
-                    }
-                }
-            }
-        }   
-        return state
-    }
-
-    // Check if the error is added before
-    const checkError = (errorName: string, sIndex: number, qIndex: number) => {
-        let state = true
-        for(let error of sections[sIndex]!.questions[qIndex]!.error) {
-            if(error.name == errorName) {
+            // Validate question name
+            if(question?.name == '' && question.images?.length == 0) {
                 state = false
+                question.nameError.error = true
+                question.nameError.helperText = 'يجب كتابة رأس السؤال'
             }
-        } 
-        return state
-    }
+            
+            // Validate question answer
+            if(question?.type == 'MCQ') {
+                let choicesIsRightState = false
+                loopForChoices: for(let choice of question!.choices) {
+                    if(choice?.name == '' && choice.image == null) {
+                        state = false
+                        choice.error.error = true
+                        choice.error.helperText = 'يجب كتابة الأجابه'
+                    }
+                    if(choice?.isRightChoice == true) {
+                        choicesIsRightState = true
+                    }
+                }
+                if(!choicesIsRightState) {
+                    question!.isRightChoiceError.error = true
+                    question!.isRightChoiceError.helperText = 'يجب اختيار اجابه صحيحه'
+                }
+            }else {
+                console.log('omar')
+                if(question?.answer == '') {
+                    question.answerError.error = true
+                    question.answerError.helperText = 'يجب كتابة أجابه السؤال'
+                }
+            }
+        }
+        
+        if(!state) {
+            setErrorMessage('يوجد خطاء يرجي مراجعة المدخلات')
+        }else {
+            selectedSection!.open = false
+        }
 
-    // Remove Errors
-    const removeErrors = () => {
-        sectionLoop: for(let i = 0; i < sections.length; i++) {
-            questionLoop: for(let y = 0; y < sections[i]!.questions.length; y++) {
-                const newValue = sections[i]
-                newValue!.questions[y]!.error = []
-                setSections(
-                    [
-                        ...sections.slice(0,i),
-                        newValue,
-                        ...sections.slice(i+1)
-                    ]
-                )
-            }
-        }  
+        setSections(
+            [
+                ...sections.slice(0,indexes.parent),
+                selectedSection,
+                ...sections.slice(indexes.parent+1)
+            ]
+        )
+
+        return state
     }
 
     // Collect final data to send it
@@ -782,20 +786,34 @@ const useAddExam = () => {
         return finalData
     }
 
+    // Validate all data before send it
+    const validateData = () => {
+        let state = true
+
+        // Validate basic data
+        if(!basicDataValidation())
+            state = false
+
+        // Validate sections data
+        for(let i = 0; i < sections.length; i++) {
+            if(!submitSection({parent: i})) {
+                state = false
+            }
+        }
+
+        return state
+    }
+
     // Send data to review section
     const sendDataToReview = async () => {
-        // let state1 = questionsValidation()
-        // let state2 = choisesValidation()
-        // let state3 = choisesIsRightValidation()
-        // if(!state1 && !state2 && !state3) { 
-            // removeErrors()
+        if(validateData()) { 
             const data: any = collectData()
             const jsonData = JSON.stringify(data)
             if(jsonData) {
                 window.localStorage.setItem('athena-exam-data', jsonData)
                 router.push("/teacher/exams/review-exam")
             }
-        // }
+        }
     }
 
     useEffect(() => {
@@ -853,9 +871,12 @@ const useAddExam = () => {
                 choiceImagesHandler,
                 choiceNameHandler,
                 choiceIsRightHandler,
+                addChoice,
+                deleteChoice,
                 questionAnswerHandler,
                 deleteQuetion,
                 addQuestion,
+                submitSection,
                 sendDataToReview
             },
             dialogs: {

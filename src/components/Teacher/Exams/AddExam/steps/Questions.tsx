@@ -5,7 +5,8 @@ import { useTheme } from "context/ThemeContext";
 import MyButton from "components/Buttons/MyButton";
 import MyRadioGroup from "components/MyRadioGroup";
 import { examQuestionTypes } from 'constant/staticData'
-import BigInputWithImage from "../fields/BigInputWithImage";
+import MyBigInputWithImage from "components/MyBigInputWithImage";
+import MyButtonSuccess from "components/Buttons/MyButtonSuccess";
 
 // MUI
 import Box from "@mui/material/Box";
@@ -126,13 +127,13 @@ const Questions: React.FC<Props> = ({ data, actions, parentIndex }) => {
                                 عدد درجات السؤال:-
                             </Typography>
                             <MyInput
-                                error={false}
-                                helperText=''
                                 type="number"
-                                value={question.degree != 0 && question.degree}
+                                error={question.degreeError.error}
                                 placeholder='حدد عدد درجات السؤال'  
                                 onChange={actions.questionDegreeHandler}
+                                helperText={question.degreeError.helperText}
                                 indexes={{parent: parentIndex, child: index}}
+                                value={question.degree != 0 && question.degree}
                             />
                         </Box>
                         <Box sx={style.flexColumn}>
@@ -158,34 +159,38 @@ const Questions: React.FC<Props> = ({ data, actions, parentIndex }) => {
                             >
                                 حدد رأس السؤال الفرعي:-
                             </Typography> 
-                            <BigInputWithImage 
-                                value={question.name}
-                                addImage={actions.questionImagesHandler}
-                                onChange={actions.questionNameHandler}
+                            <MyBigInputWithImage 
                                 placeholder=''
-                                helperText=""
+                                value={question.name}
+                                error={question.nameError.error}
+                                onChange={actions.questionNameHandler}
+                                addImage={actions.questionImagesHandler}
+                                helperText={question.nameError.helperText}
                                 indexes={{parent: parentIndex, child: index}}
                             /> 
-                            <Box sx={style.questionImages}>
-                                {
-                                    question.images.map((image: any, index: number) => (
-                                        <Box 
-                                            key={index}
-                                            sx={
-                                                {
-                                                    backgroundImage: `url('${image.image.data}')`,
-                                                    backgroundSize: 'cover',
-                                                    backgroundPosition: 'center',
-                                                    minWidth: '100px',
-                                                    height: '100px',
-                                                    border: '2px solid #3F72A4',
-                                                    borderRadius: '10px'            
+                            {
+                                question.images.length > 0 &&
+                                <Box sx={style.questionImages}>
+                                    {
+                                        question.images.map((image: any, index: number) => (
+                                            <Box 
+                                                key={index}
+                                                sx={
+                                                    {
+                                                        backgroundImage: `url('${image.image.data}')`,
+                                                        backgroundSize: 'cover',
+                                                        backgroundPosition: 'center',
+                                                        minWidth: '100px',
+                                                        height: '100px',
+                                                        border: '2px solid #3F72A4',
+                                                        borderRadius: '10px'            
+                                                    }
                                                 }
-                                            }
-                                        />
-                                    ))
-                                }
-                            </Box>
+                                            />
+                                        ))
+                                    }
+                                </Box>
+                            }
                         </Box>
                         {
                             question.type == 'MCQ' ?
@@ -196,11 +201,17 @@ const Questions: React.FC<Props> = ({ data, actions, parentIndex }) => {
                                 parentIndex={index}
                             /> : 
                             <Written
-                                data={question.answer}
+                                data={question}
                                 actions={actions}
                                 grandParentIndex={parentIndex}
                                 parentIndex={index}
                             />
+                        }
+                        {
+                            question.isRightChoiceError.error == true &&
+                            <Typography variant="h4" color={'error'} fontWeight={700}>
+                                {question.isRightChoiceError.helperText}
+                            </Typography>
                         }
                         {
                             index+1 != data.length &&
@@ -214,8 +225,9 @@ const Questions: React.FC<Props> = ({ data, actions, parentIndex }) => {
                     onClick={() => actions.addQuestion({parent: parentIndex})}
                     content='اضافة سؤال فرعي'
                 />
-                <MyButton
-                    content='اضافة سؤال فرعي'
+                <MyButtonSuccess
+                    onClick={() => actions.submitSection({parent: parentIndex})}
+                    content='تأكيد السؤال الرئيسي'
                 />
             </Box>
         </Box>

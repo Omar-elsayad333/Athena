@@ -7,6 +7,7 @@ import ReviewSections from "./reviewSteps/ReviewSections";
 
 // MUI
 import Box from "@mui/material/Box";
+import MyButton from "components/Buttons/MyButton";
 
 type Props = {
     data: any;
@@ -48,6 +49,10 @@ const ReviewExamC: React.FC<Props> = ({ data, states, actions }) => {
                 data={data.sections}
                 states={states}
                 actions={actions}
+            />
+            <MyButton
+                content="kjfasdl"
+                onClick={actions.sendDataToReview}
             />
         </Box>
     );

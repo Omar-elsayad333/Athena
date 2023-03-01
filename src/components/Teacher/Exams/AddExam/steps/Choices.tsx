@@ -1,11 +1,12 @@
 import { useTheme } from "context/ThemeContext";
+import MyButton from "components/Buttons/MyButton";
+import MyInputWithImage from "components/MyInputWithImage";
+import { examChoicesPlaceholder } from "constant/staticData";
 
 // MUI
 import Box from "@mui/material/Box";
 import Checkbox from '@mui/material/Checkbox';
 import Typography from "@mui/material/Typography";
-import MyInputWithImage from "components/MyInputWithImage";
-import { examChoicesPlaceholder } from "constant/staticData";
 
 type Props = {
     data: any;
@@ -50,12 +51,16 @@ const Choices: React.FC<Props> = ({ actions, grandParentIndex, parentIndex, data
                     data &&
                     data.map((choice: any, index: number) => (
                         <Box key={index} sx={style.choicesContainer}>
+                            <Typography variant="h3" color={mainColors.title.main} fontWeight={700}>
+                                {`${index + 1} -`}
+                            </Typography>
                             <MyInputWithImage 
-                                helperText=''
-                                placeholder={examChoicesPlaceholder[index]}
                                 value={choice.name}
+                                error={choice.error.error}
+                                helperText={choice.error.helperText}
                                 onChange={actions.choiceNameHandler}
                                 addImage={actions.choiceImagesHandler}
+                                placeholder={examChoicesPlaceholder[index]}
                                 indexes={
                                     {
                                         grandParent: grandParentIndex, 
@@ -65,7 +70,7 @@ const Choices: React.FC<Props> = ({ actions, grandParentIndex, parentIndex, data
                                 }
                             />
                             {
-                                choice.image &&
+                                choice.image != null &&
                                 <Box sx={
                                         {
                                             backgroundImage: `url('${choice.image.image.data}')`,
@@ -101,10 +106,39 @@ const Choices: React.FC<Props> = ({ actions, grandParentIndex, parentIndex, data
                                 }
                                 
                             />
+                            {
+                                index > 1 &&
+                                <Box sx={{cursor: 'pointer'}} onClick={() => 
+                                    actions.deleteChoice(
+                                        {
+                                            grandParent: grandParentIndex,
+                                            parent: parentIndex, 
+                                            child: index
+                                        }
+                                    )}
+                                >
+                                    <Typography variant="h5" color={'error'} fontWeight={700}>
+                                        حذف الاختيار
+                                    </Typography>
+                                </Box>
+                            }
                         </Box>
                     ))
                 }
             </Box>
+            {
+                data.length < 4 && 
+                <MyButton 
+                    content="أضافة أختيار"
+                    onClick={() => actions.addChoice(
+                            {
+                                grandParent: grandParentIndex,
+                                parent: parentIndex, 
+                            }
+                        )
+                    }
+                />
+            }
         </Box>
     );
 }

@@ -4,13 +4,13 @@ import MySelect from "components/MySelect";
 import { useTheme } from "context/ThemeContext";
 import MyRadioGroup from "components/MyRadioGroup";
 import MyDatePicker from "components/MyDatePicker";
+import MyBigTimePicker from "components/MyBigTimePicker";
 import TeacherAddExamLayer from "components/BigImages/TeacherAddExamLayer";
 
 // MUI
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import MyBigTimePicker from "components/MyBigTimePicker";
 
 type Props = {
     data: any;
@@ -79,7 +79,7 @@ const CreateExam: React.FC<Props> = ({ data, states, actions }) => {
                     <MyRadioGroup 
                         getSelected={actions.examTypesHandler} 
                         data={data.examTypes} 
-                        value={states.selectedExamType.value == '' ? data.examTypes[0]['id'] : states.selectedExamType.id}
+                        value={states.selectedExamType.id}
                     />
                 }
                 <Box sx={style.inputsContainer}>
@@ -218,12 +218,6 @@ const CreateExam: React.FC<Props> = ({ data, states, actions }) => {
                         />
                     </Box>
                 </Box>
-                {
-                    states.selectedExamType.helperText &&
-                    <Typography variant="h4" color='error'>
-                        {states.selectedExamType.helperText}
-                    </Typography>
-                }
                 <Button variant="contained" color={'primary'} onClick={() => actions.submitBasicData()}>
                     <Typography variant="h3" fontWeight={700}>
                         إنشاء نموذج

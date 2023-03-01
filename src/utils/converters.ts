@@ -3,7 +3,8 @@ export const convertTimeFromDB = (date: string) => {
 }
 
 export const convertTimeToDB = (data: Date) => {
-    return data.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', second:'2-digit', hour12: false})
+    const newTime = new Date(data)
+    return newTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', second:'2-digit', hour12: false})
 }
 
 export const convertDateToShortDate = (data: string) => {

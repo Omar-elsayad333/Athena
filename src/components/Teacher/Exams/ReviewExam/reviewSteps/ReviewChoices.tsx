@@ -52,13 +52,16 @@ const ReviewChoices: React.FC<Props> = ({ data }) => {
                     data &&
                     data.map((choice: any, index: number) => (
                         <Box key={index} sx={style.choicesContainer}>
+                            <Typography variant="h3" color={mainColors.title.main} fontWeight={700}>
+                                {`${index + 1} -`}
+                            </Typography>
                             <Box sx={[style.choiceDataBox, {borderColor: choice.isRightChoice ? '#29D277' : '#9C1313'}]}>
                                 <Typography variant="h5" color={'primary'} fontWeight={700}>
                                     {choice.name}
                                 </Typography>
                             </Box>
                             {
-                                choice.image &&
+                                choice.image != null &&
                                 <Box sx={
                                         {
                                             backgroundImage: `url('${choice.image.image.data}')`,

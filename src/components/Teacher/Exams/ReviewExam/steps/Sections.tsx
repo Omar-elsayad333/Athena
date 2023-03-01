@@ -92,7 +92,7 @@ const Sections: React.FC<Props> = ({ data, states, actions}) => {
                 data.map((section: any, index: number) => (
                     section.openToEdit ?
                     <Box key={index} sx={style.sectionContainer}>
-                        <Box key={index} sx={style.cardName}>   
+                        <Box sx={style.cardName}>   
                             <Typography variant={'h2'} color='primary'>
                                 {`${index+1}- ${section.name}`}
                             </Typography>
