@@ -1,13 +1,10 @@
 import { IStyle } from "styles/IStyle";
 import Sections from "./steps/Sections";
 import ExamBase from "./steps/ExamBase";
-import ReviewSections from "./reviewSteps/ReviewSections";
-// import MyButton from "components/Buttons/MyButton";
-// import MyButtonError from "components/Buttons/MyButtonError";
+import MyButton from "components/Buttons/MyButton";
 
 // MUI
 import Box from "@mui/material/Box";
-import MyButton from "components/Buttons/MyButton";
 
 type Props = {
     data: any;
