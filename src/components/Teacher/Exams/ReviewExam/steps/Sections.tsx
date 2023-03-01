@@ -11,11 +11,10 @@ import Typography from '@mui/material/Typography'
 
 type Props = {
     data: any;
-    states: any;
     actions: any;
 }
 
-const Sections: React.FC<Props> = ({ data, states, actions}) => {
+const Sections: React.FC<Props> = ({ data, actions }) => {
 
     const { mainColors } = useTheme()
     const style: IStyle = {

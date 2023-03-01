@@ -44,7 +44,6 @@ const ReviewExamC: React.FC<Props> = ({ data, states, actions }) => {
             />
             <Sections 
                 data={data.sections}
-                states={states}
                 actions={actions}
             />
             <MyButton
