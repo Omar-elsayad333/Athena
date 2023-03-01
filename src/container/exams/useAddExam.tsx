@@ -493,8 +493,8 @@ const useAddExam = () => {
     const questionDegreeHandler = (degree: number, indexes: any) => {
         let newValue = sections[indexes.parent]
         newValue!.questions[indexes.child]!.degree = degree
-        newValue!.questions[indexes.child]!.degreeError.error = false
-        newValue!.questions[indexes.child]!.degreeError.helperText = ''
+        newValue!.questions[indexes.child]!.degreeError!.error = false
+        newValue!.questions[indexes.child]!.degreeError!.helperText = ''
         setSections(
             [
                 ...sections.slice(0,indexes.parent),
@@ -521,8 +521,8 @@ const useAddExam = () => {
     const questionNameHandler = (name: string, indexes: any) => {
         let newValue = sections[indexes.parent]
         newValue!.questions[indexes.child]!.name = name
-        newValue!.questions[indexes.child]!.nameError.error = false
-        newValue!.questions[indexes.child]!.nameError.helperText = ''
+        newValue!.questions[indexes.child]!.nameError!.error = false
+        newValue!.questions[indexes.child]!.nameError!.helperText = ''
         setSections(
             [
                 ...sections.slice(0,indexes.parent),
@@ -550,8 +550,8 @@ const useAddExam = () => {
                     }
                 }
             ) 
-            newValue!.questions[indexes.child]!.nameError.error = false
-            newValue!.questions[indexes.child]!.nameError.helperText = ''
+            newValue!.questions[indexes.child]!.nameError!.error = false
+            newValue!.questions[indexes.child]!.nameError!.helperText = ''
             setSections(
                 [
                     ...sections.slice(0,indexes.parent),
@@ -570,15 +570,15 @@ const useAddExam = () => {
 
         if (selectedfile.length > 0) {
             const convertedImage: any = await convertFileToBase64(fileToConvert)
-            newValue!.questions[indexes.parent]!.choices[indexes.child]!.image = {
+            newValue!.questions[indexes.parent]!.choices![indexes.child]!.image = {
                 index: 0,
                 image: {
                     extension: `.${selectedfile[0].type.slice(6)}`,
                     data: convertedImage,
                 }  
             }
-            newValue!.questions[indexes.parent]!.choices[indexes.child]!.error.error = false
-            newValue!.questions[indexes.parent]!.choices[indexes.child]!.error.helperText = ''
+            newValue!.questions[indexes.parent]!.choices![indexes.child]!.error!.error = false
+            newValue!.questions[indexes.parent]!.choices![indexes.child]!.error!.helperText = ''
             setSections(
                 [
                     ...sections.slice(0,indexes.grandParent),
@@ -592,9 +592,9 @@ const useAddExam = () => {
     // Get choice value from user
     const choiceNameHandler = (selectedName: string, indexes: any) => {
         const newValue = sections[indexes.grandParent]        
-        newValue!.questions[indexes.parent]!.choices[indexes.child]!.name = selectedName
-        newValue!.questions[indexes.parent]!.choices[indexes.child]!.error.error = false
-        newValue!.questions[indexes.parent]!.choices[indexes.child]!.error.helperText = ''
+        newValue!.questions[indexes.parent]!.choices![indexes.child]!.name = selectedName
+        newValue!.questions[indexes.parent]!.choices![indexes.child]!.error!.error = false
+        newValue!.questions[indexes.parent]!.choices![indexes.child]!.error!.helperText = ''
         setSections(
             [
                 ...sections.slice(0,indexes.grandParent),
@@ -608,14 +608,14 @@ const useAddExam = () => {
     const choiceIsRightHandler = (event: any, indexes: any) => {
         const newValue = sections[indexes.grandParent]
         
-        newValue!.questions[indexes.parent]!.choices[indexes.child]!.isRightChoice = event.target.checked
-        for(let i = 0; i < newValue!.questions[indexes.parent]!.choices.length; i++) {
+        newValue!.questions[indexes.parent]!.choices![indexes.child]!.isRightChoice = event.target.checked
+        for(let i = 0; i < newValue!.questions[indexes.parent]!.choices!.length; i++) {
             if(i !== indexes.child) {
-                newValue!.questions[indexes.parent]!.choices[i]!.isRightChoice = false
+                newValue!.questions[indexes.parent]!.choices![i]!.isRightChoice = false
             }
         }
-        newValue!.questions[indexes.parent]!.isRightChoiceError.error = false
-        newValue!.questions[indexes.parent]!.isRightChoiceError.helperText = ''
+        newValue!.questions[indexes.parent]!.isRightChoiceError!.error = false
+        newValue!.questions[indexes.parent]!.isRightChoiceError!.helperText = ''
         setSections(
             [
                 ...sections.slice(0,indexes.grandParent),
@@ -629,9 +629,9 @@ const useAddExam = () => {
     const addChoice = (indexes: any) => {
         const newValue = sections[indexes.grandParent]
         const newChoice = JSON.parse(choiceJson)
-        newChoice.index = newValue!.questions[indexes.parent]!.choices.length
-        if(newValue!.questions[indexes.parent]!.choices.length < 5) {
-            newValue!.questions[indexes.parent]!.choices.push(newChoice)
+        newChoice.index = newValue!.questions[indexes.parent]!.choices!.length
+        if(newValue!.questions[indexes.parent]!.choices!.length < 5) {
+            newValue!.questions[indexes.parent]!.choices!.push(newChoice)
         }
         setSections(
             [
@@ -645,9 +645,9 @@ const useAddExam = () => {
     // Delete choice
     const deleteChoice = (indexes: any) => {
         const newValue = sections[indexes.grandParent]
-        newValue!.questions[indexes.parent]!.choices.splice(indexes.child, 1)
-        for(let i = 0; i <  newValue!.questions[indexes.parent]!.choices.length; i++) {
-            newValue!.questions[indexes.parent]!.choices[i]!.index = i
+        newValue!.questions[indexes.parent]!.choices!.splice(indexes.child, 1)
+        for(let i = 0; i <  newValue!.questions[indexes.parent]!.choices!.length; i++) {
+            newValue!.questions[indexes.parent]!.choices![i]!.index = i
         }
         setSections(
             [
@@ -662,8 +662,8 @@ const useAddExam = () => {
     const questionAnswerHandler = (selectedAnswer: string, indexes: any) => {
         const newValue = sections[indexes.grandParent]
         newValue!.questions[indexes.parent]!.answer = selectedAnswer
-        newValue!.questions[indexes.parent]!.answerError.error = false
-        newValue!.questions[indexes.parent]!.answerError.helperText = ''
+        newValue!.questions[indexes.parent]!.answerError!.error = false
+        newValue!.questions[indexes.parent]!.answerError!.helperText = ''
         setSections(
             [
                 ...sections.slice(0,indexes.grandParent),
@@ -711,39 +711,39 @@ const useAddExam = () => {
             // Validate question degree
             if(question?.degree == 0) {
                 state = false 
-                question.degreeError.error = true
-                question.degreeError.helperText = 'يجب تحديد درجة السؤال'
+                question.degreeError!.error = true
+                question.degreeError!.helperText = 'يجب تحديد درجة السؤال'
             }
 
             // Validate question name
             if(question?.name == '' && question.images?.length == 0) {
                 state = false
-                question.nameError.error = true
-                question.nameError.helperText = 'يجب كتابة رأس السؤال'
+                question.nameError!.error = true
+                question.nameError!.helperText = 'يجب كتابة رأس السؤال'
             }
             
             // Validate question answer
             if(question?.type == 'MCQ') {
                 let choicesIsRightState = false
-                loopForChoices: for(let choice of question!.choices) {
+                loopForChoices: for(let choice of question!.choices!) {
                     if(choice?.name == '' && choice.image == null) {
                         state = false
-                        choice.error.error = true
-                        choice.error.helperText = 'يجب كتابة الأجابه'
+                        choice.error!.error = true
+                        choice.error!.helperText = 'يجب كتابة الأجابه'
                     }
                     if(choice?.isRightChoice == true) {
                         choicesIsRightState = true
                     }
                 }
                 if(!choicesIsRightState) {
-                    question!.isRightChoiceError.error = true
-                    question!.isRightChoiceError.helperText = 'يجب اختيار اجابه صحيحه'
+                    question!.isRightChoiceError!.error = true
+                    question!.isRightChoiceError!.helperText = 'يجب اختيار اجابه صحيحه'
                 }
             }else {
                 console.log('omar')
                 if(question?.answer == '') {
-                    question.answerError.error = true
-                    question.answerError.helperText = 'يجب كتابة أجابه السؤال'
+                    question.answerError!.error = true
+                    question.answerError!.helperText = 'يجب كتابة أجابه السؤال'
                 }
             }
         }
