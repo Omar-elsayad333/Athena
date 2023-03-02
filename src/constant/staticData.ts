@@ -55,14 +55,14 @@ export const examQuestionTypes: any[] = [
     }
 ]
 
-export const examChoicesPlaceholder: any[] = [
+export const examChoicesPlaceholder: string[] = [
     'الاختيار الاول',
     'الاختيار الثاني',
     'الاختيار الثالث',
     'الاختيار الرابع'
 ]
 
-export const examSectionsNames: any[] = [
+export const examSectionsNames: string[] = [
     'السؤال الأول',
     'السؤال الثاني',
     'السؤال الثالث',

@@ -14,6 +14,7 @@ export class Routes {
 
     // =========================| Teacher |================================ //
 
+    // Home
     static teacherHome = '/teacher/home';
     
     // Years
@@ -50,6 +51,19 @@ export class Routes {
 
     static teacherAddStudents = '/teacher/students/add-students';
 
+    // Exams
+    static teacherExams = '/teacher/exams';
+
+    static teacherExam = '/teacher/exams/exam';
+
+    static teacherAddExam = '/teacher/exams/add-exam';
+
+    static teacherReviewExam = '/teacher/exams/review-exam';
+
+    static teacherEditExam = '/teacher/exams/edit-exam';
+
+    static teacherCorrectExam = '/teacher/exams/correct-exam';
+
     
     // =========================| End Teacher |================================ //
 
@@ -61,4 +75,12 @@ export class Routes {
     // =========================| End Student |================================ //
 
 
+
+    // =========================| Start Dashboard |================================ //
+
+
+    // =========================| End Dashboard |================================ //
+
+
+    
 }
