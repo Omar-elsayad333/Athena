@@ -62,6 +62,7 @@ const ExamsC: React.FC<Props> = ({data, states, actions}) => {
             />
             <Box sx={style.searchContainer}>
                 <MySearchInput
+                    onChange={() => {}}
                     placeholder="هل تبحث عن نموذج امتحان معين ؟"
                 />
                 <Box sx={style.dateFilter}>
