@@ -1,13 +1,12 @@
-import { useContext } from "react";
 import InputError from "./Shared/InputError";
-import { DarkThemeContext } from "context/ThemeContext";
+import { useTheme } from "context/ThemeContext";
 
 // MUI
-import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { SxProps, Typography } from '@mui/material';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 type Props = {
     data: any[];
@@ -21,24 +20,8 @@ type Props = {
 
 const MySelect: React.FC<Props> = ({value, getSelected, placeholder, data, error, disabled = false, helperText}) => {
 
-    const { mainColors, darkMode} = useContext(DarkThemeContext);
-
-    const handleChange = (e: any) => {
-        if(data){
-            let selected = ''
-            for(let i = 0; i < data.length; i++){
-                if(data[i].name == e.target.value){
-                    selected = data[i].id
-                } 
-            }
-            getSelected({
-                id: selected,
-                name: e.target.value
-            });
-        }
-    };
-
-    const classes = {
+    const { mainColors, darkMode } = useTheme()
+    const style = {
         root: {
             width: '255px',
             height: '46px',
@@ -87,7 +70,6 @@ const MySelect: React.FC<Props> = ({value, getSelected, placeholder, data, error
             },
         },
     };
-
     const menuStyle: SxProps = {
         '.MuiPaper-root': {
             // borderRadius: '10px',
@@ -116,13 +98,28 @@ const MySelect: React.FC<Props> = ({value, getSelected, placeholder, data, error
         },
     }
 
+    const handleChange = (e: any) => {
+        if(data){
+            let selected = ''
+            for(let i = 0; i < data.length; i++){
+                if(data[i].name == e.target.value){
+                    selected = data[i].id
+                } 
+            }
+            getSelected({
+                id: selected,
+                name: e.target.value
+            });
+        }
+    };
+
     return (
         <FormControl required>
             <Select
                 displayEmpty
                 disabled={disabled}
                 IconComponent={KeyboardArrowDownIcon}
-                sx={classes.root}
+                sx={style.root}
                 value={value}
                 error={error}
                 onChange={handleChange}
