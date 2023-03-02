@@ -6,7 +6,7 @@ type Props = {
     content: string;
 }
 
-const MyButton: React.FC<Props> = ({content}) => {
+const MyButtonSecondary: React.FC<Props> = ({content}) => {
 
     const style = {
         root: {
@@ -25,4 +25,4 @@ const MyButton: React.FC<Props> = ({content}) => {
     );
 }
 
-export default MyButton;
+export default MyButtonSecondary;

@@ -25,11 +25,12 @@ export const URL_TEACHERSTUDENTS_ASSIGN: string = '/api/teacher/teacherstudents/
 export const URL_TEACHERSTUDENTS_INFO: string = '/api/teacher/teacherstudents/info';
 export const URL_TEACHERSTUDENTS_GROUP: string = '/api/teacher/teacherstudents/group';
 export const URL_TEACHER_EXAMS: string = '/api/teacher/exams';
+export const URL_TEACHER_EXAMS_GROUPS: string = '/api/teacher/exams/groups';
  
 // Student app sections urls
 
 // App sections required urls
 export const URL_YEARS_REQUIRED: string = '/api/teacher/years/required';
 export const URL_GROUPS_REQUIRED: string = '/api/teacher/groups/required';
-export const URL_TEACHERSTUDENT_REQUIRED: string = '/api/teacher/teacherstudents/required';
 export const URL_TEACHER_EXAMS_REQUIRED: string = '/api/teacher/exams/required';
+export const URL_TEACHERSTUDENT_REQUIRED: string = '/api/teacher/teacherstudents/required';

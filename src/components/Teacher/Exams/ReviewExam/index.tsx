@@ -1,7 +1,7 @@
+import Groups from "./steps/Groups";
 import { IStyle } from "styles/IStyle";
 import Sections from "./steps/Sections";
 import ExamBase from "./steps/ExamBase";
-import MyButton from "components/Buttons/MyButton";
 
 // MUI
 import Box from "@mui/material/Box";
@@ -46,9 +46,10 @@ const ReviewExamC: React.FC<Props> = ({ data, states, actions }) => {
                 data={data.sections}
                 actions={actions}
             />
-            <MyButton
-                content="kjfasdl"
-                onClick={actions.sendDataToReview}
+            <Groups
+                data={data.groupsData}
+                states={states}
+                actions={actions}
             />
         </Box>
     );

@@ -25,7 +25,6 @@ type Props = {
 const MyBigTimePicker: React.FC<Props> = ({getSelectedTime, name, day, value, readOnly= false, placeholder, error, helperText}) => {
     
     const { mainColors, darkMode } = useContext(DarkThemeContext);
-    
     const classes = {
         root: {
             '.MuiOutlinedInput-root': {
@@ -35,13 +34,24 @@ const MyBigTimePicker: React.FC<Props> = ({getSelectedTime, name, day, value, re
                 direction: 'rtl',
                 borderRadius: '7px',
                 color: darkMode ? '#E0EEFF' : 'rgba(63, 114, 164, 1)',
-                border: '1px solid #E8F3FF !important',
+                border: darkMode ? '1px solid #3F72A4' : 'none',
                 backgroundColor: darkMode ? '#1C364F' : '#E8F3FF',
                 boxShadow: darkMode ? 'none' : '0px 0px 10px 1px #B6D5F0',
                 transition: '.2s ease-out',
                 '&.Mui-focused': {
-                    borderColor: '#E8F3FF',
+                    border: darkMode ? '1px solid #B6D5F0' : 'none',
                     boxShadow: darkMode ? '0px 0px 7px -1px #3F72A4' : '0px 0px 0px 1px #3F72A4',
+                },
+                '.MuiOutlinedInput-input': {
+                    textTransform: 'uppercase',
+                    fontSize: '14px',
+                    fontWeight: '400',
+                    '&::placeholder': {
+                        fontSize: '14px',
+                        fontWeight: '400',
+                        color: darkMode ? '#B6D5F0' :  '#3F72A4',
+                        opacity: .65,
+                    }
                 },
                 '@media(max-width: 300px)': {
                     width: '200px',
@@ -50,11 +60,6 @@ const MyBigTimePicker: React.FC<Props> = ({getSelectedTime, name, day, value, re
                     width: '150px',
                 },
             },
-            '.MuiOutlinedInput-input': {
-                textTransform: 'uppercase',
-                fontSize: '14px',
-                fontWeight: '400',
-            },
             '.MuiOutlinedInput-notchedOutline': {
                 border: 'none',
             },
@@ -62,7 +67,7 @@ const MyBigTimePicker: React.FC<Props> = ({getSelectedTime, name, day, value, re
                 borderColor: `${mainColors.error.main} !important`,
             },
             '.MuiSvgIcon-root': {
-                fill: darkMode ? '#E0EEFF' : "#81acd1",
+                fill: "#81acd1",
             },
             '.MuiIconButton-root': {
                 width: '20px ',
@@ -116,6 +121,7 @@ const MyBigTimePicker: React.FC<Props> = ({getSelectedTime, name, day, value, re
                     renderInput={(params) => (
                         <TextField
                             {...params}
+                            autoComplete='off'   
                             error={error}
                             sx={classes.root} 
                             inputProps={

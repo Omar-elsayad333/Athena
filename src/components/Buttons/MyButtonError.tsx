@@ -10,7 +10,7 @@ type Props = {
     loading?: boolean;
 }
 
-const MyButton: React.FC<Props> = ({content, onClick, loading}) => {
+const MyButtonError: React.FC<Props> = ({content, onClick, loading}) => {
 
     const { mainColors } = useTheme()
     const style = {
@@ -30,4 +30,4 @@ const MyButton: React.FC<Props> = ({content, onClick, loading}) => {
     );
 }
 
-export default MyButton;
+export default MyButtonError;

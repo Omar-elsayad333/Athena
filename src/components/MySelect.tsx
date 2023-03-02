@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import InputError from "./Shared/InputError";
 import { DarkThemeContext } from "context/ThemeContext";
 
 // MUI
@@ -167,9 +168,10 @@ const MySelect: React.FC<Props> = ({value, getSelected, placeholder, data, error
                     ))
                 }
             </Select>
-            <label style={errorStyle.root}>
-                {helperText}
-            </label>
+            {
+                helperText &&
+                <InputError content={helperText} type='error' />
+            }
         </FormControl>
     );
 }

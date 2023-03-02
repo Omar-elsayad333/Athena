@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react'
 import { useUser } from 'context/userContext'
+import { useTheme } from 'context/ThemeContext'
 import { useError } from 'context/ErrorContext'
-import { getHandler } from 'handlers/requestHandler'
 import { examSectionsNames } from 'constant/staticData'
-import { URL_TEACHER_EXAMS_REQUIRED } from 'constant/url'
-import { convertDateToShortDate, convertFileToBase64, convertTimeToDB } from 'utils/converters'
+import { getHandler, getHandlerById, postHandler } from 'handlers/requestHandler'
+import { URL_TEACHER_EXAMS_REQUIRED, URL_TEACHER_EXAMS_GROUPS, URL_TEACHER_EXAMS } from 'constant/url'
 import { datePickerInitialValues, DatePickerProps } from 'interfaces/shared/datePicker'
 import { timePickerInitialValues, TimePickerProps } from 'interfaces/shared/timePicker'
+import { convertDateToShortDate, convertFileToBase64, convertTimeToDB } from 'utils/converters'
 import { 
     sectionInitialValues,
     SectionProps, 
@@ -25,9 +26,11 @@ import {
 const useReviewExam = () => {
 
     const { authToken } = useUser()
-    const { setErrorMessage } = useError()
+    const { mainColors } = useTheme()
+    const { setErrorMessage, setSuccessMessage } = useError()
     const [ loading, setLoading ] = useState<boolean>(false)
     const [ requiredData, setRequiredData ] = useState<any>('') 
+    const [ groupsData, setGroupsData ] = useState<any>([]) 
     const [ selectedExamType, setSelectedExamType ] = useState<RadioProps>(radioInitialValues)
     const [ yearsData, setYearsData ] = useState<any[]>([])
     const [ selectedYear, setSelectedYear ] = useState<DropMenuProps>(dropMenuInitialValues)
@@ -42,6 +45,7 @@ const useReviewExam = () => {
     const [ examShowenDate, setExamShowenDate ] = useState<any>('') 
     const [ spcialExam, setSpcialExam ] = useState<boolean>(false)
     const [ sections, setSections ] = useState<(SectionProps | undefined)[]>([])
+    const [ selectedGroups, setSelectedGroups ] = useState<any>([])
 
     // Get exam data from local storage
     useEffect(() => {
@@ -59,6 +63,13 @@ const useReviewExam = () => {
             getRequiredData()
         }
     }, [authToken])
+
+    // Get required data if the user is authorized
+    useEffect(() => {
+        if(authToken && selectedLevel.id) {
+            getGroupsData()
+        }
+    }, [authToken, selectedLevel])
 
     // Update years data if there is required data
     useEffect(() => {
@@ -80,6 +91,21 @@ const useReviewExam = () => {
             setLoading(true)
             const res = await getHandler(authToken, URL_TEACHER_EXAMS_REQUIRED)
             setRequiredData(res)
+        }
+        catch(error) {
+            console.log(error)
+        }
+        finally {
+            setLoading(false)
+        }
+    }
+
+    // Call api to get groups data
+    const getGroupsData = async () => {
+        try {
+            setLoading(true)
+            const res = await getHandlerById(selectedLevel.id ,authToken, URL_TEACHER_EXAMS_GROUPS)
+            setGroupsData(res)
         }
         catch(error) {
             console.log(error)
@@ -777,6 +803,22 @@ const useReviewExam = () => {
         return state
     }
 
+    // Get selected groups from user
+    const groupHandler = (e: any, groupId: string) => {
+        if(selectedGroups.indexOf(groupId) > -1) {
+            e.currentTarget.style.background = mainColors.chips.main
+            setSelectedGroups(selectedGroups.filter((item: any) => item !== groupId))
+        }else {
+            e.currentTarget.style.background = mainColors.linerGradient.primary
+            setSelectedGroups((selectedGroups: any) => 
+                [
+                    ...selectedGroups,
+                    groupId
+                ]    
+            )
+        }
+    }
+
     // Adjust data to send it to api
     const adjustDataToSubmit = () => {
         for(let section of sections) {
@@ -832,7 +874,7 @@ const useReviewExam = () => {
             isPrime: spcialExam,
             teacherCourseLevelYearId: selectedLevel.id,
             examTypeId: selectedExamType.id,   
-            groupIds: [],
+            groupIds: selectedGroups,
             sections: sections 
         }
 
@@ -854,26 +896,46 @@ const useReviewExam = () => {
             }
         }
 
+        if(selectedGroups.length == 0) {
+            state = false
+            setErrorMessage('يجب اختيار مجموعه واحده علي الأقل')
+        }
+
         return state
     }
 
     // Send data to review section
-    const sendDataToReview = async () => {
+    const submit = async () => {
         if(validateData()) { 
             const data: any = collectData()
-            console.log(data)
+            if(data) {
+                try {
+                    setLoading(true)
+                    const res = await postHandler(authToken, URL_TEACHER_EXAMS, data)
+                    console.log(res)
+                    setSuccessMessage('تم اضافة الأمتاحان بنجاح')
+                }
+                catch(error) {
+                    console.log(error)
+                    setErrorMessage('حدث خطاء اثناء اضافة الأمتحان')
+                }
+                finally {
+                    setLoading(false)
+                }
+            }
         }
     }
 
     useEffect(() => {
-        console.log(sections)
-    }, [sections])
+        console.log(selectedGroups)
+    }, [selectedGroups])
 
     return (
         {
             data: {
                 yearsData,
                 levelsData,
+                groupsData,
                 sections
             },
             states: {
@@ -922,7 +984,8 @@ const useReviewExam = () => {
                 deleteQuetion,
                 addQuestion,
                 submitSection,
-                sendDataToReview
+                groupHandler,
+                submit
             },
             dialogs: {
 

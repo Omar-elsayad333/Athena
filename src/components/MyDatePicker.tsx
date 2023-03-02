@@ -1,4 +1,5 @@
 import InputError from './Shared/InputError';
+import { useTheme } from 'context/ThemeContext';
 
 // MUI
 import DateFnsUtils from '@date-io/date-fns';
@@ -17,35 +18,41 @@ type Props = {
 
 const MyDatePicker: React.FC<Props> = ({placeholder, dateValue, handleDateValue, helperText, error}) => {
     
+    const { darkMode } = useTheme()
     const classes: SxProps = {
         root: {
             width: '255px',
             fontSize: '14px',
             fontWeight: '400',
-            backgroundColor: '#E8F3FF',
+            backgroundColor: darkMode ? '#1C364F' : '#E8F3FF',
             borderRadius: '7px',
             '.MuiOutlinedInput-root': {
-                color: 'rgba(63, 114, 164, 1)',
+                color: darkMode ? '#B6D5F0' : 'rgba(63, 114, 164, 1)',
                 borderRadius: '7px',
                 height: '46px',
-                boxShadow: '0px 0px 10px 1px #B6D5F0',
-                backgroundColor: '#E8F3FF',
+                boxShadow: darkMode ? 'none' : '0px 0px 10px 1px #B6D5F0',
+                backgroundColor: darkMode ? '#1C364F' : '#E8F3FF',
                 transition: '.2s ease-out',
-                border: '1px solid #E8F3FF !important',
-                '&.Mui-focused': {
-                    boxShadow: '0px 0px 0px 1px #3F72A4',
-                },
+                border: 'none',
                 '.MuiOutlinedInput-input': {
                     '&::placeholder': {
                         fontSize: '14px',
                         fontWeight: '400',
-                        color: 'rgb(63, 114, 164)',
+                        color: darkMode ? '#B6D5F0' :  '#3F72A4',
                         opacity: .65,
                     }
                 },
-            },
-            '.MuiOutlinedInput-notchedOutline': {
-                border: '1px solid #E8F3FF !important',
+                '.MuiOutlinedInput-notchedOutline': {
+                    transition: '.2s ease-out',
+                    border: darkMode ? '1px solid #3F72A4' : 'none',
+                },
+                '&:hover .MuiOutlinedInput-notchedOutline': {
+                    borderColor: 'unset',
+                },
+                '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                    border: darkMode ? '1px solid #B6D5F0' : 'none',
+                    boxShadow: darkMode ? '0px 0px 7px -1px #3F72A4' : '0px 0px 0px 1px #3F72A4',
+                },
             },
             '.Mui-error': {
                 borderColor: '#9C1414 !important',
@@ -107,6 +114,7 @@ const MyDatePicker: React.FC<Props> = ({placeholder, dateValue, handleDateValue,
                     renderInput={(params: any) => (
                         <TextField  
                             {...params}
+                            autoComplete='off'   
                             error={error}
                             sx={classes.root} 
                             inputProps={{
@@ -123,7 +131,10 @@ const MyDatePicker: React.FC<Props> = ({placeholder, dateValue, handleDateValue,
                     }}
                 />
             </LocalizationProvider>
-            <InputError content={helperText} type='error' />
+            {
+                helperText &&
+                <InputError content={helperText} type='error' />
+            }
         </FormControl>
     );
 }

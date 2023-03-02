@@ -50,7 +50,7 @@ export const examQuestionTypes: any[] = [
         name: 'اختيار من متعدد - MCQ'
     },
     {
-        id: 'written',
+        id: 'Written',
         name: 'سؤال مقالي'
     }
 ]
