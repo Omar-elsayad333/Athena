@@ -6,7 +6,7 @@ import { deleteHandler, getHandler, getHandlerById, putHandlerById } from 'handl
 import { DarkThemeContext } from 'context/ThemeContext';
 import { dayTranslateToArabic } from 'utils/translateors';
 import { convertTimeFromDB, convertTimeToDB } from 'utils/converters';
-import { useError } from 'context/ErrorContext';
+import { useError } from 'context/AlertContext';
 
 interface Data {
     value: string;

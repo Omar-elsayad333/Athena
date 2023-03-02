@@ -6,7 +6,7 @@ import { DarkThemeContext } from 'context/ThemeContext';
 import ClassesDialog from 'components/Dialogs/ClassesDialog';
 import MyButton from 'components/Buttons/MyButton';
 import MyButtonError from 'components/Buttons/MyButtonError';
-import BasicDialog from 'components/Dialogs/BasicDialogs';
+import BasicDialog from 'components/Dialogs';
 import PageError from 'components/Shared/PageError';
 
 // MUI

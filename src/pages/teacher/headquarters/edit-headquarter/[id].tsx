@@ -11,7 +11,7 @@ import EditHeadquarterC from 'components/Teacher/Headquarters/EditHeadquarter';
 import useEditHeadquarter from "container/headquarters/useEditHeadquarter";
 import AlertNotify from "components/AlertNotify";
 import Loading from "components/Loading/Loading";
-import { useError } from "context/ErrorContext";
+import { useError } from "context/AlertContext";
 
 // MUI
 import Box from "@mui/material/Box";

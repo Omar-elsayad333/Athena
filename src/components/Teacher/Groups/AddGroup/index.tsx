@@ -7,7 +7,7 @@ import MyDaysDialog from 'components/MyDaysDialog';
 import MyTimePicker from 'components/MyTimePicker';
 import { DarkThemeContext } from 'context/ThemeContext';
 import MyButtonError from 'components/Buttons/MyButtonError';
-import BasicDialog from 'components/Dialogs/BasicDialogs';
+import BasicDialog from 'components/Dialogs';
 import PageError from 'components/Shared/PageError';
 
 // MUI

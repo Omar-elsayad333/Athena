@@ -6,7 +6,7 @@ import { useTheme } from 'context/ThemeContext';
 import MyButton from 'components/Buttons/MyButton';
 import PageError from 'components/Shared/PageError';
 import { genderTranslate } from 'utils/translateors';
-import BasicDialog from 'components/Dialogs/BasicDialogs';
+import BasicDialog from 'components/Dialogs';
 import MyButtonError from 'components/Buttons/MyButtonError';
 
 // MUI

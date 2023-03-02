@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { IStyle } from 'styles/IStyle';
-import { useError } from 'context/ErrorContext';
+import { useError } from 'context/AlertContext';
 import AlertNotify from 'components/AlertNotify';
 import { DarkThemeContext } from "context/ThemeContext";
 

@@ -1,11 +1,11 @@
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react'
 import { useUser } from 'context/userContext';
-import { useError } from 'context/ErrorContext';
+import { useError } from 'context/AlertContext';
 import { convertHashSign } from 'utils/converters';
 import { getHandlerById, postHandler } from 'handlers/requestHandler';
 import { errorInitialValues, ErrorProps } from 'interfaces/shared/errors';
-import { basicDialogInitialValues, BasicDialogProps } from 'interfaces/shared/basicDialog';
+import { basicDialogInitialValues, BasicDialogProps } from 'interfaces/shared/warningDialog';
 import { URL_TEACHERSTUDENTS_ASSIGN, URL_TEACHERSTUDENTS_CODE } from 'constant/url';
 import { 
     dropMenuInitialValues, 

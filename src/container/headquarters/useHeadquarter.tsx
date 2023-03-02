@@ -3,39 +3,48 @@ import { useState, useEffect } from 'react';
 import { useUser } from 'context/userContext';
 import { URL_HEADQUARTERS } from 'constant/url';
 import { getHandlerById } from 'handlers/requestHandler';
+import { useAlert } from 'context/AlertContext';
 
 const useHeadquarter = () => {
 
-    const auth = useUser();
     const router = useRouter();
     const { id } = router.query;
-    const [ data, setData] = useState<any>('');
-    const [ loading, setLoading] = useState<boolean>(true);
+    const { authToken } = useUser();
+    const { setErrorMessage } = useAlert()
+    const [ loading, setLoading ] = useState<boolean>(true);
+    const [ headquarterData, setHeadquarterData ] = useState<any>('');
 
-    useEffect(()  => {
-        if(id && auth.authToken){
-            getData();
+    // Call function to get headquarter data if the user is authorized
+    useEffect(() => {
+        if(id && authToken){
+            getHeadquarterData();
         }
     }, [id])
     
-    const getData = async () => {        
-        setLoading(true);
-        await getHandlerById(`${id}`, auth.authToken, URL_HEADQUARTERS)
-        .then((res) => {
-            console.log(res);
-            setData(res);
+    // Call api to get page data
+    const getHeadquarterData = async () => {        
+        try {
+            setLoading(true);
+            const res = await getHandlerById(`${id}`, authToken, URL_HEADQUARTERS)
+            setHeadquarterData(res);
+        }
+        catch(error) {
+            console.log(error)
+            setErrorMessage('حدث خطاء')
+        }
+        finally {
             setLoading(false);
-        })
-        .catch((rej) => {
-            console.log(rej);
-            setLoading(false);
-        })
+        }
     }
 
     return (
         {
-            data,
-            loading
+            data: {
+                headquarterData,
+            },
+            states: {
+                loading
+            }
         }
     );
 }

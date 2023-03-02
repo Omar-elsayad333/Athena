@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import { useUser } from 'context/userContext'
-import { useError } from 'context/ErrorContext'
+import { useAlert } from 'context/AlertContext'
 import { getHandler } from 'handlers/requestHandler'
 import { examSectionsNames } from 'constant/staticData'
 import { URL_TEACHER_EXAMS_REQUIRED } from 'constant/url'
@@ -27,7 +27,7 @@ const useAddExam = () => {
 
     const router = useRouter()
     const { authToken } = useUser()
-    const { setErrorMessage } = useError()
+    const { setErrorMessage } = useAlert()
     const [ loading, setLoading ] = useState<boolean>(false)
     const [ requiredData, setRequiredData ] = useState<any>('')
     const [ examTypes, setExamTypes ] = useState<any[]>([])

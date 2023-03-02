@@ -4,7 +4,7 @@ import '../styles/globals.css';
 import Layout from 'components/Layout';
 import { DarkThemeProvider } from 'context/ThemeContext';
 import { UserProvider } from 'context/userContext';
-import { ErrorProvider } from 'context/ErrorContext';
+import { AlertProvider } from 'context/AlertContext';
 import { useRouter } from 'next/router';
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -14,7 +14,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   if(router.pathname.startsWith('/teacher')) {
     return (
       <UserProvider>
-        <ErrorProvider>
+        <AlertProvider>
           <DarkThemeProvider>
             <ThemeApp>
               <Layout>
@@ -22,31 +22,31 @@ function MyApp({ Component, pageProps }: AppProps) {
               </Layout>
             </ThemeApp>
           </DarkThemeProvider>
-        </ErrorProvider>
+        </AlertProvider>
       </UserProvider>
     )
   }else if(router.pathname.startsWith('/student')) {
     return (
       <UserProvider>
-        <ErrorProvider>
+        <AlertProvider>
           <DarkThemeProvider>
             <ThemeApp>
               <Component {...pageProps} />
             </ThemeApp>
           </DarkThemeProvider>
-        </ErrorProvider>
+        </AlertProvider>
       </UserProvider>
     )
   } else {
     return (
       <UserProvider>
-        <ErrorProvider>
+        <AlertProvider>
           <DarkThemeProvider>
             <ThemeApp>
               <Component {...pageProps} />
             </ThemeApp>
           </DarkThemeProvider>
-        </ErrorProvider>
+        </AlertProvider>
       </UserProvider>
     )
   }

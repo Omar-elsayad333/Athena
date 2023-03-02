@@ -21,7 +21,6 @@ export const postHandler = (authorization: string, path: string, data: any) => {
                 resolved(res.data);
             },
             (rej) => {
-                console.log(rej)
                 rejected(rej);
             }
         )

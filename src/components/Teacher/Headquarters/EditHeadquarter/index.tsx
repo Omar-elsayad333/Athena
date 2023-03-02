@@ -4,7 +4,7 @@ import MyInput from 'components/MyInput';
 import MyInputSmall from 'components/MyInputSmall';
 import MyButton from 'components/Buttons/MyButton';
 import MyButtonError from 'components/Buttons/MyButtonError';
-import BasicDialog from 'components/Dialogs/BasicDialogs';
+import BasicDialog from 'components/Dialogs';
 import PageError from 'components/Shared/PageError';
 
 // MUI

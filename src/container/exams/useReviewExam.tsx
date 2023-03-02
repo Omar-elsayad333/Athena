@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useUser } from 'context/userContext'
 import { useTheme } from 'context/ThemeContext'
-import { useError } from 'context/ErrorContext'
+import { useAlert } from 'context/AlertContext'
 import { examSectionsNames } from 'constant/staticData'
 import { getHandler, getHandlerById, postHandler } from 'handlers/requestHandler'
 import { URL_TEACHER_EXAMS_REQUIRED, URL_TEACHER_EXAMS_GROUPS, URL_TEACHER_EXAMS } from 'constant/url'
@@ -27,7 +27,7 @@ const useReviewExam = () => {
 
     const { authToken } = useUser()
     const { mainColors } = useTheme()
-    const { setErrorMessage, setSuccessMessage } = useError()
+    const { setErrorMessage, setSuccessMessage } = useAlert()
     const [ loading, setLoading ] = useState<boolean>(false)
     const [ requiredData, setRequiredData ] = useState<any>('') 
     const [ groupsData, setGroupsData ] = useState<any>([]) 

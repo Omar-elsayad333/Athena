@@ -1,5 +1,4 @@
-import { DarkThemeContext } from "context/ThemeContext";
-import { useContext } from "react";
+import { useTheme } from "context/ThemeContext";
 
 // MUI
 import Box from "@mui/material/Box";
@@ -8,12 +7,11 @@ import Typography from "@mui/material/Typography";
 type Props = {
     data: any;
     title: any;
-}
+}   
 
 const DataCard: React.FC<Props> = ({data, title}) => {
 
-    const { mainColors } = useContext(DarkThemeContext);
-
+    const { mainColors } = useTheme();
     const style = {
         container: {
             height: '40px',

@@ -12,7 +12,7 @@ type ContextState = {
     setSuccessMessage: (message: string) => void | null;
 };
 
-const ErrorContext = createContext<ContextState>({
+const AlertContext = createContext<ContextState>({
     msg: '',
     state: false,
     msgType: 'info',
@@ -27,7 +27,7 @@ type Props = {
     children: React.ReactElement<any, any> & React.ReactNode;
 };
 
-const ErrorProvider: React.FC<Props> = ({ children }) => {
+const AlertProvider: React.FC<Props> = ({ children }) => {
 
     const [msg, setMsg] = useState<string>('');
     const [state, setState] = useState<boolean>(false);
@@ -73,18 +73,18 @@ const ErrorProvider: React.FC<Props> = ({ children }) => {
     };
     
     return (
-        <ErrorContext.Provider value={contextValue}>
+        <AlertContext.Provider value={contextValue}>
             {children}
-        </ErrorContext.Provider>
+        </AlertContext.Provider>
     );
 };
 
-function useError(): ContextState {
-    const context = useContext(ErrorContext);
+function useAlert(): ContextState {
+    const context = useContext(AlertContext);
     if (context === undefined) {
         throw new Error('useAuth must be used within a AuthProvider');
     }
     return context;
 }
 
-export { ErrorProvider, useError };
+export { AlertProvider, useAlert };

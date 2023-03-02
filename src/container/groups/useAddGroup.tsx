@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useUser } from 'context/userContext';
 import { URL_GROUPS, URL_GROUPS_REQUIRED } from 'constant/url';
 import { getHandler, postHandler } from 'handlers/requestHandler';
-import { useError } from 'context/ErrorContext';
+import { useError } from 'context/AlertContext';
 import { useRouter } from 'next/router';
 import { convertTimeToDB } from 'utils/converters';
 

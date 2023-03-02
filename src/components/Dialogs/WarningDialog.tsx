@@ -23,11 +23,12 @@ const Transition = forwardRef(function Transition(
 
 type Props = {
     state: boolean; 
-    actions: any;
     content: any;
+    close: Function;
+    submit: Function;
 }
 
-const BasicDialog: React.FC<Props> = ({state, content, actions}) => {
+const BasicDialog: React.FC<Props> = ({state, content, close, submit}) => {
     
     const { mainColors } = useTheme();
     const style = {
@@ -134,25 +135,25 @@ const BasicDialog: React.FC<Props> = ({state, content, actions}) => {
             open={state}
             TransitionComponent={Transition}
             keepMounted
-            onClose={() => actions.reject()}
+            onClose={() => close()}
         >
             <DialogTitle> 
                 <Typography variant='h1' color='primary'>
-                    {content.title}
+                    {content.head}
                 </Typography>  
-                <Button sx={style.exitBut} onClick={() => actions.reject()}>
+                <Button sx={style.exitBut} onClick={() => close()}>
                     <CloseIcon />
                 </Button>
             </DialogTitle>
             <DialogContent>
                 <Typography variant='h4' color='primary' textAlign={'center'}>
-                    {content.dialog}
+                    {content.body}
                 </Typography>
                 <DialogActions>
-                    <Button onClick={() => actions.accept()} variant='contained' color='error' sx={style.addBut}>
-                        {content.accept}
+                    <Button onClick={() => submit()} variant='contained' color='error' sx={style.addBut}>
+                        {content.submit}
                     </Button>
-                    <Button onClick={() => actions.reject()} variant='contained' color='primary' sx={style.addBut}>
+                    <Button onClick={() => close()} variant='contained' color='primary' sx={style.addBut}>
                         {content.reject}
                     </Button>
                 </DialogActions>

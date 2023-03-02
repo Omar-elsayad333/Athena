@@ -11,7 +11,7 @@ import ThemeSwitcher from "components/ThemeSwitcher";
 import PageFooter from "components/Shared/PageFooter";
 import useGroups from "container/groups/useGroups";
 import Loading from "components/Loading/Loading";
-import { useError } from "context/ErrorContext";
+import { useError } from "context/AlertContext";
 import AlertNotify from "components/AlertNotify";
 
 // MUI

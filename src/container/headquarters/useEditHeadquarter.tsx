@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useUser } from 'context/userContext';
 import { URL_HEADQUARTERS } from 'constant/url';
 import { getHandlerById, putHandlerById, deleteHandler } from 'handlers/requestHandler';
-import { useError } from 'context/ErrorContext';
+import { useError } from 'context/AlertContext';
 
 type Data = {
     value: string,

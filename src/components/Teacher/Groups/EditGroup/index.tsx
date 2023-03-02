@@ -12,7 +12,7 @@ import MyTimePicker from 'components/MyTimePicker';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
-import BasicDialog from 'components/Dialogs/BasicDialogs';
+import BasicDialog from 'components/Dialogs';
 
 
 type Props = {

@@ -1,6 +1,6 @@
 import { NextPage } from "next";
 import { useTheme } from "context/ThemeContext";
-import { useError } from "context/ErrorContext";
+import { useAlert } from "context/AlertContext";
 import { withProtected } from "routes/withRouts";
 import Loading from "components/Loading/Loading";
 import AlertNotify from "components/AlertNotify";
@@ -16,19 +16,10 @@ import ReviewExamC from "components/Teacher/Exams/ReviewExam";
 import Box from "@mui/material/Box";
 
 const ReviewExam: NextPage = () => {
+    
     const {mainColors} = useTheme();
-    const {
-        data,
-        states,
-        actions,
-        dialogs
-    } = useReviewExam()
-    const {
-        msg,
-        state,
-        msgType,
-        handleState
-    } = useError();
+    const { msg, state, msgType, handleState } = useAlert();
+    const { data, states, actions, dialogs } = useReviewExam()
     const style = {
         root: {
             width: '100%',

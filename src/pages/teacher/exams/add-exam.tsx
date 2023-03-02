@@ -1,6 +1,6 @@
 import { NextPage } from "next";
 import { useTheme } from "context/ThemeContext";
-import { useError } from "context/ErrorContext";
+import { useAlert } from "context/AlertContext";
 import { withProtected } from "routes/withRouts";
 import Loading from "components/Loading/Loading";
 import AlertNotify from "components/AlertNotify";
@@ -28,7 +28,7 @@ const AddExam: NextPage = () => {
         state,
         msgType,
         handleState
-    } = useError();
+    } = useAlert();
     const style = {
         root: {
             width: '100%',

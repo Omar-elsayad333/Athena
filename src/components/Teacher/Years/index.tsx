@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useContext } from "react";
-import { useError } from "context/ErrorContext";
+import { useError } from "context/AlertContext";
 import AlertNotify from "components/AlertNotify";
 import { DarkThemeContext } from "context/ThemeContext";
 import { IStyle } from "styles/IStyle";
