@@ -116,14 +116,6 @@ const MySelect: React.FC<Props> = ({value, getSelected, placeholder, data, error
         },
     }
 
-    const errorStyle = {
-        root: {
-            marginTop: '10px',
-            fontSize: '14px', 
-            color: mainColors.error.main,
-        },
-    }
-
     return (
         <FormControl required>
             <Select
