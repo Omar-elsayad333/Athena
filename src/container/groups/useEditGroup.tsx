@@ -6,7 +6,7 @@ import { deleteHandler, getHandler, getHandlerById, putHandlerById } from 'handl
 import { DarkThemeContext } from 'context/ThemeContext';
 import { dayTranslateToArabic } from 'utils/translateors';
 import { convertTimeFromDB, convertTimeToDB } from 'utils/converters';
-import { useError } from 'context/AlertContext';
+import { useAlert } from 'context/AlertContext';
 
 interface Data {
     value: string;
@@ -54,7 +54,7 @@ const dialogInitialValues = {
 const useEditGroup = () => {
 
     const { darkMode } = useContext(DarkThemeContext);
-    const { setSuccessMessage, setErrorMessage } = useError()
+    const { setSuccessMessage, setErrorMessage } = useAlert()
     const auth = useUser();
     const router = useRouter();
     const { id } = router.query;

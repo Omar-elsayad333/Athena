@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useUser } from 'context/userContext';
 import { URL_GROUPS, URL_GROUPS_REQUIRED } from 'constant/url';
 import { getHandler, postHandler } from 'handlers/requestHandler';
-import { useError } from 'context/AlertContext';
+import { useAlert } from 'context/AlertContext';
 import { useRouter } from 'next/router';
 import { convertTimeToDB } from 'utils/converters';
 
@@ -71,7 +71,7 @@ const useAddGroup = () => {
 
     const auth = useUser();
     const router = useRouter();
-    const { setSuccessMessage, setWarningMessage } = useError();
+    const { setSuccessMessage, setWarningMessage } = useAlert();
     const [ loading, setLoading] = useState<boolean>(false);
     const [ requiredData, setRequiredData] = useState<any>('');
     const [ name, setName] = useState<Data>(initialValues);
