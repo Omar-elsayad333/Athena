@@ -3,7 +3,7 @@ import { useUser } from 'context/userContext';
 import { yearsToSelect } from 'constant/staticData';
 import { getHandler, postHandler } from 'handlers/requestHandler';
 import { URL_YEARS_REQUIRED, URL_YEARS } from 'constant/url';
-import { useError } from 'context/AlertContext';
+import { useAlert } from 'context/AlertContext';
 import { useRouter } from 'next/router';
 
 interface ErrorLabel {
@@ -54,7 +54,7 @@ const useAddYear = () => {
 
     const auth = useUser(); 
     const router = useRouter(); 
-    const { setSuccessMessage, setWarningMessage } = useError();
+    const { setSuccessMessage, setWarningMessage } = useAlert();
     const [ loading, setLoading ] = useState<boolean>(false);
     const [ requiredData, setRequiredData ] = useState<any>('');
     const [ yearActive, setYearActive] = useState<Year>(YearInitialValue);

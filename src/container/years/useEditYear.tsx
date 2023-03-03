@@ -1,5 +1,5 @@
 import { URL_YEARS, URL_YEARS_END, URL_YEARS_REQUIRED } from "constant/url";
-import { useError } from "context/AlertContext";
+import { useAlert } from "context/AlertContext";
 import { useUser } from "context/userContext";
 import { deleteHandler, getHandler, getHandlerById, postHandlerById } from "handlers/requestHandler";
 import { useRouter } from "next/router";
@@ -64,7 +64,7 @@ const useEditYear = () => {
     const router = useRouter();
     const { id } = router.query;
     const [ loading, setLoading] = useState<boolean>(false);
-    const { setWarningMessage, setErrorMessage } = useError();
+    const { setWarningMessage, setErrorMessage } = useAlert();
     const [ requiredData, setRequiredData] = useState<any>('');
     const [ yearData, setYearData] = useState<any>('');
     
