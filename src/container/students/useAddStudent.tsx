@@ -1,11 +1,11 @@
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react'
 import { useUser } from 'context/userContext';
-import { useError } from 'context/AlertContext';
+import { useAlert } from 'context/AlertContext';
 import { convertHashSign } from 'utils/converters';
 import { getHandlerById, postHandler } from 'handlers/requestHandler';
 import { errorInitialValues, ErrorProps } from 'interfaces/shared/errors';
-import { basicDialogInitialValues, BasicDialogProps } from 'interfaces/shared/warningDialog';
+import { warningDialogInitialValues, WarningDialogProps } from 'interfaces/shared/warningDialog';
 import { URL_TEACHERSTUDENTS_ASSIGN, URL_TEACHERSTUDENTS_CODE } from 'constant/url';
 import { 
     dropMenuInitialValues, 
@@ -19,7 +19,7 @@ const useAddStudent = () => {
     const auth = useUser()
     const router = useRouter()
     const [ loading, setLoading ] = useState<boolean>(false)
-    const { setSuccessMessage, setWarningMessage } = useError() 
+    const { setSuccessMessage, setWarningMessage } = useAlert() 
     const [ studentCode, setStudentCode ] = useState<InputProps>(inputInitialValues)
     const [ codeError, setCodeError ] = useState<ErrorProps>(errorInitialValues)
     const [ studentData, setStudentData ] = useState<any>('')
@@ -28,7 +28,7 @@ const useAddStudent = () => {
     const [ year, setYear ] = useState<DropMenuProps>(dropMenuInitialValues)
     const [ groups, setGroups ] = useState<any[]>([])
     const [ group, setGroup ] = useState<DropMenuProps>(dropMenuInitialValues)
-    const [ basicDialog, setBasicDialog ] = useState<BasicDialogProps>(basicDialogInitialValues)
+    const [ basicDialog, setBasicDialog ] = useState<WarningDialogProps>(warningDialogInitialValues)
     const [ pageError, setPageError ] = useState<ErrorProps>(errorInitialValues)
 
     // Update groups data if the user selected a year
@@ -229,31 +229,31 @@ const useAddStudent = () => {
 
     // Open and close basic dialog
     const basicDialogHandler = () => {
-        if(basicDialog.state) {
-            setBasicDialog(
-                {
-                    state: false,
-                    content: {
-                        title: '',
-                        dialog: '',
-                        accept: '',
-                        reject: ''
-                    }
-                }
-            )
-        }else {
-            setBasicDialog(
-                {
-                    state: true,
-                    content: {
-                        title: 'إلغاء العملية',
-                        dialog: 'تأكيد إلغاء هذه العملية نهائياً',
-                        accept: 'تأكيد',
-                        reject: 'إلغاء'
-                    }
-                }
-            )
-        }
+        // if(basicDialog.state) {
+        //     setBasicDialog(
+        //         {
+        //             state: false,
+        //             content: {
+        //                 title: '',
+        //                 dialog: '',
+        //                 accept: '',
+        //                 reject: ''
+        //             }
+        //         }
+        //     )
+        // }else {
+        //     setBasicDialog(
+        //         {
+        //             state: true,
+        //             content: {
+        //                 title: 'إلغاء العملية',
+        //                 dialog: 'تأكيد إلغاء هذه العملية نهائياً',
+        //                 accept: 'تأكيد',
+        //                 reject: 'إلغاء'
+        //             }
+        //         }
+        //     )
+        // }
     }
     
     return (
