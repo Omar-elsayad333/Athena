@@ -28,7 +28,7 @@ const useAddStudent = () => {
     const [ year, setYear ] = useState<DropMenuProps>(dropMenuInitialValues)
     const [ groups, setGroups ] = useState<any[]>([])
     const [ group, setGroup ] = useState<DropMenuProps>(dropMenuInitialValues)
-    const [ basicDialog, setBasicDialog ] = useState<WarningDialogProps>(warningDialogInitialValues)
+    const [ basicDialog ] = useState<WarningDialogProps>(warningDialogInitialValues)
     const [ pageError, setPageError ] = useState<ErrorProps>(errorInitialValues)
 
     // Update groups data if the user selected a year
