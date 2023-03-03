@@ -7,7 +7,7 @@ import MyDaysDialog from 'components/MyDaysDialog';
 import MyTimePicker from 'components/MyTimePicker';
 import { DarkThemeContext } from 'context/ThemeContext';
 import MyButtonError from 'components/Buttons/MyButtonError';
-import BasicDialog from 'components/Dialogs';
+// import WarningDialog from 'components/Dialogs/WarningDialog';
 import PageError from 'components/Shared/PageError';
 
 // MUI
@@ -240,7 +240,7 @@ const AddGroupC: React.FC<Props> = ({states, actions, dialogs}) => {
                     </Box>
                 </Box>
             </Box>
-            <BasicDialog state={dialogs.cancelContent.state} content={dialogs.cancelContent} actions={dialogs.actions} />
+            {/* <WarningDialog state={dialogs.cancelContent.state} content={dialogs.cancelContent} actions={dialogs.actions} /> */}
         </Box>
     );
 }
