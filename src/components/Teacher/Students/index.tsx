@@ -51,6 +51,7 @@ const StudentsC: React.FC<Props> = ({data, states, actions}) => {
                 error={states.selectedYear.error}
             /> 
             <MySearchInput 
+                onChange={() => {}}
                 placeholder='هل تبحث عن طالب معين ؟'
                 disabled={states.selectedYear.value ? false : true}
             />
