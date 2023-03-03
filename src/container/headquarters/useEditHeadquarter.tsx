@@ -1,247 +1,336 @@
+import { Routes } from 'routes/Routes';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import { useUser } from 'context/userContext';
+import { useAlert } from 'context/AlertContext';
 import { URL_HEADQUARTERS } from 'constant/url';
+import { inputInitialValues, InputProps } from 'interfaces/shared/input';
+import { homeNumberValidator, phoneNumberValidator } from 'utils/validators';
 import { getHandlerById, putHandlerById, deleteHandler } from 'handlers/requestHandler';
-import { useError } from 'context/AlertContext';
-
-type Data = {
-    value: string,
-    error: boolean,
-    helperText: string
-};
-
-const initialValues = {
-    value: '',
-    error: false,
-    helperText: ''
-}
-
-type Dialog = {
-    state: boolean,
-    main: string,
-    title: string,
-    actionContent: any   
-}
-
-const dialogInitialValues = {
-    state: false,
-    main: 'تأكيد حذف هذا المقر نهائياً',
-    title: 'حذف المقر',
-    actionContent: {
-        first: 'حذف',
-        second: 'إلغاء'
-    }
-}
+import { WarningDialogProps, warningDialogInitialValues } from 'interfaces/shared/warningDialog';
 
 const useEditHeadquarter = () => {
 
-    const auth = useUser();
-    const { setSuccessMessage, setErrorMessage } = useError();
+    const { authToken } = useUser();
     const router = useRouter();
     const { id } = router.query;
-    const [ oldData, setOldData] = useState<any>('');
-    const [ loading, setLoading] = useState<boolean>(true);
-    const [ thirdPhoneState, setThirdPhoneState] = useState<boolean>(false);
-    const [ name, setName] = useState<Data>(initialValues);
-    const [ city, setCity] = useState<Data>(initialValues);
-    const [ region, setRegion] = useState<Data>(initialValues);
-    const [ street, setStreet] = useState<Data>(initialValues);
-    const [ building, setBuilding] = useState<Data>(initialValues);
-    const [ firstPhone, setFirstPhone] = useState<Data>(initialValues);
-    const [ secondPhone, setSecondPhone] = useState<Data>(initialValues);
-    const [ thirdPhone, setThirdPhone] = useState<Data>(initialValues);
-    const [ submitError, setSubmitError] = useState<Data>(initialValues);
-    const [ content, setContent] = useState<Dialog>(dialogInitialValues);
+    const { setSuccessMessage, setErrorMessage, setWarningMessage } = useAlert();
+    const [ loading, setLoading ] = useState<boolean>(true);
+    const [ originalData, setOriginalData ] = useState<any>('');
+    const [ headQuarterData, setHeadQuarterData ] = useState<any>('');
+    const [ name, setName ] = useState<InputProps>(inputInitialValues);
+    const [ city, setCity ] = useState<InputProps>(inputInitialValues);
+    const [ region, setRegion ] = useState<InputProps>(inputInitialValues);
+    const [ street, setStreet ] = useState<InputProps>(inputInitialValues);
+    const [ building, setBuilding ] = useState<InputProps>(inputInitialValues);
+    const [ firstPhone, setFirstPhone ] = useState<InputProps>(inputInitialValues);
+    const [ secondPhone, setSecondPhone ] = useState<InputProps>(inputInitialValues);
+    const [ thirdPhone, setThirdPhone ] = useState<InputProps>(inputInitialValues);
+    const [ thirdPhoneState, setThirdPhoneState ] = useState<boolean>(false);
+    const [ warningDialog, setWarningDialog ] = useState<WarningDialogProps>(warningDialogInitialValues);
 
+    // Call function to get page data
     useEffect(() => {
-        setLoading(true);
-        getHandlerById(`${id}`, auth.authToken, URL_HEADQUARTERS)
-        .then((res: any) => {
-            console.log(res);
-            if(res.headQuarterPhones[2]){
-                setThirdPhoneState(true)
-            }
-            setOldData(res);
-            setLoading(false);
-        })
-        .catch((rej: any) => {
-            console.log(rej);
-            setLoading(false);
-        })
+        if(authToken && id) {
+            getHeadquarterData()
+        }
     }, [])
-
-    const handleDialogState = () => {
-        if(content.state){
-            setContent((oldData) => ({...oldData, state: false}));
-        }else {
-            setContent((oldData) => ({...oldData, state: true}));
+    
+    // Call function to check for third phone state after geting data from api
+    useEffect(() => {
+        if(originalData) {
+            checkThirdPhoneState()
+        }
+    }, [originalData])
+    
+    // Call api to get headquarter data
+    const getHeadquarterData = async () => {
+        try {
+            setLoading(true);
+            const res = await getHandlerById(id, authToken, URL_HEADQUARTERS)
+            setOriginalData(res)
+            setHeadQuarterData(res)
+        }
+        catch(error) {
+            console.log(error)
+            setErrorMessage('حدث خطاء')
+        }
+        finally {
+            setLoading(false);
         }
     }
 
-    const nameHandle = (data: string) => {
-        setName((oldData: any) => ({...oldData, value: data, error: false, helperText: ''}));
-    }
-
-    const cityHandle = (data: string) => {
-        setCity((oldData: any) => ({...oldData, value: data, error: false, helperText: ''}));
-    }
-
-    const regionHandle = (data: string) => {
-        setRegion((oldData: any) => ({...oldData, value: data, error: false, helperText: ''}));
-    }
-
-    const streetHandle = (data: string) => {
-        setStreet((oldData: any) => ({...oldData, value: data, error: false, helperText: ''}));
-    }
-
-    const buildingHandle = (data: string) => {
-        setBuilding((oldData: any) => ({...oldData, value: data, error: false, helperText: ''}));
-    }
-
-    const firstPhonesHandle = (data: string) => {
-        setFirstPhone((oldData: any) => ({...oldData, value: data, error: false, helperText: ''}));
-    }
-
-    const secondPhonesHandle = (data: string) => {
-        setSecondPhone((oldData: any) => ({...oldData, value: data, error: false, helperText: ''}));
-    }
-
-    const thirdPhonesHandle = (data: string) => {
-        setThirdPhone((oldData: any) => ({...oldData, value: data}));
-    }
-
-    const thirdPhoneHandle = () => {
-        if(thirdPhoneState){
-            setThirdPhoneState(false);
-        }else{
-            setThirdPhoneState(true);
+    // Update third phone state
+    const checkThirdPhoneState = () => {
+        if(originalData.phones.length > 2) {
+            setThirdPhoneState(true)
         }
     }
 
-    // prepare data object
-    const prepareData = () => {
-        const data: any = {
-            id: id,
-            name: name.value ? name.value : oldData.name,
-            city: city.value ? city.value : oldData.city,
-            region: region.value ? region.value : oldData.region,
-            street: street.value ? street.value : oldData.street,
-            building: building.value ? building.value : oldData.building,
-        };
+    // Get headquarter name from user
+    const nameHandler = (selectedName: string) => {
+        setName(
+            {
+                value: selectedName, 
+                length: selectedName.trim().length,
+                error: false, 
+                helperText: ''
+            }
+        )
+    }
 
-        if(oldData.headQuarterPhones[2]){
-            data['phones'] = [
+    // Get headquarter city from user
+    const cityHandler = (selectedCity: string) => {
+        setCity(
+            {
+                value: selectedCity, 
+                length: selectedCity.trim().length,
+                error: false, 
+                helperText: ''
+            }
+        )
+    }
+
+    // Get headquarter region from user
+    const regionHandler = (selectedRegion: string) => {
+        setRegion(
+            {
+                value: selectedRegion,
+                length: selectedRegion.trim().length, 
+                error: false, 
+                helperText: ''
+            }
+        )
+    }
+
+    // Get headquarter street from user
+    const streetHandler = (selectedStreet: string) => {
+        setStreet(
+            {
+                value: selectedStreet,
+                length: selectedStreet.trim().length, 
+                error: false, 
+                helperText: ''
+            }
+        )
+    }
+
+    // Get headquarter building from user
+    const buildingHandler = (selectedBuilding: string) => {
+        setBuilding(
+            {
+                value: selectedBuilding, 
+                length: selectedBuilding.trim().length, 
+                error: false, 
+                helperText: ''
+            }
+        )
+    }
+
+    // Get headquarter first phone from user
+    const firstPhoneHandler = (selectedFirstPhones: string) => {
+        setFirstPhone(
+            {
+                value: selectedFirstPhones, 
+                length: selectedFirstPhones.length,
+                error: false, 
+                helperText: ''
+            }
+        )
+    }
+
+    // Get headquarter second phone from user
+    const secondPhoneHandler = (selectedSecondPhone: string) => {
+        setSecondPhone(
+            {
+                value: selectedSecondPhone, 
+                length: selectedSecondPhone.length,
+                error: false, 
+                helperText: ''
+            }
+        )
+    }
+
+    // Get headquarter third phone from user
+    const thirdPhoneHandler = (thirdPhone: string) => {
+        setThirdPhone(
+            {
+                value: thirdPhone,
+                length: thirdPhone.length,
+                error: false, 
+                helperText: ''
+            }
+        )
+    }
+
+    // Show third phone input to user
+    const showThirdPhone = () => {
+        setThirdPhoneState(true)
+    }
+
+    // Hide third phone input to user
+    const hideThirdPhone = () => {
+        setThirdPhoneState(false)
+    }
+
+    // Open warning dialog
+    const openWarningDialogState = () => {
+        setWarningDialog(
+            {
+                state: true,
+                close: closeWarningDialogState,
+                submit: deleteHeadquarter,
+                content: {
+                    head: 'حذف المقر',
+                    body: "تأكيد حذف هذا المقر نهائياً",
+                    submit: 'حذف',
+                    reject: 'إلغاء'
+                },
+            }
+        )
+    }
+
+    // Close warning dialog and clear it
+    const closeWarningDialogState = () => {
+        setWarningDialog(
+            {
+                state: false,
+                close: () => {},
+                submit: () => {},
+                content: {
+                    head: '',
+                    body: '',
+                    submit: '',
+                    reject: ''
+                },
+            }
+        )
+    }
+
+    // validate all the fields
+    const validation = () => {
+        let state = true;
+
+        if(firstPhone.length > 0) {
+            if(!phoneNumberValidator(firstPhone.value) && !homeNumberValidator(firstPhone.value)) {
+                state = false
+                setFirstPhone((oldValue: any) => ({...oldValue, error: true, helperText: 'يجب أدخال رقم هاتف صحيح'}))
+            }
+        }
+        
+        if(secondPhone.length > 0) {
+            console.log('omar')
+            if(!phoneNumberValidator(secondPhone.value) && !homeNumberValidator(secondPhone.value)) {
+                state = false
+                setSecondPhone((oldValue: any) => ({...oldValue, error: true, helperText: 'يجب أدخال رقم هاتف صحيح'}))
+            }
+        }
+
+        if(thirdPhoneState && thirdPhone.length > 0) {
+            if(!phoneNumberValidator(thirdPhone.value) && !homeNumberValidator(thirdPhone.value)){
+                state = false;
+                setThirdPhone((oldValue: any) => ({...oldValue, error: true, helperText: 'يجب أدخال رقم هاتف صحيح'}))
+            }
+        }
+
+        return state
+    }
+
+    // Collect data to submit it
+    const collectData = async () => {
+        let data: any = {    
+            id: originalData.id,           
+            name: name.length ? name.value : originalData.name,
+            city: city.length ? city.value : originalData.city,
+            region: region.length ? region.value : originalData.region,
+            street: street.length ? street.value : originalData.street,
+            building: building.length ? building.value : originalData.building,
+            phones: [
                 {
-                    id: oldData.headQuarterPhones[0].id,
-                    phone: firstPhone.value ? firstPhone.value : oldData.headQuarterPhones[0].phone,
-                    isDeleted: false
+                    id: originalData.phones[0].id,
+                    phone: originalData.phones[0].phone,
+                    isDeleted: false,   
                 },
                 {
-                    id: oldData.headQuarterPhones[1].id,
-                    phone: secondPhone.value ? secondPhone.value : oldData.headQuarterPhones[1].phone,
-                    isDeleted: false
-                },
-                {
-                    id: oldData.headQuarterPhones[2].id,
-                    phone: thirdPhone.value ? thirdPhone.value :  oldData.headQuarterPhones[2].phone,
-                    isDeleted: thirdPhoneState ? false : true
+                    id: originalData.phones[1].id,
+                    phone: originalData.phones[1].phone,
+                    isDeleted: false,   
                 }
-            ]
-
-            data['newPhone'] = null
-
-        }else if(thirdPhone.value && thirdPhoneState) {
-            data['phones'] = [
+            ],
+            newPhone: null
+        }
+        if(originalData.phones.length > 2 && thirdPhoneState) {
+            data.phones.push(
                 {
-                    id: oldData.headQuarterPhones[0].id,
-                    phone: firstPhone.value ? firstPhone.value : oldData.headQuarterPhones[0].phone,
-                    isDeleted: false
-                },
-                {
-                    id: oldData.headQuarterPhones[1].id,
-                    phone: secondPhone.value ? secondPhone.value : oldData.headQuarterPhones[1].phone,
-                    isDeleted: false
+                    id: originalData.phones[2].id,
+                    phone: originalData.phones[2].phone,
+                    isDeleted: false,   
                 }
-            ]
-
-            data['newPhone'] = thirdPhone.value
-
-        }else {
-            data['phones'] = [
-                    {
-                    id: oldData.headQuarterPhones[0].id,
-                    phone: firstPhone.value ? firstPhone.value : oldData.headQuarterPhones[0].phone,
-                    isDeleted: false
-                },
+            )
+        }else if(originalData.phones.length > 2 && !thirdPhoneState) {
+            data.phones.push(
                 {
-                    id: oldData.headQuarterPhones[1].id,
-                    phone: secondPhone.value ? secondPhone.value : oldData.headQuarterPhones[1].phone,
-                    isDeleted: false
-                }   
-            ]
-            data['newPhones'] = null
+                    id: originalData.phones[2].id,
+                    phone: originalData.phones[2].phone,
+                    isDeleted: true,   
+                }
+            )
+        }else if(originalData.phones.length == 2 && thirdPhoneState && thirdPhone.length > 0) {
+            data.newPhone = thirdPhone.value
         }
 
         return data
     }
 
-    // call api for request
-    const submit = () => {
-        setLoading(true);
-        const data = prepareData();
-        console.log(data)
-        if(data) {
-            putHandlerById(id, auth.authToken, URL_HEADQUARTERS, data)
-            .then((res: any) => {
-                console.log(res)
-                setLoading(false)
-                clearFields()
+    // Call api to edit headquarter
+    const submit = async () => {
+        if(validation()) {
+            try {
+                setLoading(true);
+                const data = await collectData();
+                const res = await putHandlerById(id, authToken, URL_HEADQUARTERS, data)
                 setSuccessMessage('تمت التعديلات بنجاح')
-                router.push(`/teacher/headquarters/headquarter/${res}`)
-            })
-            .catch((err: any) => {
-                console.log(err)
+                router.push(`${Routes.teacherHeadquarter}${res}`)
+            }
+            catch(error) {
+                console.log(error)
+                setErrorMessage('حدث خطاء')
+            }
+            finally {
                 setLoading(false)
-            })
+            }      
         }else {
-            console.log('error on preparing data')
-        }        
+            setErrorMessage('يوجد خطاء في المدخلات')
+        }
     }
 
-    const deleteHeadquarter = () => {
-        setLoading(true);
-        handleDialogState();
-        deleteHandler(id, auth.authToken, URL_HEADQUARTERS)
-        .then(() => {
+    // Call api to delete headquarter
+    const deleteHeadquarter = async () => {
+        try {
+            closeWarningDialogState()
+            setLoading(true)
+            const res = await deleteHandler(id, authToken, URL_HEADQUARTERS)
+            console.log(res)
+            setWarningMessage('تم حذف المقر بنجاح')
+            router.push(Routes.teacherheadquarters)
+        }
+        catch(error) {
+            console.log(error)
+            setErrorMessage('حدث خطاء')
+        }
+        finally {
             setLoading(false)
-            clearFields();
-            setErrorMessage('تم حذف المقر بنجاح')
-            router.push(`/teacher/headquarters`)
-        })
-        .catch((err: any) => {
-            setLoading(false)
-            console.log(err)
-            setSubmitError((oldValues) => ({...oldValues, value: err, error: true}));
-        })
-    }
-
-    // clear fields after submit
-    const clearFields = () => {
-        setName((oldValues: any) => ({...oldValues, value: ''}))
-        setCity((oldValues: any) => ({...oldValues, value: ''}))
-        setRegion((oldValues: any) => ({...oldValues, value: ''}))
-        setStreet((oldValues: any) => ({...oldValues, value: ''}))
-        setBuilding((oldValues: any) => ({...oldValues, value: ''}))
-        setFirstPhone((oldValues: any) => ({...oldValues, value: ''}))
-        setSecondPhone((oldValues: any) => ({...oldValues, value: ''}))
-        setThirdPhone((oldValues: any) => ({...oldValues, value: ''}))
-        setSubmitError((oldValues) => ({...oldValues, value: '', error: false}));
+        }
     }
 
     return (
         {
             data: {
+                originalData,
+                headQuarterData
+            },
+            states: {
+                loading,
                 name,
                 city,
                 region,
@@ -250,36 +339,27 @@ const useEditHeadquarter = () => {
                 firstPhone,
                 secondPhone,
                 thirdPhone,
+                thirdPhoneState
             },
-            dataHandlers: {
-                nameHandle,
-                cityHandle,
-                regionHandle,
-                streetHandle,
-                buildingHandle,
-                firstPhonesHandle,
-                secondPhonesHandle,
-                thirdPhonesHandle
-            },
-            thirdPhone: {
-                thirdPhoneState,
-                thirdPhoneHandle
-            },
-            dialog: {
-                content,
-                actions: {
-                    handleDialogState,
-                    submitDialog : deleteHeadquarter
-                }
-            },
-            oldData,
-            loading,
-            submitActions: {
+            actions: {
+                nameHandler,
+                cityHandler,
+                regionHandler,
+                streetHandler,
+                buildingHandler,
+                firstPhoneHandler,
+                secondPhoneHandler,
+                thirdPhoneHandler,
+                showThirdPhone,
+                hideThirdPhone,
+                openWarningDialogState,
                 submit,
-                submitError
-            }
+            },
+            dialogs: {
+                warningDialog
+            },
         }
     );
 }
- 
+
 export default useEditHeadquarter;

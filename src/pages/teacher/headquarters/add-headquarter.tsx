@@ -1,4 +1,5 @@
 import { NextPage } from "next";
+import { Routes } from "routes/Routes";
 import { useAlert } from "context/AlertContext";
 import { useTheme } from "context/ThemeContext";
 import { withProtected } from "routes/withRouts";
@@ -50,9 +51,9 @@ const AddHeadquarter: NextPage = () => {
         <Box sx={style.root}>
             <PageHead title='Add Headquarter' />
             <DesktopNavbar 
-                firstPath='/teacher/headquarters' 
+                firstPath={Routes.teacherheadquarters} 
                 firstContent='جميع المقرات' 
-                secondPath='/teacher/headquarters/add-headquarter'
+                secondPath={Routes.teacherAddHeadquarter}
                 secondContent='اضافة مقر'
             /> 
             {

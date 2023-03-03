@@ -1,40 +1,26 @@
 import { NextPage } from "next";
-import { useContext } from "react";
+import { Routes } from "routes/Routes";
+import { useTheme } from "context/ThemeContext";
+import { useAlert } from "context/AlertContext";
 import { withProtected } from "routes/withRouts";
-import { DarkThemeContext } from "context/ThemeContext";
+import Loading from "components/Loading/Loading";
+import AlertNotify from "components/AlertNotify";
 import PageHead from "components/Shared/PageHead";
-import DesktopNavbar from 'components/Layout/DesktopNavbar';
 import PageTitle from 'components/Shared/PageTitle';
 import ThemeSwitcher from "components/ThemeSwitcher";
 import PageFooter from "components/Shared/PageFooter";
-import EditHeadquarterC from 'components/Teacher/Headquarters/EditHeadquarter';
+import DesktopNavbar from 'components/Layout/DesktopNavbar';
 import useEditHeadquarter from "container/headquarters/useEditHeadquarter";
-import AlertNotify from "components/AlertNotify";
-import Loading from "components/Loading/Loading";
-import { useError } from "context/AlertContext";
+import EditHeadquarterC from 'components/Teacher/Headquarters/EditHeadquarter';
 
 // MUI
 import Box from "@mui/material/Box";
 
 const EditHeadquarter: NextPage = () => {
 
-    const {
-        msg,
-        state,
-        msgType,
-        handleState
-    } = useError();
-    const {
-        data,
-        dataHandlers,
-        thirdPhone,
-        oldData,
-        loading,
-        submitActions,
-        dialog
-    } = useEditHeadquarter();
-    const { mainColors } = useContext(DarkThemeContext);
-    
+    const { mainColors } = useTheme()
+    const { msg, state, msgType, handleState } = useAlert()
+    const { data, states, actions, dialogs } = useEditHeadquarter()
     const style = {
         root: {
             width: '100%',
@@ -65,15 +51,14 @@ const EditHeadquarter: NextPage = () => {
         <Box sx={style.root}>
             <PageHead title='Edit Headquarter' />
             <DesktopNavbar 
-                firstPath='/teacher/headquarters' 
                 firstContent='جميع المقرات' 
-                secondPath='/teacher/headquarters/add-headquarter'
+                firstPath={Routes.teacherheadquarters} 
                 secondContent='اضافة مقر'
+                secondPath={Routes.teacherAddHeadquarter}
             /> 
             { 
-                loading ?
+                states.loading ?
                 <Loading /> :
-                oldData && thirdPhone &&
                 <Box sx={style.container}>
                     <PageTitle content='تعديل بيانات المقر'>
                         <svg width="35" height="35" viewBox="0 0 16 25" fill={mainColors.primary.main} xmlns="http://www.w3.org/2000/svg">
@@ -82,12 +67,9 @@ const EditHeadquarter: NextPage = () => {
                     </PageTitle>
                     <EditHeadquarterC 
                         data={data}
-                        dataHandlers={dataHandlers} 
-                        oldData={oldData} 
-                        thirdPhone={thirdPhone} 
-                        dialog={dialog}
-                        submitActions={submitActions}
-                        loading={loading}
+                        states={states}
+                        actions={actions}
+                        dialogs={dialogs}
                     />
                 </Box>
             }

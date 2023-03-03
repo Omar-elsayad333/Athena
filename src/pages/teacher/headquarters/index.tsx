@@ -1,4 +1,5 @@
 import { NextPage } from "next";
+import { Routes } from "routes/Routes";
 import { IStyle } from "styles/IStyle";
 import { useTheme } from "context/ThemeContext";
 import { useAlert } from "context/AlertContext";
@@ -53,10 +54,10 @@ const Headquarters: NextPage = () => {
         <Box sx={style.root}>
             <PageHead title='Headquarters' />
             <DesktopNavbar 
-                firstPath='/teacher/headquarters' 
                 firstContent='جميع المقرات' 
-                secondPath='/teacher/headquarters/add-headquarter'
+                firstPath={Routes.teacherheadquarters} 
                 secondContent='اضافة مقر'
+                secondPath={Routes.teacherAddHeadquarter}
             /> 
             { 
                 states.loading ? 

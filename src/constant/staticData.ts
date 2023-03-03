@@ -44,6 +44,25 @@ export const genders: any[] = [
     }
 ]
 
+export const validNumberCodes: any[] = [
+    {   
+        id: 1,
+        name: '010'
+    },
+    {
+        id: 2,
+        name: '011'
+    },
+    {
+        id: 3,
+        name: '012'
+    },
+    {
+        id: 4,
+        name: '015'
+    }
+]
+
 export const examQuestionTypes: any[] = [
     {   
         id: 'MCQ',

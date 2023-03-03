@@ -120,7 +120,7 @@ const HeadquarterC: React.FC<Props> = ({ data }) => {
                 عنوان المقر:-  
             </Typography>
             <DataCard data={data.headquarterData.city} title='المدينة' />
-            <DataCard data={data.headquarterDataregion} title='أسم المنطقة' />
+            <DataCard data={data.headquarterData.region} title='أسم المنطقة' />
             <DataCard data={data.headquarterData.street} title='أسم الشارع' />
             <DataCard data={data.headquarterData.building} title='رقم المبنى' />
             <Typography sx={style.title} variant="h3" color={mainColors.title.main}>

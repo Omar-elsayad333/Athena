@@ -1,3 +1,4 @@
+import { IStyle } from 'styles/IStyle';
 import MyInput from 'components/MyInput';
 import { useTheme } from 'context/ThemeContext';
 import MyInputSmall from 'components/MyInputSmall';
@@ -8,7 +9,6 @@ import MyButtonError from 'components/Buttons/MyButtonError';
 // MUI
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { IStyle } from 'styles/IStyle';
 
 type Props = {
     states: any;
@@ -139,12 +139,12 @@ const AddHeadquarterC: React.FC<Props> = ({ states, actions, dialogs }) => {
                     helperText={states.secondPhone.helperText} 
                 />
             </Box>
-            {
-                states.thirdPhoneState ?
-                <Box sx={style.inputContainer}>
-                    <Typography variant='h5' color={mainColors.primary.dark}>
-                        رقم الهاتف الثالث
-                    </Typography>
+            <Box sx={style.inputContainer}>
+                <Typography variant='h5' color={mainColors.primary.dark}>
+                    رقم الهاتف الثالث
+                </Typography>
+                {
+                    states.thirdPhoneState ?
                     <Box sx={style.thirdPhoneContainer}>
                         <MyInput 
                             type='number'
@@ -158,19 +158,19 @@ const AddHeadquarterC: React.FC<Props> = ({ states, actions, dialogs }) => {
                             <path d="M17.28 2L2 17.28" stroke="inherit" stroke-width="2.38" stroke-linecap="round" stroke-linejoin="round"/>
                             <path d="M2 2L17.28 17.28" stroke="inherit" stroke-width="2.38" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
+                    </Box> :
+                    <Box sx={style.addPhoneBut} onClick={() => actions.showThirdPhone()}>
+                        <svg width="21" height="21" viewBox="0 0 21 21" fill="none" stroke={mainColors.primary.main} xmlns="http://www.w3.org/2000/svg">
+                            <path d="M10.52 20.04C15.7778 20.04 20.04 15.7778 20.04 10.52C20.04 5.26225 15.7778 1 10.52 1C5.26225 1 1 5.26225 1 10.52C1 15.7778 5.26225 20.04 10.52 20.04Z" stroke="inherit" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M10.52 6.71045V14.3264" stroke="inherit" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M6.71231 10.52H14.3283" stroke="inherit" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <Typography variant='h5' color={'primary'} fontWeight={700}>
+                            اضافة رقم هاتف آخر  
+                        </Typography>
                     </Box>
-                </Box> : 
-                <Box sx={style.addPhoneBut} onClick={() => actions.showThirdPhone()}>
-                    <svg width="21" height="21" viewBox="0 0 21 21" fill="none" stroke={mainColors.primary.main} xmlns="http://www.w3.org/2000/svg">
-                        <path d="M10.52 20.04C15.7778 20.04 20.04 15.7778 20.04 10.52C20.04 5.26225 15.7778 1 10.52 1C5.26225 1 1 5.26225 1 10.52C1 15.7778 5.26225 20.04 10.52 20.04Z" stroke="inherit" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M10.52 6.71045V14.3264" stroke="inherit" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M6.71231 10.52H14.3283" stroke="inherit" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                    <Typography variant='h5' color={'primary'} fontWeight={700}>
-                        اضافة رقم هاتف آخر  
-                    </Typography>
-                </Box>
-            }
+                }
+            </Box>
             <Box sx={style.buttonsContainer}>
                 <Box sx={style.submitButton}> 
                     <MyButton content='تأكيد واضافة' loading={states.loading} onClick={actions.submit} />
@@ -179,7 +179,7 @@ const AddHeadquarterC: React.FC<Props> = ({ states, actions, dialogs }) => {
                     <MyButtonError content='إلغاء العملية' loading={states.loading} onClick={actions.openWarningDialogState} />
                 </Box>
             </Box>
-            <WarningDialog 
+            <WarningDialog  
                 state={dialogs.warningDialog.state} 
                 content={dialogs.warningDialog.content} 
                 close={dialogs.warningDialog.close}

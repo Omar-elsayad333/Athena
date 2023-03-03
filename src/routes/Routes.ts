@@ -31,9 +31,9 @@ export class Routes {
 
     static teacherHeadquarter = '/teacher/headquarters/headquarter/';
 
-    static teacherAddHeadquarters = '/teacher/headquarters/add-headquarters/';
+    static teacherAddHeadquarter = '/teacher/headquarters/add-headquarter/';
 
-    static teacherEditHeadquarters = '/teacher/headquarters/edit-headquarters/';
+    static teacherEditHeadquarter = '/teacher/headquarters/edit-headquarter/';
 
     // Groups
     static teacherGroups = '/teacher/groups/';

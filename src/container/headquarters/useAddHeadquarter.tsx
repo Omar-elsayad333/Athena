@@ -91,7 +91,7 @@ const useAddHeadquarter = () => {
         setFirstPhone(
             {
                 value: selectedFirstPhones, 
-                length: selectedFirstPhones.trim().length,
+                length: selectedFirstPhones.length,
                 error: false, 
                 helperText: ''
             }
@@ -103,7 +103,7 @@ const useAddHeadquarter = () => {
         setSecondPhone(
             {
                 value: selectedSecondPhone, 
-                length: selectedSecondPhone.trim().length,
+                length: selectedSecondPhone.length,
                 error: false, 
                 helperText: ''
             }
@@ -115,7 +115,7 @@ const useAddHeadquarter = () => {
         setThirdPhone(
             {
                 value: thirdPhone,
-                length: thirdPhone.trim().length,
+                length: thirdPhone.length,
                 error: false, 
                 helperText: ''
             }
@@ -235,16 +235,18 @@ const useAddHeadquarter = () => {
     // Collect data to submit it
     const collectData = async () => {
         let data = {                
-            'name': name.value,
-            'city': city.value,
-            'region': region.value,
-            'street': street.value,
-            'building': building.value,
-            'phones': [
-                firstPhone.value.trim(),
-                secondPhone.value.trim(),
-                thirdPhone.value.trim() && thirdPhoneState && thirdPhone.value.trim()
+            name: name.value,
+            city: city.value,
+            region: region.value,
+            street: street.value,
+            building: building.value,
+            phones: [
+                firstPhone.value,
+                secondPhone.value,
             ]
+        }
+        if(thirdPhone.value && thirdPhoneState) {
+            data.phones.push(thirdPhone.value)
         }
         return data
     }
