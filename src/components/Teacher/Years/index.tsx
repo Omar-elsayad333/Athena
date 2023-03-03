@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useContext } from "react";
-import { useError } from "context/AlertContext";
+import { useAlert } from "context/AlertContext";
 import AlertNotify from "components/AlertNotify";
 import { DarkThemeContext } from "context/ThemeContext";
 import { IStyle } from "styles/IStyle";
@@ -21,7 +21,7 @@ const YearsC: React.FC<Props> = ({data}) => {
         state,
         msgType,
         handleState
-    } = useError();
+    } = useAlert();
 
     const style: IStyle = {
         container: {

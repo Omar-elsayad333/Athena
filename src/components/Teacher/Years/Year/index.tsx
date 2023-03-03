@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { IStyle } from 'styles/IStyle';
-import { useError } from 'context/AlertContext';
+import { useAlert } from 'context/AlertContext';
 import AlertNotify from 'components/AlertNotify';
 import { DarkThemeContext } from "context/ThemeContext";
 
@@ -20,7 +20,7 @@ const YearC: React.FC<Props> = ({data}) => {
         state,
         msgType,
         handleState
-    } = useError();
+    } = useAlert();
 
     const style: IStyle = {
         container: {

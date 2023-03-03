@@ -6,7 +6,7 @@ import { DarkThemeContext } from 'context/ThemeContext';
 import ClassesDialog from 'components/Dialogs/ClassesDialog';
 import MyButton from 'components/Buttons/MyButton';
 import MyButtonError from 'components/Buttons/MyButtonError';
-import BasicDialog from 'components/Dialogs';
+// import BasicDialog from 'components/Dialogs';
 import PageError from 'components/Shared/PageError';
 
 // MUI
@@ -206,7 +206,7 @@ const AddYearC: React.FC<Props> = ({data, states, actions, dialog}) => {
                     <MyButtonError loading={states.loading} content='إلغاء العملية' onClick={dialog.actions.handleDialogState} />
                 </Box>
             </Box>
-            <BasicDialog state={dialog.content.state} content={dialog.content} actions={dialog.actions} />
+            {/* <BasicDialog state={dialog.content.state} content={dialog.content} actions={dialog.actions} /> */}
             <ClassesDialog 
                 data={data.requiredData} 
                 open={states.classesDialogState} 

@@ -6,7 +6,7 @@ import { useTheme } from 'context/ThemeContext';
 import MyButton from 'components/Buttons/MyButton';
 import PageError from 'components/Shared/PageError';
 import { genderTranslate } from 'utils/translateors';
-import BasicDialog from 'components/Dialogs';
+// import BasicDialog from 'components/Dialogs';
 import MyButtonError from 'components/Buttons/MyButtonError';
 
 // MUI
@@ -20,7 +20,7 @@ type Props = {
     dialogs: any;
 }
 
-const AddStudentC: React.FC<Props> = ({ data, states, actions, dialogs }) => {
+const AddStudentC: React.FC<Props> = ({ data, states, actions }) => {
     
     const { mainColors } = useTheme();    
     const style: IStyle = {
@@ -469,11 +469,11 @@ const AddStudentC: React.FC<Props> = ({ data, states, actions, dialogs }) => {
                     </Box>
                 </Box>
             }
-            <BasicDialog 
+            {/* <BasicDialog 
                 state={dialogs.basicDialog.state} 
                 actions={dialogs.actions} 
                 content={dialogs.basicDialog.content} 
-            />
+            /> */}
         </Box>
     );
 }
