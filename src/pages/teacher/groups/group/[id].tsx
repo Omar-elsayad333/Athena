@@ -12,7 +12,7 @@ import GroupC from 'components/Teacher/Groups/Group';
 import PageFooter from "components/Shared/PageFooter";
 import Loading from "components/Loading/Loading";
 import useGroup from "container/groups/useGroup";
-import { useError } from "context/AlertContext";
+import { useAlert } from "context/AlertContext";
 import AlertNotify from "components/AlertNotify";
 
 // MUI
@@ -32,7 +32,7 @@ const Group: NextPage = () => {
         state,
         msgType,
         handleState
-    } = useError();
+    } = useAlert();
     
     const style = {
         root: {
