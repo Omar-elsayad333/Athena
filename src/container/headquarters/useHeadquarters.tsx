@@ -36,7 +36,7 @@ const useHeadquarters = () => {
         }
     }
 
-    // Get Search value from user
+    // Get search value from user
     const searchHandler = (searchValue: string) => {
         setHeadquartersData(
             originalData.filter((item: any) => 
@@ -48,7 +48,6 @@ const useHeadquarters = () => {
     return (
         {
             data: {
-                originalData,
                 headquartersData
             },
             states: {

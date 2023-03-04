@@ -1,7 +1,5 @@
 import axios from "axios";
-import { 
-    URL_MAIN,
-} from 'constant/url';
+import { URL_MAIN } from 'constant/url';
 
 // Actions to login for user and admin
 export const postHandler = (authorization: string, path: string, data: any) => {
@@ -183,7 +181,7 @@ export const deleteHandler = (id: string | string[] | undefined, authorization: 
                 resolved(res.data);
             },
             (rej) => {
-                rejected(rej.response.data.messages[0]);
+                rejected(rej);
             }
         )
     });

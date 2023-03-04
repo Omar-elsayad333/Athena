@@ -1,18 +1,18 @@
-import { forwardRef, useContext } from 'react';
+import { forwardRef } from 'react';
+import { useTheme } from 'context/ThemeContext';
 import { dayTranslateToArabic } from 'utils/translateors';
-import { DarkThemeContext } from 'context/ThemeContext';
 
 // MUI
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
+import Slide from '@mui/material/Slide';
 import Dialog from '@mui/material/Dialog';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import CloseIcon from '@mui/icons-material/Close';
+import DialogTitle from '@mui/material/DialogTitle';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
-import Slide from '@mui/material/Slide';
 import { TransitionProps } from '@mui/material/transitions';
-import { Typography } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
 
 const Transition = forwardRef(function Transition(
     props: TransitionProps & {
@@ -30,10 +30,9 @@ type Props = {
     data?: any;
 }
 
-const MyDaysDialog: React.FC<Props> = ({open, handleClose, getSelectedDays, data}) => {
+const MyDaysDialog: React.FC<Props> = ({ open, handleClose, getSelectedDays, data }) => {
 
-    const { mainColors, darkMode } = useContext(DarkThemeContext);
-
+    const { mainColors, darkMode } = useTheme()
     const style = {
         root: {
             '.MuiDialog-paper': {
@@ -212,7 +211,7 @@ const MyDaysDialog: React.FC<Props> = ({open, handleClose, getSelectedDays, data
                     السبت
                 </Box>
                 <Box sx={style.box} data-day='Sunday' className='days' onClick={(e) => selectHandle(e)}>
-                    الاحد   
+                    الاحد      
                 </Box>
                 <Box sx={style.box} data-day='Monday' className='days' onClick={(e) => selectHandle(e)}>
                     الاثنين

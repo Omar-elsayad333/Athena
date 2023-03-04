@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { useContext } from "react";
-import { DarkThemeContext } from "context/ThemeContext";
+import { Routes } from "routes/Routes";
+import { useTheme } from "context/ThemeContext";
 
 // MUI
 import Box from "@mui/material/Box";
@@ -10,9 +10,9 @@ type Props = {
     data: any;
 }
 
-const GroupsC: React.FC<Props> = ({data}) => {
+const GroupsC: React.FC<Props> = ({ data }) => {
 
-    const {mainColors} = useContext(DarkThemeContext);
+    const { mainColors } = useTheme()
     const style = {
         container: {
             display: 'flex',
@@ -57,40 +57,41 @@ const GroupsC: React.FC<Props> = ({data}) => {
     return (
         <Box sx={style.container}>
             {
-                data &&
-                data.map((item:any) => {
-                    return (
-                        <Link key={item.id} href={`/teacher/groups/group/${item.id}`}>
-                            <Box sx={style.card}>
-                                <Box sx={style.content}>
-                                    <Typography color='primary' variant="h1">
-                                        {item.name}
-                                    </Typography>
-                                    <Typography color='primary' variant="h5">
-                                        <span style={style.span}>
-                                            الصف الدراسي :
-                                        </span>
-                                        {` ${item.level}`}
-                                    </Typography>
-                                </Box>
-                                <Box sx={style.content}>
-                                    <Typography color='primary' variant="h5">
-                                        <span style={style.span}>
-                                            عدد الطلاب :
-                                        </span>
-                                        {` ${item.studentsCount}`}
-                                    </Typography>
-                                    <Typography color='primary' variant="h5">
-                                        <span style={style.span}>
-                                            المقر :
-                                        </span>
-                                        {` ${item.headQuarter}`}
-                                    </Typography>   
-                                </Box>
+                data.length > 0 ?
+                data.map((item:any) => (
+                    <Link key={item.id} href={`${Routes.teacherGroup}${item.id}`}>
+                        <Box sx={style.card}>
+                            <Box sx={style.content}>
+                                <Typography color='primary' variant="h1">
+                                    {item.name}
+                                </Typography>
+                                <Typography color='primary' variant="h5">
+                                    <span style={style.span}>
+                                        الصف الدراسي :
+                                    </span>
+                                    {` ${item.level}`}
+                                </Typography>
                             </Box>
-                        </Link>
-                    )
-                })
+                            <Box sx={style.content}>
+                                <Typography color='primary' variant="h5">
+                                    <span style={style.span}>
+                                        عدد الطلاب :
+                                    </span>
+                                    {` ${item.studentsCount}`}
+                                </Typography>
+                                <Typography color='primary' variant="h5">
+                                    <span style={style.span}>
+                                        المقر :
+                                    </span>
+                                    {` ${item.headQuarter}`}
+                                </Typography>   
+                            </Box>
+                        </Box>
+                    </Link>
+                )) :
+                <Typography variant="h3" color={'primary'} fontWeight={700}>
+                    لا يوجد مجموعات
+                </Typography>
             }
         </Box>
     );

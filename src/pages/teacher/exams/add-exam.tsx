@@ -16,19 +16,9 @@ import DesktopNavbar from 'components/Layout/DesktopNavbar';
 import Box from "@mui/material/Box";
 
 const AddExam: NextPage = () => {
-    const {mainColors} = useTheme();
-    const {
-        data,
-        states,
-        actions,
-        dialogs
-    } = useAddExam()
-    const {
-        msg,
-        state,
-        msgType,
-        handleState
-    } = useAlert();
+    const { mainColors } = useTheme();
+    const { data, states, actions, dialogs } = useAddExam()
+    const { msg, state, msgType, handleState } = useAlert()
     const style = {
         root: {
             width: '100%',

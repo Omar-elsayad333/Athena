@@ -1,29 +1,28 @@
-import { useContext } from 'react';
 import MyInput from 'components/MyInput';
-import AddDayButton from './AddDayButton';
 import MySelect from 'components/MySelect';
+import { useTheme } from 'context/ThemeContext';
 import MyButton from 'components/Buttons/MyButton';
 import MyDaysDialog from 'components/MyDaysDialog';
 import MyTimePicker from 'components/MyTimePicker';
-import { DarkThemeContext } from 'context/ThemeContext';
-import MyButtonError from 'components/Buttons/MyButtonError';
-// import WarningDialog from 'components/Dialogs/WarningDialog';
+import MyIconButton from 'components/MyIconButton'; 
 import PageError from 'components/Shared/PageError';
+import MyButtonError from 'components/Buttons/MyButtonError';
+import WarningDialog from 'components/Dialogs/WarningDialog';
 
 // MUI
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
 type Props = {
+    data: any;
     states: any;
     actions: any;
     dialogs: any;
 }
 
-const AddGroupC: React.FC<Props> = ({states, actions, dialogs}) => {
+const AddGroupC: React.FC<Props> = ({ data, states, actions, dialogs }) => {
 
-    const { mainColors } = useContext(DarkThemeContext)
-
+    const { mainColors } = useTheme()
     const style = {
         root: {
             display: 'flex',
@@ -122,45 +121,44 @@ const AddGroupC: React.FC<Props> = ({states, actions, dialogs}) => {
                     بيانات المجموعة:-
                 </Typography>
                 <MyInput 
+                    placeholder='أسم المجموعة'
                     value={states.name.value}
                     error={states.name.error}
-                    placeholder='أسم المجموعة'
                     onChange={actions.nameHandler}
-                    type='text'
                     helperText={states.name.helperText}
                 />
                 <MySelect 
-                    value={states.selectedYear.name}
+                    data={data.yearsData} 
                     placeholder='العام الدراسي'
-                    data={states.years} 
+                    value={states.selectedYear.value}
                     getSelected={actions.yearHandler}
                     error={states.selectedYear.error}
                     helperText={states.selectedYear.helperText}            
                 />
                 <MySelect 
-                    value={states.selectedClassroom.name}
+                    data={data.levelsData} 
+                    value={states.selectedLevel.value}
+                    error={states.selectedLevel.error}
                     placeholder='الصف الدراسي الخاص بالمجموعة'
-                    data={states.classrooms} 
-                    getSelected={actions.classroomHandler}
-                    error={states.selectedClassroom.error}
-                    disabled={states.selectedYear.name ? false : true}
-                    helperText={states.selectedClassroom.helperText}            
+                    getSelected={actions.levelHandler}
+                    helperText={states.selectedLevel.helperText}            
+                    disabled={states.selectedYear.id ? false : true}
                 />
                 <MySelect  
-                    error={states.selectedHeadquarter.error}  
-                    data={states.headquarters} 
+                    data={data.headquartersData} 
                     placeholder='المقر الخاص بالمجموعة'
-                    value={states.selectedHeadquarter.name}
+                    value={states.selectedHeadquarter.value}
+                    error={states.selectedHeadquarter.error}  
                     getSelected={actions.headquarterHandler}
                     helperText={states.selectedHeadquarter.helperText}            
                 />
                 <MyInput    
-                    value={states.limit.value}
-                    error={states.limit.error}
-                    placeholder='الحد الاقصى لعدد الطلاب' 
-                    onChange={actions.limitHandler}
                     type='number'
+                    error={states.limit.error}
+                    value={states.limit.value}
+                    onChange={actions.limitHandler}
                     helperText={states.limit.helperText}
+                    placeholder='الحد الاقصى لعدد الطلاب' 
                 />
             </Box>
             <Box sx={style.timeContainer}>
@@ -168,12 +166,21 @@ const AddGroupC: React.FC<Props> = ({states, actions, dialogs}) => {
                     مواعيد المجموعة:-
                 </Typography>
                 <Box sx={style.backPaper}>
-                    <Typography variant='h5' color={mainColors.primary.main}>
+                    <Typography variant='h5' color={mainColors.title.main}>
                         أيام الحضور:-
                     </Typography>
                     <Box sx={style.dayContainer}>
-                        <AddDayButton handleDialogState={dialogs.handleDaysDialogState} />
-                        <MyDaysDialog open={dialogs.dialogState} handleClose={dialogs.handleDaysDialogState} getSelectedDays={actions.getSelectedDays} />
+                        <MyIconButton 
+                            event={actions.daysDialogHandler}
+                            content='اضافة يوم'
+                            icon={
+                                <svg width="21" height="21" viewBox="0 0 21 21" fill="none" stroke={mainColors.primary.main} xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M10.52 20.04C15.7778 20.04 20.04 15.7778 20.04 10.52C20.04 5.26225 15.7778 1 10.52 1C5.26225 1 1 5.26225 1 10.52C1 15.7778 5.26225 20.04 10.52 20.04Z" stroke="inherit" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/>
+                                    <path d="M10.52 6.71069V14.3267" stroke="inherit" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/>
+                                    <path d="M6.71234 10.52H14.3283" stroke="inherit" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/>
+                                </svg>                                
+                            }
+                        />
                         {
                             states.selectedDays.length > 0 &&
                             <Box sx={style.daysList}>
@@ -230,17 +237,31 @@ const AddGroupC: React.FC<Props> = ({states, actions, dialogs}) => {
                         }
                     </Box>
                 }
+                
                 <Box sx={style.buttonsContainer}>
-                    <PageError errorInfo={states.errorLabel} />
+                    {
+                        states.pageErrors.length > 0 &&
+                        <PageError errors={states.pageErrors} />
+                    }
                     <Box sx={style.submitButton}>
                         <MyButton loading={states.loading} content='تأكيد واضافة' onClick={actions.submit} />
                     </Box>
                     <Box sx={style.submitButton}>
-                        <MyButtonError loading={states.loading} content='إلغاء العملية' onClick={dialogs.actions.handleCancleDialogState} />
+                        <MyButtonError loading={states.loading} content='إلغاء العملية' onClick={actions.openWarningDialogState} />
                     </Box>
                 </Box>
             </Box>
-            {/* <WarningDialog state={dialogs.cancelContent.state} content={dialogs.cancelContent} actions={dialogs.actions} /> */}
+            <MyDaysDialog
+                open={dialogs.daysDialog}
+                handleClose={actions.daysDialogHandler} 
+                getSelectedDays={actions.getSelectedDays}
+            />
+            <WarningDialog  
+                state={dialogs.warningDialog.state} 
+                content={dialogs.warningDialog.content} 
+                close={dialogs.warningDialog.close}
+                submit={dialogs.warningDialog.submit}
+            />
         </Box>
     );
 }

@@ -2,19 +2,19 @@
 export const dayTranslateToArabic = (day: string | undefined | null) => {
     switch(day) {
         case 'Monday':
-            return 'الأثنان'
+            return 'الاثنين'
         case 'Tuesday':
             return 'الثلاثاء'
         case 'Wednesday':
-            return 'الأربعاء'
+            return 'الاربعاء'
         case 'Thursday':
             return 'الخميس'
         case 'Friday':
-            return 'الجمعه'
+            return 'الجمعة'
         case 'Saturday':
             return 'السبت'
         case 'Sunday':
-            return 'الحد'
+            return 'الاحد'
         default:
             return 'يوم -'          
     }

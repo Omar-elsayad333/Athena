@@ -1,43 +1,60 @@
 import { URL_GROUPS } from 'constant/url';
 import { useState, useEffect } from 'react';
 import { useUser } from 'context/userContext';
+import { useAlert } from 'context/AlertContext';
 import { getHandler } from 'handlers/requestHandler';
 
 const useGroups = () => {
 
-    const auth = useUser();
-    const [ loading, setLoading] = useState<boolean>(false);
-    const [ pageData, setPageData] = useState<any>('');
+    const { authToken } = useUser()
+    const { setErrorMessage } = useAlert()
+    const [ loading, setLoading ] = useState<boolean>(false)
+    const [ groupsData, setGroupsData ] = useState<any>([])
+    const [ originalData, setOriginalData ] = useState<any>([])
 
-    // Get data if the user authenticated
+    // Call function to get page data if the user authorized
     useEffect(() => {
-        if(auth.authToken){
-            getPageData();
+        if(authToken){
+            getGroupsData();
         }
-    }, [auth.authToken])
+    }, [])
 
-    // Call api to get the page data
-    const getPageData = async () => {
+    // Call api to get the groups data
+    const getGroupsData = async () => {
         try {
             setLoading(true);
-            const res = await getHandler(auth.authToken, URL_GROUPS);
-            setPageData(res);
+            const res = await getHandler(authToken, URL_GROUPS);
+            setGroupsData(res)
+            setOriginalData(res)
         }
-        catch(error: any) {
-            console.log(error);
+        catch(error) {
+            console.log(error)
+            setErrorMessage('حدث خطاء')
         }
         finally {
             setLoading(false);
         }
     }
 
+    // Get search value from user
+    const searchHandler = (searchValue: string) => {
+        setGroupsData(
+            originalData.filter((item: any) => 
+                item.name.toLowerCase().includes(searchValue.toLowerCase())
+            )
+        )
+    } 
+
     return (
         {
             data: {
-                pageData
+                groupsData
             },
             states: {
                 loading
+            },
+            actions: {
+                searchHandler
             }
         }
     );

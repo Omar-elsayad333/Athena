@@ -1,320 +1,313 @@
+import { Routes } from 'routes/Routes';
+import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import { useUser } from 'context/userContext';
+import { useAlert } from 'context/AlertContext';
+import { convertTimeToDB } from 'utils/converters';
+import { PageErrorProps } from 'interfaces/shared/pageError';
 import { URL_GROUPS, URL_GROUPS_REQUIRED } from 'constant/url';
 import { getHandler, postHandler } from 'handlers/requestHandler';
-import { useAlert } from 'context/AlertContext';
-import { useRouter } from 'next/router';
-import { convertTimeToDB } from 'utils/converters';
-
-interface Data {
-    value: string;
-    error: boolean;
-    helperText: string;
-}
-
-const initialValues = {
-    value: '',
-    error: false,
-    helperText: ''
-}
-
-interface DropDown {
-    id: string;
-    name: string;
-    error: boolean,
-    helperText: string,
-}
-
-const DropDownInitialValues = {
-    id: '',
-    name: '',
-    error: false,
-    helperText: ''
-}
-
-interface ErrorLabel {
-    error: boolean;
-    value: string;
-}
-
-const ErrorLabelInitialValue = {
-    error: false,
-    value: ''
-}
-
-interface SubmitData {
-    name: string;
-    headQuarterId: string;
-    teacherCourseLevelYearId: string;
-    limit: number;
-    groupScaduals: string[];
-}
-
-interface CancelDialog {
-    state: boolean,
-    main: string,
-    title: string,
-    actionContent: any   
-}
-
-const dialogInitialValues = {
-    state: false,
-    main: 'تأكيد إلغاء هذه العملية نهائياً',
-    title: 'إلغاء العملية',
-    actionContent: {
-        first: 'تأكيد',
-        second: 'إلغاء'
-    }
-}
+import { warningDialogInitialValues, WarningDialogProps } from 'interfaces/shared/warningDialog';
+import { 
+    InputProps,
+    DropMenuProps,
+    inputInitialValues, 
+    dropMenuInitialValues
+} from 'interfaces/shared/input';
 
 const useAddGroup = () => {
 
-    const auth = useUser();
-    const router = useRouter();
-    const { setSuccessMessage, setWarningMessage } = useAlert();
-    const [ loading, setLoading] = useState<boolean>(false);
-    const [ requiredData, setRequiredData] = useState<any>('');
-    const [ name, setName] = useState<Data>(initialValues);
-    const [ years, setYears] = useState<DropDown[]>([]);
-    const [ selectedYear, setSelectedYear] = useState<DropDown>(DropDownInitialValues);
-    const [ headquarters, setHeadquarters] = useState<DropDown[]>([]);
-    const [ selectedHeadquarter, setSelectedHeadquarter] = useState<DropDown>(DropDownInitialValues);
-    const [ classrooms, setClassrooms] = useState<DropDown[]>([]);
-    const [ selectedClassroom, setSelectedClassroom] = useState<DropDown>(DropDownInitialValues)
-    const [ limit, setLimit] = useState<Data>(initialValues);
-    const [ errorLabel, setErrorLabel] = useState<ErrorLabel>(ErrorLabelInitialValue);
-    const [ selectedDays, setSelectedDays] = useState<any>([]);
-    const [ dialogState, setDialogState] = useState<boolean>(false);
-    const [ cancelContent, setCancelContent] = useState<CancelDialog>(dialogInitialValues);
-
+    const router = useRouter()
+    const { authToken } = useUser()
+    const { setSuccessMessage, setWarningMessage, setErrorMessage } = useAlert()
+    const [ loading, setLoading ] = useState<boolean>(false)
+    const [ requiredData, setRequiredData ] = useState<any>('')
+    const [ name, setName ] = useState<InputProps>(inputInitialValues)
+    const [ yearsData, setYearsData ] = useState<any>([])    
+    const [ headquartersData, setHeadquartersData ] = useState<any>([])
+    const [ selectedYear, setSelectedYear ] = useState<DropMenuProps>(dropMenuInitialValues)
+    const [ selectedHeadquarter, setSelectedHeadquarter ] = useState<DropMenuProps>(dropMenuInitialValues)
+    const [ levelsData, setLevelsData ] = useState<any>([])
+    const [ selectedLevel, setSelectedLevel ] = useState<DropMenuProps>(dropMenuInitialValues)
+    const [ limit, setLimit ] = useState<InputProps>(inputInitialValues)
+    const [ selectedDays, setSelectedDays ] = useState<any>([])
+    const [ pageErrors, setPageErrors ] = useState<PageErrorProps[]>([])
+    const [ warningDialog, setWarningDialog ] = useState<WarningDialogProps>(warningDialogInitialValues);
+    const [ daysDialog, setDaysDialog ] = useState<Boolean>(false);
     
-    // Call getRequiredData function if the user is authorized
+    // Call function to get required data if the user is authorized
     useEffect(() => {
-        if(auth.authToken) {
+        if(authToken) {
             getRequiredData();
         }
-    }, [auth.authToken])
+    }, [])
 
     // Update required data from api to useable data
     useEffect(() => {
-        if(requiredData?.yearLevels?.length > 0 && years.length == 0) {
-            for(let i = 0; i < requiredData.yearLevels.length; i++){
-                const newData = {
-                    id: requiredData.yearLevels[i].id,
-                    name: `${requiredData.yearLevels[i].start} / ${requiredData.yearLevels[i].end}`
-                }
-                setYears((years: any) => [...years, newData]);
-            }
-        }
-        if(requiredData?.headQuaertes?.length > 0 && years.length == 0) {
-            for(let i = 0; i < requiredData.headQuaertes.length; i++){
-                const newData = {
-                    id: requiredData.headQuaertes[i].id,
-                    name: requiredData.headQuaertes[i].name
-                }
-                setHeadquarters((headquarters: any) => [...headquarters, newData]);
-            }
+        if(requiredData) {
+            updateYearsData()
+            updateHeadquartersData()
         }
     }, [requiredData])
 
     // Filter classrooms data according to the selected year
     useEffect(() => {
-        if(selectedYear && requiredData) {
-            loopInYear:for(let item of requiredData.yearLevels) {
-                if(item.id == selectedYear.id){
-                    setClassrooms([])
-                    setSelectedClassroom(oldValues => ({...oldValues, name: '', id: ''}))
-                    loopInClassrooms:for(let classroom of item.teacherCourseLevelYears) {
-                        const newData = {
-                            id: classroom.teacherCourseLevelYearId,
-                            name: classroom.levelName,
-                        }
-                        setClassrooms((classrooms: any) => [...classrooms, newData]);
-                    }
-                }
-            }
+        if(selectedYear.id) {
+            updateLevels()
         }
     }, [selectedYear])
-
-    useEffect(() => {
-        console.log(selectedDays)
-    }, [selectedDays])
 
     // Call api to get the required data for the page
     const getRequiredData = async () => {
         try {
             setLoading(true);
-            const res: any = await getHandler(auth.authToken, URL_GROUPS_REQUIRED);
+            const res: any = await getHandler(authToken, URL_GROUPS_REQUIRED);
             setRequiredData(res);
         }
         catch(error) {
             console.log(error)
+            setErrorMessage('حدث خطاء')
         }
         finally {
             setLoading(false)
         }
     }
 
+    // Update years data
+    const updateYearsData = () => {
+        if(yearsData.length == 0) {
+            for(let year of requiredData.yearLevels) {
+                setYearsData((yearsData: any) => 
+                    [
+                        ...yearsData,
+                        {
+                            id: year.id,
+                            name: `${year.start} / ${year.end}`
+                        }
+                    ]
+                )
+            }
+        }
+    }
+
+    // Update headquarters data
+    const updateHeadquartersData = () => {
+        setHeadquartersData(requiredData.headQuaertes)
+    }
+
+    // Filter levels data according to the selected year
+    const updateLevels = () => {
+        loopInYears:for(let year of requiredData.yearLevels) {
+            if(year.id == selectedYear.id){
+                setLevelsData([])
+                setSelectedLevel(dropMenuInitialValues)
+                loopInLeveles:for(let level of year.levels) {
+                    setLevelsData((levels: any) => 
+                        [
+                            ...levels,
+                            {
+                                id: level.teacherCourseLevelYearId,
+                                name: level.levelName 
+                            }
+                        ]
+                    )
+                }
+            }
+        }
+    }
+
     // Get group name from user
     const nameHandler = (newValue: string) => {
-        setName((oldValues: Data) => ({
-            ...oldValues, 
-            value: newValue, 
-            error: false,
-            helperText: ''
-        }));
+        setName(
+            { 
+                value: newValue, 
+                length: newValue.trim().length,
+                error: false,
+                helperText: ''
+            }
+        )
     }
 
     // Get the year that the user selected
-    const yearHandler = (selectedYear: DropDown) => {
-        setSelectedYear(oldValues => ({
-            ...oldValues, 
-            id: selectedYear.id, 
-            name: selectedYear.name,
-            error: false,
-            helperText: ''
-        }));
+    const yearHandler = (year: any) => {
+        setSelectedYear(
+            { 
+                id: year.id, 
+                value: year.name,
+                error: false,
+                helperText: ''
+            }
+        )
     }
     
     // Get the year that the user selected
-    const headquarterHandler = (selectdHeadquarter: DropDown) => {
-        setSelectedHeadquarter(oldValues => ({
-            ...oldValues, 
-            id: selectdHeadquarter.id,
-            name: selectdHeadquarter.name,
-            error: false,
-            helperText: ''
-        }));
+    const headquarterHandler = (headquarter: any) => {
+        setSelectedHeadquarter(
+            { 
+                id: headquarter.id,
+                value: headquarter.name,
+                error: false,
+                helperText: ''
+            }
+        )
     }
 
     // Get the year that the user selected
-    const classroomHandler = (selectedClassroom: DropDown) => {
-        setSelectedClassroom(oldValues => ({
-            ...oldValues, 
-            id: selectedClassroom.id, 
-            name: selectedClassroom.name,
-            error: false,
-            helperText: ''
-        }));
+    const levelHandler = (level: any) => {
+        setSelectedLevel(
+            {
+                id: level.id, 
+                value: level.name,
+                error: false,
+                helperText: ''
+            }
+        )
     }
     
     // Get group limit from user
     const limitHandler = (newValue: string) => {
-        setLimit((oldValues: Data) => ({
-            ...oldValues, 
-            value: newValue, 
-            error: false,
-            helperText: ''
-        }));
+        setLimit(
+            { 
+                value: newValue, 
+                length: newValue.trim().length,
+                error: false,
+                helperText: ''
+            }
+        )
     }
 
     // Get the days that the user selected
     const getSelectedDays = (selected: any) => {
-        setSelectedDays(selected);
+        setSelectedDays(selected)
+        if(selected.length) {
+            setPageErrors(pageErrors.filter(error => error.name !== 'daysError'))
+        }
     }
 
     // Get the selected time and update the selected days with the new time
     const updateItem =(newTime: any, day: any, name: any)=> {
-        var index = selectedDays.findIndex((x: any) => x.name === day);
+        const indexOfDay = selectedDays.findIndex((x: any) => x.name === day);
 
-        console.log(index)
-
-        let g: any = selectedDays[index]
-        g[name] = newTime
-        
-        if (index === -1){
-            // handle error
-            console.log('no match')
+        if (indexOfDay === -1){
+            setErrorMessage('حدث خطاء اثناء اضافة الوقت')
         } else {   
-            setSelectedDays([...selectedDays.slice(0,index), g, ...selectedDays.slice(index+1)]);
+            const newValue = selectedDays[indexOfDay]
+            newValue[name] = newTime
+            setSelectedDays(
+                [
+                    ...selectedDays.slice(0,indexOfDay),
+                    newValue,
+                    ...selectedDays.slice(indexOfDay+1)
+                ]
+            )
         }
     }
 
     // Open and close days dialog
-    const handleDaysDialogState = () => {
-        dialogState ? 
-        setDialogState(false) : 
-        setDialogState(true);
+    const daysDialogHandler = () => {
+        daysDialog ? 
+        setDaysDialog(false) : 
+        setDaysDialog(true)
     }
 
-    // Validate the data
+    // Open warning dialog
+    const openWarningDialogState = () => {
+        setWarningDialog(
+            {
+                state: true,
+                close: closeWarningDialogState,
+                submit: cancelSubmit,
+                content: {
+                    head: 'إلغاء العملية',
+                    body: 'تأكيد إلغاء هذه العملية نهائياً',
+                    submit: 'تأكيد',
+                    reject: 'إلغاء'
+                },
+            }
+        )
+    }
+
+    // Close warning dialog and clear it
+    const closeWarningDialogState = () => {
+        setWarningDialog(
+            {
+                state: false,
+                close: () => {},
+                submit: () => {},
+                content: {
+                    head: '',
+                    body: '',
+                    submit: '',
+                    reject: ''
+                },
+            }
+        )
+    }
+
+    // Validate the data before submit it
     const validation = () => {
         let state = true;
+        setPageErrors([])
 
         if(!selectedDays.length) {
             state = false;
-            setErrorLabel(oldValues => ({
-                ...oldValues, 
-                error: true, 
-                value: 'يجب اختيار يوم واحد علي الأقل'
-            }))
+            setPageErrors(pageErrors => 
+                [
+                    ...pageErrors,
+                    {
+                        name: 'daysError',
+                        value: 'يجب اختيار يوم واحد علي الأقل'
+                    }
+                ]
+            )
         }
 
-        if(!name.value.trim().length) {
+        if(name.length == 0) {
             state = false;
-            setName((oldValues: Data) => ({
-                ...oldValues, 
-                error: true,
-                helperText: 'يجب كتابة اسم للمجموعه'
-            }));
+            setName(name => ({...name, error: true, helperText: 'يجب كتابة اسم للمجموعه'}));
         }
 
-        if(!selectedYear.id.trim().length) {
+        if(!selectedYear.id) {
             state = false;
-            setSelectedYear(oldValues => ({
-                ...oldValues, 
-                error: true,
-                helperText: 'يجب اختيار سنة للمجموعه'
-            }));
+            setSelectedYear(selectedYear => ({...selectedYear, error: true, helperText: 'يجب اختيار سنة دراسيه للمجموعه'}));
         }
 
-        if(!selectedHeadquarter.id.trim().length) {
+        if(!selectedLevel.id) {
             state = false;
-            setSelectedHeadquarter(oldValues => ({
-                ...oldValues, 
-                error: true,
-                helperText: 'يجب اختيار مقر للمجموعه'
-            }));
+            setSelectedLevel(selectedLevel => ({...selectedLevel, error: true, helperText: 'يجب اختيار صف دراسي للمجموعه'}));
         }
 
-        if(!selectedClassroom.id.trim().length) {
+        if(!selectedHeadquarter.id) {
             state = false;
-            setSelectedClassroom(oldValues => ({
-                ...oldValues, 
-                error: true,
-                helperText: 'يجب اختيار صف دراسي للمجموعه'
-            }));
+            setSelectedHeadquarter(selectedHeadquarter => ({...selectedHeadquarter, error: true, helperText: 'يجب اختيار مقر للمجموعه'}));
         }
 
-        if(!limit.value.trim().length) {
+        if(limit.length == 0) {
             state = false;
-            setLimit(oldValues => ({
-                ...oldValues, 
-                error: true,
-                helperText: 'يجب تحديد حد اقصي للمجموعه'
-            }));
+            setLimit(limit => ({...limit, error: true, helperText: 'يجب تحديد حد اقصي لعدد الطلاب'}));
         }
 
         return state
     }
 
     // Collect data to submit it to api
-    const collectData = () => {
-        const data: SubmitData = {
+    const collectData = async () => {
+        const data: any = {
             name: name.value,
             headQuarterId: selectedHeadquarter.id,
-            teacherCourseLevelYearId: selectedClassroom.id,
+            teacherCourseLevelYearId: selectedLevel.id,
             limit: parseInt(limit.value),
             groupScaduals: []
         }
 
-        for(let item of selectedDays) {
-            const newData: any = {
-                day: item.name,
-                startTime: convertTimeToDB(item.startTime),
-                endTime: convertTimeToDB(item.endTime)
-            }
-            data.groupScaduals.push(newData)
+        for(let selectedDay of selectedDays) {
+            data.groupScaduals.push(
+                {
+                    day: selectedDay.name,
+                    startTime: convertTimeToDB(selectedDay.startTime),
+                    endTime: convertTimeToDB(selectedDay.endTime)
+                }
+            )
         }
 
         return data
@@ -323,77 +316,68 @@ const useAddGroup = () => {
     // Call api to submit data
     const submit = async () => {
         if(validation()){
-            const data = collectData();
             try {
-                setLoading(true);
-                const res =await postHandler(auth.authToken, URL_GROUPS, data);
-                setSuccessMessage('تم اضافة المجموعه بنجاح');
-                router.push(`/teacher/groups/group/${res}`);
+                setLoading(true)
+                const data = await collectData()
+                const res = await postHandler(authToken, URL_GROUPS, data)
+                setSuccessMessage('تم اضافة المجموعه بنجاح')
+                router.push(`${Routes.teacherGroup}${res}`)
             }
             catch(error) {
-                console.log(error);
+                console.log(error)
+                setErrorMessage('حدث خطاء اثناء الأضافه')
             }
             finally {
-                setLoading(false);
+                setLoading(false)
             }
+        }else {
+            setErrorMessage('الرجاء التأكد أن المدخلات صحيحه')
         }
     }
 
     // Cancel proccess
     const cancelSubmit = () => {
-        setName(initialValues);
-        setLimit(initialValues);
-        setErrorLabel(ErrorLabelInitialValue);
-        setSelectedYear(DropDownInitialValues);
-        setSelectedClassroom(DropDownInitialValues);
-        setSelectedHeadquarter(DropDownInitialValues);
+        closeWarningDialogState()
         setWarningMessage('تم الغاء العمليه بنجاح');
-        router.push('/teacher/groups')
+        router.push(Routes.teacherGroups)
     };
 
-    // Close and open cancel dialog
-    const handleCancleDialogState = () => {
-        if(cancelContent.state){
-            setCancelContent((oldData) => ({...oldData, state: false}));
-        }else {
-            setCancelContent((oldData) => ({...oldData, state: true}));
-        }
-    }
+    useEffect(() => {
+        console.log(selectedDays)
+    }, [selectedDays])
 
     return (
         {
+            data: {
+                yearsData,
+                headquartersData,
+                levelsData,
+            },
             states: {
                 loading,
                 name,
-                years,
                 selectedYear,
-                headquarters,
                 selectedHeadquarter,
-                classrooms,
-                selectedClassroom,
+                selectedLevel,
                 limit,
                 selectedDays,
-                errorLabel
+                pageErrors
             },
             actions: {
                 nameHandler,
                 yearHandler,
                 headquarterHandler,
-                classroomHandler,
+                levelHandler,
                 limitHandler,
                 getSelectedDays,
                 updateItem,
+                openWarningDialogState,
+                daysDialogHandler,
                 submit,
-                cancelSubmit
             },
             dialogs: {
-                dialogState,
-                handleDaysDialogState,
-                cancelContent,
-                actions: {
-                    handleCancleDialogState,
-                    submitDialog: cancelSubmit
-                }
+                warningDialog,
+                daysDialog
             },
         }
     )

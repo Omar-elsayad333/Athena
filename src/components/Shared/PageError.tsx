@@ -1,23 +1,41 @@
-import { useContext } from "react";
-import { DarkThemeContext } from "context/ThemeContext";
+import { useTheme } from "context/ThemeContext";
+
+// MUI
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
 type Props = {
-    errorInfo: any;
+    errors: any;
 }
 
-const PageError: React.FC<Props> = ({errorInfo}) => {
+const PageError: React.FC<Props> = ({ errors }) => {
 
-    const { mainColors } = useContext(DarkThemeContext);
-
+    const { mainColors } = useTheme()
+    const style = {
+        container: {
+            width: '100%',
+            flex: '100%'
+        },
+        error: {
+            color: mainColors.error.main, 
+            fontSize: '14px',
+            fontWeight: 700
+        }
+    }
+    
     return (
-        <>
+        <Box sx={style.container}>
             {
-                errorInfo.error &&
-                <label style={{color: mainColors.error.main, fontSize: '14px', flex: '100%'}}>
-                    {errorInfo.value}
-                </label>
+                errors.map((error: any, index: number) => (
+                    <Typography 
+                        key={index} variant='h4' 
+                        color={'error'} 
+                    >
+                        {error.value}
+                    </Typography>
+                ))
             }
-        </>
+        </Box>
     );
 }
  
