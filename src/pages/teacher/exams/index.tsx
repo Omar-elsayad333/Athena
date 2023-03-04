@@ -1,9 +1,12 @@
 import { NextPage } from "next";
+import { Routes } from "routes/Routes";
 import ExamsC from "components/Teacher/Exams";
 import { useTheme } from "context/ThemeContext";
+import { useAlert } from "context/AlertContext";
 import useExams from "container/exams/useExams";
 import Loading from "components/Loading/Loading";
 import { withProtected } from "routes/withRouts";
+import AlertNotify from "components/AlertNotify";
 import PageHead from "components/Shared/PageHead";
 import PageTitle from 'components/Shared/PageTitle';
 import ThemeSwitcher from "components/ThemeSwitcher";
@@ -14,12 +17,10 @@ import DesktopNavbar from 'components/Layout/DesktopNavbar';
 import Box from "@mui/material/Box";
 
 const Exams: NextPage = () => {
-    const {mainColors} = useTheme();
-    const {
-        data,
-        states,
-        actions,
-    } = useExams()
+
+    const { mainColors } = useTheme()
+    const { data, states, actions } = useExams()
+    const { msg, msgType, state, handleState } = useAlert()
     const style = {
         root: {
             width: '100%',
@@ -50,10 +51,10 @@ const Exams: NextPage = () => {
         <Box sx={style.root}>
             <PageHead title='Exams' />
             <DesktopNavbar 
-                firstPath='/teacher/exams' 
                 firstContent='جميع الأمتحانات' 
-                secondPath='/teacher/exams/add-exam'
+                firstPath={Routes.teacherExams} 
                 secondContent='اضافة أمتحان'
+                secondPath={Routes.teacherAddExam} 
             /> 
             {
                 states.loading ? 
@@ -76,6 +77,7 @@ const Exams: NextPage = () => {
                 <PageFooter />
             </Box>
             <ThemeSwitcher />
+            <AlertNotify msg={msg} msgType={msgType} state={state} handleState={handleState} />
         </Box> 
     );
 }

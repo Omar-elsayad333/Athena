@@ -1,29 +1,26 @@
 import { NextPage } from "next";
-import { useContext } from "react";
+import { Routes } from "routes/Routes";
+import { useAlert } from "context/AlertContext";
+import { useTheme } from "context/ThemeContext";
+import Loading from "components/Loading/Loading";
+import AlertNotify from "components/AlertNotify";
 import { withProtected } from "routes/withRouts";
-import { DarkThemeContext } from "context/ThemeContext";
 import PageHead from "components/Shared/PageHead";
-import DesktopNavbar from 'components/Layout/DesktopNavbar';
 import PageTitle from 'components/Shared/PageTitle';
 import ThemeSwitcher from "components/ThemeSwitcher";
-import EditGroupC from 'components/Teacher/Groups/EditGroup';
 import PageFooter from "components/Shared/PageFooter";
-import Loading from "components/Loading/Loading";
+import useEditGroup from "container/groups/useEditGroup";
+import DesktopNavbar from 'components/Layout/DesktopNavbar';
+import EditGroupC from 'components/Teacher/Groups/EditGroup';
 
 // MUI
 import Box from "@mui/material/Box";
-import useEditGroup from "container/groups/useEditGroup";
 
 const EditGroup: NextPage = () => {
 
-    const { mainColors } = useContext(DarkThemeContext);
-    const {
-        data,
-        states,
-        actions,
-        dialogs
-    } = useEditGroup();
-    
+    const { mainColors } = useTheme()
+    const { msg, msgType, state, handleState } = useAlert()
+    const { data, states, actions, dialogs } = useEditGroup()
     const style = {
         root: {
             width: '100%',
@@ -54,10 +51,10 @@ const EditGroup: NextPage = () => {
         <Box sx={style.root}>
             <PageHead title={data.groupData.name} />
             <DesktopNavbar 
-                firstPath='/teacher/groups' 
                 firstContent='جميع المجموعات' 
-                secondPath='/teacher/groups/add-group'
+                firstPath={Routes.teacherGroups} 
                 secondContent='اضافة مجموعة'
+                secondPath={Routes.teacherAddGroup}
             /> 
             { 
                 states.loading ?
@@ -84,6 +81,7 @@ const EditGroup: NextPage = () => {
                 <PageFooter />
             </Box>
             <ThemeSwitcher />
+            <AlertNotify msg={msg} msgType={msgType} state={state} handleState={handleState} />
         </Box>  
     );
 }

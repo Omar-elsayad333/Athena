@@ -1,11 +1,11 @@
 import { IStyle } from "styles/IStyle";
 import MySelect from "components/MySelect";
+import { useTheme } from "context/ThemeContext";
 import FilterWedgit from "components/FilterWedgit";
+import MySearchInput from "components/MySearchInput";
 
 // MUI
 import Box from "@mui/material/Box";
-import MySearchInput from "components/MySearchInput";
-import { useTheme } from "context/ThemeContext";
 
 type Props = {
     data: any;
@@ -62,8 +62,9 @@ const ExamsC: React.FC<Props> = ({data, states, actions}) => {
             />
             <Box sx={style.searchContainer}>
                 <MySearchInput
-                    onChange={() => {}}
+                    onChange={actions.searchHandler}
                     placeholder="هل تبحث عن نموذج امتحان معين ؟"
+                    disabled={states.selectedYear.id ? false : true}
                 />
                 <Box sx={style.dateFilter}>
                     <svg width="38" height="38" viewBox="0 0 38 38" fill={mainColors.primary.main} xmlns="http://www.w3.org/2000/svg">
@@ -71,7 +72,6 @@ const ExamsC: React.FC<Props> = ({data, states, actions}) => {
                         <path d="M12.3618 26.2715C13.2153 26.2715 13.9072 25.5796 13.9072 24.7261C13.9072 23.8726 13.2153 23.1807 12.3618 23.1807C11.5083 23.1807 10.8164 23.8726 10.8164 24.7261C10.8164 25.5796 11.5083 26.2715 12.3618 26.2715Z" fill="inherit"/>
                         <path d="M24.7271 23.1807H18.5454C18.1355 23.1807 17.7425 23.3435 17.4526 23.6333C17.1628 23.9231 17 24.3162 17 24.7261C17 25.136 17.1628 25.529 17.4526 25.8189C17.7425 26.1087 18.1355 26.2715 18.5454 26.2715H24.7271C25.137 26.2715 25.53 26.1087 25.8199 25.8189C26.1097 25.529 26.2725 25.136 26.2725 24.7261C26.2725 24.3162 26.1097 23.9231 25.8199 23.6333C25.53 23.3435 25.137 23.1807 24.7271 23.1807Z" fill="inherit"/>
                     </svg>
-
                 </Box>
             </Box>
             {
@@ -79,16 +79,19 @@ const ExamsC: React.FC<Props> = ({data, states, actions}) => {
                 <FilterWedgit
                     allFilter="جميع الامتحانات"
                     filters={data.examTypes}
-                    getSelected={actions.getSelectedExamType}
+                    getSelected={actions.filterByType}
                 />
             }
-            {
-                data.exams.length > 0 &&
-                <Box sx={style.examsCardContainer}>
-                    <Box sx={style.examCard}>
-                    </Box>
-                </Box>
-            }
+            <Box sx={style.examsCardContainer}>
+                {
+                    data.exams.length > 0 &&
+                    data.exams.map((exam: any) => (
+                        <Box key={exam.id} sx={style.examCard}>
+                            {exam.name}
+                        </Box>
+                    ))
+                }   
+            </Box>
         </Box>
     );
 }

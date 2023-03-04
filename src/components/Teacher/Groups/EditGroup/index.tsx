@@ -1,17 +1,15 @@
-import { useContext } from 'react';
 import MyInput from 'components/MyInput';
 import MySelect from 'components/MySelect';
-import { DarkThemeContext } from 'context/ThemeContext';
+import { useTheme } from 'context/ThemeContext';
 import MyIconButton from 'components/MyIconButton';
 import MyButton from 'components/Buttons/MyButton';
-import MyButtonError from 'components/Buttons/MyButtonError';
 import MyDaysDialog from 'components/MyDaysDialog';
 import MyTimePicker from 'components/MyTimePicker';
+import MyButtonError from 'components/Buttons/MyButtonError';
 
 // MUI
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 // import BasicDialog from 'components/Dialogs';
 
 
@@ -22,9 +20,9 @@ type Props = {
     dialogs: any;
 }
 
-const EditGroupC: React.FC<Props> = ({data, states, actions, dialogs}) => {
+const EditGroupC: React.FC<Props> = ({ data, states, actions, dialogs }) => {
     
-    const {mainColors} = useContext(DarkThemeContext);
+    const {mainColors} = useTheme()
 
     const style = {
         container: {
@@ -134,11 +132,10 @@ const EditGroupC: React.FC<Props> = ({data, states, actions, dialogs}) => {
                         أسم المجموعة    
                     </Typography>
                     <MyInput 
+                        placeholder={data.name}
                         value={states.name.value}
                         error={states.name.error}
-                        placeholder={data.name}
                         onChange={actions.nameHandler}
-                        type='text'
                         helperText={states.name.helperText}
                     />
                 </Box>
@@ -147,12 +144,12 @@ const EditGroupC: React.FC<Props> = ({data, states, actions, dialogs}) => {
                         العام الدراسي   
                     </Typography>
                     <MySelect 
-                        value={states.selectedYear.name}
-                        placeholder={`${data.startYear} / ${data.endYear}`}
                         data={states.years} 
+                        value={states.selectedYear.name}
                         getSelected={actions.yearHandler}
                         error={states.selectedYear.error}
                         helperText={states.selectedYear.helperText}            
+                        placeholder={`${data.startYear} / ${data.endYear}`}
                     />               
                 </Box>
                 <Box sx={style.inputContainer}>
@@ -160,12 +157,12 @@ const EditGroupC: React.FC<Props> = ({data, states, actions, dialogs}) => {
                         الصف الدراسي الخاص بالمجموعة
                     </Typography>
                     <MySelect 
-                        value={states.selectedClassroom.name}
+                        data={states.levels} 
                         placeholder={data.level}
-                        data={states.classrooms} 
-                        getSelected={actions.classroomHandler}
-                        error={states.selectedClassroom.error}
-                        helperText={states.selectedClassroom.helperText}            
+                        value={states.selectedLevel.name}
+                        getSelected={actions.levelHandler}
+                        error={states.selectedLevel.error}
+                        helperText={states.selectedLevel.helperText}            
                     />
                 </Box>
                 <Box sx={style.inputContainer}>
@@ -173,11 +170,11 @@ const EditGroupC: React.FC<Props> = ({data, states, actions, dialogs}) => {
                         المقر الخاص بالمجموعة   
                     </Typography>
                     <MySelect  
-                        error={states.selectedHeadquarter.error}  
                         data={states.headquarters} 
                         placeholder={data.headQuarter}
                         value={states.selectedHeadquarter.name}
                         getSelected={actions.headquarterHandler}
+                        error={states.selectedHeadquarter.error}  
                         helperText={states.selectedHeadquarter.helperText}            
                     />
                 </Box>
@@ -204,7 +201,17 @@ const EditGroupC: React.FC<Props> = ({data, states, actions, dialogs}) => {
                         أيام الحضور:-
                     </Typography>
                     <Box sx={style.dayContainer}>
-                        <MyIconButton content='تعديل' icon={<CreateOutlinedIcon />} event={dialogs.handleDaysDialogState} />
+                        <MyIconButton 
+                            content='تعديل'
+                            event={actions.daysDialogHandler}
+                            icon={
+                                <svg width="21" height="21" viewBox="0 0 21 21" fill="none" stroke={mainColors.primary.main} xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M10.52 20.04C15.7778 20.04 20.04 15.7778 20.04 10.52C20.04 5.26225 15.7778 1 10.52 1C5.26225 1 1 5.26225 1 10.52C1 15.7778 5.26225 20.04 10.52 20.04Z" stroke="inherit" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/>
+                                    <path d="M10.52 6.71069V14.3267" stroke="inherit" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/>
+                                    <path d="M6.71234 10.52H14.3283" stroke="inherit" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/>
+                                </svg>                                
+                            }
+                        />
                         <MyDaysDialog
                             open={dialogs.dialogState} 
                             handleClose={dialogs.handleDaysDialogState} 
@@ -270,9 +277,9 @@ const EditGroupC: React.FC<Props> = ({data, states, actions, dialogs}) => {
                 <Box sx={style.buttonsContainer}>
                     <Box sx={style.submitButton}>
                         <MyButton content='حفظ التعديلات' loading={states.loading} onClick={actions.submit} />
-                    </Box>
+                    </Box>  
                     <Box sx={style.submitButton}>
-                        <MyButtonError content='حذف المجموعة' loading={states.loading} onClick={dialogs.actions.handleDialogState} />
+                        <MyButtonError content='حذف المجموعة' loading={states.loading} onClick={actions.openWarningDialogState} />
                     </Box>
                 </Box>
                 {/* <BasicDialog state={dialogs.content.state} content={dialogs.content} actions={dialogs.actions} /> */}

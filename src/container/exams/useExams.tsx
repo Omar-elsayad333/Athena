@@ -3,15 +3,18 @@ import { useUser } from 'context/userContext'
 import { URL_TEACHER_EXAMS, URL_TEACHER_EXAMS_REQUIRED } from 'constant/url'
 import { getHandler } from 'handlers/requestHandler'
 import { DropMenuProps, dropMenuInitialValues } from 'interfaces/shared/input'
+import { useAlert } from 'context/AlertContext'
 
 const useExams = () => {
 
     const { authToken } = useUser()
+    const { setErrorMessage } = useAlert()
     const [ loading, setLoading ] = useState<boolean>(false)
     const [ examsData, setExamsData ] = useState<any>([])
     const [ years, setYears ] = useState<any[]>([])
     const [ selectedYear, setSelectedYear ] = useState<DropMenuProps>(dropMenuInitialValues)
     const [ examTypes, setExamTypes ] = useState<any[]>([])
+    const [ originalData, setOriginalData ] = useState<any[]>([])
     const [ exams, setExams ] = useState<any[]>([])
 
     // Get exams data if the user is authoruized
@@ -52,6 +55,7 @@ const useExams = () => {
         }
         catch(error) {
             console.log(error)
+            setErrorMessage('حدث خطاء')
         }
         finally {
             setLoading(false)
@@ -95,6 +99,7 @@ const useExams = () => {
         }
         catch(error) {
             console.log(error)
+            setErrorMessage('حدث خطاء')
         }
         finally {
             setLoading(false)
@@ -103,10 +108,10 @@ const useExams = () => {
 
     // Update exams data if the user selected year
     const updateExamData = () => {
-        for(let year of exams) {
-            console.log(year)
-            for(let level of year.levels) {
-                console.log(level)
+        const indexOfSelectedYear = examsData.findIndex((year: any) => year.id == selectedYear.id)
+        if(indexOfSelectedYear != -1) {
+            setExams([])
+            for(let level of examsData[indexOfSelectedYear].levels) {
                 for(let exam of level.exams) {
                     setExams(exams => 
                         [
@@ -114,22 +119,53 @@ const useExams = () => {
                             exam
                         ]    
                     )
+                    setOriginalData(exams => 
+                        [
+                            ...exams,
+                            exam
+                        ]  
+                    )
                 }
             }
+        }else {
+            setErrorMessage('حدث خطاء')
         }
     }
 
+    // Get search value from user
+    const searchHandler = (searchValue: string) => {
+        setExams(
+            originalData.filter((item: any) => 
+                item.name.toLowerCase().includes(searchValue.toLowerCase())
+            )
+        )
+    } 
+
     // Get selected exam type to filter exams for the user
-    const getSelectedExamType = (selectedExamType: any) => {
-        if(selectedExamType.name == 'all') 
-            return updateExamData()   
+    const filterByType = (selectedExamType: any) => {
+        if(selectedExamType.name != 'all') {
+            setExams(
+                originalData.filter((exam: any) => exam.examType == selectedExamType.name)
+            )
+        } else {
+            setExams(originalData)
+        }
     }
+
+    const filterByDate = () => {
+
+    }
+
+    useEffect(() => {
+        console.log(examTypes)
+    }, [examTypes])
 
     return (
         {
             data: {
                 years,
                 examTypes,
+                examsData,
                 exams
             },
             states: {
@@ -138,7 +174,9 @@ const useExams = () => {
             },
             actions: {
                 selectedYearHandler,
-                getSelectedExamType
+                searchHandler,
+                filterByType,
+                filterByDate
             }
         }
     );

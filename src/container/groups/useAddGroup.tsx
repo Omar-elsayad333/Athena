@@ -186,7 +186,7 @@ const useAddGroup = () => {
 
     // Get the selected time and update the selected days with the new time
     const updateItem =(newTime: any, day: any, name: any)=> {
-        const indexOfDay = selectedDays.findIndex((x: any) => x.name === day);
+        const indexOfDay = selectedDays.findIndex((x: any) => x.name === day)
 
         if (indexOfDay === -1){
             setErrorMessage('حدث خطاء اثناء اضافة الوقت')
