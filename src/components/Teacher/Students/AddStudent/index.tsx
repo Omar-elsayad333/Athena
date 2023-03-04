@@ -452,7 +452,7 @@ const AddStudentC: React.FC<Props> = ({ data, states, actions }) => {
             {
                 data.studentData && 
                 <Box sx={style.buttonsContainer}>
-                    <PageError errorInfo={states.pageError} />
+                    <PageError errors={states.pageError} />
                     <Box sx={style.submitButton}>
                         <MyButton 
                             loading={states.loading} 
