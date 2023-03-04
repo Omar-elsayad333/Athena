@@ -198,7 +198,7 @@ const AddYearC: React.FC<Props> = ({data, states, actions, dialog}) => {
                 </Box>
             }
             <Box sx={style.buttonsContainer}>
-                <PageError errorInfo={states.errorLabel} />
+                <PageError errors={states.errorLabel} />
                 <Box sx={style.submitButton}>
                     <MyButton onClick={actions.submit} loading={states.loading} content='تأكيد واضافة' />
                 </Box>
