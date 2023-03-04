@@ -1,13 +1,12 @@
-import { useContext } from 'react';
-import { DarkThemeContext } from 'context/ThemeContext';
+import { useTheme } from 'context/ThemeContext';
 
 // MUI
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
+import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
+import TableBody from '@mui/material/TableBody';
 
 type Props = {
     headerData: any;
@@ -16,8 +15,13 @@ type Props = {
 
 const MyTable: React.FC<Props> = ({ headerData, bodyData}) => {
     
-    const { mainColors } = useContext(DarkThemeContext);
-    const classes = {
+    const { mainColors } = useTheme()
+    const style = {
+        container: {
+            maxWidth: '100%',
+            overflowX: 'auto',
+            display: 'flex',
+        },
         root: {
             width: 'fit-content',
             paddingX: '2px',
@@ -59,19 +63,12 @@ const MyTable: React.FC<Props> = ({ headerData, bodyData}) => {
                     },
                 },
             },
-        }
-    }
-    const style = { 
-        root: {
-            maxWidth: '100%',
-            overflowX: 'auto',
-            display: 'flex',
-        }
+        },
     }
 
     return (
-        <Box sx={style.root}>
-            <Table stickyHeader sx={classes.root}>
+        <Box sx={style.container}>
+            <Table stickyHeader sx={style.root}>
                 <TableHead>
                     <TableRow>
                         {headerData.map((item: any, index: number) => (
@@ -83,19 +80,17 @@ const MyTable: React.FC<Props> = ({ headerData, bodyData}) => {
                 </TableHead>
                 <TableBody>
                     {
-                        bodyData.map((item:any, index:any) => {
-                            return (
-                                <TableRow key={index}>
-                                    {Object.keys(item).map((cell:any, index:any) => {
-                                        return(
-                                            <TableCell align='right' key={index}>
-                                                {item[cell]}
-                                            </TableCell>
-                                        )
-                                    })}
-                                </TableRow>
-                            )
-                        })
+                        bodyData.map((item:any, index:number) => (
+                            <TableRow key={index}>
+                                {
+                                    Object.keys(item).map((cell:any, index:number) => (
+                                        <TableCell align='right' key={index}>
+                                            {item[cell]}
+                                        </TableCell>
+                                    ))
+                                }
+                            </TableRow>
+                        ))
                     }
                 </TableBody>
             </Table>

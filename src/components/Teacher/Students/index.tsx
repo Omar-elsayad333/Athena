@@ -4,7 +4,7 @@ import MyTable from "components/MyTable";
 import FilterWedgit from "../../FilterWedgit";
 import MySelect from "components/MySelect";
 import { useTheme } from "context/ThemeContext";
-import { studentTable } from "content/tableHeader";
+import { studentStudentTable } from "content/tableHeaders";
 import MySearchInput from "components/MySearchInput";
 
 // MUI
@@ -87,7 +87,7 @@ const StudentsC: React.FC<Props> = ({data, states, actions}) => {
             }
             {
                 states.tableState ?
-                <MyTable headerData={studentTable} bodyData={data.students} /> :
+                <MyTable headerData={studentStudentTable} bodyData={data.students} /> :
                 <StudentCard data={data.students} />
             }
         </Box>

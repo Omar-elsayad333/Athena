@@ -1,21 +1,19 @@
-import { useContext } from 'react';
-import { DarkThemeContext } from 'context/ThemeContext';
+import { useTheme } from 'context/ThemeContext';
 import MyTimePicker from 'components/MyTimePicker';
+import { dayTranslateToArabic } from 'utils/translateors';
 
 // MUI
-import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
 
 type Props = {
     data: any;
-    actions: any;
 }
 
-const TimeCard: React.FC<Props> = ({data, actions}) => {
+const TimeCard: React.FC<Props> = ({ data }) => {
 
-    const { mainColors } = useContext(DarkThemeContext);
-
+    const { mainColors } = useTheme()
     const style = {
         title: {
             flex: '100%',
@@ -108,7 +106,7 @@ const TimeCard: React.FC<Props> = ({data, actions}) => {
                             data.map((item: any) => {
                                 return (
                                     <Box key={item.id} sx={style.dayLabel}>
-                                        {actions.dayTranslate(item.day)}
+                                        {dayTranslateToArabic(item.day)}
                                     </Box>
                                 )
                             })
@@ -124,7 +122,7 @@ const TimeCard: React.FC<Props> = ({data, actions}) => {
                             return (
                                 <Box sx={style.timePicker} key={item.name}>
                                     <Box sx={style.dayLabel} ml={10}>
-                                        {actions.dayTranslate(item.day)}
+                                        {dayTranslateToArabic(item.day)}
                                     </Box>
                                     <Box sx={style.timePicker} >
                                         <Box>

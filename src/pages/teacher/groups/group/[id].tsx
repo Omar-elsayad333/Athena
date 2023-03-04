@@ -1,39 +1,28 @@
 import Link from "next/link";
 import { NextPage } from "next";
-import { useContext } from "react";
+import { Routes } from "routes/Routes";
+import { useAlert } from "context/AlertContext";
+import { useTheme } from "context/ThemeContext";
 import { withProtected } from "routes/withRouts";
-import { DarkThemeContext } from "context/ThemeContext";
+import useGroup from "container/groups/useGroup";
+import AlertNotify from "components/AlertNotify";
+import Loading from "components/Loading/Loading";
 import PageHead from "components/Shared/PageHead";
-import DesktopNavbar from 'components/Layout/DesktopNavbar';
+import MyIconButton from 'components/MyIconButton';
 import PageTitle from 'components/Shared/PageTitle';
 import ThemeSwitcher from "components/ThemeSwitcher";
-import MyIconButton from 'components/MyIconButton';
 import GroupC from 'components/Teacher/Groups/Group';
 import PageFooter from "components/Shared/PageFooter";
-import Loading from "components/Loading/Loading";
-import useGroup from "container/groups/useGroup";
-import { useAlert } from "context/AlertContext";
-import AlertNotify from "components/AlertNotify";
+import DesktopNavbar from 'components/Layout/DesktopNavbar';
 
 // MUI
 import Box from "@mui/material/Box";
-import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 
 const Group: NextPage = () => {
 
-    const { mainColors } = useContext(DarkThemeContext);
-    const {
-        data,
-        states,
-        actions
-    } = useGroup();
-    const {
-        msg,
-        state,
-        msgType,
-        handleState
-    } = useAlert();
-    
+    const { mainColors } = useTheme()
+    const { data, states } = useGroup()
+    const { msg, state, msgType, handleState } = useAlert()
     const style = {
         root: {
             width: '100%',
@@ -71,10 +60,10 @@ const Group: NextPage = () => {
         <Box sx={style.root}>
             <PageHead title={data.groupData.name} />
             <DesktopNavbar 
-                firstPath='/teacher/groups' 
                 firstContent='جميع المجموعات' 
-                secondPath='/teacher/groups/add-group'
+                firstPath={Routes.teacherGroups}
                 secondContent='اضافة مجموعة'
+                secondPath={Routes.teacherAddGroup}
             /> 
             { 
                 states.loading ?
@@ -90,15 +79,21 @@ const Group: NextPage = () => {
                                 <path d="M21.3621 9.43004C21.3598 9.32835 21.3216 9.2317 21.2558 9.16071C21.19 9.08972 21.1017 9.05001 21.0098 9.05004H12.754V6.93004C12.7517 6.8274 12.7139 6.72967 12.6483 6.65707C12.5827 6.58448 12.4944 6.54257 12.4017 6.54004H11.7062C11.6144 6.54265 11.5271 6.58489 11.463 6.65774C11.3988 6.7306 11.363 6.82831 11.363 6.93004V9.05004H3.08006C3.03423 9.0487 2.98862 9.05755 2.94593 9.07604C2.90324 9.09454 2.86432 9.12232 2.83149 9.15774C2.79865 9.19316 2.77256 9.2355 2.75475 9.28227C2.73694 9.32904 2.72777 9.37928 2.72778 9.43004V9.57004V12.66C2.72778 12.7635 2.7649 12.8627 2.83096 12.9358C2.89703 13.009 2.98663 13.05 3.08006 13.05H3.77557C3.86742 13.0474 3.95472 13.0052 4.01885 12.9323C4.08297 12.8595 4.11884 12.7618 4.11881 12.66V10.58H11.3449V12.7C11.3449 12.8018 11.3808 12.8995 11.4449 12.9723C11.509 13.0452 11.5963 13.0874 11.6882 13.09H12.3837C12.4764 13.0875 12.5647 13.0456 12.6302 12.973C12.6958 12.9004 12.7337 12.8027 12.7359 12.7V10.58H19.9621V12.77C19.9609 12.8208 19.9688 12.8713 19.9855 12.9185C20.0023 12.9658 20.0274 13.0089 20.0593 13.0452C20.0913 13.0816 20.1296 13.1105 20.1718 13.1302C20.2141 13.1499 20.2595 13.1601 20.3053 13.16H21.0008C21.0474 13.1614 21.0938 13.1523 21.1371 13.1332C21.1804 13.114 21.2197 13.0854 21.2527 13.0489C21.2856 13.0124 21.3115 12.9688 21.3288 12.9209C21.3461 12.873 21.3543 12.8216 21.3531 12.77V9.54004L21.3621 9.43004Z" fill="inherit"/>
                             </svg>
                         </PageTitle>
-                        <Link href={`/teacher/groups/edit-group/${data.id}`}>
+                        <Link href={`${Routes.teacherEditGroup}${data.groupData.id}`}>
                             <a>
-                                <MyIconButton content='تعديل' icon={<CreateOutlinedIcon />} />
+                                <MyIconButton 
+                                    content='تعديل'
+                                    icon={
+                                        <svg width="15" height="15" viewBox="0 0 15 15" fill={mainColors.primary} xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M14.3646 3.06073L11.8095 0.505645C11.476 0.192411 11.039 0.0126817 10.5817 0.000646004C10.1243 -0.0113897 9.67851 0.145108 9.32902 0.44037L0.93643 8.83297C0.63501 9.13693 0.447332 9.53534 0.404899 9.96131L0.0039193 13.8499C-0.00864259 13.9865 0.00908012 14.1241 0.0558239 14.2531C0.102568 14.382 0.177182 14.4991 0.274347 14.5959C0.361481 14.6823 0.464818 14.7507 0.578433 14.7971C0.692048 14.8435 0.813705 14.867 0.93643 14.8663H1.02036L4.90892 14.512C5.33489 14.4695 5.7333 14.2818 6.03726 13.9804L14.4299 5.58783C14.7556 5.2437 14.9316 4.78448 14.9194 4.31079C14.9072 3.8371 14.7077 3.38758 14.3646 3.06073ZM4.74107 12.6469L1.94354 12.908L2.19532 10.1105L7.464 4.9071L9.98178 7.42488L4.74107 12.6469ZM11.194 6.17531L8.69492 3.67618L10.5133 1.81116L13.0591 4.35691L11.194 6.17531Z" fill="inherit"/>
+                                        </svg>
+                                    } 
+                                />
                             </a>
                         </Link>
                     </Box>
                     <GroupC 
                         data={data}
-                        actions={actions}
                     />
                 </Box>
             }

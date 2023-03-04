@@ -1,7 +1,7 @@
-import { useContext } from 'react';
 import DataCard from './DataCard';
 import TimeCard from './TimeCard';
-import { DarkThemeContext } from 'context/ThemeContext';
+// import MyTable from 'components/MyTable';
+import { useTheme } from 'context/ThemeContext';
 
 // MUI
 import Box from '@mui/material/Box';
@@ -9,13 +9,11 @@ import Typography from '@mui/material/Typography';
 
 type Props = {
     data: any;
-    actions: any;
 }
 
-const GroupC: React.FC<Props> = ({data, actions}) => {
+const GroupC: React.FC<Props> = ({ data }) => {
 
-    const {mainColors} = useContext(DarkThemeContext);
-
+    const { mainColors } = useTheme()
     const style = {
         inputsContainer: {
             display: 'flex',
@@ -34,7 +32,8 @@ const GroupC: React.FC<Props> = ({data, actions}) => {
                 بيانات المجموعة:-
             </Typography>
             <DataCard data={data.groupData} />
-            <TimeCard data={data.groupData.groupScaduals} actions={actions} />
+            <TimeCard data={data.groupData.groupScaduals} />
+            {/* <MyTable headerData={} bodyData={} /> */}
         </Box>
     );
 }
