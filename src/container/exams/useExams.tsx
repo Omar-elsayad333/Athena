@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
 import { useUser } from 'context/userContext'
-import { URL_TEACHER_EXAMS, URL_TEACHER_EXAMS_REQUIRED } from 'constant/url'
-import { getHandler } from 'handlers/requestHandler'
-import { DropMenuProps, dropMenuInitialValues } from 'interfaces/shared/input'
 import { useAlert } from 'context/AlertContext'
+import { getHandler } from 'handlers/requestHandler'
+import { URL_TEACHER_EXAMS, URL_TEACHER_EXAMS_REQUIRED } from 'constant/url'
+import { DropMenuProps, dropMenuInitialValues } from 'interfaces/shared/input'
 
 const useExams = () => {
 
@@ -176,7 +176,7 @@ const useExams = () => {
                 selectedYearHandler,
                 searchHandler,
                 filterByType,
-                filterByDate
+                filterByDate,
             }
         }
     );

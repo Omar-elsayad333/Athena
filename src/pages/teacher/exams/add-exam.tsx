@@ -1,4 +1,5 @@
 import { NextPage } from "next";
+import { Routes } from "routes/Routes";
 import { useTheme } from "context/ThemeContext";
 import { useAlert } from "context/AlertContext";
 import { withProtected } from "routes/withRouts";
@@ -16,6 +17,7 @@ import DesktopNavbar from 'components/Layout/DesktopNavbar';
 import Box from "@mui/material/Box";
 
 const AddExam: NextPage = () => {
+    
     const { mainColors } = useTheme();
     const { data, states, actions, dialogs } = useAddExam()
     const { msg, state, msgType, handleState } = useAlert()
@@ -49,10 +51,10 @@ const AddExam: NextPage = () => {
         <Box sx={style.root}>
             <PageHead title='Add Exam' />
             <DesktopNavbar 
-                firstPath='/teacher/exams' 
                 firstContent='جميع الأمتحانات' 
-                secondPath='/teacher/exams/add-exam'
+                firstPath={Routes.teacherExams} 
                 secondContent='اضافة أمتحان'
+                secondPath={Routes.teacherAddExam} 
             /> 
             {
                 states.loading ?

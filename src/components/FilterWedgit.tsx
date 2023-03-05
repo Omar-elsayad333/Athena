@@ -17,7 +17,7 @@ const FilterWedgit: React.FC<Props> = ({ filters, getSelected, allFilter = '' })
     const style: IStyle = {
         filterContainer: {   
             width: 'fit-content',
-            maxWidth: '900px',
+            maxWidth: '100%',
             padding: '11px 11px',
             display: 'flex',
             alignItems: 'center',

@@ -26,6 +26,23 @@ export const convertDateToShortDate = (data: string) => {
     })
 }
 
+export const convertDateToShortDateNoAwait = (data: string) => {
+    let date = new Date(data);
+    let year = date.getFullYear();
+    let month: any = date.getMonth()+1;
+    let day: any = date.getDate();
+
+    if (day < 10) {
+        day = '0' + day;
+    }
+    if (month < 10) {
+        month = '0' + month;
+    }
+    const finalDate = `${year} / ${month} / ${day}`
+
+    return finalDate
+}
+
 export const convertHashSign = (data: string) => {
     return data.replace("#", "%23")
 }
