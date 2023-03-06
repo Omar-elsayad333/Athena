@@ -1,7 +1,8 @@
 import DataCard from './DataCard';
 import TimeCard from './TimeCard';
-// import MyTable from 'components/MyTable';
+import MyTable from 'components/MyTable';
 import { useTheme } from 'context/ThemeContext';
+import { GroupStudentTable } from 'content/tableHeaders' 
 
 // MUI
 import Box from '@mui/material/Box';
@@ -15,7 +16,8 @@ const GroupC: React.FC<Props> = ({ data }) => {
 
     const { mainColors } = useTheme()
     const style = {
-        inputsContainer: {
+        container: {
+            maxWidth: '100%',
             display: 'flex',
             flexDirection: 'column',
             flexWrap: 'wrap',
@@ -27,13 +29,16 @@ const GroupC: React.FC<Props> = ({ data }) => {
     }
     
     return (
-        <Box sx={style.inputsContainer}>
+        <Box sx={style.container}>
             <Typography variant="h3" color={mainColors.title.main}>
                 بيانات المجموعة:-
             </Typography>
             <DataCard data={data.groupData} />
             <TimeCard data={data.groupData.groupScaduals} />
-            {/* <MyTable headerData={} bodyData={} /> */}
+            <Typography variant="h3" color={mainColors.title.main}>
+                الطلاب الحاليين بالمجموعة:-
+            </Typography>
+            <MyTable headerData={GroupStudentTable} bodyData={data.groupStudents} />
         </Box>
     );
 }

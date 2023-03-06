@@ -12,6 +12,7 @@ const useGroup = () => {
     const { authToken } = useUser()
     const { setErrorMessage } = useAlert()
     const [ groupData, setGroupData ] = useState<any>('')
+    const [ groupStudents, setGroupStudents ] = useState<any>([])
     const [ loading, setLoading ] = useState<boolean>(false)
 
     // Call getGroupData functionl if user is authorized
@@ -21,12 +22,20 @@ const useGroup = () => {
         }
     }, [])
 
+    // Call function to get group students data
+    useEffect(() => {
+        if(groupData) {
+            getGroupStudents()
+        }
+    }, [groupData])
+
     // Call api to get group data from db
     const getGroupData = async () => {
         try {
             setLoading(true);
-            const res = await getHandlerById(id, authToken, URL_GROUPS);
+            const res: any = await getHandlerById(id, authToken, URL_GROUPS);
             setGroupData(res);
+            console.log(res.groupStudents)
         }
         catch(error) {
             console.log(error);
@@ -37,10 +46,30 @@ const useGroup = () => {
         }
     }
 
+    // Sort data to show it to the user
+    const getGroupStudents = () => {
+        for(let student of groupData.groupStudents) {
+            setGroupStudents((groupStudents: any) => 
+                [
+                    ...groupStudents,
+                    {
+                        image: student.image,
+                        firstName: student.firstName,
+                        lastName: student.lastName,
+                        fullName: student.fullName,
+                        level: student.level,
+                        code: student.code
+                    }
+                ]
+            )
+        }
+    }
+
     return (
         {
             data: {
                 groupData,
+                groupStudents
             },
             states: {
                 loading,

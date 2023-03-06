@@ -1,3 +1,4 @@
+import { URL_MAIN } from 'constant/url';
 import { useTheme } from 'context/ThemeContext';
 
 // MUI
@@ -13,17 +14,17 @@ type Props = {
     bodyData: any;
 }
 
-const MyTable: React.FC<Props> = ({ headerData, bodyData}) => {
+const MyTable: React.FC<Props> = ({ headerData, bodyData }) => {
     
     const { mainColors } = useTheme()
     const style = {
         container: {
             maxWidth: '100%',
-            overflowX: 'auto',
-            display: 'flex',
+            overflow: 'auto',
+            display: 'grid',
         },
         root: {
-            width: 'fit-content',
+            maxWidth: 'fit-content',
             paddingX: '2px',
             paddingBottom: '1px',
             borderRadius: '12px',
@@ -35,8 +36,11 @@ const MyTable: React.FC<Props> = ({ headerData, bodyData}) => {
                 overflowX: 'auto',
                 borderRadius: '12px',
                 '.MuiTableCell-root': {
+                    minWidth: '200px',
                     maxWidth: '200px',
                     textOverflow: 'ellipsis',
+                    overflow: 'hidden',
+                    whiteSpace: 'nowrap',
                     fontSize: '14px',
                     fontWeight: '700',
                     color: mainColors.table.contrastText,
@@ -47,12 +51,15 @@ const MyTable: React.FC<Props> = ({ headerData, bodyData}) => {
             },
             '.MuiTableBody-root': {
                 display: 'block',
-                borderRadius: '12px',
                 overflowX: 'auto',
+                borderRadius: '12px',
                 '.MuiTableRow-root': {
                     '.MuiTableCell-root': {
+                        minWidth: '200px',
                         maxWidth: '200px',
                         textOverflow: 'ellipsis',
+                        overflow: 'hidden',
+                        whiteSpace: 'nowrap',
                         paddingY: '27px',
                         color: mainColors.table.contrastText,
                         fontSize: '14px',
@@ -78,8 +85,42 @@ const MyTable: React.FC<Props> = ({ headerData, bodyData}) => {
                         ))}
                     </TableRow>
                 </TableHead>
-                <TableBody>
+                {
+                    headerData.find((item: any) => item.name === 'image') ?
+                    <TableBody>
+                        {
+                            bodyData.length > 0 &&
+                            bodyData.map((item:any, index:number) => (
+                                <TableRow key={index}>
+                                    {
+                                        Object.keys(item).map((cell:any, index:number) => (
+                                            <TableCell 
+                                                align='right'
+                                                key={index}
+                                            >
+                                                {
+                                                    index != 0 ?                         
+                                                    item[cell] :
+                                                    <Box sx={{            
+                                                        width: '40px',
+                                                        height: '40px',
+                                                        borderRadius: '50px',
+                                                        backgroundSize: 'cover',
+                                                        backgroundPosition: 'center',
+                                                        border: `solid 1px ${mainColors.paper.border}`,
+                                                        backgroundImage: `url('${URL_MAIN}/${item[cell]}')`,
+                                                    }}/>
+                                                }
+                                            </TableCell>
+                                        ))
+                                    }
+                                </TableRow>
+                            ))
+                        }
+                    </TableBody> :
+                    <TableBody>
                     {
+                        bodyData.length > 0 &&
                         bodyData.map((item:any, index:number) => (
                             <TableRow key={index}>
                                 {
@@ -92,7 +133,8 @@ const MyTable: React.FC<Props> = ({ headerData, bodyData}) => {
                             </TableRow>
                         ))
                     }
-                </TableBody>
+                </TableBody> 
+                }
             </Table>
         </Box>
     );

@@ -103,9 +103,9 @@ const TimeCard: React.FC<Props> = ({ data }) => {
                     <Box sx={style.daysList}>
                         {
                             data &&
-                            data.map((item: any) => {
+                            data.map((item: any, index: number) => {
                                 return (
-                                    <Box key={item.id} sx={style.dayLabel}>
+                                    <Box key={index} sx={style.dayLabel}>
                                         {dayTranslateToArabic(item.day)}
                                     </Box>
                                 )
@@ -118,9 +118,9 @@ const TimeCard: React.FC<Props> = ({ data }) => {
                 data?.length > 0 &&
                 <Box sx={[style.backPaper, style.timePickerContainer]}>
                     {
-                        data.map((item: any) => {
+                        data.map((item: any, index: number) => {
                             return (
-                                <Box sx={style.timePicker} key={item.name}>
+                                <Box sx={style.timePicker} key={index}>
                                     <Box sx={style.dayLabel} ml={10}>
                                         {dayTranslateToArabic(item.day)}
                                     </Box>

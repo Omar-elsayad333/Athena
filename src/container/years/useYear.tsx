@@ -9,8 +9,8 @@ const useYear = () => {
     const auth = useUser();
     const router = useRouter();
     const { id } = router.query;
-    const [ loading, setLoading] = useState<boolean>(false);
-    const [ pageData, setPageData] = useState<any>('');
+    const [ loading, setLoading ] = useState<boolean>(false);
+    const [ pageData, setPageData ] = useState<any>('');
 
     // Get page data on load
     useEffect(() => {
@@ -23,7 +23,7 @@ const useYear = () => {
     const getYearData = async () => {
         try {
             setLoading(true);
-            const res = await getHandlerById(id , auth.authToken, URL_YEARS);
+            const res: any = await getHandlerById(id , auth.authToken, URL_YEARS);
             setPageData(res);
         }
         catch (error) {
