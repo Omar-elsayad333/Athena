@@ -1,10 +1,9 @@
-import MyBigInput from "components/MyBigInput";
+import MyTextArea from "components/MyTextArea";
 import { useTheme } from "context/ThemeContext";
 
 // MUI
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import MyTextArea from "components/MyTextArea";
 
 type Props = {
     data: any;

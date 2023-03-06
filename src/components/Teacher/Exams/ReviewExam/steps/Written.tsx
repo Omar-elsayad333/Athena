@@ -1,4 +1,4 @@
-import MyBigInput from "components/MyBigInput";
+import MyTextArea from "components/MyTextArea";
 import { useTheme } from "context/ThemeContext";
 
 // MUI
@@ -35,7 +35,7 @@ const Written: React.FC<Props> = ({ data, actions, grandParentIndex, parentIndex
             >
                 الاجابة الصحيحة (التقريبية):-
             </Typography> 
-            <MyBigInput
+            <MyTextArea
                 placeholder=''
                 value={data.answer}
                 error={data.answerError.error}
