@@ -1,8 +1,8 @@
 import Questions from './Questions';
 import { IStyle } from 'styles/IStyle';
 import MyInput from 'components/MyInput';
-import MyTextArea from 'components/MyTextArea';
 import { useTheme } from 'context/ThemeContext';
+import MyTextAreaWithImage from 'components/MyTextAreaWithImage';
 
 // MUI
 import Box from '@mui/material/Box'
@@ -117,7 +117,7 @@ const Sections: React.FC<Props> = ({ data, actions}) => {
                                         onChange={actions.sectionNameHandler}
                                     />
                                 </Box>
-                                <MyTextArea 
+                                <MyTextAreaWithImage 
                                     helperText=''
                                     indexes={index}
                                     value={section.paragraph}

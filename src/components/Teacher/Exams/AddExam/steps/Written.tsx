@@ -4,6 +4,7 @@ import { useTheme } from "context/ThemeContext";
 // MUI
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import MyTextArea from "components/MyTextArea";
 
 type Props = {
     data: any;
@@ -43,7 +44,7 @@ const Written: React.FC<Props> = ({ data, actions, grandParentIndex, parentIndex
             >
                 الاجابة الصحيحة (التقريبية):-
             </Typography> 
-            <MyBigInput
+            <MyTextArea
                 placeholder=''
                 value={data.answer}
                 error={data.answerError.error}

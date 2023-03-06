@@ -5,7 +5,7 @@ import { useTheme } from "context/ThemeContext";
 import MyButton from "components/Buttons/MyButton";
 import MyRadioGroup from "components/MyRadioGroup";
 import { examQuestionTypes } from 'constant/staticData'
-import MyBigInputWithImage from "components/MyBigInputWithImage";
+import MyTextAreaWithImage from "components/MyTextAreaWithImage";
 import MyButtonSuccess from "components/Buttons/MyButtonSuccess";
 
 // MUI
@@ -158,7 +158,7 @@ const Questions: React.FC<Props> = ({ data, actions, parentIndex }) => {
                             >
                                 حدد رأس السؤال الفرعي:-
                             </Typography> 
-                            <MyBigInputWithImage 
+                            <MyTextAreaWithImage 
                                 placeholder=''
                                 value={question.name}
                                 error={question.nameError.error}

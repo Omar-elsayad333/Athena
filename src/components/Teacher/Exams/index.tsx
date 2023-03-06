@@ -107,7 +107,13 @@ const ExamsC: React.FC<Props> = ({ data, states, actions }) => {
                         <Link key={exam.id} href={`${Routes.teacherExam}${exam.id}`}>
                             <Box sx={style.examCard}>
                                 <Box sx={style.cardTitle}>
-                                    <Typography variant="h2" fontWeight={700} color={mainColors.primary.main}>
+                                    <Typography 
+                                        variant="h2"
+                                        fontWeight={700}
+                                        color={mainColors.primary.main}
+                                        textOverflow={'ellipsis'}   
+                                        overflow={'hidden'}
+                                    >
                                         {exam.name}
                                     </Typography>
                                     {
