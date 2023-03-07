@@ -1,8 +1,7 @@
 import { IStyle } from 'styles/IStyle';
-import { useTheme } from 'context/ThemeContext';
 
 // MUI
-import { Box } from '@mui/system';
+import Box from '@mui/system/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 
 
@@ -11,18 +10,17 @@ type IProps = {
     inside?: boolean ;
 };
 
-const Loading: React.FC<IProps> = ({ small }) => {
+const LoginLoading: React.FC<IProps> = ({ small }) => {
 
-    const { mainColors } = useTheme()
     const styles: IStyle = {
       container: {
         width: '100%',
-        height: '100vh',
-        position: 'abslout', 
+        height: '100%',
+        position: 'absolute', 
+        zIndex: '100',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        background: mainColors.loader.main,
       }
     };
 
@@ -33,4 +31,4 @@ const Loading: React.FC<IProps> = ({ small }) => {
     );
 };
 
-export default Loading;
+export default LoginLoading;

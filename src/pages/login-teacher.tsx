@@ -1,23 +1,24 @@
 import { NextPage } from 'next';
+import { withLogin } from 'routes/withLogin';
 import PageHead from 'components/Shared/PageHead';
-import useTeacherLogin from 'container/useTeacherLogin';
 import TeacherLogin from '../components/TeacherLogin';
-import Loading from 'components/Loading/Loading';
+import useTeacherLogin from 'container/useTeacherLogin';
+import LoginLoading from 'components/Loading/LoginLoading';
 
 // MUI
 import Box from "@mui/material/Box";
 
-const classes: any = {
+const style: any = {
     root: {
-        backgroundImage: 'url("./images/brad-pouncey-raV9BAKD1eE-unsplash.jpg")',
-        backgroundPosition: 'top',
-        backgroundSize: 'cover',
         width: '100%',
         minHeight: '100vh',
-        display: 'flex',
-        justifyContent: 'center',   
-        alignItems: 'center',
         padding: '0px 30px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',   
+        backgroundSize: 'cover',
+        backgroundPosition: 'top',
+        backgroundImage: 'url("./images/brad-pouncey-raV9BAKD1eE-unsplash.jpg")',
         '@media (max-width: 600px)': {  
             justifyContent: 'center',
             padding: '0px 25px',
@@ -31,19 +32,18 @@ const classes: any = {
 
 const teacherLogin: NextPage = () => {
 
-    const {
-        userInfo,
-        supmit,
-        isLoading
-    } = useTeacherLogin();
+    const { states, actions } = useTeacherLogin();
 
     return (
-        <Box style={classes.root}>
+        <Box style={style.root}>
             <PageHead title='Teacher Login' />
-            { isLoading && <Loading /> }
-            <TeacherLogin userInfo={userInfo} supmit={supmit} />
+            <TeacherLogin
+                states={states}
+                actions={actions}
+            />
+            { states.loading && <LoginLoading /> }
         </Box>
     );
 }
 
-export default teacherLogin;
+export default withLogin(teacherLogin)

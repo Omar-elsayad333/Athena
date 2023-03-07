@@ -2,19 +2,18 @@ import {lightColors} from '../../styles/colors';
 
 // MUI
 import TextField from '@mui/material/TextField';
+import FormControl from '@mui/material/FormControl';
+import InputError from 'components/Shared/InputError';
 
 type Props = {
-    Id?: any;
-    Name?: any;
     value?: any;
-    setValue?: any;
     error?: any;
-    HelperText?: any;
-    Type?: any;
-    Placeholder?: any;
+    onChange?: any;
+    helperText?: any;
+    placeholder?: any;
 }
 
-const LoginInput: React.FC<Props> = ({Name, value, setValue, error, HelperText}) => {
+const LoginInput: React.FC<Props> = ({ value, onChange, error, helperText }) => {
     
     const classes = {
         root: {
@@ -50,15 +49,16 @@ const LoginInput: React.FC<Props> = ({Name, value, setValue, error, HelperText})
     };
     
     return (
-        <TextField
-            autoComplete='off'      
-            sx={classes.root}  
-            name={Name}
-            value={value}
-            onChange={e => setValue(e.target.value.trim())}
-            error={error}
-            helperText={HelperText}
-        />    
+        <FormControl fullWidth>
+            <TextField
+                autoComplete='off'      
+                value={value}
+                error={error}
+                sx={classes.root}
+                onChange={e => onChange(e.target.value)}
+            />    
+            <InputError content={helperText} type='error' />
+        </FormControl>
     )
 }
 

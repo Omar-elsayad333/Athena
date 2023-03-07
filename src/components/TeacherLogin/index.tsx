@@ -8,19 +8,26 @@ import PasswordInput from './PasswordInput';
 import Box from '@mui/material/Box';
 import Checkbox from '@mui/material/Checkbox';
 import Typography from '@mui/material/Typography';
+import PageError from 'components/Shared/PageError';
 
 type Props = {
-    userInfo: any;
-    supmit: Function;
+    states: any;
+    actions: any;
 }
 
-const TeacherLogin: React.FC<Props> = ({userInfo, supmit}) => {
+const TeacherLogin: React.FC<Props> = ({ states, actions }) => {
 
     return (
         <Box sx={style.TeacherLoginCard}>
             <Box sx={style.container}>
                 <Box sx={style.imageContainer}>
-                    <Image src='/images/logo-with-text.svg' layout="responsive" alt="Athena" width='60%' height='50%' />
+                    <Image 
+                        width='60%'
+                        height='50%'
+                        alt='Athena' 
+                        layout="responsive" 
+                        src='/images/logo-with-text.svg' 
+                    />
                 </Box>
                 <Typography variant="h2" sx={style.headerText}>
                     أهلاً بك في البوابة الرئيسية
@@ -30,13 +37,25 @@ const TeacherLogin: React.FC<Props> = ({userInfo, supmit}) => {
                         <Typography sx={style.formLabels}>
                             أسم المستخدم، البريد الإلكتروني أو رقم الهاتف 
                         </Typography>
-                        <LoginInput value={userInfo.userName} setValue={userInfo.setUserName} />
+                        <LoginInput 
+                            value={states.userName.value} 
+                            error={states.userName.error}
+                            onChange={actions.userNameHandler}
+                            helperText={states.userName.helperText}
+                        />
                     </Box>
                     <Box sx={{width: '100%'}}>
                         <Typography sx={style.formLabels}>
                             الرقم السري الخاص بك    
                         </Typography>
-                        <PasswordInput value={userInfo.password} setValue={userInfo.setPassword} />
+                        <PasswordInput 
+                            show={states.password.show}
+                            value={states.password.value}
+                            error={states.password.error}
+                            onChange={actions.passwordHandler}
+                            helperText={states.password.helperText}
+                            showHandler={actions.showPasswordHandler}
+                        />
                         <Box sx={style.formOptions}>
                             <Typography variant="h5">
                                 هل نسيت الرقم السري ؟
@@ -49,11 +68,12 @@ const TeacherLogin: React.FC<Props> = ({userInfo, supmit}) => {
                             </Box>       
                         </Box>
                     </Box>
+                    <PageError errors={states.pageErrors} />
                     <Box sx={style.logContainer}>
-                        <MyButton content='تسجيل الدخول' onClick={() => supmit()} />
+                        <MyButton content='تسجيل الدخول' onClick={actions.submit} />
                     </Box>
                 </Box>
-            </Box>
+            </Box>  
         </Box>
     )
 }   

@@ -28,7 +28,8 @@ const PageError: React.FC<Props> = ({ errors }) => {
             {
                 errors.map((error: any, index: number) => (
                     <Typography 
-                        key={index} variant='h4' 
+                        key={index} 
+                        variant='h4' 
                         color={'error'} 
                     >
                         {error.value}

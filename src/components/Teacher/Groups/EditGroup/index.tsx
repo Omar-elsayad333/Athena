@@ -6,12 +6,11 @@ import MyButton from 'components/Buttons/MyButton';
 import MyDaysDialog from 'components/MyDaysDialog';
 import MyTimePicker from 'components/MyTimePicker';
 import MyButtonError from 'components/Buttons/MyButtonError';
+import WarningDialog from 'components/Dialogs/WarningDialog';
 
 // MUI
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-// import BasicDialog from 'components/Dialogs';
-
 
 type Props = {
     data: any;

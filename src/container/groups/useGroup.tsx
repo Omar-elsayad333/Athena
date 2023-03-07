@@ -24,7 +24,7 @@ const useGroup = () => {
 
     // Call function to get group students data
     useEffect(() => {
-        if(groupData) {
+        if(groupData && groupStudents.length == 0) {
             getGroupStudents()
         }
     }, [groupData])

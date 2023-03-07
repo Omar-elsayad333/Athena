@@ -1,12 +1,12 @@
-import { useTheme } from 'context/ThemeContext';
+import InputError from './Shared/InputError';
 
 // MUI
-import FormControl from '@mui/material/FormControl';
-import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
+import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import OutlinedInput from '@mui/material/OutlinedInput';
+import InputAdornment from '@mui/material/InputAdornment';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 const classes = {
     root: {
@@ -60,16 +60,6 @@ type Props = {
 
 const MyPassInput: React.FC<Props> = ({placeholder, helperText, value, showHandler, show, onChange, error}) => {
 
-    const { mainColors } = useTheme()
-
-    const errorStyle = {
-        root: {
-            marginTop: '10px',
-            fontSize: '14px', 
-            color: mainColors.error.main,
-        },
-    }
-
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
     };
@@ -96,9 +86,7 @@ const MyPassInput: React.FC<Props> = ({placeholder, helperText, value, showHandl
                     </InputAdornment>
                 }
             />
-            <label style={errorStyle.root}>
-                {helperText}
-            </label>
+            <InputError content={helperText} type='error' />
         </FormControl>
     );
 }

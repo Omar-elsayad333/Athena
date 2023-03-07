@@ -1,11 +1,13 @@
-import {lightColors} from '../../styles/colors';
+import { lightColors } from '../../styles/colors';
 
 // MUI
-import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
+import FormControl from '@mui/material/FormControl';
+import InputError from 'components/Shared/InputError';
 import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import OutlinedInput from '@mui/material/OutlinedInput';
+import InputAdornment from '@mui/material/InputAdornment';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 const classes = {
     root: {
@@ -42,45 +44,42 @@ const classes = {
 
 type Props = {
     value: any;
-    setValue: Function;
+    show: boolean;
+    error: boolean;
+    helperText: string;
+    onChange: Function;
+    showHandler: Function;
 }
 
-const PasswordInput: React.FC<Props> = ({value, setValue}) => {
-    
-    const handleChange = (prop: any) => (event: React.ChangeEvent<HTMLInputElement>) => {
-        setValue({ ...value, [prop]: event.target.value.trim(), length: event.target.value.trim().length });
-    };
-
-    const handleClickShowPassword = () => {
-        setValue({
-            ...value,
-            showPassword: !value.showPassword,
-        });
-    };
+const PasswordInput: React.FC<Props> = ({ value, onChange, show,  error, helperText, showHandler }) => {
 
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
     };
     
     return (
-        <OutlinedInput
-            autoComplete='off'   
-            sx={classes.root}
-            type={value.showPassword ? 'text' : 'password'}
-            value={value.password}
-            onChange={handleChange('password')}
-            endAdornment={
-                <InputAdornment position="end">
-                    <IconButton
-                        onClick={handleClickShowPassword}
-                        onMouseDown={handleMouseDownPassword}
-                        edge="end"
-                    >
-                        {value.showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                </InputAdornment>
-            }
-        />
+        <FormControl fullWidth>
+            <OutlinedInput
+                autoComplete='off'   
+                error={error}
+                sx={classes.root}
+                value={value.password}
+                onChange={(e) => onChange(e.target.value)}
+                type={show ? 'text' : 'password'}
+                endAdornment={
+                    <InputAdornment position="end">
+                        <IconButton
+                            edge="end"
+                            onClick={() => showHandler()}
+                            onMouseDown={handleMouseDownPassword}
+                        >
+                            {value.showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                    </InputAdornment>
+                }
+            />
+            <InputError content={helperText} type='error' />
+        </FormControl>
     );
 }
 
