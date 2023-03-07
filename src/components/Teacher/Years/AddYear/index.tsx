@@ -7,7 +7,7 @@ import ClassesDialog from 'components/Dialogs/ClassesDialog';
 import MyButton from 'components/Buttons/MyButton';
 import MyButtonError from 'components/Buttons/MyButtonError';
 // import BasicDialog from 'components/Dialogs';
-import PageError from 'components/Shared/PageError';
+// import PageError from 'components/Shared/PageError';
 
 // MUI
 import Box from '@mui/material/Box';
@@ -198,7 +198,7 @@ const AddYearC: React.FC<Props> = ({data, states, actions, dialog}) => {
                 </Box>
             }
             <Box sx={style.buttonsContainer}>
-                <PageError errors={states.errorLabel} />
+                {/* <PageError errors={states.errorLabel} /> */}
                 <Box sx={style.submitButton}>
                     <MyButton onClick={actions.submit} loading={states.loading} content='تأكيد واضافة' />
                 </Box>
