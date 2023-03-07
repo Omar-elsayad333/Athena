@@ -1,14 +1,14 @@
-import logo from '../../../public/images/Logo(2).svg';
-import Image from 'next/image';
 import style from './style';
-import LoginButDark from "../LoginButDark";
-import MyLoginInput from '../TeacherLogin/LoginInput';
 import Link from 'next/link';
+import Image from 'next/image';
+import LoginButDark from "../LoginButDark";
+import logo from '../../../public/images/Logo(2).svg';
+import MyLoginInput from '../TeacherLogin/LoginInput';
 
 // MUI
-import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Checkbox from '@mui/material/Checkbox';
+import Typography from '@mui/material/Typography';
 
 const StudentLogin: React.FC = () => {
     return (
@@ -25,13 +25,13 @@ const StudentLogin: React.FC = () => {
                         <Typography variant="h4" style={style.formLabels}>
                             أسم المستخدم، البريد الإلكتروني أو رقم الهاتف 
                         </Typography>
-                        <MyLoginInput Type='email' />
+                        <MyLoginInput />
                     </Box>
                     <Box>
                         <Typography variant="h4" style={style.formLabels}>
                             الرقم السري الخاص بك    
                         </Typography>
-                        <MyLoginInput Type='password' />
+                        <MyLoginInput />
                         <Box sx={style.formOptions}>
                             <Typography variant="h5">
                                 هل نسيت الرقم السري ؟
