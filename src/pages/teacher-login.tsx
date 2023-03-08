@@ -1,5 +1,5 @@
 import { NextPage } from 'next';
-import { withLogin } from 'routes/withLogin';
+import { withPublic } from 'routes/withRouts';
 import PageHead from 'components/Shared/PageHead';
 import TeacherLogin from '../components/TeacherLogin';
 import useTeacherLogin from 'container/useTeacherLogin';
@@ -26,7 +26,7 @@ const style: any = {
         '@media (max-width: 400px)': {
             justifyContent: 'center',
             padding: '0px 20px',
-        },
+        },  
     },
 };
 
@@ -46,4 +46,4 @@ const teacherLogin: NextPage = () => {
     );
 }
 
-export default withLogin(teacherLogin)
+export default withPublic(teacherLogin)

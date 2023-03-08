@@ -1,17 +1,17 @@
-import type { AppProps } from 'next/app';
-import ThemeApp from '../styles/theme';
 import '../styles/globals.css';
 import Layout from 'components/Layout';
-import { DarkThemeProvider } from 'context/ThemeContext';
+import ThemeApp from '../styles/theme';
+import { useRouter } from 'next/router';
+import type { AppProps } from 'next/app';
 import { UserProvider } from 'context/userContext';
 import { AlertProvider } from 'context/AlertContext';
-import { useRouter } from 'next/router';
+import { DarkThemeProvider } from 'context/ThemeContext';
 
 function MyApp({ Component, pageProps }: AppProps) {
 
   const router = useRouter()
 
-  if(router.pathname.startsWith('/teacher')) {
+  if(router.pathname.startsWith('/teacher/')) {
     return (
       <UserProvider>
         <AlertProvider>
@@ -25,19 +25,8 @@ function MyApp({ Component, pageProps }: AppProps) {
         </AlertProvider>
       </UserProvider>
     )
-  }else if(router.pathname.startsWith('/student')) {
-    return (
-      <UserProvider>
-        <AlertProvider>
-          <DarkThemeProvider>
-            <ThemeApp>
-              <Component {...pageProps} />
-            </ThemeApp>
-          </DarkThemeProvider>
-        </AlertProvider>
-      </UserProvider>
-    )
-  } else {
+  }
+  else {
     return (
       <UserProvider>
         <AlertProvider>

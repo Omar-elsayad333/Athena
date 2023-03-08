@@ -1,19 +1,17 @@
 import { useState } from "react";
-import { Routes } from "routes/Routes";
-import { useRouter } from "next/router";
 import { useUser } from "context/userContext";
-import { loginHandler, userObjectHandler,} from 'handlers/userHandler';
+import { loginHandler } from 'handlers/userHandler';
 import { inputInitialValues, InputProps } from "interfaces/shared/input";
 import { InputPasswordProps, passwordInitialValues } from "interfaces/shared/inputPassword";
 
 const useTeacherLogin = () => {
 
-    const router = useRouter()
-    const { userToken } = useUser()
+    const { loginUser } = useUser()
     const [ loading, setLoading ] = useState<boolean>(false)
     const [ pageErrors, setPasswordErrors ] = useState<any>([])
     const [ userName, setUserName ] = useState<InputProps>(inputInitialValues)
     const [ password, setPassword ] = useState<InputPasswordProps>(passwordInitialValues)
+    const [ rememberMe, setRememberMe ] = useState<boolean>(false)
 
     // Get username from user
     const userNameHandler = (newValue: string) => {
@@ -48,6 +46,11 @@ const useTeacherLogin = () => {
                 show: !password.show
             }
         ))
+    }
+
+    // Get remember me state
+    const rememberMeHandler = () => {
+        setRememberMe(!rememberMe)
     }
 
     // Validate data before collect it
@@ -105,35 +108,24 @@ const useTeacherLogin = () => {
                 setLoading(true)
                 const data = collectData()
                 const res = await loginHandler(data)
-                userToken(res)
-                getUserData(res)
+                console.log(res)
+                await loginUser(res, rememberMe)
             }
             catch(error) {
                 console.log(error)
-                setPasswordErrors([
-                    {
-                        name: 'loginError', 
-                        value: 'اسم المستخدم او الرقم السري غير صحيح'
-                    }
-                ])
+                setPasswordErrors(
+                    [
+                        {
+                            name: 'loginError', 
+                            value: 'اسم المستخدم او الرقم السري غير صحيح'
+                        }
+                    ]
+                )
             }
             finally {
+
                 setLoading(false)
             }
-        }
-    }
-
-    const getUserData = async (res: any) => {
-        try {
-            const userData = await userObjectHandler(res)
-            console.log(userData)
-            router.replace(Routes.teacherHome)
-        }
-        catch(error) {
-            console.log(error)
-        }
-        finally {
-            setLoading(false)
         }
     }
 
@@ -143,12 +135,14 @@ const useTeacherLogin = () => {
                 loading,
                 userName,
                 password,
-                pageErrors
+                pageErrors,
+                rememberMe
             },
             actions: {
                 userNameHandler,
                 passwordHandler,
                 showPasswordHandler,
+                rememberMeHandler,
                 submit
             }
         }

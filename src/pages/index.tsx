@@ -8,7 +8,6 @@ import PageHead from 'components/Shared/PageHead';
 import logo from '../../public/images/logo-with-text.svg';
 import LoginButLight from '../components/TeacherLogin/LoginButton';
 import LoginButDark from '../components/LoginButDark';
-import { withPublic } from 'routes/withRouts';
 
 // MUI
 import { Box, Typography } from '@mui/material';
@@ -28,7 +27,7 @@ const Home: NextPage = () => {
           <Typography variant='h3' color='primary'>
             انا مدرس
           </Typography>
-          <Link href='/login-teacher'>
+          <Link href='/teacher-login'>
             <a>
               <LoginButDark content='تسجيل الدخول' />
             </a>
@@ -84,4 +83,4 @@ const Home: NextPage = () => {
   )
 } 
 
-export default withPublic(Home);
+export default Home;

@@ -40,4 +40,4 @@ const Layout: React.FC<IProps> = ({ children }) => {
     );
 }
 
-export default withProtected(Layout);
+export default withProtected(Layout)

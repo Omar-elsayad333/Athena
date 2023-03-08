@@ -3,12 +3,12 @@ import Image from 'next/image';
 import MyButton from './LoginButton';
 import LoginInput from './LoginInput';
 import PasswordInput from './PasswordInput';
+import PageError from 'components/Shared/PageError';
 
 // MUI
 import Box from '@mui/material/Box';
 import Checkbox from '@mui/material/Checkbox';
 import Typography from '@mui/material/Typography';
-import PageError from 'components/Shared/PageError';
 
 type Props = {
     states: any;
@@ -61,7 +61,13 @@ const TeacherLogin: React.FC<Props> = ({ states, actions }) => {
                                 هل نسيت الرقم السري ؟
                             </Typography> 
                             <Box sx={style.checkContainer}>
-                                <Checkbox size='small' color='primary' sx={style.checkBox} />
+                                <Checkbox 
+                                    size='small'
+                                    color='primary'
+                                    sx={style.checkBox}
+                                    checked={states.rememberMe}
+                                    onChange={actions.rememberMeHandler}
+                                />
                                 <Typography variant="h5">
                                     تذكريني 
                                 </Typography>

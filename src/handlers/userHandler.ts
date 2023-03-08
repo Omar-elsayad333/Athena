@@ -5,6 +5,7 @@ import {
     URL_AUTH_TOKENS_REFRESH,
     URL_DASHBOARD_TEACHERS_BASE
 } from 'constant/url';
+import { Routes } from "routes/Routes";
 
 // Actions to login for user and admin
 export const loginHandler = (data: object) => {
@@ -20,8 +21,7 @@ export const loginHandler = (data: object) => {
         })
         .then(
             (res) => {
-                localStorage.setItem('athena-token', res.data.token);
-                resolved(res.data.token);
+                resolved(res.data);
             },
             (rej) => {
                 rejected(rej);
@@ -110,6 +110,7 @@ export const signUpHandler = (data: any, supUrl: string) => {
 };
 
 export const logout = () => {
-    localStorage.removeItem('athena-token');
-    window.location.replace('/')
+    localStorage.clear();
+    sessionStorage.clear();
+    window.location.replace(Routes.homeLink)
 }

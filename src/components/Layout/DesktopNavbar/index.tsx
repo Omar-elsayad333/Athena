@@ -18,8 +18,8 @@ type Props = {
 
 const DesktopNavbar: React.FC<Props> = ({firstPath, secondPath, firstContent, secondContent}) => {
 
-    const {darkMode, mainColors} = useContext(DarkThemeContext);
-    const auth = useUser()
+    const { user } = useUser()
+    const { darkMode, mainColors } = useContext(DarkThemeContext);
 
     const style: any = {
         container: {
@@ -69,11 +69,12 @@ const DesktopNavbar: React.FC<Props> = ({firstPath, secondPath, firstContent, se
             alignItems: 'center',
             gap: '20px',
             profile: {
+                minWidth: '150px',
                 width: 'fit-content',
                 heigth: '46px',
                 padding: '6px 9px',
                 display: 'flex',
-                justifyContent: 'center',
+                justifyContent: 'start',
                 alignItems: 'center',
                 gap: '9px',
                 border: '1px solid #E8F3FF',
@@ -87,6 +88,7 @@ const DesktopNavbar: React.FC<Props> = ({firstPath, secondPath, firstContent, se
                 height: '34px',
                 borderRadius: '50%',
                 border: '1px solid #3F72A4',
+                backgroundColor: mainColors.primary.main
             },
             '@media(max-width: 1200px)': {
                 display: 'none',
@@ -109,12 +111,21 @@ const DesktopNavbar: React.FC<Props> = ({firstPath, secondPath, firstContent, se
                 </svg>  
                 <Box sx={style.teacherInfo.profile}>
                     <Box sx={style.teacherInfo.photo}>
-                        <Avatar alt={`أ / ${auth.user.firstName} ${auth.user.lastName}`} src={auth.user.imagePath} width={34} height={34} />
+                        {
+                            user &&
+                            <Avatar alt={`أ / ${user.firstName} ${user.lastName}`} src={user.imagePath} width={34} height={34} />
+                        }
                     </Box>
                     <Box>
-                        <Typography fontWeight={700} fontSize={14} color='primary'>
-                            {`أ / ${auth.user.firstName} ${auth.user.lastName}`}
-                        </Typography>
+                        {
+                            user ?
+                            <Typography fontWeight={700} fontSize={14} color='primary'>
+                                {`أ / ${user.firstName} ${user.lastName}`}
+                            </Typography> :
+                            <Typography fontWeight={700} fontSize={14} color='primary'>
+                                أ / 
+                            </Typography>
+                        }
                     </Box>
                 </Box>
             </Box>

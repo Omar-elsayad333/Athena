@@ -1,3 +1,4 @@
+
 // import {useContext} from 'react';
 // import { UserContext } from 'context/userContext';
 import { Routes } from './Routes';
@@ -9,28 +10,28 @@ import { useUser } from 'context/userContext';
 type ComponentNext = NextComponentType<NextPageContext, any, {}>;
 
 export const withPublic = (Component: ComponentNext) => (props: any) => {
-    // const auth = useUser();
-    // const router = useRouter();
 
-    // const referLink = router.asPath.split('refer=')[1];
+    const router = useRouter();
+    const { authToken } = useUser();
 
-    // if(typeof window !== 'undefined'){
-    //     if (!auth.user) {d   
-    //         // router.replace(referLink || Routes.teacherHome);
-    //         return <Loading />;
-    //     }
-    // }
+    if(typeof window !== 'undefined'){
+        if (localStorage.getItem('athena-token') || localStorage.getItem('athena-token') || authToken) {  
+            router.replace(Routes.teacherHome);
+            return <Loading />;
+        }
+    }
+
     return <Component {...props} />;
 };
 
 export const withProtected = (Component: any) => (props: any) => {  
 
-    const { authToken } = useUser();
     const router = useRouter();
+    // const { authToken } = useUser();
     
     if(typeof window !== 'undefined'){
-        if (!localStorage.getItem('athena-token') || !authToken) {
-            router.replace(`${Routes.loginLink}`);
+        if (!localStorage.getItem('athena-token') && !sessionStorage.getItem('athena-token')) {
+            router.replace(Routes.teacherLogin);
             return <Loading />;
         }
     }
