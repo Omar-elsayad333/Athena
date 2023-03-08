@@ -27,7 +27,7 @@ export const UserProvider: React.FC<IProps> = ({ children }) => {
     const [ user, setUser ] = useState<any>('')
     const [ authToken, setAuthToken ] = useState<string>('')
     const [ expireDate, setExpireDate ] = useState<any>('')
-    const [ refreshToken, setRefreshToken ] = useState<any>('')
+    const [ , setRefreshToken ] = useState<any>('')
     
     useEffect(() => {
         if(user) {
