@@ -1,12 +1,12 @@
-import { NextPage } from 'next';
-import { withPublic } from 'routes/withRouts';
-import PageHead from 'components/Shared/PageHead';
-import TeacherLogin from '../components/TeacherLogin';
-import useTeacherLogin from 'container/useTeacherLogin';
-import LoginLoading from 'components/Loading/LoginLoading';
+import { NextPage } from 'next'
+import { withPublic } from 'routes/withRouts'
+import PageHead from 'components/Shared/PageHead'
+import TeacherLogin from '../components/TeacherLogin'
+import useTeacherLogin from 'container/useTeacherLogin'
+import LoginLoading from 'components/Loading/LoginLoading'
 
 // MUI
-import Box from "@mui/material/Box";
+import Box from '@mui/material/Box'
 
 const style: any = {
     root: {
@@ -15,35 +15,31 @@ const style: any = {
         padding: '0px 30px',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center',   
+        justifyContent: 'center',
         backgroundSize: 'cover',
         backgroundPosition: 'top',
         backgroundImage: 'url("./images/brad-pouncey-raV9BAKD1eE-unsplash.jpg")',
-        '@media (max-width: 600px)': {  
+        '@media (max-width: 600px)': {
             justifyContent: 'center',
             padding: '0px 25px',
         },
         '@media (max-width: 400px)': {
             justifyContent: 'center',
             padding: '0px 20px',
-        },  
+        },
     },
-};
+}
 
 const teacherLogin: NextPage = () => {
-
-    const { states, actions } = useTeacherLogin();
+    const { states, actions } = useTeacherLogin()
 
     return (
         <Box style={style.root}>
-            <PageHead title='Teacher Login' />
-            <TeacherLogin
-                states={states}
-                actions={actions}
-            />
-            { states.loading && <LoginLoading /> }
+            <PageHead title="Teacher Login" />
+            <TeacherLogin states={states} actions={actions} />
+            {states.loading && <LoginLoading />}
         </Box>
-    );
+    )
 }
 
 export default withPublic(teacherLogin)

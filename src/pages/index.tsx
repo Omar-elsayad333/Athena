@@ -1,86 +1,95 @@
-import Link from 'next/link';
-import Image from 'next/image';
-import { NextPage } from 'next';
-import { lightColors, darkColors } from 'styles/colors';
-import { useContext } from 'react';
-import { DarkThemeContext } from 'context/ThemeContext';
-import PageHead from 'components/Shared/PageHead';
-import logo from '../../public/images/logo-with-text.svg';
-import LoginButLight from '../components/TeacherLogin/LoginButton';
-import LoginButDark from '../components/LoginButDark';
+import Link from 'next/link'
+import { NextPage } from 'next'
+import { Routes } from 'routes/Routes'
+import { useTheme } from 'context/ThemeContext'
+import PageHead from 'components/Shared/PageHead'
+import SecondaryIogo from 'assets/images/SecondaryIogo'
+import LoginButDark from '../components/LoginButDark'
 
 // MUI
-import { Box, Typography } from '@mui/material';
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
 
 const Home: NextPage = () => {
+    const { mainColors } = useTheme()
 
-  const {darkMode} = useContext(DarkThemeContext);
+    return (
+        <Box
+            sx={{
+                width: '100%',
+                background: mainColors.backgroundColor.main,
+            }}
+        >
+            <PageHead title="Athena" description="Athena website" />
+            <Box
+                sx={{
+                    gap: '100px',
+                    minHeight: '100vh',
+                    width: '100vw',
+                    padding: '50px',
+                    display: 'flex',
+                    alignItems: 'start',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                }}
+            >
+                <Box
+                    sx={{
+                        alignSelf: 'flex-end',
+                    }}
+                >
+                    <SecondaryIogo />
+                </Box>
+                <Box
+                    sx={{
+                        gap: '106px',
+                        display: 'flex',
+                        alignItems: 'start',
+                        flexDirection: 'column',
+                        maxWidth: '100%',
+                    }}
+                >
+                    <Box
+                        sx={{
+                            gap: '55px',
+                            width: '100%',
+                            display: 'flex',
+                            alignItems: 'start',
+                            flexDirection: 'column',
+                            maxWidth: '100%',
+                        }}
+                    >
+                        <Typography variant="h3" color="primary">
+                            انا مدرس
+                        </Typography>
+                        <Link href={Routes.teacherHome}>
+                            <a style={{ width: '400px', maxWidth: '100%' }}>
+                                <LoginButDark content="قسم المدرس" />
+                            </a>
+                        </Link>
+                    </Box>
+                    <Box
+                        sx={{
+                            gap: '55px',
+                            display: 'flex',
+                            alignItems: 'start',
+                            flexDirection: 'column',
+                            maxWidth: '100%',
+                        }}
+                    >
+                        <Typography variant="h3" color="primary">
+                            انا طالب
+                        </Typography>
+                        <Link href={Routes.dashboard}>
+                            <a style={{ width: '400px', maxWidth: '100%' }}>
+                                <LoginButDark content="قسم الطالب" />
+                            </a>
+                        </Link>
+                    </Box>
+                </Box>
+            </Box>
+        </Box>
+    )
+}
 
-  return (
-    <Box sx={{width: '100%', background: darkMode ? darkColors.backgroundColor.main : lightColors.backgroundColor.main}}>
-      <PageHead title='Athena' />
-      <Box sx={{width: '100%', padding: '50px', display: 'flex', flexDirection: 'column', gap: '50px', alignItems: 'center'}}>
-        <Box >
-          <Image alt='athena' layout='intrinsic' src={logo} />
-        </Box>
-        <Box sx={{display: 'flex', flexDirection: 'column', gap: '20px', alignItems: 'center'}}>
-          <Typography variant='h3' color='primary'>
-            انا مدرس
-          </Typography>
-          <Link href='/teacher-login'>
-            <a>
-              <LoginButDark content='تسجيل الدخول' />
-            </a>
-          </Link>
-        </Box>
-        <Box sx={{display: 'flex', flexDirection: 'column', gap: '20px', alignItems: 'center'}}>
-          <Typography variant='h3' color='primary'>
-            انا طالب
-          </Typography>
-          <Link href='/studentLogin' style={{paddingLeft: '20px'}}>
-            <a>
-              <LoginButDark content='تسجيل الدخول' />
-            </a>
-          </Link>
-          <Link href='/student-signup'>
-            <a>
-              <LoginButLight content='انشاء حساب' />
-            </a>
-          </Link>
-        </Box>
-        <Box sx={{display: 'flex', flexDirection: 'column', gap: '20px', alignItems: 'center'}}>
-          <Typography variant='h3' color='primary'>
-            Teacher Section
-          </Typography>
-          <Link href='/teacher/home' style={{paddingLeft: '20px'}}>
-            <a>
-              <LoginButDark content='قسم المدرس' />
-            </a>
-          </Link>
-        </Box>
-        <Box sx={{display: 'flex', flexDirection: 'column', gap: '20px', alignItems: 'center'}}>
-          <Typography variant='h3' color='primary'>
-            Dashboard Section
-          </Typography>
-          <Link href='/dashboard' style={{paddingLeft: '20px'}}>
-            <a>
-              <LoginButDark content='Dashboard' />
-            </a>
-          </Link>
-        </Box>
-        <Box sx={{display: 'flex', flexDirection: 'column', gap: '20px', alignItems: 'center'}}>
-          <Typography variant='h3' color='primary'>
-            Test Section
-          </Typography>
-          <Link href='/test' style={{paddingLeft: '20px'}}>
-            <a>
-              <LoginButDark content='Test' />
-            </a>
-          </Link>
-        </Box>
-      </Box>
-    </Box>
-  )
-} 
-
-export default Home;
+export default Home

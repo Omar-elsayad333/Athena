@@ -1,116 +1,107 @@
-import { Routes } from 'routes/Routes';
-import { useRouter } from 'next/router';
-import { userObjectHandler } from 'handlers/userHandler';
-import { useState, createContext, useContext, useEffect } from 'react';
+import { Routes } from 'routes/Routes'
+import { useRouter } from 'next/router'
+import useTokens from 'hooks/useTokens'
+import { userReducer } from 'reducers/userReducer'
+import useRequestHandlers from 'handlers/useRequestHandlers'
+import { useLayoutEffect, createContext, useContext, useEffect, useReducer } from 'react'
+import { initialState, UserContextType, UserProviderProps } from 'interfaces/userInterfaces'
 
-type ContextState = {
-    user: any;
-    authToken: string;
-    loginUser: Function;  
-};
+type Props = {
+    children: React.ReactElement<any, any> & React.ReactNode
+}
 
-const initialValues = {
-    user: null, 
-    authToken: '',
-    loginUser: () => {}
-};
+const UserContext = createContext<UserContextType>({
+    getUser: () => null,
+    logoutUser: () => null,
+    userState: initialState,
+    userDispatch: () => null,
+})
 
-type IProps = { 
-    children: React.ReactElement<any, any> & React.ReactNode;
-};
+export const UserProvider: React.FC<Props> = ({ children }: UserProviderProps) => {
+    const router = useRouter()
+    const { getUserData } = useRequestHandlers()
+    const [userState, userDispatch] = useReducer(userReducer, initialState)
+    const {
+        checkTokens,
+        getNewTokens,
+        clearUserTokens,
+        checkAccessTokensExp,
+        checkRefreshTokensExp,
+    } = useTokens()
 
-export const UserContext = createContext<ContextState>(initialValues);
+    // Check for user tokens
+    useLayoutEffect(() => {
+        userDispatch({
+            type: 'setTokens',
+            payload: {
+                accessToken:
+                    localStorage.getItem('athena_access_token') ||
+                    sessionStorage.getItem('athena_access_token') ||
+                    null,
+                refreshToken:
+                    localStorage.getItem('athena_refresh_token') ||
+                    sessionStorage.getItem('athena_refresh_token') ||
+                    null,
+                accessTokenExpireAt:
+                    localStorage.getItem('athena_access_exp') ||
+                    sessionStorage.getItem('athena_access_exp') ||
+                    null,
+                refreshTokenExpireAt:
+                    localStorage.getItem('athena_refresh_exp') ||
+                    sessionStorage.getItem('athena_refresh_exp') ||
+                    null,
+            },
+        })
+    }, [])
 
-export const UserProvider: React.FC<IProps> = ({ children }) => {
-
-    const router = useRouter();
-    const [ user, setUser ] = useState<any>('')
-    const [ authToken, setAuthToken ] = useState<string>('')
-    const [ expireDate, setExpireDate ] = useState<any>('')
-    const [ , setRefreshToken ] = useState<any>('')
-    
+    // Check if user tokens is good to use
     useEffect(() => {
-        if(user) {
-            console.table(user)
-            if(new Date(expireDate) < new Date()) {
-                setAuthToken('')
-                setRefreshToken('')
-                setExpireDate('')
-                localStorage.clear()
-                sessionStorage.clear()
-                console.log('Token expired')
-                router.replace(Routes.teacherLogin)
+        // if (typeof window !== 'undefined') {
+        if (checkTokens()) {
+            if (!checkAccessTokensExp()) {
+                if (checkRefreshTokensExp()) {
+                    getNewTokens()
+                }
+            } else {
+                if (userState.tokens.accessToken) {
+                    getUser(userState.tokens.accessToken)
+                }
             }
         }
-    }, [user])
+        // }
+    }, [userState.tokens])
 
-    useEffect(() => {
-        if(typeof window !== 'undefined'){
-            checkForToken()
-        }
-    }, [])
-    
-    const checkForToken = () => {
-        if(localStorage.getItem('athena-token') && authToken == '') {
-            getUserData(localStorage.getItem('athena-token')!)
-            setAuthToken(localStorage.getItem('athena-token')!)
-            setRefreshToken(localStorage.getItem('athena-refresh-token')!)
-            setExpireDate(localStorage.getItem('athena-refresh-token-expiryTime')!)
-            return null
-        }
-        if(sessionStorage.getItem('athena-token') && authToken == '') {
-            getUserData(sessionStorage.getItem('athena-token')!)
-            setAuthToken(sessionStorage.getItem('athena-token')!)
-            setRefreshToken(sessionStorage.getItem('athena-refresh-token')!)
-            setExpireDate(sessionStorage.getItem('athena-refresh-token-expiryTime')!)
-            return null
-        }
-
-        return null
-    }
-
-    const getUserData = async (token: any) => {
+    // Get user data
+    const getUser = async (token: string) => {
         try {
-            const res = await userObjectHandler(token)
-            setUser(res)
-        }
-        catch(error) {
-            console.log(error)
-            setAuthToken('')
-            setRefreshToken('')
-            setExpireDate('')
-            localStorage.clear()
-            sessionStorage.clear()
-            console.log('error from loginUser')
-            router.replace(Routes.teacherLogin)
+            userDispatch({ type: 'activeLoading' })
+            const response: any = await getUserData(token)
+            userDispatch({
+                type: 'setUser',
+                payload: response,
+            })
+        } catch (error) {
+            clearUserTokens()
+            userDispatch({ type: 'clearTokens' })
+            router.replace(Routes.home)
+        } finally {
+            userDispatch({ type: 'disactiveLoading' })
         }
     }
 
-    const loginUser = async (userData: any, rememberMe: boolean) => { 
-        await getUserData(userData.token)
-        setAuthToken(userData.token)
-        setRefreshToken(userData.refreshToken)
-        setExpireDate(userData.refreshTokenExpiryTime)
-        console.log(rememberMe)
-        if(rememberMe) {
-            localStorage.setItem('athena-token', userData.token)
-            localStorage.setItem('athena-refresh-token', userData.refreshToken)
-            localStorage.setItem('athena-refresh-token-expiryTime', userData.refreshTokenExpiryTime)
-        }else {
-            sessionStorage.setItem('athena-token', userData.token)
-            sessionStorage.setItem('athena-refresh-token', userData.refreshToken)
-            sessionStorage.setItem('athena-refresh-token-expiryTime', userData.refreshTokenExpiryTime)
-        }
-
-        router.replace(Routes.teacherHome)
+    // Logout user from system
+    const logoutUser = () => {
+        clearUserTokens()
+        userDispatch({ type: 'clearUser' })
+        userDispatch({ type: 'clearTokens' })
     }
 
     return (
-        <UserContext.Provider value={{ user, authToken, loginUser }}>
+        <UserContext.Provider value={{ userState, userDispatch, getUser, logoutUser }}>
             {children}
         </UserContext.Provider>
-    );
-};
+    )
+}
 
 // Custom hook that shorthands the context!
-export const useUser = () => useContext(UserContext);
+export const useUser = () => useContext(UserContext)

@@ -1,4 +1,4 @@
-import { useState, createContext, useEffect, useContext } from "react";
+import { useState, createContext, useEffect, useContext } from 'react'
 
 const initialValues = {
     darkMode: false,
@@ -7,31 +7,30 @@ const initialValues = {
 }
 
 type ContextState = {
-    darkMode: boolean | string;
-    handelDarkTheme: any;
-    mainColors: any;
-};
+    darkMode: boolean | string
+    handelDarkTheme: any
+    mainColors: any
+}
 
-type Props = { 
-    children: React.ReactElement<any, any> & React.ReactNode;
-};
+type Props = {
+    children: React.ReactElement<any, any> & React.ReactNode
+}
 
 // create context for dark theme state
-export const DarkThemeContext = createContext<ContextState>(initialValues);
+export const DarkThemeContext = createContext<ContextState>(initialValues)
 
 export const DarkThemeProvider: React.FC<Props> = ({ children }) => {
-    
     // The theme data that gets stored in context
-    const [ darkMode, setDarkMode ] = useState<boolean | string>(false);
+    const [darkMode, setDarkMode] = useState<boolean | string>(false)
 
     // get the last selected theme
     useEffect(() => {
-        if(typeof window !== 'undefined') {
-            localStorage.getItem('athena-theme') === 'true' && setDarkMode(true);
+        if (typeof window !== 'undefined') {
+            localStorage.getItem('athena-theme') === 'true' && setDarkMode(true)
         }
-    }, []);
+    }, [])
 
-    const mainColors :any = {
+    const mainColors: any = {
         primary: {
             main: darkMode ? '#E0EEFF' : '#3F72A4',
             light: darkMode ? '#ffd700' : '#ffd700',
@@ -89,51 +88,55 @@ export const DarkThemeProvider: React.FC<Props> = ({ children }) => {
         },
         dialog: {
             background: darkMode ? '#1C364F' : '#E8F3FF',
-            titleShadow: darkMode ? 'none' : 'inset 0px 0px 57px 4px rgba(63, 114, 164, 0.25)'
+            titleShadow: darkMode ? 'none' : 'inset 0px 0px 57px 4px rgba(63, 114, 164, 0.25)',
         },
         backgroundColor: {
             main: darkMode ? '#162A3E' : '#E0EEFF',
             sideNav: darkMode ? '#1C364F' : '#B6D5F0',
         },
         linerGradient: {
-            primary: darkMode ? 'linear-gradient(0deg, #4072A4 0%, #1D3750 100%)' : 'linear-gradient(180deg, #B6D5F0 0%, #DFEFFF 100%)',
-            secondary: darkMode ? 'linear-gradient(180deg, #3F72A4 0%, #1C364F 100%)' : 'linear-gradient(180deg, #DFEFFF 0%, #B6D5F0 100%)',
+            primary: darkMode
+                ? 'linear-gradient(0deg, #4072A4 0%, #1D3750 100%)'
+                : 'linear-gradient(180deg, #B6D5F0 0%, #DFEFFF 100%)',
+            secondary: darkMode
+                ? 'linear-gradient(180deg, #3F72A4 0%, #1C364F 100%)'
+                : 'linear-gradient(180deg, #DFEFFF 0%, #B6D5F0 100%)',
         },
         shadow: {
             main: darkMode ? '' : '5px 5px 10px 0px #B6D5F080',
         },
         table: {
             main: darkMode ? '#1C364F' : '#E8F3FF',
-            border : darkMode ? '#3F72A4' : '#B6D5F0',
+            border: darkMode ? '#3F72A4' : '#B6D5F0',
             // header : darkMode ? 'linear-gradient(0deg, #4072A4 0%, #1D3750 100%)' : '#B6D5F0',
-            contrastText : darkMode ? '#E0EEFF' : '#3F72A4',
+            contrastText: darkMode ? '#E0EEFF' : '#3F72A4',
         },
         studentCard: {
             border: darkMode ? '2px solid #1C364F' : '2px solid #3F72A4',
             hover: darkMode ? '2px solid #3F72A4' : '2px solid #1C364F',
-            detailsCard: darkMode ? 'rgba(28, 54, 79, 0.6)' : 'rgba(63, 114, 164, 0.6)', 
-            detailsCardHover: darkMode ? 'rgba(63, 114, 164, 0.6)' : 'rgba(28, 54, 79, 0.6)', 
+            detailsCard: darkMode ? 'rgba(28, 54, 79, 0.6)' : 'rgba(63, 114, 164, 0.6)',
+            detailsCardHover: darkMode ? 'rgba(63, 114, 164, 0.6)' : 'rgba(28, 54, 79, 0.6)',
         },
         icons: {
-            roundedAdd: darkMode ? 'transparent' : '#B6D5F0'
+            roundedAdd: darkMode ? 'transparent' : '#B6D5F0',
         },
         loader: {
-            main: darkMode ? 'rgba(28, 54, 79, .4)' : 'rgba(224, 238, 255, .4)'
-        }  
-    };
+            main: darkMode ? 'rgba(28, 54, 79, .4)' : 'rgba(224, 238, 255, .4)',
+        },
+    }
 
     // handle change theme
     const handelDarkTheme = async () => {
-        localStorage.setItem('athena-theme', JSON.stringify(!darkMode));
+        localStorage.setItem('athena-theme', JSON.stringify(!darkMode))
         setDarkMode(!darkMode)
-    };
+    }
 
     return (
         <DarkThemeContext.Provider value={{ mainColors, darkMode, handelDarkTheme }}>
             {children}
-        </DarkThemeContext.Provider> 
-    );
-};
+        </DarkThemeContext.Provider>
+    )
+}
 
 // Custom hook that shorthands the context!
-export const useTheme = () => useContext(DarkThemeContext);
+export const useTheme = () => useContext(DarkThemeContext)

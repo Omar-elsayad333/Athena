@@ -1,15 +1,15 @@
 // MUI
-import { styled } from '@mui/material/styles';
-import Button from "@mui/material/Button";
+import { styled } from '@mui/material/styles'
+import Button from '@mui/material/Button'
 
 type Props = {
-    content: any;
-    onClick?: any;
-    type?: any;
+    content: any
+    onClick?: any
+    type?: any
 }
 
 const MyButton = styled(Button)({
-    width: '100%',
+    maxWidth: '100%',
     height: '80px',
     fontSize: '34px',
     fontWeight: '700',
@@ -30,14 +30,14 @@ const MyButton = styled(Button)({
     '@media(max-width: 350px)': {
         fontSize: '20px',
     },
-});
+})
 
-const LoginButLight: React.FC<Props> = ({content, onClick, type}) => {
+const LoginButLight: React.FC<Props> = ({ content, onClick, type }) => {
     return (
         <MyButton variant="contained" type={type} onClick={onClick}>
             {content}
-        </MyButton>  
-    );
+        </MyButton>
+    )
 }
 
-export default LoginButLight;
+export default LoginButLight
