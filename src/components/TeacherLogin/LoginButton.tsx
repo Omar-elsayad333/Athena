@@ -9,7 +9,7 @@ type Props = {
 }
 
 const MyButton = styled(Button)({
-    maxWidth: '100%',
+    width: '100%',
     height: '80px',
     fontSize: '34px',
     fontWeight: '700',

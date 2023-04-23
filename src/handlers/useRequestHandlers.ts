@@ -15,7 +15,7 @@ const useRequestHandlers = () => {
     // Handle refresh token request
     const getRefreshToken = async (data: any) => {
         try {
-            const response = await axiosInstance.post(Urls.URL_AUTH_TOKENS_REFRESH, data)
+            const response = await axiosInstance.get(Urls.URL_AUTH_TOKENS_REFRESH, data)
             return response.data
         } catch (error: any) {
             throw Error(error.response.data.error)

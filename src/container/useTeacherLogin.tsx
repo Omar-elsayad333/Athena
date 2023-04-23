@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { Routes } from 'routes/Routes'
+import { useRouter } from 'next/router'
 import useTokens from 'hooks/useTokens'
 import { useUser } from 'context/userContext'
 import useRequestHandlers from 'handlers/useRequestHandlers'
@@ -6,6 +8,7 @@ import { inputInitialValues, InputProps } from 'interfaces/shared/input'
 import { InputPasswordProps, passwordInitialValues } from 'interfaces/shared/inputPassword'
 
 const useTeacherLogin = () => {
+    const router = useRouter()
     const { userDispatch } = useUser()
     const { storeUserTokens } = useTokens()
     const { loginHandler } = useRequestHandlers()
@@ -108,6 +111,7 @@ const useTeacherLogin = () => {
                         refreshTokenExpireAt: response.refreshTokenExpireAt,
                     },
                 })
+                router.push(Routes.teacherHome)
             } catch (error) {
                 console.log(error)
                 setPasswordErrors([

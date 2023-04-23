@@ -1,8 +1,8 @@
+import { Routes } from './Routes'
 import { useRouter } from 'next/router'
+import useTokens from 'hooks/useTokens'
 import Loading from 'components/Loading/Loading'
 import { NextComponentType, NextPageContext } from 'next'
-import { Routes } from './Routes'
-import useTokens from 'hooks/useTokens'
 
 type ComponentNext = NextComponentType<NextPageContext, any, {}>
 

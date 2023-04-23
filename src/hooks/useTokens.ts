@@ -43,8 +43,8 @@ const useTokens = () => {
     // Check for the expireation date of access token
     const checkAccessTokensExp = () => {
         const accessTokenExpireAt: string | null =
-            localStorage.getItem('zero7_access_exp') ||
-            sessionStorage.getItem('zero7_access_exp') ||
+            localStorage.getItem('athena_access_exp') ||
+            sessionStorage.getItem('athena_access_exp') ||
             null
 
         // Create a Date object from the API date string
@@ -63,8 +63,8 @@ const useTokens = () => {
     // Check for the expireation date of refresh token
     const checkRefreshTokensExp = () => {
         const refreshTokenExpireAt: string | null =
-            localStorage.getItem('zero7_refresh_exp') ||
-            sessionStorage.getItem('zero7_refresh_exp') ||
+            localStorage.getItem('athena_refresh_exp') ||
+            sessionStorage.getItem('athena_refresh_exp') ||
             null
 
         // Create a Date object from the API date string
@@ -84,15 +84,15 @@ const useTokens = () => {
     // Give the user new tokens with the refresh token
     const getNewTokens = async () => {
         let rememberMe = true
-        localStorage.getItem('zero7_access_token') ? (rememberMe = true) : (rememberMe = false)
+        localStorage.getItem('athena_access_token') ? (rememberMe = true) : (rememberMe = false)
 
         const tokens = {
-            accessToken:
-                localStorage.getItem('zero7_access_token') ||
-                sessionStorage.getItem('zero7_access_token'),
+            token:
+                localStorage.getItem('athena_access_token') ||
+                sessionStorage.getItem('athena_access_token'),
             refreshToken:
-                localStorage.getItem('zero7_refresh_token') ||
-                sessionStorage.getItem('zero7_refresh_token'),
+                localStorage.getItem('athena_refresh_token') ||
+                sessionStorage.getItem('athena_refresh_token'),
         }
 
         try {
@@ -104,10 +104,10 @@ const useTokens = () => {
             userDispatch({
                 type: 'setTokens',
                 payload: {
-                    accessToken: newTokens.accessToken,
+                    accessToken: newTokens.token,
                     refreshToken: newTokens.refreshToken,
-                    accessTokenExpireAt: newTokens.accessTokenExpireAt,
-                    refreshTokenExpireAt: newTokens.refreshTokenExpireAt,
+                    accessTokenExpireAt: newTokens.tokenExpiryTime,
+                    refreshTokenExpireAt: newTokens.refreshTokenExpiryTime,
                 },
             })
             return true
@@ -123,15 +123,15 @@ const useTokens = () => {
     // Store user token on local storage
     const storeUserTokens = (tokens: any, remeberMe: boolean) => {
         if (remeberMe) {
-            localStorage.setItem('athena_access_token', tokens.accessToken)
+            localStorage.setItem('athena_access_token', tokens.token)
             localStorage.setItem('athena_refresh_token', tokens.refreshToken)
-            localStorage.setItem('athena_access_exp', tokens.accessTokenExp)
-            localStorage.setItem('athena_refresh_exp', tokens.refreshTokenExp)
+            localStorage.setItem('athena_access_exp', tokens.tokenExpiryTime)
+            localStorage.setItem('athena_refresh_exp', tokens.refreshTokenExpiryTime)
         } else {
-            sessionStorage.setItem('athena_access_token', tokens.accessToken)
+            sessionStorage.setItem('athena_access_token', tokens.token)
             sessionStorage.setItem('athena_refresh_token', tokens.refreshToken)
-            sessionStorage.setItem('athena_access_exp', tokens.accessTokenExp)
-            sessionStorage.setItem('athena_refresh_exp', tokens.refreshTokenExp)
+            sessionStorage.setItem('athena_access_exp', tokens.tokenExpiryTime)
+            sessionStorage.setItem('athena_refresh_exp', tokens.refreshTokenExpiryTime)
         }
     }
 
