@@ -105,13 +105,13 @@ const useTeacherLogin = () => {
                 userDispatch({
                     type: 'setTokens',
                     payload: {
-                        accessToken: response.accessToken,
+                        accessToken: response.token,
                         refreshToken: response.refreshToken,
-                        accessTokenExpireAt: response.accessTokenExpireAt,
-                        refreshTokenExpireAt: response.refreshTokenExpireAt,
+                        accessTokenExpireAt: response.tokenExpiryTime,
+                        refreshTokenExpireAt: response.refreshTokenExpiryTime,
                     },
                 })
-                await getUser()
+                // await getUser()
                 router.replace(Routes.teacherHome)
             } catch (error) {
                 console.log(error)

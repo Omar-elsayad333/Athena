@@ -96,9 +96,7 @@ const useTokens = () => {
         try {
             userDispatch({ type: 'activeLoading' })
             const newTokens: any = await getRefreshToken(tokens)
-            const userData: any = await getUserData(newTokens.accessToken)
             storeUserTokens(newTokens, rememberMe)
-            userDispatch({ type: 'setUser', payload: userData })
             userDispatch({
                 type: 'setTokens',
                 payload: {
@@ -108,7 +106,6 @@ const useTokens = () => {
                     refreshTokenExpireAt: newTokens.refreshTokenExpiryTime,
                 },
             })
-            await getUser()
             return true
         } catch (error) {
             console.log(error)

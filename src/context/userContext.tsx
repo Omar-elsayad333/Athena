@@ -29,34 +29,7 @@ export const UserProvider: React.FC<Props> = ({ children }: UserProviderProps) =
         checkRefreshTokensExp,
     } = useTokens()
 
-    // // Check for user tokens
-    // useEffect(() => {
-    //     if (typeof window != 'undefined') {
-    //         userDispatch({
-    //             type: 'setTokens',
-    //             payload: {
-    //                 accessToken:
-    //                     localStorage.getItem('athena_access_token') ||
-    //                     sessionStorage.getItem('athena_access_token') ||
-    //                     null,
-    //                 refreshToken:
-    //                     localStorage.getItem('athena_refresh_token') ||
-    //                     sessionStorage.getItem('athena_refresh_token') ||
-    //                     null,
-    //                 accessTokenExpireAt:
-    //                     localStorage.getItem('athena_access_exp') ||
-    //                     sessionStorage.getItem('athena_access_exp') ||
-    //                     null,
-    //                 refreshTokenExpireAt:
-    //                     localStorage.getItem('athena_refresh_exp') ||
-    //                     sessionStorage.getItem('athena_refresh_exp') ||
-    //                     null,
-    //             },
-    //         })
-    //     }
-    // }, [])
-
-    // Check if user tokens is good to use
+    // Check if user has tokens and if it is good to use
     useEffect(() => {
         if (typeof window !== 'undefined' && checkTokens()) {
             if (!checkAccessTokensExp()) {
@@ -89,10 +62,12 @@ export const UserProvider: React.FC<Props> = ({ children }: UserProviderProps) =
         }
     }, [])
 
+    // Get user data anytime the token changes
     useEffect(() => {
         if (userState.tokens.accessToken) {
             getUser(userState.tokens.accessToken)
         }
+        console.table(userState.tokens)
     }, [userState.tokens.accessToken])
 
     // Get user data
