@@ -5,7 +5,7 @@ import { DarkThemeContext } from 'context/ThemeContext'
 import PageHead from 'components/Shared/PageHead'
 import DesktopNavbar from 'components/Layout/DesktopNavbar'
 import ThemeSwitcher from 'components/ThemeSwitcher'
-import { withAuth } from 'routes/withRouts'
+import { withAuth } from 'routes/withRoute'
 
 // MUI
 import Box from '@mui/material/Box'

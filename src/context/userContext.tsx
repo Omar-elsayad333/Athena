@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import useTokens from 'hooks/useTokens'
 import { userReducer } from 'reducers/userReducer'
 import useRequestHandlers from 'handlers/useRequestHandlers'
-import { useLayoutEffect, createContext, useContext, useEffect, useReducer } from 'react'
+import { createContext, useContext, useEffect, useReducer } from 'react'
 import { initialState, UserContextType, UserProviderProps } from 'interfaces/userInterfaces'
 
 type Props = {
@@ -29,47 +29,71 @@ export const UserProvider: React.FC<Props> = ({ children }: UserProviderProps) =
         checkRefreshTokensExp,
     } = useTokens()
 
-    // Check for user tokens
-    useLayoutEffect(() => {
-        userDispatch({
-            type: 'setTokens',
-            payload: {
-                accessToken:
-                    localStorage.getItem('athena_access_token') ||
-                    sessionStorage.getItem('athena_access_token') ||
-                    null,
-                refreshToken:
-                    localStorage.getItem('athena_refresh_token') ||
-                    sessionStorage.getItem('athena_refresh_token') ||
-                    null,
-                accessTokenExpireAt:
-                    localStorage.getItem('athena_access_exp') ||
-                    sessionStorage.getItem('athena_access_exp') ||
-                    null,
-                refreshTokenExpireAt:
-                    localStorage.getItem('athena_refresh_exp') ||
-                    sessionStorage.getItem('athena_refresh_exp') ||
-                    null,
-            },
-        })
-    }, [])
+    // // Check for user tokens
+    // useEffect(() => {
+    //     if (typeof window != 'undefined') {
+    //         userDispatch({
+    //             type: 'setTokens',
+    //             payload: {
+    //                 accessToken:
+    //                     localStorage.getItem('athena_access_token') ||
+    //                     sessionStorage.getItem('athena_access_token') ||
+    //                     null,
+    //                 refreshToken:
+    //                     localStorage.getItem('athena_refresh_token') ||
+    //                     sessionStorage.getItem('athena_refresh_token') ||
+    //                     null,
+    //                 accessTokenExpireAt:
+    //                     localStorage.getItem('athena_access_exp') ||
+    //                     sessionStorage.getItem('athena_access_exp') ||
+    //                     null,
+    //                 refreshTokenExpireAt:
+    //                     localStorage.getItem('athena_refresh_exp') ||
+    //                     sessionStorage.getItem('athena_refresh_exp') ||
+    //                     null,
+    //             },
+    //         })
+    //     }
+    // }, [])
 
     // Check if user tokens is good to use
     useEffect(() => {
-        // if (typeof window !== 'undefined') {
-        if (checkTokens()) {
+        if (typeof window !== 'undefined' && checkTokens()) {
             if (!checkAccessTokensExp()) {
                 if (checkRefreshTokensExp()) {
                     getNewTokens()
                 }
-            } else {
-                if (userState.tokens.accessToken) {
-                    getUser(userState.tokens.accessToken)
-                }
+            } else if (typeof window !== 'undefined') {
+                userDispatch({
+                    type: 'setTokens',
+                    payload: {
+                        accessToken:
+                            localStorage.getItem('athena_access_token') ||
+                            sessionStorage.getItem('athena_access_token') ||
+                            null,
+                        refreshToken:
+                            localStorage.getItem('athena_refresh_token') ||
+                            sessionStorage.getItem('athena_refresh_token') ||
+                            null,
+                        accessTokenExpireAt:
+                            localStorage.getItem('athena_access_exp') ||
+                            sessionStorage.getItem('athena_access_exp') ||
+                            null,
+                        refreshTokenExpireAt:
+                            localStorage.getItem('athena_refresh_exp') ||
+                            sessionStorage.getItem('athena_refresh_exp') ||
+                            null,
+                    },
+                })
             }
         }
-        // }
-    }, [userState.tokens])
+    }, [])
+
+    useEffect(() => {
+        if (userState.tokens.accessToken) {
+            getUser(userState.tokens.accessToken)
+        }
+    }, [userState.tokens.accessToken])
 
     // Get user data
     const getUser = async (token: string) => {
@@ -83,7 +107,7 @@ export const UserProvider: React.FC<Props> = ({ children }: UserProviderProps) =
         } catch (error) {
             clearUserTokens()
             userDispatch({ type: 'clearTokens' })
-            router.replace(Routes.home)
+            router.push(Routes.home)
         } finally {
             userDispatch({ type: 'disactiveLoading' })
         }

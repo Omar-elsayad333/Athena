@@ -1,24 +1,23 @@
-import useLayout from 'container/useLayout';
-import MobileSideNav from './MobileSideNav';
-import DesktopSideNav from './DesktopSideNav';
+import { withAuth } from 'routes/withRoute'
+import useLayout from 'container/useLayout'
+import MobileSideNav from './MobileSideNav'
+import DesktopSideNav from './DesktopSideNav'
 
 // MUI
-import Box from '@mui/material/Box';
-import { withProtected } from 'routes/withRouts';
+import Box from '@mui/material/Box'
 
 type IProps = {
-    children?: JSX.Element | JSX.Element[];
-};
+    children?: JSX.Element | JSX.Element[]
+}
 
 const Layout: React.FC<IProps> = ({ children }) => {
-
-    const { 
-        sideNavState, 
+    const {
+        sideNavState,
         controleSideNav,
         mobileSideNavState,
         controleMobileSideNav,
         currentPath,
-    } = useLayout();
+    } = useLayout()
 
     const style = {
         container: {
@@ -26,18 +25,26 @@ const Layout: React.FC<IProps> = ({ children }) => {
             '@media(max-width: 1200px)': {
                 flexDirection: 'column',
             },
-        }
+        },
     }
-    
+
     return (
         <Box>
-            <Box sx={style.container}>    
-                <DesktopSideNav controleSideNav={controleSideNav} sideNavState={sideNavState} currentPath={currentPath} /> 
-                <MobileSideNav mobileSideNavState={ mobileSideNavState} controleMobileSideNav={controleMobileSideNav} currentPath={currentPath} />
+            <Box sx={style.container}>
+                <DesktopSideNav
+                    controleSideNav={controleSideNav}
+                    sideNavState={sideNavState}
+                    currentPath={currentPath}
+                />
+                <MobileSideNav
+                    mobileSideNavState={mobileSideNavState}
+                    controleMobileSideNav={controleMobileSideNav}
+                    currentPath={currentPath}
+                />
                 {children}
             </Box>
         </Box>
-    );
+    )
 }
 
-export default withProtected(Layout)
+export default withAuth(Layout)

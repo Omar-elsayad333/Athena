@@ -9,7 +9,7 @@ import { InputPasswordProps, passwordInitialValues } from 'interfaces/shared/inp
 
 const useTeacherLogin = () => {
     const router = useRouter()
-    const { userDispatch } = useUser()
+    const { userDispatch, getUser } = useUser()
     const { storeUserTokens } = useTokens()
     const { loginHandler } = useRequestHandlers()
     const [loading, setLoading] = useState<boolean>(false)
@@ -101,7 +101,7 @@ const useTeacherLogin = () => {
                 setLoading(true)
                 const data = collectData()
                 const response = await loginHandler(data)
-                await storeUserTokens(response, rememberMe)
+                storeUserTokens(response, rememberMe)
                 userDispatch({
                     type: 'setTokens',
                     payload: {
@@ -111,7 +111,8 @@ const useTeacherLogin = () => {
                         refreshTokenExpireAt: response.refreshTokenExpireAt,
                     },
                 })
-                router.push(Routes.teacherHome)
+                await getUser()
+                router.replace(Routes.teacherHome)
             } catch (error) {
                 console.log(error)
                 setPasswordErrors([

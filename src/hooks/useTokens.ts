@@ -2,39 +2,37 @@ import { useUser } from 'context/userContext'
 import useRequestHandlers from 'handlers/useRequestHandlers'
 
 const useTokens = () => {
-    const { userDispatch } = useUser()
+    const { userDispatch, getUser } = useUser()
     const { getRefreshToken, getUserData } = useRequestHandlers()
 
     // Check if the user have tokens
     const checkTokens = () => {
-        if (typeof window !== 'undefined') {
-            if (
-                !localStorage.getItem('athena_access_token') &&
-                !sessionStorage.getItem('athena_access_token')
-            ) {
-                return false
-            }
+        if (
+            !localStorage.getItem('athena_access_token') &&
+            !sessionStorage.getItem('athena_access_token')
+        ) {
+            return false
+        }
 
-            if (
-                !localStorage.getItem('athena_refresh_token') &&
-                !sessionStorage.getItem('athena_refresh_token')
-            ) {
-                return false
-            }
+        if (
+            !localStorage.getItem('athena_refresh_token') &&
+            !sessionStorage.getItem('athena_refresh_token')
+        ) {
+            return false
+        }
 
-            if (
-                !localStorage.getItem('athena_access_exp') &&
-                !sessionStorage.getItem('athena_access_exp')
-            ) {
-                return false
-            }
+        if (
+            !localStorage.getItem('athena_access_exp') &&
+            !sessionStorage.getItem('athena_access_exp')
+        ) {
+            return false
+        }
 
-            if (
-                !localStorage.getItem('athena_refresh_exp') &&
-                !sessionStorage.getItem('athena_refresh_exp')
-            ) {
-                return false
-            }
+        if (
+            !localStorage.getItem('athena_refresh_exp') &&
+            !sessionStorage.getItem('athena_refresh_exp')
+        ) {
+            return false
         }
 
         return true
@@ -110,6 +108,7 @@ const useTokens = () => {
                     refreshTokenExpireAt: newTokens.refreshTokenExpiryTime,
                 },
             })
+            await getUser()
             return true
         } catch (error) {
             console.log(error)
@@ -137,14 +136,16 @@ const useTokens = () => {
 
     // Clear user tokens from local storage
     const clearUserTokens = () => {
-        localStorage.removeItem('athena_access_token')
-        localStorage.removeItem('athena_refresh_token')
-        localStorage.removeItem('athena_access_exp')
-        localStorage.removeItem('athena_refresh_exp')
-        sessionStorage.removeItem('athena_access_token')
-        sessionStorage.removeItem('athena_refresh_token')
-        sessionStorage.removeItem('athena_access_exp')
-        sessionStorage.removeItem('athena_refresh_exp')
+        if (typeof localStorage != 'undefined') {
+            localStorage.removeItem('athena_access_token')
+            localStorage.removeItem('athena_refresh_token')
+            localStorage.removeItem('athena_access_exp')
+            localStorage.removeItem('athena_refresh_exp')
+            sessionStorage.removeItem('athena_access_token')
+            sessionStorage.removeItem('athena_refresh_token')
+            sessionStorage.removeItem('athena_access_exp')
+            sessionStorage.removeItem('athena_refresh_exp')
+        }
     }
 
     return {

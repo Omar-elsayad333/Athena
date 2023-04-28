@@ -1,5 +1,5 @@
 import { NextPage } from 'next'
-import { withPublic } from 'routes/withRouts'
+import { withPublic } from 'routes/withRoute'
 import PageHead from 'components/Shared/PageHead'
 import TeacherLogin from '../components/TeacherLogin'
 import useTeacherLogin from 'container/useTeacherLogin'

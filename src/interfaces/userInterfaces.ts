@@ -1,13 +1,13 @@
 import { ReactNode } from 'react'
 
-interface User {
-    name: string
-    email: string
-    phoneNumber: string
-}
+// interface User {
+//     name: string
+//     email: string
+//     phoneNumber: string
+// }
 
 export interface UserState {
-    user: User | null
+    user: any
     userLoading: boolean
     tokens: {
         accessToken: string | null
@@ -22,7 +22,7 @@ export type UserAction =
     | { type: 'clearTokens' }
     | { type: 'activeLoading' }
     | { type: 'disactiveLoading' }
-    | { type: 'setUser'; payload: User }
+    | { type: 'setUser'; payload: any }
     | { type: 'setTokens'; payload: UserState['tokens'] }
 
 export interface UserContextType {
