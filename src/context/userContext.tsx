@@ -2,7 +2,7 @@ import { Routes } from 'routes/Routes'
 import { useRouter } from 'next/router'
 import useTokens from 'hooks/useTokens'
 import { userReducer } from 'reducers/userReducer'
-import useRequestHandlers from 'handlers/useRequestHandlers'
+import useUserRequestHandlers from 'hooks/useUserRequestHandlers'
 import { createContext, useContext, useEffect, useReducer } from 'react'
 import { initialState, UserContextType, UserProviderProps } from 'interfaces/userInterfaces'
 
@@ -19,7 +19,7 @@ const UserContext = createContext<UserContextType>({
 
 export const UserProvider: React.FC<Props> = ({ children }: UserProviderProps) => {
     const router = useRouter()
-    const { getUserData } = useRequestHandlers()
+    const { getUserData } = useUserRequestHandlers()
     const [userState, userDispatch] = useReducer(userReducer, initialState)
     const {
         checkTokens,

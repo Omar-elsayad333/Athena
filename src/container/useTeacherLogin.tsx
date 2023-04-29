@@ -3,7 +3,7 @@ import { Routes } from 'routes/Routes'
 import { useRouter } from 'next/router'
 import useTokens from 'hooks/useTokens'
 import { useUser } from 'context/userContext'
-import useRequestHandlers from 'handlers/useRequestHandlers'
+import useRequestHandlers from 'hooks/useUserRequestHandlers'
 import { inputInitialValues, InputProps } from 'interfaces/shared/input'
 import { InputPasswordProps, passwordInitialValues } from 'interfaces/shared/inputPassword'
 

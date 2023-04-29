@@ -1,17 +1,16 @@
-import Link from "next/link";
-import { Routes } from "routes/Routes";
-import { useTheme } from "context/ThemeContext";
+import Link from 'next/link'
+import { Routes } from 'routes/Routes'
+import { useTheme } from 'context/ThemeContext'
 
 // MUI
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
 
 type Props = {
-    data: any;
+    data: any
 }
 
 const GroupsC: React.FC<Props> = ({ data }) => {
-
     const { mainColors } = useTheme()
     const style = {
         container: {
@@ -56,45 +55,39 @@ const GroupsC: React.FC<Props> = ({ data }) => {
 
     return (
         <Box sx={style.container}>
-            {
-                data.length > 0 ?
-                data.map((item:any) => (
-                    <Link key={item.id} href={`${Routes.teacherGroup}${item.id}`}>
+            {data.length > 0 ? (
+                data.map((item: any) => (
+                    <Link key={item.id} href={`${Routes.teacherGroup}/${item.id}`}>
                         <Box sx={style.card}>
                             <Box sx={style.content}>
-                                <Typography color='primary' variant="h1">
+                                <Typography color="primary" variant="h1">
                                     {item.name}
                                 </Typography>
-                                <Typography color='primary' variant="h5">
-                                    <span style={style.span}>
-                                        الصف الدراسي :
-                                    </span>
+                                <Typography color="primary" variant="h5">
+                                    <span style={style.span}>الصف الدراسي :</span>
                                     {` ${item.level}`}
                                 </Typography>
                             </Box>
                             <Box sx={style.content}>
-                                <Typography color='primary' variant="h5">
-                                    <span style={style.span}>
-                                        عدد الطلاب :
-                                    </span>
+                                <Typography color="primary" variant="h5">
+                                    <span style={style.span}>عدد الطلاب :</span>
                                     {` ${item.studentsCount}`}
                                 </Typography>
-                                <Typography color='primary' variant="h5">
-                                    <span style={style.span}>
-                                        المقر :
-                                    </span>
+                                <Typography color="primary" variant="h5">
+                                    <span style={style.span}>المقر :</span>
                                     {` ${item.headQuarter}`}
-                                </Typography>   
+                                </Typography>
                             </Box>
                         </Box>
                     </Link>
-                )) :
+                ))
+            ) : (
                 <Typography variant="h3" color={'primary'} fontWeight={700}>
                     لا يوجد مجموعات
                 </Typography>
-            }
+            )}
         </Box>
-    );
+    )
 }
 
-export default GroupsC;
+export default GroupsC

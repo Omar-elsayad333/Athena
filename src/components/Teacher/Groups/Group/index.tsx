@@ -1,19 +1,18 @@
-import DataCard from './DataCard';
-import TimeCard from './TimeCard';
-import MyTable from 'components/MyTable';
-import { useTheme } from 'context/ThemeContext';
-import { GroupStudentTable } from 'content/tableHeaders' 
+import DataCard from './DataCard'
+import TimeCard from './TimeCard'
+import MyTable from 'components/MyTable'
+import { useTheme } from 'context/ThemeContext'
+import { GroupStudentTable } from 'content/tableHeaders'
 
 // MUI
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
 
 type Props = {
-    data: any;
+    data: any
 }
 
 const GroupC: React.FC<Props> = ({ data }) => {
-
     const { mainColors } = useTheme()
     const style = {
         container: {
@@ -27,7 +26,7 @@ const GroupC: React.FC<Props> = ({ data }) => {
             flex: '100%',
         },
     }
-    
+
     return (
         <Box sx={style.container}>
             <Typography variant="h3" color={mainColors.title.main}>
@@ -40,7 +39,7 @@ const GroupC: React.FC<Props> = ({ data }) => {
             </Typography>
             <MyTable headerData={GroupStudentTable} bodyData={data.groupStudents} />
         </Box>
-    );
+    )
 }
 
-export default GroupC;
+export default GroupC

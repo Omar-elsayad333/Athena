@@ -1,21 +1,20 @@
-import { URL_MAIN } from 'constant/url';
-import { useTheme } from 'context/ThemeContext';
+import Urls from 'constant/url'
+import { useTheme } from 'context/ThemeContext'
 
 // MUI
-import Box from '@mui/material/Box';
-import Table from '@mui/material/Table';
-import TableRow from '@mui/material/TableRow';
-import TableCell from '@mui/material/TableCell';
-import TableHead from '@mui/material/TableHead';
-import TableBody from '@mui/material/TableBody';
+import Box from '@mui/material/Box'
+import Table from '@mui/material/Table'
+import TableRow from '@mui/material/TableRow'
+import TableCell from '@mui/material/TableCell'
+import TableHead from '@mui/material/TableHead'
+import TableBody from '@mui/material/TableBody'
 
 type Props = {
-    headerData: any;
-    bodyData: any;
+    headerData: any
+    bodyData: any
 }
 
 const MyTable: React.FC<Props> = ({ headerData, bodyData }) => {
-    
     const { mainColors } = useTheme()
     const style = {
         container: {
@@ -79,65 +78,54 @@ const MyTable: React.FC<Props> = ({ headerData, bodyData }) => {
                 <TableHead>
                     <TableRow>
                         {headerData.map((item: any, index: number) => (
-                            <TableCell key={index}>
-                                {item.value}
-                            </TableCell>
+                            <TableCell key={index}>{item.value}</TableCell>
                         ))}
                     </TableRow>
                 </TableHead>
-                {
-                    headerData.find((item: any) => item.name === 'image') ?
+                {headerData.find((item: any) => item.name === 'image') ? (
                     <TableBody>
-                        {
-                            bodyData.length > 0 &&
-                            bodyData.map((item:any, index:number) => (
+                        {bodyData.length > 0 &&
+                            bodyData.map((item: any, index: number) => (
                                 <TableRow key={index}>
-                                    {
-                                        Object.keys(item).map((cell:any, index:number) => (
-                                            <TableCell 
-                                                align='right'
-                                                key={index}
-                                            >
-                                                {
-                                                    index != 0 ?                         
-                                                    item[cell] :
-                                                    <Box sx={{            
+                                    {Object.keys(item).map((cell: any, index: number) => (
+                                        <TableCell align="right" key={index}>
+                                            {index != 0 ? (
+                                                item[cell]
+                                            ) : (
+                                                <Box
+                                                    sx={{
                                                         width: '40px',
                                                         height: '40px',
                                                         borderRadius: '50px',
                                                         backgroundSize: 'cover',
                                                         backgroundPosition: 'center',
                                                         border: `solid 1px ${mainColors.paper.border}`,
-                                                        backgroundImage: `url('${URL_MAIN}/${item[cell]}')`,
-                                                    }}/>
-                                                }
-                                            </TableCell>
-                                        ))
-                                    }
+                                                        backgroundImage: `url('${Urls.URL_MAIN}/${item[cell]}')`,
+                                                    }}
+                                                />
+                                            )}
+                                        </TableCell>
+                                    ))}
                                 </TableRow>
-                            ))
-                        }
-                    </TableBody> :
+                            ))}
+                    </TableBody>
+                ) : (
                     <TableBody>
-                    {
-                        bodyData.length > 0 &&
-                        bodyData.map((item:any, index:number) => (
-                            <TableRow key={index}>
-                                {
-                                    Object.keys(item).map((cell:any, index:number) => (
-                                        <TableCell align='right' key={index}>
+                        {bodyData.length > 0 &&
+                            bodyData.map((item: any, index: number) => (
+                                <TableRow key={index}>
+                                    {Object.keys(item).map((cell: any, index: number) => (
+                                        <TableCell align="right" key={index}>
                                             {item[cell]}
                                         </TableCell>
-                                    ))
-                                }
-                            </TableRow>
-                        ))
-                    }
-                </TableBody> 
-                }
+                                    ))}
+                                </TableRow>
+                            ))}
+                    </TableBody>
+                )}
             </Table>
         </Box>
-    );
+    )
 }
 
-export default MyTable;
+export default MyTable

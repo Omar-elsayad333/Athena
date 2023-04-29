@@ -1,9 +1,9 @@
 import Link from 'next/link'
 import { NextPage } from 'next'
 import { Routes } from 'routes/Routes'
+import { withAuth } from 'routes/withRoute'
 import { useAlert } from 'context/AlertContext'
 import { useTheme } from 'context/ThemeContext'
-import { withAuth } from 'routes/withRoute'
 import useGroup from 'container/groups/useGroup'
 import AlertNotify from 'components/AlertNotify'
 import Loading from 'components/Loading/Loading'
@@ -99,7 +99,7 @@ const Group: NextPage = () => {
                                 />
                             </svg>
                         </PageTitle>
-                        <Link href={`${Routes.teacherEditGroup}${data.groupData.id}`}>
+                        <Link href={`${Routes.teacherEditGroup}/${data.groupData.id}`}>
                             <a>
                                 <MyIconButton
                                     content="تعديل"

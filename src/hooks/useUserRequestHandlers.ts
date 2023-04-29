@@ -1,7 +1,7 @@
 import Urls from 'constant/url'
 import { axiosInstance, createAxiosInstance } from 'config/axios'
 
-const useRequestHandlers = () => {
+const useUserRequestHandlers = () => {
     // Actions to login for user and admin
     const loginHandler = async (data: object) => {
         try {
@@ -37,4 +37,4 @@ const useRequestHandlers = () => {
     return { loginHandler, getRefreshToken, getUserData }
 }
 
-export default useRequestHandlers
+export default useUserRequestHandlers

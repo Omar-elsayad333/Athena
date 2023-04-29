@@ -1,7 +1,7 @@
 import { NextPage } from 'next'
+import { withAuth } from 'routes/withRoute'
 import { useTheme } from 'context/ThemeContext'
 import { useAlert } from 'context/AlertContext'
-import { withAuth } from 'routes/withRoute'
 import Loading from 'components/Loading/Loading'
 import AlertNotify from 'components/AlertNotify'
 import PageHead from 'components/Shared/PageHead'

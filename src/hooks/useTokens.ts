@@ -1,9 +1,12 @@
+import { Routes } from 'routes/Routes'
+import { useRouter } from 'next/router'
 import { useUser } from 'context/userContext'
-import useRequestHandlers from 'handlers/useRequestHandlers'
+import useUserRequestHandlers from 'hooks/useUserRequestHandlers'
 
 const useTokens = () => {
-    const { userDispatch, getUser } = useUser()
-    const { getRefreshToken, getUserData } = useRequestHandlers()
+    const router = useRouter()
+    const { userDispatch } = useUser()
+    const { getRefreshToken } = useUserRequestHandlers()
 
     // Check if the user have tokens
     const checkTokens = () => {
@@ -81,7 +84,7 @@ const useTokens = () => {
 
     // Give the user new tokens with the refresh token
     const getNewTokens = async () => {
-        let rememberMe = true
+        let rememberMe: boolean
         localStorage.getItem('athena_access_token') ? (rememberMe = true) : (rememberMe = false)
 
         const tokens = {
@@ -110,6 +113,7 @@ const useTokens = () => {
         } catch (error) {
             console.log(error)
             clearUserTokens()
+            router.push(Routes.teacherLogin)
             return false
         } finally {
             userDispatch({ type: 'disactiveLoading' })

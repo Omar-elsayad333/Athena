@@ -1,30 +1,29 @@
-import { useRouter } from 'next/router';
-import { URL_GROUPS } from 'constant/url';
-import { useState, useEffect } from 'react';
-import { useUser } from 'context/userContext';
-import { getHandlerById } from 'handlers/requestHandler';
-import { useAlert } from 'context/AlertContext';
+import Urls from 'constant/url'
+import { useRouter } from 'next/router'
+import { useState, useEffect } from 'react'
+import { useUser } from 'context/userContext'
+import { useAlert } from 'context/AlertContext'
+import useRequestsHandlers from 'hooks/useRequestsHandlers'
 
 const useGroup = () => {
-
     const router = useRouter()
-    const { id } = router.query
-    const { authToken } = useUser()
+    const { userState } = useUser()
+    const { id }: any = router.query
+    const { loading, getHandlerById } = useRequestsHandlers()
     const { setErrorMessage } = useAlert()
-    const [ groupData, setGroupData ] = useState<any>('')
-    const [ groupStudents, setGroupStudents ] = useState<any>([])
-    const [ loading, setLoading ] = useState<boolean>(false)
+    const [groupData, setGroupData] = useState<any>('')
+    const [groupStudents, setGroupStudents] = useState<any>([])
 
     // Call getGroupData functionl if user is authorized
     useEffect(() => {
-        if(authToken) {
-            getGroupData();
+        if (userState.tokens.accessToken && id) {
+            getGroupData()
         }
-    }, [])
+    }, [userState.tokens.accessToken, id])
 
     // Call function to get group students data
     useEffect(() => {
-        if(groupData && groupStudents.length == 0) {
+        if (groupData && groupStudents.length == 0) {
             getGroupStudents()
         }
     }, [groupData])
@@ -32,50 +31,44 @@ const useGroup = () => {
     // Call api to get group data from db
     const getGroupData = async () => {
         try {
-            setLoading(true);
-            const res: any = await getHandlerById(id, authToken, URL_GROUPS);
-            setGroupData(res);
-            console.log(res.groupStudents)
-        }
-        catch(error) {
-            console.log(error);
+            const res: any = await getHandlerById(
+                id,
+                userState.tokens.accessToken!,
+                Urls.URL_GROUPS,
+            )
+            setGroupData(res)
+        } catch (error) {
+            console.log(error)
             setErrorMessage('حدث خطاء')
-        }
-        finally {
-            setLoading(false);
         }
     }
 
     // Sort data to show it to the user
     const getGroupStudents = () => {
-        for(let student of groupData.groupStudents) {
-            setGroupStudents((groupStudents: any) => 
-                [
-                    ...groupStudents,
-                    {
-                        image: student.image,
-                        firstName: student.firstName,
-                        lastName: student.lastName,
-                        fullName: student.fullName,
-                        level: student.level,
-                        code: student.code
-                    }
-                ]
-            )
+        for (let student of groupData.groupStudents) {
+            setGroupStudents((groupStudents: any) => [
+                ...groupStudents,
+                {
+                    image: student.image,
+                    firstName: student.firstName,
+                    lastName: student.lastName,
+                    fullName: student.fullName,
+                    level: student.level,
+                    code: student.code,
+                },
+            ])
         }
     }
 
-    return (
-        {
-            data: {
-                groupData,
-                groupStudents
-            },
-            states: {
-                loading,
-            },
-        }
-    );
+    return {
+        data: {
+            groupData,
+            groupStudents,
+        },
+        states: {
+            loading,
+        },
+    }
 }
- 
-export default useGroup;
+
+export default useGroup
