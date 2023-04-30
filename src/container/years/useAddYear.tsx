@@ -120,11 +120,11 @@ const useAddYear = () => {
         let state = true
 
         // Check for year selection
-        if (!yearActive.name) {
-            setYearActive({ ...yearActive, error: true })
+        if (!selectedYear.name) {
+            setSelectedYear({ ...selectedYear, error: true })
             state = false
         } else {
-            setYearActive({ ...yearActive, error: false })
+            setSelectedYear({ ...selectedYear, error: false })
         }
 
         // Check for classes selection
@@ -145,7 +145,7 @@ const useAddYear = () => {
     // Prepare data for request
     const collectData = () => {
         const data = {
-            start: parseInt(yearActive.name.slice(0, 4)),
+            start: parseInt(selectedYear.name.slice(0, 4)),
             teacherCoureLevels: selectedLevels,
         }
 
