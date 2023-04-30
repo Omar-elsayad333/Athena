@@ -1,46 +1,38 @@
-import { URL_YEARS } from 'constant/url'
-import { useState, useEffect } from 'react';
-import { useUser } from 'context/userContext';
-import { getHandler } from 'handlers/requestHandler';
+import Urls from 'constant/url'
+import { useState, useEffect } from 'react'
+import { useUser } from 'context/userContext'
+import useRequestsHandlers from 'hooks/useRequestsHandlers'
 
 const useYears = () => {
-
-    const auth = useUser()
-    const [ yearsData, setYearsData] = useState<any>();
-    const [ loading, setLoading] = useState<boolean>(false);
+    const { userState } = useUser()
+    const { loading, getHandler } = useRequestsHandlers()
+    const [yearsData, setYearsData] = useState<any>()
 
     // Get the data of this page
     useEffect(() => {
-        if(auth) {
-            getYearsData();
+        if (userState.tokens.accessToken) {
+            getYearsData()
         }
-    }, [auth])
+    }, [userState.tokens.accessToken])
 
     // Get Years data from db
     const getYearsData = async () => {
         try {
-            setLoading(true);
-            const res = await getHandler(auth.authToken, URL_YEARS);
-            setYearsData(res);
-        }
-        catch (error) {
-            console.log(error);
-        }
-        finally {
-            setLoading(false);
+            const res = await getHandler(userState.tokens.accessToken!, Urls.URL_YEARS)
+            setYearsData(res)
+        } catch (error) {
+            console.log(error)
         }
     }
 
-    return (
-        {
-            states: {
-                loading
-            },
-            data: {
-                yearsData
-            }
-        }
-    );
+    return {
+        states: {
+            loading,
+        },
+        data: {
+            yearsData,
+        },
+    }
 }
- 
-export default useYears;
+
+export default useYears

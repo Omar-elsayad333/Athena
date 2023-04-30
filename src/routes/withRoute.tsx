@@ -1,26 +1,27 @@
 import { Routes } from './Routes'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import useTokens from 'hooks/useTokens'
 import { useUser } from 'context/userContext'
 import { NextComponentType, NextPageContext } from 'next'
+import Loading from 'components/Loading/Loading'
 
 type ComponentNext = NextComponentType<NextPageContext, any, {}>
 
 export const withPublic = (WrappedComponent: ComponentNext) => (props: any) => {
     const router = useRouter()
     const { checkTokens } = useTokens()
+    const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
-        if (typeof window != 'undefined' && checkTokens()) {
-            // If the user is authenticated, do not render the wrapped component
-            router.replace(Routes.teacherHome)
-        }
+        typeof window != 'undefined' && checkTokens()
+            ? router.replace(Routes.teacherHome)
+            : setIsLoading(false)
     }, [])
 
-    // if (typeof window != 'undefined' && checkTokens()) {
-    //     return <Loading />
-    // }
+    if (isLoading) {
+        return <Loading />
+    }
 
     // If the user is not authenticated, render the wrapped component
     return <WrappedComponent {...props} />
@@ -30,13 +31,17 @@ export const withAuth = (WrappedComponent: ComponentNext) => (props: any) => {
     const router = useRouter()
     const { userState } = useUser()
     const { checkTokens } = useTokens()
+    const [isLoading, setIsLoading] = useState(true)
+
     useEffect(() => {
-        if (typeof window != 'undefined') {
-            if (!checkTokens()) {
-                router.replace(Routes.teacherLogin)
-            }
-        }
+        typeof window !== 'undefined' && !checkTokens()
+            ? router.replace(Routes.teacherLogin)
+            : setIsLoading(false)
     }, [userState.tokens.accessToken])
+
+    if (isLoading) {
+        return <Loading />
+    }
 
     // If the user is authenticated, render the wrapped component
     return <WrappedComponent {...props} />

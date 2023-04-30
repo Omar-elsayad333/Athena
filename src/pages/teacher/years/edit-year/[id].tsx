@@ -13,6 +13,7 @@ import Loading from 'components/Loading/Loading'
 
 // MUI
 import Box from '@mui/material/Box'
+import { Routes } from 'routes/Routes'
 
 const EditYear: NextPage = () => {
     const { mainColors } = useContext(DarkThemeContext)
@@ -48,9 +49,9 @@ const EditYear: NextPage = () => {
         <Box sx={style.root}>
             <PageHead title="Add Student" />
             <DesktopNavbar
-                firstPath="/teacher/years"
+                firstPath={Routes.teacherYears}
                 firstContent="الأعوام الدراسية"
-                secondPath="/teacher/years/add-year"
+                secondPath={Routes.teacherYearSetting}
                 secondContent="بداية عام جديد"
             />
             {states.loading ? (

@@ -1,27 +1,21 @@
-import Link from "next/link";
-import { useContext } from "react";
-import { useAlert } from "context/AlertContext";
-import AlertNotify from "components/AlertNotify";
-import { DarkThemeContext } from "context/ThemeContext";
-import { IStyle } from "styles/IStyle";
+import Link from 'next/link'
+import { Routes } from 'routes/Routes'
+import { IStyle } from 'styles/IStyle'
+import { useAlert } from 'context/AlertContext'
+import { useTheme } from 'context/ThemeContext'
+import AlertNotify from 'components/AlertNotify'
 
 // MUI
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
 
 type Props = {
-    data: any;
+    data: any
 }
 
-const YearsC: React.FC<Props> = ({data}) => {
-
-    const {mainColors} = useContext(DarkThemeContext);
-    const {
-        msg,
-        state,
-        msgType,
-        handleState
-    } = useAlert();
+const YearsC: React.FC<Props> = ({ data }) => {
+    const { mainColors } = useTheme()
+    const { msg, state, msgType, handleState } = useAlert()
 
     const style: IStyle = {
         container: {
@@ -44,7 +38,7 @@ const YearsC: React.FC<Props> = ({data}) => {
             border: '2px solid #3F72A4',
             background: mainColors.linerGradient.primary,
             borderRadius: '18px',
-            overflow: 'hidden', 
+            overflow: 'hidden',
             cursor: 'pointer',
             transition: '.35s',
             ':hover': {
@@ -89,35 +83,33 @@ const YearsC: React.FC<Props> = ({data}) => {
 
     return (
         <Box sx={style.container}>
-            {
-                data.yearsData &&
-                data.yearsData.map((item:any) => {
+            {data.yearsData &&
+                data.yearsData.map((item: any) => {
                     return (
-                        <Link key={item.id} href={`/teacher/years/year/${item.id}`}>
+                        <Link key={item.id} href={`${Routes.teacherYear}/${item.id}`}>
                             <Box sx={style.card}>
                                 <Box sx={style.content}>
-                                    <Typography color='primary' variant="h4" fontWeight={700}> 
+                                    <Typography color="primary" variant="h4" fontWeight={700}>
                                         العام الدراسي
                                     </Typography>
-                                    <Typography color='primary' variant="h1">
+                                    <Typography color="primary" variant="h1">
                                         {`${item.end} / ${item.start}`}
                                     </Typography>
                                 </Box>
                             </Box>
                         </Link>
                     )
-                })
-            }
+                })}
             <Link href={`/teacher/years/add-year`}>
                 <Box sx={style.spcialCard}>
-                    <Typography color='primary' variant="h1" fontWeight={700}> 
+                    <Typography color="primary" variant="h1" fontWeight={700}>
                         بدأ عام جديد
-                    </Typography>   
+                    </Typography>
                 </Box>
             </Link>
             <AlertNotify msg={msg} state={state} handleState={handleState} msgType={msgType} />
-        </Box>        
-    );
+        </Box>
+    )
 }
- 
-export default YearsC;
+
+export default YearsC

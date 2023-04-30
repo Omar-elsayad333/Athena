@@ -1,21 +1,21 @@
 import { NextPage } from 'next'
-import { useContext } from 'react'
-import { DarkThemeContext } from 'context/ThemeContext'
+import { Routes } from 'routes/Routes'
+import { withAuth } from 'routes/withRoute'
+import YearsC from 'components/Teacher/Years'
+import useYears from 'container/years/useYears'
+import { useTheme } from 'context/ThemeContext'
+import Loading from 'components/Loading/Loading'
 import PageHead from 'components/Shared/PageHead'
 import PageTitle from 'components/Shared/PageTitle'
-import DesktopNavbar from 'components/Layout/DesktopNavbar'
 import ThemeSwitcher from 'components/ThemeSwitcher'
 import PageFooter from 'components/Shared/PageFooter'
-import YearsC from 'components/Teacher/Years'
-import Loading from 'components/Loading/Loading'
-import useYears from 'container/years/useYears'
-import { withAuth } from 'routes/withRoute'
+import DesktopNavbar from 'components/Layout/DesktopNavbar'
 
 // MUI
 import Box from '@mui/material/Box'
 
 const Years: NextPage = () => {
-    const { mainColors } = useContext(DarkThemeContext)
+    const { mainColors } = useTheme()
     const { data, states } = useYears()
 
     const style = {
@@ -48,9 +48,9 @@ const Years: NextPage = () => {
         <Box sx={style.root}>
             <PageHead title="Years" />
             <DesktopNavbar
-                firstPath="/teacher/years"
+                firstPath={Routes.teacherYears}
                 firstContent="الأعوام الدراسية"
-                secondPath="/teacher/years/add-year"
+                secondPath={Routes.teacherEditYear}
                 secondContent="بداية عام جديد"
             />
             {states.loading ? (
