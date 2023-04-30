@@ -1,43 +1,28 @@
-import { useState, useEffect } from 'react';
-import { useUser } from 'context/userContext';
-import { yearsToSelect } from 'constant/staticData';
-import { getHandler, postHandler } from 'handlers/requestHandler';
-import { URL_YEARS_REQUIRED, URL_YEARS } from 'constant/url';
-import { useAlert } from 'context/AlertContext';
-import { useRouter } from 'next/router';
+import Urls from 'constant/url'
+import { Routes } from 'routes/Routes'
+import { useRouter } from 'next/router'
+import { useState, useEffect } from 'react'
+import { useUser } from 'context/userContext'
+import { useAlert } from 'context/AlertContext'
+import { yearsToSelect } from 'constant/staticData'
+import useRequestsHandlers from 'hooks/useRequestsHandlers'
+import { LevelsProps, YearProps, YearInitialValue } from 'interfaces/teacher/years/addYear'
 
 interface ErrorLabel {
-    error: boolean;
-    value: string;
+    error: boolean
+    value: string
 }
 
 const ErrorLabelInitialValue = {
     error: false,
-    value: ''
-}
-
-interface Year {
-    name: string;
-    error: boolean;
-}
-
-const YearInitialValue = {
-    name: '',
-    error: false
-}
-
-interface TeacherCoureLevels {
-    id: string;
-    name: string;
-    first: boolean;
-    second: boolean; 
+    value: '',
 }
 
 type Dialog = {
-    state: boolean,
-    main: string,
-    title: string,
-    actionContent: any   
+    state: boolean
+    main: string
+    title: string
+    actionContent: any
 }
 
 const dialogInitialValues = {
@@ -46,238 +31,177 @@ const dialogInitialValues = {
     title: 'إلغاء العملية',
     actionContent: {
         first: 'تأكيد',
-        second: 'إلغاء'
-    }
+        second: 'إلغاء',
+    },
 }
 
 const useAddYear = () => {
-
-    const auth = useUser(); 
-    const router = useRouter(); 
-    const { setSuccessMessage, setWarningMessage } = useAlert();
-    const [ loading, setLoading ] = useState<boolean>(false);
-    const [ requiredData, setRequiredData ] = useState<any>('');
-    const [ yearActive, setYearActive] = useState<Year>(YearInitialValue);
-    const [ classesDialogState, setClassesDialogState] = useState<boolean>(false);
-    const [ classes, setClasses] = useState<TeacherCoureLevels[]>([]);
-    const [ errorLabel, setErrorLabel] = useState<ErrorLabel>(ErrorLabelInitialValue);
-    const [ content, setContent] = useState<Dialog>(dialogInitialValues);
+    const router = useRouter()
+    const { userState } = useUser()
+    const { setSuccessMessage, setWarningMessage } = useAlert()
+    const { loading, getHandler, postHandler } = useRequestsHandlers()
+    const [requiredData, setRequiredData] = useState<any>('')
+    const [selectedYear, setSelectedYear] = useState<YearProps>(YearInitialValue)
+    const [selectedLevels, setSelectedLevels] = useState<LevelsProps[]>([])
+    const [errorLabel, setErrorLabel] = useState<ErrorLabel>(ErrorLabelInitialValue)
+    const [content, setContent] = useState<Dialog>(dialogInitialValues)
+    const [classesDialogState, setClassesDialogState] = useState<boolean>(false)
 
     // Get the required data for this page
     useEffect(() => {
-        if(auth) {
-            getClassesData();
+        if (userState.tokens.accessToken) {
+            getLevelsData()
         }
-    }, [auth]);
+    }, [userState.tokens.accessToken])
+
+    // Get available classes from db
+    const getLevelsData = async () => {
+        try {
+            const res = await getHandler(userState.tokens.accessToken!, Urls.URL_YEARS_REQUIRED)
+            setRequiredData(res)
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     // Open and close cancel submit dialog
     const handleDialogState = () => {
-        if(content.state){
-            setContent((oldData) => ({...oldData, state: false}));
-        }else {
-            setContent((oldData) => ({...oldData, state: true}));
+        if (content.state) {
+            setContent((oldData) => ({ ...oldData, state: false }))
+        } else {
+            setContent((oldData) => ({ ...oldData, state: true }))
         }
     }
-    
+
     // Open and close classes dialog
     const classesHandleDialog = () => {
-        if(classesDialogState){
-            setClassesDialogState(false);
-        }else {
-            setClassesDialogState(true);
+        if (classesDialogState) {
+            setClassesDialogState(false)
+        } else {
+            setClassesDialogState(true)
         }
     }
 
     // Get user selected year
-    const getSelectedYear = (selected: any) => {
-        setYearActive((oldData) => ({...oldData, name: selected.name, error: false}));
+    const selectedYearHandler = (selected: any) => {
+        setSelectedYear({ name: selected.name, error: false })
     }
-    
-    // Get available classes from db
-    const getClassesData = async () => {
-        try {
-            setLoading(true);
-            const res = await getHandler(auth.authToken, URL_YEARS_REQUIRED);
-            setRequiredData(res);
-        }
-        catch (error) {
-            console.log(error);
-        }
-        finally {
-            setLoading(false);
-        }
-    }
-    
+
     // Get the selected Classes
-    const handleSelectedClasses = (selected: any) => {
-        setClasses([]);
-        classesLoop: for(let i = 0; i < selected.length; i++){
-            setClasses(oldValues => [...oldValues, {
-                id: selected[i].id,
-                name: selected[i].name,
-                first: false,
-                second: false
-            }]);
-        };
-    };
-    
-    // Add semester to class
-    const addSemester = (selectedClass: string, semesterType: string) => {
-        let newValues: TeacherCoureLevels[] = []
-        if( semesterType == 'first'){
-            newValues = classes.map((item: any) => {
-                if (item.id == selectedClass) {
-                    // No change
-                    return {...item, first: true};
-                } else {
-                    // Return a new value
-                    return item;
-                }
-            });
-        }else {
-            newValues = classes.map((item: TeacherCoureLevels) => {
-                if (item.id == selectedClass) {
-                    // No change
-                    return {...item, second: true};
-                } else {
-                    // Return a new value
-                    return item;
-                }
-            });
+    const selectedLevelsHandler = (selected: any) => {
+        setSelectedLevels([])
+        for (let item of selected) {
+            setSelectedLevels((oldValues: any) => [
+                ...oldValues,
+                {
+                    id: item.id,
+                    name: item.name,
+                    introFee: 0,
+                    monthFee: 0,
+                },
+            ])
         }
-
-        // Re-render with the new array
-        setClasses(newValues);
     }
 
-    // Remove semester from class
-    const removeSemester = (selectedClass: string, semesterType: string) => {
-        let newValues: TeacherCoureLevels[] = []
-        if( semesterType == 'first'){
-            newValues = classes.map((item: any) => {
-                if (item.id == selectedClass) {
-                    // No change
-                    return {...item, first: false};
-                } else {
-                    // Return a new value
-                    return item;
-                }
-            });
-        }else {
-            newValues = classes.map((item: TeacherCoureLevels) => {
-                if (item.id == selectedClass) {
-                    // No change
-                    return {...item, second: false};
-                } else {
-                    // Return a new value
-                    return item;
-                }
-            });
-        }
+    const selectedIntroFeeHandler = (value: number, levelId: string) => {
+        setSelectedLevels(
+            selectedLevels.map((x) => (x.id === levelId ? { ...x, introFee: value } : x)),
+        )
+    }
 
-        // Re-render with the new array
-        setClasses(newValues);
+    const selectedMonthFeeHandler = (value: number, levelId: string) => {
+        setSelectedLevels(
+            selectedLevels.map((x) => (x.id === levelId ? { ...x, monthFee: value } : x)),
+        )
     }
 
     // Validate all data before collect it
     const validate = () => {
-        
-        let approvation = true;
+        let state = true
 
         // Check for year selection
-        if(!yearActive.name){
-            setYearActive({...yearActive, error: true});
-            approvation = false;
-        }else {
-            setYearActive({...yearActive, error: false})
+        if (!yearActive.name) {
+            setYearActive({ ...yearActive, error: true })
+            state = false
+        } else {
+            setYearActive({ ...yearActive, error: false })
         }
 
         // Check for classes selection
-        if(classes.length == 0){
-            setErrorLabel({...errorLabel, error: true, value: 'يجب تحديد صف دراسي واحد علي الأقل'});
-            approvation = false;
-        }else {
-            setErrorLabel({...errorLabel, error: false, value: ''});
+        if (selectedLevels.length == 0) {
+            setErrorLabel({
+                ...errorLabel,
+                error: true,
+                value: 'يجب تحديد صف دراسي واحد علي الأقل',
+            })
+            state = false
+        } else {
+            setErrorLabel({ ...errorLabel, error: false, value: '' })
         }
-        
-        return approvation;
+
+        return state
     }
 
     // Prepare data for request
     const collectData = () => {
         const data = {
             start: parseInt(yearActive.name.slice(0, 4)),
-            teacherCoureLevels: classes
+            teacherCoureLevels: selectedLevels,
         }
 
-        return data;        
+        return data
     }
 
     // Call api to submit data
     const submit = async () => {
-        validate();
-        if(validate()) {
+        if (validate()) {
             // Collect data
-            const data = collectData();
+            const data = collectData()
 
-            if(data) {
-                try {
-                    setLoading(true);
-                    const res = await postHandler(auth.authToken, URL_YEARS, data)
-                    setSuccessMessage('تم بدأ عام جديد بنجاح');
-                    router.push(`/teacher/years/year/${res}`)
-                }
-                catch(error) {
-                    console.log(error);
-                    setErrorLabel({...errorLabel, error: true, value: `${error}`});
-                }
-                finally {
-                    setLoading(false)
-                }
+            try {
+                const res = await postHandler(userState.tokens.accessToken!, Urls.URL_YEARS, data)
+                setSuccessMessage('تم بدأ عام جديد بنجاح')
+                router.push(`${Routes.teacherYear}/${res}`)
+            } catch (error) {
+                console.log(error)
+                setErrorLabel({ ...errorLabel, error: true, value: `${error}` })
             }
         }
     }
 
     // Cancel the progress
     const cancelSubmit = () => {
-        setWarningMessage('تم الغاء العمليه بنجاح');
-        router.push('/teacher/years');
+        setWarningMessage('تم الغاء العمليه بنجاح')
+        router.push(Routes.teacherYears)
     }
 
-    return (
-        {
+    return {
+        data: {
+            requiredData,
+            yearsToSelect,
+            selectedLevels,
+        },
+        states: {
+            loading,
+            errorLabel,
+            selectedYear,
+            classesDialogState,
+        },
+        actions: {
+            selectedYearHandler,
+            classesHandleDialog,
+            selectedLevelsHandler,
+            submit,
+            cancelSubmit,
+        },
+        dialog: {
+            content,
             actions: {
-                getSelectedYear,
-
-                classesHandleDialog,
-                handleSelectedClasses,
-
-                addSemester,
-                removeSemester,
-
-                submit,
-                cancelSubmit
+                handleDialogState,
+                submitDialog: cancelSubmit,
             },
-            states: {
-                loading,
-                errorLabel,
-                yearActive,
-                classesDialogState
-            },
-            data: {
-                requiredData,
-                yearsToSelect,
-                classes
-            },
-            dialog: {
-                content,
-                actions: {
-                    handleDialogState,
-                    submitDialog: cancelSubmit
-                }
-            }
-        }
-    );
+        },
+    }
 }
 
-export default useAddYear;
+export default useAddYear

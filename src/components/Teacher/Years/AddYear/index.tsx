@@ -1,29 +1,28 @@
-import { useContext } from 'react';
-import { IStyle } from 'styles/IStyle';
-import MySelect from 'components/MySelect';
-import MyIconButton from 'components/MyIconButton';
-import { DarkThemeContext } from 'context/ThemeContext';
-import ClassesDialog from 'components/Dialogs/ClassesDialog';
-import MyButton from 'components/Buttons/MyButton';
-import MyButtonError from 'components/Buttons/MyButtonError';
+import { useContext } from 'react'
+import { IStyle } from 'styles/IStyle'
+import MySelect from 'components/MySelect'
+import MyIconButton from 'components/MyIconButton'
+import { DarkThemeContext } from 'context/ThemeContext'
+import ClassesDialog from 'components/Dialogs/ClassesDialog'
+import MyButton from 'components/Buttons/MyButton'
+import MyButtonError from 'components/Buttons/MyButtonError'
 // import BasicDialog from 'components/Dialogs';
 // import PageError from 'components/Shared/PageError';
 
 // MUI
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import ControlPointIcon from '@mui/icons-material/ControlPoint';
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
+import ControlPointIcon from '@mui/icons-material/ControlPoint'
 
 type Props = {
-    data: any;
-    states: any;
-    actions: any;
-    dialog: any;
-} 
+    data: any
+    states: any
+    actions: any
+    dialog: any
+}
 
-const AddYearC: React.FC<Props> = ({data, states, actions, dialog}) => {
-    
-    const { mainColors } = useContext(DarkThemeContext);
+const AddYearC: React.FC<Props> = ({ data, states, actions, dialog }) => {
+    const { mainColors } = useContext(DarkThemeContext)
 
     const style: IStyle = {
         container: {
@@ -55,7 +54,7 @@ const AddYearC: React.FC<Props> = ({data, states, actions, dialog}) => {
             alignItems: 'center',
             fontSize: '14px',
             fontWeight: '700',
-            textAlign: 'center',    
+            textAlign: 'center',
             cursor: 'pointer',
             borderRadius: '5px',
             border: `1px solid ${mainColors.chips.border}`,
@@ -83,7 +82,7 @@ const AddYearC: React.FC<Props> = ({data, states, actions, dialog}) => {
         semestersBox: {
             display: 'flex',
             flexWrap: 'wrap',
-            gap: '29px'
+            gap: '29px',
         },
         semesterChip: {
             width: '154px',
@@ -93,7 +92,7 @@ const AddYearC: React.FC<Props> = ({data, states, actions, dialog}) => {
             alignItems: 'center',
             fontSize: '14px',
             fontWeight: '700',
-            textAlign: 'center',    
+            textAlign: 'center',
             cursor: 'pointer',
             borderRadius: '5px',
             border: `solid 1px ${mainColors.chips.border}`,
@@ -108,113 +107,120 @@ const AddYearC: React.FC<Props> = ({data, states, actions, dialog}) => {
             flex: '100%',
             display: 'flex',
             flexWrap: 'wrap',
-            gap: '35px'
+            gap: '35px',
         },
         submitButton: {
             width: '170px',
             height: '40px',
-        }
+        },
     }
-    
+
     return (
         <Box sx={style.container}>
             <MySelect
-                value={states.yearActive.name}
-                error={states.yearActive.error}
-                getSelected={actions.getSelectedYear} 
-                placeholder='تحديد العام الدراسي' 
                 data={data.yearsToSelect}
+                value={states.selectedYear.name}
+                error={states.selectedYear.error}
+                placeholder="تحديد العام الدراسي"
+                getSelected={actions.selectedYearHandler}
             />
             <Typography sx={style.title} variant="h3" color={mainColors.title.main}>
                 تحديد الصفوف الدراسية:-
             </Typography>
             <Box sx={style.backPaper}>
-                <MyIconButton 
-                    event={actions.classesHandleDialog} 
-                    icon={<ControlPointIcon />} 
-                    content='الصفوف الدراسية'
+                <MyIconButton
+                    event={actions.classesHandleDialog}
+                    icon={<ControlPointIcon />}
+                    content="الصفوف الدراسية"
                 />
-                {
-                    data.classes.length > 0 &&
+                {data.classes.length > 0 && (
                     <Box sx={style.classesList}>
-                        {
-                            data.classes.map((item: any) => {
-                                return (
-                                    <Box key={item.id} sx={style.classesLabel}>
-                                        {item.name}
-                                    </Box>
-                                )
-                            })
-                        }
+                        {data.classes.map((item: any) => {
+                            return (
+                                <Box key={item.id} sx={style.classesLabel}>
+                                    {item.name}
+                                </Box>
+                            )
+                        })}
                     </Box>
-                }
+                )}
             </Box>
-            {
-                data.classes.length > 0 &&
+            {data.classes.length > 0 && (
                 <Typography sx={style.title} variant="h3" color={mainColors.title.main}>
                     تحديد الفصول الدراسية:-
                 </Typography>
-            }
-            {
-                data.classes.length > 0 &&
+            )}
+            {data.classes.length > 0 && (
                 <Box sx={style.semestersBackPaper}>
-                    {
-                        data.classes.map((item: any) => {
-                            return (
-                                <Box key={item.id} sx={style.semeterContainer}>
-                                    <Box sx={style.classesLabel}>
-                                        {item.name}
-                                    </Box>
-                                    <Box sx={style.semestersBox}>
-                                        {
-                                            item.first ?
-                                            <Box sx={style.semesterChip} onClick={() => actions.removeSemester(item.id, 'first')}>
-                                                الفصل الدراسي الاول
-                                            </Box> : 
-                                            <MyIconButton 
-                                                event={() => actions.addSemester(item.id, 'first')} 
-                                                content='الفصول الدراسية '
-                                                icon={<ControlPointIcon />} 
+                    {data.classes.map((item: any) => {
+                        return (
+                            <Box key={item.id} sx={style.semeterContainer}>
+                                <Box sx={style.classesLabel}>{item.name}</Box>
+                                <Box sx={style.semestersBox}>
+                                    {item.first ? (
+                                        <Box
+                                            sx={style.semesterChip}
+                                            onClick={() => actions.removeSemester(item.id, 'first')}
+                                        >
+                                            الفصل الدراسي الاول
+                                        </Box>
+                                    ) : (
+                                        <MyIconButton
+                                            event={() => actions.addSemester(item.id, 'first')}
+                                            content="الفصول الدراسية "
+                                            icon={<ControlPointIcon />}
+                                        />
+                                    )}
+                                    {item.second ? (
+                                        <Box
+                                            sx={style.semesterChip}
+                                            onClick={() =>
+                                                actions.removeSemester(item.id, 'second')
+                                            }
+                                        >
+                                            الفصل الدراسي الثاني
+                                        </Box>
+                                    ) : (
+                                        <Box sx={style.semestersBox}>
+                                            <MyIconButton
+                                                event={() => actions.addSemester(item.id, 'second')}
+                                                content="الفصول الدراسية "
+                                                icon={<ControlPointIcon />}
                                             />
-                                        }
-                                        {
-                                            item.second ?
-                                            <Box sx={style.semesterChip} onClick={() => actions.removeSemester(item.id, 'second')}>
-                                                الفصل الدراسي الثاني
-                                            </Box> : 
-                                            <Box sx={style.semestersBox}>
-                                                <MyIconButton 
-                                                    event={() => actions.addSemester(item.id, 'second')} 
-                                                    content='الفصول الدراسية '   
-                                                    icon={<ControlPointIcon />} 
-                                                    />
-                                            </Box>
-                                        }
-                                    </Box>
+                                        </Box>
+                                    )}
                                 </Box>
-                            )
-                        })
-                    }
+                            </Box>
+                        )
+                    })}
                 </Box>
-            }
+            )}
             <Box sx={style.buttonsContainer}>
                 {/* <PageError errors={states.errorLabel} /> */}
                 <Box sx={style.submitButton}>
-                    <MyButton onClick={actions.submit} loading={states.loading} content='تأكيد واضافة' />
+                    <MyButton
+                        onClick={actions.submit}
+                        loading={states.loading}
+                        content="تأكيد واضافة"
+                    />
                 </Box>
                 <Box sx={style.submitButton}>
-                    <MyButtonError loading={states.loading} content='إلغاء العملية' onClick={dialog.actions.handleDialogState} />
+                    <MyButtonError
+                        loading={states.loading}
+                        content="إلغاء العملية"
+                        onClick={dialog.actions.handleDialogState}
+                    />
                 </Box>
             </Box>
             {/* <BasicDialog state={dialog.content.state} content={dialog.content} actions={dialog.actions} /> */}
-            <ClassesDialog 
-                data={data.requiredData} 
-                open={states.classesDialogState} 
-                handleClose={actions.classesHandleDialog} 
-                getSelectedClasses={actions.handleSelectedClasses} 
+            <ClassesDialog
+                data={data.requiredData}
+                open={states.classesDialogState}
+                handleClose={actions.classesHandleDialog}
+                getSelectedClasses={actions.handleSelectedClasses}
             />
         </Box>
-    );
+    )
 }
- 
-export default AddYearC;
+
+export default AddYearC

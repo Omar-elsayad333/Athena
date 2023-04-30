@@ -50,7 +50,7 @@ const YearSetting: NextPage = () => {
             <DesktopNavbar
                 firstPath={Routes.teacherYears}
                 firstContent="الأعوام الدراسية"
-                secondPath={Routes.teacherYearSetting}
+                secondPath={Routes.teacherAddYear}
                 secondContent="بداية عام جديد"
             />
             {states.loading ? (

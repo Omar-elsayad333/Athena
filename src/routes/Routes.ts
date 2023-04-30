@@ -21,7 +21,7 @@ export class Routes {
 
     static teacherYear = '/teacher/years/year'
 
-    static teacherYearSetting = '/teacher/years/year-setting'
+    static teacherAddYear = '/teacher/years/add-year'
 
     static teacherEditYear = '/teacher/years/edit-year'
 
