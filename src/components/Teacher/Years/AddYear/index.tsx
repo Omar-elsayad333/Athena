@@ -1,10 +1,9 @@
-import { useContext } from 'react'
 import { IStyle } from 'styles/IStyle'
 import MySelect from 'components/MySelect'
+import { useTheme } from 'context/ThemeContext'
 import MyIconButton from 'components/MyIconButton'
-import { DarkThemeContext } from 'context/ThemeContext'
-import ClassesDialog from 'components/Dialogs/ClassesDialog'
 import MyButton from 'components/Buttons/MyButton'
+import ClassesDialog from 'components/Dialogs/ClassesDialog'
 import MyButtonError from 'components/Buttons/MyButtonError'
 // import BasicDialog from 'components/Dialogs';
 // import PageError from 'components/Shared/PageError';
@@ -13,6 +12,7 @@ import MyButtonError from 'components/Buttons/MyButtonError'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import ControlPointIcon from '@mui/icons-material/ControlPoint'
+import useStyle from './styles'
 
 type Props = {
     data: any
@@ -22,7 +22,8 @@ type Props = {
 }
 
 const AddYearC: React.FC<Props> = ({ data, states, actions, dialog }) => {
-    const { mainColors } = useContext(DarkThemeContext)
+    const styles = useStyle()
+    const { mainColors } = useTheme()
 
     const style: IStyle = {
         container: {
@@ -150,9 +151,36 @@ const AddYearC: React.FC<Props> = ({ data, states, actions, dialog }) => {
                     تحديد بيانات العام الدراسي:-
                 </Typography>
             )}
-            <Box className="levels-contianer">
-                <Box className="level-card"></Box>
-            </Box>
+            {data.selectedLevels.length > 0 && (
+                <Box sx={styles.levelsContianer} className="levels-contianer">
+                    <Box sx={styles.levelCard} className="level-card">
+                        <Typography variant="h1" color={'primary'}>
+                            {data.selectedLevels.value}asdfasdf
+                        </Typography>
+                        <Box sx={styles.cardButton}>
+                            <svg
+                                width="40"
+                                height="40"
+                                viewBox="0 0 40 40"
+                                fill={mainColors.primary.main}
+                                xmlns="http://www.w3.org/2000/svg"
+                                onClick={(e) => {
+                                    e.currentTarget.style.transition = '.5s'
+                                    e.currentTarget.style.rotate == '0deg' ||
+                                    e.currentTarget.style.rotate == ''
+                                        ? (e.currentTarget.style.rotate = '180deg')
+                                        : (e.currentTarget.style.rotate = '0deg')
+                                }}
+                            >
+                                <path
+                                    d="M19.545 13.0313C19.9255 13.0305 20.2943 13.1631 20.5874 13.4059L30.3599 21.5496C30.6925 21.8261 30.9016 22.2234 30.9414 22.6541C30.9811 23.0847 30.8481 23.5136 30.5716 23.8462C30.2951 24.1788 29.8979 24.388 29.4672 24.4277C29.0365 24.4674 28.6077 24.3344 28.2751 24.0579L19.545 16.7611L10.8149 23.7973C10.6483 23.9326 10.4566 24.0336 10.2508 24.0946C10.045 24.1556 9.82921 24.1753 9.6158 24.1526C9.40238 24.1299 9.19556 24.0652 9.00722 23.9623C8.81887 23.8594 8.65272 23.7203 8.51831 23.553C8.36915 23.3855 8.25619 23.1891 8.18649 22.9759C8.11679 22.7627 8.09186 22.5375 8.11327 22.3142C8.13468 22.091 8.20195 21.8746 8.31089 21.6786C8.41983 21.4825 8.56808 21.3111 8.74634 21.175L18.5188 13.3082C18.8203 13.1037 19.1816 13.0062 19.545 13.0313Z"
+                                    fill="inherit"
+                                />
+                            </svg>
+                        </Box>
+                    </Box>
+                </Box>
+            )}
             <Box sx={style.buttonsContainer}>
                 {/* <PageError errors={states.errorLabel} /> */}
                 <Box sx={style.submitButton}>

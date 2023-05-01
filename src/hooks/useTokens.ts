@@ -1,10 +1,7 @@
-import { Routes } from 'routes/Routes'
-import { useRouter } from 'next/router'
 import { useUser } from 'context/userContext'
 import useUserRequestHandlers from 'hooks/useUserRequestHandlers'
 
 const useTokens = () => {
-    const router = useRouter()
     const { userDispatch } = useUser()
     const { getRefreshToken } = useUserRequestHandlers()
 
@@ -113,7 +110,6 @@ const useTokens = () => {
         } catch (error) {
             console.log(error)
             clearUserTokens()
-            router.push(Routes.teacherLogin)
             return false
         } finally {
             userDispatch({ type: 'disactiveLoading' })
