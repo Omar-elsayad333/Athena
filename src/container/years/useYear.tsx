@@ -1,55 +1,71 @@
-import { useRouter } from "next/router";
-import { URL_YEARS } from "constant/url";
-import { useState, useEffect } from 'react';
-import { useUser } from "context/userContext";
-import { getHandlerById } from "handlers/requestHandler";
+import Urls from 'constant/url'
+import { useRouter } from 'next/router'
+import { useState, useEffect } from 'react'
+import { useUser } from 'context/userContext'
+import useRequestsHandlers from 'hooks/useRequestsHandlers'
 
 const useYear = () => {
-
-    const auth = useUser();
-    const router = useRouter();
-    const { id } = router.query;
-    const [ loading, setLoading ] = useState<boolean>(false);
-    const [ pageData, setPageData ] = useState<any>('');
+    const router = useRouter()
+    const { id }: any = router.query
+    const { userState } = useUser()
+    const { loading, getHandlerById } = useRequestsHandlers()
+    const [yearData, setYearData] = useState<any>('')
+    const [levelsData, setLevelsData] = useState<any>('')
 
     // Get page data on load
     useEffect(() => {
-        if(auth){
-            getYearData();
+        if (userState.tokens.accessToken && id) {
+            getYearData()
         }
-    }, [auth])
+    }, [userState.tokens.accessToken, id])
+
+    useEffect(() => {
+        if (yearData) {
+            setupLevelsData()
+        }
+    }, [yearData])
 
     // Get page data from db
     const getYearData = async () => {
         try {
-            setLoading(true);
-            const res: any = await getHandlerById(id , auth.authToken, URL_YEARS);
-            setPageData(res);
-        }
-        catch (error) {
-            console.log(error);
-        }
-        finally {
-            setLoading(false);
+            const res: any = await getHandlerById(id, userState.tokens.accessToken!, Urls.URL_YEARS)
+            setYearData(res)
+            console.log(res)
+        } catch (error) {
+            console.log(error)
         }
     }
-    
-    return (
-        {
-            states: {
-                loading,
-            },
-            data: {
-                pageData,
-            },
-            actions: {
 
-            },
-            dialogs: {
-
-            }
+    const setupLevelsData = () => {
+        for (let item of yearData.levels) {
+            setLevelsData((oldItems: any) => [
+                ...oldItems,
+                {
+                    id: item.id,
+                    introFee: item.introFee,
+                    levelName: item.levelName,
+                    monthFee: item.monthFee,
+                    semsters: item.semsters,
+                    levelId: item.teacherCourseLevelId,
+                    open: false,
+                },
+            ])
         }
-    );
+    }
+
+    useEffect(() => {
+        console.log(levelsData)
+    }, [levelsData])
+
+    return {
+        data: {
+            yearData,
+        },
+        states: {
+            loading,
+        },
+        actions: {},
+    }
 }
- 
-export default useYear;
+
+export default useYear

@@ -1,25 +1,28 @@
 import Link from 'next/link'
 import { NextPage } from 'next'
-import { useContext } from 'react'
+import { Routes } from 'routes/Routes'
 import { withAuth } from 'routes/withRoute'
-import { DarkThemeContext } from 'context/ThemeContext'
+import useYear from 'container/years/useYear'
+import { useAlert } from 'context/AlertContext'
+import { useTheme } from 'context/ThemeContext'
+import Loading from 'components/Loading/Loading'
+import AlertNotify from 'components/AlertNotify'
 import PageHead from 'components/Shared/PageHead'
-import DesktopNavbar from 'components/Layout/DesktopNavbar'
+import YearC from 'components/Teacher/Years/Year'
+import MyIconButton from 'components/MyIconButton'
 import PageTitle from 'components/Shared/PageTitle'
 import ThemeSwitcher from 'components/ThemeSwitcher'
 import PageFooter from 'components/Shared/PageFooter'
-import YearC from 'components/Teacher/Years/Year'
-import useYear from 'container/years/useYear'
-import MyIconButton from 'components/MyIconButton'
-import Loading from 'components/Loading/Loading'
+import DesktopNavbar from 'components/Layout/DesktopNavbar'
 
 // MUI
 import Box from '@mui/material/Box'
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined'
 
 const Year: NextPage = () => {
-    const { mainColors } = useContext(DarkThemeContext)
-    const { data, states } = useYear()
+    const { mainColors } = useTheme()
+    const { data, states, actions } = useYear()
+    const { msg, state, msgType, handleState } = useAlert()
 
     const style = {
         root: {
@@ -58,9 +61,9 @@ const Year: NextPage = () => {
         <Box sx={style.root}>
             <PageHead title="Add Student" />
             <DesktopNavbar
-                firstPath="/teacher/years"
+                firstPath={Routes.teacherYears}
                 firstContent="الأعوام الدراسية"
-                secondPath="/teacher/years/add-year"
+                secondPath={Routes.teacherAddYear}
                 secondContent="بداية عام جديد"
             />
             {states.loading ? (
@@ -110,19 +113,20 @@ const Year: NextPage = () => {
                                 />
                             </svg>
                         </PageTitle>
-                        <Link href={`/teacher/years/edit-year/${data.pageData.id}`}>
+                        <Link href={`${Routes.teacherEditYear}/${data.yearData.id}`}>
                             <a>
                                 <MyIconButton content="تعديل" icon={<CreateOutlinedIcon />} />
                             </a>
                         </Link>
                     </Box>
-                    <YearC data={data} />
+                    <YearC data={data} states={states} actions={actions} />
                 </Box>
             )}
             <Box sx={style.footerContainer}>
                 <PageFooter />
             </Box>
             <ThemeSwitcher />
+            <AlertNotify msg={msg} state={state} handleState={handleState} msgType={msgType} />
         </Box>
     )
 }

@@ -1,26 +1,34 @@
-import { useContext } from "react";
-import { IStyle } from "styles/IStyle";
-import InputError from "./Shared/InputError";
-import { DarkThemeContext } from "context/ThemeContext";
+import { useContext } from 'react'
+import { IStyle } from 'styles/IStyle'
+import InputError from './Shared/InputError'
+import { DarkThemeContext } from 'context/ThemeContext'
 
 // MUI
-import TextField from "@mui/material/TextField";
-import FormControl from '@mui/material/FormControl';
+import TextField from '@mui/material/TextField'
+import FormControl from '@mui/material/FormControl'
 
 type Props = {
-    name?: string;
-    indexes?: any;
-    value?: string;
-    onChange: Function;
-    error?: boolean;
-    helperText: string;
-    placeholder: string;
-    type?: string;
+    name?: string
+    indexes?: any
+    value?: string
+    onChange: Function
+    error?: boolean
+    helperText: string
+    placeholder: string
+    type?: string
 }
 
-const MyInput: React.FC<Props> = ({type, placeholder, helperText, error, onChange, value, name, indexes}) => {
-
-    const { mainColors, darkMode } = useContext(DarkThemeContext);
+const MyInput: React.FC<Props> = ({
+    type,
+    placeholder,
+    helperText,
+    error,
+    onChange,
+    value,
+    name,
+    indexes,
+}) => {
+    const { mainColors, darkMode } = useContext(DarkThemeContext)
     const classes: IStyle = {
         root: {
             '.MuiOutlinedInput-root': {
@@ -34,9 +42,9 @@ const MyInput: React.FC<Props> = ({type, placeholder, helperText, error, onChang
                 backgroundColor: darkMode ? '#1C364F' : '#E8F3FF',
                 '.MuiOutlinedInput-input': {
                     '&::placeholder': {
-                        opacity: .65,
-                        color: darkMode ? '#B6D5F0' :  '#3F72A4',
-                    }
+                        opacity: 0.65,
+                        color: darkMode ? '#B6D5F0' : '#3F72A4',
+                    },
                 },
                 '.MuiOutlinedInput-notchedOutline': {
                     transition: '.2s ease-out',
@@ -56,7 +64,7 @@ const MyInput: React.FC<Props> = ({type, placeholder, helperText, error, onChang
                 '@media(max-width: 250px)': {
                     width: '150px',
                 },
-            },  
+            },
             '.Mui-error': {
                 transition: '.2s ease-out',
                 border: darkMode ? 'none' : `solid 1px ${mainColors.error.main} !important`,
@@ -66,34 +74,31 @@ const MyInput: React.FC<Props> = ({type, placeholder, helperText, error, onChang
                     border: darkMode ? 'none' : '1px solid transparent !important',
                 },
             },
-            "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
-                display: "none",
+            '& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button': {
+                display: 'none',
             },
-            "& input[type=number]": {
-                MozAppearance: "textfield",
+            '& input[type=number]': {
+                MozAppearance: 'textfield',
             },
-        }
-    };
+        },
+    }
 
     return (
-        <FormControl  required>
-            <TextField  
-                autoComplete='off'   
+        <FormControl required>
+            <TextField
+                autoComplete="off"
                 variant="outlined"
                 sx={classes.root}
                 name={name}
                 value={value}
-                onChange={e => onChange(e.target.value, indexes)}
+                onChange={(e) => onChange(e.target.value, indexes)}
                 error={error}
                 placeholder={placeholder}
                 type={type}
             />
-            {
-                helperText &&
-                <InputError content={helperText} type='error' />
-            }
+            {helperText && <InputError content={helperText} type="error" />}
         </FormControl>
-    );
+    )
 }
 
-export default MyInput;
+export default MyInput

@@ -1,9 +1,9 @@
 export interface PageErrorProps {
-    name: string;
-    value: string;
+    name: string
+    value: string
 }
 
 export const pageErrorInitialValues = {
-    name: '',   
+    name: '',
     value: '',
 }

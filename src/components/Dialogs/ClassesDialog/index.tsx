@@ -1,45 +1,44 @@
-import MyCss from './MyDialog.module.css';
-import { forwardRef, useContext } from 'react';
-import { DarkThemeContext } from 'context/ThemeContext';
+import { forwardRef } from 'react'
+import MyCss from './MyDialog.module.css'
+import { useTheme } from 'context/ThemeContext'
 
 // MUI
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
-import Slide from '@mui/material/Slide';
-import { TransitionProps } from '@mui/material/transitions';
-import { Typography } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
+import Box from '@mui/material/Box'
+import Slide from '@mui/material/Slide'
+import Button from '@mui/material/Button'
+import Dialog from '@mui/material/Dialog'
+import { Typography } from '@mui/material'
+import CloseIcon from '@mui/icons-material/Close'
+import DialogTitle from '@mui/material/DialogTitle'
+import DialogActions from '@mui/material/DialogActions'
+import DialogContent from '@mui/material/DialogContent'
+import { TransitionProps } from '@mui/material/transitions'
 
 const Transition = forwardRef(function Transition(
     props: TransitionProps & {
-        children: React.ReactElement<any, any>;
+        children: React.ReactElement<any, any>
     },
-    ref: React.Ref<unknown>,) {
-        return <Slide direction="up" ref={ref} {...props} />;
-    }
-);
+    ref: React.Ref<unknown>,
+) {
+    return <Slide direction="up" ref={ref} {...props} />
+})
 
 type Props = {
-    open: boolean;
-    data?: any;
-    handleClose: Function;
-    getSelectedClasses: Function;
+    open: boolean
+    data?: any
+    handleClose: Function
+    getSelectedClasses: Function
 }
 
-const ClassesDialog: React.FC<Props> = ({open, handleClose, getSelectedClasses, data}) => {
-
-    const { mainColors, darkMode } = useContext(DarkThemeContext);
+const ClassesDialog: React.FC<Props> = ({ open, handleClose, getSelectedClasses, data }) => {
+    const { mainColors, darkMode } = useTheme()
 
     const style = {
         root: {
             '.MuiDialog-paper': {
                 maxWidth: '90%',
                 width: 'fit-content',
-                borderRadius: '17px', 
+                borderRadius: '17px',
                 background: mainColors.dialog.background,
             },
             '.MuiDialogTitle-root': {
@@ -55,7 +54,7 @@ const ClassesDialog: React.FC<Props> = ({open, handleClose, getSelectedClasses, 
                     '.MuiTypography-root': {
                         fontSize: '25px',
                     },
-                }
+                },
             },
             '.MuiDialogContent-root': {
                 padding: '35px 80px',
@@ -69,12 +68,12 @@ const ClassesDialog: React.FC<Props> = ({open, handleClose, getSelectedClasses, 
                 boxShadow: 'inset 0px -20px 57px 4px rgb(63 114 164 / 25%)',
                 '@media(max-width: 400px)': {
                     padding: '35px 20px',
-                    gap: '30px'
+                    gap: '30px',
                 },
                 '@media(max-width: 300px)': {
                     padding: '35px 10px',
-                    gap: '30px'
-                }
+                    gap: '30px',
+                },
             },
             '.MuiDialogActions-root': {
                 padding: '0px',
@@ -90,7 +89,7 @@ const ClassesDialog: React.FC<Props> = ({open, handleClose, getSelectedClasses, 
             },
             '@media screen and (max-width: 600px) ': {
                 gridTemplateColumns: 'repeat(1, 1fr)',
-            }
+            },
         },
         box: {
             width: '154px',
@@ -100,7 +99,7 @@ const ClassesDialog: React.FC<Props> = ({open, handleClose, getSelectedClasses, 
             alignItems: 'center',
             fontSize: '14px',
             fontWeight: '700',
-            textAlign: 'center',    
+            textAlign: 'center',
             cursor: 'pointer',
             borderRadius: '5px',
             color: mainColors.secondary.contrastText,
@@ -114,15 +113,15 @@ const ClassesDialog: React.FC<Props> = ({open, handleClose, getSelectedClasses, 
             right: '10px',
             '.MuiSvgIcon-root': {
                 width: '40px',
-                height: '40px'
+                height: '40px',
             },
             '@media(max-width: 400px)': {
                 position: 'static',
                 '.MuiSvgIcon-root': {
                     width: '30px',
-                    height: '30px'
+                    height: '30px',
                 },
-            }
+            },
         },
         addBut: {
             width: '295px',
@@ -132,45 +131,49 @@ const ClassesDialog: React.FC<Props> = ({open, handleClose, getSelectedClasses, 
             borderRadius: '5px',
             boxShadow: 'none',
             '@media screen and (max-width: 825px) ': {
-                width: '343px',    
+                width: '343px',
             },
             '@media screen and (max-width: 600px) ': {
                 width: '154px',
-            }
+            },
         },
     }
 
     const selectHandle = (e: any) => {
-        e.preventDefault();
-        e.target.classList.contains( MyCss.selected ) ||  e.target.classList.contains( MyCss.darkSelected ) ?
-        e.target.classList.remove(MyCss.selected, MyCss.darkSelected) :
-        e.target.classList.add(darkMode ? MyCss.darkSelected : MyCss.selected);
-    };
+        e.preventDefault()
+        e.target.classList.contains(MyCss.selected) ||
+        e.target.classList.contains(MyCss.darkSelected)
+            ? e.target.classList.remove(MyCss.selected, MyCss.darkSelected)
+            : e.target.classList.add(darkMode ? MyCss.darkSelected : MyCss.selected)
+    }
 
     const submitData = () => {
-        const selected = [];
-        const classes = document.getElementsByClassName('classes');
+        const selected = []
+        const classes = document.getElementsByClassName('classes')
 
         // get selected days then remove the selected class
         for (let i = 0; i < classes.length; i++) {
-            if (classes[i]?.classList.contains(`${MyCss.selected}`) || classes[i]?.classList.contains(`${MyCss.darkSelected}`) ) {
+            if (
+                classes[i]?.classList.contains(`${MyCss.selected}`) ||
+                classes[i]?.classList.contains(`${MyCss.darkSelected}`)
+            ) {
                 const selectedData: any = {
                     id: '',
                     name: '',
                     first: null,
-                    second: null
-                };
-                selectedData['id'] = (classes[i]?.getAttribute("data-id"));
-                selectedData['name'] = (classes[i]?.innerHTML);
-                selected.push(selectedData);
+                    second: null,
+                }
+                selectedData['id'] = classes[i]?.getAttribute('data-id')
+                selectedData['name'] = classes[i]?.innerHTML
+                selected.push(selectedData)
             } else {
-                continue;
+                continue
             }
-        };
+        }
 
-        getSelectedClasses(selected);
-        handleClose();
-    }       
+        getSelectedClasses(selected)
+        handleClose()
+    }
 
     return (
         <Dialog
@@ -180,39 +183,37 @@ const ClassesDialog: React.FC<Props> = ({open, handleClose, getSelectedClasses, 
             keepMounted
             onClose={() => handleClose()}
         >
-            <DialogTitle> 
-                <Typography variant='h1' color='primary'>
+            <DialogTitle>
+                <Typography variant="h1" color="primary">
                     الصفوف الدراسية
-                </Typography>  
+                </Typography>
                 <Button sx={style.exitBut} onClick={() => handleClose()}>
                     <CloseIcon />
                 </Button>
             </DialogTitle>
             <DialogContent>
-                <Typography variant='h4' color='primary' textAlign={'center'}>
+                <Typography variant="h4" color="primary" textAlign={'center'}>
                     حدد الصفوف الدراسية المناسبة لك
                 </Typography>
                 <Box sx={style.boxContainer}>
-                    {
-                        data && 
+                    {data &&
                         data.map((item: any) => (
-                            <Box 
+                            <Box
                                 sx={style.box}
                                 key={item.teacherCourseLevelId}
-                                data-id={item.teacherCourseLevelId} 
-                                className='classes' 
+                                data-id={item.teacherCourseLevelId}
+                                className="classes"
                                 onClick={(e) => selectHandle(e)}
                             >
                                 {item.levelName}
                             </Box>
-                        ))
-                    }
+                        ))}
                 </Box>
                 <DialogActions>
-                    <Button 
-                        variant='contained' 
-                        color='primary' 
-                        sx={style.addBut} 
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        sx={style.addBut}
                         onClick={() => submitData()}
                     >
                         تأكيد واضافة
@@ -220,7 +221,7 @@ const ClassesDialog: React.FC<Props> = ({open, handleClose, getSelectedClasses, 
                 </DialogActions>
             </DialogContent>
         </Dialog>
-    );
+    )
 }
 
-export default ClassesDialog;
+export default ClassesDialog

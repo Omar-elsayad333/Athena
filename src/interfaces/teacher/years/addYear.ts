@@ -1,7 +1,9 @@
 export interface LevelsProps {
     id: string
-    introFee: number
-    monthFee: number
+    introFee: number | undefined | string
+    monthFee: number | undefined | string
+    error: boolean
+    open: boolean
 }
 
 export interface YearProps {

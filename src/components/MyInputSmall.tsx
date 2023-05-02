@@ -1,30 +1,39 @@
-import { useContext } from "react";
-import { IStyle } from "styles/IStyle";
-import { DarkThemeContext } from "context/ThemeContext";
+import { useContext } from 'react'
+import { IStyle } from 'styles/IStyle'
+import { DarkThemeContext } from 'context/ThemeContext'
 
 // MUI
-import TextField from "@mui/material/TextField";
-import FormControl from '@mui/material/FormControl';
+import TextField from '@mui/material/TextField'
+import FormControl from '@mui/material/FormControl'
 
 type Props = {
-    name?: string;
-    value?: string;
-    onChange: Function;
-    error?: boolean;
-    helperText?: string;
-    placeholder: string;
-    type?: string;
+    name?: string
+    value?: string
+    onChange: Function
+    error?: boolean
+    helperText?: string
+    placeholder: string
+    type?: string
+    indexes?: any
 }
 
-const MyInputSmall: React.FC<Props> = ({placeholder, helperText, error, onChange, value, name, type}) => {
-
-    const { mainColors, darkMode} = useContext(DarkThemeContext);
+const MyInputSmall: React.FC<Props> = ({
+    placeholder,
+    helperText,
+    error,
+    onChange,
+    value,
+    name,
+    type,
+    indexes,
+}) => {
+    const { mainColors, darkMode } = useContext(DarkThemeContext)
 
     const classes: IStyle = {
         root: {
             '.MuiOutlinedInput-root': {
                 width: '214px',
-                height: '46px', 
+                height: '46px',
                 fontSize: '14px',
                 fontWeight: '400',
                 border: 'none',
@@ -33,9 +42,9 @@ const MyInputSmall: React.FC<Props> = ({placeholder, helperText, error, onChange
                 backgroundColor: darkMode ? '#1C364F' : '#E8F3FF',
                 '.MuiOutlinedInput-input': {
                     '&::placeholder': {
-                        opacity: .65,
-                        color: darkMode ? '#B6D5F0' :  '#3F72A4',
-                    }
+                        opacity: 0.65,
+                        color: darkMode ? '#B6D5F0' : '#3F72A4',
+                    },
                 },
                 '.MuiOutlinedInput-notchedOutline': {
                     transition: '.2s ease-out',
@@ -49,10 +58,10 @@ const MyInputSmall: React.FC<Props> = ({placeholder, helperText, error, onChange
                 '&:hover .MuiOutlinedInput-notchedOutline': {
                     borderColor: 'unset',
                 },
-                '@media(max-width: 300px)': {
+                '@media screen and (max-width: 300px)': {
                     width: '170px',
                 },
-                '@media(max-width: 250px)': {
+                '@media screen and (max-width: 250px)': {
                     width: '150px',
                 },
             },
@@ -65,41 +74,39 @@ const MyInputSmall: React.FC<Props> = ({placeholder, helperText, error, onChange
                     border: darkMode ? 'none' : '1px solid transparent !important',
                 },
             },
-            "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
-                display: "none",
+            '& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button': {
+                display: 'none',
             },
-            "& input[type=number]": {
-                MozAppearance: "textfield",
+            '& input[type=number]': {
+                MozAppearance: 'textfield',
             },
-        }
-    };
+        },
+    }
 
     const style = {
         root: {
             marginTop: '10px',
-            fontSize: '14px', 
+            fontSize: '14px',
             color: mainColors.error.main,
         },
-    }   
+    }
 
     return (
-        <FormControl  required>
-            <TextField     
-                autoComplete='off'   
+        <FormControl required>
+            <TextField
+                autoComplete="off"
                 variant="outlined"
                 sx={classes.root}
                 name={name}
                 value={value}
-                onChange={e => onChange(e.target.value)}
+                onChange={(e) => onChange(e.target.value, indexes)}
                 error={error}
                 placeholder={placeholder}
                 type={type}
             />
-            <label style={style.root}>
-                {helperText}
-            </label>
+            <label style={style.root}>{helperText}</label>
         </FormControl>
-    );
+    )
 }
 
-export default MyInputSmall;
+export default MyInputSmall

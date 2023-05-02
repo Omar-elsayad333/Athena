@@ -6,17 +6,8 @@ import { useUser } from 'context/userContext'
 import { useAlert } from 'context/AlertContext'
 import { yearsToSelect } from 'constant/staticData'
 import useRequestsHandlers from 'hooks/useRequestsHandlers'
+import { PageErrorProps } from 'interfaces/shared/pageError'
 import { LevelsProps, YearProps, YearInitialValue } from 'interfaces/teacher/years/addYear'
-
-interface ErrorLabel {
-    error: boolean
-    value: string
-}
-
-const ErrorLabelInitialValue = {
-    error: false,
-    value: '',
-}
 
 type Dialog = {
     state: boolean
@@ -42,8 +33,8 @@ const useAddYear = () => {
     const { loading, getHandler, postHandler } = useRequestsHandlers()
     const [requiredData, setRequiredData] = useState<any>('')
     const [selectedYear, setSelectedYear] = useState<YearProps>(YearInitialValue)
-    const [selectedLevels, setSelectedLevels] = useState<LevelsProps[]>([])
-    const [errorLabel, setErrorLabel] = useState<ErrorLabel>(ErrorLabelInitialValue)
+    const [selectedLevels, setSelectedLevels] = useState<(LevelsProps | undefined)[]>([])
+    const [errorLabel, setErrorLabel] = useState<PageErrorProps[]>([])
     const [content, setContent] = useState<Dialog>(dialogInitialValues)
     const [classesDialogState, setClassesDialogState] = useState<boolean>(false)
 
@@ -59,6 +50,7 @@ const useAddYear = () => {
         try {
             const res = await getHandler(userState.tokens.accessToken!, Urls.URL_YEARS_REQUIRED)
             setRequiredData(res)
+            console.log(res)
         } catch (error) {
             console.log(error)
         }
@@ -96,57 +88,119 @@ const useAddYear = () => {
                 {
                     id: item.id,
                     name: item.name,
-                    introFee: 0,
-                    monthFee: 0,
+                    introFee: undefined,
+                    monthFee: undefined,
+                    error: false,
+                    open: false,
                 },
             ])
         }
     }
 
+    const openAndCloseCard = (levelId: string) => {
+        setSelectedLevels(
+            selectedLevels.map((x: any) => (x.id === levelId ? { ...x, open: !x.open } : x)),
+        )
+    }
+
     const selectedIntroFeeHandler = (value: number, levelId: string) => {
         setSelectedLevels(
-            selectedLevels.map((x) => (x.id === levelId ? { ...x, introFee: value } : x)),
+            selectedLevels.map((x: any) => (x.id === levelId ? { ...x, introFee: value } : x)),
         )
     }
 
     const selectedMonthFeeHandler = (value: number, levelId: string) => {
         setSelectedLevels(
-            selectedLevels.map((x) => (x.id === levelId ? { ...x, monthFee: value } : x)),
+            selectedLevels.map((x: any) => (x.id === levelId ? { ...x, monthFee: value } : x)),
         )
     }
 
     // Validate all data before collect it
     const validate = () => {
         let state = true
+        let yearState = false
+        setErrorLabel([])
 
         // Check for year selection
         if (!selectedYear.name) {
             setSelectedYear({ ...selectedYear, error: true })
+            setErrorLabel((oldArray) => [
+                ...oldArray,
+                {
+                    name: 'yearSelection',
+                    value: 'يجب اختيار عام دراسي',
+                },
+            ])
             state = false
         } else {
             setSelectedYear({ ...selectedYear, error: false })
         }
 
-        // Check for classes selection
+        // Check for leves selection
         if (selectedLevels.length == 0) {
-            setErrorLabel({
-                ...errorLabel,
-                error: true,
-                value: 'يجب تحديد صف دراسي واحد علي الأقل',
-            })
+            setErrorLabel((oldArray) => [
+                ...oldArray,
+                {
+                    name: 'choseLevel',
+                    value: 'يجب تحديد صف دراسي واحد علي الأقل',
+                },
+            ])
             state = false
         } else {
-            setErrorLabel({ ...errorLabel, error: false, value: '' })
+            for (let i = 0; i < selectedLevels.length; i++) {
+                selectedLevels[i]!.open = false
+                if (
+                    selectedLevels[i]?.introFee == undefined ||
+                    selectedLevels[i]?.introFee == '' ||
+                    selectedLevels[i]?.monthFee == undefined ||
+                    selectedLevels[i]?.monthFee == ''
+                ) {
+                    const newValue = selectedLevels[i]
+                    newValue!.error = true
+                    setSelectedLevels([
+                        ...selectedLevels.slice(0, i),
+                        newValue,
+                        ...selectedLevels.slice(i + 1),
+                    ])
+                    yearState = false
+                    state = false
+                } else {
+                    const newValue = selectedLevels[i]
+                    newValue!.error = false
+                    setSelectedLevels([
+                        ...selectedLevels.slice(0, i),
+                        newValue,
+                        ...selectedLevels.slice(i + 1),
+                    ])
+                }
+            }
         }
 
+        if (!yearState) {
+            setErrorLabel((oldArray) => [
+                ...oldArray,
+                {
+                    name: 'levelData',
+                    value: 'يجب اكمال بيانات الصف الدراسي',
+                },
+            ])
+        }
         return state
     }
 
     // Prepare data for request
     const collectData = () => {
+        const levelsData = []
+        for (let item of selectedLevels) {
+            levelsData.push({
+                id: item!.id,
+                introFee: item!.introFee,
+                monthFee: item!.monthFee,
+            })
+        }
         const data = {
             start: parseInt(selectedYear.name.slice(0, 4)),
-            teacherCoureLevels: selectedLevels,
+            teacherCoureLevels: levelsData,
         }
 
         return data
@@ -157,14 +211,13 @@ const useAddYear = () => {
         if (validate()) {
             // Collect data
             const data = collectData()
-
             try {
                 const res = await postHandler(userState.tokens.accessToken!, Urls.URL_YEARS, data)
                 setSuccessMessage('تم بدأ عام جديد بنجاح')
                 router.push(`${Routes.teacherYear}/${res}`)
             } catch (error) {
                 console.log(error)
-                setErrorLabel({ ...errorLabel, error: true, value: `${error}` })
+                setErrorLabel([{ name: '', value: `${error}` }])
             }
         }
     }
@@ -191,6 +244,9 @@ const useAddYear = () => {
             selectedYearHandler,
             classesHandleDialog,
             selectedLevelsHandler,
+            openAndCloseCard,
+            selectedIntroFeeHandler,
+            selectedMonthFeeHandler,
             submit,
             cancelSubmit,
         },
