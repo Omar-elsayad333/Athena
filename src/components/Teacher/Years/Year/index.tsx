@@ -157,9 +157,9 @@ const YearC: React.FC<Props> = ({ data, states, actions }) => {
             <Typography sx={style.title} variant="h3" color={mainColors.title.main}>
                 بيانات العام الدراسي:-
             </Typography>
-            {data.selectedLevels.length > 0 && (
+            {data.levelsData.length > 0 && (
                 <Box sx={styles.levelsContianer} className="levels-contianer">
-                    {data.selectedLevels.map((item: any) => (
+                    {data.levelsData.map((item: any) => (
                         <Box sx={styles.levelContainer}>
                             <Box
                                 key={item.id}
@@ -214,8 +214,66 @@ const YearC: React.FC<Props> = ({ data, states, actions }) => {
                                             الفصول الدراسية الخاصة بالصف:-
                                         </Typography>
                                         <Box sx={styles.semesterChips}>
-                                            <Box sx={style.classesLabel}>الفصل الدراسي الاول</Box>
-                                            <Box sx={style.classesLabel}>الفصل الدراسي الثاني</Box>
+                                            {item.semsters.map((semster: any) => (
+                                                <Box sx={styles.semesterBox}>
+                                                    <Box key={semster.id} sx={style.classesLabel}>
+                                                        {semster.semster}
+                                                    </Box>
+                                                    <Box sx={styles.semesterDetials}>
+                                                        <Box>
+                                                            <Typography
+                                                                variant="h5"
+                                                                color={mainColors.title.main}
+                                                                fontWeight={700}
+                                                            >
+                                                                بداية الفصل الدراسي
+                                                            </Typography>
+                                                            {semster.startDate ? (
+                                                                <Typography
+                                                                    variant="h3"
+                                                                    color={'primary'}
+                                                                >
+                                                                    {semster.startDate}
+                                                                </Typography>
+                                                            ) : (
+                                                                <Typography
+                                                                    variant="h3"
+                                                                    color={mainColors.success.main}
+                                                                    sx={{
+                                                                        textDecoration: 'underline',
+                                                                    }}
+                                                                >
+                                                                    ابدأ الان
+                                                                </Typography>
+                                                            )}
+                                                        </Box>
+                                                        <Box>
+                                                            <Typography
+                                                                variant="h5"
+                                                                color={mainColors.title.main}
+                                                                fontWeight={700}
+                                                            >
+                                                                نهاية الفصل الدراسي
+                                                            </Typography>
+                                                            {semster.endDate ? (
+                                                                <Typography
+                                                                    variant="h3"
+                                                                    color={'primary'}
+                                                                >
+                                                                    {semster.endDate}
+                                                                </Typography>
+                                                            ) : (
+                                                                <Typography
+                                                                    variant="h3"
+                                                                    color={'primary'}
+                                                                >
+                                                                    لم يتحدد بعد
+                                                                </Typography>
+                                                            )}
+                                                        </Box>
+                                                    </Box>
+                                                </Box>
+                                            ))}
                                         </Box>
                                     </Box>
                                     <Box sx={styles.semestersContainer}>
@@ -224,7 +282,7 @@ const YearC: React.FC<Props> = ({ data, states, actions }) => {
                                             fontWeight={700}
                                             color={mainColors.title.main}
                                         >
-                                            حدد المصروفات الدراسية الخاصة بالصف:-
+                                            المصروفات الدراسية الخاصة بالصف:-
                                         </Typography>
                                         <Box sx={styles.semesterChips}>
                                             <Box sx={styles.inputContaienr}>
@@ -234,13 +292,6 @@ const YearC: React.FC<Props> = ({ data, states, actions }) => {
                                                 >
                                                     المقدم
                                                 </Typography>
-                                                <MyInputSmall
-                                                    indexes={item.id}
-                                                    value={item.introFee}
-                                                    type="number"
-                                                    placeholder="حدد المقدم الخاص بك"
-                                                    onChange={actions.selectedIntroFeeHandler}
-                                                />
                                             </Box>
                                             <Box sx={styles.inputContaienr}>
                                                 <Typography
@@ -249,13 +300,6 @@ const YearC: React.FC<Props> = ({ data, states, actions }) => {
                                                 >
                                                     المصروفات الشهرية
                                                 </Typography>
-                                                <MyInputSmall
-                                                    indexes={item.id}
-                                                    value={item.monthFee}
-                                                    type="number"
-                                                    placeholder="حدد المصروفات الشهرية"
-                                                    onChange={actions.selectedMonthFeeHandler}
-                                                />
                                             </Box>
                                         </Box>
                                     </Box>

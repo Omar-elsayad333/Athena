@@ -54,13 +54,23 @@ const useStyle = () => {
             flexDirection: 'column',
         },
         semesterChips: {
-            border: '2px solid #b6d5f0',
-            padding: '31px',
-            rowGap: '52px',
-            columnGap: '30px',
-            justifyContent: 'space-between',
+            gap: '52px',
             display: 'flex',
+            padding: '31px',
             borderRadius: '12px',
+            flexDirection: 'column',
+            border: '2px solid #b6d5f0',
+            justifyContent: 'space-between',
+        },
+        semesterBox: {
+            gap: '20px',
+            display: 'flex',
+            flexDirection: 'column',
+        },
+        semesterDetials: {
+            display: 'flex',
+            gap: '40px',
+            justifyContent: 'space-between',
             flexWrap: 'wrap',
         },
         inputContaienr: {

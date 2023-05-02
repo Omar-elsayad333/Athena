@@ -11,6 +11,8 @@ const useYear = () => {
     const { loading, getHandlerById } = useRequestsHandlers()
     const [yearData, setYearData] = useState<any>('')
     const [levelsData, setLevelsData] = useState<any>('')
+    const [selectedSemsters, setSelectedSemsters] = useState<any>()
+    const [selectedTab, setSelectedTab] = useState<any>({})
 
     // Get page data on load
     useEffect(() => {
@@ -37,13 +39,14 @@ const useYear = () => {
     }
 
     const setupLevelsData = () => {
+        setLevelsData([])
         for (let item of yearData.levels) {
             setLevelsData((oldItems: any) => [
                 ...oldItems,
                 {
                     id: item.id,
                     introFee: item.introFee,
-                    levelName: item.levelName,
+                    name: item.levelName,
                     monthFee: item.monthFee,
                     semsters: item.semsters,
                     levelId: item.teacherCourseLevelId,
@@ -53,6 +56,10 @@ const useYear = () => {
         }
     }
 
+    const openAndCloseCard = (levelId: string) => {
+        setLevelsData(levelsData.map((x: any) => (x.id === levelId ? { ...x, open: !x.open } : x)))
+    }
+
     useEffect(() => {
         console.log(levelsData)
     }, [levelsData])
@@ -60,11 +67,15 @@ const useYear = () => {
     return {
         data: {
             yearData,
+            levelsData,
         },
         states: {
             loading,
+            selectedTab,
         },
-        actions: {},
+        actions: {
+            openAndCloseCard,
+        },
     }
 }
 
