@@ -4,7 +4,8 @@ import Box from '@mui/material/Box'
 const TeacherAddExamLayer = () => {
     const style = {
         container: {
-            '@media screen and (max-width: 1400px)': {
+            maxwidth: '100%',
+            '@media screen and (max-width: 1700px)': {
                 display: 'none',
             },
         },

@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import Urls from 'constant/url'
+import Urls from 'constant/urls'
 
 type Prop = {
     alt: string

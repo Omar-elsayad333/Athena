@@ -1,4 +1,4 @@
-import Urls from 'constant/url'
+import Urls from 'constant/urls'
 import { Routes } from 'routes/Routes'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'

@@ -1,4 +1,4 @@
-import Urls from 'constant/url'
+import Urls from 'constant/urls'
 import { axiosInstance, createAxiosInstance } from 'config/axios'
 
 const useUserRequestHandlers = () => {

@@ -1,4 +1,4 @@
-import Urls from 'constant/url'
+import Urls from 'constant/urls'
 import { useTheme } from 'context/ThemeContext'
 
 // MUI

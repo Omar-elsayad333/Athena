@@ -1,4 +1,4 @@
-import Urls from 'constant/url'
+import Urls from 'constant/urls'
 import { useState, useEffect } from 'react'
 import { useUser } from 'context/userContext'
 import useRequestsHandlers from 'hooks/useRequestsHandlers'

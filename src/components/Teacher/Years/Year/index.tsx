@@ -5,6 +5,7 @@ import { useTheme } from 'context/ThemeContext'
 // MUI
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
+import { convertDateToShortDate } from 'utils/converters'
 
 type Props = {
     data: any
@@ -12,7 +13,7 @@ type Props = {
     actions: any
 }
 
-const YearC: React.FC<Props> = ({ data, states, actions }) => {
+const YearC: React.FC<Props> = ({ data, actions }) => {
     const styles = useStyle()
     const { mainColors } = useTheme()
 
@@ -160,7 +161,7 @@ const YearC: React.FC<Props> = ({ data, states, actions }) => {
             {data.levelsData.length > 0 && (
                 <Box sx={styles.levelsContianer} className="levels-contianer">
                     {data.levelsData.map((item: any) => (
-                        <Box sx={styles.levelContainer}>
+                        <Box sx={styles.levelContainer} key={item.id}>
                             <Box
                                 key={item.id}
                                 sx={[
@@ -215,7 +216,7 @@ const YearC: React.FC<Props> = ({ data, states, actions }) => {
                                         </Typography>
                                         <Box sx={styles.semesterChips}>
                                             {item.semsters.map((semster: any) => (
-                                                <Box sx={styles.semesterBox}>
+                                                <Box sx={styles.semesterBox} key={semster.id}>
                                                     <Box key={semster.id} sx={style.classesLabel}>
                                                         {semster.semster}
                                                     </Box>
@@ -225,6 +226,7 @@ const YearC: React.FC<Props> = ({ data, states, actions }) => {
                                                                 variant="h5"
                                                                 color={mainColors.title.main}
                                                                 fontWeight={700}
+                                                                mb={2}
                                                             >
                                                                 بداية الفصل الدراسي
                                                             </Typography>
@@ -233,7 +235,9 @@ const YearC: React.FC<Props> = ({ data, states, actions }) => {
                                                                     variant="h3"
                                                                     color={'primary'}
                                                                 >
-                                                                    {semster.startDate}
+                                                                    {convertDateToShortDate(
+                                                                        semster.startDate,
+                                                                    )}
                                                                 </Typography>
                                                             ) : (
                                                                 <Typography
@@ -242,6 +246,11 @@ const YearC: React.FC<Props> = ({ data, states, actions }) => {
                                                                     sx={{
                                                                         textDecoration: 'underline',
                                                                     }}
+                                                                    onClick={() =>
+                                                                        actions.openSemester(
+                                                                            semster.id,
+                                                                        )
+                                                                    }
                                                                 >
                                                                     ابدأ الان
                                                                 </Typography>
@@ -252,6 +261,7 @@ const YearC: React.FC<Props> = ({ data, states, actions }) => {
                                                                 variant="h5"
                                                                 color={mainColors.title.main}
                                                                 fontWeight={700}
+                                                                mb={2}
                                                             >
                                                                 نهاية الفصل الدراسي
                                                             </Typography>
@@ -284,13 +294,16 @@ const YearC: React.FC<Props> = ({ data, states, actions }) => {
                                         >
                                             المصروفات الدراسية الخاصة بالصف:-
                                         </Typography>
-                                        <Box sx={styles.semesterChips}>
+                                        <Box sx={styles.semesterDetials}>
                                             <Box sx={styles.inputContaienr}>
                                                 <Typography
                                                     variant="h5"
                                                     color={mainColors.title.main}
                                                 >
                                                     المقدم
+                                                </Typography>
+                                                <Typography variant="h1" color={'primary'}>
+                                                    {`${item.introFee} ج.م`}
                                                 </Typography>
                                             </Box>
                                             <Box sx={styles.inputContaienr}>
@@ -299,6 +312,9 @@ const YearC: React.FC<Props> = ({ data, states, actions }) => {
                                                     color={mainColors.title.main}
                                                 >
                                                     المصروفات الشهرية
+                                                </Typography>
+                                                <Typography variant="h1" color={'primary'}>
+                                                    {`${item.monthFee} ج.م`}
                                                 </Typography>
                                             </Box>
                                         </Box>
