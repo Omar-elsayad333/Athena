@@ -15,6 +15,7 @@ class Urls {
     // Teacher app sections urls
     static URL_YEARS: string = '/api/teacher/years'
     static URL_YEARS_END: string = '/api/teacher/years/end'
+    static URL_YEARS_OPEN_SEMESTER: string = '/api/teacher/years/level/semster'
     static URL_LEVELS: string = '/api/teacher/levels'
     static URL_COURSES: string = '/api/teacher/courses'
     static URL_GROUPS: string = '/api/teacher/groups'

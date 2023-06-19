@@ -1,19 +1,18 @@
-import Link from "next/link";
-import { useContext } from "react";
-import { DarkThemeContext } from "context/ThemeContext";
+import Link from 'next/link'
+import { useContext } from 'react'
+import { DarkThemeContext } from 'context/ThemeContext'
 
 // MUI
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import { URL_MAIN } from "constant/url";
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
+import { URL_MAIN } from 'constant/urls'
 
 type Props = {
-    data: any;
+    data: any
 }
 
 const StudentCard: React.FC<Props> = ({ data }) => {
-
-    const { mainColors } = useContext(DarkThemeContext);
+    const { mainColors } = useContext(DarkThemeContext)
     const classes = {
         container: {
             display: 'flex',
@@ -69,37 +68,40 @@ const StudentCard: React.FC<Props> = ({ data }) => {
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
-            gap: '20px'
-        }
+            gap: '20px',
+        },
     }
 
     return (
         <Box sx={classes.container}>
-            {
-                data.map((student: any) => {
-                    return (
-                        <Link key={student.id} href={`/teacher/students/student/${student.id}`}>
-                            <Box sx={[classes.card , {backgroundImage: `url(${URL_MAIN}/${student.imagePath})`}]}>
-                                <Box sx={classes.content}>
-                                    <Typography textAlign={'center'} color='#E0EEFF' variant="h4">
-                                        {`${student.firstName} ${student.middleName} ${student.lastName}`}
+            {data.map((student: any) => {
+                return (
+                    <Link key={student.id} href={`/teacher/students/student/${student.id}`}>
+                        <Box
+                            sx={[
+                                classes.card,
+                                { backgroundImage: `url(${URL_MAIN}/${student.imagePath})` },
+                            ]}
+                        >
+                            <Box sx={classes.content}>
+                                <Typography textAlign={'center'} color="#E0EEFF" variant="h4">
+                                    {`${student.firstName} ${student.middleName} ${student.lastName}`}
+                                </Typography>
+                                <Box sx={classes.details}>
+                                    <Typography color="#E0EEFF" variant="h6">
+                                        {student.levelName}
                                     </Typography>
-                                    <Box sx={classes.details}>
-                                        <Typography color='#E0EEFF' variant="h6">
-                                            {student.levelName}
-                                        </Typography>
-                                        <Typography color='#E0EEFF' variant="h6">
-                                            {student.groupName}
-                                        </Typography>
-                                    </Box>
+                                    <Typography color="#E0EEFF" variant="h6">
+                                        {student.groupName}
+                                    </Typography>
                                 </Box>
                             </Box>
-                        </Link>
-                    )
-                })
-            }
+                        </Box>
+                    </Link>
+                )
+            })}
         </Box>
-    );
+    )
 }
 
-export default StudentCard;
+export default StudentCard

@@ -1,22 +1,24 @@
 import { NextPage } from 'next'
-import { useContext } from 'react'
+import { Routes } from 'routes/Routes'
 import { withAuth } from 'routes/withRoute'
-import { DarkThemeContext } from 'context/ThemeContext'
+import { useTheme } from 'context/ThemeContext'
+import { useAlert } from 'context/AlertContext'
+import AlertNotify from 'components/AlertNotify'
+import Loading from 'components/Loading/Loading'
 import PageHead from 'components/Shared/PageHead'
-import DesktopNavbar from 'components/Layout/DesktopNavbar'
 import PageTitle from 'components/Shared/PageTitle'
 import ThemeSwitcher from 'components/ThemeSwitcher'
 import PageFooter from 'components/Shared/PageFooter'
-import EditYearC from 'components/Teacher/Years/EditYear'
 import useEditYear from 'container/years/useEditYear'
-import Loading from 'components/Loading/Loading'
+import EditYearC from 'components/Teacher/Years/EditYear'
+import DesktopNavbar from 'components/Layout/DesktopNavbar'
 
 // MUI
 import Box from '@mui/material/Box'
-import { Routes } from 'routes/Routes'
 
 const EditYear: NextPage = () => {
-    const { mainColors } = useContext(DarkThemeContext)
+    const { mainColors } = useTheme()
+    const { msg, msgType, state, handleState } = useAlert()
     const { data, states, actions, dialogs } = useEditYear()
 
     const style = {
@@ -51,7 +53,7 @@ const EditYear: NextPage = () => {
             <DesktopNavbar
                 firstPath={Routes.teacherYears}
                 firstContent="الأعوام الدراسية"
-                secondPath={Routes.teacherYearSetting}
+                secondPath={Routes.teacherAddYear}
                 secondContent="بداية عام جديد"
             />
             {states.loading ? (
@@ -107,6 +109,7 @@ const EditYear: NextPage = () => {
                 <PageFooter />
             </Box>
             <ThemeSwitcher />
+            <AlertNotify state={state} msg={msg} msgType={msgType} handleState={handleState} />
         </Box>
     )
 }

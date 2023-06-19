@@ -1,54 +1,51 @@
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
-import { useUser } from 'context/userContext';
-import { useAlert } from 'context/AlertContext';
-import { convertHashSign } from 'utils/converters';
-import { getHandlerById, postHandler } from 'handlers/requestHandler';
-import { errorInitialValues, ErrorProps } from 'interfaces/shared/errors';
-import { warningDialogInitialValues, WarningDialogProps } from 'interfaces/shared/warningDialog';
-import { URL_TEACHERSTUDENTS_ASSIGN, URL_TEACHERSTUDENTS_CODE } from 'constant/url';
-import { 
-    dropMenuInitialValues, 
-    DropMenuProps, 
-    inputInitialValues, 
-    InputProps 
+import { useUser } from 'context/userContext'
+import { useAlert } from 'context/AlertContext'
+import { convertHashSign } from 'utils/converters'
+import { getHandlerById, postHandler } from 'handlers/requestHandler'
+import { errorInitialValues, ErrorProps } from 'interfaces/shared/errors'
+import { warningDialogInitialValues, WarningDialogProps } from 'interfaces/shared/warningDialog'
+import { URL_TEACHERSTUDENTS_ASSIGN, URL_TEACHERSTUDENTS_CODE } from 'constant/urls'
+import {
+    dropMenuInitialValues,
+    DropMenuProps,
+    inputInitialValues,
+    InputProps,
 } from 'interfaces/shared/input'
 
 const useAddStudent = () => {
-
     const auth = useUser()
     const router = useRouter()
-    const [ loading, setLoading ] = useState<boolean>(false)
-    const { setSuccessMessage, setWarningMessage } = useAlert() 
-    const [ studentCode, setStudentCode ] = useState<InputProps>(inputInitialValues)
-    const [ codeError, setCodeError ] = useState<ErrorProps>(errorInitialValues)
-    const [ studentData, setStudentData ] = useState<any>('')
-    const [ yearsFromDB, setYearsFromDB ] = useState<any>()
-    const [ years, setYears ] = useState<any[]>([])
-    const [ year, setYear ] = useState<DropMenuProps>(dropMenuInitialValues)
-    const [ groups, setGroups ] = useState<any[]>([])
-    const [ group, setGroup ] = useState<DropMenuProps>(dropMenuInitialValues)
-    const [ basicDialog ] = useState<WarningDialogProps>(warningDialogInitialValues)
-    const [ pageError, setPageError ] = useState<ErrorProps>(errorInitialValues)
+    const [loading, setLoading] = useState<boolean>(false)
+    const { setSuccessMessage, setWarningMessage } = useAlert()
+    const [studentCode, setStudentCode] = useState<InputProps>(inputInitialValues)
+    const [codeError, setCodeError] = useState<ErrorProps>(errorInitialValues)
+    const [studentData, setStudentData] = useState<any>('')
+    const [yearsFromDB, setYearsFromDB] = useState<any>()
+    const [years, setYears] = useState<any[]>([])
+    const [year, setYear] = useState<DropMenuProps>(dropMenuInitialValues)
+    const [groups, setGroups] = useState<any[]>([])
+    const [group, setGroup] = useState<DropMenuProps>(dropMenuInitialValues)
+    const [basicDialog] = useState<WarningDialogProps>(warningDialogInitialValues)
+    const [pageError, setPageError] = useState<ErrorProps>(errorInitialValues)
 
     // Update groups data if the user selected a year
     useEffect(() => {
-        if(year.id) {
+        if (year.id) {
             setGroups([])
-            for(let item of yearsFromDB) {
-                if(item.id == year.id) {
+            for (let item of yearsFromDB) {
+                if (item.id == year.id) {
                     console.log(item.groups)
-                    for(let i = 0; i < item.groups.length; i++) {
+                    for (let i = 0; i < item.groups.length; i++) {
                         console.log(item.groups[i])
-                        setGroups( groups => 
-                            [
-                                ...groups,
-                                {
-                                    id: item.groups[i].id,
-                                    name: item.groups[i].name
-                                }
-                            ]
-                        )
+                        setGroups((groups) => [
+                            ...groups,
+                            {
+                                id: item.groups[i].id,
+                                name: item.groups[i].name,
+                            },
+                        ])
                     }
                 }
             }
@@ -57,81 +54,73 @@ const useAddStudent = () => {
 
     // Get the student code from user
     const studentCodeHandler = (selectedStudentCode: string) => {
-        setStudentCode(
-            {
-                ...studentCode,
-                value: selectedStudentCode,
-                length: selectedStudentCode.length,
-                error: false,
-                helperText: ''
-            }
-        )
-        setCodeError(
-            {
-                ...codeError,
-                value: '',
-                error: false
-            }
-        )
+        setStudentCode({
+            ...studentCode,
+            value: selectedStudentCode,
+            length: selectedStudentCode.length,
+            error: false,
+            helperText: '',
+        })
+        setCodeError({
+            ...codeError,
+            value: '',
+            error: false,
+        })
     }
 
     // Validate data before calling api
     const studentCodeValidation = () => {
-        let validation: boolean = true;
+        let validation: boolean = true
 
-        if(studentCode.length == 0) {
-            validation = false;
-            setStudentCode({...studentCode, error: true, helperText: 'يجب ادخال كود الطالب'})
+        if (studentCode.length == 0) {
+            validation = false
+            setStudentCode({ ...studentCode, error: true, helperText: 'يجب ادخال كود الطالب' })
         }
 
-        return validation;
+        return validation
     }
 
     // Update year data
     const updateYearData = (newYears: any) => {
         setYearsFromDB(newYears)
-        for(let year of newYears) {
-            setYears( years =>
-                [
-                    ...years,
-                    {
-                        id: year.id,
-                        name: `${year.start} / ${year.end}`
-                    }
-                ]
-            )
+        for (let year of newYears) {
+            setYears((years) => [
+                ...years,
+                {
+                    id: year.id,
+                    name: `${year.start} / ${year.end}`,
+                },
+            ])
         }
     }
 
     // Call api to check if the student is exist
     const submitCode = async () => {
-        if(studentCodeValidation()) {
+        if (studentCodeValidation()) {
             try {
                 setLoading(true)
-                const res: any = await getHandlerById(convertHashSign(studentCode.value), auth.authToken, URL_TEACHERSTUDENTS_CODE);
+                const res: any = await getHandlerById(
+                    convertHashSign(studentCode.value),
+                    auth.authToken,
+                    URL_TEACHERSTUDENTS_CODE,
+                )
                 setStudentData(res)
                 updateYearData(res.yearGroups)
-            }
-            catch(error: any) {
-                if(error.response.status == 404) {
-                    setCodeError(
-                        {
-                            ...codeError,
-                            value: 'هذا الطالب غير موجود في المنظومه !',
-                            error: true
-                        }
-                    )
-                }else if(error.response.status == 409) {
-                    setCodeError(
-                        {
-                            ...codeError,
-                            value: 'هذا الطالب تم اضافته مسبقا',
-                            error: true
-                        }
-                    )
+            } catch (error: any) {
+                if (error.response.status == 404) {
+                    setCodeError({
+                        ...codeError,
+                        value: 'هذا الطالب غير موجود في المنظومه !',
+                        error: true,
+                    })
+                } else if (error.response.status == 409) {
+                    setCodeError({
+                        ...codeError,
+                        value: 'هذا الطالب تم اضافته مسبقا',
+                        error: true,
+                    })
                 }
-            }
-            finally {
+            } finally {
                 setLoading(false)
             }
         }
@@ -139,50 +128,42 @@ const useAddStudent = () => {
 
     // Get the selected year from user
     const yearHandler = (selectedYear: any) => {
-        setYear(
-            {
-                ...year,
-                id: selectedYear.id,
-                value: selectedYear.name,
-                error: false,
-                helperText: ''
-            }
-        )
+        setYear({
+            ...year,
+            id: selectedYear.id,
+            value: selectedYear.name,
+            error: false,
+            helperText: '',
+        })
     }
 
     // Get the selected group from user
     const groupHandler = (selectedGroup: any) => {
-        setGroup(
-            {
-                ...group,
-                id: selectedGroup.id,
-                value: selectedGroup.name,
-                error: false,
-                helperText: ''
-            }
-        )
-        setPageError(
-            {
-                value: '',
-                error: false
-            }
-        )
+        setGroup({
+            ...group,
+            id: selectedGroup.id,
+            value: selectedGroup.name,
+            error: false,
+            helperText: '',
+        })
+        setPageError({
+            value: '',
+            error: false,
+        })
     }
 
     // Validate data before submit it
     const validation = () => {
         let validationState: boolean = true
-        
-        if(!group.id) {
+
+        if (!group.id) {
             validationState = false
-            setPageError(
-                {
-                    value: 'يجب اختيار مجموعه للطالب',
-                    error: true
-                }
-            )
+            setPageError({
+                value: 'يجب اختيار مجموعه للطالب',
+                error: true,
+            })
         }
-        
+
         return validationState
     }
 
@@ -190,7 +171,7 @@ const useAddStudent = () => {
     const collectData = () => {
         const dataToSubmit = {
             studnetId: studentData.id,
-            groupId: group.id
+            groupId: group.id,
         }
 
         return dataToSubmit
@@ -198,23 +179,19 @@ const useAddStudent = () => {
 
     // Call api to submit data
     const submit = async () => {
-        if(validation()) {
+        if (validation()) {
             try {
                 setLoading(true)
                 const data = collectData()
                 const res = await postHandler(auth.authToken, URL_TEACHERSTUDENTS_ASSIGN, data)
                 setSuccessMessage('تم اضافة الطالب بنجاح')
                 router.replace(`/teacher/students/student/${res}`)
-            }
-            catch(error) {
-                setPageError(
-                    {
-                        value: 'خطاء في اضافة الطالب',
-                        error: true
-                    }
-                )
-            }
-            finally {
+            } catch (error) {
+                setPageError({
+                    value: 'خطاء في اضافة الطالب',
+                    error: true,
+                })
+            } finally {
                 setLoading(false)
             }
         }
@@ -255,39 +232,37 @@ const useAddStudent = () => {
         //     )
         // }
     }
-    
-    return (
-        {
-            data: {
-                studentData,
-                years,
-                groups
-            },
-            states: {
-                loading,
-                studentCode,
-                codeError,
-                year,
-                group,
-                pageError
-            },
+
+    return {
+        data: {
+            studentData,
+            years,
+            groups,
+        },
+        states: {
+            loading,
+            studentCode,
+            codeError,
+            year,
+            group,
+            pageError,
+        },
+        actions: {
+            studentCodeHandler,
+            submitCode,
+            yearHandler,
+            groupHandler,
+            submit,
+            basicDialogHandler,
+        },
+        dialogs: {
+            basicDialog,
             actions: {
-                studentCodeHandler,
-                submitCode,
-                yearHandler,
-                groupHandler,
-                submit,
-                basicDialogHandler
+                accept: cancelSubmit,
+                reject: basicDialogHandler,
             },
-            dialogs: {
-                basicDialog,
-                actions: {
-                    accept: cancelSubmit,
-                    reject: basicDialogHandler
-                }
-            }
-        }
-    );
+        },
+    }
 }
- 
-export default useAddStudent;
+
+export default useAddStudent

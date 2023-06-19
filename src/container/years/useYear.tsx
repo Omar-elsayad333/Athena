@@ -1,18 +1,18 @@
-import Urls from 'constant/url'
+import Urls from 'constant/urls'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import { useUser } from 'context/userContext'
+import { useAlert } from 'context/AlertContext'
 import useRequestsHandlers from 'hooks/useRequestsHandlers'
 
 const useYear = () => {
     const router = useRouter()
     const { id }: any = router.query
     const { userState } = useUser()
-    const { loading, getHandlerById } = useRequestsHandlers()
+    const { setSuccessMessage, setErrorMessage } = useAlert()
+    const { loading, getHandlerById, putHandlerById } = useRequestsHandlers()
     const [yearData, setYearData] = useState<any>('')
     const [levelsData, setLevelsData] = useState<any>('')
-    const [selectedSemsters, setSelectedSemsters] = useState<any>()
-    const [selectedTab, setSelectedTab] = useState<any>({})
 
     // Get page data on load
     useEffect(() => {
@@ -35,6 +35,7 @@ const useYear = () => {
             console.log(res)
         } catch (error) {
             console.log(error)
+            setErrorMessage('حدث خطاء')
         }
     }
 
@@ -60,9 +61,21 @@ const useYear = () => {
         setLevelsData(levelsData.map((x: any) => (x.id === levelId ? { ...x, open: !x.open } : x)))
     }
 
-    useEffect(() => {
-        console.log(levelsData)
-    }, [levelsData])
+    const openSemester = async (semsterId: string) => {
+        try {
+            const res = await putHandlerById(
+                semsterId,
+                userState.tokens.accessToken!,
+                Urls.URL_YEARS_OPEN_SEMESTER,
+            )
+            await getYearData()
+            setSuccessMessage('تم فتح الفصل الدراسي بنجاح')
+            console.log(res)
+        } catch (error) {
+            console.log(error)
+            setErrorMessage('حدث خطاء اثناء فتح الفصل الدراسي')
+        }
+    }
 
     return {
         data: {
@@ -71,10 +84,10 @@ const useYear = () => {
         },
         states: {
             loading,
-            selectedTab,
         },
         actions: {
             openAndCloseCard,
+            openSemester,
         },
     }
 }
