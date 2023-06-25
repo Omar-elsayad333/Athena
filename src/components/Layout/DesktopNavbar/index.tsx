@@ -1,13 +1,12 @@
-import { useContext } from 'react'
-import { useUser } from 'context/userContext'
-import { DarkThemeContext } from 'context/ThemeContext'
 import NavbarBut from './NavbarBut'
-import NavbarSecBut from './NavbarSecBut'
 import Avatar from 'components/MyAvatar'
+import NavbarSecBut from './NavbarSecBut'
+import { useUser } from 'context/userContext'
+import { useTheme } from 'context/ThemeContext'
 
 // MUI
 import Box from '@mui/material/Box'
-import { Typography } from '@mui/material'
+import Typography from '@mui/material/Typography'
 
 type Props = {
     firstPath?: any
@@ -18,7 +17,7 @@ type Props = {
 
 const DesktopNavbar: React.FC<Props> = ({ firstPath, secondPath, firstContent, secondContent }) => {
     const { userState } = useUser()
-    const { darkMode, mainColors } = useContext(DarkThemeContext)
+    const { darkMode, mainColors } = useTheme()
 
     const style: any = {
         container: {
