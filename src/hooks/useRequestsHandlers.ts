@@ -67,6 +67,19 @@ const useRequestsHandlers = () => {
         }
     }
 
+    const putHandler = async (token: string, path: string, data?: any) => {
+        const axiosInstanceWithToken = createAxiosInstance(token)
+        try {
+            setLoading(true)
+            const response = await axiosInstanceWithToken.put(`${path}`, data)
+            return response.data
+        } catch (error: any) {
+            throw Error(error)
+        } finally {
+            setLoading(false)
+        }
+    }
+
     const putHandlerById = async (id: any, token: string, path: string, data?: any) => {
         const axiosInstanceWithToken = createAxiosInstance(token)
         try {
@@ -100,6 +113,7 @@ const useRequestsHandlers = () => {
         postHandlerById,
         getHandler,
         getHandlerById,
+        putHandler,
         putHandlerById,
         deleteHandler,
     }

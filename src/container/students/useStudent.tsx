@@ -1,15 +1,15 @@
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import { useUser } from 'context/userContext'
-import { getHandlerById, putHandler } from 'handlers/requestHandler'
+import useRequestsHandlers from 'hooks/useRequestsHandlers'
 import { DropMenuProps, dropMenuInitialValues } from 'interfaces/shared/input'
-import { URL_TEACHERSTUDENTS_GROUP, URL_TEACHERSTUDENTS_INFO } from 'constant/urls'
+import Urls from 'constant/urls'
 
 const useStudent = () => {
-    const auth = useUser()
+    const { userState } = useUser()
     const router = useRouter()
     const { id } = router.query
-    const [loading, setLoading] = useState<boolean>(false)
+    const { loading, getHandlerById, putHandler } = useRequestsHandlers()
     const [studentData, setStudentData] = useState<any>({})
     const [editGroupState, setEditGroupState] = useState<boolean>(false)
     const [groups, setGroups] = useState<any[]>([])
@@ -17,22 +17,23 @@ const useStudent = () => {
 
     // Get student data if the user is authorized
     useEffect(() => {
-        if (auth.authToken) {
+        if (userState.tokens.accessToken) {
             getStudentData()
         }
-    }, [auth.authToken])
+    }, [userState.tokens.accessToken])
 
     // Call api to get student data
     const getStudentData = async () => {
         try {
-            setLoading(true)
-            const res: any = await getHandlerById(id, auth.authToken, URL_TEACHERSTUDENTS_INFO)
+            const res: any = await getHandlerById(
+                id,
+                userState.tokens.accessToken!,
+                Urls.URL_TEACHERSTUDENTS_INFO,
+            )
             setStudentData(res.info)
             setGroups(res.info.groups)
         } catch (error) {
             console.log(error)
-        } finally {
-            setLoading(false)
         }
     }
 
@@ -78,14 +79,15 @@ const useStudent = () => {
     const submitEditGroup = async () => {
         if (validation()) {
             try {
-                setLoading(true)
                 const data = collectData()
-                await putHandler(auth.authToken, URL_TEACHERSTUDENTS_GROUP, data)
+                await putHandler(
+                    userState.tokens.accessToken!,
+                    Urls.URL_TEACHERSTUDENTS_GROUP,
+                    data,
+                )
                 router.reload()
             } catch (error) {
                 console.log(error)
-            } finally {
-                setLoading(false)
             }
         }
     }

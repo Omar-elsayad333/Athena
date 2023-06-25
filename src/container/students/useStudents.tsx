@@ -1,14 +1,13 @@
 // import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react'
 import { useUser } from 'context/userContext'
-import { getHandler } from 'handlers/requestHandler'
-import { URL_TEACHERSTUDENTS } from 'constant/urls'
+import useRequestsHandlers from 'hooks/useRequestsHandlers'
+import Urls from 'constant/urls'
 import { DropMenuProps, dropMenuInitialValues } from 'interfaces/shared/input'
 
 const useStudents = () => {
-    const auth = useUser()
-    // const router = useRouter()
-    const [loading, setLoading] = useState<boolean>(false)
+    const { userState } = useUser()
+    const { loading, getHandler } = useRequestsHandlers()
     const [tableState, setTableState] = useState<boolean>(false)
     const [originalYears, setOriginalYears] = useState<any[]>([])
     const [years, setYears] = useState<any[]>([])
@@ -19,10 +18,10 @@ const useStudents = () => {
 
     // Get years data if the user is authorized
     useEffect(() => {
-        if (auth.authToken) {
+        if (userState.tokens.accessToken) {
             getYearsData()
         }
-    }, [auth.authToken])
+    }, [userState.tokens.accessToken])
 
     // Update the levels data and students data if the user selected new year
     useEffect(() => {
@@ -68,14 +67,14 @@ const useStudents = () => {
     // Call api to get years data
     const getYearsData = async () => {
         try {
-            setLoading(true)
-            const res: any = await getHandler(auth.authToken, URL_TEACHERSTUDENTS)
+            const res: any = await getHandler(
+                userState.tokens.accessToken!,
+                Urls.URL_TEACHERSTUDENTS,
+            )
             setOriginalYears(res)
             updateYearsData(res)
         } catch (error) {
             console.log(error)
-        } finally {
-            setLoading(false)
         }
     }
 

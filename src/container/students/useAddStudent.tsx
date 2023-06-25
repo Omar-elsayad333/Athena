@@ -3,10 +3,10 @@ import { useState, useEffect } from 'react'
 import { useUser } from 'context/userContext'
 import { useAlert } from 'context/AlertContext'
 import { convertHashSign } from 'utils/converters'
-import { getHandlerById, postHandler } from 'handlers/requestHandler'
+import useRequestsHandlers from 'hooks/useRequestsHandlers'
 import { errorInitialValues, ErrorProps } from 'interfaces/shared/errors'
 import { warningDialogInitialValues, WarningDialogProps } from 'interfaces/shared/warningDialog'
-import { URL_TEACHERSTUDENTS_ASSIGN, URL_TEACHERSTUDENTS_CODE } from 'constant/urls'
+import Urls from 'constant/urls'
 import {
     dropMenuInitialValues,
     DropMenuProps,
@@ -15,9 +15,9 @@ import {
 } from 'interfaces/shared/input'
 
 const useAddStudent = () => {
-    const auth = useUser()
+    const { userState } = useUser()
     const router = useRouter()
-    const [loading, setLoading] = useState<boolean>(false)
+    const { loading, getHandlerById, postHandler } = useRequestsHandlers()
     const { setSuccessMessage, setWarningMessage } = useAlert()
     const [studentCode, setStudentCode] = useState<InputProps>(inputInitialValues)
     const [codeError, setCodeError] = useState<ErrorProps>(errorInitialValues)
@@ -98,11 +98,10 @@ const useAddStudent = () => {
     const submitCode = async () => {
         if (studentCodeValidation()) {
             try {
-                setLoading(true)
                 const res: any = await getHandlerById(
                     convertHashSign(studentCode.value),
-                    auth.authToken,
-                    URL_TEACHERSTUDENTS_CODE,
+                    userState.tokens.accessToken!,
+                    Urls.URL_TEACHERSTUDENTS_CODE,
                 )
                 setStudentData(res)
                 updateYearData(res.yearGroups)
@@ -120,8 +119,6 @@ const useAddStudent = () => {
                         error: true,
                     })
                 }
-            } finally {
-                setLoading(false)
             }
         }
     }
@@ -181,9 +178,12 @@ const useAddStudent = () => {
     const submit = async () => {
         if (validation()) {
             try {
-                setLoading(true)
                 const data = collectData()
-                const res = await postHandler(auth.authToken, URL_TEACHERSTUDENTS_ASSIGN, data)
+                const res = await postHandler(
+                    userState.tokens.accessToken!,
+                    Urls.URL_TEACHERSTUDENTS_ASSIGN,
+                    data,
+                )
                 setSuccessMessage('تم اضافة الطالب بنجاح')
                 router.replace(`/teacher/students/student/${res}`)
             } catch (error) {
@@ -191,8 +191,6 @@ const useAddStudent = () => {
                     value: 'خطاء في اضافة الطالب',
                     error: true,
                 })
-            } finally {
-                setLoading(false)
             }
         }
     }
