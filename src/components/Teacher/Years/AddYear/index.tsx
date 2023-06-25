@@ -22,7 +22,7 @@ type Props = {
     dialog: any
 }
 
-const AddYearC: React.FC<Props> = ({ data, states, actions, dialog }) => {
+const AddYearC: React.FC<Props> = ({ data, states, actions }) => {
     const styles = useStyle()
     const { mainColors } = useTheme()
 
