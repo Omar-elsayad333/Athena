@@ -17,7 +17,7 @@ const useRequestsHandlers = () => {
         }
     }
 
-    const postHandlerById = async (id: string, token: string, path: string, data?: any) => {
+    const postHandlerById = async (id: any, token: string, path: string, data?: any) => {
         const axiosInstanceWithToken = createAxiosInstance(token)
         try {
             setLoading(true)
@@ -43,7 +43,7 @@ const useRequestsHandlers = () => {
         }
     }
 
-    const getHandlerById = async (id: string, token: string, path: string) => {
+    const getHandlerById = async (id: any, token: string, path: string) => {
         const axiosInstanceWithToken = createAxiosInstance(token)
         try {
             setLoading(true)
@@ -67,7 +67,7 @@ const useRequestsHandlers = () => {
         }
     }
 
-    const putHandlerById = async (id: string, token: string, path: string, data?: any) => {
+    const putHandlerById = async (id: any, token: string, path: string, data?: any) => {
         const axiosInstanceWithToken = createAxiosInstance(token)
         try {
             setLoading(true)
@@ -80,7 +80,7 @@ const useRequestsHandlers = () => {
         }
     }
 
-    const deleteHandler = async (id: string, token: string, path: string) => {
+    const deleteHandler = async (id: any, token: string, path: string) => {
         const axiosInstanceWithToken = createAxiosInstance(token)
         try {
             setLoading(true)

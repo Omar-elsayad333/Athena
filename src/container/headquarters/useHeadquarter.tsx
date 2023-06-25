@@ -1,21 +1,21 @@
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import { useUser } from 'context/userContext'
-import { URL_HEADQUARTERS } from 'constant/urls'
-import { getHandlerById } from 'handlers/requestHandler'
+import Urls from 'constant/urls'
+import useRequestsHandlers from 'hooks/useRequestsHandlers'
 import { useAlert } from 'context/AlertContext'
 
 const useHeadquarter = () => {
     const router = useRouter()
     const { id } = router.query
-    const { authToken } = useUser()
+    const { loading, getHandlerById } = useRequestsHandlers()
+    const { userState } = useUser()
     const { setErrorMessage } = useAlert()
-    const [loading, setLoading] = useState<boolean>(true)
     const [headquarterData, setHeadquarterData] = useState<any>('')
 
     // Call function to get headquarter data if the user is authorized
     useEffect(() => {
-        if (id && authToken) {
+        if (id && userState.tokens.accessToken) {
             getHeadquarterData()
         }
     }, [id])
@@ -23,14 +23,15 @@ const useHeadquarter = () => {
     // Call api to get page data
     const getHeadquarterData = async () => {
         try {
-            setLoading(true)
-            const res = await getHandlerById(`${id}`, authToken, URL_HEADQUARTERS)
+            const res = await getHandlerById(
+                `${id}`,
+                userState.tokens.accessToken!,
+                Urls.URL_HEADQUARTERS,
+            )
             setHeadquarterData(res)
         } catch (error) {
             console.log(error)
             setErrorMessage('حدث خطاء')
-        } finally {
-            setLoading(false)
         }
     }
 

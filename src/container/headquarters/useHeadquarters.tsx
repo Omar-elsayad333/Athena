@@ -1,19 +1,19 @@
 import { useEffect, useState } from 'react'
 import { useUser } from 'context/userContext'
 import { useAlert } from 'context/AlertContext'
-import { URL_HEADQUARTERS } from 'constant/urls'
-import { getHandler } from 'handlers/requestHandler'
+import Urls from 'constant/urls'
+import useRequestsHandlers from 'hooks/useRequestsHandlers'
 
 const useHeadquarters = () => {
-    const { authToken } = useUser()
+    const { userState } = useUser()
+    const { loading, getHandler } = useRequestsHandlers()
     const { setErrorMessage } = useAlert()
-    const [loading, setLoading] = useState<boolean>(true)
     const [originalData, setOriginalData] = useState<any>([])
     const [headquartersData, setHeadquartersData] = useState<any>([])
 
     // Call Function to get page data
     useEffect(() => {
-        if (authToken) {
+        if (userState.tokens.accessToken) {
             getHeadquartersData()
         }
     }, [])
@@ -21,15 +21,12 @@ const useHeadquarters = () => {
     // Call api to get headcquarters data
     const getHeadquartersData = async () => {
         try {
-            setLoading(true)
-            const res = await getHandler(authToken, URL_HEADQUARTERS)
+            const res = await getHandler(userState.tokens.accessToken!, Urls.URL_HEADQUARTERS)
             setHeadquartersData(res)
             setOriginalData(res)
         } catch (error) {
             setErrorMessage('حدث خطاء')
             console.log(error)
-        } finally {
-            setLoading(false)
         }
     }
 

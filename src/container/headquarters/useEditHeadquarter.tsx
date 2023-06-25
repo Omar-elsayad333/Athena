@@ -3,18 +3,18 @@ import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import { useUser } from 'context/userContext'
 import { useAlert } from 'context/AlertContext'
-import { URL_HEADQUARTERS } from 'constant/urls'
+import Urls from 'constant/urls'
 import { inputInitialValues, InputProps } from 'interfaces/shared/input'
 import { homeNumberValidator, phoneNumberValidator } from 'utils/validators'
-import { getHandlerById, putHandlerById, deleteHandler } from 'handlers/requestHandler'
+import useRequestsHandlers from 'hooks/useRequestsHandlers'
 import { WarningDialogProps, warningDialogInitialValues } from 'interfaces/shared/warningDialog'
 
 const useEditHeadquarter = () => {
-    const { authToken } = useUser()
     const router = useRouter()
     const { id } = router.query
+    const { userState } = useUser()
+    const { loading, getHandlerById, putHandlerById, deleteHandler } = useRequestsHandlers()
     const { setSuccessMessage, setErrorMessage, setWarningMessage } = useAlert()
-    const [loading, setLoading] = useState<boolean>(true)
     const [originalData, setOriginalData] = useState<any>('')
     const [headQuarterData, setHeadQuarterData] = useState<any>('')
     const [name, setName] = useState<InputProps>(inputInitialValues)
@@ -32,7 +32,7 @@ const useEditHeadquarter = () => {
 
     // Call function to get page data
     useEffect(() => {
-        if (authToken && id) {
+        if (userState.tokens.accessToken && id) {
             getHeadquarterData()
         }
     }, [])
@@ -47,15 +47,16 @@ const useEditHeadquarter = () => {
     // Call api to get headquarter data
     const getHeadquarterData = async () => {
         try {
-            setLoading(true)
-            const res = await getHandlerById(id, authToken, URL_HEADQUARTERS)
+            const res = await getHandlerById(
+                id,
+                userState.tokens.accessToken!,
+                Urls.URL_HEADQUARTERS,
+            )
             setOriginalData(res)
             setHeadQuarterData(res)
         } catch (error) {
             console.log(error)
             setErrorMessage('حدث خطاء')
-        } finally {
-            setLoading(false)
         }
     }
 
@@ -276,16 +277,18 @@ const useEditHeadquarter = () => {
     const submit = async () => {
         if (validation()) {
             try {
-                setLoading(true)
                 const data = await collectData()
-                const res = await putHandlerById(id, authToken, URL_HEADQUARTERS, data)
+                const res = await putHandlerById(
+                    id,
+                    userState.tokens.accessToken!,
+                    Urls.URL_HEADQUARTERS,
+                    data,
+                )
                 setSuccessMessage('تمت التعديلات بنجاح')
                 router.push(`${Routes.teacherHeadquarter}${res}`)
             } catch (error) {
                 console.log(error)
                 setErrorMessage('حدث خطاء')
-            } finally {
-                setLoading(false)
             }
         } else {
             setErrorMessage('يوجد خطاء في المدخلات')
@@ -296,16 +299,17 @@ const useEditHeadquarter = () => {
     const deleteHeadquarter = async () => {
         try {
             closeWarningDialogState()
-            setLoading(true)
-            const res = await deleteHandler(id, authToken, URL_HEADQUARTERS)
+            const res = await deleteHandler(
+                id,
+                userState.tokens.accessToken!,
+                Urls.URL_HEADQUARTERS,
+            )
             console.log(res)
             setWarningMessage('تم حذف المقر بنجاح')
             router.push(Routes.teacherheadquarters)
         } catch (error) {
             console.log(error)
             setErrorMessage('حدث خطاء')
-        } finally {
-            setLoading(false)
         }
     }
 

@@ -3,17 +3,17 @@ import { Routes } from 'routes/Routes'
 import { useRouter } from 'next/router'
 import { useUser } from 'context/userContext'
 import { useAlert } from 'context/AlertContext'
-import { URL_HEADQUARTERS } from 'constant/urls'
-import { postHandler } from 'handlers/requestHandler'
+import Urls from 'constant/urls'
+import useRequestsHandlers from 'hooks/useRequestsHandlers'
 import { inputInitialValues, InputProps } from 'interfaces/shared/input'
 import { homeNumberValidator, phoneNumberValidator } from 'utils/validators'
 import { WarningDialogProps, warningDialogInitialValues } from 'interfaces/shared/warningDialog'
 
 const useAddHeadquarter = () => {
-    const auth = useUser()
+    const { userState } = useUser()
     const router = useRouter()
+    const { loading, postHandler } = useRequestsHandlers()
     const { setSuccessMessage, setErrorMessage } = useAlert()
-    const [loading, setLoading] = useState<boolean>(false)
     const [name, setName] = useState<InputProps>(inputInitialValues)
     const [city, setCity] = useState<InputProps>(inputInitialValues)
     const [region, setRegion] = useState<InputProps>(inputInitialValues)
@@ -276,16 +276,17 @@ const useAddHeadquarter = () => {
     const submit = async () => {
         if (validation()) {
             try {
-                setLoading(true)
                 const data = await collectData()
-                const res = await postHandler(auth.authToken, URL_HEADQUARTERS, data)
+                const res = await postHandler(
+                    userState.tokens.accessToken!,
+                    Urls.URL_HEADQUARTERS,
+                    data,
+                )
                 setSuccessMessage('تم اضافة المقر بنجاح')
                 router.push(`${Routes.teacherHeadquarter}${res}`)
             } catch (error) {
                 console.log(error)
                 setErrorMessage('حدث خطاء')
-            } finally {
-                setLoading(false)
             }
         } else {
             setErrorMessage('يوجد خطاء في المدخلات')
