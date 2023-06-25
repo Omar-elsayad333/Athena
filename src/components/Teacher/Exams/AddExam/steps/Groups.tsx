@@ -4,8 +4,6 @@ import { useTheme } from 'context/ThemeContext'
 // MUI
 import Box from '@mui/material/Box'
 import { Typography } from '@mui/material'
-import MyButton from 'components/Buttons/MyButton'
-import MyButtonError from 'components/Buttons/MyButtonError'
 
 type Props = {
     data: any
@@ -13,7 +11,7 @@ type Props = {
     actions: any
 }
 
-const Groups: React.FC<Props> = ({ data, states, actions }) => {
+const Groups: React.FC<Props> = ({ data, actions }) => {
     const { mainColors } = useTheme()
     const style: IStyle = {
         container: {
