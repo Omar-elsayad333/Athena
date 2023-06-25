@@ -1,10 +1,11 @@
 import Link from 'next/link'
 import { NextPage } from 'next'
+import Urls from 'constant/urls'
 import { Routes } from 'routes/Routes'
 import { useTheme } from 'context/ThemeContext'
 import PageHead from 'components/Shared/PageHead'
-import SecondaryIogo from 'assets/images/SecondaryIogo'
 import LoginButDark from '../components/LoginButDark'
+import SecondaryIogo from 'assets/images/SecondaryIogo'
 
 // MUI
 import Box from '@mui/material/Box'
@@ -80,7 +81,7 @@ const Home: NextPage = () => {
                         <Typography variant="h3" color="primary">
                             انا طالب
                         </Typography>
-                        <Link href={Routes.studentHome}>
+                        <Link href={Urls.URL_MAIN_STUDENT_LOGIN}>
                             <a style={{ width: '400px', maxWidth: '100%' }}>
                                 <LoginButDark content="قسم الطالب" />
                             </a>

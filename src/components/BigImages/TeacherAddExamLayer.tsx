@@ -28,7 +28,7 @@ const TeacherAddExamLayer = () => {
                     rx="19"
                     fill="#E8F3FF"
                     stroke="#B6D5F0"
-                    stroke-width="2"
+                    strokeWidth="2"
                 />
                 <path
                     d="M599 3H33C23.6112 3 16 10.6112 16 20V267.624C16 277.013 23.6111 284.624 33 284.624H599C608.389 284.624 616 277.013 616 267.624V20C616 10.6112 608.389 3 599 3Z"
@@ -996,8 +996,8 @@ const TeacherAddExamLayer = () => {
                 <path
                     d="M161.661 67H40.3773C37.9598 67 36 68.9598 36 71.3773V109.11C36 111.528 37.9598 113.487 40.3773 113.487H161.661C164.078 113.487 166.038 111.528 166.038 109.11V71.3773C166.038 68.9598 164.078 67 161.661 67Z"
                     stroke="#1C364F"
-                    stroke-width="0.5"
-                    stroke-miterlimit="10"
+                    strokeWidth="0.5"
+                    strokeMiterlimit="10"
                 />
                 <path
                     opacity="0.4"
@@ -1112,9 +1112,9 @@ const TeacherAddExamLayer = () => {
                         width="130.538"
                         height="46.9873"
                         filterUnits="userSpaceOnUse"
-                        color-interpolation-filters="sRGB"
+                        colorInterpolationFilters="sRGB"
                     >
-                        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                        <feFlood floodOpacity="0" result="BackgroundImageFix" />
                         <feBlend
                             mode="normal"
                             in="SourceGraphic"

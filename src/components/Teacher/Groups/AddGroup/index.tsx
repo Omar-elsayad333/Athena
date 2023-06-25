@@ -116,7 +116,12 @@ const AddGroupC: React.FC<Props> = ({ data, states, actions, dialogs }) => {
     return (
         <Box sx={style.root}>
             <Box sx={style.container}>
-                <Typography sx={style.title} variant="h3" color={mainColors.title.main}>
+                <Typography
+                    sx={style.title}
+                    variant="h3"
+                    component="h1"
+                    color={mainColors.title.main}
+                >
                     بيانات المجموعة:-
                 </Typography>
                 <MyInput
@@ -161,11 +166,11 @@ const AddGroupC: React.FC<Props> = ({ data, states, actions, dialogs }) => {
                 />
             </Box>
             <Box sx={style.timeContainer}>
-                <Typography variant="h3" color={mainColors.title.main}>
+                <Typography variant="h3" component="h2" color={mainColors.title.main}>
                     مواعيد المجموعة:-
                 </Typography>
                 <Box sx={style.backPaper}>
-                    <Typography variant="h5" color={mainColors.title.main}>
+                    <Typography variant="h5" component="h4" color={mainColors.title.main}>
                         أيام الحضور:-
                     </Typography>
                     <Box sx={style.dayContainer}>
@@ -231,6 +236,7 @@ const AddGroupC: React.FC<Props> = ({ data, states, actions, dialogs }) => {
                                             <Typography
                                                 mb={3}
                                                 fontSize={14}
+                                                component="h4"
                                                 color={mainColors.title.main}
                                             >
                                                 وقت بدأ المجموعة:-
@@ -246,6 +252,7 @@ const AddGroupC: React.FC<Props> = ({ data, states, actions, dialogs }) => {
                                             <Typography
                                                 mb={3}
                                                 fontSize={14}
+                                                component="h4"
                                                 color={mainColors.title.main}
                                             >
                                                 وقت انتهاء المجموعة:-

@@ -675,7 +675,6 @@ const useAddExam = () => {
                     question!.isRightChoiceError!.helperText = 'يجب اختيار اجابه صحيحه'
                 }
             } else {
-                console.log('omar')
                 if (question?.answer == '') {
                     question.answerError!.error = true
                     question.answerError!.helperText = 'يجب كتابة أجابه السؤال'

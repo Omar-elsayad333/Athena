@@ -99,7 +99,7 @@ const Group: NextPage = () => {
                                 />
                             </svg>
                         </PageTitle>
-                        <Link href={`${Routes.teacherEditGroup}/${data.groupData.id}`}>
+                        <Link href={`${Routes.teacherEditGroup}${data.groupData.id}`}>
                             <a>
                                 <MyIconButton
                                     content="تعديل"
