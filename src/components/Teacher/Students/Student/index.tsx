@@ -1,23 +1,22 @@
-import { IStyle } from "styles/IStyle";
-import { useTheme } from "context/ThemeContext";
-import { URL_MAIN } from "constant/url";
+import { IStyle } from 'styles/IStyle'
+import { useTheme } from 'context/ThemeContext'
+import { URL_MAIN } from 'constant/urls'
 
 // MUI
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import { genderTranslate } from "utils/translateors";
-import MySelect from "components/MySelect";
-import MyButton from "components/Buttons/MyButton";
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
+import { genderTranslate } from 'utils/translateors'
+import MySelect from 'components/MySelect'
+import MyButton from 'components/Buttons/MyButton'
 
 type Props = {
-    data: any;
-    states: any;
-    actions: any;
+    data: any
+    states: any
+    actions: any
 }
 
 const StudentC: React.FC<Props> = ({ data, states, actions }) => {
-
-    const { mainColors } = useTheme();  
+    const { mainColors } = useTheme()
     const style: IStyle = {
         container: {
             display: 'flex',
@@ -29,7 +28,7 @@ const StudentC: React.FC<Props> = ({ data, states, actions }) => {
             flex: '100%',
         },
         codeContainer: {
-            display:  'flex',
+            display: 'flex',
             justifyContent: 'start',
             alignItems: 'center',
             flexWrap: 'wrap',
@@ -45,7 +44,7 @@ const StudentC: React.FC<Props> = ({ data, states, actions }) => {
             rowGap: '30px',
             borderRadius: '20px',
             background: mainColors.paper.main,
-            border: `2px solid ${mainColors.paper.border}`
+            border: `2px solid ${mainColors.paper.border}`,
         },
         dataContainer: {
             display: 'flex',
@@ -61,7 +60,7 @@ const StudentC: React.FC<Props> = ({ data, states, actions }) => {
             alignItems: 'center',
             flexWrap: 'wrap-reverse',
             columnGap: '35px',
-            rowGap: '15px'
+            rowGap: '15px',
         },
         studentName: {
             padding: '10px 20px',
@@ -83,20 +82,20 @@ const StudentC: React.FC<Props> = ({ data, states, actions }) => {
             rowGap: '20px',
             '@media screen and (max-width: 800px)': {
                 gridTemplateColumns: '1fr',
-            }
+            },
         },
         chip: {
             display: 'flex',
             justifyContent: 'start',
             alignItems: 'center',
             flexWrap: 'wrap',
-            gap: '10px'
+            gap: '10px',
         },
         infoChip: {
             padding: '10px 10px',
             borderRadius: '5px',
             background: mainColors.backgroundColor.main,
-            border: `1px solid ${mainColors.paper.border}`
+            border: `1px solid ${mainColors.paper.border}`,
         },
         photoContainer: {
             display: 'flex',
@@ -109,9 +108,9 @@ const StudentC: React.FC<Props> = ({ data, states, actions }) => {
             width: '150px',
             height: '150px',
             background: () => {
-                if(data.studentData.image){
-                    return(`url(${URL_MAIN}/${data.studentData.image})`)
-                }else {
+                if (data.studentData.image) {
+                    return `url(${URL_MAIN}/${data.studentData.image})`
+                } else {
                     return '#B6D5F0'
                 }
             },
@@ -134,14 +133,14 @@ const StudentC: React.FC<Props> = ({ data, states, actions }) => {
             rowGap: '30px',
             borderRadius: '20px',
             background: mainColors.paper.main,
-            border: `2px solid ${mainColors.paper.border}`
+            border: `2px solid ${mainColors.paper.border}`,
         },
         column: {
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'start',
             alignItems: 'start',
-            gap: '30px'
+            gap: '30px',
         },
         bigChip: {
             display: 'grid',
@@ -150,14 +149,14 @@ const StudentC: React.FC<Props> = ({ data, states, actions }) => {
             gap: '10px',
             '@media screen and (max-width: 500px)': {
                 gridTemplateColumns: '170px',
-            }
+            },
         },
         bigInfoChip: {
             textAlign: 'center',
             padding: '10px 8px',
             borderRadius: '5px',
             background: mainColors.backgroundColor.main,
-            border: `1px solid ${mainColors.paper.border}`
+            border: `1px solid ${mainColors.paper.border}`,
         },
         groupContainer: {
             padding: '35px 40px',
@@ -170,8 +169,8 @@ const StudentC: React.FC<Props> = ({ data, states, actions }) => {
             background: mainColors.paper.main,
             border: `2px solid ${mainColors.paper.border}`,
             '@media screen and (max-width: 450px)': {
-                padding: '25px 30px'
-            }    
+                padding: '25px 30px',
+            },
         },
         groupLabel: {
             padding: '12px 50px',
@@ -180,7 +179,7 @@ const StudentC: React.FC<Props> = ({ data, states, actions }) => {
             alignItems: 'center',
             borderRadius: '5px',
             border: '1px solid #B6D5F0',
-            background: mainColors.backgroundColor.main
+            background: mainColors.backgroundColor.main,
         },
         buttonsContainer: {
             marginTop: '30px',
@@ -210,48 +209,48 @@ const StudentC: React.FC<Props> = ({ data, states, actions }) => {
                             </Typography>
                         </Box>
                         <Box sx={style.dataCard}>
-                            <Typography color={'primary'} variant='h5' fontWeight={700}>
+                            <Typography color={'primary'} variant="h5" fontWeight={700}>
                                 {data.studentData.code}
                             </Typography>
                         </Box>
                     </Box>
                     <Box sx={style.chipsContainer}>
                         <Box sx={style.chip}>
-                            <Typography variant='h5' color={mainColors.title.main} fontWeight={700}>
+                            <Typography variant="h5" color={mainColors.title.main} fontWeight={700}>
                                 الصف الدراسي:-
                             </Typography>
                             <Box sx={style.infoChip}>
-                                <Typography variant='h5' color={'primary'} fontWeight={700}>
+                                <Typography variant="h5" color={'primary'} fontWeight={700}>
                                     {data.studentData.levelName}
                                 </Typography>
                             </Box>
                         </Box>
                         <Box sx={style.chip}>
-                            <Typography variant='h5' color={mainColors.title.main} fontWeight={700}>
+                            <Typography variant="h5" color={mainColors.title.main} fontWeight={700}>
                                 أسم المستخدم:-
                             </Typography>
                             <Box sx={style.infoChip}>
-                                <Typography variant='h5' color={'primary'} fontWeight={700}>
+                                <Typography variant="h5" color={'primary'} fontWeight={700}>
                                     {data.studentData.userName}
                                 </Typography>
                             </Box>
                         </Box>
                         <Box sx={style.chip}>
-                            <Typography variant='h5' color={mainColors.title.main} fontWeight={700}>
+                            <Typography variant="h5" color={mainColors.title.main} fontWeight={700}>
                                 الشعبة العلمية:-
                             </Typography>
                             <Box sx={style.infoChip}>
-                                <Typography variant='h5' color={'primary'} fontWeight={700}>
+                                <Typography variant="h5" color={'primary'} fontWeight={700}>
                                     {data.studentData.educationClassificationName}
                                 </Typography>
                             </Box>
                         </Box>
                         <Box sx={style.chip}>
-                            <Typography variant='h5' color={mainColors.title.main} fontWeight={700}>
+                            <Typography variant="h5" color={mainColors.title.main} fontWeight={700}>
                                 البريد الإلكتروني:-
                             </Typography>
                             <Box sx={style.infoChip}>
-                                <Typography variant='h5' color={'primary'} fontWeight={700}>
+                                <Typography variant="h5" color={'primary'} fontWeight={700}>
                                     {data.studentData.email}
                                 </Typography>
                             </Box>
@@ -259,10 +258,8 @@ const StudentC: React.FC<Props> = ({ data, states, actions }) => {
                     </Box>
                 </Box>
                 <Box sx={style.photoContainer}>
-                    <Box 
-                        sx={style.photoPLaceholder} 
-                    />
-                    <Typography variant='h5' color={mainColors.title.main}>
+                    <Box sx={style.photoPLaceholder} />
+                    <Typography variant="h5" color={mainColors.title.main}>
                         صورة الطالب الشخصية
                     </Typography>
                 </Box>
@@ -270,61 +267,61 @@ const StudentC: React.FC<Props> = ({ data, states, actions }) => {
             <Box sx={style.studentPersonalData}>
                 <Box sx={style.column}>
                     <Box sx={style.bigChip}>
-                        <Typography variant='h5' color={mainColors.title.main} fontWeight={700}>
+                        <Typography variant="h5" color={mainColors.title.main} fontWeight={700}>
                             الاسم الاول:-
                         </Typography>
                         <Box sx={style.bigInfoChip}>
-                            <Typography variant='h5' color={'primary'} fontWeight={700}>
+                            <Typography variant="h5" color={'primary'} fontWeight={700}>
                                 {data.studentData.firstName}
                             </Typography>
                         </Box>
                     </Box>
                     <Box sx={style.bigChip}>
-                        <Typography variant='h5' color={mainColors.title.main} fontWeight={700}>
+                        <Typography variant="h5" color={mainColors.title.main} fontWeight={700}>
                             الاسم الاخير:-
                         </Typography>
                         <Box sx={style.bigInfoChip}>
-                            <Typography variant='h5' color={'primary'} fontWeight={700}>
+                            <Typography variant="h5" color={'primary'} fontWeight={700}>
                                 {data.studentData.lastName}
                             </Typography>
                         </Box>
                     </Box>
                     <Box sx={style.bigChip}>
-                        <Typography variant='h5' color={mainColors.title.main} fontWeight={700}>
+                        <Typography variant="h5" color={mainColors.title.main} fontWeight={700}>
                             الاسم الاوسط:-
                         </Typography>
                         <Box sx={style.bigInfoChip}>
-                            <Typography variant='h5' color={'primary'} fontWeight={700}>
+                            <Typography variant="h5" color={'primary'} fontWeight={700}>
                                 {data.studentData.middleName}
                             </Typography>
                         </Box>
                     </Box>
                     <Box sx={style.bigChip}>
-                        <Typography variant='h5' color={mainColors.title.main} fontWeight={700}>
+                        <Typography variant="h5" color={mainColors.title.main} fontWeight={700}>
                             الاسم بالكامل:-
                         </Typography>
                         <Box sx={style.bigInfoChip}>
-                            <Typography variant='h5' color={'primary'} fontWeight={700}>
+                            <Typography variant="h5" color={'primary'} fontWeight={700}>
                                 {`${data.studentData.firstName} ${data.studentData.middleName} ${data.studentData.lastName}`}
                             </Typography>
                         </Box>
                     </Box>
                     <Box sx={style.bigChip}>
-                        <Typography variant='h5' color={mainColors.title.main} fontWeight={700}>
+                        <Typography variant="h5" color={mainColors.title.main} fontWeight={700}>
                             النوع:-
                         </Typography>
                         <Box sx={style.bigInfoChip}>
-                            <Typography variant='h5' color={'primary'} fontWeight={700}>
+                            <Typography variant="h5" color={'primary'} fontWeight={700}>
                                 {genderTranslate(data.studentData.gender)}
                             </Typography>
                         </Box>
                     </Box>
                     <Box sx={style.bigChip}>
-                        <Typography variant='h5' color={mainColors.title.main} fontWeight={700}>
+                        <Typography variant="h5" color={mainColors.title.main} fontWeight={700}>
                             تاريخ الميلاد:-
                         </Typography>
                         <Box sx={style.bigInfoChip}>
-                            <Typography variant='h5' color={'primary'} fontWeight={700}>
+                            <Typography variant="h5" color={'primary'} fontWeight={700}>
                                 {new Date(data.studentData.birthDay).toLocaleDateString('en-US')}
                             </Typography>
                         </Box>
@@ -332,61 +329,61 @@ const StudentC: React.FC<Props> = ({ data, states, actions }) => {
                 </Box>
                 <Box sx={style.column}>
                     <Box sx={style.bigChip}>
-                        <Typography variant='h5' color={mainColors.title.main} fontWeight={700}>
+                        <Typography variant="h5" color={mainColors.title.main} fontWeight={700}>
                             العنوان:-
                         </Typography>
                         <Box sx={style.bigInfoChip}>
-                            <Typography variant='h5' color={'primary'} fontWeight={700}>
+                            <Typography variant="h5" color={'primary'} fontWeight={700}>
                                 {data.studentData.address}
                             </Typography>
                         </Box>
                     </Box>
                     <Box sx={style.bigChip}>
-                        <Typography variant='h5' color={mainColors.title.main} fontWeight={700}>
+                        <Typography variant="h5" color={mainColors.title.main} fontWeight={700}>
                             رقم الهاتف:-
                         </Typography>
                         <Box sx={style.bigInfoChip}>
-                            <Typography variant='h5' color={'primary'} fontWeight={700}>
+                            <Typography variant="h5" color={'primary'} fontWeight={700}>
                                 {data.studentData.phone}
                             </Typography>
                         </Box>
                     </Box>
                     <Box sx={style.bigChip}>
-                        <Typography variant='h5' color={mainColors.title.main} fontWeight={700}>
+                        <Typography variant="h5" color={mainColors.title.main} fontWeight={700}>
                             الهاتف المنزلي:-
                         </Typography>
                         <Box sx={style.bigInfoChip}>
-                            <Typography variant='h5' color={'primary'} fontWeight={700}>
+                            <Typography variant="h5" color={'primary'} fontWeight={700}>
                                 {data.studentData.homePhone}
                             </Typography>
                         </Box>
                     </Box>
                     <Box sx={style.bigChip}>
-                        <Typography variant='h5' color={mainColors.title.main} fontWeight={700}>
+                        <Typography variant="h5" color={mainColors.title.main} fontWeight={700}>
                             أسم ولي الأمر:-
                         </Typography>
                         <Box sx={style.bigInfoChip}>
-                            <Typography variant='h5' color={'primary'} fontWeight={700}>
+                            <Typography variant="h5" color={'primary'} fontWeight={700}>
                                 {data.studentData.parentName}
                             </Typography>
                         </Box>
                     </Box>
                     <Box sx={style.bigChip}>
-                        <Typography variant='h5' color={mainColors.title.main} fontWeight={700}>
+                        <Typography variant="h5" color={mainColors.title.main} fontWeight={700}>
                             وظيفة ولي الأمر:-
                         </Typography>
                         <Box sx={style.bigInfoChip}>
-                            <Typography variant='h5' color={'primary'} fontWeight={700}>
+                            <Typography variant="h5" color={'primary'} fontWeight={700}>
                                 {data.studentData.parentJob}
                             </Typography>
                         </Box>
                     </Box>
                     <Box sx={style.bigChip}>
-                        <Typography variant='h5' color={mainColors.title.main} fontWeight={700}>
+                        <Typography variant="h5" color={mainColors.title.main} fontWeight={700}>
                             هاتف ولي الامر:-
                         </Typography>
                         <Box sx={style.bigInfoChip}>
-                            <Typography variant='h5' color={'primary'} fontWeight={700}>
+                            <Typography variant="h5" color={'primary'} fontWeight={700}>
                                 {data.studentData.parentPhone}
                             </Typography>
                         </Box>
@@ -397,30 +394,30 @@ const StudentC: React.FC<Props> = ({ data, states, actions }) => {
                 المجموعة:-
             </Typography>
             <Box sx={style.groupContainer}>
-                {
-                    states.editGroupState ? 
-                    <MySelect 
+                {states.editGroupState ? (
+                    <MySelect
                         data={data.groups}
                         value={states.selectedGroup.value}
                         error={states.selectedGroup.error}
                         placeholder={data.studentData.groupName}
                         getSelected={actions.selectedGroupHandler}
                         helperText={states.selectedGroup.helperText}
-                    /> :
+                    />
+                ) : (
                     <Box sx={style.groupLabel}>
                         <Typography fontSize={'h4'} fontWeight={700} color={'primary'}>
                             {data.studentData.groupName}
                         </Typography>
-                    </Box> 
-                }
-                {
-                    states.editGroupState ? 
-                    <MyButton content='تاكيد' onClick={actions.submitEditGroup} /> :
+                    </Box>
+                )}
+                {states.editGroupState ? (
+                    <MyButton content="تاكيد" onClick={actions.submitEditGroup} />
+                ) : (
                     <MyButton content="تعديل المجموعة" onClick={actions.editGroupStateHandler} />
-                }
+                )}
             </Box>
         </Box>
-    );
+    )
 }
- 
-export default StudentC;
+
+export default StudentC
