@@ -80,7 +80,7 @@ const Home: NextPage = () => {
                         <Typography variant="h3" color="primary">
                             انا طالب
                         </Typography>
-                        <Link href={Routes.dashboard}>
+                        <Link href={Routes.studentHome}>
                             <a style={{ width: '400px', maxWidth: '100%' }}>
                                 <LoginButDark content="قسم الطالب" />
                             </a>

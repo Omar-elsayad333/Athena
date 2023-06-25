@@ -7,7 +7,7 @@ export class Routes {
 
     static teacherLogin = '/teacher-login'
 
-    static signUpStudent = '/student-signup'
+    static studentHome = 'https://athena-student.vercel.app/'
 
     // =========================| End General |================================ //
 
