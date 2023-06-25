@@ -9,7 +9,7 @@ import { InputPasswordProps, passwordInitialValues } from 'interfaces/shared/inp
 
 const useTeacherLogin = () => {
     const router = useRouter()
-    const { userDispatch, getUser } = useUser()
+    const { userDispatch } = useUser()
     const { storeUserTokens } = useTokens()
     const { loginHandler } = useRequestHandlers()
     const [loading, setLoading] = useState<boolean>(false)
