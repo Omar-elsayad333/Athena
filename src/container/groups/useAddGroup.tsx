@@ -327,10 +327,6 @@ const useAddGroup = () => {
         router.push(Routes.teacherGroups)
     }
 
-    useEffect(() => {
-        console.log(selectedDays)
-    }, [selectedDays])
-
     return {
         data: {
             yearsData,

@@ -35,7 +35,7 @@ const useEditHeadquarter = () => {
         if (userState.tokens.accessToken && id) {
             getHeadquarterData()
         }
-    }, [])
+    }, [userState.tokens.accessToken && id])
 
     // Call function to check for third phone state after geting data from api
     useEffect(() => {

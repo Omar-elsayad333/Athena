@@ -1,6 +1,8 @@
 class Urls {
     // Main url
     static URL_MAIN: string = 'https://athena.linkers.at'
+    static URL_MAIN_STUDENT = 'https://athena-student.vercel.app/'
+    static URL_MAIN_STUDENT_LOGIN = 'https://athena-student.vercel.app/login'
 
     // Token urls
     static URL_AUTH_TOKENS: string = '/api/auth/tokens'
@@ -28,8 +30,6 @@ class Urls {
     static URL_TEACHERSTUDENTS_GROUP: string = '/api/teacher/teacherstudents/group'
     static URL_TEACHER_EXAMS: string = '/api/teacher/exams'
     static URL_TEACHER_EXAMS_GROUPS: string = '/api/teacher/exams/groups'
-
-    // Student app sections urls
 
     // App sections required urls
     static URL_YEARS_REQUIRED: string = '/api/teacher/years/required'

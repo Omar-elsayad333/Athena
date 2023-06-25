@@ -404,7 +404,7 @@ const useEditGroup = () => {
                     data,
                 )
                 setSuccessMessage('تم تعديل بيانات المجموعه بنجاح')
-                router.push(`${Routes.teacherGroup}/${res}`)
+                router.push(`${Routes.teacherGroup}${res}`)
             } catch (error) {
                 console.log(error)
                 setErrorMessage('حدث خطاء')

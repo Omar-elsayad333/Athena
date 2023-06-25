@@ -3,14 +3,15 @@ import { useTheme } from 'context/ThemeContext'
 
 // MUI
 import { Box } from '@mui/system'
-import CircularProgress from '@mui/material/CircularProgress'
+// import CircularProgress from '@mui/material/CircularProgress'
+import { AtomSpinner } from 'react-epic-spinners'
 
 type IProps = {
     small?: boolean
     inside?: boolean
 }
 
-const Loading: React.FC<IProps> = ({ small }) => {
+const Loading: React.FC<IProps> = ({}) => {
     const { mainColors } = useTheme()
     const styles: IStyle = {
         container: {
@@ -26,7 +27,8 @@ const Loading: React.FC<IProps> = ({ small }) => {
 
     return (
         <Box sx={styles.container}>
-            <CircularProgress color="primary" size={small ? 30 : 75} />
+            {/* <CircularProgress color="primary" size={small ? 30 : 75} /> */}
+            <AtomSpinner color={mainColors.primary.main} size={100} animationDuration={1200} />
         </Box>
     )
 }

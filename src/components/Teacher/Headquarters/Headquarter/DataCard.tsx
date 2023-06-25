@@ -1,17 +1,16 @@
-import { useTheme } from "context/ThemeContext";
+import { useTheme } from 'context/ThemeContext'
 
 // MUI
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
 
 type Props = {
-    data: any;
-    title: any;
-}   
+    data: any
+    title: any
+}
 
-const DataCard: React.FC<Props> = ({data, title}) => {
-
-    const { mainColors } = useTheme();
+const DataCard: React.FC<Props> = ({ data, title }) => {
+    const { mainColors } = useTheme()
     const style = {
         container: {
             height: '40px',
@@ -27,14 +26,14 @@ const DataCard: React.FC<Props> = ({data, title}) => {
 
     return (
         <Box sx={style.container}>
-            <Typography variant='h5' color='primary' fontWeight={700}>
+            <Typography variant="h5" color="primary" fontWeight={700}>
                 &nbsp;{title} :
             </Typography>
-            <Typography variant='h5' color='primary' fontWeight={400}>
+            <Typography variant="h5" color="primary" fontWeight={400}>
                 &nbsp;{data}
             </Typography>
         </Box>
-    );
+    )
 }
- 
-export default DataCard;
+
+export default DataCard
