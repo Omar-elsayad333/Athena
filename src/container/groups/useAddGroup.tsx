@@ -5,8 +5,8 @@ import { useUser } from 'context/userContext'
 import { useAlert } from 'context/AlertContext'
 import { convertTimeToDB } from 'utils/converters'
 import { PageErrorProps } from 'interfaces/shared/pageError'
-import { URL_GROUPS, URL_GROUPS_REQUIRED } from 'constant/urls'
-import { getHandler, postHandler } from 'handlers/requestHandler'
+import Urls from 'constant/urls'
+import useRequestsHandlers from 'hooks/useRequestsHandlers'
 import { warningDialogInitialValues, WarningDialogProps } from 'interfaces/shared/warningDialog'
 import {
     InputProps,
@@ -17,9 +17,9 @@ import {
 
 const useAddGroup = () => {
     const router = useRouter()
-    const { authToken } = useUser()
+    const { loading, getHandler, postHandler } = useRequestsHandlers()
+    const { userState } = useUser()
     const { setSuccessMessage, setWarningMessage, setErrorMessage } = useAlert()
-    const [loading, setLoading] = useState<boolean>(false)
     const [requiredData, setRequiredData] = useState<any>('')
     const [name, setName] = useState<InputProps>(inputInitialValues)
     const [yearsData, setYearsData] = useState<any>([])
@@ -39,7 +39,7 @@ const useAddGroup = () => {
 
     // Call function to get required data if the user is authorized
     useEffect(() => {
-        if (authToken) {
+        if (userState.tokens.accessToken) {
             getRequiredData()
         }
     }, [])
@@ -62,14 +62,14 @@ const useAddGroup = () => {
     // Call api to get the required data for the page
     const getRequiredData = async () => {
         try {
-            setLoading(true)
-            const res: any = await getHandler(authToken, URL_GROUPS_REQUIRED)
+            const res: any = await getHandler(
+                userState.tokens.accessToken!,
+                Urls.URL_GROUPS_REQUIRED,
+            )
             setRequiredData(res)
         } catch (error) {
             console.log(error)
             setErrorMessage('حدث خطاء')
-        } finally {
-            setLoading(false)
         }
     }
 
@@ -307,16 +307,13 @@ const useAddGroup = () => {
     const submit = async () => {
         if (validation()) {
             try {
-                setLoading(true)
                 const data = await collectData()
-                const res = await postHandler(authToken, URL_GROUPS, data)
+                const res = await postHandler(userState.tokens.accessToken!, Urls.URL_GROUPS, data)
                 setSuccessMessage('تم اضافة المجموعه بنجاح')
                 router.push(`${Routes.teacherGroup}${res}`)
             } catch (error) {
                 console.log(error)
                 setErrorMessage('حدث خطاء اثناء الأضافه')
-            } finally {
-                setLoading(false)
             }
         } else {
             setErrorMessage('الرجاء التأكد أن المدخلات صحيحه')
