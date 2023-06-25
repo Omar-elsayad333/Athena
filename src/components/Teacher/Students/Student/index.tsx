@@ -1,6 +1,6 @@
 import { IStyle } from 'styles/IStyle'
 import { useTheme } from 'context/ThemeContext'
-import { URL_MAIN } from 'constant/urls'
+import Urls from 'constant/urls'
 
 // MUI
 import Box from '@mui/material/Box'
@@ -109,7 +109,7 @@ const StudentC: React.FC<Props> = ({ data, states, actions }) => {
             height: '150px',
             background: () => {
                 if (data.studentData.image) {
-                    return `url(${URL_MAIN}/${data.studentData.image})`
+                    return `url(${Urls.URL_MAIN}/${data.studentData.image})`
                 } else {
                     return '#B6D5F0'
                 }
