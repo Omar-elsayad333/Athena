@@ -18,7 +18,7 @@ import Box from '@mui/material/Box'
 
 const AddExam: NextPage = () => {
     const { mainColors } = useTheme()
-    const { data, states, actions, dialogs } = useAddExam()
+    const { data, states, actions } = useAddExam()
     const { msg, state, msgType, handleState } = useAlert()
     const style = {
         root: {
@@ -79,7 +79,7 @@ const AddExam: NextPage = () => {
                             />
                         </svg>
                     </PageTitle>
-                    <AddExamC data={data} states={states} actions={actions} dialogs={dialogs} />
+                    <AddExamC data={data} states={states} actions={actions} />
                 </Box>
             )}
             <Box sx={style.footerContainer}>
