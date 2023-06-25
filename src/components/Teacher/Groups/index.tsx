@@ -57,7 +57,7 @@ const GroupsC: React.FC<Props> = ({ data }) => {
         <Box sx={style.container}>
             {data.length > 0 ? (
                 data.map((item: any) => (
-                    <Link key={item.id} href={`${Routes.teacherGroup}/${item.id}`}>
+                    <Link key={item.id} href={`${Routes.teacherGroup}${item.id}`}>
                         <Box sx={style.card}>
                             <Box sx={style.content}>
                                 <Typography color="primary" variant="h1">
