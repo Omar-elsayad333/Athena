@@ -5,7 +5,7 @@ import { DarkThemeContext } from 'context/ThemeContext'
 // MUI
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
-import { URL_MAIN } from 'constant/urls'
+import Urls from 'constant/urls'
 
 type Props = {
     data: any
@@ -80,7 +80,7 @@ const StudentCard: React.FC<Props> = ({ data }) => {
                         <Box
                             sx={[
                                 classes.card,
-                                { backgroundImage: `url(${URL_MAIN}/${student.imagePath})` },
+                                { backgroundImage: `url(${Urls.URL_MAIN}/${student.imagePath})` },
                             ]}
                         >
                             <Box sx={classes.content}>
