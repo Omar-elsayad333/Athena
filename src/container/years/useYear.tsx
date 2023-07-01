@@ -16,10 +16,10 @@ const useYear = () => {
 
     // Get page data on load
     useEffect(() => {
-        if (userState.tokens.accessToken && id) {
+        if (userState.tokens!.accessToken && id) {
             getYearData()
         }
-    }, [userState.tokens.accessToken, id])
+    }, [userState.tokens!.accessToken, id])
 
     useEffect(() => {
         if (yearData) {
@@ -30,7 +30,11 @@ const useYear = () => {
     // Get page data from db
     const getYearData = async () => {
         try {
-            const res: any = await getHandlerById(id, userState.tokens.accessToken!, Urls.URL_YEARS)
+            const res: any = await getHandlerById(
+                id,
+                userState.tokens!.accessToken!,
+                Urls.URL_YEARS,
+            )
             setYearData(res)
             console.log(res)
         } catch (error) {
@@ -65,7 +69,7 @@ const useYear = () => {
         try {
             const res = await putHandlerById(
                 semsterId,
-                userState.tokens.accessToken!,
+                userState.tokens!.accessToken!,
                 Urls.URL_YEARS_OPEN_SEMESTER,
             )
             await getYearData()

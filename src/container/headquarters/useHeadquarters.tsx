@@ -13,7 +13,7 @@ const useHeadquarters = () => {
 
     // Call Function to get page data
     useEffect(() => {
-        if (userState.tokens.accessToken) {
+        if (userState.tokens!.accessToken) {
             getHeadquartersData()
         }
     }, [])
@@ -21,7 +21,7 @@ const useHeadquarters = () => {
     // Call api to get headcquarters data
     const getHeadquartersData = async () => {
         try {
-            const res = await getHandler(userState.tokens.accessToken!, Urls.URL_HEADQUARTERS)
+            const res = await getHandler(userState.tokens!.accessToken!, Urls.URL_HEADQUARTERS)
             setHeadquartersData(res)
             setOriginalData(res)
         } catch (error) {

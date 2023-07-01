@@ -53,10 +53,10 @@ const useAddExam = () => {
 
     // Get required data if the user is authorized
     useEffect(() => {
-        if (userState.tokens.accessToken) {
+        if (userState.tokens!.accessToken) {
             getRequiredData()
         }
-    }, [userState.tokens.accessToken])
+    }, [userState.tokens!.accessToken])
 
     // Update years data if there is required data
     useEffect(() => {
@@ -75,16 +75,16 @@ const useAddExam = () => {
 
     // Get required data if the user is authorized
     useEffect(() => {
-        if (userState.tokens.accessToken && selectedLevel.id) {
+        if (userState.tokens!.accessToken && selectedLevel.id) {
             getGroupsData()
         }
-    }, [userState.tokens.accessToken, selectedLevel])
+    }, [userState.tokens!.accessToken, selectedLevel])
 
     // Call api to get required data
     const getRequiredData = async () => {
         try {
             const res = await getHandler(
-                userState.tokens.accessToken!,
+                userState.tokens!.accessToken!,
                 Urls.URL_TEACHER_EXAMS_REQUIRED,
             )
             setRequiredData(res)
@@ -98,7 +98,7 @@ const useAddExam = () => {
         try {
             const res = await getHandlerById(
                 selectedLevel.id,
-                userState.tokens.accessToken!,
+                userState.tokens!.accessToken!,
                 Urls.URL_TEACHER_EXAMS_GROUPS,
             )
             setGroupsData(res)
@@ -797,7 +797,7 @@ const useAddExam = () => {
             console.log(data)
             try {
                 const res = await postHandler(
-                    userState.tokens.accessToken!,
+                    userState.tokens!.accessToken!,
                     Urls.URL_TEACHER_EXAMS,
                     data,
                 )

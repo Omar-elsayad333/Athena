@@ -16,10 +16,10 @@ const useGroup = () => {
 
     // Call getGroupData functionl if user is authorized
     useEffect(() => {
-        if (userState.tokens.accessToken && id) {
+        if (userState.tokens!.accessToken && id) {
             getGroupData()
         }
-    }, [userState.tokens.accessToken, id])
+    }, [userState.tokens!.accessToken, id])
 
     // Call function to get group students data
     useEffect(() => {
@@ -33,7 +33,7 @@ const useGroup = () => {
         try {
             const res: any = await getHandlerById(
                 id,
-                userState.tokens.accessToken!,
+                userState.tokens!.accessToken!,
                 Urls.URL_GROUPS,
             )
             setGroupData(res)

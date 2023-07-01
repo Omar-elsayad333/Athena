@@ -12,8 +12,8 @@ const useTokens = () => {
         // Check if tokens are present and access token is expired
         if (
             userState.tokens &&
-            userState.tokens.accessTokenExpiry &&
-            new Date(userState.tokens.accessTokenExpiry) <= new Date()
+            userState.tokens!.accessTokenExpiry &&
+            new Date(userState.tokens!.accessTokenExpiry) <= new Date()
         ) {
             if (
                 userState.tokens.refreshTokenExpiry &&

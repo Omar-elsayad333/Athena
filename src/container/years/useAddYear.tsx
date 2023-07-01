@@ -40,15 +40,15 @@ const useAddYear = () => {
 
     // Get the required data for this page
     useEffect(() => {
-        if (userState.tokens.accessToken) {
+        if (userState.tokens!.accessToken) {
             getLevelsData()
         }
-    }, [userState.tokens.accessToken])
+    }, [userState.tokens!.accessToken])
 
     // Get available classes from db
     const getLevelsData = async () => {
         try {
-            const res = await getHandler(userState.tokens.accessToken!, Urls.URL_YEARS_REQUIRED)
+            const res = await getHandler(userState.tokens!.accessToken!, Urls.URL_YEARS_REQUIRED)
             setRequiredData(res)
             console.log(res)
         } catch (error) {
@@ -212,7 +212,7 @@ const useAddYear = () => {
             // Collect data
             const data = collectData()
             try {
-                const res = await postHandler(userState.tokens.accessToken!, Urls.URL_YEARS, data)
+                const res = await postHandler(userState.tokens!.accessToken!, Urls.URL_YEARS, data)
                 setSuccessMessage('تم بدأ عام جديد بنجاح')
                 router.push(`${Routes.teacherYear}/${res}`)
             } catch (error) {

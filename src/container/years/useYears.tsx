@@ -10,15 +10,15 @@ const useYears = () => {
 
     // Get the data of this page
     useEffect(() => {
-        if (userState.tokens.accessToken) {
+        if (userState.tokens!.accessToken) {
             getYearsData()
         }
-    }, [userState.tokens.accessToken])
+    }, [userState.tokens!.accessToken])
 
     // Get Years data from db
     const getYearsData = async () => {
         try {
-            const res = await getHandler(userState.tokens.accessToken!, Urls.URL_YEARS)
+            const res = await getHandler(userState.tokens!.accessToken!, Urls.URL_YEARS)
             setYearsData(res)
         } catch (error) {
             console.log(error)

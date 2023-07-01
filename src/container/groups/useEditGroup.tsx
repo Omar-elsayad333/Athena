@@ -45,11 +45,11 @@ const useEditGroup = () => {
 
     // Call api to get required data if user is authorized
     useEffect(() => {
-        if (userState.tokens.accessToken && id) {
+        if (userState.tokens!.accessToken && id) {
             getRequiredData()
             getGroupData()
         }
-    }, [userState.tokens.accessToken, id])
+    }, [userState.tokens!.accessToken, id])
 
     // Call api to get group data if required data is available
     useEffect(() => {
@@ -116,7 +116,7 @@ const useEditGroup = () => {
     // Call api to get the required data for the page
     const getRequiredData = async () => {
         try {
-            const res = await getHandler(userState.tokens.accessToken!, Urls.URL_GROUPS_REQUIRED)
+            const res = await getHandler(userState.tokens!.accessToken!, Urls.URL_GROUPS_REQUIRED)
             setRequiredData(res)
         } catch (error) {
             console.log(error)
@@ -166,7 +166,7 @@ const useEditGroup = () => {
     // Call api to get group data from db
     const getGroupData = async () => {
         try {
-            const res = await getHandlerById(id, userState.tokens.accessToken!, Urls.URL_GROUPS)
+            const res = await getHandlerById(id, userState.tokens!.accessToken!, Urls.URL_GROUPS)
             setGroupData(res)
         } catch (error) {
             console.log(error)
@@ -399,7 +399,7 @@ const useEditGroup = () => {
                 const data = await collectData()
                 const res = await putHandlerById(
                     groupData.id,
-                    userState.tokens.accessToken!,
+                    userState.tokens!.accessToken!,
                     Urls.URL_GROUPS,
                     data,
                 )
@@ -418,7 +418,7 @@ const useEditGroup = () => {
     const deleteGroup = async () => {
         try {
             daysDialogHandler()
-            await deleteHandler(groupData.id, userState.tokens.accessToken!, Urls.URL_GROUPS)
+            await deleteHandler(groupData.id, userState.tokens!.accessToken!, Urls.URL_GROUPS)
             setWarningMessage('تم حذف المجموعه بنجاح')
             router.replace(Routes.teacherGroups)
         } catch (error) {
