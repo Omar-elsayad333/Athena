@@ -18,10 +18,10 @@ const useStudents = () => {
 
     // Get years data if the user is authorized
     useEffect(() => {
-        if (userState.tokens.accessToken) {
+        if (userState.tokens!.accessToken) {
             getYearsData()
         }
-    }, [userState.tokens.accessToken])
+    }, [userState.tokens!.accessToken])
 
     // Update the levels data and students data if the user selected new year
     useEffect(() => {
@@ -68,7 +68,7 @@ const useStudents = () => {
     const getYearsData = async () => {
         try {
             const res: any = await getHandler(
-                userState.tokens.accessToken!,
+                userState.tokens!.accessToken!,
                 Urls.URL_TEACHERSTUDENTS,
             )
             setOriginalYears(res)

@@ -70,10 +70,10 @@ const useEditYear = () => {
 
     // Call getRequiredData function if the user is authuraized
     useEffect(() => {
-        if (userState.tokens.accessToken && id) {
+        if (userState.tokens!.accessToken && id) {
             getRequiredAndYearData()
         }
-    }, [userState.tokens.accessToken, id])
+    }, [userState.tokens!.accessToken, id])
 
     // Update year data after the api response
     useEffect(() => {
@@ -106,11 +106,11 @@ const useEditYear = () => {
     const getRequiredAndYearData = async () => {
         try {
             const requiredRes = await getHandler(
-                userState.tokens.accessToken!,
+                userState.tokens!.accessToken!,
                 Urls.URL_YEARS_REQUIRED,
             )
             setRequiredData(requiredRes)
-            const yearRes = await getHandlerById(id, userState.tokens.accessToken!, Urls.URL_YEARS)
+            const yearRes = await getHandlerById(id, userState.tokens!.accessToken!, Urls.URL_YEARS)
             setYearData(yearRes)
         } catch (error) {
             console.log(error)
@@ -130,7 +130,7 @@ const useEditYear = () => {
                 id: id,
                 start: parseInt(selectedYear.value.slice(0, 4)),
             }
-            await putHandlerById(id, userState.tokens.accessToken!, Urls.URL_YEARS, data)
+            await putHandlerById(id, userState.tokens!.accessToken!, Urls.URL_YEARS, data)
             getRequiredAndYearData()
             setSuccessMessage('تم تعديل العام الدراسي بنجاح')
         } catch (error) {
@@ -142,7 +142,7 @@ const useEditYear = () => {
     // Delete Year
     const deleteYear = async () => {
         try {
-            await deleteHandler(yearData.id, userState.tokens.accessToken!, Urls.URL_YEARS)
+            await deleteHandler(yearData.id, userState.tokens!.accessToken!, Urls.URL_YEARS)
             setErrorMessage('تم حذف العام الدراسي بنجاح')
             router.replace(Routes.teacherYears)
         } catch (error) {
@@ -156,7 +156,7 @@ const useEditYear = () => {
         try {
             const res = await putHandlerById(
                 yearData.id,
-                userState.tokens.accessToken!,
+                userState.tokens!.accessToken!,
                 Urls.URL_YEARS_END,
             )
             setWarningMessage('تم انهاء العام الدراسي بنجاح')

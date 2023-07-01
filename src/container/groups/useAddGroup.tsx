@@ -39,7 +39,7 @@ const useAddGroup = () => {
 
     // Call function to get required data if the user is authorized
     useEffect(() => {
-        if (userState.tokens.accessToken) {
+        if (userState.tokens!.accessToken) {
             getRequiredData()
         }
     }, [])
@@ -63,7 +63,7 @@ const useAddGroup = () => {
     const getRequiredData = async () => {
         try {
             const res: any = await getHandler(
-                userState.tokens.accessToken!,
+                userState.tokens!.accessToken!,
                 Urls.URL_GROUPS_REQUIRED,
             )
             setRequiredData(res)
@@ -308,7 +308,7 @@ const useAddGroup = () => {
         if (validation()) {
             try {
                 const data = await collectData()
-                const res = await postHandler(userState.tokens.accessToken!, Urls.URL_GROUPS, data)
+                const res = await postHandler(userState.tokens!.accessToken!, Urls.URL_GROUPS, data)
                 setSuccessMessage('تم اضافة المجموعه بنجاح')
                 router.push(`${Routes.teacherGroup}${res}`)
             } catch (error) {

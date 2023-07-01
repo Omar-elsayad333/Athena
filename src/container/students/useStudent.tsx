@@ -17,17 +17,17 @@ const useStudent = () => {
 
     // Get student data if the user is authorized
     useEffect(() => {
-        if (userState.tokens.accessToken) {
+        if (userState.tokens!.accessToken) {
             getStudentData()
         }
-    }, [userState.tokens.accessToken])
+    }, [userState.tokens!.accessToken])
 
     // Call api to get student data
     const getStudentData = async () => {
         try {
             const res: any = await getHandlerById(
                 id,
-                userState.tokens.accessToken!,
+                userState.tokens!.accessToken!,
                 Urls.URL_TEACHERSTUDENTS_INFO,
             )
             setStudentData(res.info)
@@ -81,7 +81,7 @@ const useStudent = () => {
             try {
                 const data = collectData()
                 await putHandler(
-                    userState.tokens.accessToken!,
+                    userState.tokens!.accessToken!,
                     Urls.URL_TEACHERSTUDENTS_GROUP,
                     data,
                 )

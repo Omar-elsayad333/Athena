@@ -15,15 +15,15 @@ const useGroups = () => {
 
     // Call function to get page data if the user authorized
     useEffect(() => {
-        if (userState.tokens.accessToken) {
+        if (userState.tokens!.accessToken) {
             getGroupsData()
         }
-    }, [userState.tokens.accessToken])
+    }, [userState.tokens!.accessToken])
 
     // Call api to get the groups data
     const getGroupsData = async () => {
         try {
-            const res = await getHandler(userState.tokens.accessToken!, Urls.URL_GROUPS)
+            const res = await getHandler(userState.tokens!.accessToken!, Urls.URL_GROUPS)
             console.log(res)
             setGroupsData(res)
             setOriginalData(res)
