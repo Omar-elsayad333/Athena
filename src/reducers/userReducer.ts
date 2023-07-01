@@ -1,4 +1,4 @@
-import { UserState, UserAction } from 'interfaces/userInterfaces'
+import { UserState, UserAction } from 'interfaces/testUserInterface'
 
 export const userReducer = (state: UserState, action: UserAction): UserState => {
     switch (action.type) {
@@ -6,10 +6,10 @@ export const userReducer = (state: UserState, action: UserAction): UserState => 
             return {
                 ...state,
                 tokens: {
-                    accessToken: action.payload.accessToken,
-                    refreshToken: action.payload.refreshToken,
-                    accessTokenExpireAt: action.payload.accessTokenExpireAt,
-                    refreshTokenExpireAt: action.payload.refreshTokenExpireAt,
+                    accessToken: action.payload!.accessToken,
+                    refreshToken: action.payload!.refreshToken,
+                    accessTokenExpiry: action.payload!.accessTokenExpiry,
+                    refreshTokenExpiry: action.payload!.refreshTokenExpiry,
                 },
             }
         case 'clearTokens':
@@ -19,8 +19,8 @@ export const userReducer = (state: UserState, action: UserAction): UserState => 
                 tokens: {
                     accessToken: null,
                     refreshToken: null,
-                    accessTokenExpireAt: null,
-                    refreshTokenExpireAt: null,
+                    accessTokenExpiry: null,
+                    refreshTokenExpiry: null,
                 },
             }
         case 'setUser':

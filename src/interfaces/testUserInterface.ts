@@ -6,9 +6,9 @@ export interface UserState {
     tokens: {
         accessToken: string | null
         refreshToken: string | null
-        accessTokenExpireAt: string | null
-        refreshTokenExpireAt: string | null
-    }
+        accessTokenExpiry: string | null | Date
+        refreshTokenExpiry: string | null | Date
+    } | null
 }
 
 export type UserAction =
@@ -19,11 +19,10 @@ export type UserAction =
     | { type: 'setUser'; payload: any }
     | { type: 'setTokens'; payload: UserState['tokens'] }
 
-export interface UserContextType {
-    getUser: Function
-    logoutUser: Function
+export type UserContextType = {
     userState: UserState
-    userDispatch: React.Dispatch<UserAction>
+    userDispatch: Function
+    logout: Function
 }
 
 export interface UserProviderProps {
@@ -32,11 +31,6 @@ export interface UserProviderProps {
 
 export const initialState: UserState = {
     user: null,
+    tokens: null,
     userLoading: false,
-    tokens: {
-        accessToken: null,
-        refreshToken: null,
-        accessTokenExpireAt: null,
-        refreshTokenExpireAt: null,
-    },
 }

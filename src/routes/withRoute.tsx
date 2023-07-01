@@ -1,23 +1,21 @@
 import { Routes } from './Routes'
-import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import useTokens from 'hooks/useTokens'
+import { useEffect, useState } from 'react'
 import { useUser } from 'context/userContext'
-import { NextComponentType, NextPageContext } from 'next'
 import Loading from 'components/Loading/Loading'
+import { NextComponentType, NextPageContext } from 'next'
 
 type ComponentNext = NextComponentType<NextPageContext, any, {}>
 
 export const withPublic = (WrappedComponent: ComponentNext) => (props: any) => {
     const router = useRouter()
-    const { checkTokens } = useTokens()
+    const { userState } = useUser()
     const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
-        typeof window != 'undefined' && checkTokens()
-            ? router.replace(Routes.teacherHome)
-            : setIsLoading(false)
-    }, [])
+        userState.tokens ? router.replace(Routes.teacherHome) : setIsLoading(false)
+    }, [userState.tokens])
 
     if (isLoading) {
         return <Loading />
@@ -27,22 +25,30 @@ export const withPublic = (WrappedComponent: ComponentNext) => (props: any) => {
     return <WrappedComponent {...props} />
 }
 
-export const withAuth = (WrappedComponent: ComponentNext) => (props: any) => {
-    const router = useRouter()
-    const { userState } = useUser()
-    const { checkTokens } = useTokens()
-    const [isLoading, setIsLoading] = useState(true)
+export const withAuth = (WrappedComponent: React.ComponentType<any>) => {
+    const WrapperComponent: React.FC<any> = (props) => {
+        const router = useRouter()
+        const { userState } = useUser()
+        const { checkTokenExpiration } = useTokens()
+        const [isLoading, setIsLoading] = useState(true)
 
-    useEffect(() => {
-        typeof window !== 'undefined' && !checkTokens()
-            ? router.replace(Routes.teacherLogin)
-            : setIsLoading(false)
-    }, [userState.tokens.accessToken])
+        useEffect(() => {}, [userState.tokens])
 
-    if (isLoading) {
-        return <Loading />
+        useEffect(() => {
+            if (!userState.tokens) {
+                router.replace(Routes.teacherLogin) // Redirect to login page if user or tokens are not available
+            } else {
+                checkTokenExpiration()
+                setIsLoading(false)
+            }
+        }, [userState.tokens])
+
+        if (isLoading) {
+            return <Loading /> // Show loading component while checking for user data or refreshing tokens
+        }
+
+        return <WrappedComponent {...props} />
     }
 
-    // If the user is authenticated, render the wrapped component
-    return <WrappedComponent {...props} />
+    return WrapperComponent
 }

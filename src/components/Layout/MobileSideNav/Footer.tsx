@@ -6,7 +6,7 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 
 const Footer: React.FC = () => {
-    const { logoutUser } = useUser()
+    const { logout } = useUser()
     const { mainColors } = useTheme()
 
     const classes = {
@@ -33,7 +33,7 @@ const Footer: React.FC = () => {
 
     return (
         <Box sx={classes.footer}>
-            <Box sx={classes.footer.logout} onClick={() => logoutUser()}>
+            <Box sx={classes.footer.logout} onClick={() => logout()}>
                 <svg
                     width="25"
                     height="25"

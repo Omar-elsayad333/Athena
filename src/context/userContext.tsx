@@ -1,106 +1,69 @@
-import { Routes } from 'routes/Routes'
-import { useRouter } from 'next/router'
 import useTokens from 'hooks/useTokens'
 import { userReducer } from 'reducers/userReducer'
-import useUserRequestHandlers from 'hooks/useUserRequestHandlers'
 import { createContext, useContext, useEffect, useReducer } from 'react'
-import { initialState, UserContextType, UserProviderProps } from 'interfaces/userInterfaces'
+import { initialState, UserContextType, UserProviderProps } from 'interfaces/testUserInterface'
 
-type Props = {
-    children: React.ReactElement<any, any> & React.ReactNode
-}
-
-const UserContext = createContext<UserContextType>({
-    getUser: () => null,
-    logoutUser: () => null,
+export const UserContext = createContext<UserContextType>({
+    logout: () => {},
+    userDispatch: () => {},
     userState: initialState,
-    userDispatch: () => null,
 })
 
-export const UserProvider: React.FC<Props> = ({ children }: UserProviderProps) => {
-    const router = useRouter()
-    const { getUserData } = useUserRequestHandlers()
+export const UserContextProvider: React.FC<UserProviderProps> = ({ children }) => {
+    const { clearUserTokens } = useTokens()
     const [userState, userDispatch] = useReducer(userReducer, initialState)
-    const {
-        checkTokens,
-        getNewTokens,
-        clearUserTokens,
-        checkAccessTokensExp,
-        checkRefreshTokensExp,
-    } = useTokens()
 
-    // Check if user has tokens and if it is good to use
+    // Check if there is any tokens in local or session stroage
     useEffect(() => {
-        if (typeof window !== 'undefined' && checkTokens()) {
-            if (!checkAccessTokensExp()) {
-                if (checkRefreshTokensExp()) {
-                    getNewTokens()
-                }
-            } else if (typeof window !== 'undefined') {
-                userDispatch({
-                    type: 'setTokens',
-                    payload: {
-                        accessToken:
-                            localStorage.getItem('athena_access_token') ||
-                            sessionStorage.getItem('athena_access_token') ||
-                            null,
-                        refreshToken:
-                            localStorage.getItem('athena_refresh_token') ||
-                            sessionStorage.getItem('athena_refresh_token') ||
-                            null,
-                        accessTokenExpireAt:
-                            localStorage.getItem('athena_access_exp') ||
-                            sessionStorage.getItem('athena_access_exp') ||
-                            null,
-                        refreshTokenExpireAt:
-                            localStorage.getItem('athena_refresh_exp') ||
-                            sessionStorage.getItem('athena_refresh_exp') ||
-                            null,
-                    },
-                })
-            }
+        const storage = localStorage.getItem('athena_access_token') ? localStorage : sessionStorage
+        const accessToken = storage.getItem('athena_access_token')
+        const refreshToken = storage.getItem('athena_refresh_token')
+        const accessTokenExpiry = storage.getItem('athena_access_exp')
+        const refreshTokenExpiry = storage.getItem('athena_refresh_exp')
+
+        // Check if tokens are present and not expired
+        if (
+            accessToken &&
+            refreshToken &&
+            accessTokenExpiry &&
+            refreshTokenExpiry &&
+            new Date(accessTokenExpiry) > new Date() &&
+            new Date(refreshTokenExpiry) > new Date()
+        ) {
+            userDispatch({
+                type: 'setTokens',
+                payload: {
+                    accessToken: accessToken,
+                    refreshToken: refreshToken,
+                    accessTokenExpiry: new Date(accessTokenExpiry),
+                    refreshTokenExpiry: new Date(refreshTokenExpiry),
+                },
+            })
+        } else {
+            storage.removeItem('athena_access_token')
+            storage.removeItem('athena_refresh_token')
+            storage.removeItem('athena_access_exp')
+            storage.removeItem('athena_refresh_exp')
         }
     }, [])
 
-    // Get user data anytime the token changes
+    // Print user tokens in console
     useEffect(() => {
-        if (userState.tokens.accessToken) {
-            getUser(userState.tokens.accessToken)
-        }
         console.table(userState.tokens)
-    }, [userState.tokens.accessToken])
+    }, [userState.tokens])
 
-    // Get user data
-    const getUser = async (token: string) => {
-        try {
-            userDispatch({ type: 'activeLoading' })
-            const response: any = await getUserData(token)
-            userDispatch({
-                type: 'setUser',
-                payload: response,
-            })
-        } catch (error) {
-            clearUserTokens()
-            userDispatch({ type: 'clearTokens' })
-            router.push(Routes.home)
-        } finally {
-            userDispatch({ type: 'disactiveLoading' })
-        }
-    }
-
-    // Logout user from system
-    const logoutUser = () => {
+    // Logout user
+    const logout = () => {
         clearUserTokens()
-        userDispatch({ type: 'clearUser' })
         userDispatch({ type: 'clearTokens' })
+        location.reload()
     }
 
     return (
-        <UserContext.Provider value={{ userState, userDispatch, getUser, logoutUser }}>
+        <UserContext.Provider value={{ userState, userDispatch, logout }}>
             {children}
         </UserContext.Provider>
     )
 }
 
-// Custom hook that shorthands the context!
 export const useUser = () => useContext(UserContext)
