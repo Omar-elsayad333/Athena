@@ -1,6 +1,6 @@
 import {
-    AddExamInfoProps,
-    AddExamInfoAction,
+    // AddExamInfoProps,
+    // AddExamInfoAction,
     SectionProps,
     AddExamAction,
 } from 'interfaces/exams/addExamInterface'
@@ -24,17 +24,17 @@ export const addExamReducer = (state: SectionProps, action: AddExamAction): Sect
     }
 }
 
-export const addExamInfoReducer = (
-    state: AddExamInfoProps,
-    action: AddExamInfoAction,
-): AddExamInfoProps => {
-    switch (action.type) {
-        case 'UPDATE_INPUT':
-            return {
-                ...state,
-                state[action.name]: action.payload,
-            }
-        default:
-            return state
-    }
-}
+// export const addExamInfoReducer = (
+//     state: AddExamInfoProps,
+//     action: AddExamInfoAction,
+// ): AddExamInfoProps => {
+//     switch (action.type) {
+//         case 'UPDATE_INPUT':
+//             return {
+//                 ...state,
+//                 state[action.name]: action.payload,
+//             }
+//         default:
+//             return state
+//     }
+// }
