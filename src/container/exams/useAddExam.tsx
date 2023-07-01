@@ -5,9 +5,9 @@ import { useUser } from 'context/userContext'
 import { useAlert } from 'context/AlertContext'
 import useRequestsHandlers from 'hooks/useRequestsHandlers'
 import { examSectionsNames } from 'constant/staticData'
-import { convertDateToShortDate, convertFileToBase64, convertTimeToDB } from 'utils/converters'
 import { datePickerInitialValues, DatePickerProps } from 'interfaces/shared/datePicker'
 import { timePickerInitialValues, TimePickerProps } from 'interfaces/shared/timePicker'
+import { convertDateToShortDate, convertFileToBase64, convertTimeToDB } from 'utils/converters'
 import {
     sectionInitialValues,
     SectionProps,

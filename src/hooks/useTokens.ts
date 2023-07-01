@@ -1,134 +1,65 @@
+import { Routes } from 'routes/Routes'
+import { useRouter } from 'next/router'
+import { axiosInstance } from 'config/axios'
 import { useUser } from 'context/userContext'
-import useUserRequestHandlers from 'hooks/useUserRequestHandlers'
 
 const useTokens = () => {
-    const { userDispatch } = useUser()
-    const { getRefreshToken } = useUserRequestHandlers()
+    const router = useRouter()
+    const { userState, userDispatch } = useUser()
 
-    // Check if the user have tokens
-    const checkTokens = () => {
+    // Check the tokens expiry
+    const checkTokenExpiration = () => {
+        // Check if tokens are present and access token is expired
         if (
-            !localStorage.getItem('athena_access_token') &&
-            !sessionStorage.getItem('athena_access_token')
+            userState.tokens &&
+            userState.tokens.accessTokenExpiry &&
+            new Date(userState.tokens.accessTokenExpiry) <= new Date()
         ) {
-            return false
+            if (
+                userState.tokens.refreshTokenExpiry &&
+                new Date(userState.tokens.refreshTokenExpiry) <= new Date()
+            ) {
+                router.replace(Routes.teacherLogin)
+            } else {
+                // Access token has expired, try refreshing tokens
+                refreshTokens()
+            }
         }
-
-        if (
-            !localStorage.getItem('athena_refresh_token') &&
-            !sessionStorage.getItem('athena_refresh_token')
-        ) {
-            return false
-        }
-
-        if (
-            !localStorage.getItem('athena_access_exp') &&
-            !sessionStorage.getItem('athena_access_exp')
-        ) {
-            return false
-        }
-
-        if (
-            !localStorage.getItem('athena_refresh_exp') &&
-            !sessionStorage.getItem('athena_refresh_exp')
-        ) {
-            return false
-        }
-
-        return true
     }
 
-    // Check for the expireation date of access token
-    const checkAccessTokensExp = () => {
-        const accessTokenExpireAt: string | null =
-            localStorage.getItem('athena_access_exp') ||
-            sessionStorage.getItem('athena_access_exp') ||
-            null
-
-        // Create a Date object from the API date string
-        const apiDate = new Date(accessTokenExpireAt!)
-
-        // Get the current date and time
-        const currentDate = new Date()
-
-        if (currentDate.getTime() >= apiDate.getTime()) {
-            return false
-        }
-
-        return true
-    }
-
-    // Check for the expireation date of refresh token
-    const checkRefreshTokensExp = () => {
-        const refreshTokenExpireAt: string | null =
-            localStorage.getItem('athena_refresh_exp') ||
-            sessionStorage.getItem('athena_refresh_exp') ||
-            null
-
-        // Create a Date object from the API date string
-        const apiDate = new Date(refreshTokenExpireAt!)
-
-        // Get the current date and time
-        const currentDate = new Date()
-
-        if (currentDate.getTime() >= apiDate.getTime()) {
-            clearUserTokens()
-            return false
-        }
-
-        return true
-    }
-
-    // Give the user new tokens with the refresh token
-    const getNewTokens = async () => {
-        let rememberMe: boolean
-        localStorage.getItem('athena_access_token') ? (rememberMe = true) : (rememberMe = false)
-
-        const tokens = {
-            token:
-                localStorage.getItem('athena_access_token') ||
-                sessionStorage.getItem('athena_access_token'),
-            refreshToken:
-                localStorage.getItem('athena_refresh_token') ||
-                sessionStorage.getItem('athena_refresh_token'),
-        }
-
+    // Call api for new tokens
+    const refreshTokens = async () => {
         try {
-            userDispatch({ type: 'activeLoading' })
-            const newTokens: any = await getRefreshToken(tokens)
-            storeUserTokens(newTokens, rememberMe)
+            // Make API call to refresh tokens using the refresh token
+            const res: any = await axiosInstance.post('/api/auth/tokens/refresh', {
+                token: userState.tokens?.accessToken,
+                refreshToken: userState.tokens?.refreshToken,
+            })
+            // Update tokens in local or session storage and UserContext
+            const storage = localStorage.getItem('athena_access_token') ? true : false
+            storeUserTokens(res.data, storage)
             userDispatch({
                 type: 'setTokens',
                 payload: {
-                    accessToken: newTokens.token,
-                    refreshToken: newTokens.refreshToken,
-                    accessTokenExpireAt: newTokens.tokenExpiryTime,
-                    refreshTokenExpireAt: newTokens.refreshTokenExpiryTime,
+                    accessToken: res.data.token,
+                    refreshToken: res.data.refreshToken,
+                    accessTokenExpiry: new Date(res.data.tokenExpiryTime),
+                    refreshTokenExpiry: new Date(res.data.refreshTokenExpiryTime),
                 },
             })
-            return true
-        } catch (error) {
-            console.log(error)
-            clearUserTokens()
-            return false
-        } finally {
-            userDispatch({ type: 'disactiveLoading' })
+        } catch (err) {
+            console.log(err)
+            router.replace(Routes.teacherLogin)
         }
     }
 
     // Store user token on local storage
     const storeUserTokens = (tokens: any, remeberMe: boolean) => {
-        if (remeberMe) {
-            localStorage.setItem('athena_access_token', tokens.token)
-            localStorage.setItem('athena_refresh_token', tokens.refreshToken)
-            localStorage.setItem('athena_access_exp', tokens.tokenExpiryTime)
-            localStorage.setItem('athena_refresh_exp', tokens.refreshTokenExpiryTime)
-        } else {
-            sessionStorage.setItem('athena_access_token', tokens.token)
-            sessionStorage.setItem('athena_refresh_token', tokens.refreshToken)
-            sessionStorage.setItem('athena_access_exp', tokens.tokenExpiryTime)
-            sessionStorage.setItem('athena_refresh_exp', tokens.refreshTokenExpiryTime)
-        }
+        const storage = remeberMe ? localStorage : sessionStorage
+        storage.setItem('athena_access_token', tokens.token)
+        storage.setItem('athena_refresh_token', tokens.refreshToken)
+        storage.setItem('athena_access_exp', tokens.tokenExpiryTime)
+        storage.setItem('athena_refresh_exp', tokens.refreshTokenExpiryTime)
     }
 
     // Clear user tokens from local storage
@@ -146,12 +77,10 @@ const useTokens = () => {
     }
 
     return {
-        checkTokens,
-        getNewTokens,
+        checkTokenExpiration,
+        refreshTokens,
         storeUserTokens,
         clearUserTokens,
-        checkAccessTokensExp,
-        checkRefreshTokensExp,
     }
 }
 

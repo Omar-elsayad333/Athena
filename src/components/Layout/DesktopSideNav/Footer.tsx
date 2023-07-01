@@ -10,7 +10,7 @@ type Props = {
 }
 
 const Footer: React.FC<Props> = ({ sideNavState }) => {
-    const { logoutUser } = useUser()
+    const { logout } = useUser()
     const { mainColors } = useTheme()
 
     const style = {
@@ -49,7 +49,7 @@ const Footer: React.FC<Props> = ({ sideNavState }) => {
 
     return (
         <Box sx={[style.container, classes.container]}>
-            <Box sx={[style.container.logout, classes.logout]} onClick={() => logoutUser()}>
+            <Box sx={[style.container.logout, classes.logout]} onClick={() => logout()}>
                 <svg
                     width="25"
                     height="25"
