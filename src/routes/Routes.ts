@@ -14,6 +14,12 @@ export class Routes {
     // Home
     static teacherHome = '/teacher/home/'
 
+
+    // Profile
+    static teacherProfile = '/teacher/profile/'
+    static teacherEditProfile = '/teacher/profile/edit-profile'
+    
+
     // Years
     static teacherYears = '/teacher/years/'
 

@@ -7,6 +7,8 @@ import { useTheme } from 'context/ThemeContext'
 // MUI
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
+import Link from 'next/link'
+import { Routes } from 'routes/Routes'
 
 type Props = {
     firstPath?: any
@@ -126,29 +128,31 @@ const DesktopNavbar: React.FC<Props> = ({ firstPath, secondPath, firstContent, s
                         fill="inherit"
                     />
                 </svg>
-                <Box sx={style.teacherInfo.profile}>
-                    <Box sx={style.teacherInfo.photo}>
-                        {userState.user && (
-                            <Avatar
-                                alt={`أ / ${userState.user.firstName} ${userState.user.lastName}`}
-                                src={userState.user.imagePath}
-                                width={34}
-                                height={34}
-                            />
-                        )}
+                <Link href={Routes.teacherProfile}>
+                    <Box sx={style.teacherInfo.profile}>
+                        <Box sx={style.teacherInfo.photo}>
+                            {userState.user && (
+                                <Avatar
+                                    alt={`أ / ${userState.user.firstName} ${userState.user.lastName}`}
+                                    src={userState.user.imagePath}
+                                    width={34}
+                                    height={34}
+                                />
+                            )}
+                        </Box>
+                        <Box>
+                            {userState.user ? (
+                                <Typography fontWeight={700} fontSize={14} color="primary">
+                                    {`أ / ${userState.user.firstName} ${userState.user.lastName}`}
+                                </Typography>
+                            ) : (
+                                <Typography fontWeight={700} fontSize={14} color="primary">
+                                    أ /
+                                </Typography>
+                            )}
+                        </Box>
                     </Box>
-                    <Box>
-                        {userState.user ? (
-                            <Typography fontWeight={700} fontSize={14} color="primary">
-                                {`أ / ${userState.user.firstName} ${userState.user.lastName}`}
-                            </Typography>
-                        ) : (
-                            <Typography fontWeight={700} fontSize={14} color="primary">
-                                أ /
-                            </Typography>
-                        )}
-                    </Box>
-                </Box>
+                </Link>
             </Box>
         </Box>
     )
