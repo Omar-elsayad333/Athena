@@ -1,6 +1,6 @@
 class Urls {
     // Main url
-    static URL_MAIN: string = 'https://athena.linkers.at'
+    static URL_MAIN: string = 'https://athenaapi.azurewebsites.net'
     static URL_MAIN_STUDENT = 'https://athena-student.vercel.app/'
     static URL_MAIN_STUDENT_LOGIN = 'https://athena-student.vercel.app/login'
 
@@ -15,6 +15,7 @@ class Urls {
     static URL_DASHBOARD_TEACHERS_BASE: string = '/api/dashboard/teachers/base'
 
     // Teacher app sections urls
+    static URL_PROFILE: string = '/api/teacher/profile'
     static URL_YEARS: string = '/api/teacher/years'
     static URL_YEARS_END: string = '/api/teacher/years/end'
     static URL_YEARS_OPEN_SEMESTER: string = '/api/teacher/years/level/semster'
