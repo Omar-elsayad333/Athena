@@ -129,29 +129,31 @@ const DesktopNavbar: React.FC<Props> = ({ firstPath, secondPath, firstContent, s
                     />
                 </svg>
                 <Link href={Routes.teacherProfile}>
-                    <Box sx={style.teacherInfo.profile}>
-                        <Box sx={style.teacherInfo.photo}>
-                            {userState.user && (
-                                <Avatar
-                                    alt={`أ / ${userState.user.firstName} ${userState.user.lastName}`}
-                                    src={userState.user.imagePath}
-                                    width={34}
-                                    height={34}
-                                />
-                            )}
+                    <a>
+                        <Box sx={style.teacherInfo.profile}>
+                            <Box sx={style.teacherInfo.photo}>
+                                {userState.user && (
+                                    <Avatar
+                                        alt={`أ / ${userState.user.firstName} ${userState.user.lastName}`}
+                                        src={userState.user.imagePath}
+                                        width={34}
+                                        height={34}
+                                    />
+                                )}
+                            </Box>
+                            <Box>
+                                {userState.user ? (
+                                    <Typography fontWeight={700} fontSize={14} color="primary">
+                                        {`أ / ${userState.user.firstName} ${userState.user.lastName}`}
+                                    </Typography>
+                                ) : (
+                                    <Typography fontWeight={700} fontSize={14} color="primary">
+                                        أ /
+                                    </Typography>
+                                )}
+                            </Box>
                         </Box>
-                        <Box>
-                            {userState.user ? (
-                                <Typography fontWeight={700} fontSize={14} color="primary">
-                                    {`أ / ${userState.user.firstName} ${userState.user.lastName}`}
-                                </Typography>
-                            ) : (
-                                <Typography fontWeight={700} fontSize={14} color="primary">
-                                    أ /
-                                </Typography>
-                            )}
-                        </Box>
-                    </Box>
+                    </a>
                 </Link>
             </Box>
         </Box>

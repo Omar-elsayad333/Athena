@@ -1,6 +1,5 @@
+import { useTheme } from 'context/ThemeContext'
 import { lightColors, darkColors } from './colors'
-import { useContext } from 'react'
-import { DarkThemeContext } from 'context/ThemeContext'
 
 // MUI
 import { createTheme, ThemeProvider } from '@mui/material/styles'
@@ -11,7 +10,7 @@ type IProps = {
 
 // them component
 const ThemeApp: React.FC<IProps> = ({ children }) => {
-    const { darkMode } = useContext(DarkThemeContext)
+    const { darkMode } = useTheme()
 
     // Light Theme
     const lightTheme = createTheme({
