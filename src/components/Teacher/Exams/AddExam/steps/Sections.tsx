@@ -69,8 +69,8 @@ const Sections: React.FC<Props> = ({ data, actions }) => {
     return (
         <Box sx={style.container}>
             {data.map((section: any, index: number) => (
-                <Box key={index} sx={style.sectionContainer}>
-                    <Box key={index} sx={style.cardName}>
+                <Box key={index} sx={style.sectionContainer} id={index.toString()}>
+                    <Box sx={style.cardName}>
                         <Typography variant={'h2'} color="primary">
                             {`${index + 1}- ${section.name}`}
                         </Typography>

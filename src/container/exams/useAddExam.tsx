@@ -203,7 +203,7 @@ const useAddExam = () => {
     const examStartDateHandler = (selectedExamStartDate: any) => {
         setExamStartDate((examStartDate) => ({
             ...examStartDate,
-            value: selectedExamStartDate.toISOString(),
+            value: selectedExamStartDate !== null ? selectedExamStartDate.toISOString() : null,
             error: false,
             helperText: '',
         }))
@@ -686,6 +686,13 @@ const useAddExam = () => {
             setErrorMessage('يوجد خطاء يرجي مراجعة المدخلات')
         } else {
             selectedSection!.open = false
+            setSuccessMessage('لا يوجد اخطاء في السؤال الرئيسي')
+            setTimeout(() => {
+                if (selectedSection!.open == false) {
+                    const nextSection = indexes.parent + 1
+                    scrollToDiv(nextSection.toString())
+                }
+            }, 100)
         }
 
         setSections([
@@ -771,6 +778,7 @@ const useAddExam = () => {
     // Validate all data before send it
     const validateData = () => {
         let state = true
+        let calcedDegree: number = 0
 
         // Validate basic data
         if (!basicDataValidation()) state = false
@@ -782,11 +790,24 @@ const useAddExam = () => {
             }
         }
 
+        for (let section of sections) {
+            for (let question of section?.questions!) {
+                calcedDegree += +question!.degree
+            }
+        }
+
+        if (calcedDegree !== parseInt(examDegree.value)) {
+            state = false
+            console.log(calcedDegree)
+            setErrorMessage('يجب التأكد من ان مجموع الدرجات = درجة الأمتحان الكليه')
+        }
+
         if (selectedGroups.length == 0) {
             state = false
             setErrorMessage('يجب اختيار مجموعه واحده علي الأقل')
         }
 
+        calcedDegree = 0
         return state
     }
 
@@ -813,6 +834,17 @@ const useAddExam = () => {
 
     const cancelProsses = () => {
         router.push(Routes.teacherExams)
+    }
+
+    const scrollToDiv = (divId: string) => {
+        const targetDiv = document.getElementById(divId)
+        if (targetDiv) {
+            window.scrollTo({
+                top: targetDiv.offsetTop - targetDiv.offsetHeight - 10,
+                behavior: 'smooth',
+            })
+            openSection(+divId)
+        }
     }
 
     return {
