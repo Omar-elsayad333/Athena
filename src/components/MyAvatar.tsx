@@ -1,9 +1,8 @@
 import Image from 'next/image'
-import Urls from 'constant/urls'
 
 type Prop = {
     alt: string
-    src?: any
+    src: any
     width?: any
     height?: any
 }
@@ -11,10 +10,13 @@ type Prop = {
 const MyAvatar: React.FC<Prop> = ({ alt, src, width, height }) => {
     return (
         <Image
-            alt={alt}
-            src={`${Urls.URL_MAIN}/${src}`}
+            src={src}
             width={width}
             height={height}
+            blurDataURL={src}
+            objectFit="cover"
+            placeholder="blur"
+            alt={alt || 'الصورة الشخصية'}
             style={{ borderRadius: '50%' }}
         />
     )

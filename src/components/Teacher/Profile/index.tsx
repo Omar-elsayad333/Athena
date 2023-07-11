@@ -19,6 +19,7 @@ const ProfileC: React.FC<Props> = ({ data }) => {
         container: {
             position: 'relative',
             display: 'flex',
+            flexDirection: 'column',
             alignItems: 'start',
             flexWrap: 'wrap',
             gap: '55px',
@@ -88,7 +89,15 @@ const ProfileC: React.FC<Props> = ({ data }) => {
 
     return (
         <Box sx={style.container}>
+<<<<<<< HEAD
+            <Typography variant='h4' fontWeight={700} color={mainColors.title.main}>
+                طريقة عرض البيانات بالنسبة للطالب :- 
+            </Typography>
+            {
+                data ?
+=======
             {data ? (
+>>>>>>> 1bb8f2743cde5b7f5f388f292aed934040a6fea3
                 <Box sx={style.row}>
                     {data?.image && (
                         <Image
@@ -102,6 +111,7 @@ const ProfileC: React.FC<Props> = ({ data }) => {
                             blurDataURL={`${Urls.URL_MAIN}/${data.image}`}
                         />
                     )}
+
                     <Box sx={style.card}>
                         <Box sx={style.cardTitle}>
                             <Typography variant="h3" color={'primary'}>
@@ -241,6 +251,29 @@ const ProfileC: React.FC<Props> = ({ data }) => {
                             </Box>
                         </Box>
                     </Box>
+<<<<<<< HEAD
+                </Box> :
+                <Typography variant='h2' color={'primary'}>
+                    لا يوجد بيانات
+                </Typography>
+            }
+            {
+                data &&
+                <Box sx={style.card}>
+                    <Box sx={style.cardTitle}>
+                        <Typography variant='h3' color={'primary'}>
+                            المجز التعريفي
+                        </Typography>
+                    </Box>
+                    <hr style={style.line} />
+                    <Box sx={style.cardBody}>
+                        <Typography variant='h5' color={'primary'}>
+                            {data.summary}
+                        </Typography>
+                    </Box>
+                </Box>
+            }
+=======
                     <Box sx={style.card}>
                         <Box sx={style.cardTitle}>
                             <Typography variant="h3" color={'primary'}>
@@ -260,6 +293,7 @@ const ProfileC: React.FC<Props> = ({ data }) => {
                     لا يوجد بيانات
                 </Typography>
             )}
+>>>>>>> 1bb8f2743cde5b7f5f388f292aed934040a6fea3
         </Box>
     )
 }
