@@ -1,32 +1,42 @@
-import Image from 'next/image'
+import Link from 'next/link'
 import Urls from 'constant/urls'
 import MyChip from 'components/MyChip'
+import MyAvatar from 'components/MyAvatar'
 import { useTheme } from 'context/ThemeContext'
+import MyUploadFile from 'components/MyUploadFile'
 
 // MUI
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
-import Link from 'next/link'
 
 type Props = {
-    data: any
+    data: any;
+    states: any;
+    actions: any;
 }
 
-const ProfileC: React.FC<Props> = ({ data }) => {
+const EditProfileC: React.FC<Props> = ({ data, states, actions }) => {
     const { mainColors, darkMode } = useTheme()
 
     const style = {
         container: {
             position: 'relative',
             display: 'flex',
-            flexDirection: 'column',
             alignItems: 'start',
+            flexDirection: 'column',
             flexWrap: 'wrap',
             gap: '55px',
         },
         row: {
             gap: '59px',
             display: 'flex',
+            alignItems: 'start',
+            flexWrap: 'wrap',
+        },
+        column: {
+            gap: '25px',
+            display: 'flex',
+            flexDirection: 'column',
             alignItems: 'start',
             flexWrap: 'wrap',
         },
@@ -52,6 +62,7 @@ const ProfileC: React.FC<Props> = ({ data }) => {
         cardTitle: {
             display: 'flex',
             alignItems: 'center',
+            flexWrap: 'wrap',
             gap: '20px'
         },
         cardBody: {
@@ -88,68 +99,24 @@ const ProfileC: React.FC<Props> = ({ data }) => {
     return (
         <Box sx={style.container}>
             <Typography variant='h4' fontWeight={700} color={mainColors.title.main}>
-                طريقة عرض البيانات بالنسبة للطالب :- 
+                هوية المدرس الشخصية :- 
             </Typography>
             {
                 data ?
                 <Box sx={style.row}>
-                    {data?.image && (
-                        <Image
-                            width={'362'}
-                            height={'362'}
-                            objectFit="cover"
-                            placeholder="blur"
-                            style={style.teacherImage}
-                            alt={data.firstName + data.lastName}
-                            src={`${Urls.URL_MAIN}/${data.image}`}
-                            blurDataURL={`${Urls.URL_MAIN}/${data.image}`}
-                        />
-                    )}
-
                     <Box sx={style.card}>
                         <Box sx={style.cardTitle}>
-                            <Typography variant='h3' color={'primary'}>
-                                {`أستاذ. ${data.firstName} ${data.lastName}`}
-                            </Typography>
-                            <MyChip content={data.course} variant={'filled'} />
-                        </Box>
-                        <hr style={style.line} />
-                        <Box sx={style.cardBody}>
-                            <Box sx={style.cardItem}>
-                                <Typography variant='h5' color={'primary'}>
-                                    تاريخ الميلاد
+                            <MyAvatar 
+                                width='140'
+                                height='140'
+                                alt={data.firstName + data.lastName} 
+                                src={states.profileImage || `${Urls.URL_MAIN}/${data.image}`}
+                            />
+                            <Box sx={style.column}>
+                                <Typography variant='h3' color={'primary'}>
+                                    {'الصورة الشخصية:- '}
                                 </Typography>
-                                <MyChip content={data.birthDay} />
-                            </Box>
-                            <Box sx={style.cardItem}>
-                                <Typography variant='h5' color={'primary'}>
-                                    المقرات
-                                </Typography>
-                                <MyChip content={data.headQuarters} />
-                            </Box>
-                            <Box sx={style.cardItem}>
-                                <Typography variant='h5' color={'primary'}>
-                                    المقرات
-                                </Typography>
-                                <MyChip content={data.nationality} />
-                            </Box>
-                            <Box sx={style.cardItem}>
-                                <Typography variant='h5' color={'primary'}>
-                                    المدرسة 
-                                </Typography>
-                                <MyChip content={data.school} />
-                            </Box>
-                            <Box sx={style.cardItem}>
-                                <Typography variant='h5' color={'primary'}>
-                                    الدرجة العلمية
-                                </Typography>
-                                <MyChip content={data.degree} />
-                            </Box>
-                            <Box sx={style.cardItem}>
-                                <Typography variant='h5' color={'primary'}>
-                                    طرق التدريس
-                                </Typography>
-                                <MyChip content={data.teachingMethod} />
+                                <MyUploadFile content='تعديل' valueSetter={actions.ProfileImageHandler} />
                             </Box>
                         </Box>
                     </Box>
@@ -209,29 +176,26 @@ const ProfileC: React.FC<Props> = ({ data }) => {
                             </Box>
                         </Box>
                     </Box>
+                    <Box sx={style.card}>
+                        <Box sx={style.cardTitle}>
+                            <Typography variant='h3' color={'primary'}>
+                                المجز التعريفي
+                            </Typography>
+                        </Box>
+                        <hr style={style.line} />
+                        <Box sx={style.cardBody}>
+                            <Typography variant='h5' color={'primary'}>
+                                {data.summary}
+                            </Typography>
+                        </Box>
+                    </Box>
                 </Box> :
                 <Typography variant='h2' color={'primary'}>
                     لا يوجد بيانات
                 </Typography>
             }
-            {
-                data &&
-                <Box sx={style.card}>
-                    <Box sx={style.cardTitle}>
-                        <Typography variant='h3' color={'primary'}>
-                            المجز التعريفي
-                        </Typography>
-                    </Box>
-                    <hr style={style.line} />
-                    <Box sx={style.cardBody}>
-                        <Typography variant='h5' color={'primary'}>
-                            {data.summary}
-                        </Typography>
-                    </Box>
-                </Box>
-            }
         </Box>
     )
 }
 
-export default ProfileC
+export default EditProfileC

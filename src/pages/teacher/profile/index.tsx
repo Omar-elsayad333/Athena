@@ -29,9 +29,9 @@ const Profile: NextPage = () => {
         <Box sx={pageStructureStyle.root}>
             <PageHead title="Years" />
             <DesktopNavbar
-                firstPath={Routes.teacherYears}
+                firstPath={Routes.teacherProfile}
                 firstContent="ملف المدرس"
-                secondPath={Routes.teacherAddYear}
+                secondPath={Routes.teacherEditProfile}
                 secondContent="تعديل البيانات"
             />
             {states.loading ? (
