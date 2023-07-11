@@ -39,9 +39,15 @@ const useEditProfile = () => {
         setProfileImage(convertedImage)
     } 
 
-    const CoverImageHandler = (value: string) => {
-        console.log(value)
-        setCoverImage(value)
+    const CoverImageHandler = async (value: any) => {
+        const [fileToConvert] = value
+        const convertedImage: any = await convertFileToBase64(fileToConvert)
+        const image = {
+            data: convertedImage,
+            extension: `.${value[0].type.slice(6)}`,
+        }
+        console.log(image)
+        setCoverImage(convertedImage)
     } 
 
     return {
