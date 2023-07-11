@@ -74,7 +74,6 @@ export interface SectionProps {
     index: number
     name: string
     paragraph: string
-    degree: number
     isPrime: boolean
     time: string | null
     images: ImagesProps[] | null
@@ -157,7 +156,6 @@ export const sectionInitialValues = {
     index: 0,
     name: 'السؤال الأول',
     paragraph: '',
-    degree: 0,
     isPrime: false,
     time: null,
     images: [],
