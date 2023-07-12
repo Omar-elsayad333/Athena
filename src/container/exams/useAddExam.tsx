@@ -671,6 +671,7 @@ const useAddExam = () => {
                     }
                 }
                 if (!choicesIsRightState) {
+                    state = false
                     question!.isRightChoiceError!.error = true
                     question!.isRightChoiceError!.helperText = 'يجب اختيار اجابه صحيحه'
                 }
