@@ -2,12 +2,11 @@ import Image from 'next/image'
 import Urls from 'constant/urls'
 import MyChip from 'components/MyChip'
 import { useTheme } from 'context/ThemeContext'
+import { convertDateToShortDate } from 'utils/converters'
 
 // MUI
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
-import Link from 'next/link'
-import { convertDateToShortDate } from 'utils/converters'
 
 type Props = {
     data: any
