@@ -247,7 +247,7 @@ const EditProfileC: React.FC<Props> = ({ data, states, actions }) => {
                         name={'summary'}
                         max={1000}
                         onChange={actions.handleInput}
-                        value={states.state.inputs.summary.value}
+                        value={states.state.inputs.summary.value || data.summary}
                         helperText={states.state.inputs.summary.helperText}
                     />
                     <Typography variant="h4" fontWeight={700} color={mainColors.title.main}>
@@ -293,13 +293,6 @@ const EditProfileC: React.FC<Props> = ({ data, states, actions }) => {
                                         : data.birthDay
                                 }
                             />
-                            {/* <MyInput
-                                name="birthDay"
-                                placeholder={data.birthDay}
-                                onChange={actions.handleInput}
-                                value={states.state.inputs.birthDay.value}
-                                helperText={states.state.inputs.birthDay.helperText}
-                            /> */}
                         </Box>
                         <Box sx={style.InputStyle}>
                             <Typography variant="h5" fontWeight={400} color={mainColors.title.main}>
