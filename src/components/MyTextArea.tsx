@@ -1,23 +1,31 @@
-import InputError from './Shared/InputError';
-import { useTheme } from 'context/ThemeContext';
+import InputError from './Shared/InputError'
+import { useTheme } from 'context/ThemeContext'
 
 // MUI
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import FormControl from '@mui/material/FormControl';
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
+import FormControl from '@mui/material/FormControl'
 
 type Props = {
-    value: string;
-    onChange: Function;
-    helperText: string;
-    placeholder: string;
-    name?: string | number;
-    indexes?: any;
-    error?: boolean;
+    value: string
+    onChange: Function
+    helperText: string
+    placeholder?: string
+    name?: string | number
+    indexes?: any
+    error?: boolean
+    max?: number
 }
 
-const MyTextArea: React.FC<Props> = ({helperText, value, onChange, name, placeholder, indexes }) => {
-
+const MyTextArea: React.FC<Props> = ({
+    helperText,
+    value,
+    onChange,
+    name,
+    placeholder,
+    indexes,
+    max = 5000,
+}) => {
     const { mainColors, darkMode } = useTheme()
     const style = {
         root: {
@@ -36,7 +44,7 @@ const MyTextArea: React.FC<Props> = ({helperText, value, onChange, name, placeho
             fontSize: '14px',
             fontWeight: '400',
             lineHeight: '25px',
-            transition: '.2s ease-out'
+            transition: '.2s ease-out',
         },
         icon: {
             position: 'absolute',
@@ -46,28 +54,28 @@ const MyTextArea: React.FC<Props> = ({helperText, value, onChange, name, placeho
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            gap: '10px'
-        }
+            gap: '10px',
+        },
     }
 
     return (
-        <FormControl sx={{maxWidth: '100%'}}>
+        <FormControl sx={{ maxWidth: '100%' }}>
             <textarea
                 value={value}
                 style={style.root}
                 name={name?.toString()}
                 placeholder={placeholder}
-                onChange={(e) => onChange(e.target.value, indexes)}
+                onChange={(e) => onChange(e.target.value, indexes, name)}
                 className={darkMode ? 'darkTextArea' : 'lightTextarea'}
             />
             <Box sx={style.icon} component="label">
-                <Typography variant='h6' color={'primary'} fontWeight={700}>
-                    {`5000 / ${value.length}`}
+                <Typography variant="h6" color={'primary'} fontWeight={700}>
+                    {`${max} / ${value.length}`}
                 </Typography>
             </Box>
-            <InputError content={helperText} type='error' />
+            <InputError content={helperText} type="error" />
         </FormControl>
-    );
+    )
 }
- 
-export default MyTextArea;
+
+export default MyTextArea

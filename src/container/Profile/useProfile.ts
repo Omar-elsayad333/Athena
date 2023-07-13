@@ -1,16 +1,15 @@
-import Urls from "constant/urls";
-import { useEffect, useState } from "react";
-import { useUser } from "context/userContext";
-import useRequestsHandlers from "hooks/useRequestsHandlers";
+import Urls from 'constant/urls'
+import { useEffect, useState } from 'react'
+import { useUser } from 'context/userContext'
+import useRequestsHandlers from 'hooks/useRequestsHandlers'
 
 const useProfile = () => {
     const { userState } = useUser()
     const { getHandler, loading } = useRequestsHandlers()
-    const [ pageData, setPageData ] = useState<any>(null)
+    const [pageData, setPageData] = useState<any>(null)
 
     useEffect(() => {
-        if(userState.tokens?.accessToken) {
-            console.log(userState.tokens?.accessToken)
+        if (userState.tokens?.accessToken) {
             getPageData()
         }
     }, [userState.tokens?.accessToken])
@@ -19,20 +18,19 @@ const useProfile = () => {
         try {
             const response = await getHandler(userState.tokens?.accessToken!, Urls.URL_PROFILE)
             setPageData(response)
-            console.log(response)
-        } catch(error) {
+        } catch (error) {
             console.log(error)
         }
     }
 
     return {
         data: {
-            pageData
-        }, 
+            pageData,
+        },
         states: {
-            loading
-        }
-    };
+            loading,
+        },
+    }
 }
- 
-export default useProfile;
+
+export default useProfile

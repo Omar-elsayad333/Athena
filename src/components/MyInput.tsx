@@ -86,15 +86,15 @@ const MyInput: React.FC<Props> = ({
     return (
         <FormControl required>
             <TextField
+                name={name}
+                type={type}
+                value={value}
+                error={error}
+                sx={classes.root}
                 autoComplete="off"
                 variant="outlined"
-                sx={classes.root}
-                name={name}
-                value={value}
-                onChange={(e) => onChange(e.target.value, indexes)}
-                error={error}
                 placeholder={placeholder}
-                type={type}
+                onChange={(e) => onChange(e.target.value, indexes, name)}
             />
             {helperText && <InputError content={helperText} type="error" />}
         </FormControl>
