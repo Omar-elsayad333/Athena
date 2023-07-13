@@ -7,6 +7,7 @@ import { useTheme } from 'context/ThemeContext'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Link from 'next/link'
+import { convertDateToShortDate } from 'utils/converters'
 
 type Props = {
     data: any
@@ -89,11 +90,10 @@ const ProfileC: React.FC<Props> = ({ data }) => {
 
     return (
         <Box sx={style.container}>
-            <Typography variant='h4' fontWeight={700} color={mainColors.title.main}>
-                طريقة عرض البيانات بالنسبة للطالب :- 
+            <Typography variant="h4" fontWeight={700} color={mainColors.title.main}>
+                طريقة عرض البيانات بالنسبة للطالب :-
             </Typography>
-            {
-                data ?
+            {data ? (
                 <Box sx={style.row}>
                     {data?.image && (
                         <Image
@@ -121,7 +121,9 @@ const ProfileC: React.FC<Props> = ({ data }) => {
                                 <Typography variant="h5" color={'primary'}>
                                     تاريخ الميلاد
                                 </Typography>
-                                <MyChip content={data.birthDay || 'غير متاح'} />
+                                <MyChip
+                                    content={convertDateToShortDate(data.birthDay) || 'غير متاح'}
+                                />
                             </Box>
                             <Box sx={style.cardItem}>
                                 <Typography variant="h5" color={'primary'}>
@@ -131,7 +133,7 @@ const ProfileC: React.FC<Props> = ({ data }) => {
                             </Box>
                             <Box sx={style.cardItem}>
                                 <Typography variant="h5" color={'primary'}>
-                                    المقرات
+                                    الجنسية
                                 </Typography>
                                 <MyChip content={data.nationality || 'غير متاح'} />
                             </Box>
@@ -177,7 +179,7 @@ const ProfileC: React.FC<Props> = ({ data }) => {
                             </Box>
                             <Box sx={style.icons}>
                                 {data.webSite && (
-                                    <Link href={data.webSite}>
+                                    <a target="_blank" href={data.webSite}>
                                         <svg
                                             width="29"
                                             height="29"
@@ -191,10 +193,10 @@ const ProfileC: React.FC<Props> = ({ data }) => {
                                                 fill="inherit"
                                             />
                                         </svg>
-                                    </Link>
+                                    </a>
                                 )}
-                                {data.facebook && (
-                                    <Link href={data.facebook}>
+                                {data.youtube && (
+                                    <a href={data.youtube} target="_blank">
                                         <svg
                                             width="29"
                                             height="29"
@@ -208,10 +210,10 @@ const ProfileC: React.FC<Props> = ({ data }) => {
                                                 fill="inherit"
                                             />
                                         </svg>
-                                    </Link>
+                                    </a>
                                 )}
                                 {data.twitter && (
-                                    <Link href={data.twitter}>
+                                    <a href={data.twitter} target="_blank">
                                         <svg
                                             width="29"
                                             height="29"
@@ -225,10 +227,10 @@ const ProfileC: React.FC<Props> = ({ data }) => {
                                                 fill="inherit"
                                             />
                                         </svg>
-                                    </Link>
+                                    </a>
                                 )}
-                                {data.youtube && (
-                                    <Link href={data.youtube}>
+                                {data.facebook && (
+                                    <a href={data.facebook} target="_blank">
                                         <svg
                                             width="29"
                                             height="29"
@@ -242,33 +244,32 @@ const ProfileC: React.FC<Props> = ({ data }) => {
                                                 fill="inherit"
                                             />
                                         </svg>
-                                    </Link>
+                                    </a>
                                 )}
                             </Box>
                         </Box>
                     </Box>
-                </Box> :
-                <Typography variant='h2' color={'primary'}>
+                </Box>
+            ) : (
+                <Typography variant="h2" color={'primary'}>
                     لا يوجد بيانات
                 </Typography>
-            }
-            {
-                data &&
+            )}
+            {data && (
                 <Box sx={style.card}>
                     <Box sx={style.cardTitle}>
-                        <Typography variant='h3' color={'primary'}>
+                        <Typography variant="h3" color={'primary'}>
                             المجز التعريفي
                         </Typography>
                     </Box>
                     <hr style={style.line} />
                     <Box sx={style.cardBody}>
-                        <Typography variant='h5' color={'primary'}>
+                        <Typography variant="h5" color={'primary'}>
                             {data.summary}
                         </Typography>
                     </Box>
                 </Box>
-            }
-
+            )}
         </Box>
     )
 }

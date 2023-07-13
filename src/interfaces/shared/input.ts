@@ -30,6 +30,11 @@ export interface RadioProps extends parent {
     id: string
 }
 
+export interface ImageProps {
+    data: string | null
+    extension: string | null
+}
+
 export const radioInitialValues = {
     id: '',
     value: '',

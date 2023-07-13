@@ -1,23 +1,30 @@
-import InputError from './Shared/InputError';
-import { useTheme } from 'context/ThemeContext';
+import InputError from './Shared/InputError'
+import { useTheme } from 'context/ThemeContext'
 
 // MUI
-import DateFnsUtils from '@date-io/date-fns';
-import TextField from '@mui/material/TextField';
-import { FormControl, SxProps } from '@mui/material';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import DateFnsUtils from '@date-io/date-fns'
+import TextField from '@mui/material/TextField'
+import { FormControl, SxProps } from '@mui/material'
+import { DatePicker } from '@mui/x-date-pickers/DatePicker'
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 
 type Props = {
-    error?: boolean;
-    helperText: string;
-    placeholder: string;
-    dateValue?: Date | string;
-    handleDateValue: Function;
+    name?: string
+    error?: boolean
+    helperText: string
+    placeholder: string
+    dateValue?: Date | string
+    handleDateValue: Function
 }
 
-const MyDatePicker: React.FC<Props> = ({placeholder, dateValue, handleDateValue, helperText, error}) => {
-    
+const MyDatePicker: React.FC<Props> = ({
+    placeholder,
+    dateValue,
+    handleDateValue,
+    helperText,
+    error,
+    name,
+}) => {
     const { darkMode } = useTheme()
     const classes: SxProps = {
         root: {
@@ -38,9 +45,9 @@ const MyDatePicker: React.FC<Props> = ({placeholder, dateValue, handleDateValue,
                     '&::placeholder': {
                         fontSize: '14px',
                         fontWeight: '400',
-                        color: darkMode ? '#B6D5F0' :  '#3F72A4',
-                        opacity: .65,
-                    }
+                        color: darkMode ? '#B6D5F0' : '#3F72A4',
+                        opacity: 0.65,
+                    },
                 },
                 '.MuiOutlinedInput-notchedOutline': {
                     transition: '.2s ease-out',
@@ -60,7 +67,7 @@ const MyDatePicker: React.FC<Props> = ({placeholder, dateValue, handleDateValue,
             '.MuiSvgIcon-root ': {
                 width: '25px ',
                 height: '25px',
-                fill: "#81acd1",
+                fill: '#81acd1',
             },
             '@media(max-width: 300px)': {
                 width: '200px',
@@ -69,8 +76,8 @@ const MyDatePicker: React.FC<Props> = ({placeholder, dateValue, handleDateValue,
                 width: '150px',
             },
         },
-    };
-    
+    }
+
     const popperStyle: SxProps = {
         '& .MuiPaper-root': {
             color: '#E8F3FF',
@@ -89,7 +96,7 @@ const MyDatePicker: React.FC<Props> = ({placeholder, dateValue, handleDateValue,
         },
         '& .PrivatePickersSlideTransition-root': {
             backgroundColor: '#E8F3FF',
-            borderRadius: '20px'
+            borderRadius: '20px',
         },
         '& .MuiPickersDay-dayWithMargin': {
             color: 'rgba(63, 114, 164, .65)',
@@ -99,9 +106,9 @@ const MyDatePicker: React.FC<Props> = ({placeholder, dateValue, handleDateValue,
             backgroundColor: '#3F72A4',
             ':hover': {
                 backgroundColor: '#3F72A4',
-            }
-        }
-    };
+            },
+        },
+    }
 
     return (
         <FormControl>
@@ -109,34 +116,32 @@ const MyDatePicker: React.FC<Props> = ({placeholder, dateValue, handleDateValue,
                 <DatePicker
                     value={dateValue}
                     onChange={(newValue: any) => {
-                        handleDateValue(newValue);
+                        handleDateValue(newValue, name)
                     }}
                     renderInput={(params: any) => (
-                        <TextField  
+                        <TextField
+                            name={name}
                             {...params}
-                            autoComplete='off'   
+                            autoComplete="off"
                             error={error}
-                            sx={classes.root} 
+                            sx={classes.root}
                             inputProps={{
                                 ...params.inputProps,
-                                placeholder: placeholder
-                            }}      
+                                placeholder: placeholder,
+                            }}
                         />
                     )}
                     PopperProps={{
-                        sx: popperStyle
+                        sx: popperStyle,
                     }}
                     DialogProps={{
-                        sx: popperStyle
+                        sx: popperStyle,
                     }}
                 />
             </LocalizationProvider>
-            {
-                helperText &&
-                <InputError content={helperText} type='error' />
-            }
+            {helperText && <InputError content={helperText} type="error" />}
         </FormControl>
-    );
+    )
 }
 
-export default MyDatePicker;
+export default MyDatePicker
