@@ -824,7 +824,7 @@ const useAddExam = () => {
                     data,
                 )
                 console.log(res)
-                setSuccessMessage('تم اضافة الأمتاحان بنجاح')
+                setSuccessMessage('تم اضافة الأمتحان بنجاح')
                 router.push(Routes.teacherExams)
             } catch (error) {
                 console.log(error)
