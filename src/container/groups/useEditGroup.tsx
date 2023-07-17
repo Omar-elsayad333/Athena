@@ -266,32 +266,27 @@ const useEditGroup = () => {
     }
 
     // Open warning dialog
-    const openWarningDialogState = () => {
+    const openWarningDialog = () => {
         setWarningDialog({
             state: true,
-            close: closeWarningDialogState,
-            submit: deleteGroup,
+            actions: {
+                submit: deleteGroup,
+                cancel: closeWarningDialog,
+            },
             content: {
-                head: 'حذف المجموعة',
+                title: 'حذف المجموعة',
                 body: 'تأكيد حذف هذه المجموعة نهائياً',
                 submit: 'حذف',
-                reject: 'إلغاء',
+                cancel: 'إلغاء',
             },
         })
     }
 
     // Close warning dialog and clear it
-    const closeWarningDialogState = () => {
+    const closeWarningDialog = () => {
         setWarningDialog({
+            ...warningDialog,
             state: false,
-            close: () => {},
-            submit: () => {},
-            content: {
-                head: '',
-                body: '',
-                submit: '',
-                reject: '',
-            },
         })
     }
 
@@ -455,7 +450,7 @@ const useEditGroup = () => {
             daysDialogHandler,
             submit,
             deleteGroup,
-            openWarningDialogState,
+            openWarningDialog,
         },
         dialogs: {
             daysDialog,

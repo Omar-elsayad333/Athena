@@ -6,7 +6,7 @@ import MyButton from 'components/Buttons/MyButton'
 import MyDaysDialog from 'components/MyDaysDialog'
 import MyTimePicker from 'components/MyTimePicker'
 import MyButtonError from 'components/Buttons/MyButtonError'
-// import WarningDialog from 'components/Dialogs/WarningDialog';
+import WarningDialog from 'components/Dialogs/WarningDialog'
 
 // MUI
 import Box from '@mui/material/Box'
@@ -311,11 +311,15 @@ const EditGroupC: React.FC<Props> = ({ data, states, actions, dialogs }) => {
                         <MyButtonError
                             content="حذف المجموعة"
                             loading={states.loading}
-                            onClick={actions.openWarningDialogState}
+                            onClick={actions.openWarningDialog}
                         />
                     </Box>
                 </Box>
-                {/* <BasicDialog state={dialogs.content.state} content={dialogs.content} actions={dialogs.actions} /> */}
+                <WarningDialog
+                    state={dialogs.warningDialog.state}
+                    content={dialogs.warningDialog.content}
+                    actions={dialogs.warningDialog.actions}
+                />
             </Box>
         </Box>
     )

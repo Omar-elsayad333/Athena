@@ -32,8 +32,6 @@ export const withAuth = (WrappedComponent: React.ComponentType<any>) => {
         const { checkTokenExpiration } = useTokens()
         const [isLoading, setIsLoading] = useState(true)
 
-        useEffect(() => {}, [userState.tokens])
-
         useEffect(() => {
             if (!userState.tokens) {
                 router.replace(Routes.teacherLogin) // Redirect to login page if user or tokens are not available

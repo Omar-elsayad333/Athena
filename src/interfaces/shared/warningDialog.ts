@@ -1,29 +1,33 @@
 // interfaces //
+interface ActionsProps {
+    submit: () => void;
+    cancel: () => void;
+}
 
 interface ContentProps {
-    head: string;
+    title: string;
     body: string;
     submit: string;
-    reject: string;
+    cancel: string;
 }
 
 export interface WarningDialogProps {
     state: boolean;
-    close: Function;
-    submit: Function;
+    actions: ActionsProps;
     content: ContentProps;
 }
 
 // Initial values //
-
-export const warningDialogInitialValues = {
+export const warningDialogInitialValues: WarningDialogProps  = {
     state: false,
-    close: () => {},
-    submit: () => {},
+    actions: {
+        submit: () => {},
+        cancel: () => {}
+    },
     content: {
-        head: '',
+        title: '',
         body: '',
         submit: '',
-        reject: ''
+        cancel: ''
     },
 }
