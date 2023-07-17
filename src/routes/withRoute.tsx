@@ -33,8 +33,12 @@ export const withAuth = (WrappedComponent: React.ComponentType<any>) => {
         const [isLoading, setIsLoading] = useState(true)
 
         useEffect(() => {
-            if (!userState.tokens) {
-                router.replace(Routes.teacherLogin) // Redirect to login page if user or tokens are not available
+            const storage = localStorage.getItem('athena_access_token')
+                ? localStorage
+                : sessionStorage
+            if (!userState.tokens && !storage.getItem('athena_access_token')) {
+                // Redirect to login page if user or tokens are not available
+                router.replace(Routes.teacherLogin)
             } else {
                 checkTokenExpiration()
                 setIsLoading(false)
@@ -42,7 +46,8 @@ export const withAuth = (WrappedComponent: React.ComponentType<any>) => {
         }, [userState.tokens])
 
         if (isLoading) {
-            return <Loading /> // Show loading component while checking for user data or refreshing tokens
+            // Show loading component while checking for user data or refreshing tokens
+            return <Loading />
         }
 
         return <WrappedComponent {...props} />

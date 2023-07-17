@@ -5,13 +5,9 @@ import { AtomSpinner } from 'react-epic-spinners'
 // MUI
 import Box from '@mui/system/Box'
 
-type IProps = {
-    small?: boolean
-    inside?: boolean
-}
-
-const Loading: React.FC<IProps> = ({}) => {
+const Loading: React.FC = () => {
     const { mainColors } = useTheme()
+
     const styles: IStyle = {
         container: {
             width: '100%',
@@ -20,13 +16,16 @@ const Loading: React.FC<IProps> = ({}) => {
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            background: mainColors.loader.main,
+            background: mainColors.loader && mainColors.loader.main,
         },
     }
-
     return (
         <Box sx={styles.container}>
-            <AtomSpinner color={mainColors.primary.main} size={100} animationDuration={1200} />
+            <AtomSpinner
+                color={mainColors.primary && mainColors.primary.main}
+                size={100}
+                animationDuration={1200}
+            />
         </Box>
     )
 }
