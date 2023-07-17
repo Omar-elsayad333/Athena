@@ -2,7 +2,7 @@ import Avatar from '../../MyAvatar'
 import { useContext } from 'react'
 import { useUser } from 'context/userContext'
 import { DarkThemeContext } from 'context/ThemeContext'
-import InlineLogo from 'components/Icons/InlineLogo'
+import InlineLogo from 'components/Svgs/InlineLogo'
 
 // MUI
 import Box from '@mui/material/Box'
