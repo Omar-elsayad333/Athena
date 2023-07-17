@@ -161,13 +161,15 @@ const useEditHeadquarter = () => {
     const openWarningDialogState = () => {
         setWarningDialog({
             state: true,
-            close: closeWarningDialogState,
-            submit: deleteHeadquarter,
+            actions: {
+                cancel: closeWarningDialogState,
+                submit: deleteHeadquarter,
+            },
             content: {
-                head: 'حذف المقر',
+                title: 'حذف المقر',
                 body: 'تأكيد حذف هذا المقر نهائياً',
                 submit: 'حذف',
-                reject: 'إلغاء',
+                cancel: 'إلغاء',
             },
         })
     }
@@ -175,15 +177,8 @@ const useEditHeadquarter = () => {
     // Close warning dialog and clear it
     const closeWarningDialogState = () => {
         setWarningDialog({
+            ...warningDialog,
             state: false,
-            close: () => {},
-            submit: () => {},
-            content: {
-                head: '',
-                body: '',
-                submit: '',
-                reject: '',
-            },
         })
     }
 

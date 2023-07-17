@@ -196,13 +196,15 @@ const useAddGroup = () => {
     const openWarningDialogState = () => {
         setWarningDialog({
             state: true,
-            close: closeWarningDialogState,
-            submit: cancelSubmit,
+            actions: {
+                cancel: closeWarningDialogState,
+                submit: cancelSubmit,
+            },
             content: {
-                head: 'إلغاء العملية',
+                title: 'إلغاء العملية',
                 body: 'تأكيد إلغاء هذه العملية نهائياً',
                 submit: 'تأكيد',
-                reject: 'إلغاء',
+                cancel: 'إلغاء',
             },
         })
     }
@@ -210,15 +212,8 @@ const useAddGroup = () => {
     // Close warning dialog and clear it
     const closeWarningDialogState = () => {
         setWarningDialog({
+            ...warningDialog,
             state: false,
-            close: () => {},
-            submit: () => {},
-            content: {
-                head: '',
-                body: '',
-                submit: '',
-                reject: '',
-            },
         })
     }
 
