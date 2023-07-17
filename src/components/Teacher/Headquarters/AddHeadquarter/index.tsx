@@ -234,8 +234,7 @@ const AddHeadquarterC: React.FC<Props> = ({ states, actions, dialogs }) => {
             <WarningDialog
                 state={dialogs.warningDialog.state}
                 content={dialogs.warningDialog.content}
-                close={dialogs.warningDialog.close}
-                submit={dialogs.warningDialog.submit}
+                actions={dialogs.warningDialog.actions}
             />
         </Box>
     )
