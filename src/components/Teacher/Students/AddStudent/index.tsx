@@ -16,7 +16,6 @@ type Props = {
     data: any
     states: any
     actions: any
-    dialogs: any
 }
 
 const AddStudentC: React.FC<Props> = ({ data, states, actions }) => {
