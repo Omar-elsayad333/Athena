@@ -78,7 +78,7 @@ const AddStudent: NextPage = () => {
                             />
                         </svg>
                     </PageTitle>
-                    <AddStudentC data={data} states={states} actions={actions} dialogs={dialogs} />
+                    <AddStudentC data={data} states={states} actions={actions} />
                 </Box>
             )}
             <Box sx={style.footerContainer}>
