@@ -10,7 +10,7 @@ const useStudent = () => {
     const router = useRouter()
     const { id } = router.query
     const { loading, getHandlerById, putHandler } = useRequestsHandlers()
-    const [studentData, setStudentData] = useState<any>({})
+    const [studentData, setStudentData] = useState<any>('')
     const [editGroupState, setEditGroupState] = useState<boolean>(false)
     const [groups, setGroups] = useState<any[]>([])
     const [selectedGroup, setSelectedGroup] = useState<DropMenuProps>(dropMenuInitialValues)

@@ -50,7 +50,7 @@ const useRequestsHandlers = () => {
             const response = await axiosInstanceWithToken.get(`${path}/${id}`)
             return response.data
         } catch (error: any) {
-            throw Error(error)
+            throw error
         } finally {
             setLoading(false)
         }

@@ -1,12 +1,11 @@
-import { IStyle } from 'styles/IStyle'
 import Urls from 'constant/urls'
+import { IStyle } from 'styles/IStyle'
 import MyInput from 'components/MyInput'
 import MySelect from 'components/MySelect'
 import { useTheme } from 'context/ThemeContext'
 import MyButton from 'components/Buttons/MyButton'
 import PageError from 'components/Shared/PageError'
 import { genderTranslate } from 'utils/translateors'
-// import BasicDialog from 'components/Dialogs';
 import MyButtonError from 'components/Buttons/MyButtonError'
 
 // MUI
@@ -477,16 +476,11 @@ const AddStudentC: React.FC<Props> = ({ data, states, actions }) => {
                         <MyButtonError
                             loading={states.loading}
                             content="إلغاء العملية"
-                            onClick={actions.basicDialogHandler}
+                            onClick={actions.cancelSubmit}
                         />
                     </Box>
                 </Box>
             )}
-            {/* <BasicDialog 
-                state={dialogs.basicDialog.state} 
-                actions={dialogs.actions} 
-                content={dialogs.basicDialog.content} 
-            /> */}
         </Box>
     )
 }

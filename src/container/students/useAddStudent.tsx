@@ -1,3 +1,5 @@
+import Urls from 'constant/urls'
+import { Routes } from 'routes/Routes'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import { useUser } from 'context/userContext'
@@ -5,8 +7,6 @@ import { useAlert } from 'context/AlertContext'
 import { convertHashSign } from 'utils/converters'
 import useRequestsHandlers from 'hooks/useRequestsHandlers'
 import { errorInitialValues, ErrorProps } from 'interfaces/shared/errors'
-import { warningDialogInitialValues, WarningDialogProps } from 'interfaces/shared/warningDialog'
-import Urls from 'constant/urls'
 import {
     dropMenuInitialValues,
     DropMenuProps,
@@ -27,8 +27,7 @@ const useAddStudent = () => {
     const [year, setYear] = useState<DropMenuProps>(dropMenuInitialValues)
     const [groups, setGroups] = useState<any[]>([])
     const [group, setGroup] = useState<DropMenuProps>(dropMenuInitialValues)
-    const [basicDialog] = useState<WarningDialogProps>(warningDialogInitialValues)
-    const [pageError, setPageError] = useState<ErrorProps>(errorInitialValues)
+    const [pageError, setPageError] = useState<ErrorProps[]>([])
 
     // Update groups data if the user selected a year
     useEffect(() => {
@@ -106,6 +105,7 @@ const useAddStudent = () => {
                 setStudentData(res)
                 updateYearData(res.yearGroups)
             } catch (error: any) {
+                console.log(error)
                 if (error.response.status == 404) {
                     setCodeError({
                         ...codeError,
@@ -143,10 +143,13 @@ const useAddStudent = () => {
             error: false,
             helperText: '',
         })
-        setPageError({
-            value: '',
-            error: false,
-        })
+        setPageError([
+            ...pageError,
+            {
+                value: '',
+                error: false,
+            },
+        ])
     }
 
     // Validate data before submit it
@@ -155,10 +158,13 @@ const useAddStudent = () => {
 
         if (!group.id) {
             validationState = false
-            setPageError({
-                value: 'يجب اختيار مجموعه للطالب',
-                error: true,
-            })
+            setPageError([
+                ...pageError,
+                {
+                    value: 'يجب اختيار مجموعه للطالب',
+                    error: true,
+                },
+            ])
         }
 
         return validationState
@@ -184,51 +190,25 @@ const useAddStudent = () => {
                     Urls.URL_TEACHERSTUDENTS_ASSIGN,
                     data,
                 )
+                console.log(res)
                 setSuccessMessage('تم اضافة الطالب بنجاح')
-                router.replace(`/teacher/students/student/${res}`)
+                // router.replace(`${Routes.teacherStudent}/${res}`)
             } catch (error) {
-                setPageError({
-                    value: 'خطاء في اضافة الطالب',
-                    error: true,
-                })
+                setPageError([
+                    ...pageError,
+                    {
+                        value: 'خطاء في اضافة الطالب',
+                        error: true,
+                    },
+                ])
             }
         }
     }
 
     // Cancle submit and redirect the user
     const cancelSubmit = () => {
-        basicDialogHandler()
         setWarningMessage('تم الغاء العمليه بنجاح')
-        router.push('/teacher/students')
-    }
-
-    // Open and close basic dialog
-    const basicDialogHandler = () => {
-        // if(basicDialog.state) {
-        //     setBasicDialog(
-        //         {
-        //             state: false,
-        //             content: {
-        //                 title: '',
-        //                 dialog: '',
-        //                 accept: '',
-        //                 reject: ''
-        //             }
-        //         }
-        //     )
-        // }else {
-        //     setBasicDialog(
-        //         {
-        //             state: true,
-        //             content: {
-        //                 title: 'إلغاء العملية',
-        //                 dialog: 'تأكيد إلغاء هذه العملية نهائياً',
-        //                 accept: 'تأكيد',
-        //                 reject: 'إلغاء'
-        //             }
-        //         }
-        //     )
-        // }
+        router.push(Routes.teacherStudents)
     }
 
     return {
@@ -251,14 +231,7 @@ const useAddStudent = () => {
             yearHandler,
             groupHandler,
             submit,
-            basicDialogHandler,
-        },
-        dialogs: {
-            basicDialog,
-            actions: {
-                accept: cancelSubmit,
-                reject: basicDialogHandler,
-            },
+            cancelSubmit,
         },
     }
 }
