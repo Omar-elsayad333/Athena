@@ -1,6 +1,8 @@
 import { NextPage } from 'next'
-import { useTheme } from 'context/ThemeContext'
 import { withAuth } from 'routes/withRoute'
+import { useTheme } from 'context/ThemeContext'
+import { useAlert } from 'context/AlertContext'
+import AlertNotify from 'components/AlertNotify'
 import Loading from 'components/Loading/Loading'
 import PageHead from 'components/Shared/PageHead'
 import PageTitle from 'components/Shared/PageTitle'
@@ -16,7 +18,7 @@ import Box from '@mui/material/Box'
 const Student: NextPage = () => {
     const { mainColors } = useTheme()
     const { data, states, actions } = useStudent()
-
+    const { msg, msgType, state, handleState } = useAlert()
     const style = {
         root: {
             width: '100%',
@@ -92,6 +94,7 @@ const Student: NextPage = () => {
                 <PageFooter />
             </Box>
             <ThemeSwitcher />
+            <AlertNotify msg={msg} msgType={msgType} state={state} handleState={handleState} />
         </Box>
     )
 }

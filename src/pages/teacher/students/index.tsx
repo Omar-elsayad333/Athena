@@ -1,21 +1,25 @@
 import { NextPage } from 'next'
 import { IStyle } from 'styles/IStyle'
-import { useTheme } from 'context/ThemeContext'
 import { withAuth } from 'routes/withRoute'
+import { useTheme } from 'context/ThemeContext'
+import { useAlert } from 'context/AlertContext'
+import AlertNotify from 'components/AlertNotify'
 import PageHead from 'components/Shared/PageHead'
 import PageTitle from 'components/Shared/PageTitle'
 import StudentsC from 'components/Teacher/Students'
 import ThemeSwitcher from 'components/ThemeSwitcher'
 import PageFooter from 'components/Shared/PageFooter'
+import useStudents from 'container/students/useStudents'
 import DesktopNavbar from 'components/Layout/DesktopNavbar'
 
 // MUI
 import Box from '@mui/material/Box'
-import useStudents from 'container/students/useStudents'
 
 const Students: NextPage = () => {
     const { mainColors } = useTheme()
     const { data, states, actions } = useStudents()
+    const { msg, msgType, state, handleState } = useAlert()
+
     const style: IStyle = {
         root: {
             width: '100%',
@@ -81,6 +85,7 @@ const Students: NextPage = () => {
                 <PageFooter />
             </Box>
             <ThemeSwitcher />
+            <AlertNotify msg={msg} msgType={msgType} state={state} handleState={handleState} />
         </Box>
     )
 }
