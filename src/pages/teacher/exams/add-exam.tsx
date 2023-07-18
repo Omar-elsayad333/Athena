@@ -50,9 +50,9 @@ const AddExam: NextPage = () => {
         <Box sx={style.root}>
             <PageHead title="Add Exam" />
             <DesktopNavbar
-                firstContent="جميع الأمتحانات"
+                firstContent="الامتحانات المقررة"
                 firstPath={Routes.teacherExams}
-                secondContent="اضافة أمتحان"
+                secondContent="إنشاء امتحان"
                 secondPath={Routes.teacherAddExam}
             />
             {states.loading ? (

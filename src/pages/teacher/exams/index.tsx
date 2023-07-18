@@ -61,9 +61,9 @@ const Exams: NextPage = () => {
         <Box sx={style.root}>
             <PageHead title="Exams" />
             <DesktopNavbar
-                firstContent="جميع الأمتحانات"
+                firstContent="الامتحانات المقررة"
                 firstPath={Routes.teacherExams}
-                secondContent="اضافة أمتحان"
+                secondContent="إنشاء امتحان"
                 secondPath={Routes.teacherAddExam}
             />
             {states.loading ? (
