@@ -15,7 +15,7 @@ import Box from '@mui/material/Box'
 
 const AddStudent: NextPage = () => {
     const { mainColors } = useTheme()
-    const { data, states, actions, dialogs } = useAddStudent()
+    const { data, states, actions } = useAddStudent()
 
     const style = {
         root: {
