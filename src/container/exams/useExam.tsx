@@ -9,13 +9,13 @@ const useExam = () => {
     const router = useRouter()
     const { id } = router.query
     const { userState } = useUser()
-    const [updatedDetails, setUpdatedDetails] = useState()
-    const [updatedSections, setUpdateSections] = useState()
+    // const [updatedDetails, setUpdatedDetails] = useState()
+    // const [updatedSections, setUpdateSections] = useState()
     const [examDetails, setExamDetails] = useState<any>('')
     const [examSections, setExamSections] = useState<any>('')
-    const [examGroups, setExamGroups] = useState<any>('')
+    // const [examGroups, setExamGroups] = useState<any>('')
     const { loading, getHandlerById, getHandler } = useRequestsHandlers()
-    const { setErrorMessage, setSuccessMessage, setWarningMessage } = useAlert()
+    const { setErrorMessage } = useAlert()
     const [examTypes, setExamTypes] = useState()
     const [years, setYears] = useState()
 
