@@ -128,7 +128,10 @@ const ProfileC: React.FC<Props> = ({ data }) => {
                                 <Typography variant="h5" color={'primary'}>
                                     المقرات
                                 </Typography>
-                                <MyChip content={data.headQuarters || 'غير متاح'} />
+                                <MyChip
+                                    title={data.headQuarters}
+                                    content={data.headQuarters || 'غير متاح'}
+                                />
                             </Box>
                             <Box sx={style.cardItem}>
                                 <Typography variant="h5" color={'primary'}>
