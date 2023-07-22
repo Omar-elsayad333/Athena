@@ -35,14 +35,7 @@ const MyChip: React.FC<Props> = ({ content, variant = 'outlined', title }) => {
                     />
                 </Tooltip>
             ) : (
-                <Tooltip title={`${title}`}>
-                    <Chip
-                        label={`${content}`}
-                        color={'primary'}
-                        variant={variant}
-                        sx={style.chip}
-                    />
-                </Tooltip>
+                <Chip label={`${content}`} color={'primary'} variant={variant} sx={style.chip} />
             )}
         </>
     )
