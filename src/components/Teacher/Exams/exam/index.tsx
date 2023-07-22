@@ -12,7 +12,7 @@ type Props = {
     dialogs: any
 }
 
-const ExamC: React.FC<Props> = ({ data, states, actions, dialogs }) => {
+const ExamC: React.FC<Props> = ({ data, states, actions }) => {
     const style: IStyle = {
         container: {
             display: 'flex',
