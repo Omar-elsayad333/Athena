@@ -1,10 +1,10 @@
 import Link from 'next/link'
 import { NextPage } from 'next'
 import { Routes } from 'routes/Routes'
+import { withAuth } from 'routes/withRoute'
 import useExam from 'container/exams/useExam'
 import { useAlert } from 'context/AlertContext'
 import { useTheme } from 'context/ThemeContext'
-import { withAuth } from 'routes/withRoute'
 import Loading from 'components/Loading/Loading'
 import AlertNotify from 'components/AlertNotify'
 import PageHead from 'components/Shared/PageHead'
@@ -20,7 +20,7 @@ import Box from '@mui/material/Box'
 
 const Exam: NextPage = () => {
     const { mainColors } = useTheme()
-    const { data, states } = useExam()
+    const { data, states, actions, dialogs } = useExam()
     const { msg, state, msgType, handleState } = useAlert()
     const style = {
         root: {
@@ -57,11 +57,11 @@ const Exam: NextPage = () => {
 
     return (
         <Box sx={style.root}>
-            <PageHead title={data.examData.name} />
+            <PageHead title={data.examDetails.name} />
             <DesktopNavbar
-                firstContent="جميع المقرات"
+                firstContent="الامتحانات المقررة "
                 firstPath={Routes.teacherExams}
-                secondContent="اضافة مقر"
+                secondContent="إنشاء امتحان"
                 secondPath={Routes.teacherAddHeadquarter}
             />
             {states.loading ? (
@@ -69,7 +69,7 @@ const Exam: NextPage = () => {
             ) : (
                 <Box sx={style.container}>
                     <Box sx={style.header}>
-                        <PageTitle content={'الامتحانات الشهرية'}>
+                        <PageTitle content={data.examDetails.name}>
                             <svg
                                 width="25"
                                 height="25"
@@ -89,7 +89,7 @@ const Exam: NextPage = () => {
                                 />
                             </svg>
                         </PageTitle>
-                        <Link href={`${Routes.teacherEditExam}${data.examData.id}`}>
+                        <Link href={`${Routes.teacherEditExam}${data.examDetails.id}`}>
                             <a>
                                 <MyIconButton
                                     content="تعديل"
@@ -111,7 +111,7 @@ const Exam: NextPage = () => {
                             </a>
                         </Link>
                     </Box>
-                    <ExamC data={data} />
+                    <ExamC data={data} states={states} actions={actions} dialogs={dialogs} />
                 </Box>
             )}
             <Box sx={style.footerContainer}>
