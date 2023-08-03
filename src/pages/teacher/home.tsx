@@ -1,36 +1,73 @@
 import { NextPage } from 'next'
-import { lightColors, darkColors } from 'styles/colors'
-import { useContext } from 'react'
-import { DarkThemeContext } from 'context/ThemeContext'
-import PageHead from 'components/Shared/PageHead'
-import DesktopNavbar from 'components/Layout/DesktopNavbar'
-import ThemeSwitcher from 'components/ThemeSwitcher'
+import { useEffect, useState } from 'react'
 import { withAuth } from 'routes/withRoute'
-
-// MUI
-import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
+import * as signalR from '@microsoft/signalr'
+import Urls from 'constant/urls'
 
 const Home: NextPage = () => {
-    const { darkMode } = useContext(DarkThemeContext)
+    const [message, setMessage] = useState('')
+    const [courses, setCourses] = useState([])
+    const [isConnected, setIsConnected] = useState(false)
+
+    const hubConnection = new signalR.HubConnectionBuilder()
+        .withUrl(`${Urls.URL_MAIN}/testnotifications`)
+        .withAutomaticReconnect()
+        .build()
+
+    useEffect(() => {
+        hubConnection.on('GetTheData', (message, coursesDto) => {
+            setMessage(message)
+            setCourses(coursesDto)
+        })
+
+        hubConnection.on('Notify', (message) => {
+            console.log('Received notification:', message)
+        })
+
+        async function startHubConnection() {
+            try {
+                await hubConnection.start()
+                setIsConnected(true)
+                // await hubConnection.invoke('GetDataWithMessages', 'Hello from the courses!')
+                await hubConnection.invoke('NotifyAll', 'Hello from the notirfy!')
+                console.log('SignalR connection established.')
+            } catch (err) {
+                console.error('Error while establishing SignalR connection:', err)
+            }
+        }
+
+        startHubConnection()
+
+        return () => {
+            hubConnection.off('GetTheData')
+            hubConnection.off('Notify')
+            hubConnection.stop()
+            setIsConnected(false)
+            console.log('off')
+        }
+    }, [])
+
+    const getDataWithMessages = async () => {
+        try {
+            if (isConnected) {
+            } else {
+                console.error('SignalR is not connected.')
+            }
+        } catch (err) {
+            console.error('Error while calling GetDataWithMessages:', err)
+        }
+    }
 
     return (
-        <Box
-            sx={{
-                width: '100%',
-                minHeight: '100vh',
-                backgroundColor: darkMode
-                    ? darkColors.backgroundColor.main
-                    : lightColors.backgroundColor.main,
-            }}
-        >
-            <PageHead title="Home" />
-            <DesktopNavbar />
-            <Typography variant="h1" color="primary" p={5}>
-                home
-            </Typography>
-            <ThemeSwitcher />
-        </Box>
+        <div>
+            <p>Message: {message}</p>
+            <ul>
+                {courses.map((course: any) => (
+                    <li key={course.id}>{course.name}</li>
+                ))}
+            </ul>
+            <button onClick={getDataWithMessages}>Get Data with Messages</button>
+        </div>
     )
 }
 
