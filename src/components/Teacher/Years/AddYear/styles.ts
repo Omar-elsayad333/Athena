@@ -18,6 +18,7 @@ const useStyle = () => {
             flexDirection: 'column',
         },
         levelCard: {
+            minWidth: '100%',
             width: '592px',
             maxWidth: '100%',
             height: '91px',

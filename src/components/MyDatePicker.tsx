@@ -14,6 +14,7 @@ type Props = {
     helperText: string
     placeholder: string
     dateValue?: Date | string
+    extraData?: any
     handleDateValue: Function
 }
 
@@ -24,6 +25,7 @@ const MyDatePicker: React.FC<Props> = ({
     helperText,
     error,
     name,
+    extraData,
 }) => {
     const { darkMode } = useTheme()
     const classes: SxProps = {
@@ -116,7 +118,7 @@ const MyDatePicker: React.FC<Props> = ({
                 <DatePicker
                     value={dateValue}
                     onChange={(newValue: any) => {
-                        handleDateValue(newValue, name)
+                        handleDateValue(newValue, name, extraData)
                     }}
                     renderInput={(params: any) => (
                         <TextField

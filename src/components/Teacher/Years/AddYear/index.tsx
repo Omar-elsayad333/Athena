@@ -1,19 +1,19 @@
+import useStyle from './styles'
 import { IStyle } from 'styles/IStyle'
 import MySelect from 'components/MySelect'
 import { useTheme } from 'context/ThemeContext'
 import MyIconButton from 'components/MyIconButton'
 import MyButton from 'components/Buttons/MyButton'
+import MyInputSmall from 'components/MyInputSmall'
+import MyDatePicker from 'components/MyDatePicker'
+import PageError from 'components/Shared/PageError'
 import ClassesDialog from 'components/Dialogs/ClassesDialog'
 import MyButtonError from 'components/Buttons/MyButtonError'
-// import BasicDialog from 'components/Dialogs/ClassesDialog'
-import PageError from 'components/Shared/PageError'
 
 // MUI
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import ControlPointIcon from '@mui/icons-material/ControlPoint'
-import useStyle from './styles'
-import MyInputSmall from 'components/MyInputSmall'
 
 type Props = {
     data: any
@@ -120,7 +120,7 @@ const AddYearC: React.FC<Props> = ({ data, states, actions }) => {
     return (
         <Box sx={style.container}>
             <MySelect
-                data={data.yearsToSelect}
+                data={data.yearsTypes}
                 value={states.selectedYear.name}
                 error={states.selectedYear.error}
                 placeholder="تحديد العام الدراسي"
@@ -155,9 +155,8 @@ const AddYearC: React.FC<Props> = ({ data, states, actions }) => {
             {data.selectedLevels.length > 0 && (
                 <Box sx={styles.levelsContianer} className="levels-contianer">
                     {data.selectedLevels.map((item: any) => (
-                        <Box sx={styles.levelContainer}>
+                        <Box sx={styles.levelContainer} key={item.id}>
                             <Box
-                                key={item.id}
                                 sx={[
                                     styles.levelCard,
                                     { borderColor: item.error && mainColors.error.main },
@@ -183,12 +182,15 @@ const AddYearC: React.FC<Props> = ({ data, states, actions }) => {
                                                 : mainColors.primary.main
                                         }
                                         xmlns="http://www.w3.org/2000/svg"
+                                        style={{
+                                            rotate: item.open === true ? '180deg' : '0deg',
+                                            transition: '.4s',
+                                        }}
                                         onClick={(e) => {
                                             actions.openAndCloseCard(item.id)
-                                            e.currentTarget.style.rotate == '0deg' ||
-                                            e.currentTarget.style.rotate == ''
-                                                ? (e.currentTarget.style.rotate = '180deg')
-                                                : (e.currentTarget.style.rotate = '0deg')
+                                            // item.open !== true
+                                            //     ? (e.currentTarget.style.rotate = '180deg')
+                                            //     : (e.currentTarget.style.rotate = '0deg')
                                         }}
                                     >
                                         <path
@@ -209,8 +211,52 @@ const AddYearC: React.FC<Props> = ({ data, states, actions }) => {
                                             الفصول الدراسية الخاصة بالصف:-
                                         </Typography>
                                         <Box sx={styles.semesterChips}>
-                                            <Box sx={style.classesLabel}>الفصل الدراسي الاول</Box>
-                                            <Box sx={style.classesLabel}>الفصل الدراسي الثاني</Box>
+                                            <Box sx={styles.inputContaienr}>
+                                                <Box sx={style.classesLabel}>
+                                                    الفصل الدراسي الاول
+                                                </Box>
+                                                <MyDatePicker
+                                                    name="first"
+                                                    helperText=""
+                                                    extraData={item.id}
+                                                    dateValue={item.fristSemeterStartDate}
+                                                    placeholder="حدد بداية الفصل الدراسي الأول"
+                                                    handleDateValue={
+                                                        actions.semesterStartDateHander
+                                                    }
+                                                />
+                                                <MyDatePicker
+                                                    name="first"
+                                                    helperText=""
+                                                    extraData={item.id}
+                                                    dateValue={item.fristSemeterEndDate}
+                                                    placeholder="حدد نهاية الفصل الدراسي الأول"
+                                                    handleDateValue={actions.semesterEndDateHander}
+                                                />
+                                            </Box>
+                                            <Box sx={styles.inputContaienr}>
+                                                <Box sx={style.classesLabel}>
+                                                    الفصل الدراسي الثاني
+                                                </Box>
+                                                <MyDatePicker
+                                                    helperText=""
+                                                    name="second"
+                                                    extraData={item.id}
+                                                    dateValue={item.secondSemeterStartDate}
+                                                    placeholder="حدد بداية الفصل الدراسي الثاني"
+                                                    handleDateValue={
+                                                        actions.semesterStartDateHander
+                                                    }
+                                                />
+                                                <MyDatePicker
+                                                    helperText=""
+                                                    name="second"
+                                                    extraData={item.id}
+                                                    dateValue={item.secondSemeterEndDate}
+                                                    placeholder="حدد نهاية الفصل الدراسي الثاني"
+                                                    handleDateValue={actions.semesterEndDateHander}
+                                                />
+                                            </Box>
                                         </Box>
                                     </Box>
                                     <Box sx={styles.semestersContainer}>
