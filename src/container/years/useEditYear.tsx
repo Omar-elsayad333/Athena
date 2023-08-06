@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { useUser } from 'context/userContext'
 import { useAlert } from 'context/AlertContext'
-import { yearsToSelect } from 'constant/staticData'
+import { yearsTypes } from 'constant/staticData'
 import useRequestsHandlers from 'hooks/useRequestsHandlers'
 import { Routes } from 'routes/Routes'
 import { dropMenuInitialValues } from 'interfaces/shared/input'
@@ -231,7 +231,7 @@ const useEditYear = () => {
         data: {
             requiredData,
             yearData,
-            yearsToSelect,
+            yearsTypes,
             levels,
         },
         states: {
