@@ -71,6 +71,7 @@ const useStudents = () => {
                 userState.tokens!.accessToken!,
                 Urls.URL_TEACHERSTUDENTS,
             )
+            console.log(res)
             setOriginalYears(res)
             updateYearsData(res)
         } catch (error) {

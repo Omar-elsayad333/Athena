@@ -1,25 +1,32 @@
-import InputError from "./Shared/InputError";
-import { useTheme } from "context/ThemeContext";
+import InputError from './Shared/InputError'
+import { useTheme } from 'context/ThemeContext'
 
 // MUI
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import { SxProps, Typography } from '@mui/material';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import Select from '@mui/material/Select'
+import MenuItem from '@mui/material/MenuItem'
+import FormControl from '@mui/material/FormControl'
+import { SxProps, Typography } from '@mui/material'
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 
 type Props = {
-    data: any[];
-    value: string;
-    getSelected: Function;
-    placeholder: string;
-    error: boolean;
-    disabled?: boolean;
-    helperText?: string;
+    data: any[]
+    value: string
+    getSelected: Function
+    placeholder: string
+    error: boolean
+    disabled?: boolean
+    helperText?: string
 }
 
-const MySelect: React.FC<Props> = ({value, getSelected, placeholder, data, error, disabled = false, helperText}) => {
-
+const MySelect: React.FC<Props> = ({
+    value,
+    getSelected,
+    placeholder,
+    data,
+    error,
+    disabled = false,
+    helperText,
+}) => {
     const { mainColors, darkMode } = useTheme()
     const style = {
         root: {
@@ -48,7 +55,7 @@ const MySelect: React.FC<Props> = ({value, getSelected, placeholder, data, error
             '.MuiSvgIcon-root ': {
                 width: '33px ',
                 height: '33px',
-                fill: "#81acd1",
+                fill: '#81acd1',
                 top: '15%',
                 left: '10px',
                 right: 'auto',
@@ -69,7 +76,7 @@ const MySelect: React.FC<Props> = ({value, getSelected, placeholder, data, error
                 width: '150px',
             },
         },
-    };
+    }
     const menuStyle: SxProps = {
         '.MuiPaper-root': {
             // borderRadius: '10px',
@@ -78,11 +85,11 @@ const MySelect: React.FC<Props> = ({value, getSelected, placeholder, data, error
                 backgroundColor: 'transparent',
             },
             '::-webkit-scrollbar-track': {
-                boxShadow: 'none'
+                boxShadow: 'none',
             },
             '::-webkit-scrollbar-thumb': {
                 border: '2px solid transparent',
-            },  
+            },
             backgroundColor: darkMode ? '#1C364F' : '#E8F3FF',
             boxShadow: darkMode ? '0px 0px 7px -1px #3F72A4' : '0px 0px 0px 1px #3F72A4',
             border: darkMode ? '1px solid #B6D5F0' : 'none',
@@ -94,24 +101,24 @@ const MySelect: React.FC<Props> = ({value, getSelected, placeholder, data, error
             ':hover': {
                 backgroundColor: darkMode ? '#162A3E' : '#B6D5F0',
                 color: darkMode ? '#B6D5F0' : 'rgba(63, 114, 164, 1)',
-            }
+            },
         },
     }
 
     const handleChange = (e: any) => {
-        if(data){
+        if (data) {
             let selected = ''
-            for(let i = 0; i < data.length; i++){
-                if(data[i].name == e.target.value){
+            for (let i = 0; i < data.length; i++) {
+                if (data[i].name == e.target.value) {
                     selected = data[i].id
-                } 
+                }
             }
             getSelected({
                 id: selected,
-                name: e.target.value
-            });
+                name: e.target.value,
+            })
         }
-    };
+    }
 
     return (
         <FormControl required>
@@ -126,43 +133,33 @@ const MySelect: React.FC<Props> = ({value, getSelected, placeholder, data, error
                 renderValue={(selected) => {
                     if (selected?.length == 0) {
                         return (
-                            <Typography 
+                            <Typography
                                 fontSize={14}
-                                fontWeight={400} 
-                                color={ 
-                                    darkMode ?
-                                    'rgb(182 213 240 / 65%)' :
-                                    'rgba(63, 114, 164, .65)'
+                                fontWeight={400}
+                                color={
+                                    darkMode ? 'rgb(182 213 240 / 65%)' : 'rgba(63, 114, 164, .65)'
                                 }
                             >
                                 {placeholder}
                             </Typography>
-                        );
+                        )
                     }
-                    return selected;
+                    return selected
                 }}
                 MenuProps={{
-                    sx: menuStyle
+                    sx: menuStyle,
                 }}
             >
-                {   
-                    data?.length > 0 &&
+                {data?.length > 0 &&
                     data.map((item: any) => (
-                        <MenuItem
-                            key={item.id}
-                            value={item.name}
-                        >
+                        <MenuItem key={item.id} value={item.name}>
                             {item.name}
                         </MenuItem>
-                    ))
-                }
+                    ))}
             </Select>
-            {
-                helperText &&
-                <InputError content={helperText} type='error' />
-            }
+            {helperText && <InputError content={helperText} type="error" />}
         </FormControl>
-    );
+    )
 }
 
-export default MySelect;
+export default MySelect

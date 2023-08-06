@@ -445,19 +445,19 @@ const AddStudentC: React.FC<Props> = ({ data, states, actions }) => {
             {data.studentData && (
                 <Box sx={style.groupContainer}>
                     <MySelect
-                        data={data.years}
-                        value={states.year.value}
-                        error={states.year.error}
+                        data={data.yearsTypes}
+                        value={states.selectedYear.value}
+                        error={states.selectedYear.error}
                         placeholder={'الأعوام الدراسيه'}
                         getSelected={actions.yearHandler}
                     />
                     <MySelect
                         data={data.groups}
                         placeholder={'المجموعات'}
-                        error={states.group.error}
-                        value={states.group.value}
+                        error={states.selectedGroup.error}
+                        value={states.selectedGroup.value}
                         getSelected={actions.groupHandler}
-                        disabled={data.groups.length ? false : true}
+                        disabled={states.selectedYear.value ? false : true}
                     />
                 </Box>
             )}
