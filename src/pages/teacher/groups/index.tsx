@@ -96,7 +96,7 @@ const Groups: NextPage = () => {
                         onChange={actions.searchHandler}
                         placeholder="هل تبحث عن مجموعة معينة ؟"
                     />
-                    <GroupsC data={data.groupsData} />
+                    <GroupsC data={data} />
                 </Box>
             )}
             <Box sx={style.footerContainer}>

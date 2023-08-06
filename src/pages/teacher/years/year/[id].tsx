@@ -71,7 +71,11 @@ const Year: NextPage = () => {
             ) : (
                 <Box sx={style.container}>
                     <Box sx={style.header}>
-                        <PageTitle content="العام الدراسي">
+                        <PageTitle
+                            content={`العام الدراسي ${
+                                data.yearData.yearState === 'preopen' ? '(تجهيزيه)' : '(مفتوحه)'
+                            }`}
+                        >
                             <svg
                                 width="31"
                                 height="32"

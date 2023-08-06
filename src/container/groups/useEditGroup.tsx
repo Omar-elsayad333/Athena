@@ -28,7 +28,8 @@ const useEditGroup = () => {
     const [groupData, setGroupData] = useState<any>('')
     const [requiredData, setRequiredData] = useState<any>('')
     const [name, setName] = useState<InputProps>(inputInitialValues)
-    const [yearsData, setYearsData] = useState<any>([])
+    const [openYearsData, setOpenYearsData] = useState<any>([])
+    const [preopenYearsData, setPreopenYearsData] = useState<any>([])
     const [selectedYear, setSelectedYear] = useState<DropMenuProps>(dropMenuInitialValues)
     const [headquartersData, setHeadquartersData] = useState<any>([])
     const [selectedHeadquarter, setSelectedHeadquarter] =
@@ -42,6 +43,10 @@ const useEditGroup = () => {
         warningDialogInitialValues,
     )
     const [daysDialog, setDaysDialog] = useState<Boolean>(false)
+    const yearsData = [
+        { id: '1', name: 'عام دراسي' },
+        { id: '2', name: 'عام تجهيزي' },
+    ]
 
     // Call api to get required data if user is authorized
     useEffect(() => {
@@ -128,13 +133,13 @@ const useEditGroup = () => {
     const updateYearsData = () => {
         if (yearsData.length == 0) {
             for (let year of requiredData.yearLevels) {
-                setYearsData((yearsData: any) => [
-                    ...yearsData,
-                    {
-                        id: year.id,
-                        name: `${year.start} / ${year.end}`,
-                    },
-                ])
+                // setYearsData((yearsData: any) => [
+                //     ...yearsData,
+                //     {
+                //         id: year.id,
+                //         name: `${year.start} / ${year.end}`,
+                //     },
+                // ])
             }
         }
     }

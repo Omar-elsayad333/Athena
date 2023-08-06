@@ -1,21 +1,17 @@
+import useStyle from './styles'
 import { IStyle } from 'styles/IStyle'
 import MySelect from 'components/MySelect'
-import MyIconButton from 'components/MyIconButton'
 import { useTheme } from 'context/ThemeContext'
+import MyButton from 'components/Buttons/MyButton'
+import MyInputSmall from 'components/MyInputSmall'
+import MyIconButton from 'components/MyIconButton'
 import ClassesDialog from 'components/Dialogs/ClassesDialog'
-import useStyle from './styles'
-// import MyButton from 'components/Buttons/MyButton';
-// import MyButtonError from 'components/Buttons/MyButtonError';
-// import BasicDialog from 'components/Dialogs/BasicDialogs';
-// import PageError from 'components/Shared/PageError';
 
 // MUI
 import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import ControlPointIcon from '@mui/icons-material/ControlPoint'
-import { Button } from '@mui/material'
-import MyButton from 'components/Buttons/MyButton'
-import MyInputSmall from 'components/MyInputSmall'
 
 type Props = {
     data: any
@@ -294,7 +290,6 @@ const EditYearC: React.FC<Props> = ({ data, states, actions }) => {
                                             </Box>
                                         </Box>
                                     </Box>
-                                    <Box></Box>
                                 </Box>
                             )}
                         </Box>
@@ -313,16 +308,6 @@ const EditYearC: React.FC<Props> = ({ data, states, actions }) => {
                     </Box>
                 </Box>
             )}
-            {/* <Box sx={style.buttonsContainer}>
-                <PageError errorInfo={states.errorLabel} />
-                <Box sx={style.submitButton}>
-                    <MyButton onClick={actions.submit} loading={states.loading} content='تأكيد واضافة' />
-                </Box>
-                <Box sx={style.submitButton}>
-                    <MyButtonError loading={states.loading} content='إلغاء العملية' onClick={dialogs.actions.handleDialogState} />
-                </Box>
-            </Box> */}
-            {/* <BasicDialog state={dialogs.content.state} content={dialogs.content} actions={dialogs.actions} /> */}
             <ClassesDialog
                 data={data.requiredData}
                 open={states.classesDialogState}

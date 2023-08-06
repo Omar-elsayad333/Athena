@@ -7,11 +7,12 @@ import useRequestsHandlers from 'hooks/useRequestsHandlers'
 
 const useGroups = () => {
     const { userState } = useUser()
-    const { useSearchHandler } = useShard()
     const { setErrorMessage } = useAlert()
+    const { useSearchHandler } = useShard()
     const { loading, getHandler } = useRequestsHandlers()
-    const [groupsData, setGroupsData] = useState<any>([])
     const [originalData, setOriginalData] = useState<any>([])
+    const [openGroupsData, setOpenGroupsData] = useState<any>([])
+    const [preOpenGroupsData, setPreOpenGroupsData] = useState<any>([])
 
     // Call function to get page data if the user authorized
     useEffect(() => {
@@ -25,7 +26,8 @@ const useGroups = () => {
         try {
             const res = await getHandler(userState.tokens!.accessToken!, Urls.URL_GROUPS)
             console.log(res)
-            setGroupsData(res)
+            setOpenGroupsData(res.open)
+            setPreOpenGroupsData(res.preOpen)
             setOriginalData(res)
         } catch (error) {
             console.log(error)
@@ -35,12 +37,13 @@ const useGroups = () => {
 
     // Get search value from user
     const searchHandler = (searchValue: string) => {
-        useSearchHandler(searchValue, originalData, setGroupsData)
+        useSearchHandler(searchValue, originalData, setOpenGroupsData)
     }
 
     return {
         data: {
-            groupsData,
+            openGroupsData,
+            preOpenGroupsData,
         },
         states: {
             loading,

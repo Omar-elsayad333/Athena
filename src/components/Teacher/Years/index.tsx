@@ -1,9 +1,7 @@
 import Link from 'next/link'
 import { Routes } from 'routes/Routes'
 import { IStyle } from 'styles/IStyle'
-import { useAlert } from 'context/AlertContext'
 import { useTheme } from 'context/ThemeContext'
-import AlertNotify from 'components/AlertNotify'
 
 // MUI
 import Box from '@mui/material/Box'
@@ -15,7 +13,6 @@ type Props = {
 
 const YearsC: React.FC<Props> = ({ data }) => {
     const { mainColors } = useTheme()
-    const { msg, state, msgType, handleState } = useAlert()
 
     const style: IStyle = {
         container: {
@@ -79,12 +76,18 @@ const YearsC: React.FC<Props> = ({ data }) => {
         span: {
             fontWeight: '700',
         },
+        title: {
+            flex: '100%',
+        },
     }
 
     return (
         <Box sx={style.container}>
+            <Typography sx={style.title} color={mainColors.title.main} variant="h3">
+                السنوات المفتوحه
+            </Typography>
             {data.yearsData &&
-                data.yearsData.map((item: any) => {
+                data.yearsData.open.map((item: any) => {
                     return (
                         <Link key={item.id} href={`${Routes.teacherYear}/${item.id}`}>
                             <Box sx={style.card}>
@@ -100,14 +103,53 @@ const YearsC: React.FC<Props> = ({ data }) => {
                         </Link>
                     )
                 })}
-            <Link href={Routes.teacherAddYear}>
+            <Typography sx={style.title} color={mainColors.title.main} variant="h3">
+                السنوات التجهيزيه
+            </Typography>
+            {data.yearsData &&
+                data.yearsData.preopen.map((item: any) => {
+                    return (
+                        <Link key={item.id} href={`${Routes.teacherYear}/${item.id}`}>
+                            <Box sx={style.card}>
+                                <Box sx={style.content}>
+                                    <Typography color="primary" variant="h4" fontWeight={700}>
+                                        العام الدراسي
+                                    </Typography>
+                                    <Typography color="primary" variant="h1">
+                                        {`${item.end} / ${item.start}`}
+                                    </Typography>
+                                </Box>
+                            </Box>
+                        </Link>
+                    )
+                })}
+            <Typography sx={style.title} color={mainColors.title.main} variant="h3">
+                السنوات المغلقه
+            </Typography>
+            {data.yearsData &&
+                data.yearsData.finished.map((item: any) => {
+                    return (
+                        <Link key={item.id} href={`${Routes.teacherYear}/${item.id}`}>
+                            <Box sx={style.card}>
+                                <Box sx={style.content}>
+                                    <Typography color="primary" variant="h4" fontWeight={700}>
+                                        العام الدراسي
+                                    </Typography>
+                                    <Typography color="primary" variant="h1">
+                                        {`${item.end} / ${item.start}`}
+                                    </Typography>
+                                </Box>
+                            </Box>
+                        </Link>
+                    )
+                })}
+            {/* <Link href={Routes.teacherAddYear}>
                 <Box sx={style.spcialCard}>
                     <Typography color="primary" variant="h1" fontWeight={700}>
                         بدأ عام جديد
                     </Typography>
                 </Box>
-            </Link>
-            <AlertNotify msg={msg} state={state} handleState={handleState} msgType={msgType} />
+            </Link> */}
         </Box>
     )
 }

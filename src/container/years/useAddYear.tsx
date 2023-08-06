@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import { useUser } from 'context/userContext'
 import { useAlert } from 'context/AlertContext'
-import { yearsToSelect } from 'constant/staticData'
+import { yearsTypes } from 'constant/staticData'
 import useRequestsHandlers from 'hooks/useRequestsHandlers'
 import { PageErrorProps } from 'interfaces/shared/pageError'
 import { LevelsProps, YearProps, YearInitialValue } from 'interfaces/teacher/years/addYear'
@@ -29,7 +29,7 @@ const dialogInitialValues = {
 const useAddYear = () => {
     const router = useRouter()
     const { userState } = useUser()
-    const { setSuccessMessage, setWarningMessage } = useAlert()
+    const { setSuccessMessage, setWarningMessage, setErrorMessage } = useAlert()
     const { loading, getHandler, postHandler } = useRequestsHandlers()
     const [requiredData, setRequiredData] = useState<any>('')
     const [selectedYear, setSelectedYear] = useState<YearProps>(YearInitialValue)
@@ -74,9 +74,9 @@ const useAddYear = () => {
         }
     }
 
-    // Get user selected year
+    // Get user selected year type
     const selectedYearHandler = (selected: any) => {
-        setSelectedYear({ name: selected.name, error: false })
+        setSelectedYear({ name: selected.name, error: false, helperText: '' })
     }
 
     // Get the selected Classes
@@ -88,10 +88,14 @@ const useAddYear = () => {
                 {
                     id: item.id,
                     name: item.name,
-                    introFee: undefined,
-                    monthFee: undefined,
+                    introFee: '',
+                    monthFee: '',
                     error: false,
                     open: false,
+                    fristSemeterStartDate: '',
+                    fristSemeterEndDate: '',
+                    secondSemeterStartDate: '',
+                    secondSemeterEndDate: '',
                 },
             ])
         }
@@ -115,13 +119,42 @@ const useAddYear = () => {
         )
     }
 
+    const semesterStartDateHander = (value: number, name: string, levelId: any) => {
+        name === 'first'
+            ? setSelectedLevels(
+                  selectedLevels.map((x: any) =>
+                      x.id === levelId ? { ...x, fristSemeterStartDate: value } : x,
+                  ),
+              )
+            : setSelectedLevels(
+                  selectedLevels.map((x: any) =>
+                      x.id === levelId ? { ...x, secondSemeterStartDate: value } : x,
+                  ),
+              )
+    }
+
+    const semesterEndDateHander = (value: number, name: string, levelId: any) => {
+        name === 'first'
+            ? setSelectedLevels(
+                  selectedLevels.map((x: any) =>
+                      x.id === levelId ? { ...x, fristSemeterEndDate: value } : x,
+                  ),
+              )
+            : setSelectedLevels(
+                  selectedLevels.map((x: any) =>
+                      x.id === levelId ? { ...x, secondSemeterEndDate: value } : x,
+                  ),
+              )
+    }
+
     // Validate all data before collect it
     const validate = () => {
         let state = true
-        let yearState = false
+        let yearState = true
+        let semesterState = true
         setErrorLabel([])
 
-        // Check for year selection
+        // Check for year type selection
         if (!selectedYear.name) {
             setSelectedYear({ ...selectedYear, error: true })
             setErrorLabel((oldArray) => [
@@ -149,6 +182,34 @@ const useAddYear = () => {
         } else {
             for (let i = 0; i < selectedLevels.length; i++) {
                 selectedLevels[i]!.open = false
+                const firstOpen = new Date('Sun Aug 27 2023 00:00:00 GMT+0300')
+                const firstClose = new Date('Tue Aug 29 2023 00:00:00 GMT+0300')
+                const secondOpen = new Date('Sun Aug 27 2023 00:00:00 GMT+0300')
+                const secondClose = new Date('Tue Aug 29 2023 00:00:00 GMT+0300')
+                if (firstOpen > firstClose || secondOpen > secondClose) {
+                    const newValue = selectedLevels[i]
+                    newValue!.error = true
+                    setSelectedLevels([
+                        ...selectedLevels.slice(0, i),
+                        newValue,
+                        ...selectedLevels.slice(i + 1),
+                    ])
+                    state = false
+                    semesterState = false
+                } else if (
+                    selectedLevels[i]?.fristSemeterEndDate! >
+                    selectedLevels[i]?.secondSemeterStartDate!
+                ) {
+                    const newValue = selectedLevels[i]
+                    newValue!.error = true
+                    setSelectedLevels([
+                        ...selectedLevels.slice(0, i),
+                        newValue,
+                        ...selectedLevels.slice(i + 1),
+                    ])
+                    state = false
+                    semesterState = false
+                }
                 if (
                     selectedLevels[i]?.introFee == undefined ||
                     selectedLevels[i]?.introFee == '' ||
@@ -156,7 +217,7 @@ const useAddYear = () => {
                     selectedLevels[i]?.monthFee == ''
                 ) {
                     const newValue = selectedLevels[i]
-                    newValue!.error = true
+                    newValue!.error = false
                     setSelectedLevels([
                         ...selectedLevels.slice(0, i),
                         newValue,
@@ -176,6 +237,15 @@ const useAddYear = () => {
             }
         }
 
+        if (!semesterState) {
+            setErrorLabel((oldArray) => [
+                ...oldArray,
+                {
+                    name: 'semesterData',
+                    value: 'يجب التاكد ان بدية الفصول الدراسيه قبل نهايتها',
+                },
+            ])
+        }
         if (!yearState) {
             setErrorLabel((oldArray) => [
                 ...oldArray,
@@ -196,10 +266,17 @@ const useAddYear = () => {
                 id: item!.id,
                 introFee: item!.introFee,
                 monthFee: item!.monthFee,
+                semster: {
+                    fristSemeterStartDate: new Date(item!.fristSemeterStartDate).toISOString(),
+                    fristSemeterEndDate: new Date(item!.fristSemeterEndDate).toISOString(),
+                    secondSemeterStartDate: new Date(item!.secondSemeterStartDate).toISOString(),
+                    secondSemeterEndDate: new Date(item!.secondSemeterEndDate).toISOString(),
+                },
             })
         }
+
         const data = {
-            start: parseInt(selectedYear.name.slice(0, 4)),
+            state: selectedYear.name === 'عام دراسي' ? 'open' : 'preopen',
             teacherCoureLevels: levelsData,
         }
 
@@ -214,10 +291,10 @@ const useAddYear = () => {
             try {
                 const res = await postHandler(userState.tokens!.accessToken!, Urls.URL_YEARS, data)
                 setSuccessMessage('تم بدأ عام جديد بنجاح')
-                router.push(`${Routes.teacherYear}/${res}`)
+                router.push(`${Routes.teacherYear}${res}`)
             } catch (error) {
                 console.log(error)
-                setErrorLabel([{ name: '', value: `${error}` }])
+                setErrorMessage('حدث خطاء اثناء اضاقة العام الدراسي')
             }
         }
     }
@@ -231,7 +308,7 @@ const useAddYear = () => {
     return {
         data: {
             requiredData,
-            yearsToSelect,
+            yearsTypes,
             selectedLevels,
         },
         states: {
@@ -247,6 +324,8 @@ const useAddYear = () => {
             openAndCloseCard,
             selectedIntroFeeHandler,
             selectedMonthFeeHandler,
+            semesterStartDateHander,
+            semesterEndDateHander,
             submit,
             cancelSubmit,
         },
