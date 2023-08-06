@@ -28,8 +28,8 @@ const useEditGroup = () => {
     const [groupData, setGroupData] = useState<any>('')
     const [requiredData, setRequiredData] = useState<any>('')
     const [name, setName] = useState<InputProps>(inputInitialValues)
-    const [openYearsData, setOpenYearsData] = useState<any>([])
-    const [preopenYearsData, setPreopenYearsData] = useState<any>([])
+    // const [openYearsData, setOpenYearsData] = useState<any>([])
+    // const [preopenYearsData, setPreopenYearsData] = useState<any>([])
     const [selectedYear, setSelectedYear] = useState<DropMenuProps>(dropMenuInitialValues)
     const [headquartersData, setHeadquartersData] = useState<any>([])
     const [selectedHeadquarter, setSelectedHeadquarter] =
@@ -132,15 +132,15 @@ const useEditGroup = () => {
     // Update years data
     const updateYearsData = () => {
         if (yearsData.length == 0) {
-            for (let year of requiredData.yearLevels) {
-                // setYearsData((yearsData: any) => [
-                //     ...yearsData,
-                //     {
-                //         id: year.id,
-                //         name: `${year.start} / ${year.end}`,
-                //     },
-                // ])
-            }
+            // for (let year of requiredData.yearLevels) {
+            //     setYearsData((yearsData: any) => [
+            //         ...yearsData,
+            //         {
+            //             id: year.id,
+            //             name: `${year.start} / ${year.end}`,
+            //         },
+            //     ])
+            // }
         }
     }
 
