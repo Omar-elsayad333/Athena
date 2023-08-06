@@ -291,7 +291,7 @@ const useAddYear = () => {
             try {
                 const res = await postHandler(userState.tokens!.accessToken!, Urls.URL_YEARS, data)
                 setSuccessMessage('تم بدأ عام جديد بنجاح')
-                router.push(`${Routes.teacherYear}/${res}`)
+                router.push(`${Routes.teacherYear}${res}`)
             } catch (error) {
                 console.log(error)
                 setErrorMessage('حدث خطاء اثناء اضاقة العام الدراسي')

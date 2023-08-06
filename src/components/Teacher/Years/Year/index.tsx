@@ -1,11 +1,11 @@
 import useStyle from './styles'
 import { IStyle } from 'styles/IStyle'
 import { useTheme } from 'context/ThemeContext'
+import { convertDateToShortDate } from 'utils/converters'
 
 // MUI
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
-import { convertDateToShortDate } from 'utils/converters'
 
 type Props = {
     data: any
@@ -230,31 +230,14 @@ const YearC: React.FC<Props> = ({ data, actions }) => {
                                                             >
                                                                 بداية الفصل الدراسي
                                                             </Typography>
-                                                            {semster.startDate ? (
-                                                                <Typography
-                                                                    variant="h3"
-                                                                    color={'primary'}
-                                                                >
-                                                                    {convertDateToShortDate(
-                                                                        semster.startDate,
-                                                                    )}
-                                                                </Typography>
-                                                            ) : (
-                                                                <Typography
-                                                                    variant="h3"
-                                                                    color={mainColors.success.main}
-                                                                    sx={{
-                                                                        textDecoration: 'underline',
-                                                                    }}
-                                                                    onClick={() =>
-                                                                        actions.openSemester(
-                                                                            semster.id,
-                                                                        )
-                                                                    }
-                                                                >
-                                                                    ابدأ الان
-                                                                </Typography>
-                                                            )}
+                                                            <Typography
+                                                                variant="h3"
+                                                                color={'primary'}
+                                                            >
+                                                                {convertDateToShortDate(
+                                                                    semster.startDate,
+                                                                )}
+                                                            </Typography>
                                                         </Box>
                                                         <Box>
                                                             <Typography
@@ -265,21 +248,14 @@ const YearC: React.FC<Props> = ({ data, actions }) => {
                                                             >
                                                                 نهاية الفصل الدراسي
                                                             </Typography>
-                                                            {semster.endDate ? (
-                                                                <Typography
-                                                                    variant="h3"
-                                                                    color={'primary'}
-                                                                >
-                                                                    {semster.endDate}
-                                                                </Typography>
-                                                            ) : (
-                                                                <Typography
-                                                                    variant="h3"
-                                                                    color={'primary'}
-                                                                >
-                                                                    لم يتحدد بعد
-                                                                </Typography>
-                                                            )}
+                                                            <Typography
+                                                                variant="h3"
+                                                                color={'primary'}
+                                                            >
+                                                                {convertDateToShortDate(
+                                                                    semster.endDate,
+                                                                )}
+                                                            </Typography>
                                                         </Box>
                                                     </Box>
                                                 </Box>

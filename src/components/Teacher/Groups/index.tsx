@@ -55,8 +55,8 @@ const GroupsC: React.FC<Props> = ({ data }) => {
 
     return (
         <Box sx={style.container}>
-            {data.length > 0 ? (
-                data.map((item: any) => (
+            {data.openGroupsData.length > 0 ? (
+                data.openGroupsData.map((item: any) => (
                     <Link key={item.id} href={`${Routes.teacherGroup}${item.id}`}>
                         <Box sx={style.card}>
                             <Box sx={style.content}>

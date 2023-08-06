@@ -3,8 +3,6 @@ export class Routes {
 
     static home = '/'
 
-    static dashboard = '/dashboard/'
-
     static teacherLogin = '/teacher-login/'
 
     // =========================| End General |================================ //
@@ -14,11 +12,10 @@ export class Routes {
     // Home
     static teacherHome = '/teacher/home/'
 
-
     // Profile
     static teacherProfile = '/teacher/profile/'
+
     static teacherEditProfile = '/teacher/profile/edit-profile'
-    
 
     // Years
     static teacherYears = '/teacher/years/'
@@ -68,12 +65,4 @@ export class Routes {
     static teacherCorrectExam = '/teacher/exams/correct-exam/'
 
     // =========================| End Teacher |================================ //
-
-    // =========================| Start Student |================================ //
-
-    // =========================| End Student |================================ //
-
-    // =========================| Start Dashboard |================================ //
-
-    // =========================| End Dashboard |================================ //
 }

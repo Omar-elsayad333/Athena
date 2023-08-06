@@ -70,7 +70,7 @@ const MyTextArea: React.FC<Props> = ({
             />
             <Box sx={style.icon} component="label">
                 <Typography variant="h6" color={'primary'} fontWeight={700}>
-                    {`${max} / ${value.length}`}
+                    {`${max} / ${value ? value.length : 0}`}
                 </Typography>
             </Box>
             <InputError content={helperText} type="error" />

@@ -22,7 +22,8 @@ const useAddGroup = () => {
     const { setSuccessMessage, setWarningMessage, setErrorMessage } = useAlert()
     const [requiredData, setRequiredData] = useState<any>('')
     const [name, setName] = useState<InputProps>(inputInitialValues)
-    const [yearsData, setYearsData] = useState<any>([])
+    const [openYearsData, setOpenYearsData] = useState<any>([])
+    const [preopenYearsData, setPreopenYearsData] = useState<any>([])
     const [headquartersData, setHeadquartersData] = useState<any>([])
     const [selectedYear, setSelectedYear] = useState<DropMenuProps>(dropMenuInitialValues)
     const [selectedHeadquarter, setSelectedHeadquarter] =
@@ -36,6 +37,10 @@ const useAddGroup = () => {
         warningDialogInitialValues,
     )
     const [daysDialog, setDaysDialog] = useState<Boolean>(false)
+    const yearsData = [
+        { id: '1', name: 'عام دراسي' },
+        { id: '2', name: 'عام تجهيزي' },
+    ]
 
     // Call function to get required data if the user is authorized
     useEffect(() => {
@@ -55,7 +60,10 @@ const useAddGroup = () => {
     // Filter classrooms data according to the selected year
     useEffect(() => {
         if (selectedYear.id) {
-            updateLevels()
+            setSelectedLevel(dropMenuInitialValues)
+            selectedYear.value === 'عام دراسي'
+                ? setLevelsData(openYearsData)
+                : setLevelsData(preopenYearsData)
         }
     }, [selectedYear])
 
@@ -75,13 +83,24 @@ const useAddGroup = () => {
 
     // Update years data
     const updateYearsData = () => {
-        if (yearsData.length == 0) {
-            for (let year of requiredData.yearLevels) {
-                setYearsData((yearsData: any) => [
+        if (openYearsData.length === 0) {
+            for (let year of requiredData.open) {
+                setOpenYearsData((yearsData: any) => [
                     ...yearsData,
                     {
-                        id: year.id,
-                        name: `${year.start} / ${year.end}`,
+                        id: year.teacherCourseLevelYearId,
+                        name: year.levelName,
+                    },
+                ])
+            }
+        }
+        if (preopenYearsData.length === 0) {
+            for (let year of requiredData.preopen) {
+                setPreopenYearsData((yearsData: any) => [
+                    ...yearsData,
+                    {
+                        id: year.teacherCourseLevelYearId,
+                        name: year.levelName,
                     },
                 ])
             }
@@ -91,25 +110,6 @@ const useAddGroup = () => {
     // Update headquarters data
     const updateHeadquartersData = () => {
         setHeadquartersData(requiredData.headQuaertes)
-    }
-
-    // Filter levels data according to the selected year
-    const updateLevels = () => {
-        loopInYears: for (let year of requiredData.yearLevels) {
-            if (year.id == selectedYear.id) {
-                setLevelsData([])
-                setSelectedLevel(dropMenuInitialValues)
-                loopInLeveles: for (let level of year.levels) {
-                    setLevelsData((levels: any) => [
-                        ...levels,
-                        {
-                            id: level.teacherCourseLevelYearId,
-                            name: level.levelName,
-                        },
-                    ])
-                }
-            }
-        }
     }
 
     // Get group name from user
@@ -325,6 +325,8 @@ const useAddGroup = () => {
     return {
         data: {
             yearsData,
+            openYearsData,
+            preopenYearsData,
             headquartersData,
             levelsData,
         },
