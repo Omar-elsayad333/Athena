@@ -4,9 +4,11 @@ import { useUser } from 'context/userContext'
 import useRequestsHandlers from 'hooks/useRequestsHandlers'
 import Urls from 'constant/urls'
 import { DropMenuProps, dropMenuInitialValues } from 'interfaces/shared/input'
+import { useAlert } from 'context/AlertContext'
 
 const useStudents = () => {
     const { userState } = useUser()
+    const { setErrorMessage } = useAlert()
     const { loading, getHandler } = useRequestsHandlers()
     const [tableState, setTableState] = useState<boolean>(false)
     const [originalYears, setOriginalYears] = useState<any[]>([])
@@ -50,20 +52,6 @@ const useStudents = () => {
         setTableState(false)
     }
 
-    // Update years data to show it to user
-    const updateYearsData = (data: any) => {
-        if (years.length == 0) {
-            const newYears = []
-            for (let year of data) {
-                newYears.push({
-                    id: year.id,
-                    name: `${year.start} / ${year.end}`,
-                })
-            }
-            setYears(newYears)
-        }
-    }
-
     // Call api to get years data
     const getYearsData = async () => {
         try {
@@ -71,11 +59,10 @@ const useStudents = () => {
                 userState.tokens!.accessToken!,
                 Urls.URL_TEACHERSTUDENTS,
             )
-            console.log(res)
             setOriginalYears(res)
-            updateYearsData(res)
         } catch (error) {
             console.log(error)
+            setErrorMessage('حدث خطاء')
         }
     }
 

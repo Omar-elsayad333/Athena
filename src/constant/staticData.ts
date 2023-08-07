@@ -1,12 +1,12 @@
 export const yearsTypes: any[] = [
     {
         id: 1,
-        name: 'عام دراسي',
+        name: 'العام الدراسي الحالي',
         value: 'open',
     },
     {
         id: 2,
-        name: 'عام تجهيزي',
+        name: 'العام الدراسي القادم',
         value: 'preopen',
     },
 ]
