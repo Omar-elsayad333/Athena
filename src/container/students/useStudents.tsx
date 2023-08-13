@@ -1,78 +1,99 @@
-// import { useRouter } from 'next/router';
+import Urls from 'constant/urls'
+import useShard from 'hooks/useShared'
 import { useState, useEffect } from 'react'
 import { useUser } from 'context/userContext'
-import useRequestsHandlers from 'hooks/useRequestsHandlers'
-import Urls from 'constant/urls'
-import { DropMenuProps, dropMenuInitialValues } from 'interfaces/shared/input'
 import { useAlert } from 'context/AlertContext'
+import useRequestsHandlers from 'hooks/useRequestsHandlers'
+import { DropMenuProps, dropMenuInitialValues } from 'interfaces/shared/input'
 
 const useStudents = () => {
     const { userState } = useUser()
     const { setErrorMessage } = useAlert()
+    const { useSearchHandler } = useShard()
     const { loading, getHandler } = useRequestsHandlers()
+
+    const [studentsData, setStudentsData] = useState<any>('')
+    const [filterdData, setFilterdData] = useState<any[]>([])
+
+    const [openLevels, setOpenLevels] = useState<any[]>([])
+    const [preopenLevels, setPreopenLevels] = useState<any[]>([])
+
     const [tableState, setTableState] = useState<boolean>(false)
-    const [originalYears, setOriginalYears] = useState<any[]>([])
-    const [years, setYears] = useState<any[]>([])
-    const [selectedYear, setSelectedYear] = useState<DropMenuProps>(dropMenuInitialValues)
-    const [levels, setLevels] = useState<any[]>([])
+    const [isPreOpenYear, setIsPreOpenYear] = useState<boolean>(false)
+
     const [selectedLevel, setSelectedLevel] = useState<DropMenuProps>(dropMenuInitialValues)
-    const [students, setStudents] = useState<any[]>([])
 
     // Get years data if the user is authorized
     useEffect(() => {
         if (userState.tokens!.accessToken) {
-            getYearsData()
+            getStudentsData()
         }
     }, [userState.tokens!.accessToken])
 
-    // Update the levels data and students data if the user selected new year
+    // Call updateStudents function is selected level changed
     useEffect(() => {
-        if (selectedYear.id) {
-            getAllStudents()
-        }
-    }, [selectedYear])
-
-    useEffect(() => {
-        if (selectedLevel.id) {
-            if (selectedLevel.id === 'all') {
-                getAllStudents()
-            } else {
-                updateStudents()
-            }
-        }
+        updateStudents()
     }, [selectedLevel])
 
-    // Show table and hide cards
-    const showTable = () => {
-        setTableState(true)
-    }
-
-    // Hide table and show cards
-    const hideTable = () => {
-        setTableState(false)
-    }
-
-    // Call api to get years data
-    const getYearsData = async () => {
+    // Call api to get Students data
+    const getStudentsData = async () => {
         try {
             const res: any = await getHandler(
                 userState.tokens!.accessToken!,
                 Urls.URL_TEACHERSTUDENTS,
             )
-            setOriginalYears(res)
+            adjustData(res)
+            setSelectedLevel({
+                ...selectedLevel,
+                value: 'all',
+                id: 'all',
+            })
         } catch (error) {
             console.log(error)
             setErrorMessage('حدث خطاء')
         }
     }
 
-    // Get the selected year from user
-    const selectedYearHandler = (year: any) => {
-        setSelectedYear({
-            value: year.name,
-            id: year.id,
-            error: false,
-            helperText: '',
+    // Adjust data for eazy useage
+    const adjustData = (res: any) => {
+        setOpenLevels([])
+        setFilterdData([])
+        setStudentsData([])
+        setPreopenLevels([])
+
+        res.preopen.map((level: any) => {
+            setStudentsData((studentsData: any) => ({
+                ...studentsData,
+                preopenStudents: [...level.students],
+            }))
+            setPreopenLevels((preopenLevels: any) => [
+                ...preopenLevels,
+                { name: level.levelName, students: level.students },
+            ])
+        })
+        res.open.map((level: any) => {
+            setStudentsData((studentsData: any) => ({
+                ...studentsData,
+                openStudents: [...level.students],
+            }))
+            setFilterdData((filterdData: any) => [...filterdData, ...level.students])
+            setOpenLevels((openLevels: any) => [
+                ...openLevels,
+                { name: level.levelName, students: level.students },
+            ])
+        })
+    }
+
+    // Handle selected year type from user
+    const selectedYearHandler = (yearState: any) => {
+        setIsPreOpenYear(yearState)
+        yearState
+            ? setFilterdData(studentsData?.preopenStudents)
+            : setFilterdData(studentsData?.openStudents)
+        setSelectedLevel({
+            ...selectedLevel,
+            value: 'all',
+            id: 'all',
         })
     }
 
@@ -86,68 +107,64 @@ const useStudents = () => {
         })
     }
 
-    // Update and get all students data
-    const getAllStudents = () => {
-        setLevels([])
-        setStudents([])
-        const index = originalYears.findIndex((x: any) => x.id == selectedYear.id)
-
-        if (index !== -1) {
-            loopForLevels: for (let level of originalYears[index].levels) {
-                setLevels((levels) => [
-                    ...levels,
-                    {
-                        id: level.teacherCourseLevelId,
-                        name: level.levelName,
-                    },
-                ])
-                loopForStudents: for (let student of level.students) {
-                    setStudents((students) => [...students, student])
-                }
+    // Update the students according to the selected level
+    const updateStudents = () => {
+        if (selectedLevel.value) {
+            setFilterdData([])
+            if (!isPreOpenYear) {
+                selectedLevel.value === 'all'
+                    ? setFilterdData(studentsData?.openStudents)
+                    : openLevels.map((level: any) => {
+                          if (level.name === selectedLevel.value) {
+                              setFilterdData(level.students)
+                          }
+                      })
+            } else {
+                selectedLevel.value === 'all'
+                    ? setFilterdData(studentsData?.preopenStudents)
+                    : preopenLevels.map((level: any) => {
+                          if (level.name === selectedLevel.value) {
+                              setFilterdData(level.students)
+                              console.log('klasjdf')
+                          }
+                      })
             }
         }
     }
 
-    // Update the students according to the selected level
-    const updateStudents = () => {
-        if (selectedLevel.id) {
-            setStudents([])
+    // Get search value from user
+    const searchHandler = (searchValue: string) => {
+        // useSearchHandler(searchValue, standardData, setFilterdData)
+    }
 
-            // get the selected year index
-            const yearIndex = originalYears.findIndex((x: any) => x.id == selectedYear.id)
+    // Show table and hide cards
+    const showTable = () => {
+        setTableState(true)
+    }
 
-            if (yearIndex !== -1) {
-                // get the selected level index
-                const levelIndex = originalYears[yearIndex].levels.findIndex(
-                    (x: any) => x.teacherCourseLevelId == selectedLevel.id,
-                )
-
-                if (levelIndex !== -1) {
-                    loopForStudents: for (let student of originalYears[yearIndex].levels[levelIndex]
-                        .students) {
-                        setStudents((students) => [...students, student])
-                    }
-                }
-            }
-        }
+    // Hide table and show cards
+    const hideTable = () => {
+        setTableState(false)
     }
 
     return {
         data: {
-            years,
-            levels,
-            students,
+            openLevels,
+            preopenLevels,
+            filterdData,
         },
         states: {
             loading,
             tableState,
-            selectedYear,
+            selectedLevel,
+            isPreOpenYear,
         },
         actions: {
             showTable,
             hideTable,
             selectedYearHandler,
             selectedLevelHandler,
+            searchHandler,
         },
     }
 }

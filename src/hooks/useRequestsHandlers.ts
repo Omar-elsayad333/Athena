@@ -7,7 +7,7 @@ const useRequestsHandlers = () => {
     const postHandler = async (token: string, path: string, data: any, noLoading?: boolean) => {
         const axiosInstanceWithToken = createAxiosInstance(token)
         try {
-            !noLoading && setLoading(true) 
+            !noLoading && setLoading(true)
             const response = await axiosInstanceWithToken.post(path, data)
             return response.data
         } catch (error: any) {
@@ -17,7 +17,13 @@ const useRequestsHandlers = () => {
         }
     }
 
-    const postHandlerById = async (id: any, token: string, path: string, data?: any, noLoading?: boolean) => {
+    const postHandlerById = async (
+        id: any,
+        token: string,
+        path: string,
+        data?: any,
+        noLoading?: boolean,
+    ) => {
         const axiosInstanceWithToken = createAxiosInstance(token)
         try {
             !noLoading && setLoading(true)
@@ -81,7 +87,13 @@ const useRequestsHandlers = () => {
         }
     }
 
-    const putHandlerById = async (id: any, token: string, path: string, data?: any, noLoading?: boolean) => {
+    const putHandlerById = async (
+        id: any,
+        token: string,
+        path: string,
+        data?: any,
+        noLoading?: boolean,
+    ) => {
         const axiosInstanceWithToken = createAxiosInstance(token)
         try {
             !noLoading && setLoading(true)

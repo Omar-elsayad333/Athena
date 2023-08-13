@@ -74,6 +74,7 @@ const useAddStudent = () => {
 
     // Call api to check if the student is exist
     const submitCode = async () => {
+        setStudentData('')
         if (studentCodeValidation()) {
             try {
                 const res: any = await getHandlerById(

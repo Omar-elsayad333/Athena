@@ -8,12 +8,12 @@ import { useTheme } from 'context/ThemeContext'
 import Loading from 'components/Loading/Loading'
 import AlertNotify from 'components/AlertNotify'
 import PageHead from 'components/Shared/PageHead'
-import ExamC from 'components/Teacher/Exams/exam'
 import MyIconButton from 'components/MyIconButton'
 import PageTitle from 'components/Shared/PageTitle'
 import ThemeSwitcher from 'components/ThemeSwitcher'
 import PageFooter from 'components/Shared/PageFooter'
 import DesktopNavbar from 'components/Layout/DesktopNavbar'
+import ExamC from 'components/Teacher/Exams/ShowAndEditExam'
 
 // MUI
 import Box from '@mui/material/Box'
@@ -57,7 +57,7 @@ const Exam: NextPage = () => {
 
     return (
         <Box sx={style.root}>
-            <PageHead title={data.examDetails.name} />
+            <PageHead title={data.examData.name} />
             <DesktopNavbar
                 firstContent="الامتحانات المقررة "
                 firstPath={Routes.teacherExams}
@@ -69,7 +69,7 @@ const Exam: NextPage = () => {
             ) : (
                 <Box sx={style.container}>
                     <Box sx={style.header}>
-                        <PageTitle content={data.examDetails.name}>
+                        <PageTitle content={data.examData.name}>
                             <svg
                                 width="25"
                                 height="25"
@@ -89,7 +89,7 @@ const Exam: NextPage = () => {
                                 />
                             </svg>
                         </PageTitle>
-                        <Link href={`${Routes.teacherEditExam}${data.examDetails.id}`}>
+                        <Link href={`${Routes.teacherEditExam}${data.examData.id}`}>
                             <a>
                                 <MyIconButton
                                     content="تعديل"

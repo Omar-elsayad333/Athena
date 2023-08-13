@@ -2,13 +2,14 @@ import { IStyle } from 'styles/IStyle'
 import StudentCard from './StudentCard'
 import MyTable from 'components/MyTable'
 import FilterWedgit from '../../FilterWedgit'
-import MySelect from 'components/MySelect'
 import { useTheme } from 'context/ThemeContext'
-import { studentStudentTable } from 'content/tableHeaders'
 import MySearchInput from 'components/MySearchInput'
+import { studentStudentTable } from 'content/tableHeaders'
 
 // MUI
 import Box from '@mui/material/Box'
+import Switch from '@mui/material/Switch'
+import FormControlLabel from '@mui/material/FormControlLabel'
 
 type Props = {
     data: any
@@ -38,26 +39,45 @@ const StudentsC: React.FC<Props> = ({ data, states, actions }) => {
             alignItems: 'center',
             gap: '11px',
         },
+        switchStyles: {
+            marginLeft: '20px',
+            '.MuiTypography-root': {
+                color: mainColors.primary.main,
+                fontSize: '16px',
+                fontWeight: '700',
+            },
+        },
     }
 
     return (
         <Box sx={style.container}>
-            <MySearchInput onChange={() => {}} placeholder="هل تبحث عن طالب معين ؟" />
-            {states.selectedYear.value && (
+            <MySearchInput placeholder="هل تبحث عن طالب معين ؟" onChange={actions.searchHandler} />
+            {data.openLevels && data.preopenLevels && (
                 <Box sx={style.controles}>
                     <FilterWedgit
-                        filters={data.levels}
+                        selected={states.selectedLevel}
+                        filters={states.isPreOpenYear ? data.preopenLevels : data.openLevels}
                         allFilter="جميع الطلاب"
                         getSelected={actions.selectedLevelHandler}
                     />
                     <Box sx={style.showActionsContainer}>
+                        <FormControlLabel
+                            sx={style.switchStyles}
+                            label="العام الدراسي القادم"
+                            control={
+                                <Switch
+                                    checked={states.isPreOpenYear}
+                                    onChange={(e) => actions.selectedYearHandler(e.target.checked)}
+                                />
+                            }
+                        />
                         <svg
-                            onClick={() => actions.showTable()}
                             width="37"
                             height="37"
                             viewBox="0 0 37 37"
                             fill={mainColors.primary.main}
                             stroke={mainColors.primary.main}
+                            onClick={() => actions.showTable()}
                             xmlns="http://www.w3.org/2000/svg"
                         >
                             <rect
@@ -83,12 +103,12 @@ const StudentsC: React.FC<Props> = ({ data, states, actions }) => {
                             />
                         </svg>
                         <svg
-                            onClick={() => actions.hideTable()}
                             width="37"
                             height="37"
                             viewBox="0 0 37 37"
                             fill={mainColors.primary.main}
                             stroke={mainColors.primary.main}
+                            onClick={() => actions.hideTable()}
                             xmlns="http://www.w3.org/2000/svg"
                         >
                             <rect
@@ -141,9 +161,9 @@ const StudentsC: React.FC<Props> = ({ data, states, actions }) => {
                 </Box>
             )}
             {states.tableState ? (
-                <MyTable headerData={studentStudentTable} bodyData={data.students} />
+                <MyTable headerData={studentStudentTable} bodyData={data.filterdData} />
             ) : (
-                <StudentCard data={data.students} />
+                <StudentCard data={data.filterdData} />
             )}
         </Box>
     )

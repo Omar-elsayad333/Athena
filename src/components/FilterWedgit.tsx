@@ -1,21 +1,21 @@
-import { IStyle } from "styles/IStyle";
-import { useTheme } from "context/ThemeContext";
+import { IStyle } from 'styles/IStyle'
+import { useTheme } from 'context/ThemeContext'
 
 // MUI
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
 
 type Props = {
-    allFilter?: string;
-    filters: any[];
-    getSelected: Function;
+    allFilter?: string
+    filters: any[]
+    getSelected: Function
+    selected: any
 }
 
-const FilterWedgit: React.FC<Props> = ({ filters, getSelected, allFilter = '' }) => {
-
-    const { mainColors } = useTheme()
+const FilterWedgit: React.FC<Props> = ({ selected, filters, getSelected, allFilter = '' }) => {
+    const { mainColors, darkMode } = useTheme()
     const style: IStyle = {
-        filterContainer: {   
+        filterContainer: {
             width: 'fit-content',
             maxWidth: '100%',
             padding: '11px 11px',
@@ -38,68 +38,65 @@ const FilterWedgit: React.FC<Props> = ({ filters, getSelected, allFilter = '' })
             borderRadius: '7px',
             background: mainColors.backgroundColor.main,
             border: '1px solid #B6D5F0',
-        }
-    }
-
-    const selectFilter = (event: any) => {
-        const filters = Array.from(document.getElementsByClassName('filter') as HTMLCollectionOf<HTMLElement>)
-        filters.forEach((element) => {
-            element.style.background = mainColors.backgroundColor.main;
-            element.style.boxShadow = 'none';
-        })
-        event.currentTarget.style.background = mainColors.linerGradient.primary
-        event.currentTarget.style.boxShadow = mainColors.shadow.main
+        },
     }
 
     return (
         <Box sx={style.filterContainer}>
-            {
-                allFilter && 
+            {allFilter && (
                 <Box
                     sx={style.option}
-                    className={'filter'}  
-                    onClick={(event) => {
-                        getSelected(
-                            {
-                                name: 'all', 
-                                id: 'all'
-                            }
-                        );
-                        selectFilter(event)
+                    className={`filter ${
+                        selected.value === 'all'
+                            ? darkMode
+                                ? 'darkSelectedTable'
+                                : 'selectedTable'
+                            : ''
+                    }`}
+                    onClick={() => {
+                        getSelected({
+                            name: 'all',
+                            id: 'all',
+                        })
                     }}
                 >
-                    <Typography fontWeight={700} fontSize='h4' color={mainColors.primary.main}>
+                    <Typography fontWeight={700} fontSize="h4" color={mainColors.primary.main}>
                         {allFilter}
                     </Typography>
                 </Box>
-            }
-            {
-                filters.length > 0 &&
+            )}
+            {filters.length > 0 &&
                 filters.map((item: any, index: number) => {
                     return (
-                        <Box 
-                            sx={style.option} 
-                            className={'filter'}  
-                            key={index} 
-                            onClick={(event) => {
-                                getSelected(
-                                    {
-                                        name: item.name, 
-                                        id: item?.id
-                                    }
-                                );
-                                selectFilter(event)
+                        <Box
+                            sx={style.option}
+                            className={`filter ${
+                                selected.value === item.name
+                                    ? darkMode
+                                        ? 'darkSelectedTable'
+                                        : 'selectedTable'
+                                    : ''
+                            }`}
+                            key={index}
+                            onClick={() => {
+                                getSelected({
+                                    name: item.name,
+                                    id: item.id ? item.id : index,
+                                })
                             }}
                         >
-                            <Typography fontWeight={700} fontSize='h4' color={mainColors.primary.main}>
+                            <Typography
+                                fontWeight={700}
+                                fontSize="h4"
+                                color={mainColors.primary.main}
+                            >
                                 {item.name}
                             </Typography>
                         </Box>
                     )
-                })
-            }
+                })}
         </Box>
-    );
+    )
 }
- 
-export default FilterWedgit;
+
+export default FilterWedgit
