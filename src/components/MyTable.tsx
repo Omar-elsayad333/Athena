@@ -84,69 +84,37 @@ const MyTable: React.FC<Props> = ({ headerData, bodyData }) => {
                 </TableHead>
                 <TableBody>
                     {bodyData.length > 0 &&
-                        headerData.map((headerItem: any) => {
-                            bodyData.map((item: any, index: number) => {
-                                Object.keys(item).map((cell: any, keyIndex: number) => {
-                                    if (cell === headerItem.name) {
+                        bodyData.map((bodyItem: any, index: number) => (
+                            <TableRow key={index}>
+                                {Object.keys(bodyItem).map((cell: any, keyIndex: number) => {
+                                    console.log(cell)
+                                    if (cell === 'imagePath') {
                                         return (
-                                            <TableRow key={index}>
-                                                <TableCell align="right" key={keyIndex}>
-                                                    {item[cell]}
-                                                </TableCell>
-                                            </TableRow>
-                                        )
-                                    }
-                                })
-                            })
-                        })}
-                </TableBody>
-                {/* {headerData.find((item: any) => item.name === 'image') ? (
-                    <TableBody>
-                        {bodyData.length > 0 &&
-                            bodyData.map((item: any, index: number) => (
-                                <TableRow key={index}>
-                                    {Object.keys(item).map((cell: any, index: number) => (
-                                        <TableCell align="right" key={index}>
-                                            {index != 0 ? (
-                                                item[cell]
-                                            ) : (
+                                            <TableCell align="right" key={index}>
                                                 <Box
                                                     sx={{
-                                                        width: '40px',
-                                                        height: '40px',
+                                                        width: '60px',
+                                                        height: '60px',
                                                         borderRadius: '50px',
                                                         backgroundSize: 'cover',
                                                         backgroundPosition: 'center',
                                                         border: `solid 1px ${mainColors.paper.border}`,
-                                                        backgroundImage: `url('${Urls.URL_MAIN}/${item[cell]}')`,
+                                                        backgroundImage: `url('${Urls.URL_MAIN}/${bodyItem[cell]}')`,
                                                     }}
                                                 />
-                                            )}
-                                        </TableCell>
-                                    ))}
-                                </TableRow>
-                            ))}
-                    </TableBody>
-                ) : (
-                    <TableBody>
-                        {bodyData.length > 0 &&
-                            headerData.map((headerItem: any) => {
-                                bodyData.map((item: any, index: number) => {
-                                    Object.keys(item).map((cell: any, keyIndex: number) => {
-                                        if (cell === headerItem.name) {
-                                            return (
-                                                <TableRow key={index}>
-                                                    <TableCell align="right" key={keyIndex}>
-                                                        {item[cell]}
-                                                    </TableCell>
-                                                </TableRow>
-                                            )
-                                        }
-                                    })
-                                })
-                            })}
-                    </TableBody>
-                )} */}
+                                            </TableCell>
+                                        )
+                                    } else if (cell !== 'id' && cell !== 'middleName') {
+                                        return (
+                                            <TableCell align="right" key={keyIndex}>
+                                                {bodyItem[cell]}
+                                            </TableCell>
+                                        )
+                                    }
+                                })}
+                            </TableRow>
+                        ))}
+                </TableBody>
             </Table>
         </Box>
     )
