@@ -95,19 +95,6 @@ const CreateExam: React.FC<Props> = ({ data, states, actions }) => {
                     </Box>
                     <Box sx={style.inputWithLabel}>
                         <Typography variant="h3" fontWeight={700} color={mainColors.title.main}>
-                            العام الدراسي:-
-                        </Typography>
-                        <MySelect
-                            data={data.yearsData}
-                            placeholder="حدد العام الدراسي"
-                            value={states.selectedYear.value}
-                            error={states.selectedYear.error}
-                            getSelected={actions.selectedYearHandler}
-                            helperText={states.selectedYear.helperText}
-                        />
-                    </Box>
-                    <Box sx={style.inputWithLabel}>
-                        <Typography variant="h3" fontWeight={700} color={mainColors.title.main}>
                             الصف الدراسي:-
                         </Typography>
                         <MySelect
@@ -117,7 +104,6 @@ const CreateExam: React.FC<Props> = ({ data, states, actions }) => {
                             error={states.selectedLevel.error}
                             getSelected={actions.selectedLevelHandler}
                             helperText={states.selectedLevel.helperText}
-                            disabled={states.selectedYear.id ? false : true}
                         />
                     </Box>
                     <Box sx={style.inputWithLabel}>

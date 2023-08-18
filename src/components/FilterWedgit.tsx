@@ -9,7 +9,7 @@ type Props = {
     allFilter?: string
     filters: any[]
     getSelected: Function
-    selected: any
+    selected?: any
 }
 
 const FilterWedgit: React.FC<Props> = ({ selected, filters, getSelected, allFilter = '' }) => {
@@ -47,7 +47,7 @@ const FilterWedgit: React.FC<Props> = ({ selected, filters, getSelected, allFilt
                 <Box
                     sx={style.option}
                     className={`filter ${
-                        selected.value === 'all'
+                        selected?.value === 'all'
                             ? darkMode
                                 ? 'darkSelectedTable'
                                 : 'selectedTable'
@@ -71,7 +71,7 @@ const FilterWedgit: React.FC<Props> = ({ selected, filters, getSelected, allFilt
                         <Box
                             sx={style.option}
                             className={`filter ${
-                                selected.value === item.name
+                                selected?.value === item.name
                                     ? darkMode
                                         ? 'darkSelectedTable'
                                         : 'selectedTable'

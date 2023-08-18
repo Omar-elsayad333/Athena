@@ -134,7 +134,12 @@ const useStudents = () => {
 
     // Get search value from user
     const searchHandler = (searchValue: string) => {
-        // useSearchHandler(searchValue, standardData, setFilterdData)
+        useSearchHandler(
+            'fullName',
+            searchValue,
+            isPreOpenYear ? studentsData.preopenStudents : studentsData.openStudents,
+            setFilterdData,
+        )
     }
 
     // Show table and hide cards

@@ -31,11 +31,8 @@ const useAddExam = () => {
     const { mainColors } = useTheme()
     const { setErrorMessage, setSuccessMessage } = useAlert()
     const { loading, getHandler, getHandlerById, postHandler } = useRequestsHandlers()
-    const [requiredData, setRequiredData] = useState<any>('')
     const [examTypes, setExamTypes] = useState<any[]>([])
     const [selectedExamType, setSelectedExamType] = useState<RadioProps>(radioInitialValues)
-    const [yearsData, setYearsData] = useState<any[]>([])
-    const [selectedYear, setSelectedYear] = useState<DropMenuProps>(dropMenuInitialValues)
     const [levelsData, setLevelsData] = useState<any[]>([])
     const [selectedLevel, setSelectedLevel] = useState<DropMenuProps>(dropMenuInitialValues)
     const [examName, setExamName] = useState<InputProps>(inputInitialValues)
@@ -58,21 +55,6 @@ const useAddExam = () => {
         }
     }, [userState.tokens!.accessToken])
 
-    // Update years data if there is required data
-    useEffect(() => {
-        if (requiredData) {
-            updateYearsData()
-            updateExamType()
-        }
-    }, [requiredData])
-
-    // Update levels data if there is selected year
-    useEffect(() => {
-        if (selectedYear.id) {
-            updateLevelsData()
-        }
-    }, [selectedYear])
-
     // Get required data if the user is authorized
     useEffect(() => {
         if (userState.tokens!.accessToken && selectedLevel.id) {
@@ -87,7 +69,8 @@ const useAddExam = () => {
                 userState.tokens!.accessToken!,
                 Urls.URL_TEACHER_EXAMS_REQUIRED,
             )
-            setRequiredData(res)
+            setLevelsData(res.levels)
+            updateExamType(res)
         } catch (error) {
             console.log(error)
         }
@@ -100,6 +83,7 @@ const useAddExam = () => {
                 selectedLevel.id,
                 userState.tokens!.accessToken!,
                 Urls.URL_TEACHER_EXAMS_GROUPS,
+                true,
             )
             setGroupsData(res)
         } catch (error) {
@@ -107,28 +91,13 @@ const useAddExam = () => {
         }
     }
 
-    // Update years data
-    const updateYearsData = () => {
-        if (yearsData.length == 0) {
-            for (let year of requiredData.years) {
-                setYearsData((yearsData) => [
-                    ...yearsData,
-                    {
-                        id: year.id,
-                        name: `${year.start} / ${year.end}`,
-                    },
-                ])
-            }
-        }
-    }
-
     // Update exam types data
-    const updateExamType = () => {
+    const updateExamType = (data: any) => {
         if (examTypes.length == 0) {
-            setExamTypes(requiredData.examTypes)
+            setExamTypes(data.examTypes)
             setSelectedExamType({
-                id: requiredData.examTypes[0]['id'],
-                value: requiredData.examTypes[0]['name'],
+                id: data.examTypes[0]['id'],
+                value: data.examTypes[0]['name'],
                 error: false,
                 helperText: '',
             })
@@ -143,40 +112,6 @@ const useAddExam = () => {
             error: false,
             helperText: '',
         })
-    }
-
-    // Get the selected year from user
-    const selectedYearHandler = (year: any) => {
-        setSelectedYear({
-            id: year.id,
-            value: year.name,
-            error: false,
-            helperText: '',
-        })
-    }
-
-    // Update levels data
-    const updateLevelsData = () => {
-        const yearIndex = requiredData.years.findIndex((x: any) => x.id == selectedYear.id)
-
-        if (yearIndex !== -1) {
-            setLevelsData([])
-            setSelectedLevel({
-                id: '',
-                value: '',
-                error: false,
-                helperText: '',
-            })
-            for (let level of requiredData.years[yearIndex].levels) {
-                setLevelsData((levelsData) => [
-                    ...levelsData,
-                    {
-                        id: level.teacherCourseLevelYearId,
-                        name: level.levelName,
-                    },
-                ])
-            }
-        }
     }
 
     // Get the selected level from user
@@ -281,11 +216,6 @@ const useAddExam = () => {
         if (examName.length == 0) {
             state = false
             setExamName({ ...examName, error: true, helperText: 'يجب ادخال اسم الأمتحان' })
-        }
-
-        if (!selectedYear.id) {
-            state = false
-            setSelectedYear({ ...selectedYear, error: true, helperText: 'يجب أختيار عام دراسي' })
         }
 
         if (!selectedLevel.id) {
@@ -850,7 +780,6 @@ const useAddExam = () => {
 
     return {
         data: {
-            yearsData,
             levelsData,
             examTypes,
             sections,
@@ -859,7 +788,6 @@ const useAddExam = () => {
         states: {
             loading,
             selectedExamType,
-            selectedYear,
             selectedLevel,
             examName,
             examStartDate,
@@ -872,7 +800,6 @@ const useAddExam = () => {
             spcialExam,
         },
         actions: {
-            selectedYearHandler,
             selectedLevelHandler,
             examNameHandler,
             examStartDateHandler,

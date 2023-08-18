@@ -82,7 +82,25 @@ const MyTable: React.FC<Props> = ({ headerData, bodyData }) => {
                         ))}
                     </TableRow>
                 </TableHead>
-                {headerData.find((item: any) => item.name === 'image') ? (
+                <TableBody>
+                    {bodyData.length > 0 &&
+                        headerData.map((headerItem: any) => {
+                            bodyData.map((item: any, index: number) => {
+                                Object.keys(item).map((cell: any, keyIndex: number) => {
+                                    if (cell === headerItem.name) {
+                                        return (
+                                            <TableRow key={index}>
+                                                <TableCell align="right" key={keyIndex}>
+                                                    {item[cell]}
+                                                </TableCell>
+                                            </TableRow>
+                                        )
+                                    }
+                                })
+                            })
+                        })}
+                </TableBody>
+                {/* {headerData.find((item: any) => item.name === 'image') ? (
                     <TableBody>
                         {bodyData.length > 0 &&
                             bodyData.map((item: any, index: number) => (
@@ -112,17 +130,23 @@ const MyTable: React.FC<Props> = ({ headerData, bodyData }) => {
                 ) : (
                     <TableBody>
                         {bodyData.length > 0 &&
-                            bodyData.map((item: any, index: number) => (
-                                <TableRow key={index}>
-                                    {Object.keys(item).map((cell: any, index: number) => (
-                                        <TableCell align="right" key={index}>
-                                            {item[cell]}
-                                        </TableCell>
-                                    ))}
-                                </TableRow>
-                            ))}
+                            headerData.map((headerItem: any) => {
+                                bodyData.map((item: any, index: number) => {
+                                    Object.keys(item).map((cell: any, keyIndex: number) => {
+                                        if (cell === headerItem.name) {
+                                            return (
+                                                <TableRow key={index}>
+                                                    <TableCell align="right" key={keyIndex}>
+                                                        {item[cell]}
+                                                    </TableCell>
+                                                </TableRow>
+                                            )
+                                        }
+                                    })
+                                })
+                            })}
                     </TableBody>
-                )}
+                )} */}
             </Table>
         </Box>
     )
