@@ -126,15 +126,6 @@ const ProfileC: React.FC<Props> = ({ data }) => {
                             </Box>
                             <Box sx={style.cardItem}>
                                 <Typography variant="h5" color={'primary'}>
-                                    المقرات
-                                </Typography>
-                                <MyChip
-                                    title={data.headQuarters}
-                                    content={data.headQuarters || 'غير متاح'}
-                                />
-                            </Box>
-                            <Box sx={style.cardItem}>
-                                <Typography variant="h5" color={'primary'}>
                                     الجنسية
                                 </Typography>
                                 <MyChip content={data.nationality || 'غير متاح'} />
