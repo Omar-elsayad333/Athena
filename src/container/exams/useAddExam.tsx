@@ -452,11 +452,8 @@ const useAddExam = () => {
         if (selectedfile.length > 0) {
             const convertedImage: any = await convertFileToBase64(fileToConvert)
             newValue!.questions[indexes.parent]!.choices![indexes.child]!.image = {
-                index: 0,
-                image: {
-                    extension: `.${selectedfile[0].type.slice(6)}`,
-                    data: convertedImage,
-                },
+                extension: `.${selectedfile[0].type.slice(6)}`,
+                data: convertedImage,
             }
             newValue!.questions[indexes.parent]!.choices![indexes.child]!.error!.error = false
             newValue!.questions[indexes.parent]!.choices![indexes.child]!.error!.helperText = ''
@@ -668,7 +665,7 @@ const useAddExam = () => {
                         if (choice.name == '') {
                             choice.name = null
                         }
-                        if (choice.image?.image.data == '') {
+                        if (choice.image?.data == '') {
                             choice.image = null
                         }
                     }
@@ -699,7 +696,7 @@ const useAddExam = () => {
             isPrime: spcialExam,
             teacherCourseLevelYearId: selectedLevel.id,
             examTypeId: selectedExamType.id,
-            groupIds: selectedGroups,
+            groupIds: ['0570f16d-65e2-4146-ec62-08db94501353'],
             sections: sections,
         }
 
@@ -733,10 +730,10 @@ const useAddExam = () => {
             setErrorMessage('يجب التأكد من ان مجموع الدرجات = درجة الأمتحان الكليه')
         }
 
-        if (selectedGroups.length == 0) {
-            state = false
-            setErrorMessage('يجب اختيار مجموعه واحده علي الأقل')
-        }
+        // if (selectedGroups.length == 0) {
+        //     state = false
+        //     setErrorMessage('يجب اختيار مجموعه واحده علي الأقل')
+        // }
 
         calcedDegree = 0
         return state

@@ -18,7 +18,7 @@ interface ImagesProps {
 interface Choice {
     index: number
     name: string | null
-    image: ImagesProps | null
+    image: ImageProps | null
     isRightChoice: boolean
     error?: ErrorProps
 }

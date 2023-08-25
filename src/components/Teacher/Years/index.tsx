@@ -89,7 +89,7 @@ const YearsC: React.FC<Props> = ({ data }) => {
             {data.yearsData &&
                 data.yearsData.open.map((item: any) => {
                     return (
-                        <Link key={item.id} href={`${Routes.teacherYear}/${item.id}`}>
+                        <Link key={item.id} href={`${Routes.teacherYear}${item.id}`}>
                             <Box sx={style.card}>
                                 <Box sx={style.content}>
                                     <Typography color="primary" variant="h4" fontWeight={700}>
@@ -109,7 +109,7 @@ const YearsC: React.FC<Props> = ({ data }) => {
             {data.yearsData &&
                 data.yearsData.preopen.map((item: any) => {
                     return (
-                        <Link key={item.id} href={`${Routes.teacherYear}/${item.id}`}>
+                        <Link key={item.id} href={`${Routes.teacherYear}${item.id}`}>
                             <Box sx={style.card}>
                                 <Box sx={style.content}>
                                     <Typography color="primary" variant="h4" fontWeight={700}>
@@ -129,7 +129,7 @@ const YearsC: React.FC<Props> = ({ data }) => {
             {data.yearsData &&
                 data.yearsData.finished.map((item: any) => {
                     return (
-                        <Link key={item.id} href={`${Routes.teacherYear}/${item.id}`}>
+                        <Link key={item.id} href={`${Routes.teacherYear}${item.id}`}>
                             <Box sx={style.card}>
                                 <Box sx={style.content}>
                                     <Typography color="primary" variant="h4" fontWeight={700}>

@@ -18,7 +18,7 @@ class Urls {
     static URL_PROFILE: string = '/api/teacher/profile'
     static URL_YEARS: string = '/api/teacher/years'
     static URL_YEARS_END: string = '/api/teacher/years/end'
-    static URL_YEARS_OPEN_SEMESTER: string = '/api/teacher/years/level/semster'
+    static URL_YEARS_LEVEL: string = '/api/teacher/years/level'
     static URL_LEVELS: string = '/api/teacher/levels'
     static URL_COURSES: string = '/api/teacher/courses'
     static URL_GROUPS: string = '/api/teacher/groups'

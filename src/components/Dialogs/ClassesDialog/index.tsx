@@ -160,8 +160,6 @@ const ClassesDialog: React.FC<Props> = ({ open, handleClose, getSelectedClasses,
                 const selectedData: any = {
                     id: '',
                     name: '',
-                    first: null,
-                    second: null,
                 }
                 selectedData['id'] = classes[i]?.getAttribute('data-id')
                 selectedData['name'] = classes[i]?.innerHTML
@@ -171,8 +169,8 @@ const ClassesDialog: React.FC<Props> = ({ open, handleClose, getSelectedClasses,
             }
         }
 
-        getSelectedClasses(selected)
         handleClose()
+        getSelectedClasses(selected)
     }
 
     return (

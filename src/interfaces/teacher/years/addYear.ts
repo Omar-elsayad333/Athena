@@ -1,5 +1,6 @@
 export interface LevelsProps {
     id: string
+    name: string
     introFee: number | string
     monthFee: number | string
     error: boolean

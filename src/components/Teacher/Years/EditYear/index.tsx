@@ -1,8 +1,6 @@
 import useStyle from './styles'
 import { IStyle } from 'styles/IStyle'
-import MySelect from 'components/MySelect'
 import { useTheme } from 'context/ThemeContext'
-import MyButton from 'components/Buttons/MyButton'
 import MyInputSmall from 'components/MyInputSmall'
 import MyIconButton from 'components/MyIconButton'
 import ClassesDialog from 'components/Dialogs/ClassesDialog'
@@ -10,8 +8,10 @@ import ClassesDialog from 'components/Dialogs/ClassesDialog'
 // MUI
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
+import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
 import ControlPointIcon from '@mui/icons-material/ControlPoint'
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 
 type Props = {
     data: any
@@ -145,16 +145,6 @@ const EditYearC: React.FC<Props> = ({ data, states, actions }) => {
 
     return (
         <Box sx={style.container}>
-            <Box sx={style.yearControlsContainer}>
-                <MySelect
-                    value={states.selectedYear.name}
-                    error={states.selectedYear.error}
-                    getSelected={actions.getSelectedYear}
-                    placeholder={states.year.name}
-                    data={data.yearsToSelect}
-                />
-                <MyButton onClick={actions.updateYear} content="تأكيد" />
-            </Box>
             <Typography sx={style.title} variant="h3" color={mainColors.title.main}>
                 تعديل الصفوف الدراسية:-
             </Typography>
@@ -193,7 +183,15 @@ const EditYearC: React.FC<Props> = ({ data, states, actions }) => {
                                 ]}
                                 className="level-card"
                             >
-                                <Typography variant="h1" color={item.error ? 'error' : 'primary'}>
+                                <Typography variant="h1" color={'primary'}>
+                                    {item.error && (
+                                        <Tooltip
+                                            sx={{ marginLeft: '10px' }}
+                                            title="تاكد من ملئ كل البيانات"
+                                        >
+                                            <InfoOutlinedIcon color={'primary'} />
+                                        </Tooltip>
+                                    )}
                                     {item.name}
                                 </Typography>
                                 <Box sx={styles.cardActionsContainer}>
@@ -201,7 +199,8 @@ const EditYearC: React.FC<Props> = ({ data, states, actions }) => {
                                         width="40"
                                         height="40"
                                         viewBox="0 0 40 40"
-                                        fill={mainColors.primary.main}
+                                        onClick={() => actions.deleteClass(item.id)}
+                                        fill={mainColors.error.main}
                                         xmlns="http://www.w3.org/2000/svg"
                                     >
                                         <path
@@ -295,11 +294,13 @@ const EditYearC: React.FC<Props> = ({ data, states, actions }) => {
                         </Box>
                     ))}
                     <Box sx={styles.actionButtons}>
-                        <Button sx={style.endYearButton} onClick={actions.endYear}>
-                            <Typography fontSize={'h4'} fontWeight={700}>
-                                إنهاء العام الدراسي
-                            </Typography>
-                        </Button>
+                        {data.yearData.yearState === 'open' && (
+                            <Button sx={style.endYearButton} onClick={actions.endYear}>
+                                <Typography fontSize={'h4'} fontWeight={700}>
+                                    إنهاء العام الدراسي
+                                </Typography>
+                            </Button>
+                        )}
                         <Button sx={style.deleteYearButton} onClick={actions.deleteYear}>
                             <Typography fontSize={'h4'} fontWeight={700}>
                                 حذف العام الدراسي
@@ -309,7 +310,7 @@ const EditYearC: React.FC<Props> = ({ data, states, actions }) => {
                 </Box>
             )}
             <ClassesDialog
-                data={data.requiredData}
+                data={data.levelsData}
                 open={states.classesDialogState}
                 handleClose={actions.classesHandleDialog}
                 getSelectedClasses={actions.handleSelectedClasses}

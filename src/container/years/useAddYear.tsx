@@ -81,10 +81,12 @@ const useAddYear = () => {
 
     // Get the selected Classes
     const selectedLevelsHandler = (selected: any) => {
+        console.log(selected)
         setSelectedLevels([])
         for (let item of selected) {
-            setSelectedLevels((oldValues: any) => [
-                ...oldValues,
+            console.log(item)
+            setSelectedLevels((selectedLevels: any) => [
+                ...selectedLevels,
                 {
                     id: item.id,
                     name: item.name,
