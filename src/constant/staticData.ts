@@ -72,6 +72,29 @@ export const examSectionsNames: any[] = [
     'السؤال العاشر',
 ]
 
+export const studentSections: any[] = [
+    {
+        id: '1',
+        name: 'بيانات الطالب',
+    },
+    {
+        id: '2',
+        name: 'سجل الحضور',
+    },
+    {
+        id: '3',
+        name: 'الامتحانات',
+    },
+    {
+        id: '4',
+        name: 'المصروفات',
+    },
+    {
+        id: '5',
+        name: 'التحذيرات',
+    },
+]
+
 interface CountryType {
     code: string
     label: string

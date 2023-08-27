@@ -1,28 +1,24 @@
-import useStyle from './styles'
+import useStyle from '../styles'
 import { IStyle } from 'styles/IStyle'
 import { useTheme } from 'context/ThemeContext'
-import MyInputSmall from 'components/MyInputSmall'
-import MyIconButton from 'components/MyIconButton'
 import MyDatePicker from 'components/MyDatePicker'
-import ClassesDialog from 'components/Dialogs/ClassesDialog'
+import MyInputSmall from 'components/MyInputSmall'
+import MyButton from 'components/Buttons/MyButton'
 
 // MUI
 import Box from '@mui/material/Box'
-import Button from '@mui/material/Button'
 import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
-import ControlPointIcon from '@mui/icons-material/ControlPoint'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
-import SelectedLevelsCard from './SelectedLevelsCard'
+import PageError from 'components/Shared/PageError'
 
 type Props = {
     data: any
-    states: any
     actions: any
-    dialogs: any
+    states: any
 }
 
-const EditYearC: React.FC<Props> = ({ data, states, actions }) => {
+const SelectedLevelsCard: React.FC<Props> = ({ data, states, actions }) => {
     const styles = useStyle()
     const { mainColors } = useTheme()
 
@@ -146,37 +142,10 @@ const EditYearC: React.FC<Props> = ({ data, states, actions }) => {
     }
 
     return (
-        <Box sx={style.container}>
-            <Typography sx={style.title} variant="h3" color={mainColors.title.main}>
-                تعديل الصفوف الدراسية:-
-            </Typography>
-            <Box sx={style.backPaper}>
-                <MyIconButton
-                    event={actions.classesHandleDialog}
-                    icon={<ControlPointIcon />}
-                    content="الصفوف الدراسية"
-                />
-                {data.levels.length > 0 && (
-                    <Box sx={style.classesList}>
-                        {data.levels.map((item: any) => {
-                            return (
-                                <Box key={item.id} sx={style.classesLabel}>
-                                    {item.name}
-                                </Box>
-                            )
-                        })}
-                    </Box>
-                )}
-            </Box>
-            {data.levels.length > 0 && (
-                <Typography sx={style.title} variant="h3" color={mainColors.title.main}>
-                    تعديل بيانات العام الدراسي:-
-                </Typography>
-            )}
-            <SelectedLevelsCard data={data} states={states} actions={actions} />
-            {data.levels.length > 0 && (
+        <>
+            {data.selectedLevels?.length > 0 && (
                 <Box sx={styles.levelsContianer} className="levels-contianer">
-                    {data.levels.map((item: any) => (
+                    {data.selectedLevels.map((item: any) => (
                         <Box sx={styles.levelContainer} key={item.id}>
                             <Box
                                 key={item.id}
@@ -265,7 +234,7 @@ const EditYearC: React.FC<Props> = ({ data, states, actions }) => {
                                                         dateValue={item.fristSemeterStartDate}
                                                         placeholder="حدد بداية الفصل الدراسي الأول"
                                                         handleDateValue={
-                                                            actions.semesterStartDateHander
+                                                            actions.newSemesterStartDateHander
                                                         }
                                                     />
                                                 </Box>
@@ -283,7 +252,7 @@ const EditYearC: React.FC<Props> = ({ data, states, actions }) => {
                                                         dateValue={item.fristSemeterEndDate}
                                                         placeholder="حدد نهاية الفصل الدراسي الأول"
                                                         handleDateValue={
-                                                            actions.semesterEndDateHander
+                                                            actions.newSemesterEndDateHander
                                                         }
                                                     />
                                                 </Box>
@@ -306,7 +275,7 @@ const EditYearC: React.FC<Props> = ({ data, states, actions }) => {
                                                         dateValue={item.secondSemeterStartDate}
                                                         placeholder="حدد بداية الفصل الدراسي الثاني"
                                                         handleDateValue={
-                                                            actions.semesterStartDateHander
+                                                            actions.newSemesterStartDateHander
                                                         }
                                                     />
                                                 </Box>
@@ -324,7 +293,7 @@ const EditYearC: React.FC<Props> = ({ data, states, actions }) => {
                                                         dateValue={item.secondSemeterEndDate}
                                                         placeholder="حدد نهاية الفصل الدراسي الثاني"
                                                         handleDateValue={
-                                                            actions.semesterEndDateHander
+                                                            actions.newSemesterEndDateHander
                                                         }
                                                     />
                                                 </Box>
@@ -352,7 +321,7 @@ const EditYearC: React.FC<Props> = ({ data, states, actions }) => {
                                                     value={item.introFee}
                                                     type="number"
                                                     placeholder="حدد المقدم الخاص بك"
-                                                    onChange={actions.selectedIntroFeeHandler}
+                                                    onChange={actions.newSelectedIntroFeeHandler}
                                                 />
                                             </Box>
                                             <Box sx={styles.inputContaienr}>
@@ -367,39 +336,24 @@ const EditYearC: React.FC<Props> = ({ data, states, actions }) => {
                                                     value={item.monthFee}
                                                     type="number"
                                                     placeholder="حدد المصروفات الشهرية"
-                                                    onChange={actions.selectedMonthFeeHandler}
+                                                    onChange={actions.newSelectedMonthFeeHandler}
                                                 />
                                             </Box>
                                         </Box>
+                                        <PageError errors={states.errorLabel} />
+                                        <MyButton
+                                            content="تأكيد"
+                                            onClick={() => actions.submitNewLevel(item.levelId)}
+                                        />
                                     </Box>
                                 </Box>
                             )}
                         </Box>
                     ))}
-                    <Box sx={styles.actionButtons}>
-                        {data.yearData.yearState === 'open' && (
-                            <Button sx={style.endYearButton} onClick={actions.endYear}>
-                                <Typography fontSize={'h4'} fontWeight={700}>
-                                    إنهاء العام الدراسي
-                                </Typography>
-                            </Button>
-                        )}
-                        <Button sx={style.deleteYearButton} onClick={actions.deleteYear}>
-                            <Typography fontSize={'h4'} fontWeight={700}>
-                                حذف العام الدراسي
-                            </Typography>
-                        </Button>
-                    </Box>
                 </Box>
             )}
-            <ClassesDialog
-                data={data.levelsData}
-                open={states.classesDialogState}
-                handleClose={actions.classesHandleDialog}
-                getSelectedClasses={actions.handleSelectedClasses}
-            />
-        </Box>
+        </>
     )
 }
 
-export default EditYearC
+export default SelectedLevelsCard

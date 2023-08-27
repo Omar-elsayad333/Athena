@@ -143,13 +143,6 @@ const YearsC: React.FC<Props> = ({ data }) => {
                         </Link>
                     )
                 })}
-            {/* <Link href={Routes.teacherAddYear}>
-                <Box sx={style.spcialCard}>
-                    <Typography color="primary" variant="h1" fontWeight={700}>
-                        بدأ عام جديد
-                    </Typography>
-                </Box>
-            </Link> */}
         </Box>
     )
 }

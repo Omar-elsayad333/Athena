@@ -19,6 +19,7 @@ class Urls {
     static URL_YEARS: string = '/api/teacher/years'
     static URL_YEARS_END: string = '/api/teacher/years/end'
     static URL_YEARS_LEVEL: string = '/api/teacher/years/level'
+    static URL_YEARS_LEVELS: string = '/api/teacher/years/levels'
     static URL_LEVELS: string = '/api/teacher/levels'
     static URL_COURSES: string = '/api/teacher/courses'
     static URL_GROUPS: string = '/api/teacher/groups'
@@ -29,6 +30,7 @@ class Urls {
     static URL_TEACHERSTUDENTS_ASSIGN: string = '/api/teacher/teacherstudents/assign'
     static URL_TEACHERSTUDENTS_INFO: string = '/api/teacher/teacherstudents/info'
     static URL_TEACHERSTUDENTS_GROUP: string = '/api/teacher/teacherstudents/group'
+    static URL_TEACHERSTUDENTS_EXAMS: string = '/api/teacher/teacherstudents/info/examsresult'
     static URL_TEACHER_EXAMS: string = '/api/teacher/exams'
     static URL_TEACHER_EXAMS_GROUPS: string = '/api/teacher/exams/groups'
 

@@ -1,9 +1,10 @@
+import Urls from 'constant/urls'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import { useUser } from 'context/userContext'
+import { studentSections } from 'constant/staticData'
 import useRequestsHandlers from 'hooks/useRequestsHandlers'
 import { DropMenuProps, dropMenuInitialValues } from 'interfaces/shared/input'
-import Urls from 'constant/urls'
 
 const useStudent = () => {
     const { userState } = useUser()
@@ -13,14 +14,26 @@ const useStudent = () => {
     const [studentData, setStudentData] = useState<any>('')
     const [editGroupState, setEditGroupState] = useState<boolean>(false)
     const [groups, setGroups] = useState<any[]>([])
+    const [selectedSection, setSelectedSection] = useState<any>('')
     const [selectedGroup, setSelectedGroup] = useState<DropMenuProps>(dropMenuInitialValues)
 
     // Get student data if the user is authorized
     useEffect(() => {
-        if (userState.tokens!.accessToken) {
+        if ((userState.tokens!.accessToken, id)) {
             getStudentData()
+            // getStudentExams()
         }
-    }, [userState.tokens!.accessToken])
+    }, [userState.tokens!.accessToken, id])
+
+    // Select defalut section
+    useEffect(() => {
+        setSelectedSection({
+            id: studentSections[0].id,
+            value: studentSections[0].name,
+            error: false,
+            helperText: '',
+        })
+    }, [])
 
     // Call api to get student data
     const getStudentData = async () => {
@@ -35,6 +48,31 @@ const useStudent = () => {
         } catch (error) {
             console.log(error)
         }
+    }
+
+    // Call api to get student data
+    const getStudentExams = async () => {
+        try {
+            const res: any = await getHandlerById(
+                id,
+                userState.tokens!.accessToken!,
+                Urls.URL_TEACHERSTUDENTS_EXAMS,
+            )
+            setStudentData(res.info)
+            setGroups(res.info.groups)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    // Get the selected level from user
+    const selectedSectionHandler = (level: any) => {
+        setSelectedSection({
+            value: level.name,
+            id: level.id,
+            error: false,
+            helperText: '',
+        })
     }
 
     // show edit group field
@@ -92,19 +130,26 @@ const useStudent = () => {
         }
     }
 
+    useEffect(() => {
+        console.log(selectedSection)
+    }, [selectedSection])
+
     return {
         data: {
             studentData,
             groups,
+            studentSections,
         },
         states: {
             loading,
             editGroupState,
             selectedGroup,
+            selectedSection,
         },
         actions: {
             selectedGroupHandler,
             editGroupStateHandler,
+            selectedSectionHandler,
             submitEditGroup,
         },
     }

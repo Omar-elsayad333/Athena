@@ -295,7 +295,6 @@ const AddYearC: React.FC<Props> = ({ data, states, actions }) => {
                                             </Box>
                                         </Box>
                                     </Box>
-                                    <Box></Box>
                                 </Box>
                             )}
                         </Box>

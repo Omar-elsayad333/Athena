@@ -694,9 +694,9 @@ const useAddExam = () => {
             publishedDate: examStartDate.value,
             publishedTime: convertTimeToDB(examStartTime.value),
             isPrime: spcialExam,
-            teacherCourseLevelYearId: selectedLevel.id,
+            levelId: selectedLevel.id,
             examTypeId: selectedExamType.id,
-            groupIds: ['0570f16d-65e2-4146-ec62-08db94501353'],
+            groupIds: selectedGroups,
             sections: sections,
         }
 

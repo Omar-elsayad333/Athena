@@ -13,7 +13,7 @@ const useAddHeadquarter = () => {
     const { userState } = useUser()
     const router = useRouter()
     const { loading, postHandler } = useRequestsHandlers()
-    const { setSuccessMessage, setErrorMessage } = useAlert()
+    const { setSuccessMessage, setWarningMessage, setErrorMessage } = useAlert()
     const [name, setName] = useState<InputProps>(inputInitialValues)
     const [city, setCity] = useState<InputProps>(inputInitialValues)
     const [region, setRegion] = useState<InputProps>(inputInitialValues)
@@ -145,7 +145,7 @@ const useAddHeadquarter = () => {
     // Cancel proces
     const cancelSubmit = () => {
         closeWarningDialogState()
-        setErrorMessage('تم الغاء العمليه بنجاح')
+        setWarningMessage('تم الغاء العمليه بنجاح')
         router.push(Routes.teacherheadquarters)
     }
 
