@@ -13,7 +13,7 @@ type Props = {
     error?: boolean
     helperText: string
     placeholder: string
-    dateValue?: Date | string
+    dateValue?: Date | string | Function
     extraData?: any
     handleDateValue: Function
 }

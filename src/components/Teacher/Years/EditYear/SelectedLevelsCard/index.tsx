@@ -230,11 +230,14 @@ const SelectedLevelsCard: React.FC<Props> = ({ data, states, actions }) => {
                                                     <MyDatePicker
                                                         name="first"
                                                         helperText=""
-                                                        extraData={item.id}
+                                                        extraData={{
+                                                            levelId: item.id,
+                                                            levelType: 'new',
+                                                        }}
                                                         dateValue={item.fristSemeterStartDate}
                                                         placeholder="حدد بداية الفصل الدراسي الأول"
                                                         handleDateValue={
-                                                            actions.newSemesterStartDateHander
+                                                            actions.semesterStartDateHander
                                                         }
                                                     />
                                                 </Box>
@@ -248,11 +251,14 @@ const SelectedLevelsCard: React.FC<Props> = ({ data, states, actions }) => {
                                                     <MyDatePicker
                                                         name="first"
                                                         helperText=""
-                                                        extraData={item.id}
+                                                        extraData={{
+                                                            levelId: item.id,
+                                                            levelType: 'new',
+                                                        }}
                                                         dateValue={item.fristSemeterEndDate}
                                                         placeholder="حدد نهاية الفصل الدراسي الأول"
                                                         handleDateValue={
-                                                            actions.newSemesterEndDateHander
+                                                            actions.semesterEndDateHander
                                                         }
                                                     />
                                                 </Box>
@@ -271,11 +277,14 @@ const SelectedLevelsCard: React.FC<Props> = ({ data, states, actions }) => {
                                                     <MyDatePicker
                                                         helperText=""
                                                         name="second"
-                                                        extraData={item.id}
+                                                        extraData={{
+                                                            levelId: item.id,
+                                                            levelType: 'new',
+                                                        }}
                                                         dateValue={item.secondSemeterStartDate}
                                                         placeholder="حدد بداية الفصل الدراسي الثاني"
                                                         handleDateValue={
-                                                            actions.newSemesterStartDateHander
+                                                            actions.semesterStartDateHander
                                                         }
                                                     />
                                                 </Box>
@@ -289,11 +298,14 @@ const SelectedLevelsCard: React.FC<Props> = ({ data, states, actions }) => {
                                                     <MyDatePicker
                                                         helperText=""
                                                         name="second"
-                                                        extraData={item.id}
+                                                        extraData={{
+                                                            levelId: item.id,
+                                                            levelType: 'new',
+                                                        }}
                                                         dateValue={item.secondSemeterEndDate}
                                                         placeholder="حدد نهاية الفصل الدراسي الثاني"
                                                         handleDateValue={
-                                                            actions.newSemesterEndDateHander
+                                                            actions.semesterEndDateHander
                                                         }
                                                     />
                                                 </Box>
@@ -320,6 +332,7 @@ const SelectedLevelsCard: React.FC<Props> = ({ data, states, actions }) => {
                                                     indexes={item.id}
                                                     value={item.introFee}
                                                     type="number"
+                                                    name="new"
                                                     placeholder="حدد المقدم الخاص بك"
                                                     onChange={actions.newSelectedIntroFeeHandler}
                                                 />
@@ -334,6 +347,7 @@ const SelectedLevelsCard: React.FC<Props> = ({ data, states, actions }) => {
                                                 <MyInputSmall
                                                     indexes={item.id}
                                                     value={item.monthFee}
+                                                    name="new"
                                                     type="number"
                                                     placeholder="حدد المصروفات الشهرية"
                                                     onChange={actions.newSelectedMonthFeeHandler}

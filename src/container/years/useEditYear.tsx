@@ -149,84 +149,102 @@ const useEditYear = () => {
         )
     }
 
-    const newSelectedIntroFeeHandler = (value: number, levelId: string) => {
-        setSelectedLevels(
-            selectedLevels.map((x: any) => (x.id === levelId ? { ...x, introFee: value } : x)),
-        )
-    }
-
-    const newSelectedMonthFeeHandler = (value: number, levelId: string) => {
-        setSelectedLevels(
-            selectedLevels.map((x: any) => (x.id === levelId ? { ...x, monthFee: value } : x)),
-        )
-    }
-
-    const newSemesterStartDateHander = (value: number, name: string, levelId: any) => {
-        name === 'first'
-            ? setSelectedLevels(
-                  selectedLevels.map((x: any) =>
-                      x.id === levelId ? { ...x, fristSemeterStartDate: value } : x,
-                  ),
-              )
+    const selectedIntroFeeHandler = (value: number, levelId: string, name: string) => {
+        name === 'old'
+            ? setLevels(levels.map((x: any) => (x.id === levelId ? { ...x, introFee: value } : x)))
             : setSelectedLevels(
                   selectedLevels.map((x: any) =>
-                      x.id === levelId ? { ...x, secondSemeterStartDate: value } : x,
+                      x.id === levelId ? { ...x, introFee: value } : x,
                   ),
               )
     }
 
-    const newSemesterEndDateHander = (value: number, name: string, levelId: any) => {
-        name === 'first'
-            ? setSelectedLevels(
-                  selectedLevels.map((x: any) =>
-                      x.id === levelId ? { ...x, fristSemeterEndDate: value } : x,
-                  ),
-              )
+    const selectedMonthFeeHandler = (value: number, levelId: string, name: string) => {
+        name === 'old'
+            ? setLevels(levels.map((x: any) => (x.id === levelId ? { ...x, monthFee: value } : x)))
             : setSelectedLevels(
                   selectedLevels.map((x: any) =>
-                      x.id === levelId ? { ...x, secondSemeterEndDate: value } : x,
+                      x.id === levelId ? { ...x, monthFee: value } : x,
                   ),
               )
     }
 
-    const selectedIntroFeeHandler = (value: number, levelId: string) => {
-        setSelectedLevels(
-            selectedLevels.map((x: any) => (x.id === levelId ? { ...x, introFee: value } : x)),
-        )
+    const semesterStartDateHander = (value: number, name: string, data: any) => {
+        if (data.levelType === 'old') {
+            if (name === 'first') {
+                setLevels(
+                    levels.map((x: any) =>
+                        x.id === data.levelId ? { ...x, fristSemeterStartDate: value } : x,
+                    ),
+                )
+            } else {
+                setLevels(
+                    levels.map((x: any) =>
+                        x.id === data.levelId ? { ...x, secondSemeterStartDate: value } : x,
+                    ),
+                )
+            }
+        } else {
+            if (name === 'first') {
+                setSelectedLevels(
+                    selectedLevels.map((x: any) =>
+                        x.id === data.levelId ? { ...x, fristSemeterStartDate: value } : x,
+                    ),
+                )
+            } else {
+                setSelectedLevels(
+                    selectedLevels.map((x: any) =>
+                        x.id === data.levelId ? { ...x, secondSemeterStartDate: value } : x,
+                    ),
+                )
+            }
+        }
     }
 
-    const selectedMonthFeeHandler = (value: number, levelId: string) => {
-        setSelectedLevels(
-            selectedLevels.map((x: any) => (x.id === levelId ? { ...x, monthFee: value } : x)),
-        )
+    const semesterEndDateHander = (value: number, name: string, data: any) => {
+        if (data.levelType === 'old') {
+            if (name === 'first') {
+                setLevels(
+                    levels.map((x: any) =>
+                        x.id === data.levelId ? { ...x, fristSemeterEndDate: value } : x,
+                    ),
+                )
+            } else {
+                setLevels(
+                    levels.map((x: any) =>
+                        x.id === data.levelId ? { ...x, secondSemeterEndDate: value } : x,
+                    ),
+                )
+            }
+        } else {
+            if (name === 'first') {
+                setSelectedLevels(
+                    selectedLevels.map((x: any) =>
+                        x.id === data.levelId ? { ...x, fristSemeterEndDate: value } : x,
+                    ),
+                )
+            } else {
+                setSelectedLevels(
+                    selectedLevels.map((x: any) =>
+                        x.id === data.levelId ? { ...x, secondSemeterEndDate: value } : x,
+                    ),
+                )
+            }
+        }
     }
 
-    const semesterStartDateHander = (value: number, name: string, levelId: any) => {
-        name === 'first'
-            ? setSelectedLevels(
-                  selectedLevels.map((x: any) =>
-                      x.id === levelId ? { ...x, fristSemeterStartDate: value } : x,
-                  ),
-              )
-            : setSelectedLevels(
-                  selectedLevels.map((x: any) =>
-                      x.id === levelId ? { ...x, secondSemeterStartDate: value } : x,
-                  ),
-              )
-    }
-
-    const semesterEndDateHander = (value: number, name: string, levelId: any) => {
-        name === 'first'
-            ? setSelectedLevels(
-                  selectedLevels.map((x: any) =>
-                      x.id === levelId ? { ...x, fristSemeterEndDate: value } : x,
-                  ),
-              )
-            : setSelectedLevels(
-                  selectedLevels.map((x: any) =>
-                      x.id === levelId ? { ...x, secondSemeterEndDate: value } : x,
-                  ),
-              )
+    const filterNeededSemester = (semesters: any, data: any) => {
+        let selected
+        semesters.map((item: any) => {
+            if (item.semster === data.level) {
+                if (data.name == 'start') {
+                    selected = item.startDate
+                } else {
+                    selected = item.endDate
+                }
+            }
+        })
+        return selected
     }
 
     // Validate all data before collect it
@@ -373,6 +391,13 @@ const useEditYear = () => {
         }
     }
 
+    useEffect(() => {
+        console.log(levels)
+    }, [levels])
+    useEffect(() => {
+        console.log(yearData)
+    }, [yearData])
+
     return {
         data: {
             levels,
@@ -397,11 +422,8 @@ const useEditYear = () => {
             selectedMonthFeeHandler,
             semesterStartDateHander,
             semesterEndDateHander,
-            newSelectedIntroFeeHandler,
-            newSelectedMonthFeeHandler,
-            newSemesterStartDateHander,
-            newSemesterEndDateHander,
             submitNewLevel,
+            filterNeededSemester,
         },
         dialogs: {
             classesDialogState,

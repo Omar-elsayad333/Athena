@@ -99,7 +99,7 @@ const MyInputSmall: React.FC<Props> = ({
                 sx={classes.root}
                 name={name}
                 value={value}
-                onChange={(e) => onChange(e.target.value, indexes)}
+                onChange={(e) => onChange(e.target.value, indexes, name)}
                 error={error}
                 placeholder={placeholder}
                 type={type}

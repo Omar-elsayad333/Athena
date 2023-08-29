@@ -1,9 +1,12 @@
 import useStyle from './styles'
 import { IStyle } from 'styles/IStyle'
 import { useTheme } from 'context/ThemeContext'
+import MyButton from 'components/Buttons/MyButton'
 import MyInputSmall from 'components/MyInputSmall'
 import MyIconButton from 'components/MyIconButton'
 import MyDatePicker from 'components/MyDatePicker'
+import PageError from 'components/Shared/PageError'
+import SelectedLevelsCard from './SelectedLevelsCard'
 import ClassesDialog from 'components/Dialogs/ClassesDialog'
 
 // MUI
@@ -13,7 +16,6 @@ import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
 import ControlPointIcon from '@mui/icons-material/ControlPoint'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
-import SelectedLevelsCard from './SelectedLevelsCard'
 
 type Props = {
     data: any
@@ -261,8 +263,17 @@ const EditYearC: React.FC<Props> = ({ data, states, actions }) => {
                                                     <MyDatePicker
                                                         name="first"
                                                         helperText=""
-                                                        extraData={item.id}
-                                                        dateValue={item.fristSemeterStartDate}
+                                                        extraData={{
+                                                            levelId: item.id,
+                                                            levelType: 'old',
+                                                        }}
+                                                        dateValue={actions.filterNeededSemester(
+                                                            item.semsters,
+                                                            (data = {
+                                                                level: 'الفصل الدراسى الأول',
+                                                                name: 'start',
+                                                            }),
+                                                        )}
                                                         placeholder="حدد بداية الفصل الدراسي الأول"
                                                         handleDateValue={
                                                             actions.semesterStartDateHander
@@ -279,8 +290,17 @@ const EditYearC: React.FC<Props> = ({ data, states, actions }) => {
                                                     <MyDatePicker
                                                         name="first"
                                                         helperText=""
-                                                        extraData={item.id}
-                                                        dateValue={item.fristSemeterEndDate}
+                                                        extraData={{
+                                                            levelId: item.id,
+                                                            levelType: 'old',
+                                                        }}
+                                                        dateValue={actions.filterNeededSemester(
+                                                            item.semsters,
+                                                            (data = {
+                                                                level: 'الفصل الدراسى الأول',
+                                                                name: 'end',
+                                                            }),
+                                                        )}
                                                         placeholder="حدد نهاية الفصل الدراسي الأول"
                                                         handleDateValue={
                                                             actions.semesterEndDateHander
@@ -302,8 +322,17 @@ const EditYearC: React.FC<Props> = ({ data, states, actions }) => {
                                                     <MyDatePicker
                                                         helperText=""
                                                         name="second"
-                                                        extraData={item.id}
-                                                        dateValue={item.secondSemeterStartDate}
+                                                        extraData={{
+                                                            levelId: item.id,
+                                                            levelType: 'old',
+                                                        }}
+                                                        dateValue={actions.filterNeededSemester(
+                                                            item.semsters,
+                                                            (data = {
+                                                                level: 'الفصل الدراسى الثانى',
+                                                                name: 'start',
+                                                            }),
+                                                        )}
                                                         placeholder="حدد بداية الفصل الدراسي الثاني"
                                                         handleDateValue={
                                                             actions.semesterStartDateHander
@@ -320,8 +349,17 @@ const EditYearC: React.FC<Props> = ({ data, states, actions }) => {
                                                     <MyDatePicker
                                                         helperText=""
                                                         name="second"
-                                                        extraData={item.id}
-                                                        dateValue={item.secondSemeterEndDate}
+                                                        extraData={{
+                                                            levelId: item.id,
+                                                            levelType: 'old',
+                                                        }}
+                                                        dateValue={actions.filterNeededSemester(
+                                                            item.semsters,
+                                                            (data = {
+                                                                level: 'الفصل الدراسى الثانى',
+                                                                name: 'end',
+                                                            }),
+                                                        )}
                                                         placeholder="حدد نهاية الفصل الدراسي الثاني"
                                                         handleDateValue={
                                                             actions.semesterEndDateHander
@@ -350,6 +388,7 @@ const EditYearC: React.FC<Props> = ({ data, states, actions }) => {
                                                 <MyInputSmall
                                                     indexes={item.id}
                                                     value={item.introFee}
+                                                    name="old"
                                                     type="number"
                                                     placeholder="حدد المقدم الخاص بك"
                                                     onChange={actions.selectedIntroFeeHandler}
@@ -364,6 +403,7 @@ const EditYearC: React.FC<Props> = ({ data, states, actions }) => {
                                                 </Typography>
                                                 <MyInputSmall
                                                     indexes={item.id}
+                                                    name="old"
                                                     value={item.monthFee}
                                                     type="number"
                                                     placeholder="حدد المصروفات الشهرية"
@@ -371,13 +411,18 @@ const EditYearC: React.FC<Props> = ({ data, states, actions }) => {
                                                 />
                                             </Box>
                                         </Box>
+                                        <PageError errors={states.errorLabel} />
+                                        <MyButton
+                                            content="تأكيد"
+                                            onClick={() => actions.submitNewLevel(item.levelId)}
+                                        />
                                     </Box>
                                 </Box>
                             )}
                         </Box>
                     ))}
                     <Box sx={styles.actionButtons}>
-                        {data.yearData.yearState === 'open' && (
+                        {data.yearData && data.yearData.yearState === 'open' && (
                             <Button sx={style.endYearButton} onClick={actions.endYear}>
                                 <Typography fontSize={'h4'} fontWeight={700}>
                                     إنهاء العام الدراسي
