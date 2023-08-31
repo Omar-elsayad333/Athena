@@ -151,6 +151,7 @@ const useStudent = () => {
             editGroupStateHandler,
             selectedSectionHandler,
             submitEditGroup,
+            getStudentExams,
         },
     }
 }

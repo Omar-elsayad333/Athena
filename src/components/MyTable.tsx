@@ -110,6 +110,8 @@ const MyTable: React.FC<Props> = ({ headerData, bodyData }) => {
                                                 {bodyItem[cell]}
                                             </TableCell>
                                         )
+                                    } else {
+                                        return null
                                     }
                                 })}
                             </TableRow>

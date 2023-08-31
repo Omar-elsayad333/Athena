@@ -104,9 +104,9 @@ const useEditYear = () => {
                 {
                     id: null,
                     levelId: item.id,
-                    introFee: null,
                     name: item.name,
-                    monthFee: null,
+                    introFee: '',
+                    monthFee: '',
                     semsters: null,
                     open: false,
                     error: true,
@@ -114,6 +114,9 @@ const useEditYear = () => {
             ])
         }
     }
+
+    // Remove new class
+    // const removeNewClass = () => {}
 
     // Call api to Delete class
     const deleteClass = async (levelId: string) => {
@@ -169,20 +172,42 @@ const useEditYear = () => {
               )
     }
 
-    const semesterStartDateHander = (value: number, name: string, data: any) => {
+    const semesterStartDateHander = (value: any, name: string, data: any) => {
         if (data.levelType === 'old') {
             if (name === 'first') {
-                setLevels(
-                    levels.map((x: any) =>
-                        x.id === data.levelId ? { ...x, fristSemeterStartDate: value } : x,
-                    ),
-                )
+                for (let levelIndex in levels) {
+                    for (let semesterIndex in levels[levelIndex].semsters) {
+                        if (
+                            levels[levelIndex].semsters[semesterIndex].semster ===
+                            'الفصل الدراسى الأول'
+                        ) {
+                            const newValue = levels[levelIndex]
+                            newValue.semsters[semesterIndex].startDate = value.toISOString()
+                            setLevels([
+                                ...levels.slice(0, levelIndex),
+                                newValue,
+                                ...levels.slice(levelIndex + 1),
+                            ])
+                        }
+                    }
+                }
             } else {
-                setLevels(
-                    levels.map((x: any) =>
-                        x.id === data.levelId ? { ...x, secondSemeterStartDate: value } : x,
-                    ),
-                )
+                for (let levelIndex in levels) {
+                    for (let semesterIndex in levels[levelIndex].semsters) {
+                        if (
+                            levels[levelIndex].semsters[semesterIndex].semster ===
+                            'الفصل الدراسى الثانى'
+                        ) {
+                            const newValue = levels[levelIndex]
+                            newValue.semsters[semesterIndex].startDate = value.toISOString()
+                            setLevels([
+                                ...levels.slice(0, levelIndex),
+                                newValue,
+                                ...levels.slice(levelIndex + 1),
+                            ])
+                        }
+                    }
+                }
             }
         } else {
             if (name === 'first') {
@@ -201,20 +226,42 @@ const useEditYear = () => {
         }
     }
 
-    const semesterEndDateHander = (value: number, name: string, data: any) => {
+    const semesterEndDateHander = (value: any, name: string, data: any) => {
         if (data.levelType === 'old') {
             if (name === 'first') {
-                setLevels(
-                    levels.map((x: any) =>
-                        x.id === data.levelId ? { ...x, fristSemeterEndDate: value } : x,
-                    ),
-                )
+                for (let levelIndex in levels) {
+                    for (let semesterIndex in levels[levelIndex].semsters) {
+                        if (
+                            levels[levelIndex].semsters[semesterIndex].semster ===
+                            'الفصل الدراسى الأول'
+                        ) {
+                            const newValue = levels[levelIndex]
+                            newValue.semsters[semesterIndex].endDate = value.toISOString()
+                            setLevels([
+                                ...levels.slice(0, levelIndex),
+                                newValue,
+                                ...levels.slice(levelIndex + 1),
+                            ])
+                        }
+                    }
+                }
             } else {
-                setLevels(
-                    levels.map((x: any) =>
-                        x.id === data.levelId ? { ...x, secondSemeterEndDate: value } : x,
-                    ),
-                )
+                for (let levelIndex in levels) {
+                    for (let semesterIndex in levels[levelIndex].semsters) {
+                        if (
+                            levels[levelIndex].semsters[semesterIndex].semster ===
+                            'الفصل الدراسى الثانى'
+                        ) {
+                            const newValue = levels[levelIndex]
+                            newValue.semsters[semesterIndex].endDate = value.toISOString()
+                            setLevels([
+                                ...levels.slice(0, levelIndex),
+                                newValue,
+                                ...levels.slice(levelIndex + 1),
+                            ])
+                        }
+                    }
+                }
             }
         } else {
             if (name === 'first') {
@@ -248,12 +295,11 @@ const useEditYear = () => {
     }
 
     // Validate all data before collect it
-    const validate = (levelValue: any, levelHandler: any, levelId: any) => {
+    const validateNewLeves = (levelValue: any, levelHandler: any, levelId: any) => {
         let state = true
         let semesterState = true
         setErrorLabel([])
 
-        console.log(levelValue)
         for (let i = 0; i < levelValue.length; i++) {
             if (levelValue[i].levelId === levelId) {
                 const firstOpen = new Date(levelValue[i].fristSemeterStartDate)
@@ -307,6 +353,42 @@ const useEditYear = () => {
         return state
     }
 
+    // Validate all data before collect it
+    const validateOldLevels = (levelId: any) => {
+        let state = true
+        let semesterState = true
+        setErrorLabel([])
+
+        for (let level of levels) {
+            if (level.levelId === levelId) {
+                for (let semester of level.semsters) {
+                    const startDate = new Date(semester.startDate)
+                    const endDate = new Date(semester.endDate)
+                    if (startDate > endDate) {
+                        state = false
+                        semesterState = false
+                    }
+                    if (!level.introFee || !level.monthFee) {
+                        state = false
+                        semesterState = false
+                    }
+                }
+            }
+        }
+
+        if (!semesterState) {
+            setErrorLabel((oldArray) => [
+                ...oldArray,
+                {
+                    name: 'semesterData',
+                    value: 'يجب التاكد ان بدية الفصول الدراسيه قبل نهايتها والتأكد من ادخال كل البيانات',
+                },
+            ])
+        }
+
+        return state
+    }
+
     // Prepare data for request
     const collectNewLevelData = (levelValue: any, levelId: any) => {
         let levelsData = null
@@ -342,9 +424,35 @@ const useEditYear = () => {
         return levelsData
     }
 
+    // Prepare data for request
+    const collectEditedLevelData = (levelId: any) => {
+        let levelData = null
+        for (let level of levels) {
+            if (level.levelId === levelId) {
+                const allSemesters = []
+                for (let semster of level.semsters) {
+                    allSemesters.push({
+                        id: semster.id,
+                        startDate: semster.startDate,
+                        endDate: semster.endDate,
+                    })
+                    console.log('lkasdjflk')
+                }
+                levelData = {
+                    id: level.levelId,
+                    introFee: level.introFee,
+                    monthFee: level.monthFee,
+                    semsters: allSemesters,
+                }
+                break
+            }
+        }
+        return levelData
+    }
+
     // Call api to add new level
     const submitNewLevel = async (levelId: any) => {
-        if (validate(selectedLevels, setSelectedLevels, levelId)) {
+        if (validateNewLeves(selectedLevels, setSelectedLevels, levelId)) {
             try {
                 const data = collectNewLevelData(selectedLevels, levelId)
                 await postHandlerById(
@@ -358,6 +466,26 @@ const useEditYear = () => {
                 await getYearData()
             } catch (error) {
                 console.log(error)
+                setErrorMessage('حدث خطاء')
+            }
+        }
+    }
+
+    // Call api to add old level
+    const submitOldLevel = async (levelId: any) => {
+        if (validateOldLevels(levelId)) {
+            try {
+                const data = collectEditedLevelData(levelId)
+                await putHandlerById(
+                    yearData.id,
+                    userState.tokens!.accessToken!,
+                    Urls.URL_YEARS_LEVEL,
+                    data,
+                )
+                setSelectedLevels([])
+                setSuccessMessage('تم تعديل الفصل الدراسي بنجاح')
+                await getYearData()
+            } catch (error) {
                 setErrorMessage('حدث خطاء')
             }
         }
@@ -394,6 +522,7 @@ const useEditYear = () => {
     useEffect(() => {
         console.log(levels)
     }, [levels])
+
     useEffect(() => {
         console.log(yearData)
     }, [yearData])
@@ -424,6 +553,7 @@ const useEditYear = () => {
             semesterEndDateHander,
             submitNewLevel,
             filterNeededSemester,
+            submitOldLevel,
         },
         dialogs: {
             classesDialogState,

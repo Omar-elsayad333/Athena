@@ -50,7 +50,6 @@ const useAddYear = () => {
         try {
             const res = await getHandler(userState.tokens!.accessToken!, Urls.URL_YEARS_REQUIRED)
             setRequiredData(res)
-            console.log(res)
         } catch (error) {
             console.log(error)
         }
@@ -82,11 +81,11 @@ const useAddYear = () => {
     // Get the selected Classes
     const selectedLevelsHandler = (selected: any) => {
         console.log(selected)
-        setSelectedLevels([])
+        // setSelectedLevels([])
         for (let item of selected) {
             console.log(item)
-            setSelectedLevels((selectedLevels: any) => [
-                ...selectedLevels,
+            setSelectedLevels((oldData: any) => [
+                ...oldData,
                 {
                     id: item.id,
                     name: item.name,

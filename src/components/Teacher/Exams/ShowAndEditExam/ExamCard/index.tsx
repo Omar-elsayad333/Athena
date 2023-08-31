@@ -14,7 +14,7 @@ type Props = {
     data: any
 }
 
-const ExamCard: React.FC<Props> = ({ states, actions, data }) => {
+const ExamCard: React.FC<Props> = ({ states }) => {
     const { mainColors } = useTheme()
 
     const style: IStyle = {

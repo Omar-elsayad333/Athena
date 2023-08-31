@@ -13,7 +13,7 @@ type Props = {
     actions: any
 }
 
-const StudentExams: React.FC<Props> = ({ data }) => {
+const StudentExams: React.FC<Props> = ({}) => {
     const { mainColors } = useTheme()
     const style: IStyle = {
         container: {

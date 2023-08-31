@@ -1,5 +1,6 @@
 import useTokens from 'hooks/useTokens'
 import { userReducer } from 'reducers/userReducer'
+import useUserRequestHandlers from 'hooks/useUserRequestHandlers'
 import { createContext, useContext, useEffect, useReducer } from 'react'
 import { initialState, UserContextType, UserProviderProps } from 'interfaces/testUserInterface'
 
@@ -11,6 +12,7 @@ export const UserContext = createContext<UserContextType>({
 
 export const UserContextProvider: React.FC<UserProviderProps> = ({ children }) => {
     const { clearUserTokens } = useTokens()
+    const { getUserData } = useUserRequestHandlers()
     const [userState, userDispatch] = useReducer(userReducer, initialState)
 
     // Check if there is any tokens in local or session stroage
@@ -39,6 +41,7 @@ export const UserContextProvider: React.FC<UserProviderProps> = ({ children }) =
                     refreshTokenExpiry: new Date(refreshTokenExpiry),
                 },
             })
+            userDateHandler(accessToken)
         } else {
             storage.removeItem('athena_access_token')
             storage.removeItem('athena_refresh_token')
@@ -47,10 +50,27 @@ export const UserContextProvider: React.FC<UserProviderProps> = ({ children }) =
         }
     }, [])
 
+    const userDateHandler = async (token: string) => {
+        try {
+            const userData = await getUserData(token)
+            userDispatch({
+                type: 'setUser',
+                payload: userData,
+            })
+        } catch (error) {
+            logout()
+        }
+    }
+
     // Print user tokens in console
     useEffect(() => {
         console.table(userState.tokens)
     }, [userState.tokens])
+
+    // Print user data in console
+    useEffect(() => {
+        console.table(userState.user)
+    }, [userState.user])
 
     // Logout user
     const logout = () => {
