@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import { Routes } from 'routes/Routes'
 import { IStyle } from 'styles/IStyle'
-import MySelect from 'components/MySelect'
 import { useTheme } from 'context/ThemeContext'
 import FilterWedgit from 'components/FilterWedgit'
 import MySearchInput from 'components/MySearchInput'
