@@ -743,7 +743,6 @@ const useAddExam = () => {
     const submitExam = async () => {
         if (validateData()) {
             const data: any = collectData()
-            console.log(data)
             try {
                 const res = await postHandler(
                     userState.tokens!.accessToken!,

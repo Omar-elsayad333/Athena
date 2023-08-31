@@ -334,7 +334,7 @@ const SelectedLevelsCard: React.FC<Props> = ({ data, states, actions }) => {
                                                     type="number"
                                                     name="new"
                                                     placeholder="حدد المقدم الخاص بك"
-                                                    onChange={actions.newSelectedIntroFeeHandler}
+                                                    onChange={actions.selectedIntroFeeHandler}
                                                 />
                                             </Box>
                                             <Box sx={styles.inputContaienr}>
@@ -350,7 +350,7 @@ const SelectedLevelsCard: React.FC<Props> = ({ data, states, actions }) => {
                                                     name="new"
                                                     type="number"
                                                     placeholder="حدد المصروفات الشهرية"
-                                                    onChange={actions.newSelectedMonthFeeHandler}
+                                                    onChange={actions.selectedMonthFeeHandler}
                                                 />
                                             </Box>
                                         </Box>

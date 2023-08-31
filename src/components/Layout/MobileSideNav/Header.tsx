@@ -1,5 +1,6 @@
-import Avatar from '../../MyAvatar'
+import Urls from 'constant/urls'
 import { useContext } from 'react'
+import Avatar from '../../MyAvatar'
 import { useUser } from 'context/userContext'
 import { DarkThemeContext } from 'context/ThemeContext'
 import InlineLogo from 'components/Svgs/InlineLogo'
@@ -144,7 +145,7 @@ const Header: React.FC<Props> = ({ controleMobileSideNav, mobileSideNavState }) 
                         <Box sx={style.profile.meImage}>
                             <Avatar
                                 alt={`أ / ${userState.user.firstName} ${userState.user.lastName}`}
-                                src={userState.user.imagePath}
+                                src={`${Urls.URL_MAIN}/${userState.user.imagePath}`}
                                 width={50}
                                 height={50}
                             />
