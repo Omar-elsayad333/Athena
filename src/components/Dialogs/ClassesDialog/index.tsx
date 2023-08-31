@@ -80,16 +80,11 @@ const ClassesDialog: React.FC<Props> = ({ open, handleClose, getSelectedClasses,
             },
         },
         boxContainer: {
-            display: 'grid',
+            display: 'flex',
             gridRowGap: '31px',
             gridColumnGap: '35px',
-            gridTemplateColumns: 'repeat(3, 1fr)',
-            '@media screen and (max-width: 825px) ': {
-                gridTemplateColumns: 'repeat(2, 1fr)',
-            },
-            '@media screen and (max-width: 600px) ': {
-                gridTemplateColumns: 'repeat(1, 1fr)',
-            },
+            maxWidth: '1000px',
+            flexWrap: 'wrap',
         },
         box: {
             width: '154px',
@@ -160,8 +155,6 @@ const ClassesDialog: React.FC<Props> = ({ open, handleClose, getSelectedClasses,
                 const selectedData: any = {
                     id: '',
                     name: '',
-                    first: null,
-                    second: null,
                 }
                 selectedData['id'] = classes[i]?.getAttribute('data-id')
                 selectedData['name'] = classes[i]?.innerHTML
@@ -171,8 +164,8 @@ const ClassesDialog: React.FC<Props> = ({ open, handleClose, getSelectedClasses,
             }
         }
 
-        getSelectedClasses(selected)
         handleClose()
+        getSelectedClasses(selected)
     }
 
     return (

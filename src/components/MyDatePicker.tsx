@@ -13,7 +13,7 @@ type Props = {
     error?: boolean
     helperText: string
     placeholder: string
-    dateValue?: Date | string
+    dateValue?: any
     extraData?: any
     handleDateValue: Function
 }
@@ -116,7 +116,7 @@ const MyDatePicker: React.FC<Props> = ({
         <FormControl>
             <LocalizationProvider dateAdapter={DateFnsUtils}>
                 <DatePicker
-                    value={dateValue}
+                    value={new Date(dateValue)}
                     onChange={(newValue: any) => {
                         handleDateValue(newValue, name, extraData)
                     }}

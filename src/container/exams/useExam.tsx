@@ -9,15 +9,15 @@ const useExam = () => {
     const router = useRouter()
     const { id } = router.query
     const { userState } = useUser()
+    const { setErrorMessage } = useAlert()
     // const [updatedDetails, setUpdatedDetails] = useState()
     // const [updatedSections, setUpdateSections] = useState()
-    const [examDetails, setExamDetails] = useState<any>('')
+    const [examData, setExamData] = useState<any>('')
     const [examSections, setExamSections] = useState<any>('')
     // const [examGroups, setExamGroups] = useState<any>('')
-    const { loading, getHandlerById, getHandler } = useRequestsHandlers()
-    const { setErrorMessage } = useAlert()
     const [examTypes, setExamTypes] = useState()
-    const [years, setYears] = useState()
+    const [examGroups, setExamGroups] = useState()
+    const { loading, getHandlerById, getHandler } = useRequestsHandlers()
 
     useEffect(() => {
         if (userState.tokens?.accessToken && id) {
@@ -25,6 +25,7 @@ const useExam = () => {
         }
     }, [userState.tokens?.accessToken, id])
 
+    // Call API to get exam data
     const getExamData = async () => {
         try {
             const res = await getHandlerById(
@@ -32,15 +33,16 @@ const useExam = () => {
                 userState.tokens?.accessToken!,
                 Urls.URL_TEACHER_EXAMS,
             )
+            setExamData(res)
+            setExamSections(res.sections)
+
+            // Get exam types data form API
             const required = await getHandler(
                 userState.tokens?.accessToken!,
                 Urls.URL_TEACHER_EXAMS_REQUIRED,
                 true,
             )
             console.log(res)
-            setExamDetails(res)
-            setExamSections(res.sections)
-            setYears(required.years)
             setExamTypes(required.examTypes)
         } catch (error) {
             console.log(error)
@@ -50,10 +52,9 @@ const useExam = () => {
 
     return {
         data: {
-            examDetails,
-            examSections,
+            examData,
             examTypes,
-            years,
+            examSections,
         },
         states: {
             loading,

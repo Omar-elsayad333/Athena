@@ -1,13 +1,14 @@
 const useShard = () => {
     // Handle search logic
     const useSearchHandler = (
+        searchKey: string,
         searchValue: string,
         originalData: any[],
-        setNewData: CallableFunction,
+        setter: CallableFunction,
     ) => {
-        setNewData(
-            originalData.filter((item: any) =>
-                item.name.toLowerCase().includes(searchValue.toLowerCase()),
+        setter(
+            originalData?.filter((item: any) =>
+                item[searchKey].toLowerCase().includes(searchValue.toLowerCase()),
             ),
         )
     }

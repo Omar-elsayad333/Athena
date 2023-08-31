@@ -14,7 +14,7 @@ import DesktopNavbar from 'components/Layout/DesktopNavbar'
 // MUI
 import Box from '@mui/material/Box'
 
-const YearSetting: NextPage = () => {
+const AddYear: NextPage = () => {
     const { mainColors } = useTheme()
     const { data, states, actions, dialog } = useAddYear()
 
@@ -110,4 +110,4 @@ const YearSetting: NextPage = () => {
     )
 }
 
-export default withAuth(YearSetting)
+export default withAuth(AddYear)

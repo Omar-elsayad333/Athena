@@ -1,34 +1,34 @@
 export const studentStudentTable = [
     {
-        name: 'image',
-        value: 'الصورة الشخصية'
+        name: 'imagePath',
+        value: 'الصورة الشخصية',
     },
-    { 
+    {
         name: 'firstName',
-        value: 'الاسم الاول', 
+        value: 'الاسم الاول',
     },
     {
         name: 'lastName',
         value: 'الاسم الاخير',
     },
+    // {
+    //     name: 'fullName',
+    //     value: 'الاسم بالكامل',
+    // },
     {
-        name: 'fullName',
-        value: 'الاسم بالكامل',
-    },
-    {
-        name: 'level',
+        name: 'levelName',
         value: 'الصف الدراسي',
     },
     {
-        name: 'classification',
+        name: 'educationClassificationName',
         value: 'الشعبة العلمي',
     },
     {
-        name: 'group',
+        name: 'groupName',
         value: 'المجموعة',
     },
     {
-        name: 'phone',
+        name: 'phoneNumber',
         value: 'رقم الهاتف',
     },
     {
@@ -40,19 +40,19 @@ export const studentStudentTable = [
         value: 'أسم المستخدم',
     },
     {
-        name: 'id',
+        name: 'code',
         value: 'معرف الطالب',
     },
-];
+]
 
 export const GroupStudentTable = [
     {
         name: 'image',
-        value: 'الصورة الشخصية'
+        value: 'الصورة الشخصية',
     },
-    { 
+    {
         name: 'firstName',
-        value: 'الاسم الاول', 
+        value: 'الاسم الاول',
     },
     {
         name: 'lastName',
@@ -70,4 +70,35 @@ export const GroupStudentTable = [
         name: 'id',
         value: 'معرف الطالب',
     },
-];
+]
+
+export const StudentExamsTable = [
+    {
+        name: 'examName',
+        value: 'عنوان وموضوع الامتحان',
+    },
+    {
+        name: 'createdOn',
+        value: 'تاريخ الإنشاء',
+    },
+    {
+        name: 'attendance',
+        value: 'الحضور',
+    },
+    {
+        name: 'state',
+        value: 'حالة الامتحان',
+    },
+    {
+        name: 'studentDegree',
+        value: 'الدرجة النهائية',
+    },
+    {
+        name: 'percentage',
+        value: 'النسبة المئوية %',
+    },
+    {
+        name: 'points',
+        value: 'النقاط المكتسبة',
+    },
+]

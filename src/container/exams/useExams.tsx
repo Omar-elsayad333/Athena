@@ -8,13 +8,12 @@ import { DropMenuProps, dropMenuInitialValues } from 'interfaces/shared/input'
 const useExams = () => {
     const { userState } = useUser()
     const { setErrorMessage } = useAlert()
+    const [originalData] = useState<any[]>([])
+    const [exams, setExams] = useState<any[]>([])
     const { loading, getHandler } = useRequestsHandlers()
     const [examsData, setExamsData] = useState<any>([])
-    const [originalData, setOriginalData] = useState<any[]>([])
-    const [years, setYears] = useState<any[]>([])
-    const [selectedYear, setSelectedYear] = useState<DropMenuProps>(dropMenuInitialValues)
     const [examTypes, setExamTypes] = useState<any[]>([])
-    const [exams, setExams] = useState<any[]>([])
+    const [selectedExamType, setSelectedExamType] = useState<DropMenuProps>(dropMenuInitialValues)
 
     // Get exams data if the user is authoruized
     useEffect(() => {
@@ -24,53 +23,20 @@ const useExams = () => {
         }
     }, [userState.tokens!.accessToken])
 
-    // Call function to update years data if there is years data
-    useEffect(() => {
-        if (examsData.length > 0 && years.length == 0) {
-            updateYearsData()
-        }
-    }, [examsData])
-
-    // Call function to update exams data if there is year selected
-    useEffect(() => {
-        if (selectedYear.id) {
-            updateExamData()
-        }
-    }, [selectedYear])
-
     // Call api to get exam data
     const getExamsData = async () => {
         try {
             const res = await getHandler(userState.tokens!.accessToken!, Urls.URL_TEACHER_EXAMS)
             setExamsData(res)
-            console.log(res)
+            setSelectedExamType({
+                ...selectedExamType,
+                value: 'all',
+                id: 'all',
+            })
         } catch (error) {
             console.log(error)
             setErrorMessage('حدث خطاء')
         }
-    }
-
-    // Update years data to show it to user
-    const updateYearsData = () => {
-        for (let year of examsData) {
-            setYears((years) => [
-                ...years,
-                {
-                    id: year.id,
-                    name: `${year.start} / ${year.end}`,
-                },
-            ])
-        }
-    }
-
-    // Get the selected year from user
-    const selectedYearHandler = (year: any) => {
-        setSelectedYear({
-            id: year.id,
-            value: year.name,
-            error: false,
-            helperText: '',
-        })
     }
 
     // Call api to get exam data
@@ -81,25 +47,8 @@ const useExams = () => {
                 Urls.URL_TEACHER_EXAMS_REQUIRED,
             )
             setExamTypes(res.examTypes)
-            console.log(res.examTypes)
         } catch (error) {
             console.log(error)
-            setErrorMessage('حدث خطاء')
-        }
-    }
-
-    // Update exams data if the user selected year
-    const updateExamData = () => {
-        const indexOfSelectedYear = examsData.findIndex((year: any) => year.id == selectedYear.id)
-        if (indexOfSelectedYear != -1) {
-            setExams([])
-            for (let level of examsData[indexOfSelectedYear].levels) {
-                for (let exam of level.exams) {
-                    setExams((exams) => [...exams, exam])
-                    setOriginalData((exams) => [...exams, exam])
-                }
-            }
-        } else {
             setErrorMessage('حدث خطاء')
         }
     }
@@ -122,23 +71,17 @@ const useExams = () => {
         }
     }
 
-    useEffect(() => {
-        console.log(examTypes)
-    }, [examTypes])
-
     return {
         data: {
-            years,
             examTypes,
             examsData,
             exams,
         },
         states: {
             loading,
-            selectedYear,
+            selectedExamType,
         },
         actions: {
-            selectedYearHandler,
             searchHandler,
             filterByType,
         },

@@ -1,17 +1,21 @@
 import useStyle from './styles'
 import { IStyle } from 'styles/IStyle'
-import MySelect from 'components/MySelect'
 import { useTheme } from 'context/ThemeContext'
 import MyButton from 'components/Buttons/MyButton'
 import MyInputSmall from 'components/MyInputSmall'
 import MyIconButton from 'components/MyIconButton'
+import MyDatePicker from 'components/MyDatePicker'
+import PageError from 'components/Shared/PageError'
+import SelectedLevelsCard from './SelectedLevelsCard'
 import ClassesDialog from 'components/Dialogs/ClassesDialog'
 
 // MUI
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
+import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
 import ControlPointIcon from '@mui/icons-material/ControlPoint'
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 
 type Props = {
     data: any
@@ -145,16 +149,6 @@ const EditYearC: React.FC<Props> = ({ data, states, actions }) => {
 
     return (
         <Box sx={style.container}>
-            <Box sx={style.yearControlsContainer}>
-                <MySelect
-                    value={states.selectedYear.name}
-                    error={states.selectedYear.error}
-                    getSelected={actions.getSelectedYear}
-                    placeholder={states.year.name}
-                    data={data.yearsToSelect}
-                />
-                <MyButton onClick={actions.updateYear} content="تأكيد" />
-            </Box>
             <Typography sx={style.title} variant="h3" color={mainColors.title.main}>
                 تعديل الصفوف الدراسية:-
             </Typography>
@@ -181,6 +175,7 @@ const EditYearC: React.FC<Props> = ({ data, states, actions }) => {
                     تعديل بيانات العام الدراسي:-
                 </Typography>
             )}
+            <SelectedLevelsCard data={data} states={states} actions={actions} />
             {data.levels.length > 0 && (
                 <Box sx={styles.levelsContianer} className="levels-contianer">
                     {data.levels.map((item: any) => (
@@ -193,7 +188,15 @@ const EditYearC: React.FC<Props> = ({ data, states, actions }) => {
                                 ]}
                                 className="level-card"
                             >
-                                <Typography variant="h1" color={item.error ? 'error' : 'primary'}>
+                                <Typography variant="h1" color={'primary'}>
+                                    {item.error && (
+                                        <Tooltip
+                                            sx={{ marginLeft: '10px' }}
+                                            title="تاكد من ملئ كل البيانات"
+                                        >
+                                            <InfoOutlinedIcon color={'primary'} />
+                                        </Tooltip>
+                                    )}
                                     {item.name}
                                 </Typography>
                                 <Box sx={styles.cardActionsContainer}>
@@ -201,7 +204,8 @@ const EditYearC: React.FC<Props> = ({ data, states, actions }) => {
                                         width="40"
                                         height="40"
                                         viewBox="0 0 40 40"
-                                        fill={mainColors.primary.main}
+                                        onClick={() => actions.deleteClass(item.id)}
+                                        fill={mainColors.error.main}
                                         xmlns="http://www.w3.org/2000/svg"
                                     >
                                         <path
@@ -245,8 +249,124 @@ const EditYearC: React.FC<Props> = ({ data, states, actions }) => {
                                             الفصول الدراسية الخاصة بالصف:-
                                         </Typography>
                                         <Box sx={styles.semesterChips}>
-                                            <Box sx={style.classesLabel}>الفصل الدراسي الاول</Box>
-                                            <Box sx={style.classesLabel}>الفصل الدراسي الثاني</Box>
+                                            <Box sx={styles.inputContaienr}>
+                                                <Box sx={style.classesLabel}>
+                                                    الفصل الدراسي الاول
+                                                </Box>
+                                                <Box sx={styles.inputContaienr}>
+                                                    <Typography
+                                                        variant="h5"
+                                                        color={mainColors.title.main}
+                                                    >
+                                                        بداية الفصل الدراسي الأول
+                                                    </Typography>
+                                                    <MyDatePicker
+                                                        name="first"
+                                                        helperText=""
+                                                        extraData={{
+                                                            levelId: item.id,
+                                                            levelType: 'old',
+                                                        }}
+                                                        dateValue={actions.filterNeededSemester(
+                                                            item.semsters,
+                                                            (data = {
+                                                                level: 'الفصل الدراسى الأول',
+                                                                name: 'start',
+                                                            }),
+                                                        )}
+                                                        placeholder="حدد بداية الفصل الدراسي الأول"
+                                                        handleDateValue={
+                                                            actions.semesterStartDateHander
+                                                        }
+                                                    />
+                                                </Box>
+                                                <Box sx={styles.inputContaienr}>
+                                                    <Typography
+                                                        variant="h5"
+                                                        color={mainColors.title.main}
+                                                    >
+                                                        نهاية الفصل الدراسي الأول
+                                                    </Typography>
+                                                    <MyDatePicker
+                                                        name="first"
+                                                        helperText=""
+                                                        extraData={{
+                                                            levelId: item.id,
+                                                            levelType: 'old',
+                                                        }}
+                                                        dateValue={actions.filterNeededSemester(
+                                                            item.semsters,
+                                                            (data = {
+                                                                level: 'الفصل الدراسى الأول',
+                                                                name: 'end',
+                                                            }),
+                                                        )}
+                                                        placeholder="حدد نهاية الفصل الدراسي الأول"
+                                                        handleDateValue={
+                                                            actions.semesterEndDateHander
+                                                        }
+                                                    />
+                                                </Box>
+                                            </Box>
+                                            <Box sx={styles.inputContaienr}>
+                                                <Box sx={style.classesLabel}>
+                                                    الفصل الدراسي الثاني
+                                                </Box>
+                                                <Box sx={styles.inputContaienr}>
+                                                    <Typography
+                                                        variant="h5"
+                                                        color={mainColors.title.main}
+                                                    >
+                                                        بداية الفصل الدراسي الثاني
+                                                    </Typography>
+                                                    <MyDatePicker
+                                                        helperText=""
+                                                        name="second"
+                                                        extraData={{
+                                                            levelId: item.id,
+                                                            levelType: 'old',
+                                                        }}
+                                                        dateValue={actions.filterNeededSemester(
+                                                            item.semsters,
+                                                            (data = {
+                                                                level: 'الفصل الدراسى الثانى',
+                                                                name: 'start',
+                                                            }),
+                                                        )}
+                                                        placeholder="حدد بداية الفصل الدراسي الثاني"
+                                                        handleDateValue={
+                                                            actions.semesterStartDateHander
+                                                        }
+                                                    />
+                                                </Box>
+                                                <Box sx={styles.inputContaienr}>
+                                                    <Typography
+                                                        variant="h5"
+                                                        color={mainColors.title.main}
+                                                    >
+                                                        نهاية الفصل الدراسي الثاني
+                                                    </Typography>
+                                                    <MyDatePicker
+                                                        helperText=""
+                                                        name="second"
+                                                        extraData={{
+                                                            levelId: item.id,
+                                                            levelType: 'old',
+                                                        }}
+                                                        dateValue={actions.filterNeededSemester(
+                                                            item.semsters,
+                                                            (data = {
+                                                                level: 'الفصل الدراسى الثانى',
+                                                                name: 'end',
+                                                            }),
+                                                        )}
+                                                        placeholder="حدد نهاية الفصل الدراسي الثاني"
+                                                        handleDateValue={
+                                                            actions.semesterEndDateHander
+                                                        }
+                                                    />
+                                                </Box>
+                                            </Box>
                                         </Box>
                                     </Box>
                                     <Box sx={styles.semestersContainer}>
@@ -268,6 +388,7 @@ const EditYearC: React.FC<Props> = ({ data, states, actions }) => {
                                                 <MyInputSmall
                                                     indexes={item.id}
                                                     value={item.introFee}
+                                                    name="old"
                                                     type="number"
                                                     placeholder="حدد المقدم الخاص بك"
                                                     onChange={actions.selectedIntroFeeHandler}
@@ -282,6 +403,7 @@ const EditYearC: React.FC<Props> = ({ data, states, actions }) => {
                                                 </Typography>
                                                 <MyInputSmall
                                                     indexes={item.id}
+                                                    name="old"
                                                     value={item.monthFee}
                                                     type="number"
                                                     placeholder="حدد المصروفات الشهرية"
@@ -289,17 +411,24 @@ const EditYearC: React.FC<Props> = ({ data, states, actions }) => {
                                                 />
                                             </Box>
                                         </Box>
+                                        <PageError errors={states.errorLabel} />
+                                        <MyButton
+                                            content="تأكيد"
+                                            onClick={() => actions.submitOldLevel(item.levelId)}
+                                        />
                                     </Box>
                                 </Box>
                             )}
                         </Box>
                     ))}
                     <Box sx={styles.actionButtons}>
-                        <Button sx={style.endYearButton} onClick={actions.endYear}>
-                            <Typography fontSize={'h4'} fontWeight={700}>
-                                إنهاء العام الدراسي
-                            </Typography>
-                        </Button>
+                        {data.yearData && data.yearData.yearState === 'open' && (
+                            <Button sx={style.endYearButton} onClick={actions.endYear}>
+                                <Typography fontSize={'h4'} fontWeight={700}>
+                                    إنهاء العام الدراسي
+                                </Typography>
+                            </Button>
+                        )}
                         <Button sx={style.deleteYearButton} onClick={actions.deleteYear}>
                             <Typography fontSize={'h4'} fontWeight={700}>
                                 حذف العام الدراسي
@@ -309,7 +438,7 @@ const EditYearC: React.FC<Props> = ({ data, states, actions }) => {
                 </Box>
             )}
             <ClassesDialog
-                data={data.requiredData}
+                data={data.levelsData}
                 open={states.classesDialogState}
                 handleClose={actions.classesHandleDialog}
                 getSelectedClasses={actions.handleSelectedClasses}

@@ -9,6 +9,7 @@ const useStyle = () => {
             maxWidth: '100%',
             display: 'flex',
             alignItems: 'start',
+            flex: '100%',
             flexDirection: 'column',
         },
         levelContainer: {

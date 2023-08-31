@@ -1,149 +1,501 @@
 import Urls from 'constant/urls'
+import { Routes } from 'routes/Routes'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { useUser } from 'context/userContext'
 import { useAlert } from 'context/AlertContext'
-import { yearsTypes } from 'constant/staticData'
 import useRequestsHandlers from 'hooks/useRequestsHandlers'
-import { Routes } from 'routes/Routes'
-import { dropMenuInitialValues } from 'interfaces/shared/input'
-import { DropMenuProps } from 'interfaces/shared/input'
-
-interface semester {
-    id?: string
-    name: string
-    startDate?: string | null
-    endDate?: string | null
-    state: string
-}
-
-interface TeacherCoureLevels {
-    id: string
-    name: string
-    first?: semester | null
-    second?: semester | null
-}
-
-type Dialog = {
-    state: boolean
-    main: string
-    title: string
-    actionContent: any
-}
-
-const dialogInitialValues = {
-    state: false,
-    main: 'تأكيد إلغاء هذه العملية نهائياً',
-    title: 'إلغاء العملية',
-    actionContent: {
-        first: 'تأكيد',
-        second: 'إلغاء',
-    },
-}
-
-interface ErrorLabel {
-    error: boolean
-    value: string
-}
-
-const ErrorLabelInitialValue = {
-    error: false,
-    value: '',
-}
+import { PageErrorProps } from 'interfaces/shared/pageError'
 
 const useEditYear = () => {
     const router = useRouter()
     const { userState } = useUser()
     const { id }: any = router.query
-    const { loading, deleteHandler, getHandler, getHandlerById, putHandlerById } =
+    const { loading, postHandlerById, deleteHandler, getHandlerById, putHandlerById } =
         useRequestsHandlers()
     const { setSuccessMessage, setWarningMessage, setErrorMessage } = useAlert()
-    const [requiredData, setRequiredData] = useState<any>('')
-    const [yearData, setYearData] = useState<any>('')
-    const [year, setYear] = useState<DropMenuProps>(dropMenuInitialValues)
-    const [selectedYear, setSelectedYear] = useState<DropMenuProps>(dropMenuInitialValues)
-    const [levels, setLevels] = useState<TeacherCoureLevels[]>([])
 
-    const [content] = useState<Dialog>(dialogInitialValues)
-    const [errorLabel] = useState<ErrorLabel>(ErrorLabelInitialValue)
+    const [yearData, setYearData] = useState<any>('')
+    const [levelsData, setLevelsData] = useState<any>('')
+    const [levels, setLevels] = useState<any>([])
+    const [selectedLevels, setSelectedLevels] = useState<any>([])
+
+    const [errorLabel, setErrorLabel] = useState<PageErrorProps[]>([])
     const [classesDialogState, setClassesDialogState] = useState<boolean>(false)
 
-    // Call getRequiredData function if the user is authuraized
+    // Call getYearData and getRequiredData function if the user is authuraized
     useEffect(() => {
         if (userState.tokens!.accessToken && id) {
-            getRequiredAndYearData()
+            getYearData()
         }
     }, [userState.tokens!.accessToken, id])
 
-    // Update year data after the api response
     useEffect(() => {
-        if (yearData) {
-            setYear((oldValues) => ({ ...oldValues, name: `${yearData.start} / ${yearData.end}` }))
-        }
+        yearData.id ? getRequiredData() : null
     }, [yearData])
+
+    // Call api to get year data
+    const getYearData = async () => {
+        try {
+            const res = await getHandlerById(id, userState.tokens!.accessToken!, Urls.URL_YEARS)
+            setYearData(res)
+            adjustLevelsData(res)
+        } catch (error) {
+            console.log(error)
+            setErrorMessage('حدث خطاء')
+        }
+    }
+
+    // Call api to get required data
+    const getRequiredData = async () => {
+        try {
+            const res = await getHandlerById(
+                yearData.id,
+                userState.tokens!.accessToken!,
+                Urls.URL_YEARS_LEVELS,
+            )
+            setLevelsData(res)
+        } catch (error) {
+            console.log(error)
+            setErrorMessage('حدث خطاء')
+        }
+    }
 
     // Update levels data after the api response
-    useEffect(() => {
-        if (yearData && levels.length == 0) {
-            for (let item of yearData.levels) {
-                setLevels((oldItems: any) => [
-                    ...oldItems,
-                    {
-                        id: item.id,
-                        introFee: item.introFee,
-                        name: item.levelName,
-                        monthFee: item.monthFee,
-                        semsters: item.semsters,
-                        levelId: item.teacherCourseLevelId,
-                        open: false,
-                    },
-                ])
-            }
+    const adjustLevelsData = (data: any) => {
+        setLevels([])
+        for (let item of data.levels) {
+            setLevels((oldItems: any) => [
+                ...oldItems,
+                {
+                    id: item.id,
+                    introFee: item.introFee,
+                    name: item.levelName,
+                    monthFee: item.monthFee,
+                    semsters: item.semsters,
+                    levelId: item.teacherCourseLevelId,
+                    open: false,
+                    error: false,
+                },
+            ])
         }
-    }, [yearData])
+    }
 
-    // Call api to get required data for this page
-    const getRequiredAndYearData = async () => {
+    // Call api to add new class
+    const submitAddNewClass = async () => {
         try {
-            const requiredRes = await getHandler(
+            const res = await postHandlerById(
+                yearData.id,
                 userState.tokens!.accessToken!,
-                Urls.URL_YEARS_REQUIRED,
+                Urls.URL_YEARS_LEVEL,
             )
-            setRequiredData(requiredRes)
-            const yearRes = await getHandlerById(id, userState.tokens!.accessToken!, Urls.URL_YEARS)
-            setYearData(yearRes)
+            setLevelsData(res)
         } catch (error) {
             console.log(error)
             setErrorMessage('حدث خطاء')
         }
     }
 
-    // Get user selected year
-    const getSelectedYear = (selected: any) => {
-        setSelectedYear((oldData) => ({ ...oldData, value: selected.name, error: false }))
+    // Get the selected Classes
+    const handleSelectedClasses = (selected: any) => {
+        for (let item of selected) {
+            setSelectedLevels((oldItems: any) => [
+                ...oldItems,
+                {
+                    id: null,
+                    levelId: item.id,
+                    name: item.name,
+                    introFee: '',
+                    monthFee: '',
+                    semsters: null,
+                    open: false,
+                    error: true,
+                },
+            ])
+        }
     }
 
-    // Update year
-    const updateYear = async () => {
+    // Remove new class
+    // const removeNewClass = () => {}
+
+    // Call api to Delete class
+    const deleteClass = async (levelId: string) => {
         try {
-            const data = {
-                id: id,
-                start: parseInt(selectedYear.value.slice(0, 4)),
-            }
-            await putHandlerById(id, userState.tokens!.accessToken!, Urls.URL_YEARS, data)
-            getRequiredAndYearData()
-            setSuccessMessage('تم تعديل العام الدراسي بنجاح')
+            await deleteHandler(levelId, userState.tokens!.accessToken!, Urls.URL_YEARS_LEVEL)
+            setWarningMessage('تم حذف الفصل الدراسي بنجاح')
+            getYearData()
         } catch (error) {
-            console.log(error)
             setErrorMessage('حدث خطاء')
         }
     }
 
-    // Delete Year
+    // Open and close classes dialog
+    const classesHandleDialog = () => {
+        if (classesDialogState) {
+            setClassesDialogState(false)
+        } else {
+            setClassesDialogState(true)
+        }
+    }
+
+    // Open and close level card
+    const openAndCloseCard = (levelId: string) => {
+        setLevels(
+            levels.map((x: any) =>
+                x.id === levelId ? { ...x, open: !x.open } : { ...x, open: false },
+            ),
+        )
+        setSelectedLevels(
+            selectedLevels.map((x: any) =>
+                x.id === levelId ? { ...x, open: !x.open } : { ...x, open: false },
+            ),
+        )
+    }
+
+    const selectedIntroFeeHandler = (value: number, levelId: string, name: string) => {
+        name === 'old'
+            ? setLevels(levels.map((x: any) => (x.id === levelId ? { ...x, introFee: value } : x)))
+            : setSelectedLevels(
+                  selectedLevels.map((x: any) =>
+                      x.id === levelId ? { ...x, introFee: value } : x,
+                  ),
+              )
+    }
+
+    const selectedMonthFeeHandler = (value: number, levelId: string, name: string) => {
+        name === 'old'
+            ? setLevels(levels.map((x: any) => (x.id === levelId ? { ...x, monthFee: value } : x)))
+            : setSelectedLevels(
+                  selectedLevels.map((x: any) =>
+                      x.id === levelId ? { ...x, monthFee: value } : x,
+                  ),
+              )
+    }
+
+    const semesterStartDateHander = (value: any, name: string, data: any) => {
+        if (data.levelType === 'old') {
+            if (name === 'first') {
+                for (let levelIndex in levels) {
+                    for (let semesterIndex in levels[levelIndex].semsters) {
+                        if (
+                            levels[levelIndex].semsters[semesterIndex].semster ===
+                            'الفصل الدراسى الأول'
+                        ) {
+                            const newValue = levels[levelIndex]
+                            newValue.semsters[semesterIndex].startDate = value.toISOString()
+                            setLevels([
+                                ...levels.slice(0, levelIndex),
+                                newValue,
+                                ...levels.slice(levelIndex + 1),
+                            ])
+                        }
+                    }
+                }
+            } else {
+                for (let levelIndex in levels) {
+                    for (let semesterIndex in levels[levelIndex].semsters) {
+                        if (
+                            levels[levelIndex].semsters[semesterIndex].semster ===
+                            'الفصل الدراسى الثانى'
+                        ) {
+                            const newValue = levels[levelIndex]
+                            newValue.semsters[semesterIndex].startDate = value.toISOString()
+                            setLevels([
+                                ...levels.slice(0, levelIndex),
+                                newValue,
+                                ...levels.slice(levelIndex + 1),
+                            ])
+                        }
+                    }
+                }
+            }
+        } else {
+            if (name === 'first') {
+                setSelectedLevels(
+                    selectedLevels.map((x: any) =>
+                        x.id === data.levelId ? { ...x, fristSemeterStartDate: value } : x,
+                    ),
+                )
+            } else {
+                setSelectedLevels(
+                    selectedLevels.map((x: any) =>
+                        x.id === data.levelId ? { ...x, secondSemeterStartDate: value } : x,
+                    ),
+                )
+            }
+        }
+    }
+
+    const semesterEndDateHander = (value: any, name: string, data: any) => {
+        if (data.levelType === 'old') {
+            if (name === 'first') {
+                for (let levelIndex in levels) {
+                    for (let semesterIndex in levels[levelIndex].semsters) {
+                        if (
+                            levels[levelIndex].semsters[semesterIndex].semster ===
+                            'الفصل الدراسى الأول'
+                        ) {
+                            const newValue = levels[levelIndex]
+                            newValue.semsters[semesterIndex].endDate = value.toISOString()
+                            setLevels([
+                                ...levels.slice(0, levelIndex),
+                                newValue,
+                                ...levels.slice(levelIndex + 1),
+                            ])
+                        }
+                    }
+                }
+            } else {
+                for (let levelIndex in levels) {
+                    for (let semesterIndex in levels[levelIndex].semsters) {
+                        if (
+                            levels[levelIndex].semsters[semesterIndex].semster ===
+                            'الفصل الدراسى الثانى'
+                        ) {
+                            const newValue = levels[levelIndex]
+                            newValue.semsters[semesterIndex].endDate = value.toISOString()
+                            setLevels([
+                                ...levels.slice(0, levelIndex),
+                                newValue,
+                                ...levels.slice(levelIndex + 1),
+                            ])
+                        }
+                    }
+                }
+            }
+        } else {
+            if (name === 'first') {
+                setSelectedLevels(
+                    selectedLevels.map((x: any) =>
+                        x.id === data.levelId ? { ...x, fristSemeterEndDate: value } : x,
+                    ),
+                )
+            } else {
+                setSelectedLevels(
+                    selectedLevels.map((x: any) =>
+                        x.id === data.levelId ? { ...x, secondSemeterEndDate: value } : x,
+                    ),
+                )
+            }
+        }
+    }
+
+    const filterNeededSemester = (semesters: any, data: any) => {
+        let selected
+        semesters.map((item: any) => {
+            if (item.semster === data.level) {
+                if (data.name == 'start') {
+                    selected = item.startDate
+                } else {
+                    selected = item.endDate
+                }
+            }
+        })
+        return selected
+    }
+
+    // Validate all data before collect it
+    const validateNewLeves = (levelValue: any, levelHandler: any, levelId: any) => {
+        let state = true
+        let semesterState = true
+        setErrorLabel([])
+
+        for (let i = 0; i < levelValue.length; i++) {
+            if (levelValue[i].levelId === levelId) {
+                const firstOpen = new Date(levelValue[i].fristSemeterStartDate)
+                const firstClose = new Date(levelValue[i].fristSemeterEndDate)
+                const secondOpen = new Date(levelValue[i].secondSemeterStartDate)
+                const secondClose = new Date(levelValue[i].secondSemeterEndDate)
+                if (firstOpen > firstClose || secondOpen > secondClose) {
+                    const newValue = levelValue[i]
+                    newValue!.error = true
+                    levelHandler([...levelValue.slice(0, i), newValue, ...levelValue.slice(i + 1)])
+                    state = false
+                    semesterState = false
+                } else if (
+                    levelValue[i]?.fristSemeterEndDate! > levelValue[i]?.secondSemeterStartDate!
+                ) {
+                    const newValue = levelValue[i]
+                    newValue!.error = true
+                    levelHandler([...levelValue.slice(0, i), newValue, ...levelValue.slice(i + 1)])
+                    state = false
+                    semesterState = false
+                }
+                if (
+                    levelValue[i]?.introFee == undefined ||
+                    levelValue[i]?.introFee == '' ||
+                    levelValue[i]?.monthFee == undefined ||
+                    levelValue[i]?.monthFee == ''
+                ) {
+                    const newValue = levelValue[i]
+                    newValue!.error = false
+                    levelHandler([...levelValue.slice(0, i), newValue, ...levelValue.slice(i + 1)])
+                    state = false
+                    semesterState = false
+                } else {
+                    const newValue = levelValue[i]
+                    newValue!.error = false
+                    levelHandler([...levelValue.slice(0, i), newValue, ...levelValue.slice(i + 1)])
+                }
+            }
+        }
+
+        if (!semesterState) {
+            setErrorLabel((oldArray) => [
+                ...oldArray,
+                {
+                    name: 'semesterData',
+                    value: 'يجب التاكد ان بدية الفصول الدراسيه قبل نهايتها',
+                },
+            ])
+        }
+
+        return state
+    }
+
+    // Validate all data before collect it
+    const validateOldLevels = (levelId: any) => {
+        let state = true
+        let semesterState = true
+        setErrorLabel([])
+
+        for (let level of levels) {
+            if (level.levelId === levelId) {
+                for (let semester of level.semsters) {
+                    const startDate = new Date(semester.startDate)
+                    const endDate = new Date(semester.endDate)
+                    if (startDate > endDate) {
+                        state = false
+                        semesterState = false
+                    }
+                    if (!level.introFee || !level.monthFee) {
+                        state = false
+                        semesterState = false
+                    }
+                }
+            }
+        }
+
+        if (!semesterState) {
+            setErrorLabel((oldArray) => [
+                ...oldArray,
+                {
+                    name: 'semesterData',
+                    value: 'يجب التاكد ان بدية الفصول الدراسيه قبل نهايتها والتأكد من ادخال كل البيانات',
+                },
+            ])
+        }
+
+        return state
+    }
+
+    // Prepare data for request
+    const collectNewLevelData = (levelValue: any, levelId: any) => {
+        let levelsData = null
+        for (let item of levelValue) {
+            if (item.levelId === levelId) {
+                levelsData = {
+                    id: yearData.id,
+                    levels: [
+                        {
+                            id: levelId,
+                            introFee: item!.introFee,
+                            monthFee: item!.monthFee,
+                            semster: {
+                                fristSemeterStartDate: new Date(
+                                    item!.fristSemeterStartDate,
+                                ).toISOString(),
+                                fristSemeterEndDate: new Date(
+                                    item!.fristSemeterEndDate,
+                                ).toISOString(),
+                                secondSemeterStartDate: new Date(
+                                    item!.secondSemeterStartDate,
+                                ).toISOString(),
+                                secondSemeterEndDate: new Date(
+                                    item!.secondSemeterEndDate,
+                                ).toISOString(),
+                            },
+                        },
+                    ],
+                }
+            }
+        }
+
+        return levelsData
+    }
+
+    // Prepare data for request
+    const collectEditedLevelData = (levelId: any) => {
+        let levelData = null
+        for (let level of levels) {
+            if (level.levelId === levelId) {
+                const allSemesters = []
+                for (let semster of level.semsters) {
+                    allSemesters.push({
+                        id: semster.id,
+                        startDate: semster.startDate,
+                        endDate: semster.endDate,
+                    })
+                    console.log('lkasdjflk')
+                }
+                levelData = {
+                    id: level.levelId,
+                    introFee: level.introFee,
+                    monthFee: level.monthFee,
+                    semsters: allSemesters,
+                }
+                break
+            }
+        }
+        return levelData
+    }
+
+    // Call api to add new level
+    const submitNewLevel = async (levelId: any) => {
+        if (validateNewLeves(selectedLevels, setSelectedLevels, levelId)) {
+            try {
+                const data = collectNewLevelData(selectedLevels, levelId)
+                await postHandlerById(
+                    yearData.id,
+                    userState.tokens!.accessToken!,
+                    Urls.URL_YEARS_LEVEL,
+                    data,
+                )
+                setSelectedLevels([])
+                setSuccessMessage('تم اضافة الفصل الدراسي بنجاح')
+                await getYearData()
+            } catch (error) {
+                console.log(error)
+                setErrorMessage('حدث خطاء')
+            }
+        }
+    }
+
+    // Call api to add old level
+    const submitOldLevel = async (levelId: any) => {
+        if (validateOldLevels(levelId)) {
+            try {
+                const data = collectEditedLevelData(levelId)
+                await putHandlerById(
+                    yearData.id,
+                    userState.tokens!.accessToken!,
+                    Urls.URL_YEARS_LEVEL,
+                    data,
+                )
+                setSelectedLevels([])
+                setSuccessMessage('تم تعديل الفصل الدراسي بنجاح')
+                await getYearData()
+            } catch (error) {
+                setErrorMessage('حدث خطاء')
+            }
+        }
+    }
+
+    // Call api to Delete Year
     const deleteYear = async () => {
         try {
             await deleteHandler(yearData.id, userState.tokens!.accessToken!, Urls.URL_YEARS)
-            setErrorMessage('تم حذف العام الدراسي بنجاح')
+            setWarningMessage('تم حذف العام الدراسي بنجاح')
             router.replace(Routes.teacherYears)
         } catch (error) {
             console.log(error)
@@ -151,7 +503,7 @@ const useEditYear = () => {
         }
     }
 
-    // End year
+    // Call api to End year
     const endYear = async () => {
         try {
             const res = await putHandlerById(
@@ -167,92 +519,44 @@ const useEditYear = () => {
         }
     }
 
-    // Get the selected Classes
-    const handleSelectedClasses = (selected: any) => {
-        // Remove classes
-        deleteClass(selected)
-
-        // Add new classes
-        for (let selectedClass of selected) {
-            const index = levels.findIndex((item) => item.name === selectedClass.name)
-
-            if (index !== -1) {
-                console.log('already exist')
-            } else {
-                setLevels([
-                    ...levels,
-                    {
-                        id: selectedClass.id,
-                        name: selectedClass.name,
-                        first: selectedClass.first,
-                        second: selectedClass.second,
-                    },
-                ])
-            }
-        }
-    }
-
-    // Remove class
-    const deleteClass = async (newSelectedClasses: any) => {
-        for (let oldClasses of levels) {
-            const index = newSelectedClasses.findIndex((item: any) => item.name === oldClasses.name)
-
-            if (index == -1) {
-                for (let i in levels) {
-                    if (levels[i]?.name == oldClasses.name) {
-                        setLevels([
-                            ...levels.slice(0, parseInt(i)),
-                            ...levels.slice(parseInt(i) + 1),
-                        ])
-                    }
-                }
-            }
-        }
-    }
-
-    // Open and close classes dialog
-    const classesHandleDialog = () => {
-        if (classesDialogState) {
-            setClassesDialogState(false)
-        } else {
-            setClassesDialogState(true)
-        }
-    }
-
-    const openAndCloseCard = (levelId: string) => {
-        setLevels(levels.map((x: any) => (x.id === levelId ? { ...x, open: !x.open } : x)))
-    }
-
     useEffect(() => {
         console.log(levels)
     }, [levels])
 
+    useEffect(() => {
+        console.log(yearData)
+    }, [yearData])
+
     return {
         data: {
-            requiredData,
-            yearData,
-            yearsTypes,
             levels,
+            yearData,
+            levelsData,
+            selectedLevels,
         },
         states: {
             loading,
             errorLabel,
-            year,
-            selectedYear,
             classesDialogState,
         },
         actions: {
-            getSelectedYear,
-            classesHandleDialog,
             endYear,
             deleteYear,
+            submitAddNewClass,
             handleSelectedClasses,
+            deleteClass,
             openAndCloseCard,
-            updateYear,
+            classesHandleDialog,
+            selectedIntroFeeHandler,
+            selectedMonthFeeHandler,
+            semesterStartDateHander,
+            semesterEndDateHander,
+            submitNewLevel,
+            filterNeededSemester,
+            submitOldLevel,
         },
         dialogs: {
             classesDialogState,
-            content,
             actions: {
                 // handleDialogState,
                 submitDialog: deleteYear,

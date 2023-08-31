@@ -1,4 +1,7 @@
+import Link from 'next/link'
+import Urls from 'constant/urls'
 import NavbarBut from './NavbarBut'
+import { Routes } from 'routes/Routes'
 import Avatar from 'components/MyAvatar'
 import NavbarSecBut from './NavbarSecBut'
 import { useUser } from 'context/userContext'
@@ -7,8 +10,6 @@ import { useTheme } from 'context/ThemeContext'
 // MUI
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
-import Link from 'next/link'
-import { Routes } from 'routes/Routes'
 
 type Props = {
     firstPath?: any
@@ -135,7 +136,7 @@ const DesktopNavbar: React.FC<Props> = ({ firstPath, secondPath, firstContent, s
                                 {userState.user && (
                                     <Avatar
                                         alt={`أ / ${userState.user.firstName} ${userState.user.lastName}`}
-                                        src={userState.user.imagePath}
+                                        src={`${Urls.URL_MAIN}/${userState.user.imagePath}`}
                                         width={34}
                                         height={34}
                                     />

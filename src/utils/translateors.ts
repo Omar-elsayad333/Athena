@@ -34,4 +34,4 @@ export const genderTranslate = (gender: string) => {
         default:
             return ''
     }
-} 
+}

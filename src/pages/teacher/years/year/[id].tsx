@@ -117,7 +117,7 @@ const Year: NextPage = () => {
                                 />
                             </svg>
                         </PageTitle>
-                        <Link href={`${Routes.teacherEditYear}/${data.yearData.id}`}>
+                        <Link href={`${Routes.teacherEditYear}${data.yearData.id}`}>
                             <a>
                                 <MyIconButton content="تعديل" icon={<CreateOutlinedIcon />} />
                             </a>

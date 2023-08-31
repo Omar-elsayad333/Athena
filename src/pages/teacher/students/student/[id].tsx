@@ -49,10 +49,10 @@ const Student: NextPage = () => {
         <Box sx={style.root}>
             <PageHead
                 title={`
-                    ${data.studentData.gender == 'male' ? 'الطالب' : 'الطالبه'} / 
-                    ${data.studentData.firstName} 
-                    ${data.studentData.middleName}
-                    ${data.studentData.lastName}
+                    ${data.studentData?.gender == 'male' ? 'الطالب' : 'الطالبه'} / 
+                    ${data.studentData?.firstName} 
+                    ${data.studentData?.middleName}
+                    ${data.studentData?.lastName}
                 `}
             />
             <DesktopNavbar

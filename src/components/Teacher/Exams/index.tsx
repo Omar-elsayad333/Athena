@@ -78,26 +78,16 @@ const ExamsC: React.FC<Props> = ({ data, states, actions }) => {
 
     return (
         <Box sx={style.container}>
-            <MySelect
-                data={data.years}
-                value={states.selectedYear.value}
-                error={states.selectedYear.error}
-                placeholder="اختار العام الدراسي"
-                getSelected={actions.selectedYearHandler}
-                helperText={states.selectedYear.helperText}
-            />
             <MySearchInput
                 onChange={actions.searchHandler}
                 placeholder="هل تبحث عن نموذج امتحان معين ؟"
-                disabled={states.selectedYear.id ? false : true}
             />
-            {states.selectedYear.id && (
-                <FilterWedgit
-                    filters={data.examTypes}
-                    allFilter="جميع الامتحانات"
-                    getSelected={actions.filterByType}
-                />
-            )}
+            <FilterWedgit
+                filters={data.examTypes}
+                allFilter="جميع الامتحانات"
+                getSelected={actions.filterByType}
+                selected={states.selectedExamType}
+            />
             <Box sx={style.examsCardContainer}>
                 {data.exams.length > 0 &&
                     data.exams.map((exam: any) => (

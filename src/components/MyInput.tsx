@@ -96,7 +96,7 @@ const MyInput: React.FC<Props> = ({
                 placeholder={placeholder}
                 onChange={(e) => onChange(e.target.value, indexes, name)}
             />
-            {helperText && <InputError content={helperText} type="error" />}
+            {helperText && <InputError content={helperText} type="info" />}
         </FormControl>
     )
 }
