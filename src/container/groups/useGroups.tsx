@@ -37,7 +37,7 @@ const useGroups = () => {
 
     // Get search value from user
     const searchHandler = (searchValue: string) => {
-        useSearchHandler(searchValue, originalData, setOpenGroupsData)
+        useSearchHandler('name', searchValue, originalData, setOpenGroupsData)
     }
 
     return {
