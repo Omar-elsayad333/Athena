@@ -7,10 +7,10 @@ import useRequestsHandlers from 'hooks/useRequestsHandlers'
 
 const useYear = () => {
     const router = useRouter()
-    const { id }: any = router.query
     const { userState } = useUser()
-    const { setSuccessMessage, setErrorMessage } = useAlert()
-    const { loading, getHandlerById, putHandlerById } = useRequestsHandlers()
+    const { id }: any = router.query
+    const { setErrorMessage } = useAlert()
+    const { loading, getHandlerById } = useRequestsHandlers()
     const [yearData, setYearData] = useState<any>('')
     const [levelsData, setLevelsData] = useState<any>('')
 
@@ -65,22 +65,6 @@ const useYear = () => {
         setLevelsData(levelsData.map((x: any) => (x.id === levelId ? { ...x, open: !x.open } : x)))
     }
 
-    const openSemester = async (semsterId: string) => {
-        try {
-            const res = await putHandlerById(
-                semsterId,
-                userState.tokens!.accessToken!,
-                Urls.URL_YEARS_OPEN_SEMESTER,
-            )
-            await getYearData()
-            setSuccessMessage('تم فتح الفصل الدراسي بنجاح')
-            console.log(res)
-        } catch (error) {
-            console.log(error)
-            setErrorMessage('حدث خطاء اثناء فتح الفصل الدراسي')
-        }
-    }
-
     return {
         data: {
             yearData,
@@ -91,7 +75,6 @@ const useYear = () => {
         },
         actions: {
             openAndCloseCard,
-            openSemester,
         },
     }
 }
