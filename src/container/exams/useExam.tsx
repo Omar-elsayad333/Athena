@@ -16,7 +16,7 @@ const useExam = () => {
     const [examSections, setExamSections] = useState<any>('')
     // const [examGroups, setExamGroups] = useState<any>('')
     const [examTypes, setExamTypes] = useState()
-    const [examGroups, setExamGroups] = useState()
+    // const [examGroups, setExamGroups] = useState()
     const { loading, getHandlerById, getHandler } = useRequestsHandlers()
 
     useEffect(() => {
