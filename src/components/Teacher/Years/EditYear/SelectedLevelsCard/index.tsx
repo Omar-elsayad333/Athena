@@ -4,13 +4,13 @@ import { useTheme } from 'context/ThemeContext'
 import MyDatePicker from 'components/MyDatePicker'
 import MyInputSmall from 'components/MyInputSmall'
 import MyButton from 'components/Buttons/MyButton'
+import PageError from 'components/Shared/PageError'
 
 // MUI
 import Box from '@mui/material/Box'
 import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
-import PageError from 'components/Shared/PageError'
 
 type Props = {
     data: any

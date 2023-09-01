@@ -15,6 +15,7 @@ import Box from '@mui/material/Box'
 import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
 import ControlPointIcon from '@mui/icons-material/ControlPoint'
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 
 type Props = {
     data: any
@@ -131,13 +132,11 @@ const AddYearC: React.FC<Props> = ({ data, states, actions }) => {
                 تحديد الصفوف الدراسية:-
             </Typography>
             <Box sx={style.backPaper}>
-                <Tooltip title="Delete">
-                    <MyIconButton
-                        event={actions.classesHandleDialog}
-                        icon={<ControlPointIcon />}
-                        content="الصفوف الدراسية"
-                    />
-                </Tooltip>
+                <MyIconButton
+                    event={actions.classesHandleDialog}
+                    icon={<ControlPointIcon />}
+                    content="الصفوف الدراسية"
+                />
                 {data.selectedLevels.length > 0 && (
                     <Box sx={style.classesList}>
                         {data.selectedLevels.map((item: any) => {
@@ -149,6 +148,12 @@ const AddYearC: React.FC<Props> = ({ data, states, actions }) => {
                         })}
                     </Box>
                 )}
+                <Tooltip
+                    sx={{ alignSelf: 'center' }}
+                    title="لا يمكن تعديل الصفوف الدراسيه لاحقا لذالك يجب التأكد من اختيارها جيدا"
+                >
+                    <InfoOutlinedIcon color={'primary'} />
+                </Tooltip>
             </Box>
             {data.selectedLevels.length > 0 && (
                 <Typography sx={style.title} variant="h3" color={mainColors.title.main}>
