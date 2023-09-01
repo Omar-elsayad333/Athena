@@ -139,32 +139,6 @@ const EditGroupC: React.FC<Props> = ({ data, states, actions, dialogs }) => {
                 </Box>
                 <Box sx={style.inputContainer}>
                     <Typography variant="h5" color={mainColors.primary.dark}>
-                        العام الدراسي
-                    </Typography>
-                    <MySelect
-                        data={states.yearsData}
-                        value={states.selectedYear.value || `${data.startYear} / ${data.endYear}`}
-                        getSelected={actions.yearHandler}
-                        error={states.selectedYear.error}
-                        helperText={states.selectedYear.helperText}
-                        placeholder={`${data.startYear} / ${data.endYear}`}
-                    />
-                </Box>
-                <Box sx={style.inputContainer}>
-                    <Typography variant="h5" color={mainColors.primary.dark}>
-                        الصف الدراسي الخاص بالمجموعة
-                    </Typography>
-                    <MySelect
-                        data={states.levelsData}
-                        placeholder={data.level}
-                        value={states.selectedLevel.value || data.level || ''}
-                        getSelected={actions.levelHandler}
-                        error={states.selectedLevel.error}
-                        helperText={states.selectedLevel.helperText}
-                    />
-                </Box>
-                <Box sx={style.inputContainer}>
-                    <Typography variant="h5" color={mainColors.primary.dark}>
                         المقر الخاص بالمجموعة
                     </Typography>
                     <MySelect

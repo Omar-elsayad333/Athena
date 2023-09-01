@@ -51,6 +51,8 @@ export class Routes {
 
     static teacherAddStudents = '/teacher/students/add-students/'
 
+    static teacherStudentsRequests = '/teacher/students/join-requests/'
+
     // Exams
     static teacherExams = '/teacher/exams/'
 
