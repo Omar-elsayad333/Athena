@@ -1,3 +1,4 @@
+import Urls from 'constant/urls'
 import { Routes } from 'routes/Routes'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
@@ -5,7 +6,6 @@ import { useUser } from 'context/userContext'
 import { useAlert } from 'context/AlertContext'
 import { convertTimeToDB } from 'utils/converters'
 import { PageErrorProps } from 'interfaces/shared/pageError'
-import Urls from 'constant/urls'
 import useRequestsHandlers from 'hooks/useRequestsHandlers'
 import { warningDialogInitialValues, WarningDialogProps } from 'interfaces/shared/warningDialog'
 import {
