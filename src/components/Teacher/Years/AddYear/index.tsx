@@ -12,6 +12,7 @@ import MyButtonError from 'components/Buttons/MyButtonError'
 
 // MUI
 import Box from '@mui/material/Box'
+import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
 import ControlPointIcon from '@mui/icons-material/ControlPoint'
 
@@ -130,11 +131,13 @@ const AddYearC: React.FC<Props> = ({ data, states, actions }) => {
                 تحديد الصفوف الدراسية:-
             </Typography>
             <Box sx={style.backPaper}>
-                <MyIconButton
-                    event={actions.classesHandleDialog}
-                    icon={<ControlPointIcon />}
-                    content="الصفوف الدراسية"
-                />
+                <Tooltip title="Delete">
+                    <MyIconButton
+                        event={actions.classesHandleDialog}
+                        icon={<ControlPointIcon />}
+                        content="الصفوف الدراسية"
+                    />
+                </Tooltip>
                 {data.selectedLevels.length > 0 && (
                     <Box sx={style.classesList}>
                         {data.selectedLevels.map((item: any) => {
