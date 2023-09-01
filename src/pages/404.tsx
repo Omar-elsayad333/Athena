@@ -14,33 +14,23 @@ const ErrorPage: NextPage = () => {
 
     const style: IStyle = {
         root: {
-            width: '100vw',
+            minWidth: '100vw',
             minHeight: '100vh',
             display: 'flex',
             flexDirection: 'column',
-            flexWrap: 'wrap',
+            alignItems: 'center',
+            marginTop: '0px',
             backgroundColor: mainColors.backgroundColor.main,
             transition: '.2s',
         },
         header: {
-            width: '100%',
-            height: 'auto',
-            position: 'absolute',
-            display: 'flex',
-            justifyContent: 'center',
-            FlexDirection: 'row',
+            height: 'fit-content',
             paddingTop: '20px',
-            top: '0px',
         },
         container: {
+            paddingTop:"25%",
             height: 'fit-content',
-            display: 'flex',
-            position: 'absolute',
-            flexDirection: 'column',
-            top: '30vh',
-            right: '30vw',
-            justifyContent: 'center',
-            alignContent: 'flex-end',
+            position: 'relative',
         },
         Text: {
             color: mainColors.primary.main,
@@ -55,34 +45,67 @@ const ErrorPage: NextPage = () => {
             fontSize: '120px',
             alignSelf: 'end',
             marginRight: '40px',
+            '@media(max-width:400px)': {
+                fontWeight: '500',
+                fontSize: '80px',
+            },
         },
         Text2: {
             color: mainColors.primary.main,
             fontSize: '40px',
             fontWeight: '700',
+            '@media(max-width:400px)': {
+                fontSize: '20px',
+            },
         },
         Text3: {
             marginTop: '10px',
             fontWeight: '300',
+            '@media(max-width:400px)': {
+                fontSize: '13px',
+            },
         },
         footerContainer: {
             marginTop: 'auto',
+            width: '100%',
         },
+        FirstRowHolder: {
+            display:"flex",
+            flexDirection:"row",
+            '@media(max-width:400px)': {
+                flexDirection:"column",
+            alignItems: 'center',
+            },  
+        },
+
+        holder: {
+            height: '82vh !important',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+        },
+        text:{
+            display:"flex"
+        }
     }
 
     return (
         <Box sx={style.root}>
-            <Box sx={style.footerContainer}>
+            <Box sx={style.holder}>
                 <Box sx={style.header}>
                     <ErrorPageHeaderImg />
                 </Box>
                 <Box sx={style.container}>
-                    <Box sx={{ display: 'inline-flex' }}>
-                        <ErrorPageContentBoxImg />
+                    <Box sx={style.FirstRowHolder}>
+                        <Box sx={style.imgBox}>
+                            <ErrorPageContentBoxImg height="120" width="120" />
+                        </Box>
+                        <Box sx={style.text}>
                         <Typography sx={style.BigText}>404</Typography>
                         <Typography variant="h5" sx={style.Text}>
                             Error Code
                         </Typography>
+                        </Box>
                     </Box>
                     <Box>
                         <Typography sx={style.Text2}>عفوا! لم يتم العثور على هذه الصفحة</Typography>
@@ -98,7 +121,8 @@ const ErrorPage: NextPage = () => {
                         </Link>
                     </Box>
                 </Box>
-
+            </Box>
+            <Box sx={style.footerContainer}>
                 <PageFooter />
             </Box>
         </Box>
