@@ -219,6 +219,7 @@ const useEditGroup = () => {
         const dataToSubmit: any = {
             id: groupData.id,
             name: name.value.trim() != '' ? name.value : groupData.name,
+            teacherCourseLevelYearId: groupData.teacherCourseLevelId,
             limit: limit.value.trim() != '' ? limit.value : groupData.limit,
             groupScaduals: [],
             newGroupScaduals: [],
