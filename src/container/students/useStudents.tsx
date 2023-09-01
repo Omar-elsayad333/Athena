@@ -49,7 +49,6 @@ const useStudents = () => {
                 id: 'all',
             })
         } catch (error) {
-            console.log(error)
             setErrorMessage('حدث خطاء')
         }
     }
@@ -61,20 +60,29 @@ const useStudents = () => {
         setStudentsData([])
         setPreopenLevels([])
 
+        const preOpenStudents: any[] = []
         res.preopen.map((level: any) => {
+            if (level.students) {
+                preOpenStudents.push(...level.students)
+            }
             setStudentsData((studentsData: any) => ({
                 ...studentsData,
-                preopenStudents: [...level.students],
+                preopenStudents: preOpenStudents,
             }))
             setPreopenLevels((preopenLevels: any) => [
                 ...preopenLevels,
                 { name: level.levelName, students: level.students },
             ])
         })
+
+        const openStudents: any[] = []
         res.open.map((level: any) => {
+            if (level.students) {
+                openStudents.push(...level.students)
+            }
             setStudentsData((studentsData: any) => ({
                 ...studentsData,
-                openStudents: [...level.students],
+                openStudents: openStudents,
             }))
             setFilterdData((filterdData: any) => [...filterdData, ...level.students])
             setOpenLevels((openLevels: any) => [
@@ -125,7 +133,6 @@ const useStudents = () => {
                     : preopenLevels.map((level: any) => {
                           if (level.name === selectedLevel.value) {
                               setFilterdData(level.students)
-                              console.log('klasjdf')
                           }
                       })
             }

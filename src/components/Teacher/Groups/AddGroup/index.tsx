@@ -11,7 +11,9 @@ import WarningDialog from 'components/Dialogs/WarningDialog'
 
 // MUI
 import Box from '@mui/material/Box'
+import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 
 type Props = {
     data: any
@@ -111,6 +113,11 @@ const AddGroupC: React.FC<Props> = ({ data, states, actions, dialogs }) => {
             width: '170px',
             height: '40px',
         },
+        toolContainer: {
+            display: 'flex',
+            alignItems: 'center',
+            gap: '10px',
+        },
     }
 
     return (
@@ -131,23 +138,39 @@ const AddGroupC: React.FC<Props> = ({ data, states, actions, dialogs }) => {
                     onChange={actions.nameHandler}
                     helperText={states.name.helperText}
                 />
-                <MySelect
-                    data={data.yearsData}
-                    placeholder="العام الدراسي"
-                    value={states.selectedYear.value}
-                    getSelected={actions.yearHandler}
-                    error={states.selectedYear.error}
-                    helperText={states.selectedYear.helperText}
-                />
-                <MySelect
-                    data={data.levelsData}
-                    value={states.selectedLevel.value}
-                    error={states.selectedLevel.error}
-                    placeholder="الصف الدراسي الخاص بالمجموعة"
-                    getSelected={actions.levelHandler}
-                    helperText={states.selectedLevel.helperText}
-                    disabled={states.selectedYear.id ? false : true}
-                />
+                <Box sx={style.toolContainer}>
+                    <MySelect
+                        data={data.yearsData}
+                        placeholder="العام الدراسي"
+                        value={states.selectedYear.value}
+                        getSelected={actions.yearHandler}
+                        error={states.selectedYear.error}
+                        helperText={states.selectedYear.helperText}
+                    />
+                    <Tooltip
+                        sx={{ alignSelf: 'center' }}
+                        title="لا يمكن تعديل العام الدراسي لاحقا لذالك يجب التأكد من اختياره جيدا"
+                    >
+                        <InfoOutlinedIcon color={'primary'} />
+                    </Tooltip>
+                </Box>
+                <Box sx={style.toolContainer}>
+                    <MySelect
+                        data={data.levelsData}
+                        value={states.selectedLevel.value}
+                        error={states.selectedLevel.error}
+                        placeholder="الصف الدراسي الخاص بالمجموعة"
+                        getSelected={actions.levelHandler}
+                        helperText={states.selectedLevel.helperText}
+                        disabled={states.selectedYear.id ? false : true}
+                    />
+                    <Tooltip
+                        sx={{ alignSelf: 'center' }}
+                        title="لا يمكن تعديل الصف الدراسي لاحقا لذالك يجب التأكد من اختياره جيدا"
+                    >
+                        <InfoOutlinedIcon color={'primary'} />
+                    </Tooltip>
+                </Box>
                 <MySelect
                     data={data.headquartersData}
                     placeholder="المقر الخاص بالمجموعة"
