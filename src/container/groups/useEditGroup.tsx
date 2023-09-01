@@ -28,14 +28,9 @@ const useEditGroup = () => {
     const [groupData, setGroupData] = useState<any>('')
     const [requiredData, setRequiredData] = useState<any>('')
     const [name, setName] = useState<InputProps>(inputInitialValues)
-    // const [openYearsData, setOpenYearsData] = useState<any>([])
-    // const [preopenYearsData, setPreopenYearsData] = useState<any>([])
-    const [selectedYear, setSelectedYear] = useState<DropMenuProps>(dropMenuInitialValues)
     const [headquartersData, setHeadquartersData] = useState<any>([])
     const [selectedHeadquarter, setSelectedHeadquarter] =
         useState<DropMenuProps>(dropMenuInitialValues)
-    const [levelsData, setLevelsData] = useState<any>([])
-    const [selectedLevel, setSelectedLevel] = useState<DropMenuProps>(dropMenuInitialValues)
     const [limit, setLimit] = useState<InputProps>(inputInitialValues)
     const [selectedDays, setSelectedDays] = useState<any[]>([])
     const [pageErrors, setPageErrors] = useState<PageErrorProps[]>([])
@@ -43,10 +38,6 @@ const useEditGroup = () => {
         warningDialogInitialValues,
     )
     const [daysDialog, setDaysDialog] = useState<Boolean>(false)
-    const yearsData = [
-        { id: '1', name: 'عام دراسي' },
-        { id: '2', name: 'عام تجهيزي' },
-    ]
 
     // Call api to get required data if user is authorized
     useEffect(() => {
@@ -59,49 +50,9 @@ const useEditGroup = () => {
     // Call api to get group data if required data is available
     useEffect(() => {
         if (requiredData != '') {
-            updateYearsData()
             updateHeadquartersData()
-            updateLevels()
         }
     }, [requiredData])
-
-    // Filter levels data according to the selected year from db
-    useEffect(() => {
-        if (groupData && requiredData && !selectedYear.id && levelsData.length == 0) {
-            for (let item of requiredData.yearLevels) {
-                if (item.start == groupData.startYear && item.end == groupData.endYear) {
-                    for (let level of item.levels) {
-                        const newData = {
-                            id: level.teacherCourseLevelYearId,
-                            name: level.levelName,
-                        }
-                        setLevelsData((oldValues: any) => [...oldValues, newData])
-                    }
-                }
-            }
-        }
-        if (groupData) {
-            updateSelectedDaysFromDB()
-        }
-    }, [groupData])
-
-    // Filter levels data according to the selected year from user
-    useEffect(() => {
-        if (requiredData && selectedYear.id) {
-            for (let item of requiredData.yearLevels) {
-                if (`${item.start} / ${item.end}` == selectedYear.value) {
-                    setLevelsData([])
-                    for (let level of item.levels) {
-                        const newData = {
-                            id: level.teacherCourseLevelYearId,
-                            name: level.levelName,
-                        }
-                        setLevelsData((oldValues: any) => [...oldValues, newData])
-                    }
-                }
-            }
-        }
-    }, [selectedYear])
 
     // Update dialog UI according to selected days
     useEffect(() => {
@@ -118,6 +69,10 @@ const useEditGroup = () => {
         }
     }, [selectedDays])
 
+    useEffect(() => {
+        updateSelectedDaysFromDB()
+    }, [groupData])
+
     // Call api to get the required data for the page
     const getRequiredData = async () => {
         try {
@@ -129,43 +84,9 @@ const useEditGroup = () => {
         }
     }
 
-    // Update years data
-    const updateYearsData = () => {
-        if (yearsData.length == 0) {
-            // for (let year of requiredData.yearLevels) {
-            //     setYearsData((yearsData: any) => [
-            //         ...yearsData,
-            //         {
-            //             id: year.id,
-            //             name: `${year.start} / ${year.end}`,
-            //         },
-            //     ])
-            // }
-        }
-    }
-
     // Update headquarters data
     const updateHeadquartersData = () => {
         setHeadquartersData(requiredData.headQuaertes)
-    }
-
-    // Filter levels data according to the selected year
-    const updateLevels = () => {
-        loopInYears: for (let year of requiredData.yearLevels) {
-            if (year.id == selectedYear.id) {
-                setLevelsData([])
-                setSelectedLevel(dropMenuInitialValues)
-                loopInLeveles: for (let level of year.levels) {
-                    setLevelsData((levels: any) => [
-                        ...levels,
-                        {
-                            id: level.teacherCourseLevelYearId,
-                            name: level.levelName,
-                        },
-                    ])
-                }
-            }
-        }
     }
 
     // Call api to get group data from db
@@ -190,30 +111,10 @@ const useEditGroup = () => {
     }
 
     // Get the year that the user selected
-    const yearHandler = (year: any) => {
-        setSelectedYear({
-            id: year.id,
-            value: year.name,
-            error: false,
-            helperText: '',
-        })
-    }
-
-    // Get the year that the user selected
     const headquarterHandler = (headquarter: any) => {
         setSelectedHeadquarter({
             id: headquarter.id,
             value: headquarter.name,
-            error: false,
-            helperText: '',
-        })
-    }
-
-    // Get the year that the user selected
-    const levelHandler = (level: any) => {
-        setSelectedLevel({
-            id: level.id,
-            value: level.name,
             error: false,
             helperText: '',
         })
@@ -318,6 +219,7 @@ const useEditGroup = () => {
         const dataToSubmit: any = {
             id: groupData.id,
             name: name.value.trim() != '' ? name.value : groupData.name,
+            teacherCourseLevelYearId: groupData.teacherCourseLevelId,
             limit: limit.value.trim() != '' ? limit.value : groupData.limit,
             groupScaduals: [],
             newGroupScaduals: [],
@@ -335,13 +237,6 @@ const useEditGroup = () => {
             dataToSubmit['headQuarterId'] = selectedHeadquarter.id
         } else {
             dataToSubmit['headQuarterId'] = groupData.headQuarterId
-        }
-
-        // Push the selected or old level to submit object
-        if (selectedLevel.id.trim() !== '') {
-            dataToSubmit['teacherCourseLevelYearId'] = selectedLevel.id
-        } else {
-            dataToSubmit['teacherCourseLevelYearId'] = groupData.teacherCourseLevelId
         }
 
         // Push the new and old data to submit object
@@ -434,21 +329,15 @@ const useEditGroup = () => {
         states: {
             loading,
             name,
-            yearsData,
-            selectedYear,
             headquartersData,
             selectedHeadquarter,
-            levelsData,
-            selectedLevel,
             limit,
             selectedDays,
             pageErrors,
         },
         actions: {
             nameHandler,
-            yearHandler,
             headquarterHandler,
-            levelHandler,
             limitHandler,
             getSelectedDays,
             updateItem,

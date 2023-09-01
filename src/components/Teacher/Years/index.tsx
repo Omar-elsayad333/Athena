@@ -84,7 +84,7 @@ const YearsC: React.FC<Props> = ({ data }) => {
     return (
         <Box sx={style.container}>
             <Typography sx={style.title} color={mainColors.title.main} variant="h3">
-                السنوات المفتوحه
+                السنه الحاليه
             </Typography>
             {data.yearsData &&
                 data.yearsData.open.map((item: any) => {
@@ -104,7 +104,7 @@ const YearsC: React.FC<Props> = ({ data }) => {
                     )
                 })}
             <Typography sx={style.title} color={mainColors.title.main} variant="h3">
-                السنوات التجهيزيه
+                السنه القدمه
             </Typography>
             {data.yearsData &&
                 data.yearsData.preopen.map((item: any) => {

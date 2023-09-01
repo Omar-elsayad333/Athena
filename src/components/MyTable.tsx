@@ -87,10 +87,9 @@ const MyTable: React.FC<Props> = ({ headerData, bodyData }) => {
                         bodyData.map((bodyItem: any, index: number) => (
                             <TableRow key={index}>
                                 {Object.keys(bodyItem).map((cell: any, keyIndex: number) => {
-                                    console.log(cell)
-                                    if (cell === 'imagePath') {
+                                    if (cell === 'imagePath' || cell === 'image') {
                                         return (
-                                            <TableCell align="right" key={index}>
+                                            <TableCell align="right" key={keyIndex}>
                                                 <Box
                                                     sx={{
                                                         width: '60px',

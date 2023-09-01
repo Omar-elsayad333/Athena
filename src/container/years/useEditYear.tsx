@@ -115,20 +115,6 @@ const useEditYear = () => {
         }
     }
 
-    // Remove new class
-    // const removeNewClass = () => {}
-
-    // Call api to Delete class
-    const deleteClass = async (levelId: string) => {
-        try {
-            await deleteHandler(levelId, userState.tokens!.accessToken!, Urls.URL_YEARS_LEVEL)
-            setWarningMessage('تم حذف الفصل الدراسي بنجاح')
-            getYearData()
-        } catch (error) {
-            setErrorMessage('حدث خطاء')
-        }
-    }
-
     // Open and close classes dialog
     const classesHandleDialog = () => {
         if (classesDialogState) {
@@ -544,7 +530,6 @@ const useEditYear = () => {
             deleteYear,
             submitAddNewClass,
             handleSelectedClasses,
-            deleteClass,
             openAndCloseCard,
             classesHandleDialog,
             selectedIntroFeeHandler,
