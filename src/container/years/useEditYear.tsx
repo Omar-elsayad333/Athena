@@ -385,8 +385,8 @@ const useEditYear = () => {
                     levels: [
                         {
                             id: levelId,
-                            introFee: item!.introFee,
-                            monthFee: item!.monthFee,
+                            introFee: parseInt(item!.introFee),
+                            monthFee: parseInt(item!.monthFee),
                             semster: {
                                 fristSemeterStartDate: new Date(
                                     item!.fristSemeterStartDate,
@@ -426,8 +426,8 @@ const useEditYear = () => {
                 }
                 levelData = {
                     id: level.levelId,
-                    introFee: level.introFee,
-                    monthFee: level.monthFee,
+                    introFee: parseInt(level.introFee),
+                    monthFee: parseInt(level.monthFee),
                     semsters: allSemesters,
                 }
                 break
