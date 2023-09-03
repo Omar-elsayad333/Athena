@@ -414,7 +414,7 @@ const useEditYear = () => {
     const collectEditedLevelData = (levelId: any) => {
         let levelData = null
         for (let level of levels) {
-            if (level.levelId === levelId) {
+            if (level.id === levelId) {
                 const allSemesters = []
                 for (let semster of level.semsters) {
                     allSemesters.push({
@@ -425,7 +425,7 @@ const useEditYear = () => {
                     console.log('lkasdjflk')
                 }
                 levelData = {
-                    id: level.levelId,
+                    id: level.id,
                     introFee: parseInt(level.introFee),
                     monthFee: parseInt(level.monthFee),
                     semsters: allSemesters,
@@ -463,7 +463,7 @@ const useEditYear = () => {
             try {
                 const data = collectEditedLevelData(levelId)
                 await putHandlerById(
-                    yearData.id,
+                    levelId,
                     userState.tokens!.accessToken!,
                     Urls.URL_YEARS_LEVEL,
                     data,
