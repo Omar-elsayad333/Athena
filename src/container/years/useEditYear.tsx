@@ -505,14 +505,6 @@ const useEditYear = () => {
         }
     }
 
-    useEffect(() => {
-        console.log(levels)
-    }, [levels])
-
-    useEffect(() => {
-        console.log(yearData)
-    }, [yearData])
-
     return {
         data: {
             levels,
