@@ -88,8 +88,8 @@ const ExamsC: React.FC<Props> = ({ data, states, actions }) => {
                 selected={states.selectedExamType}
             />
             <Box sx={style.examsCardContainer}>
-                {data.exams.length > 0 &&
-                    data.exams.map((exam: any) => (
+                {data.filterdData.length > 0 ? (
+                    data.filterdData.map((exam: any) => (
                         <Link key={exam.id} href={`${Routes.teacherExam}${exam.id}`}>
                             <Box sx={style.examCard}>
                                 <Box sx={style.cardTitle}>
@@ -258,7 +258,12 @@ const ExamsC: React.FC<Props> = ({ data, states, actions }) => {
                                 </Box>
                             </Box>
                         </Link>
-                    ))}
+                    ))
+                ) : (
+                    <Typography textAlign={'center'} color={'primary'} variant="h2">
+                        لا يوجد امتحانات
+                    </Typography>
+                )}
             </Box>
         </Box>
     )
