@@ -399,7 +399,7 @@ const EditYearC: React.FC<Props> = ({ data, states, actions }) => {
                                         <PageError errors={states.errorLabel} />
                                         <MyButton
                                             content="تأكيد"
-                                            onClick={() => actions.submitOldLevel(item.levelId)}
+                                            onClick={() => actions.submitOldLevel(item.id)}
                                         />
                                     </Box>
                                 </Box>
