@@ -385,8 +385,8 @@ const useEditYear = () => {
                     levels: [
                         {
                             id: levelId,
-                            introFee: item!.introFee,
-                            monthFee: item!.monthFee,
+                            introFee: parseInt(item!.introFee),
+                            monthFee: parseInt(item!.monthFee),
                             semster: {
                                 fristSemeterStartDate: new Date(
                                     item!.fristSemeterStartDate,
@@ -414,7 +414,7 @@ const useEditYear = () => {
     const collectEditedLevelData = (levelId: any) => {
         let levelData = null
         for (let level of levels) {
-            if (level.levelId === levelId) {
+            if (level.id === levelId) {
                 const allSemesters = []
                 for (let semster of level.semsters) {
                     allSemesters.push({
@@ -425,9 +425,9 @@ const useEditYear = () => {
                     console.log('lkasdjflk')
                 }
                 levelData = {
-                    id: level.levelId,
-                    introFee: level.introFee,
-                    monthFee: level.monthFee,
+                    id: level.id,
+                    introFee: parseInt(level.introFee),
+                    monthFee: parseInt(level.monthFee),
                     semsters: allSemesters,
                 }
                 break
@@ -463,7 +463,7 @@ const useEditYear = () => {
             try {
                 const data = collectEditedLevelData(levelId)
                 await putHandlerById(
-                    yearData.id,
+                    levelId,
                     userState.tokens!.accessToken!,
                     Urls.URL_YEARS_LEVEL,
                     data,
@@ -504,14 +504,6 @@ const useEditYear = () => {
             setErrorMessage('حدث خطاء')
         }
     }
-
-    useEffect(() => {
-        console.log(levels)
-    }, [levels])
-
-    useEffect(() => {
-        console.log(yearData)
-    }, [yearData])
 
     return {
         data: {
