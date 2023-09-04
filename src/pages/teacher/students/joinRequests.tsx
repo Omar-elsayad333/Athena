@@ -5,13 +5,16 @@ import { useTheme } from 'context/ThemeContext'
 import PageHead from 'components/Shared/PageHead'
 import DesktopNavbar from 'components/Layout/DesktopNavbar'
 import PageTitle from 'components/Shared/PageTitle'
-import MySearchInput from 'components/MySearchInput'
-import FilterWedgit from 'components/FilterWedgit'
+import useRequestsToJoin from 'container/students/useJoinRequest'
+import JoinRequestsC from 'components/Teacher/Students/joinRequests/joinRequestsC'
+import ThemeSwitcher from 'components/ThemeSwitcher'
+
 
 // MUI
 import Box from '@mui/material/Box'
 
 const JoinRequest: NextPage = () => {
+    const { data, states,actions } = useRequestsToJoin()
     const { mainColors } = useTheme()
 
     const style: IStyle = {
@@ -67,12 +70,9 @@ const JoinRequest: NextPage = () => {
                         />
                     </svg>
                 </PageTitle>
-                <MySearchInput placeholder="هل تبحث عن طالب معين ؟" />
-                <FilterWedgit
-                    filters={[{ name: 's' }, { name: 's' }, { name: 's' }, { name: 's' }]}
-                />
-                
+                <JoinRequestsC data={data} states={states} actions={actions} />
             </Box>
+            <ThemeSwitcher />
         </Box>
     )
 }
