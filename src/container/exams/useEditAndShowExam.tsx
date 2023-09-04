@@ -1,17 +1,21 @@
 import Urls from 'constant/urls'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { useEffect, useReducer, useState } from 'react'
 import { useUser } from 'context/userContext'
 import { useAlert } from 'context/AlertContext'
 import useRequestsHandlers from 'hooks/useRequestsHandlers'
+import { editExamDetailsReducer } from 'reducers/editExamReducer'
+import { ExamInfoInitialValues } from 'interfaces/exams/editExamInterface'
 
-const useExam = () => {
+const useEditAndShowExam = () => {
     const router = useRouter()
     const { id } = router.query
     const { userState } = useUser()
     const { setErrorMessage, setWarningMessage } = useAlert()
-    const { loading, getHandlerById, getHandler, deleteHandler, postHandlerById } =
+    const { loading, putHandlerById, getHandlerById, getHandler, deleteHandler, postHandlerById } =
         useRequestsHandlers()
+
+    const [state, dispatch] = useReducer(editExamDetailsReducer, ExamInfoInitialValues)
 
     const [examData, setExamData] = useState<any>('')
     const [requiredData, setRequiredData] = useState()
@@ -19,6 +23,8 @@ const useExam = () => {
     const [examSections, setExamSections] = useState<any[]>([])
     const [newGroupsData, setNewGroupsData] = useState<any[]>([])
     const [availableGroupsData, setAvailableGroupsData] = useState<any[]>([])
+
+    const [isEditDetails, setIsEditDetails] = useState<boolean>(false)
 
     useEffect(() => {
         if (userState.tokens?.accessToken && id) {
@@ -62,7 +68,7 @@ const useExam = () => {
     const getAvailableGroups = async () => {
         try {
             const response = await getHandlerById(
-                examData.id,
+                id,
                 userState.tokens?.accessToken!,
                 Urls.URL_TEACHER_EXAMS_GROUPS,
                 true,
@@ -210,6 +216,104 @@ const useExam = () => {
         }
     }
 
+    // Handler all inputs
+    const handleInputs = (value: string, index: any, name: string) => {
+        index
+        dispatch({
+            type: 'UPDATE_INPUTS',
+            name: name,
+            payload: {
+                value: value,
+                error: false,
+                helperText: '',
+                length: value.length,
+            },
+        })
+    }
+
+    // Handler all date picker inputs
+    const handleDatePickers = (value: string, name: any) => {
+        dispatch({
+            type: 'UPDATE_DATETIMEINPUTS',
+            name: name,
+            payload: {
+                value: value,
+                error: false,
+                helperText: '',
+            },
+        })
+    }
+
+    // Handler all time picker inputs
+    const handleTimePickers = (value: string, index: any, name: string) => {
+        index
+        dispatch({
+            type: 'UPDATE_DATETIMEINPUTS',
+            name: name,
+            payload: {
+                value: value,
+                error: false,
+                helperText: '',
+            },
+        })
+    }
+
+    // Handler all date picker inputs
+    const handleDropDowns = (selected: any, index: any, name: string) => {
+        index
+        dispatch({
+            type: 'UPDATE_SELECTS',
+            name: name,
+            payload: {
+                id: selected.id,
+                value: selected.name,
+                error: false,
+                helperText: '',
+            },
+        })
+    }
+
+    // Open edit details handler
+    const openEditDetails = () => {
+        setIsEditDetails(true)
+    }
+
+    // Close edit details handler
+    const closeEditDetails = () => {
+        setIsEditDetails(false)
+    }
+
+    // Collect exam details data before submiting
+    const collectExamDetailsData = () => {
+        const data = {
+            id: examData.id,
+            examTypeId: examData.examTypeId,
+            name: state.inputs.name.value || examData.name,
+            publishedDate: state.dateTimeInputs.publishedDate.value || examData.publishedDate,
+            publishedTime: state.dateTimeInputs.publishedTime.value || examData.publishedTime,
+            finalDegree: state.inputs.finalDegree.value || examData.finalDegree,
+            allowedTime: state.inputs.allowedTime.value || examData.allowedTime,
+            isPrime: examData.isPrime,
+        }
+
+        return data
+    }
+
+    // Call API to submit edited exam details data
+    const submitEditExamDetails = async () => {
+        try {
+            const data = collectExamDetailsData()
+            await putHandlerById(
+                examData.id,
+                userState.tokens?.accessToken!,
+                Urls.URL_TEACHER_EXAMS,
+                data,
+            )
+        } catch (error) {
+            setErrorMessage('حدث خطاء اثناء تعديل البيانات الأساسيه للأمتحان')
+        }
+    }
+
     return {
         data: {
             examData,
@@ -218,10 +322,20 @@ const useExam = () => {
         },
         states: {
             loading,
+            isEditDetails,
+            state,
         },
-        actions: {},
+        actions: {
+            openEditDetails,
+            closeEditDetails,
+            handleInputs,
+            handleDatePickers,
+            handleTimePickers,
+            handleDropDowns,
+            submitEditExamDetails,
+        },
         dialogs: {},
     }
 }
 
-export default useExam
+export default useEditAndShowExam

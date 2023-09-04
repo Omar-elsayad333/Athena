@@ -16,6 +16,7 @@ type Props = {
     dateValue?: any
     extraData?: any
     handleDateValue: Function
+    readOnly?: boolean
 }
 
 const MyDatePicker: React.FC<Props> = ({
@@ -26,6 +27,7 @@ const MyDatePicker: React.FC<Props> = ({
     error,
     name,
     extraData,
+    readOnly = false,
 }) => {
     const { darkMode } = useTheme()
     const classes: SxProps = {
@@ -116,6 +118,7 @@ const MyDatePicker: React.FC<Props> = ({
         <FormControl>
             <LocalizationProvider dateAdapter={DateFnsUtils}>
                 <DatePicker
+                    readOnly={readOnly}
                     value={new Date(dateValue)}
                     onChange={(newValue: any) => {
                         handleDateValue(newValue, name, extraData)

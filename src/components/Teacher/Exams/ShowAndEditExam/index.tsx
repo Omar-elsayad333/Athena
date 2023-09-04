@@ -2,7 +2,8 @@ import { IStyle } from 'styles/IStyle'
 
 // MUI
 import Box from '@mui/material/Box'
-import ExamCard from './ExamCard'
+import EditDetails from './EditDetails'
+// import ExamCard from './ExamCard'
 
 type Props = {
     data: any
@@ -33,7 +34,8 @@ const ExamC: React.FC<Props> = ({ data, states, actions }) => {
     }
     return (
         <Box sx={style.container}>
-            {data.examData && <ExamCard data={data} states={states} actions={actions} />}
+            <EditDetails data={data} states={states} actions={actions} />
+            {/* {data.examData && <ExamCard data={data} states={states} actions={actions} />} */}
         </Box>
     )
 }

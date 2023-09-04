@@ -16,6 +16,7 @@ type Props = {
     error: boolean
     disabled?: boolean
     helperText?: string
+    name?: string
 }
 
 const MySelect: React.FC<Props> = ({
@@ -26,6 +27,7 @@ const MySelect: React.FC<Props> = ({
     error,
     disabled = false,
     helperText,
+    name,
 }) => {
     const { mainColors, darkMode } = useTheme()
     const style = {
@@ -113,10 +115,18 @@ const MySelect: React.FC<Props> = ({
                     selected = data[i].id
                 }
             }
-            getSelected({
-                id: selected,
-                name: e.target.value,
-            })
+            if (name) {
+                getSelected({
+                    id: selected,
+                    name: e.target.value,
+                    inputName: name,
+                })
+            } else {
+                getSelected({
+                    id: selected,
+                    name: e.target.value,
+                })
+            }
         }
     }
 
