@@ -205,15 +205,15 @@ const EditHeadquarterC: React.FC<Props> = ({ data, states, actions, dialogs }) =
                                 d="M17.28 2L2 17.28"
                                 stroke="inherit"
                                 strokeWidth="2.38"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
                             />
                             <path
                                 d="M2 2L17.28 17.28"
                                 stroke="inherit"
                                 strokeWidth="2.38"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
                             />
                         </svg>
                     </Box>
@@ -231,22 +231,22 @@ const EditHeadquarterC: React.FC<Props> = ({ data, states, actions, dialogs }) =
                                 d="M10.52 20.04C15.7778 20.04 20.04 15.7778 20.04 10.52C20.04 5.26225 15.7778 1 10.52 1C5.26225 1 1 5.26225 1 10.52C1 15.7778 5.26225 20.04 10.52 20.04Z"
                                 stroke="inherit"
                                 strokeWidth="1.7"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
                             />
                             <path
                                 d="M10.52 6.71045V14.3264"
                                 stroke="inherit"
                                 strokeWidth="1.7"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
                             />
                             <path
                                 d="M6.71231 10.52H14.3283"
                                 stroke="inherit"
                                 strokeWidth="1.7"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
                             />
                         </svg>
                         <Typography variant="h5" color={'primary'} fontWeight={700}>

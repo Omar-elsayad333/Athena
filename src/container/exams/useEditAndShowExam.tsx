@@ -6,6 +6,7 @@ import { useAlert } from 'context/AlertContext'
 import useRequestsHandlers from 'hooks/useRequestsHandlers'
 import { editExamDetailsReducer } from 'reducers/editExamReducer'
 import { ExamInfoInitialValues } from 'interfaces/exams/editExamInterface'
+import { convertFileToBase64 } from 'utils/converters'
 
 const useEditAndShowExam = () => {
     const router = useRouter()
@@ -44,6 +45,7 @@ const useEditAndShowExam = () => {
             )
             setExamData(res)
             setExamSections(res.sections)
+            adjuctSections(res.sections)
         } catch (error) {
             console.log(error)
             setErrorMessage('حدث خطاء')
@@ -76,6 +78,18 @@ const useEditAndShowExam = () => {
             setAvailableGroupsData(response)
         } catch (error) {
             setErrorMessage('حدث خطاء')
+        }
+    }
+
+    // Adjust section to be handelable
+    const adjuctSections = (sections: any) => {
+        for (let section of sections) {
+            section['open'] = false
+            section['openToEdit'] = false
+            section['editedSection'] = {}
+            for (let question of section.questions) {
+                question['openToEdit'] = false
+            }
         }
     }
 
@@ -140,7 +154,7 @@ const useEditAndShowExam = () => {
                 userState.tokens?.accessToken!,
                 Urls.URL_TEACHER_EXAMS_SECTION_IMAGE,
             )
-            setWarningMessage('تم حذف السؤال بنجاح')
+            setWarningMessage('تم حذف الصوره بنجاح')
         } catch (error) {
             setErrorMessage('حدث خطاء')
         }
@@ -314,6 +328,140 @@ const useEditAndShowExam = () => {
         }
     }
 
+    // Open and close section
+    const openAndCloseSection = (sectionIndex: number) => {
+        const selectedSection = examSections[sectionIndex]
+        selectedSection.open = !selectedSection.open
+
+        setExamSections([
+            ...examSections.slice(0, sectionIndex),
+            selectedSection,
+            ...examSections.slice(sectionIndex + 1),
+        ])
+    }
+
+    // Open and close section for edit
+    const openSectionToEdit = (sectionIndex: number) => {
+        const selectedSection = examSections[sectionIndex]
+
+        if (selectedSection.openToEdit) {
+            selectedSection.openToEdit = false
+            selectedSection.open = false
+        } else {
+            selectedSection.openToEdit = true
+            selectedSection.open = true
+        }
+
+        setExamSections([
+            ...examSections.slice(0, sectionIndex),
+            selectedSection,
+            ...examSections.slice(sectionIndex + 1),
+        ])
+    }
+
+    // Handle section prime
+    const sectionPrimeHandler = (sectionIndex: number) => {
+        const selectedSection = examSections[sectionIndex]
+
+        if (selectedSection.editedSection['isPrime'] && selectedSection.isPrime) {
+            selectedSection.editedSection['isPrime'] = false
+        } else if (selectedSection.editedSection['isPrime']) {
+            selectedSection.editedSection['isPrime'] = false
+        } else {
+            selectedSection.editedSection['isPrime'] = true
+        }
+
+        setExamSections([
+            ...examSections.slice(0, sectionIndex),
+            selectedSection,
+            ...examSections.slice(sectionIndex + 1),
+        ])
+    }
+
+    // Get the sectiom paragraph from user
+    const sectionParagraphHandler = (selectedParagraph: string, sectionIndex: any) => {
+        let selectedSection = examSections[sectionIndex]
+
+        if (selectedSection!.paragraph.length < 5000) {
+            selectedSection.editedSection['paragraph'] = selectedSection!.paragraph
+            selectedSection.editedSection['paragraph'] = selectedParagraph
+
+            setExamSections([
+                ...examSections.slice(0, sectionIndex),
+                selectedSection,
+                ...examSections.slice(sectionIndex + 1),
+            ])
+        } else {
+            setErrorMessage('لا يمكن كتابة اكثر من 5000 حرف')
+        }
+    }
+
+    // Get the sectiom paragraph from user
+    const sectionParagraphImageHandler = async (image: any, sectionIndex: number) => {
+        const selectedSection = examSections[sectionIndex]
+        const newImageIndex = selectedSection!.images?.length
+        const [fileToConvert] = image
+        const convertedImage: any = await convertFileToBase64(fileToConvert)
+
+        if (image.length > 0 && newImageIndex! < 3) {
+            selectedSection.editedSection['newImages'].push({
+                index: newImageIndex,
+                image: {
+                    extension: `.${image[0].type.slice(6)}`,
+                    data: convertedImage,
+                },
+            })
+            setExamData([
+                ...examSections.slice(0, sectionIndex),
+                selectedSection,
+                ...examSections.slice(sectionIndex + 1),
+            ])
+        } else {
+            setErrorMessage('لا يمكن اضافة اكثر من ثلاث صور')
+        }
+    }
+
+    // Call API to submit edited exam section data
+    const submitEditExamSeciton = async (sectionIndex: number) => {
+        try {
+            await putHandlerById(
+                examSections[sectionIndex].id,
+                userState.tokens?.accessToken!,
+                Urls.URL_TEACHER_EXAMS_SECTION,
+                examSections[sectionIndex].editedSection,
+            )
+        } catch (error) {
+            setErrorMessage('حدث خطاء اثناء تعديل البيانات')
+        }
+    }
+
+    // Open and close section for edit
+    const openQuestionToEdit = (sectionIndex: number, questionIndex: number) => {
+        const selectedSection = examSections[sectionIndex]
+
+        selectedSection.questions[questionIndex].openToEdit =
+            !selectedSection.questions[questionIndex].openToEdit
+
+        setExamSections([
+            ...examSections.slice(0, sectionIndex),
+            selectedSection,
+            ...examSections.slice(sectionIndex + 1),
+        ])
+    }
+
+    // Handle question prime
+    const questionPrimeHandler = (sectionIndex: number, questionIndex: number) => {
+        const selectedSection = examSections[sectionIndex]
+        selectedSection.questions[questionIndex].isPrime =
+            !selectedSection.questions[questionIndex].isPrime
+
+        setExamSections([
+            ...examSections.slice(0, sectionIndex),
+            selectedSection,
+            ...examSections.slice(sectionIndex + 1),
+        ])
+    }
+
     return {
         data: {
             examData,
@@ -333,6 +481,15 @@ const useEditAndShowExam = () => {
             handleTimePickers,
             handleDropDowns,
             submitEditExamDetails,
+            openAndCloseSection,
+            openSectionToEdit,
+            sectionPrimeHandler,
+            deleteSectionImageHandler,
+            sectionParagraphHandler,
+            sectionParagraphImageHandler,
+            submitEditExamSeciton,
+            openQuestionToEdit,
+            questionPrimeHandler,
         },
         dialogs: {},
     }

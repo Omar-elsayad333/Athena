@@ -1,9 +1,9 @@
 import { IStyle } from 'styles/IStyle'
+import ShowAndEditDetails from './ShowAndEditDetails'
+import ShowAndEditSection from './ShowAndEditSection'
 
 // MUI
 import Box from '@mui/material/Box'
-import EditDetails from './EditDetails'
-// import ExamCard from './ExamCard'
 
 type Props = {
     data: any
@@ -32,10 +32,11 @@ const ExamC: React.FC<Props> = ({ data, states, actions }) => {
             height: '40px',
         },
     }
+
     return (
         <Box sx={style.container}>
-            <EditDetails data={data} states={states} actions={actions} />
-            {/* {data.examData && <ExamCard data={data} states={states} actions={actions} />} */}
+            <ShowAndEditDetails data={data} states={states} actions={actions} />
+            <ShowAndEditSection data={data} states={states} actions={actions} />
         </Box>
     )
 }

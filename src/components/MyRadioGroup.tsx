@@ -12,9 +12,10 @@ type Props = {
     getSelected: Function
     indexes?: any
     value: string
+    disabled?: boolean
 }
 
-const MyRadioGroup: React.FC<Props> = ({ data, getSelected, indexes, value }) => {
+const MyRadioGroup: React.FC<Props> = ({ data, getSelected, indexes, value, disabled = false }) => {
     const { mainColors } = useTheme()
     const style: IStyle = {
         root: {
@@ -37,6 +38,7 @@ const MyRadioGroup: React.FC<Props> = ({ data, getSelected, indexes, value }) =>
             <RadioGroup row sx={{ gap: '20px' }} onChange={(e) => getSelected(e, indexes)}>
                 {data.map((item: any) => (
                     <FormControlLabel
+                        disabled={disabled}
                         sx={style.root}
                         key={item.id}
                         value={item.id}

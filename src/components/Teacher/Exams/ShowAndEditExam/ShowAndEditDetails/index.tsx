@@ -17,7 +17,7 @@ type Props = {
     actions: any
 }
 
-const EditDetails: React.FC<Props> = ({ data, states, actions }) => {
+const ShowAndEditDetails: React.FC<Props> = ({ data, states, actions }) => {
     const { mainColors } = useTheme()
     const style: IStyle = {
         container: {
@@ -272,4 +272,4 @@ const EditDetails: React.FC<Props> = ({ data, states, actions }) => {
     )
 }
 
-export default EditDetails
+export default ShowAndEditDetails

@@ -1,9 +1,11 @@
-import Choices from './Choices'
-import Written from './Written'
+// import Choices from './Choices'
+// import Written from './Written'
+import Urls from 'constant/urls'
 import MyInput from 'components/MyInput'
 import { useTheme } from 'context/ThemeContext'
 import MyButton from 'components/Buttons/MyButton'
 import MyRadioGroup from 'components/MyRadioGroup'
+import MyIconButton from 'components/MyIconButton'
 import { examQuestionTypes } from 'constant/staticData'
 import MyTextAreaWithImage from 'components/MyTextAreaWithImage'
 import MyButtonSuccess from 'components/Buttons/MyButtonSuccess'
@@ -11,6 +13,8 @@ import MyButtonSuccess from 'components/Buttons/MyButtonSuccess'
 // MUI
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
+import CloseIcon from '@mui/icons-material/Close'
+import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline'
 
 type Props = {
     data: any
@@ -18,9 +22,9 @@ type Props = {
     parentIndex: number
 }
 
-const Questions: React.FC<Props> = ({ data, actions, parentIndex }) => {
+const ShowAndEditQuestion: React.FC<Props> = ({ data, actions, parentIndex }) => {
     const { mainColors } = useTheme()
-    const style = {
+    const style: any = {
         container: {
             width: '580px',
             maxWidth: '100%',
@@ -85,6 +89,11 @@ const Questions: React.FC<Props> = ({ data, actions, parentIndex }) => {
             overflow: 'auto',
             gap: '35px',
         },
+        imageStyle: {
+            objectFit: 'cover',
+            borderRadius: '10px',
+            border: '2px solid #3F72A4',
+        },
     }
 
     return (
@@ -98,11 +107,28 @@ const Questions: React.FC<Props> = ({ data, actions, parentIndex }) => {
                             :-
                         </Typography>
                         <Box sx={style.cardActions}>
+                            {!question.openToEdit ? (
+                                <MyIconButton
+                                    content="تعديل"
+                                    icon={<ModeEditOutlineIcon />}
+                                    event={() => actions.openQuestionToEdit(parentIndex, index)}
+                                />
+                            ) : (
+                                <MyIconButton
+                                    content="الغاء التعديل"
+                                    icon={<CloseIcon />}
+                                    event={() => actions.openQuestionToEdit(parentIndex, index)}
+                                />
+                            )}
                             {!question.isPrime ? (
                                 <svg
-                                    onClick={() => actions.primeQuestion(parentIndex, index)}
-                                    width="30"
-                                    height="30"
+                                    onClick={
+                                        question.openToEdit
+                                            ? () => actions.questionPrimeHandler(parentIndex, index)
+                                            : () => {}
+                                    }
+                                    width="39"
+                                    height="39"
                                     viewBox="0 0 39 39"
                                     fill={mainColors.primary.main}
                                     xmlns="http://www.w3.org/2000/svg"
@@ -114,9 +140,13 @@ const Questions: React.FC<Props> = ({ data, actions, parentIndex }) => {
                                 </svg>
                             ) : (
                                 <svg
-                                    onClick={() => actions.notPrimeQuestion(parentIndex, index)}
-                                    width="30"
-                                    height="30"
+                                    onClick={
+                                        question.openToEdit
+                                            ? () => actions.questionPrimeHandler(parentIndex, index)
+                                            : () => {}
+                                    }
+                                    width="39"
+                                    height="39"
                                     viewBox="0 0 39 39"
                                     fill={mainColors.warning.main}
                                     xmlns="http://www.w3.org/2000/svg"
@@ -127,34 +157,30 @@ const Questions: React.FC<Props> = ({ data, actions, parentIndex }) => {
                                     />
                                 </svg>
                             )}
-                            {index > 1 && (
-                                <svg
-                                    onClick={() =>
-                                        actions.deleteQuetion({ parent: parentIndex, child: index })
-                                    }
-                                    width="19"
-                                    height="19"
-                                    viewBox="0 0 19 19"
-                                    fill="none"
-                                    stroke={mainColors.primary.main}
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <path
-                                        d="M17.28 2L2 17.28"
-                                        stroke="inherit"
-                                        strokeWidth="3.38"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                    />
-                                    <path
-                                        d="M2 2L17.28 17.28"
-                                        stroke="inherit"
-                                        strokeWidth="3.38"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                    />
-                                </svg>
-                            )}
+                            <svg
+                                onClick={() => actions.deleteQuetion(parentIndex, index)}
+                                width="19"
+                                height="19"
+                                viewBox="0 0 19 19"
+                                fill="none"
+                                stroke={mainColors.primary.main}
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    d="M17.28 2L2 17.28"
+                                    stroke="inherit"
+                                    strokeWidth="3.38"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                />
+                                <path
+                                    d="M2 2L17.28 17.28"
+                                    stroke="inherit"
+                                    strokeWidth="3.38"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                />
+                            </svg>
                         </Box>
                     </Box>
                     <Box sx={style.questionDegree}>
@@ -163,19 +189,26 @@ const Questions: React.FC<Props> = ({ data, actions, parentIndex }) => {
                         </Typography>
                         <MyInput
                             type="number"
-                            error={question.degreeError.error}
+                            disabled={question.openToEdit ? false : true}
                             placeholder="حدد عدد درجات السؤال"
                             onChange={actions.questionDegreeHandler}
-                            helperText={question.degreeError.helperText}
+                            helperText=""
                             indexes={{ parent: parentIndex, child: index }}
                             value={question.degree != 0 && question.degree}
                         />
                     </Box>
                     <Box sx={style.flexColumn}>
-                        <Typography variant="h4" fontWeight={700} color={mainColors.title.main}>
-                            حدد نوع السؤال الفرعي:-
-                        </Typography>
+                        {question.openToEdit ? (
+                            <Typography variant="h4" fontWeight={700} color={mainColors.title.main}>
+                                حدد نوع السؤال الفرعي:-
+                            </Typography>
+                        ) : (
+                            <Typography variant="h4" fontWeight={700} color={mainColors.title.main}>
+                                نوع السؤال الفرعي:-
+                            </Typography>
+                        )}
                         <MyRadioGroup
+                            disabled={question.openToEdit ? false : true}
                             value={question.type}
                             indexes={{ parent: parentIndex, child: index }}
                             getSelected={actions.questionTypeHandler}
@@ -183,38 +216,40 @@ const Questions: React.FC<Props> = ({ data, actions, parentIndex }) => {
                         />
                     </Box>
                     <Box sx={style.flexColumn}>
-                        <Typography variant="h4" fontWeight={700} color={mainColors.title.main}>
-                            حدد رأس السؤال الفرعي:-
-                        </Typography>
+                        {question.openToEdit ? (
+                            <Typography variant="h4" fontWeight={700} color={mainColors.title.main}>
+                                حدد رأس السؤال الفرعي:-
+                            </Typography>
+                        ) : (
+                            <Typography variant="h4" fontWeight={700} color={mainColors.title.main}>
+                                رأس السؤال الفرعي:-
+                            </Typography>
+                        )}
                         <MyTextAreaWithImage
                             placeholder=""
+                            disabled={question.openToEdit ? false : true}
                             value={question.name}
-                            error={question.nameError.error}
                             onChange={actions.questionNameHandler}
                             addImage={actions.questionImagesHandler}
-                            helperText={question.nameError.helperText}
+                            helperText=""
                             indexes={{ parent: parentIndex, child: index }}
                         />
-                        {question.images.length > 0 && (
+                        {question.images?.length > 0 && (
                             <Box sx={style.questionImages}>
-                                {question.images.map((image: any, index: number) => (
-                                    <Box
-                                        key={index}
-                                        sx={{
-                                            backgroundImage: `url('${image.image.data}')`,
-                                            backgroundSize: 'cover',
-                                            backgroundPosition: 'center',
-                                            minWidth: '100px',
-                                            height: '100px',
-                                            border: '2px solid #3F72A4',
-                                            borderRadius: '10px',
-                                        }}
+                                {question.images.map((image: any) => (
+                                    <img
+                                        width={100}
+                                        height={100}
+                                        key={image.id}
+                                        src={`${Urls.URL_MAIN}/${image.image}`}
+                                        alt="Question Image"
+                                        style={style.imageStyle}
                                     />
                                 ))}
                             </Box>
                         )}
                     </Box>
-                    {question.type == 'MCQ' ? (
+                    {/* {question.type == 'MCQ' ? (
                         <Choices
                             actions={actions}
                             data={question.choices}
@@ -228,13 +263,13 @@ const Questions: React.FC<Props> = ({ data, actions, parentIndex }) => {
                             grandParentIndex={parentIndex}
                             parentIndex={index}
                         />
-                    )}
-                    {question.isRightChoiceError.error == true && (
+                    )} */}
+                    {/* {question.isRightChoiceError.error == true && (
                         <Typography variant="h4" color={'error'} fontWeight={700}>
                             {question.isRightChoiceError.helperText}
                         </Typography>
                     )}
-                    {index + 1 != data.length && <hr style={style.breaker}></hr>}
+                    {index + 1 != data.length && <hr style={style.breaker}></hr>} */}
                 </Box>
             ))}
             <Box sx={style.sectionButtons}>
@@ -251,4 +286,4 @@ const Questions: React.FC<Props> = ({ data, actions, parentIndex }) => {
     )
 }
 
-export default Questions
+export default ShowAndEditQuestion
