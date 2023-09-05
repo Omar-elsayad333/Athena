@@ -10,11 +10,12 @@ import JoinRequestsC from 'components/Teacher/Students/joinRequests/joinRequests
 import ThemeSwitcher from 'components/ThemeSwitcher'
 
 
+
 // MUI
 import Box from '@mui/material/Box'
 
 const JoinRequest: NextPage = () => {
-    const { data, states,actions } = useRequestsToJoin()
+    const { data, states,actions ,dialogs} = useRequestsToJoin()
     const { mainColors } = useTheme()
 
     const style: IStyle = {
@@ -70,7 +71,7 @@ const JoinRequest: NextPage = () => {
                         />
                     </svg>
                 </PageTitle>
-                <JoinRequestsC data={data} states={states} actions={actions} />
+                <JoinRequestsC data={data} states={states} actions={actions} dialogs={dialogs}/>
             </Box>
             <ThemeSwitcher />
         </Box>
