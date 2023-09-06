@@ -40,6 +40,7 @@ class Urls {
     static URL_TEACHER_EXAMS_REQUIRED: string = '/api/teacher/exams/required'
     static URL_TEACHERSTUDENT_REQUIRED: string = '/api/teacher/teacherstudents/required'
     static URL_TEACHERSTUDENT_REQUESTS: string = '/api/teacher/teacherstudents/requests'
+    static URL_REJECTTEACHERSTUDENT_REQUESTS: string = '/teacher/teacherstudents/requests'
 }
 
 export default Urls

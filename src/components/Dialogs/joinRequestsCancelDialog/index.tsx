@@ -24,7 +24,7 @@ const Transition = forwardRef(function Transition(
 type Props = {
     state: boolean
     actions: {
-        submit: () => void
+        submit: (id) => void
         cancel: () => void
     }
     content: {
@@ -33,15 +33,16 @@ type Props = {
         submit: string
         cancel: string
     }
+    id?: string
 }
 
-const JoinRequestsCancelDialog: React.FC<Props> = ({ state, content, actions }) => {
+const JoinRequestsCancelDialog: React.FC<Props> = ({ state, content, actions, id }) => {
     const { mainColors } = useTheme()
     const style = {
         root: {
             '.MuiDialog-paper': {
                 maxWidth: '800px',
-                width: '600px',
+                width: '90vw',
                 borderRadius: '17px',
                 background: mainColors.dialog.background,
             },
@@ -54,7 +55,7 @@ const JoinRequestsCancelDialog: React.FC<Props> = ({ state, content, actions }) 
                 gap: '20px',
                 borderBottom: '2px solid #3F72A4',
                 boxShadow: mainColors.dialog.titleShadow,
-                '@media(max-width: 400px)': {
+                '@media(max-width: 450px)': {
                     '.MuiTypography-root': {
                         fontSize: '25px',
                     },
@@ -83,6 +84,14 @@ const JoinRequestsCancelDialog: React.FC<Props> = ({ state, content, actions }) 
             '.MuiDialogActions-root': {
                 padding: '0px',
                 gap: '35px',
+                '@media(max-width: 450px)': {
+                    padding: '0px',
+                    margin: '0px !important',
+                    gap: '25px',
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    justifyContent: 'center',
+                },
             },
         },
         boxContainer: {
@@ -111,6 +120,7 @@ const JoinRequestsCancelDialog: React.FC<Props> = ({ state, content, actions }) 
             minWidth: 'fit-content',
             borderRadius: '5px',
             position: 'absolute',
+            marginleft: '15px',
             top: '12px',
             right: '10px',
             '.MuiSvgIcon-root': {
@@ -160,7 +170,7 @@ const JoinRequestsCancelDialog: React.FC<Props> = ({ state, content, actions }) 
                         color="error"
                         sx={style.addBut}
                         variant="contained"
-                        onClick={() => actions.submit()}
+                        onClick={(id) => actions.submit(id)}
                     >
                         {content.submit}
                     </Button>

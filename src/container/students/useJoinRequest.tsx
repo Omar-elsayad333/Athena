@@ -7,9 +7,10 @@ import { warningDialogInitialValues, WarningDialogProps } from 'interfaces/share
 
 const useRequestsToJoin = () => {
     const { userState } = useUser()
-    const { loading, getHandler } = useRequestsHandlers()
-    const { setErrorMessage } = useAlert()
-    const [requestsData, setRequestsData] = useState<any>()
+    const { loading, getHandler, putHandlerById } = useRequestsHandlers()
+    const { setErrorMessage, setSuccessMessage } = useAlert()
+    const [requestsData, setRequestsData] = useState<any>([])
+
     const [originalData, setOriginalData] = useState<any>([])
     const [warningDialog, setWarningDialog] = useState<WarningDialogProps>(
         warningDialogInitialValues,
@@ -35,12 +36,12 @@ const useRequestsToJoin = () => {
                     levelName: 'string',
                     students: [
                         {
-                            id: 'fff+skjb',
+                            id: 'mohamedragehb',
                             name: 'mohamed',
                             gender: 'gmail',
-                            image: 'qsjikbbsjkbjsakb.png',
+                            image: 'https://platinumlist.net/guide/wp-content/uploads/2023/03/IMG-worlds-of-adventure.webp',
                             groupName: 'tetdb',
-                            yearState: '31',
+                            yearState: 'el3amEldarsi el 7ali',
                         },
                     ],
                 },
@@ -48,12 +49,12 @@ const useRequestsToJoin = () => {
                     levelName: 'string',
                     students: [
                         {
-                            id: 'fff+skjb',
+                            id: 'mohamedragehb',
                             name: 'alaa',
                             gender: 'gmail',
-                            image: 'qsjikbbsjkbjsakb.png',
+                            image: 'https://platinumlist.net/guide/wp-content/uploads/2023/03/IMG-worlds-of-adventure.webp',
                             groupName: 'tetdb',
-                            yearState: '31',
+                            yearState: 'el3amEldarsi el 7ali',
                         },
                     ],
                 },
@@ -61,17 +62,18 @@ const useRequestsToJoin = () => {
                     levelName: 'string',
                     students: [
                         {
-                            id: 'fff+skjb',
+                            id: 'mohamedragehb',
                             name: 'eyad',
                             gender: 'gmail',
-                            image: 'qsjikbbsjkbjsakb.png',
+                            image: 'https://platinumlist.net/guide/wp-content/uploads/2023/03/IMG-worlds-of-adventure.webp',
                             groupName: 'tetdb',
-                            yearState: '31',
+                            yearState: 'el3amEldarsi el 7ali',
                         },
                     ],
                 },
             ])
             setOriginalData(requestsData)
+            console.log(requestsData)
         } catch (error) {
             setErrorMessage('حدث خطاء')
             console.log(error)
@@ -86,7 +88,14 @@ const useRequestsToJoin = () => {
             ),
         )
     }
-    const cancelRequest = () => {
+    const cancelRequest = async (id: string) => {
+        try {
+            const res = await putHandlerById(id, userState.tokens!.accessToken!, Urls.URL_GROUPS)
+            setSuccessMessage('تم تعديل بيانات المجموعه بنجاح')
+        } catch (error) {
+            console.log(error)
+            setErrorMessage('حدث خطاء')
+        }
         closeWarningDialogState()
     }
     // Open warning dialog
