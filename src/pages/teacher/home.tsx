@@ -1,74 +1,62 @@
 import { NextPage } from 'next'
+import Urls from 'constant/urls'
 import { useEffect, useState } from 'react'
 import { withAuth } from 'routes/withRoute'
 import * as signalR from '@microsoft/signalr'
-import Urls from 'constant/urls'
+import { useUser } from 'context/userContext'
 
 const Home: NextPage = () => {
-    const [message, setMessage] = useState('')
-    const [courses, setCourses] = useState([])
-    const [isConnected, setIsConnected] = useState(false)
+    const [notifications, setNotifications] = useState()
+    const { userState } = useUser()
 
     const hubConnection = new signalR.HubConnectionBuilder()
-        .withUrl(`${Urls.URL_MAIN}/testnotifications`)
+        .withUrl(`${Urls.URL_MAIN}/notifications?access_token=${userState.tokens?.accessToken}`)
         .withAutomaticReconnect()
         .build()
 
-    useEffect(() => {
-        hubConnection.on('GetTheData', (message, coursesDto) => {
-            setMessage(message)
-            setCourses(coursesDto)
-        })
-
-        hubConnection.on('Notify', (message) => {
-            console.log('Received notification:', message)
-        })
-
-        async function startHubConnection() {
-            try {
-                await hubConnection.start()
-                setIsConnected(true)
-                // await hubConnection.invoke('GetDataWithMessages', 'Hello from the courses!')
-                await hubConnection.invoke('NotifyAll', 'Hello from the notirfy!')
-                console.log('SignalR connection established.')
-            } catch (err) {
-                console.error('Error while establishing SignalR connection:', err)
-            }
-        }
-
-        startHubConnection()
-
-        return () => {
-            hubConnection.off('GetTheData')
-            hubConnection.off('Notify')
-            hubConnection.stop()
-            setIsConnected(false)
-            console.log('off')
-        }
-    }, [])
-
-    const getDataWithMessages = async () => {
+    const getNotifications = async () => {
         try {
-            if (isConnected) {
-            } else {
-                console.error('SignalR is not connected.')
-            }
+            await hubConnection.invoke('GetNotifications')
         } catch (err) {
-            console.error('Error while calling GetDataWithMessages:', err)
+            console.error(err)
         }
     }
 
-    return (
-        <div>
-            <p>Message: {message}</p>
-            <ul>
-                {courses.map((course: any) => (
-                    <li key={course.id}>{course.name}</li>
-                ))}
-            </ul>
-            <button onClick={getDataWithMessages}>Get Data with Messages</button>
-        </div>
-    )
+    useEffect(() => {
+        async function startConnection() {
+            if (hubConnection.state === signalR.HubConnectionState.Disconnected) {
+                try {
+                    await hubConnection.start()
+                    getNotifications()
+                } catch (err) {
+                    console.error(err)
+                }
+            }
+        }
+
+        startConnection()
+
+        // Register event handlers for incoming messages from the hub
+        hubConnection.on('Notifications', (notificationDtos) => {
+            setNotifications(notificationDtos)
+        })
+
+        hubConnection.on('ChangeNotificationStatus', (notification) => {
+            // Handle the notification status change as needed
+            console.log('Notification Status Changed:', notification)
+        })
+
+        return () => {
+            // Stop the SignalR connection when the component unmounts
+            hubConnection.stop().catch((err) => console.error(err))
+        }
+    }, [])
+
+    useEffect(() => {
+        console.log(notifications)
+    }, [notifications])
+
+    return <div></div>
 }
 
 export default withAuth(Home)
