@@ -1,7 +1,6 @@
 // import Choices from './Choices'
 // import Written from './Written'
 import Urls from 'constant/urls'
-import MyInput from 'components/MyInput'
 import { useTheme } from 'context/ThemeContext'
 import MyButton from 'components/Buttons/MyButton'
 import MyRadioGroup from 'components/MyRadioGroup'
@@ -194,7 +193,11 @@ const ShowAndEditQuestion: React.FC<Props> = ({ data, actions, parentIndex }) =>
                         )}
                         <MyRadioGroup
                             disabled={question.openToEdit ? false : true}
-                            value={question.type}
+                            value={
+                                question.editedQuestion?.type
+                                    ? question.editedQuestion?.type
+                                    : question.type
+                            }
                             indexes={{ parent: parentIndex, child: index }}
                             getSelected={actions.questionTypeHandler}
                             data={examQuestionTypes}
@@ -244,7 +247,10 @@ const ShowAndEditQuestion: React.FC<Props> = ({ data, actions, parentIndex }) =>
                                                     <CloseIcon
                                                         onClick={() =>
                                                             actions.deleteNewQuestionImageHandler(
-                                                                index,
+                                                                {
+                                                                    parent: parentIndex,
+                                                                    child: index,
+                                                                },
                                                                 newImageIndex,
                                                             )
                                                         }

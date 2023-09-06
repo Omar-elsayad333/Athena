@@ -412,7 +412,7 @@ const useEditAndShowExam = () => {
         }
     }
 
-    // Get the sectiom paragraph from user
+    // Get the section paragraph from user
     const sectionParagraphImageHandler = async (image: any, sectionIndex: number) => {
         const selectedSection = examSections[sectionIndex]
         const newImageIndex = selectedSection!.images?.length
@@ -495,20 +495,20 @@ const useEditAndShowExam = () => {
         ])
     }
 
-    // Get the sectiom paragraph from user
-    const questionNameHandler = (selectedParagraph: string, sectionIndex: any) => {
-        let selectedSection = examSections[sectionIndex]
+    // Update the question name from user
+    const questionNameHandler = (selectedParagraph: string, indexes: any) => {
+        let selectedSection = examSections[indexes.parent]
 
-        if (selectedSection!.paragraph.length < 5000) {
-            selectedSection.editedSection['paragraph'] = selectedParagraph
+        if (selectedSection!.questions[indexes.child].name.length < 100) {
+            selectedSection.questions[indexes.child].editedQuestion['name'] = selectedParagraph
 
             setExamSections([
-                ...examSections.slice(0, sectionIndex),
+                ...examSections.slice(0, indexes.parent),
                 selectedSection,
-                ...examSections.slice(sectionIndex + 1),
+                ...examSections.slice(indexes.parent + 1),
             ])
         } else {
-            setErrorMessage('لا يمكن كتابة اكثر من 5000 حرف')
+            setErrorMessage('لا يمكن كتابة اكثر من 100 حرف')
         }
     }
 
@@ -538,13 +538,13 @@ const useEditAndShowExam = () => {
     }
 
     // Delete new section image
-    const deleteNewQuestionImageHandler = async (sectionIndex: number, newImageIndex: number) => {
-        const selectedSection = examSections[sectionIndex]
-        selectedSection.editedSection.newImages.splice(newImageIndex, 1)
+    const deleteNewQuestionImageHandler = async (indexes: any, newImageIndex: number) => {
+        const selectedSection = examSections[indexes.parent]
+        selectedSection.questions[indexes.child].editedQuestion.newImages.splice(newImageIndex, 1)
         setExamData([
-            ...examSections.slice(0, sectionIndex),
+            ...examSections.slice(0, indexes.parent),
             selectedSection,
-            ...examSections.slice(sectionIndex + 1),
+            ...examSections.slice(indexes.parent + 1),
         ])
     }
 
