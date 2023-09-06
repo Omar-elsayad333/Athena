@@ -8,7 +8,6 @@ import MyRadioGroup from 'components/MyRadioGroup'
 import MyIconButton from 'components/MyIconButton'
 import { examQuestionTypes } from 'constant/staticData'
 import MyTextAreaWithImage from 'components/MyTextAreaWithImage'
-import MyButtonSuccess from 'components/Buttons/MyButtonSuccess'
 
 // MUI
 import Box from '@mui/material/Box'
@@ -158,7 +157,7 @@ const ShowAndEditQuestion: React.FC<Props> = ({ data, actions, parentIndex }) =>
                                 </svg>
                             )}
                             <svg
-                                onClick={() => actions.deleteQuetion(parentIndex, index)}
+                                onClick={() => actions.deleteQuestionHandler(index)}
                                 width="19"
                                 height="19"
                                 viewBox="0 0 19 19"
@@ -182,20 +181,6 @@ const ShowAndEditQuestion: React.FC<Props> = ({ data, actions, parentIndex }) =>
                                 />
                             </svg>
                         </Box>
-                    </Box>
-                    <Box sx={style.questionDegree}>
-                        <Typography variant="h4" fontWeight={700} color={mainColors.title.main}>
-                            عدد درجات السؤال:-
-                        </Typography>
-                        <MyInput
-                            type="number"
-                            disabled={question.openToEdit ? false : true}
-                            placeholder="حدد عدد درجات السؤال"
-                            onChange={actions.questionDegreeHandler}
-                            helperText=""
-                            indexes={{ parent: parentIndex, child: index }}
-                            value={question.degree != 0 && question.degree}
-                        />
                     </Box>
                     <Box sx={style.flexColumn}>
                         {question.openToEdit ? (
@@ -227,11 +212,16 @@ const ShowAndEditQuestion: React.FC<Props> = ({ data, actions, parentIndex }) =>
                         )}
                         <MyTextAreaWithImage
                             placeholder=""
-                            disabled={question.openToEdit ? false : true}
-                            value={question.name}
-                            onChange={actions.questionNameHandler}
-                            addImage={actions.questionImagesHandler}
                             helperText=""
+                            disabled={question.openToEdit ? false : true}
+                            imageIcon={question.openToEdit ? true : false}
+                            value={
+                                question.editedQuestion?.name
+                                    ? question.editedQuestion.name
+                                    : question.name
+                            }
+                            onChange={actions.questionNameHandler}
+                            addImage={actions.questionNameImageHandler}
                             indexes={{ parent: parentIndex, child: index }}
                         />
                         {question.images?.length > 0 && (
@@ -246,6 +236,32 @@ const ShowAndEditQuestion: React.FC<Props> = ({ data, actions, parentIndex }) =>
                                         style={style.imageStyle}
                                     />
                                 ))}
+                                {question.editedQuestion.newImages &&
+                                    question.editedQuestion.newImages.map(
+                                        (image: any, newImageIndex: number) => (
+                                            <Box key={image.id} sx={style.imageBox}>
+                                                {question.openToEdit && (
+                                                    <CloseIcon
+                                                        onClick={() =>
+                                                            actions.deleteNewQuestionImageHandler(
+                                                                index,
+                                                                newImageIndex,
+                                                            )
+                                                        }
+                                                        fontSize="large"
+                                                        color="error"
+                                                    />
+                                                )}
+                                                <img
+                                                    width={170}
+                                                    height={170}
+                                                    src={`${image.image.data}`}
+                                                    alt="New Section Image"
+                                                    style={style.imageStyle}
+                                                />
+                                            </Box>
+                                        ),
+                                    )}
                             </Box>
                         )}
                     </Box>
@@ -276,10 +292,6 @@ const ShowAndEditQuestion: React.FC<Props> = ({ data, actions, parentIndex }) =>
                 <MyButton
                     onClick={() => actions.addQuestion({ parent: parentIndex })}
                     content="اضافة سؤال فرعي"
-                />
-                <MyButtonSuccess
-                    onClick={() => actions.submitSection({ parent: parentIndex })}
-                    content="تأكيد السؤال الرئيسي"
                 />
             </Box>
         </Box>

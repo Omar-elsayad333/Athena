@@ -10,26 +10,25 @@ const Home: NextPage = () => {
     const [isConnected, setIsConnected] = useState(false)
 
     const hubConnection = new signalR.HubConnectionBuilder()
-        .withUrl(`${Urls.URL_MAIN}/testnotifications`)
+        .withUrl(`${Urls.URL_MAIN}/notifications`)
         .withAutomaticReconnect()
         .build()
 
     useEffect(() => {
-        hubConnection.on('GetTheData', (message, coursesDto) => {
-            setMessage(message)
-            setCourses(coursesDto)
+        hubConnection.on('Notifications', (Notifications) => {
+            console.log(Notifications)
         })
 
-        hubConnection.on('Notify', (message) => {
-            console.log('Received notification:', message)
-        })
+        // hubConnection.on('NotificationFromServer', (message) => {
+        //     console.log('Received notification:', message)
+        // })
 
         async function startHubConnection() {
             try {
                 await hubConnection.start()
                 setIsConnected(true)
                 // await hubConnection.invoke('GetDataWithMessages', 'Hello from the courses!')
-                await hubConnection.invoke('NotifyAll', 'Hello from the notirfy!')
+                await hubConnection.invoke('GetNotifications')
                 console.log('SignalR connection established.')
             } catch (err) {
                 console.error('Error while establishing SignalR connection:', err)

@@ -1,12 +1,12 @@
 import Urls from 'constant/urls'
 import { useRouter } from 'next/router'
-import { useEffect, useReducer, useState } from 'react'
 import { useUser } from 'context/userContext'
 import { useAlert } from 'context/AlertContext'
+import { convertFileToBase64 } from 'utils/converters'
+import { useEffect, useReducer, useState } from 'react'
 import useRequestsHandlers from 'hooks/useRequestsHandlers'
 import { editExamDetailsReducer } from 'reducers/editExamReducer'
 import { ExamInfoInitialValues } from 'interfaces/exams/editExamInterface'
-import { convertFileToBase64 } from 'utils/converters'
 
 const useEditAndShowExam = () => {
     const router = useRouter()
@@ -86,9 +86,10 @@ const useEditAndShowExam = () => {
         for (let section of sections) {
             section['open'] = false
             section['openToEdit'] = false
-            section['editedSection'] = {}
+            section['editedSection'] = { id: section.id, newImages: [] }
             for (let question of section.questions) {
                 question['openToEdit'] = false
+                section['editedQuestion'] = { id: question.id, newImages: [], newChoices: [] }
             }
         }
     }
@@ -379,11 +380,26 @@ const useEditAndShowExam = () => {
     }
 
     // Get the sectiom paragraph from user
+    const sectionNameHandler = (selectedName: string, sectionIndex: any) => {
+        let selectedSection = examSections[sectionIndex]
+        if (selectedSection?.name?.length < 100) {
+            selectedSection.editedSection['name'] = selectedName
+
+            setExamSections([
+                ...examSections.slice(0, sectionIndex),
+                selectedSection,
+                ...examSections.slice(sectionIndex + 1),
+            ])
+        } else {
+            setErrorMessage('لا يمكن كتابة اكثر من 100 حرف')
+        }
+    }
+
+    // Get the sectiom paragraph from user
     const sectionParagraphHandler = (selectedParagraph: string, sectionIndex: any) => {
         let selectedSection = examSections[sectionIndex]
 
         if (selectedSection!.paragraph.length < 5000) {
-            selectedSection.editedSection['paragraph'] = selectedSection!.paragraph
             selectedSection.editedSection['paragraph'] = selectedParagraph
 
             setExamSections([
@@ -421,6 +437,17 @@ const useEditAndShowExam = () => {
         }
     }
 
+    // Delete new section image
+    const deleteNewSectionImageHandler = async (sectionIndex: number, newImageIndex: number) => {
+        const selectedSection = examSections[sectionIndex]
+        selectedSection.editedSection.newImages.splice(newImageIndex, 1)
+        setExamData([
+            ...examSections.slice(0, sectionIndex),
+            selectedSection,
+            ...examSections.slice(sectionIndex + 1),
+        ])
+    }
+
     // Call API to submit edited exam section data
     const submitEditExamSeciton = async (sectionIndex: number) => {
         try {
@@ -430,6 +457,7 @@ const useEditAndShowExam = () => {
                 Urls.URL_TEACHER_EXAMS_SECTION,
                 examSections[sectionIndex].editedSection,
             )
+            openSectionToEdit(sectionIndex)
         } catch (error) {
             setErrorMessage('حدث خطاء اثناء تعديل البيانات')
         }
@@ -452,10 +480,68 @@ const useEditAndShowExam = () => {
     // Handle question prime
     const questionPrimeHandler = (sectionIndex: number, questionIndex: number) => {
         const selectedSection = examSections[sectionIndex]
-        selectedSection.questions[questionIndex].isPrime =
-            !selectedSection.questions[questionIndex].isPrime
+        if (selectedSection.questions[questionIndex].editedQuestion['isPrime']) {
+            selectedSection.questions[questionIndex].editedQuestion['isPrime'] =
+                !selectedSection.questions[questionIndex].editedQuestion['isPrime']
+        } else {
+            selectedSection.questions[questionIndex].editedQuestion['isPrime'] =
+                !selectedSection.questions[questionIndex].isPrime
+        }
 
         setExamSections([
+            ...examSections.slice(0, sectionIndex),
+            selectedSection,
+            ...examSections.slice(sectionIndex + 1),
+        ])
+    }
+
+    // Get the sectiom paragraph from user
+    const questionNameHandler = (selectedParagraph: string, sectionIndex: any) => {
+        let selectedSection = examSections[sectionIndex]
+
+        if (selectedSection!.paragraph.length < 5000) {
+            selectedSection.editedSection['paragraph'] = selectedParagraph
+
+            setExamSections([
+                ...examSections.slice(0, sectionIndex),
+                selectedSection,
+                ...examSections.slice(sectionIndex + 1),
+            ])
+        } else {
+            setErrorMessage('لا يمكن كتابة اكثر من 5000 حرف')
+        }
+    }
+
+    // Get the sectiom paragraph from user
+    const questionNameImageHandler = async (image: any, indexes: any) => {
+        const selectedSection = examSections[indexes.parent]
+        const newImageIndex = selectedSection.questions[indexes.child].images?.length
+        const [fileToConvert] = image
+        const convertedImage: any = await convertFileToBase64(fileToConvert)
+
+        if (image.length > 0 && newImageIndex! < 3) {
+            selectedSection.quetions[indexes.child].editedQuestion['newImages'].push({
+                index: newImageIndex,
+                image: {
+                    extension: `.${image[0].type.slice(6)}`,
+                    data: convertedImage,
+                },
+            })
+            setExamData([
+                ...examSections.slice(0, indexes.parent),
+                selectedSection,
+                ...examSections.slice(indexes.parent + 1),
+            ])
+        } else {
+            setErrorMessage('لا يمكن اضافة اكثر من ثلاث صور')
+        }
+    }
+
+    // Delete new section image
+    const deleteNewQuestionImageHandler = async (sectionIndex: number, newImageIndex: number) => {
+        const selectedSection = examSections[sectionIndex]
+        selectedSection.editedSection.newImages.splice(newImageIndex, 1)
+        setExamData([
             ...examSections.slice(0, sectionIndex),
             selectedSection,
             ...examSections.slice(sectionIndex + 1),
@@ -484,12 +570,17 @@ const useEditAndShowExam = () => {
             openAndCloseSection,
             openSectionToEdit,
             sectionPrimeHandler,
-            deleteSectionImageHandler,
+            sectionNameHandler,
             sectionParagraphHandler,
             sectionParagraphImageHandler,
+            deleteSectionImageHandler,
+            deleteNewSectionImageHandler,
             submitEditExamSeciton,
             openQuestionToEdit,
             questionPrimeHandler,
+            questionNameHandler,
+            questionNameImageHandler,
+            deleteNewQuestionImageHandler,
         },
         dialogs: {},
     }

@@ -184,8 +184,12 @@ const ShowAndEditSection: React.FC<Props> = ({ data, actions }) => {
                                         disabled={section.openToEdit ? false : true}
                                         error={false}
                                         helperText=""
-                                        value={section.name}
-                                        indexes={{ parent: index }}
+                                        value={
+                                            section.editedSection.name
+                                                ? section.editedSection.name
+                                                : section.name
+                                        }
+                                        indexes={index}
                                         placeholder="حدد رأس السؤال"
                                         onChange={actions.sectionNameHandler}
                                     />
@@ -195,7 +199,11 @@ const ShowAndEditSection: React.FC<Props> = ({ data, actions }) => {
                                     imageIcon={section.openToEdit ? true : false}
                                     helperText=""
                                     indexes={index}
-                                    value={section.paragraph}
+                                    value={
+                                        section.editedSection?.paragraph
+                                            ? section.editedSection.paragraph
+                                            : section.paragraph
+                                    }
                                     onChange={actions.sectionParagraphHandler}
                                     addImage={actions.sectionParagraphImageHandler}
                                     placeholder="أكتب الفقرة الخاصة بالسؤال إن وجد:-"
@@ -221,10 +229,36 @@ const ShowAndEditSection: React.FC<Props> = ({ data, actions }) => {
                                             />
                                         </Box>
                                     ))}
+                                    {section.editedSection.newImages &&
+                                        section.editedSection.newImages.map(
+                                            (image: any, newImageIndex: number) => (
+                                                <Box key={image.id} sx={style.imageBox}>
+                                                    {section.openToEdit && (
+                                                        <CloseIcon
+                                                            onClick={() =>
+                                                                actions.deleteNewQectionImageHandler(
+                                                                    index,
+                                                                    newImageIndex,
+                                                                )
+                                                            }
+                                                            fontSize="large"
+                                                            color="error"
+                                                        />
+                                                    )}
+                                                    <img
+                                                        width={170}
+                                                        height={170}
+                                                        src={`${image.image.data}`}
+                                                        alt="New Section Image"
+                                                        style={style.imageStyle}
+                                                    />
+                                                </Box>
+                                            ),
+                                        )}
                                 </Box>
                                 {section.openToEdit && (
                                     <MyButtonSuccess
-                                        onClick={() => actions.submitSection(index)}
+                                        onClick={() => actions.submitEditExamSeciton(index)}
                                         content="تأكيد السؤال الرئيسي"
                                     />
                                 )}
