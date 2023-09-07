@@ -12,7 +12,7 @@ const useStudents = () => {
     const { useSearchHandler } = useShard()
     const { loading, getHandler } = useRequestsHandlers()
 
-    const [studentsData, setStudentsData] = useState<any>('')
+    const [studentsData, setStudentsData] = useState<any>([])
     const [filterdData, setFilterdData] = useState<any[]>([])
 
     const [openLevels, setOpenLevels] = useState<any[]>([])
