@@ -5,16 +5,17 @@ import { useTheme } from 'context/ThemeContext'
 import MyButton from 'components/Buttons/MyButton'
 import MyRadioGroup from 'components/MyRadioGroup'
 import MyIconButton from 'components/MyIconButton'
+import ShowAndEditWritten from '../ShowAndEditWritten'
+import ShowAndEditChoices from '../ShowAndEditChoices'
 import { examQuestionTypes } from 'constant/staticData'
 import MyTextAreaWithImage from 'components/MyTextAreaWithImage'
+import MyButtonSuccess from 'components/Buttons/MyButtonSuccess'
 
 // MUI
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import CloseIcon from '@mui/icons-material/Close'
 import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline'
-import ShowAndEditChoices from '../ShowAndEditChoices'
-import ShowAndEditWritten from '../ShowAndEditWritten'
 
 type Props = {
     data: any
@@ -234,15 +235,12 @@ const ShowAndEditQuestion: React.FC<Props> = ({ data, actions, parentIndex }) =>
                         />
                         {question.images?.length > 0 && (
                             <Box sx={style.questionImages}>
-                                {question.images.map((image: any, newImageIndex: number) => (
+                                {question.images.map((image: any) => (
                                     <Box key={image.id} sx={style.imageBox}>
                                         {question.openToEdit && (
                                             <CloseIcon
                                                 onClick={() =>
-                                                    actions.deleteQuestionImageHandler(
-                                                        index,
-                                                        newImageIndex,
-                                                    )
+                                                    actions.deleteQuestionImageHandler(image.id)
                                                 }
                                                 fontSize="large"
                                                 color="error"
@@ -297,6 +295,7 @@ const ShowAndEditQuestion: React.FC<Props> = ({ data, actions, parentIndex }) =>
                                     data={question.choices}
                                     grandParentIndex={parentIndex}
                                     parentIndex={index}
+                                    openToEdit={question.openToEdit}
                                 />
                             ) : (
                                 <ShowAndEditWritten
@@ -304,6 +303,7 @@ const ShowAndEditQuestion: React.FC<Props> = ({ data, actions, parentIndex }) =>
                                     actions={actions}
                                     grandParentIndex={parentIndex}
                                     parentIndex={index}
+                                    openToEdit={question.openToEdit}
                                 />
                             )}
                         </>
@@ -315,6 +315,7 @@ const ShowAndEditQuestion: React.FC<Props> = ({ data, actions, parentIndex }) =>
                                     data={question.choices}
                                     grandParentIndex={parentIndex}
                                     parentIndex={index}
+                                    openToEdit={question.openToEdit}
                                 />
                             ) : (
                                 <ShowAndEditWritten
@@ -322,6 +323,7 @@ const ShowAndEditQuestion: React.FC<Props> = ({ data, actions, parentIndex }) =>
                                     actions={actions}
                                     grandParentIndex={parentIndex}
                                     parentIndex={index}
+                                    openToEdit={question.openToEdit}
                                 />
                             )}
                         </>
@@ -332,6 +334,12 @@ const ShowAndEditQuestion: React.FC<Props> = ({ data, actions, parentIndex }) =>
                         </Typography>
                     )}
                     {index + 1 != data.length && <hr style={style.breaker}></hr>} */}
+                    {question.openToEdit && (
+                        <MyButtonSuccess
+                            onClick={() => actions.updateQuestionHandler(question.id)}
+                            content="تعديل السؤال الفرعي"
+                        />
+                    )}
                 </Box>
             ))}
             <Box sx={style.sectionButtons}>

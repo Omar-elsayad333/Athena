@@ -7,15 +7,23 @@ import { examChoicesPlaceholder } from 'constant/staticData'
 import Box from '@mui/material/Box'
 import Checkbox from '@mui/material/Checkbox'
 import Typography from '@mui/material/Typography'
+import Urls from 'constant/urls'
 
 type Props = {
     data: any
     actions: any
     grandParentIndex: number
     parentIndex: number
+    openToEdit: boolean
 }
 
-const ShowAndEditChoices: React.FC<Props> = ({ actions, grandParentIndex, parentIndex, data }) => {
+const ShowAndEditChoices: React.FC<Props> = ({
+    actions,
+    grandParentIndex,
+    parentIndex,
+    data,
+    openToEdit,
+}) => {
     const { mainColors } = useTheme()
     const style = {
         flexColumn: {
@@ -54,6 +62,7 @@ const ShowAndEditChoices: React.FC<Props> = ({ actions, grandParentIndex, parent
                                         ? choice.editedChoice.name
                                         : choice.name
                                 }
+                                disabled={!openToEdit}
                                 helperText=""
                                 onChange={actions.choiceNameHandler}
                                 addImage={actions.choiceImagesHandler}
@@ -80,7 +89,7 @@ const ShowAndEditChoices: React.FC<Props> = ({ actions, grandParentIndex, parent
                                 choice.image && (
                                     <Box
                                         sx={{
-                                            backgroundImage: `url('${choice.image}')`,
+                                            backgroundImage: `url('${Urls.URL_MAIN}/${choice.image}')`,
                                             backgroundSize: 'cover',
                                             backgroundPosition: 'center',
                                             minWidth: '46px',
@@ -92,6 +101,7 @@ const ShowAndEditChoices: React.FC<Props> = ({ actions, grandParentIndex, parent
                                 )
                             )}
                             <Checkbox
+                                disabled={!openToEdit}
                                 checked={
                                     choice.editedChoice.isRightChoice
                                         ? choice.editedChoice.isRightChoice

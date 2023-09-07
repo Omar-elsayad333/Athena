@@ -10,9 +10,16 @@ type Props = {
     actions: any
     grandParentIndex: number
     parentIndex: number
+    openToEdit: boolean
 }
 
-const ShowAndEditWritten: React.FC<Props> = ({ data, actions, grandParentIndex, parentIndex }) => {
+const ShowAndEditWritten: React.FC<Props> = ({
+    data,
+    actions,
+    grandParentIndex,
+    parentIndex,
+    openToEdit,
+}) => {
     const { mainColors } = useTheme()
     const style = {
         flexColumn: {
@@ -39,10 +46,11 @@ const ShowAndEditWritten: React.FC<Props> = ({ data, actions, grandParentIndex, 
                 الاجابة الصحيحة (التقريبية):-
             </Typography>
             <MyTextArea
+                helperText=""
                 placeholder=""
-                value={data.answer}
+                disabled={!openToEdit}
                 onChange={actions.questionAnswerHandler}
-                helperText={data.answerError.helperText}
+                value={data.editedQuestion.answer ? data.editedQuestion.answer : data.answer}
                 indexes={{
                     grandParent: grandParentIndex,
                     parent: parentIndex,

@@ -140,20 +140,6 @@ const useEditAndShowExam = () => {
         }
     }
 
-    // Call API to update question from exam
-    const updateQuestionHandler = async (questionId: string) => {
-        try {
-            await deleteHandler(
-                questionId,
-                userState.tokens?.accessToken!,
-                Urls.URL_TEACHER_EXAMS_SECTION_QUESTION,
-            )
-            setWarningMessage('تم حذف السؤال بنجاح')
-        } catch (error) {
-            setErrorMessage('حدث خطاء')
-        }
-    }
-
     // Call API to delete choice from exam
     const deleteChoiceHandler = async (choiceId: string) => {
         try {
@@ -446,6 +432,13 @@ const useEditAndShowExam = () => {
     const openQuestionToEdit = (sectionIndex: number, questionIndex: number) => {
         const selectedSection = examSections[sectionIndex]
 
+        if (selectedSection.questions[questionIndex].openToEdit) {
+            selectedSection.questions[questionIndex].editedQuestion = []
+            for (let choice of selectedSection.questions[questionIndex].choices) {
+                choice.editedChoice = { id: choice.id }
+            }
+        }
+
         selectedSection.questions[questionIndex].openToEdit =
             !selectedSection.questions[questionIndex].openToEdit
 
@@ -612,24 +605,32 @@ const useEditAndShowExam = () => {
     }
 
     // Handle choice right of false
-    // const choiceIsRightHandler = (event: any, indexes: any) => {
-    //     const newValue = sections[indexes.grandParent]
+    const choiceIsRightHandler = (event: any, indexes: any) => {
+        const selectedSection = examSections[indexes.grandParent]
 
-    //     newValue!.questions[indexes.parent]!.choices![indexes.child]!.isRightChoice =
-    //         event.target.checked
-    //     for (let i = 0; i < newValue!.questions[indexes.parent]!.choices!.length; i++) {
-    //         if (i !== indexes.child) {
-    //             newValue!.questions[indexes.parent]!.choices![i]!.isRightChoice = false
-    //         }
-    //     }
-    //     newValue!.questions[indexes.parent]!.isRightChoiceError!.error = false
-    //     newValue!.questions[indexes.parent]!.isRightChoiceError!.helperText = ''
-    //     setSections([
-    //         ...sections.slice(0, indexes.grandParent),
-    //         newValue,
-    //         ...sections.slice(indexes.grandParent + 1),
-    //     ])
-    // }
+        selectedSection!.questions[indexes.parent]!.choices![indexes.child].editedChoice[
+            'isRightChoice'
+        ] = event.target.checked
+        setExamSections([
+            ...examSections.slice(0, indexes.grandParent),
+            selectedSection,
+            ...examSections.slice(indexes.grandParent + 1),
+        ])
+    }
+
+    // Call API to update question from exam
+    const updateQuestionHandler = async (questionId: string) => {
+        try {
+            await deleteHandler(
+                questionId,
+                userState.tokens?.accessToken!,
+                Urls.URL_TEACHER_EXAMS_SECTION_QUESTION,
+            )
+            setWarningMessage('تم حذف السؤال بنجاح')
+        } catch (error) {
+            setErrorMessage('حدث خطاء')
+        }
+    }
 
     return {
         data: {

@@ -45,11 +45,11 @@ class Urls {
     static URL_TEACHER_EXAMS_SECTION_IMAGE: string = '/api/teacher/exams/section/sectionimage'
     static URL_TEACHER_EXAMS_SECTION_QUESTION: string = '/api/teacher/exams/section/question'
     static URL_TEACHER_EXAMS_SECTION_QUESTION_IMAGE: string =
-        '/api/teacher/exams/section/questionimage'
+        '/api/teacher/exams/section/question/questionimage'
     static URL_TEACHER_EXAMS_SECTION_QUESTION_CHOICE: string =
-        '/api/teacher/exams/section/questionchoice'
+        '/api/teacher/exams/section/question/questionchoice'
     static URL_TEACHER_EXAMS_SECTION_QUESTION_CHOICE_IMAGE: string =
-        '/api/teacher/exams/section/questionchoice/image'
+        '/api/teacher/exams/section/question/questionchoice/image'
 
     // App sections required urls
     static URL_YEARS_REQUIRED: string = '/api/teacher/years/required'
