@@ -1,5 +1,5 @@
 import { IStyle } from 'styles/IStyle'
-// import FilterWedgit from '../../../FilterWedgit'
+import FilterWedgit from '../../../FilterWedgit'
 import { useTheme } from 'context/ThemeContext'
 import MySearchInput from 'components/MySearchInput'
 import JoinRequestsCancelDialog from 'components/Dialogs/joinRequestsCancelDialog'
@@ -77,8 +77,7 @@ const JoinRequestsC: React.FC<Props> = ({ data, states, actions, dialogs }) => {
             alignContent: 'center',
             marginRight: 'auto',
             '@media(max-width:450px)': {
-            marginRight: '0px',
-                
+                marginRight: '0px',
             },
         },
         button: {
@@ -91,41 +90,40 @@ const JoinRequestsC: React.FC<Props> = ({ data, states, actions, dialogs }) => {
         <Box sx={style.container}>
             <MySearchInput placeholder="هل تبحث عن طالب معين ؟" onChange={actions.searchHandler} />
 
-            {/* <Box sx={style.controles}>
-                {/* <FilterWedgit
-                        selected={states.selectedLevel}
-                        filters={states.isPreOpenYear ? data.preopenLevels : data.openLevels}
-                        allFilter="جميع الطلاب"
-                        getSelected={actions.selectedLevelHandler}
-                    /> }
-                    
-            </Box> */}
+            <Box sx={style.controles}>
+                <FilterWedgit
+                    selected={states.selectedLevel}
+                    filters={data.levelsToSelect}
+                    allFilter="جميع الطلاب"
+                    getSelected={actions.selectedLevelSwitch}
+                />
+            </Box>
             {/* card Div*/}
 
-            {data.requestsData.map((e: any) => (
+            {data.filterdData.map((request: any) => (
                 <Box sx={style.card}>
                     <Box
                         sx={[
                             { ...style.img },
                             {
-                                backgroundImage: `url(${e.students[0].image})`,
+                                backgroundImage: `url(${request.students[0].image})`,
                             },
                         ]}
                     ></Box>
                     <Box sx={style.textLoader}>
                         <Typography variant="h2" color={mainColors.primary.main}>
-                            الطالب/{e.students[0].name}
+                            الطالب/{request.students[0].name}
                         </Typography>
                         <Box sx={{ display: 'flex', flexDirection: 'row' }}>
                             <Typography variant="h5" sx={style.smallText}>
-                                المجموعة :{e.students[0].groupName}
+                                المجموعة :{request.students[0].groupName}
                             </Typography>
                             <Typography
                                 variant="h5"
                                 sx={[{ ...style.smallText }, { marginRight: '10px' }]}
                                 mr="2"
                             >
-                                {e.students[0].yearState}
+                                {request.students[0].yearState}
                             </Typography>
                         </Box>
                     </Box>
@@ -157,7 +155,7 @@ const JoinRequestsC: React.FC<Props> = ({ data, states, actions, dialogs }) => {
                         state={dialogs.warningDialog.state}
                         content={dialogs.warningDialog.content}
                         actions={dialogs.warningDialog.actions}
-                        id={e.students[0].id}
+                        id={request.students[0].id}
                     />
                 </Box>
             ))}

@@ -24,7 +24,7 @@ const Transition = forwardRef(function Transition(
 type Props = {
     state: boolean
     actions: {
-        submit: (id) => void
+        submit(id: string): (id: string) => void
         cancel: () => void
     }
     content: {
@@ -33,7 +33,7 @@ type Props = {
         submit: string
         cancel: string
     }
-    id?: string
+    id: string
 }
 
 const JoinRequestsCancelDialog: React.FC<Props> = ({ state, content, actions, id }) => {
@@ -170,7 +170,7 @@ const JoinRequestsCancelDialog: React.FC<Props> = ({ state, content, actions, id
                         color="error"
                         sx={style.addBut}
                         variant="contained"
-                        onClick={(id) => actions.submit(id)}
+                        onClick={() => actions.submit(id)}
                     >
                         {content.submit}
                     </Button>
