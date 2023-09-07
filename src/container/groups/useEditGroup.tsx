@@ -25,8 +25,8 @@ const useEditGroup = () => {
     const { setSuccessMessage, setErrorMessage, setWarningMessage } = useAlert()
     const { loading, deleteHandler, getHandler, getHandlerById, putHandlerById } =
         useRequestsHandlers()
-    const [groupData, setGroupData] = useState<any>('')
-    const [requiredData, setRequiredData] = useState<any>('')
+    const [groupData, setGroupData] = useState<any>({})
+    const [requiredData, setRequiredData] = useState<any>({})
     const [name, setName] = useState<InputProps>(inputInitialValues)
     const [headquartersData, setHeadquartersData] = useState<any>([])
     const [selectedHeadquarter, setSelectedHeadquarter] =
