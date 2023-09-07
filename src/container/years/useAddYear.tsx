@@ -81,7 +81,7 @@ const useAddYear = () => {
     // Get the selected Classes
     const selectedLevelsHandler = (selected: any) => {
         console.log(selected)
-        // setSelectedLevels([])
+        setSelectedLevels([])
         for (let item of selected) {
             console.log(item)
             setSelectedLevels((oldData: any) => [
@@ -277,7 +277,7 @@ const useAddYear = () => {
         }
 
         const data = {
-            state: selectedYear.name === 'عام دراسي' ? 'open' : 'preopen',
+            state: selectedYear.name === 'العام الدراسي الحالي' ? 'open' : 'preopen',
             teacherCoureLevels: levelsData,
         }
 
