@@ -6,7 +6,7 @@ import * as signalR from '@microsoft/signalr'
 import { useUser } from 'context/userContext'
 
 const Home: NextPage = () => {
-    const [notifications, setNotifications] = useState()
+    const [notifications, setNotifications] = useState([])
     const { userState } = useUser()
 
     const hubConnection = new signalR.HubConnectionBuilder()
@@ -56,7 +56,13 @@ const Home: NextPage = () => {
         console.log(notifications)
     }, [notifications])
 
-    return <div></div>
+    return (
+        <div>
+            {notifications.map((item) => (
+                <h2>{item}</h2>
+            ))}
+        </div>
+    )
 }
 
 export default withAuth(Home)
