@@ -87,6 +87,9 @@ const ShowAndEditQuestion: React.FC<Props> = ({ data, actions, parentIndex }) =>
             overflow: 'auto',
             gap: '35px',
         },
+        imageBox: {
+            display: 'flex',
+        },
         imageStyle: {
             objectFit: 'cover',
             borderRadius: '10px',
@@ -229,17 +232,30 @@ const ShowAndEditQuestion: React.FC<Props> = ({ data, actions, parentIndex }) =>
                         />
                         {question.images?.length > 0 && (
                             <Box sx={style.questionImages}>
-                                {question.images.map((image: any) => (
-                                    <img
-                                        width={100}
-                                        height={100}
-                                        key={image.id}
-                                        src={`${Urls.URL_MAIN}/${image.image}`}
-                                        alt="Question Image"
-                                        style={style.imageStyle}
-                                    />
+                                {question.images.map((image: any, newImageIndex: number) => (
+                                    <Box key={image.id} sx={style.imageBox}>
+                                        {question.openToEdit && (
+                                            <CloseIcon
+                                                onClick={() =>
+                                                    actions.deleteNewQectionImageHandler(
+                                                        index,
+                                                        newImageIndex,
+                                                    )
+                                                }
+                                                fontSize="large"
+                                                color="error"
+                                            />
+                                        )}
+                                        <img
+                                            width={100}
+                                            height={100}
+                                            src={`${Urls.URL_MAIN}/${image.image}`}
+                                            alt="Question Image"
+                                            style={style.imageStyle}
+                                        />
+                                    </Box>
                                 ))}
-                                {question.editedQuestion.newImages &&
+                                {question.editedQuestion?.newImages &&
                                     question.editedQuestion.newImages.map(
                                         (image: any, newImageIndex: number) => (
                                             <Box key={image.id} sx={style.imageBox}>

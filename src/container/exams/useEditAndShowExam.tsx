@@ -147,20 +147,6 @@ const useEditAndShowExam = () => {
         }
     }
 
-    // Call API to delete section image from exam
-    const deleteSectionImageHandler = async (sectionImageId: string) => {
-        try {
-            await deleteHandler(
-                sectionImageId,
-                userState.tokens?.accessToken!,
-                Urls.URL_TEACHER_EXAMS_SECTION_IMAGE,
-            )
-            setWarningMessage('تم حذف الصوره بنجاح')
-        } catch (error) {
-            setErrorMessage('حدث خطاء')
-        }
-    }
-
     // Call API to update question from exam
     const updateQuestionHandler = async (questionId: string) => {
         try {
@@ -434,6 +420,20 @@ const useEditAndShowExam = () => {
             ])
         } else {
             setErrorMessage('لا يمكن اضافة اكثر من ثلاث صور')
+        }
+    }
+
+    // Call API to delete section image from exam
+    const deleteSectionImageHandler = async (sectionImageId: string) => {
+        try {
+            await deleteHandler(
+                sectionImageId,
+                userState.tokens?.accessToken!,
+                Urls.URL_TEACHER_EXAMS_SECTION_IMAGE,
+            )
+            setWarningMessage('تم حذف الصوره بنجاح')
+        } catch (error) {
+            setErrorMessage('حدث خطاء')
         }
     }
 
