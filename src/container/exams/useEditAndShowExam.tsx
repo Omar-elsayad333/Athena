@@ -89,7 +89,14 @@ const useEditAndShowExam = () => {
             section['editedSection'] = { id: section.id, newImages: [] }
             for (let question of section.questions) {
                 question['openToEdit'] = false
-                section['editedQuestion'] = { id: question.id, newImages: [], newChoices: [] }
+                question['editedQuestion'] = {
+                    id: question.id,
+                    newImages: [],
+                    newChoices: [],
+                }
+                for (let choice of question.choices) {
+                    choice['editedChoice'] = { id: choice.id }
+                }
             }
         }
     }
@@ -133,20 +140,6 @@ const useEditAndShowExam = () => {
         }
     }
 
-    // Call API to delete section from exam
-    const deleteSectionHandler = async (sectionId: string) => {
-        try {
-            await deleteHandler(
-                sectionId,
-                userState.tokens?.accessToken!,
-                Urls.URL_TEACHER_EXAMS_SECTION,
-            )
-            setWarningMessage('تم حذف السؤال بنجاح')
-        } catch (error) {
-            setErrorMessage('حدث خطاء')
-        }
-    }
-
     // Call API to update question from exam
     const updateQuestionHandler = async (questionId: string) => {
         try {
@@ -154,34 +147,6 @@ const useEditAndShowExam = () => {
                 questionId,
                 userState.tokens?.accessToken!,
                 Urls.URL_TEACHER_EXAMS_SECTION_QUESTION,
-            )
-            setWarningMessage('تم حذف السؤال بنجاح')
-        } catch (error) {
-            setErrorMessage('حدث خطاء')
-        }
-    }
-
-    // Call API to delete question from exam
-    const deleteQuestionHandler = async (questionId: string) => {
-        try {
-            await deleteHandler(
-                questionId,
-                userState.tokens?.accessToken!,
-                Urls.URL_TEACHER_EXAMS_SECTION_QUESTION,
-            )
-            setWarningMessage('تم حذف السؤال بنجاح')
-        } catch (error) {
-            setErrorMessage('حدث خطاء')
-        }
-    }
-
-    // Call API to delete quesion image from exam
-    const deleteQuestionImageHandler = async (questionImageId: string) => {
-        try {
-            await deleteHandler(
-                questionImageId,
-                userState.tokens?.accessToken!,
-                Urls.URL_TEACHER_EXAMS_SECTION_QUESTION_IMAGE,
             )
             setWarningMessage('تم حذف السؤال بنجاح')
         } catch (error) {
@@ -365,6 +330,20 @@ const useEditAndShowExam = () => {
         ])
     }
 
+    // Call API to delete section from exam
+    const deleteSectionHandler = async (sectionId: string) => {
+        try {
+            await deleteHandler(
+                sectionId,
+                userState.tokens?.accessToken!,
+                Urls.URL_TEACHER_EXAMS_SECTION,
+            )
+            setWarningMessage('تم حذف السؤال بنجاح')
+        } catch (error) {
+            setErrorMessage('حدث خطاء')
+        }
+    }
+
     // Get the sectiom paragraph from user
     const sectionNameHandler = (selectedName: string, sectionIndex: any) => {
         let selectedSection = examSections[sectionIndex]
@@ -495,6 +474,20 @@ const useEditAndShowExam = () => {
         ])
     }
 
+    // Call API to delete question from exam
+    const deleteQuestionHandler = async (questionId: string) => {
+        try {
+            await deleteHandler(
+                questionId,
+                userState.tokens?.accessToken!,
+                Urls.URL_TEACHER_EXAMS_SECTION_QUESTION,
+            )
+            setWarningMessage('تم حذف السؤال بنجاح')
+        } catch (error) {
+            setErrorMessage('حدث خطاء')
+        }
+    }
+
     // Update the question name from user
     const questionNameHandler = (selectedParagraph: string, indexes: any) => {
         let selectedSection = examSections[indexes.parent]
@@ -537,7 +530,21 @@ const useEditAndShowExam = () => {
         }
     }
 
-    // Delete new section image
+    // Call API to delete quesion image from exam
+    const deleteQuestionImageHandler = async (questionImageId: string) => {
+        try {
+            await deleteHandler(
+                questionImageId,
+                userState.tokens?.accessToken!,
+                Urls.URL_TEACHER_EXAMS_SECTION_QUESTION_IMAGE,
+            )
+            setWarningMessage('تم حذف السؤال بنجاح')
+        } catch (error) {
+            setErrorMessage('حدث خطاء')
+        }
+    }
+
+    // Delete new question image
     const deleteNewQuestionImageHandler = async (indexes: any, newImageIndex: number) => {
         const selectedSection = examSections[indexes.parent]
         selectedSection.questions[indexes.child].editedQuestion.newImages.splice(newImageIndex, 1)
@@ -547,6 +554,82 @@ const useEditAndShowExam = () => {
             ...examSections.slice(indexes.parent + 1),
         ])
     }
+
+    // Handle question type
+    const questionTypeHandler = async (selectedType: any, indexes: any) => {
+        const selectedSection = examSections[indexes.parent]
+        selectedSection.questions[indexes.child].editedQuestion['type'] = selectedType.target.value
+        setExamData([
+            ...examSections.slice(0, indexes.parent),
+            selectedSection,
+            ...examSections.slice(indexes.parent + 1),
+        ])
+    }
+
+    // Handle question written answer
+    const questionAnswerHandler = (selectedAnswer: string, indexes: any) => {
+        const selectedSection = examSections[indexes.grandParent]
+        selectedSection!.questions[indexes.parent].editedQuestion['answer'] = selectedAnswer
+        setExamSections([
+            ...examSections.slice(0, indexes.grandParent),
+            selectedSection,
+            ...examSections.slice(indexes.grandParent + 1),
+        ])
+    }
+
+    // Handle choice value
+    const choiceNameHandler = (selectedName: string, indexes: any) => {
+        const selectedSection = examSections[indexes.grandParent]
+        selectedSection!.questions[indexes.parent].choices[indexes.child].editedChoice['name'] =
+            selectedName
+        setExamSections([
+            ...examSections.slice(0, indexes.grandParent),
+            selectedSection,
+            ...examSections.slice(indexes.grandParent + 1),
+        ])
+    }
+
+    // Handle choice image
+    const choiceImagesHandler = async (image: any, indexes: any) => {
+        const selectedSection = examSections[indexes.grandParent]
+        const selectedfile = image
+        const [fileToConvert] = image
+
+        if (selectedfile.length > 0) {
+            const convertedImage: any = await convertFileToBase64(fileToConvert)
+            selectedSection!.questions[indexes.parent]!.choices![indexes.child].editedChoice[
+                'image'
+            ] = {
+                extension: `.${selectedfile[0].type.slice(6)}`,
+                data: convertedImage,
+            }
+            setExamSections([
+                ...examSections.slice(0, indexes.grandParent),
+                selectedSection,
+                ...examSections.slice(indexes.grandParent + 1),
+            ])
+        }
+    }
+
+    // Handle choice right of false
+    // const choiceIsRightHandler = (event: any, indexes: any) => {
+    //     const newValue = sections[indexes.grandParent]
+
+    //     newValue!.questions[indexes.parent]!.choices![indexes.child]!.isRightChoice =
+    //         event.target.checked
+    //     for (let i = 0; i < newValue!.questions[indexes.parent]!.choices!.length; i++) {
+    //         if (i !== indexes.child) {
+    //             newValue!.questions[indexes.parent]!.choices![i]!.isRightChoice = false
+    //         }
+    //     }
+    //     newValue!.questions[indexes.parent]!.isRightChoiceError!.error = false
+    //     newValue!.questions[indexes.parent]!.isRightChoiceError!.helperText = ''
+    //     setSections([
+    //         ...sections.slice(0, indexes.grandParent),
+    //         newValue,
+    //         ...sections.slice(indexes.grandParent + 1),
+    //     ])
+    // }
 
     return {
         data: {
@@ -570,6 +653,7 @@ const useEditAndShowExam = () => {
             openAndCloseSection,
             openSectionToEdit,
             sectionPrimeHandler,
+            deleteSectionHandler,
             sectionNameHandler,
             sectionParagraphHandler,
             sectionParagraphImageHandler,
@@ -578,9 +662,16 @@ const useEditAndShowExam = () => {
             submitEditExamSeciton,
             openQuestionToEdit,
             questionPrimeHandler,
+            deleteQuestionHandler,
             questionNameHandler,
             questionNameImageHandler,
+            deleteQuestionImageHandler,
             deleteNewQuestionImageHandler,
+            questionTypeHandler,
+            questionAnswerHandler,
+            choiceNameHandler,
+            choiceImagesHandler,
+            choiceIsRightHandler,
         },
         dialogs: {},
     }

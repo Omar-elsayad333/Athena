@@ -13,6 +13,8 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import CloseIcon from '@mui/icons-material/Close'
 import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline'
+import ShowAndEditChoices from '../ShowAndEditChoices'
+import ShowAndEditWritten from '../ShowAndEditWritten'
 
 type Props = {
     data: any
@@ -159,7 +161,7 @@ const ShowAndEditQuestion: React.FC<Props> = ({ data, actions, parentIndex }) =>
                                 </svg>
                             )}
                             <svg
-                                onClick={() => actions.deleteQuestionHandler(index)}
+                                onClick={() => actions.deleteQuestionHandler(question.id)}
                                 width="19"
                                 height="19"
                                 viewBox="0 0 19 19"
@@ -237,7 +239,7 @@ const ShowAndEditQuestion: React.FC<Props> = ({ data, actions, parentIndex }) =>
                                         {question.openToEdit && (
                                             <CloseIcon
                                                 onClick={() =>
-                                                    actions.deleteNewQectionImageHandler(
+                                                    actions.deleteQuestionImageHandler(
                                                         index,
                                                         newImageIndex,
                                                     )
@@ -287,21 +289,43 @@ const ShowAndEditQuestion: React.FC<Props> = ({ data, actions, parentIndex }) =>
                             </Box>
                         )}
                     </Box>
-                    {/* {question.type == 'MCQ' ? (
-                        <Choices
-                            actions={actions}
-                            data={question.choices}
-                            grandParentIndex={parentIndex}
-                            parentIndex={index}
-                        />
+                    {question.editedQuestion.type ? (
+                        <>
+                            {question.editedQuestion.type == 'MCQ' ? (
+                                <ShowAndEditChoices
+                                    actions={actions}
+                                    data={question.choices}
+                                    grandParentIndex={parentIndex}
+                                    parentIndex={index}
+                                />
+                            ) : (
+                                <ShowAndEditWritten
+                                    data={question}
+                                    actions={actions}
+                                    grandParentIndex={parentIndex}
+                                    parentIndex={index}
+                                />
+                            )}
+                        </>
                     ) : (
-                        <Written
-                            data={question}
-                            actions={actions}
-                            grandParentIndex={parentIndex}
-                            parentIndex={index}
-                        />
-                    )} */}
+                        <>
+                            {question.type == 'MCQ' ? (
+                                <ShowAndEditChoices
+                                    actions={actions}
+                                    data={question.choices}
+                                    grandParentIndex={parentIndex}
+                                    parentIndex={index}
+                                />
+                            ) : (
+                                <ShowAndEditWritten
+                                    data={question}
+                                    actions={actions}
+                                    grandParentIndex={parentIndex}
+                                    parentIndex={index}
+                                />
+                            )}
+                        </>
+                    )}
                     {/* {question.isRightChoiceError.error == true && (
                         <Typography variant="h4" color={'error'} fontWeight={700}>
                             {question.isRightChoiceError.helperText}
