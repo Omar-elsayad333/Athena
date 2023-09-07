@@ -57,10 +57,9 @@ const Home: NextPage = () => {
     }, [notifications])
 
     return (
-        <div>
-            {notifications.map((item) => (
-                <h2>{item}</h2>
-            ))}
+        <div style={{ padding: '100px' }}>
+            {notifications &&
+                notifications.map((item: any, index: number) => <h2 key={index}>{item.type}</h2>)}
         </div>
     )
 }
