@@ -16,6 +16,7 @@ type Props = {
     helperText: string
     placeholder: string
     type?: string
+    disabled?: boolean
 }
 
 const MyInput: React.FC<Props> = ({
@@ -27,6 +28,7 @@ const MyInput: React.FC<Props> = ({
     value,
     name,
     indexes,
+    disabled = false,
 }) => {
     const { mainColors, darkMode } = useContext(DarkThemeContext)
     const classes: IStyle = {
@@ -87,6 +89,7 @@ const MyInput: React.FC<Props> = ({
         <FormControl required>
             <TextField
                 name={name}
+                disabled={disabled}
                 type={type}
                 value={value}
                 error={error}
