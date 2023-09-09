@@ -89,6 +89,7 @@ const useEditAndShowExam = () => {
             section['editedSection'] = { id: section.id, newImages: [] }
             for (let question of section.questions) {
                 question['openToEdit'] = false
+                question['errors'] = []
                 question['editedQuestion'] = {
                     id: question.id,
                     newImages: [],
@@ -732,17 +733,35 @@ const useEditAndShowExam = () => {
     // Validate updated question data
     const validateEditedQuestion = (indexes: any) => {
         const correctAnswers = []
-        const updatedQuestion =
-            examSections[indexes.parent].questions[indexes.child]!.editedQuestion
+        const selectedSection = examSections[indexes.parent]
 
-        for (let choice of examSections[indexes.parent].questions[indexes.child]!.choices) {
-            if (choice.editedChoice.i)
-                if (choice.isRightChoice) {
-                    correctAnswers.push('right')
-                }
-            updatedQuestion.choices.push(choice.editedChoice)
+        for (let choice of selectedSection?.questions[indexes.child]!.choices) {
+            if (choice.editedChoice.isRightChoice) {
+                correctAnswers.push('right')
+            } else if (choice.isRightChoice) {
+                correctAnswers.push('right')
+            }
         }
-        return state
+
+        for (let newChoice of selectedSection?.questions[indexes.child]!.editedQuestion
+            .newChoices) {
+            if (newChoice.isRightChoice) {
+                correctAnswers.push('right')
+            }
+        }
+
+        if (correctAnswers.length > 1) {
+            selectedSection.questions[indexes.child]!.errors.push('يجب اختيار اجابه صحيحه واحده')
+
+            setExamData([
+                ...examSections.slice(0, indexes.grandParent),
+                selectedSection,
+                ...examSections.slice(indexes.grandParent + 1),
+            ])
+            return false
+        } else {
+            return true
+        }
     }
 
     // Collect updated question data
@@ -751,7 +770,8 @@ const useEditAndShowExam = () => {
             examSections[indexes.parent].questions[indexes.child]!.editedQuestion
 
         for (let choice of examSections[indexes.parent].questions[indexes.child]!.choices) {
-            updatedQuestion.choices.push(choice.editedChoice)
+            console.log(choice.editedChoice)
+            // updatedQuestion.choices.push(choice.editedChoice)
         }
 
         return updatedQuestion
@@ -762,6 +782,7 @@ const useEditAndShowExam = () => {
         if (validateEditedQuestion(indexes)) {
             try {
                 const updatedData = collectUpdatedQuestionData(indexes)
+                console.log('omar')
                 console.log(updatedData)
                 // await putHandlerById(
                 //     questionId,
