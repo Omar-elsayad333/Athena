@@ -45,7 +45,7 @@ const ShowAndEditQuestion: React.FC<Props> = ({ data, actions, parentIndex }) =>
             justifyContent: 'space-between',
             alignItems: 'center',
             flexWrap: 'wrap',
-            gap: '30px',
+            gap: '10px',
             padding: '16px 33px',
             borderRadius: '12px',
             background: mainColors.paper.main,
@@ -233,9 +233,9 @@ const ShowAndEditQuestion: React.FC<Props> = ({ data, actions, parentIndex }) =>
                             addImage={actions.questionNameImageHandler}
                             indexes={{ parent: parentIndex, child: index }}
                         />
-                        {question.images?.length > 0 && (
-                            <Box sx={style.questionImages}>
-                                {question.images.map((image: any) => (
+                        <Box sx={style.questionImages}>
+                            {question.images?.length > 0 &&
+                                question.images.map((image: any) => (
                                     <Box key={image.id} sx={style.imageBox}>
                                         {question.openToEdit && (
                                             <CloseIcon
@@ -255,42 +255,43 @@ const ShowAndEditQuestion: React.FC<Props> = ({ data, actions, parentIndex }) =>
                                         />
                                     </Box>
                                 ))}
-                                {question.editedQuestion?.newImages &&
-                                    question.editedQuestion.newImages.map(
-                                        (image: any, newImageIndex: number) => (
-                                            <Box key={image.id} sx={style.imageBox}>
-                                                {question.openToEdit && (
-                                                    <CloseIcon
-                                                        onClick={() =>
-                                                            actions.deleteNewQuestionImageHandler(
-                                                                {
-                                                                    parent: parentIndex,
-                                                                    child: index,
-                                                                },
-                                                                newImageIndex,
-                                                            )
-                                                        }
-                                                        fontSize="large"
-                                                        color="error"
-                                                    />
-                                                )}
-                                                <img
-                                                    width={170}
-                                                    height={170}
-                                                    src={`${image.image.data}`}
-                                                    alt="New Section Image"
-                                                    style={style.imageStyle}
+
+                            {question.editedQuestion?.newImages &&
+                                question.editedQuestion.newImages.map(
+                                    (image: any, newImageIndex: number) => (
+                                        <Box key={newImageIndex} sx={style.imageBox}>
+                                            {question.openToEdit && (
+                                                <CloseIcon
+                                                    onClick={() =>
+                                                        actions.deleteNewQuestionImageHandler(
+                                                            {
+                                                                parent: parentIndex,
+                                                                child: index,
+                                                            },
+                                                            newImageIndex,
+                                                        )
+                                                    }
+                                                    fontSize="large"
+                                                    color="error"
                                                 />
-                                            </Box>
-                                        ),
-                                    )}
-                            </Box>
-                        )}
+                                            )}
+                                            <img
+                                                width={170}
+                                                height={170}
+                                                src={`${image.image.data}`}
+                                                alt="New Section Image"
+                                                style={style.imageStyle}
+                                            />
+                                        </Box>
+                                    ),
+                                )}
+                        </Box>
                     </Box>
                     {question.editedQuestion.type ? (
                         <>
                             {question.editedQuestion.type == 'MCQ' ? (
                                 <ShowAndEditChoices
+                                    question={question}
                                     actions={actions}
                                     data={question.choices}
                                     grandParentIndex={parentIndex}
@@ -311,6 +312,7 @@ const ShowAndEditQuestion: React.FC<Props> = ({ data, actions, parentIndex }) =>
                         <>
                             {question.type == 'MCQ' ? (
                                 <ShowAndEditChoices
+                                    question={question}
                                     actions={actions}
                                     data={question.choices}
                                     grandParentIndex={parentIndex}
@@ -336,7 +338,12 @@ const ShowAndEditQuestion: React.FC<Props> = ({ data, actions, parentIndex }) =>
                     {index + 1 != data.length && <hr style={style.breaker}></hr>} */}
                     {question.openToEdit && (
                         <MyButtonSuccess
-                            onClick={() => actions.updateQuestionHandler(question.id)}
+                            onClick={() =>
+                                actions.updateQuestionHandler(question.id, {
+                                    parent: parentIndex,
+                                    child: index,
+                                })
+                            }
                             content="تعديل السؤال الفرعي"
                         />
                     )}

@@ -66,7 +66,7 @@ const MyTextAreaWithImage: React.FC<Props> = ({
         <FormControl sx={{ maxWidth: '100%' }}>
             <textarea
                 disabled={disabled}
-                value={value}
+                value={value ? value : ''}
                 style={style.root}
                 name={name?.toString()}
                 placeholder={placeholder}

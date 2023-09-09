@@ -51,6 +51,7 @@ export const convertHashSign = (data: string) => {
 }
 
 export const convertFileToBase64 = (file: any) => {
+    if (!file) return false
     return new Promise(function (resolve, reject) {
         const reader = new FileReader()
         reader.onload = () => resolve(reader.result)

@@ -151,7 +151,7 @@ const ShowAndEditDetails: React.FC<Props> = ({ data, states, actions }) => {
                             helperText={states.state.inputs.name.helperText}
                         />
                     </Box>
-                    <Box sx={style.inputWithLabel}>
+                    {/* <Box sx={style.inputWithLabel}>
                         <Typography variant="h3" fontWeight={700} color={mainColors.title.main}>
                             الصف الدراسي:-
                         </Typography>
@@ -169,7 +169,7 @@ const ShowAndEditDetails: React.FC<Props> = ({ data, states, actions }) => {
                             getSelected={actions.handleDropDowns}
                             helperText={states.state.selects.level.helperText}
                         />
-                    </Box>
+                    </Box> */}
                     <Box sx={style.inputWithLabel}>
                         <Typography variant="h3" fontWeight={700} color={mainColors.title.main}>
                             تاريخ الاصدار:-

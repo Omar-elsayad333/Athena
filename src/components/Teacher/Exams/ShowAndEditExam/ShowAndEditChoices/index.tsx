@@ -1,3 +1,4 @@
+import Urls from 'constant/urls'
 import { useTheme } from 'context/ThemeContext'
 import MyButton from 'components/Buttons/MyButton'
 import MyInputWithImage from 'components/MyInputWithImage'
@@ -7,7 +8,7 @@ import { examChoicesPlaceholder } from 'constant/staticData'
 import Box from '@mui/material/Box'
 import Checkbox from '@mui/material/Checkbox'
 import Typography from '@mui/material/Typography'
-import Urls from 'constant/urls'
+import CloseIcon from '@mui/icons-material/Close'
 
 type Props = {
     data: any
@@ -15,6 +16,7 @@ type Props = {
     grandParentIndex: number
     parentIndex: number
     openToEdit: boolean
+    question: any
 }
 
 const ShowAndEditChoices: React.FC<Props> = ({
@@ -23,6 +25,7 @@ const ShowAndEditChoices: React.FC<Props> = ({
     parentIndex,
     data,
     openToEdit,
+    question,
 }) => {
     const { mainColors } = useTheme()
     const style = {
@@ -39,8 +42,10 @@ const ShowAndEditChoices: React.FC<Props> = ({
             justifyContent: 'start',
             alignItems: 'center',
             flexWrap: 'wrap',
-            columnGap: '32px',
-            rowGap: '5px',
+            gap: '25px',
+        },
+        imageBox: {
+            display: 'flex',
         },
     }
 
@@ -74,22 +79,23 @@ const ShowAndEditChoices: React.FC<Props> = ({
                                 }}
                             />
                             {choice.editedChoice.image ? (
-                                <Box
-                                    sx={{
-                                        backgroundImage: `url('${choice.editedChoice.image.data}')`,
-                                        backgroundSize: 'cover',
-                                        backgroundPosition: 'center',
-                                        minWidth: '46px',
-                                        height: '46px',
-                                        border: '2px solid #3F72A4',
-                                        borderRadius: '10px',
-                                    }}
-                                />
-                            ) : (
-                                choice.image && (
+                                <Box sx={style.imageBox}>
+                                    {openToEdit && (
+                                        <CloseIcon
+                                            onClick={() =>
+                                                actions.deleteChoiceNewImageHandler({
+                                                    grandParent: grandParentIndex,
+                                                    parent: parentIndex,
+                                                    child: index,
+                                                })
+                                            }
+                                            fontSize="medium"
+                                            color="error"
+                                        />
+                                    )}
                                     <Box
                                         sx={{
-                                            backgroundImage: `url('${Urls.URL_MAIN}/${choice.image}')`,
+                                            backgroundImage: `url('${choice.editedChoice.image.data}')`,
                                             backgroundSize: 'cover',
                                             backgroundPosition: 'center',
                                             minWidth: '46px',
@@ -98,6 +104,31 @@ const ShowAndEditChoices: React.FC<Props> = ({
                                             borderRadius: '10px',
                                         }}
                                     />
+                                </Box>
+                            ) : (
+                                choice.image && (
+                                    <Box sx={style.imageBox}>
+                                        {openToEdit && (
+                                            <CloseIcon
+                                                onClick={() =>
+                                                    actions.deleteChoiceImageHandler(choice.id)
+                                                }
+                                                fontSize="medium"
+                                                color="error"
+                                            />
+                                        )}
+                                        <Box
+                                            sx={{
+                                                backgroundImage: `url('${Urls.URL_MAIN}/${choice.image}')`,
+                                                backgroundSize: 'cover',
+                                                backgroundPosition: 'center',
+                                                minWidth: '46px',
+                                                height: '46px',
+                                                border: '2px solid #3F72A4',
+                                                borderRadius: '10px',
+                                            }}
+                                        />
+                                    </Box>
                                 )
                             )}
                             <Checkbox
@@ -124,13 +155,7 @@ const ShowAndEditChoices: React.FC<Props> = ({
                             {index > 1 && (
                                 <Box
                                     sx={{ cursor: 'pointer' }}
-                                    onClick={() =>
-                                        actions.deleteChoice({
-                                            grandParent: grandParentIndex,
-                                            parent: parentIndex,
-                                            child: index,
-                                        })
-                                    }
+                                    onClick={() => actions.deleteChoiceHandler(choice.id)}
                                 >
                                     <Typography variant="h5" color={'error'} fontWeight={700}>
                                         حذف الاختيار
@@ -139,18 +164,106 @@ const ShowAndEditChoices: React.FC<Props> = ({
                             )}
                         </Box>
                     ))}
+                {question?.editedQuestion?.newChoices.length > 0 &&
+                    question.editedQuestion.newChoices.map(
+                        (newChoice: any, newChoiceIndex: number) => (
+                            <Box key={newChoiceIndex} sx={style.choicesContainer}>
+                                <Typography
+                                    variant="h3"
+                                    color={mainColors.title.main}
+                                    fontWeight={700}
+                                >
+                                    {`${data.length + 1} -`}
+                                </Typography>
+                                <MyInputWithImage
+                                    helperText=""
+                                    value={newChoice.name}
+                                    disabled={!openToEdit}
+                                    onChange={actions.newChoiceNameHandler}
+                                    addImage={actions.newChoiceImagesHandler}
+                                    placeholder={examChoicesPlaceholder[data.length]}
+                                    indexes={{
+                                        grandParent: grandParentIndex,
+                                        parent: parentIndex,
+                                        child: newChoiceIndex,
+                                    }}
+                                />
+                                {newChoice.image && (
+                                    <Box sx={style.imageBox}>
+                                        {openToEdit && (
+                                            <CloseIcon
+                                                onClick={() =>
+                                                    actions.deleteNewChoiceImageHandler({
+                                                        grandParent: grandParentIndex,
+                                                        parent: parentIndex,
+                                                        child: newChoiceIndex,
+                                                    })
+                                                }
+                                                fontSize="medium"
+                                                color="error"
+                                            />
+                                        )}
+                                        <Box
+                                            sx={{
+                                                backgroundImage: `url('${newChoice.image.data}')`,
+                                                backgroundSize: 'cover',
+                                                backgroundPosition: 'center',
+                                                minWidth: '46px',
+                                                height: '46px',
+                                                border: '2px solid #3F72A4',
+                                                borderRadius: '10px',
+                                            }}
+                                        />
+                                    </Box>
+                                )}
+                                <Checkbox
+                                    disabled={!openToEdit}
+                                    checked={newChoice.isRightChoice}
+                                    sx={{
+                                        color: '#3F72A4',
+                                        '&.Mui-checked': {
+                                            color: '#3F72A4',
+                                        },
+                                    }}
+                                    onChange={(e) =>
+                                        actions.newChoiceIsRightHandler(e, {
+                                            grandParent: grandParentIndex,
+                                            parent: parentIndex,
+                                            child: newChoiceIndex,
+                                        })
+                                    }
+                                />
+                                {data.length + (newChoiceIndex - 1) > 1 && (
+                                    <Box
+                                        sx={{ cursor: 'pointer' }}
+                                        onClick={() =>
+                                            actions.deleteNewChoiceHandler({
+                                                grandParent: grandParentIndex,
+                                                parent: parentIndex,
+                                                child: newChoiceIndex,
+                                            })
+                                        }
+                                    >
+                                        <Typography variant="h5" color={'error'} fontWeight={700}>
+                                            حذف الاختيار
+                                        </Typography>
+                                    </Box>
+                                )}
+                            </Box>
+                        ),
+                    )}
             </Box>
-            {data.length < 4 && (
+            {data.length + question.editedQuestion?.newChoices?.length < 4 && openToEdit ? (
                 <MyButton
                     content="أضافة أختيار"
                     onClick={() =>
-                        actions.addChoice({
+                        actions.addNewChoiceHandler({
                             grandParent: grandParentIndex,
                             parent: parentIndex,
                         })
                     }
                 />
-            )}
+            ) : null}
         </Box>
     )
 }
