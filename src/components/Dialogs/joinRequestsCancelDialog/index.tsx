@@ -23,10 +23,7 @@ const Transition = forwardRef(function Transition(
 
 type Props = {
     state: boolean
-    actions: {
-        submit(id: string): (id: string) => void
-        cancel: () => void
-    }
+    actions: any
     content: {
         title: string
         body: string

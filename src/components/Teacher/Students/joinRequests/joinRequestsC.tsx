@@ -100,30 +100,30 @@ const JoinRequestsC: React.FC<Props> = ({ data, states, actions, dialogs }) => {
             </Box>
             {/* card Div*/}
 
-            {data.filterdData.map((request: any) => (
-                <Box sx={style.card}>
+            {data.filterdData[0]?.students.map((request: any) => (
+                <Box sx={style.card} key={request.id}> 
                     <Box
                         sx={[
                             { ...style.img },
                             {
-                                backgroundImage: `url(${request.students[0].image})`,
+                                backgroundImage: `url(${request.image})`,
                             },
                         ]}
                     ></Box>
                     <Box sx={style.textLoader}>
                         <Typography variant="h2" color={mainColors.primary.main}>
-                            الطالب/{request.students[0].name}
+                            الطالب/{request.name}
                         </Typography>
                         <Box sx={{ display: 'flex', flexDirection: 'row' }}>
                             <Typography variant="h5" sx={style.smallText}>
-                                المجموعة :{request.students[0].groupName}
+                                المجموعة :{request.groupName}
                             </Typography>
                             <Typography
                                 variant="h5"
                                 sx={[{ ...style.smallText }, { marginRight: '10px' }]}
                                 mr="2"
                             >
-                                {request.students[0].yearState}
+                                {request.yearState}
                             </Typography>
                         </Box>
                     </Box>
@@ -131,7 +131,9 @@ const JoinRequestsC: React.FC<Props> = ({ data, states, actions, dialogs }) => {
                         <Button variant="outlined" sx={style.button}>
                             <Typography variant="h4">مراجعه </Typography>
                         </Button>
-                        <Typography variant="h4" mr={4} onClick={actions.openWarningDialogState}>
+                        <Box mr={4}>
+                        <Typography variant="h4"  onClick={()=>actions.openWarningDialogState(request.id)}>
+                        </Typography>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="48"
@@ -149,13 +151,13 @@ const JoinRequestsC: React.FC<Props> = ({ data, states, actions, dialogs }) => {
                                     fill="#AE0000"
                                 />
                             </svg>
-                        </Typography>
+                        </Box>
                     </Box>
                     <JoinRequestsCancelDialog
                         state={dialogs.warningDialog.state}
                         content={dialogs.warningDialog.content}
                         actions={dialogs.warningDialog.actions}
-                        id={request.students[0].id}
+                        id={request.id}
                     />
                 </Box>
             ))}

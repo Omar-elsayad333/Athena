@@ -8,12 +8,18 @@ import { warningDialogInitialValues, WarningDialogProps } from 'interfaces/share
 
 const useRequestsToJoin = () => {
     const { userState } = useUser()
-    const [filterdData, setFilterdData] = useState<any[]>([])
+    const [filterdData, setFilterdData] = useState<Object[]>([])
     const [levelsToSelect, setlevelsToSelect] = useState<any[]>([])
     const { loading, getHandler, putHandlerById } = useRequestsHandlers()
     const { setErrorMessage, setSuccessMessage } = useAlert()
     const [requestsData, setRequestsData] = useState<any>([])
-    const [selectedLevel, setSelectedLevel] = useState<Object>({})
+    const [currentRequestId, setcurrentRequestId] = useState<any>(null)
+    const [selectedLevel, setSelectedLevel] = useState<any>({
+        error: false,
+        helperText: '',
+        id: 'all',
+        value: 'all',
+    })
     const [originalData, setOriginalData] = useState<any>([])
     const [warningDialog, setWarningDialog] = useState<WarningDialogProps>(
         warningDialogInitialValues,
@@ -25,10 +31,8 @@ const useRequestsToJoin = () => {
             getRequestsData()
         }
     }, [])
-    useEffect(() => {
-        selectedLevelHandler()
-    }, [selectedLevel])
-    // Call api to get jion requests  data
+
+    // Call api to get join requests  data
     const getRequestsData = async () => {
         try {
             const res = await getHandler(
@@ -90,15 +94,18 @@ const useRequestsToJoin = () => {
             levels.push({ id: index, name: element.levelName })
         })
         setlevelsToSelect(levels)
-        console.log(levels, levelsToSelect)
     }
     // Get search value from user
     const searchHandler = (searchValue: string) => {
-        setFilterdData(
-            filterdData.filter((item: any) =>
-                item.students[0].name.toLowerCase().includes(searchValue.toLowerCase()),
-            ),
-        )
+        if (searchValue.split('').length > 0) {
+            setFilterdData(
+                filterdData.filter((item: any) =>
+                    item.students[0].name.toLowerCase().includes(searchValue.toLowerCase()),
+                ),
+            )
+        } else {
+            selectedLevelHandler()
+        }
     }
     const cancelRequest = async (id: string) => {
         try {
@@ -111,18 +118,20 @@ const useRequestsToJoin = () => {
         closeWarningDialogState()
     }
     // Open warning dialog
-    const openWarningDialogState = () => {
+    const openWarningDialogState = (id: string) => {
+        console.log(id)
         setWarningDialog({
             state: true,
             actions: {
                 cancel: closeWarningDialogState,
-                submit: () => cancelRequest,
+                submit: cancelRequest(id)
+                ,
             },
             content: {
-                title: ' رفض طلب الانضمام',
                 body: 'برجاء تأكيد عملية رفض طلب الانضمام',
                 submit: 'رفض',
                 cancel: 'إلغاء العملية',
+                title: ' رفض طلب الانضمام',
             },
         })
     }
@@ -135,15 +144,18 @@ const useRequestsToJoin = () => {
             helperText: '',
         })
     }
+    useEffect(() => {
+        selectedLevelHandler()
+        console.log(selectedLevel)
+    }, [selectedLevel])
     const selectedLevelHandler = () => {
-        if (selectedLevel.value != 'all') {
+        if (selectedLevel.id != 'all') {
             const filterdArr = originalData.filter(
                 (element: any) => element.levelName == selectedLevel.value,
             )
             setFilterdData(filterdArr)
         } else {
             setFilterdData(originalData)
-
         }
     }
 
