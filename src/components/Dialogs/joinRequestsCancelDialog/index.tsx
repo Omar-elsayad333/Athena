@@ -30,10 +30,9 @@ type Props = {
         submit: string
         cancel: string
     }
-    id: string
 }
 
-const JoinRequestsCancelDialog: React.FC<Props> = ({ state, content, actions, id }) => {
+const JoinRequestsCancelDialog: React.FC<Props> = ({ state, content, actions }) => {
     const { mainColors } = useTheme()
     const style = {
         root: {
@@ -167,7 +166,7 @@ const JoinRequestsCancelDialog: React.FC<Props> = ({ state, content, actions, id
                         color="error"
                         sx={style.addBut}
                         variant="contained"
-                        onClick={() => actions.submit(id)}
+                        onClick={() => actions.submit()}
                     >
                         {content.submit}
                     </Button>

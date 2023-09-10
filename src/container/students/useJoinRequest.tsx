@@ -44,7 +44,7 @@ const useRequestsToJoin = () => {
                     levelName: '1 sec ',
                     students: [
                         {
-                            id: 'mohamedragehb',
+                            id: 'mohamedragcccehb',
                             name: 'mohamed',
                             gender: 'gmail',
                             image: 'https://platinumlist.net/guide/wp-content/uploads/2023/03/IMG-worlds-of-adventure.webp',
@@ -57,7 +57,7 @@ const useRequestsToJoin = () => {
                     levelName: '2 sec ',
                     students: [
                         {
-                            id: 'mohamedragehb',
+                            id: 'mohamedragehbaa',
                             name: 'alaa',
                             gender: 'gmail',
                             image: 'https://platinumlist.net/guide/wp-content/uploads/2023/03/IMG-worlds-of-adventure.webp',
@@ -65,10 +65,18 @@ const useRequestsToJoin = () => {
                             yearState: 'el3amEldarsi el 7ali',
                         },
                     ],
-                },
-                {
+                },{
+                
                     levelName: '3 sec ',
                     students: [
+                        {
+                            id: 'mohamedragehcccccb',
+                            name: 'eyad',
+                            gender: 'gmail',
+                            image: 'https://platinumlist.net/guide/wp-content/uploads/2023/03/IMG-worlds-of-adventure.webp',
+                            groupName: 'tetdb',
+                            yearState: 'el3amEldarsi el 7ali',
+                        },
                         {
                             id: 'mohamedragehb',
                             name: 'eyad',
@@ -108,24 +116,16 @@ const useRequestsToJoin = () => {
         }
     }
     const cancelRequest = async (id: string) => {
-        try {
-            const res = await putHandlerById(id, userState.tokens!.accessToken!, Urls.URL_GROUPS)
-            setSuccessMessage('تم تعديل بيانات المجموعه بنجاح')
-        } catch (error) {
-            console.log(error)
-            setErrorMessage('حدث خطاء')
-        }
+    
         closeWarningDialogState()
     }
     // Open warning dialog
     const openWarningDialogState = (id: string) => {
-        console.log(id)
         setWarningDialog({
             state: true,
             actions: {
                 cancel: closeWarningDialogState,
-                submit: cancelRequest(id)
-                ,
+                submit: cancelRequest(id) as any,
             },
             content: {
                 body: 'برجاء تأكيد عملية رفض طلب الانضمام',
@@ -146,8 +146,7 @@ const useRequestsToJoin = () => {
     }
     useEffect(() => {
         selectedLevelHandler()
-        console.log(selectedLevel)
-    }, [selectedLevel])
+    }, [selectedLevel,originalData])
     const selectedLevelHandler = () => {
         if (selectedLevel.id != 'all') {
             const filterdArr = originalData.filter(
@@ -155,10 +154,21 @@ const useRequestsToJoin = () => {
             )
             setFilterdData(filterdArr)
         } else {
-            setFilterdData(originalData)
+            adjustAllForDisplaing()
         }
     }
-
+    const adjustAllForDisplaing = () => {
+        let allStudent : Object[] = []
+        let allObj: any = { levelName: null, students: [] }
+        allObj.levelName = selectedLevel.id
+        originalData.forEach((item : viod)=>{
+            item.students.forEach((subItem: viod)=>{
+                allObj.students.push(subItem)
+            })
+        })
+        allStudent.push(allObj)
+        setFilterdData(allStudent)
+    }
     // Close warning dialog and clear it
     const closeWarningDialogState = () => {
         setWarningDialog({

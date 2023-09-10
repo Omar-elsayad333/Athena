@@ -131,8 +131,8 @@ const JoinRequestsC: React.FC<Props> = ({ data, states, actions, dialogs }) => {
                         <Button variant="outlined" sx={style.button}>
                             <Typography variant="h4">مراجعه </Typography>
                         </Button>
-                        <Box mr={4}>
-                        <Typography variant="h4"  onClick={()=>actions.openWarningDialogState(request.id)}>
+                        <Box mr={4} onClick={()=>(actions.openWarningDialogState(request.id))}>
+                        <Typography variant="h4"  >
                         </Typography>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -157,7 +157,6 @@ const JoinRequestsC: React.FC<Props> = ({ data, states, actions, dialogs }) => {
                         state={dialogs.warningDialog.state}
                         content={dialogs.warningDialog.content}
                         actions={dialogs.warningDialog.actions}
-                        id={request.id}
                     />
                 </Box>
             ))}
