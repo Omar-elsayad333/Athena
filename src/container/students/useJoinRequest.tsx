@@ -12,8 +12,7 @@ const useRequestsToJoin = () => {
     const [levelsToSelect, setlevelsToSelect] = useState<any[]>([])
     const { loading, getHandler, putHandlerById } = useRequestsHandlers()
     const { setErrorMessage, setSuccessMessage } = useAlert()
-    const [requestsData, setRequestsData] = useState<any>([])
-    const [currentRequestId, setcurrentRequestId] = useState<any>(null)
+    const [currentRequestId, setcurrentRequestId] = useState<String>()
     const [selectedLevel, setSelectedLevel] = useState<any>({
         error: false,
         helperText: '',
@@ -39,6 +38,8 @@ const useRequestsToJoin = () => {
                 userState.tokens!.accessToken!,
                 Urls.URL_TEACHERSTUDENT_REQUESTS,
             )
+             // this just for testing and must be deleted after reviewing code 
+             console.log(res)
             const dummy: Array<Object> = [
                 {
                     levelName: '1 sec ',
@@ -65,8 +66,8 @@ const useRequestsToJoin = () => {
                             yearState: 'el3amEldarsi el 7ali',
                         },
                     ],
-                },{
-                
+                },
+                {
                     levelName: '3 sec ',
                     students: [
                         {
@@ -88,7 +89,6 @@ const useRequestsToJoin = () => {
                     ],
                 },
             ]
-            setRequestsData(dummy)
             setOriginalData(dummy)
             setFilters(dummy)
         } catch (error) {
@@ -115,17 +115,28 @@ const useRequestsToJoin = () => {
             selectedLevelHandler()
         }
     }
-    const cancelRequest = async (id: string) => {
-    
+    const cancelRequest = async () => {
+        try {
+            const res = await putHandlerById(
+                currentRequestId,
+                userState.tokens!.accessToken!,
+                Urls.URL_REJECTTEACHERSTUDENT_REQUESTS,
+            )
+            console.log(res)
+            setSuccessMessage('تم تعديل بيانات المجموعه بنجاح')
+        } catch (error) {
+            setErrorMessage('حدث خطاء')
+        }
         closeWarningDialogState()
     }
     // Open warning dialog
     const openWarningDialogState = (id: string) => {
+        setcurrentRequestId(id)
         setWarningDialog({
             state: true,
             actions: {
                 cancel: closeWarningDialogState,
-                submit: cancelRequest(id) as any,
+                submit: cancelRequest,
             },
             content: {
                 body: 'برجاء تأكيد عملية رفض طلب الانضمام',
@@ -146,7 +157,7 @@ const useRequestsToJoin = () => {
     }
     useEffect(() => {
         selectedLevelHandler()
-    }, [selectedLevel,originalData])
+    }, [selectedLevel, originalData])
     const selectedLevelHandler = () => {
         if (selectedLevel.id != 'all') {
             const filterdArr = originalData.filter(
@@ -158,11 +169,11 @@ const useRequestsToJoin = () => {
         }
     }
     const adjustAllForDisplaing = () => {
-        let allStudent : Object[] = []
+        let allStudent: Object[] = []
         let allObj: any = { levelName: null, students: [] }
         allObj.levelName = selectedLevel.id
-        originalData.forEach((item : viod)=>{
-            item.students.forEach((subItem: viod)=>{
+        originalData.forEach((item: any) => {
+            item.students.forEach((subItem: any) => {
                 allObj.students.push(subItem)
             })
         })

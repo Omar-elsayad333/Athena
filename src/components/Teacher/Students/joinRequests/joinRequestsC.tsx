@@ -3,6 +3,9 @@ import FilterWedgit from '../../../FilterWedgit'
 import { useTheme } from 'context/ThemeContext'
 import MySearchInput from 'components/MySearchInput'
 import JoinRequestsCancelDialog from 'components/Dialogs/joinRequestsCancelDialog'
+import Link from 'next/link'
+import { Routes } from 'routes/Routes'
+
 
 // MUI
 import Box from '@mui/material/Box'
@@ -81,7 +84,7 @@ const JoinRequestsC: React.FC<Props> = ({ data, states, actions, dialogs }) => {
             },
         },
         button: {
-            border: '3px solid ',
+            border: '1px solid ',
             fontWeight: 'bold',
         },
     }
@@ -101,7 +104,7 @@ const JoinRequestsC: React.FC<Props> = ({ data, states, actions, dialogs }) => {
             {/* card Div*/}
 
             {data.filterdData[0]?.students.map((request: any) => (
-                <Box sx={style.card} key={request.id}> 
+                <Box sx={style.card} key={request.id}>
                     <Box
                         sx={[
                             { ...style.img },
@@ -128,12 +131,13 @@ const JoinRequestsC: React.FC<Props> = ({ data, states, actions, dialogs }) => {
                         </Box>
                     </Box>
                     <Box sx={style.actions}>
+                        <Link href={`${Routes.teacherAddStudents}${request.id}`}> 
                         <Button variant="outlined" sx={style.button}>
                             <Typography variant="h4">مراجعه </Typography>
                         </Button>
-                        <Box mr={4} onClick={()=>(actions.openWarningDialogState(request.id))}>
-                        <Typography variant="h4"  >
-                        </Typography>
+                        </Link>
+                        <Box mr={4} onClick={() => actions.openWarningDialogState(request.id)}>
+                            <Typography variant="h4"></Typography>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="48"
