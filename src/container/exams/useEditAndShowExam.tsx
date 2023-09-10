@@ -411,8 +411,10 @@ const useEditAndShowExam = () => {
 
         if (selectedSection.questions[questionIndex].openToEdit) {
             selectedSection.questions[questionIndex].editedQuestion = []
-            for (let choice of selectedSection.questions[questionIndex].choices) {
-                choice.editedChoice = { id: choice.id }
+            if (selectedSection.questions[questionIndex].choices) {
+                for (let choice of selectedSection.questions[questionIndex].choices) {
+                    choice.editedChoice = { id: choice.id }
+                }
             }
         }
 
@@ -768,10 +770,10 @@ const useEditAndShowExam = () => {
     const collectUpdatedQuestionData = (indexes: any) => {
         const updatedQuestion =
             examSections[indexes.parent].questions[indexes.child]!.editedQuestion
-
+        console.log(updatedQuestion)
         for (let choice of examSections[indexes.parent].questions[indexes.child]!.choices) {
-            console.log(choice.editedChoice)
-            // updatedQuestion.choices.push(choice.editedChoice)
+            // console.log(choice.editedChoice)
+            updatedQuestion.choices.push(choice.editedChoice)
         }
 
         return updatedQuestion
@@ -782,7 +784,6 @@ const useEditAndShowExam = () => {
         if (validateEditedQuestion(indexes)) {
             try {
                 const updatedData = collectUpdatedQuestionData(indexes)
-                console.log('omar')
                 console.log(updatedData)
                 // await putHandlerById(
                 //     questionId,

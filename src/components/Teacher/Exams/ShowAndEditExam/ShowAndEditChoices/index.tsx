@@ -134,7 +134,8 @@ const ShowAndEditChoices: React.FC<Props> = ({
                             <Checkbox
                                 disabled={!openToEdit}
                                 checked={
-                                    choice.editedChoice.isRightChoice
+                                    choice.editedChoice.isRightChoice !== null ||
+                                    choice.editedChoice.isRightChoice !== undefined
                                         ? choice.editedChoice.isRightChoice
                                         : choice.isRightChoice
                                 }

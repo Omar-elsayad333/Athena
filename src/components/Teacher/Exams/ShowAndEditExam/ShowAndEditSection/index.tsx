@@ -178,7 +178,7 @@ const ShowAndEditSection: React.FC<Props> = ({ data, actions }) => {
                                         fontWeight={700}
                                         color={mainColors.title.main}
                                     >
-                                        رأس السؤال:-
+                                          رأس السؤال:-
                                     </Typography>
                                     <MyInput
                                         disabled={section.openToEdit ? false : true}
@@ -209,27 +209,30 @@ const ShowAndEditSection: React.FC<Props> = ({ data, actions }) => {
                                     placeholder="أكتب الفقرة الخاصة بالسؤال إن وجد:-"
                                 />
                                 <Box sx={style.paragraphImages}>
-                                    {section.images.map((image: any) => (
-                                        <Box key={image.id} sx={style.imageBox}>
-                                            {section.openToEdit && (
-                                                <CloseIcon
-                                                    onClick={() =>
-                                                        actions.deleteSectionImageHandler(image.id)
-                                                    }
-                                                    fontSize="large"
-                                                    color="error"
+                                    {section.images &&
+                                        section.images.map((image: any) => (
+                                            <Box key={image.id} sx={style.imageBox}>
+                                                {section.openToEdit && (
+                                                    <CloseIcon
+                                                        onClick={() =>
+                                                            actions.deleteSectionImageHandler(
+                                                                image.id,
+                                                            )
+                                                        }
+                                                        fontSize="large"
+                                                        color="error"
+                                                    />
+                                                )}
+                                                <img
+                                                    width={170}
+                                                    height={170}
+                                                    src={`${Urls.URL_MAIN}/${image.image}`}
+                                                    alt="Section Image"
+                                                    style={style.imageStyle}
                                                 />
-                                            )}
-                                            <img
-                                                width={170}
-                                                height={170}
-                                                src={`${Urls.URL_MAIN}/${image.image}`}
-                                                alt="Section Image"
-                                                style={style.imageStyle}
-                                            />
-                                        </Box>
-                                    ))}
-                                    {section.editedSection.newImages &&
+                                            </Box>
+                                        ))}
+                                    {section.editedSection?.newImages &&
                                         section.editedSection.newImages.map(
                                             (image: any, newImageIndex: number) => (
                                                 <Box key={image.id} sx={style.imageBox}>
