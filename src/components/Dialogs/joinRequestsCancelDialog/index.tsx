@@ -30,6 +30,7 @@ type Props = {
         submit: string
         cancel: string
     }
+
 }
 
 const JoinRequestsCancelDialog: React.FC<Props> = ({ state, content, actions }) => {

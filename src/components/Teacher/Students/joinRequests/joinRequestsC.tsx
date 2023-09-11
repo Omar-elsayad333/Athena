@@ -6,7 +6,6 @@ import JoinRequestsCancelDialog from 'components/Dialogs/joinRequestsCancelDialo
 import Link from 'next/link'
 import { Routes } from 'routes/Routes'
 
-
 // MUI
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
@@ -131,10 +130,10 @@ const JoinRequestsC: React.FC<Props> = ({ data, states, actions, dialogs }) => {
                         </Box>
                     </Box>
                     <Box sx={style.actions}>
-                        <Link href={`${Routes.teacherAddStudents}${request.id}`}> 
-                        <Button variant="outlined" sx={style.button}>
-                            <Typography variant="h4">مراجعه </Typography>
-                        </Button>
+                        <Link href={`${Routes.teacherAddStudents}${request.id}`}>
+                            <Button variant="outlined" sx={style.button}>
+                                <Typography variant="h4">مراجعه </Typography>
+                            </Button>
                         </Link>
                         <Box mr={4} onClick={() => actions.openWarningDialogState(request.id)}>
                             <Typography variant="h4"></Typography>

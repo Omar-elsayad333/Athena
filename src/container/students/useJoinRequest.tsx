@@ -3,7 +3,6 @@ import { useUser } from 'context/userContext'
 import { useAlert } from 'context/AlertContext'
 import Urls from 'constant/urls'
 import useRequestsHandlers from 'hooks/useRequestsHandlers'
-
 import { warningDialogInitialValues, WarningDialogProps } from 'interfaces/shared/warningDialog'
 
 const useRequestsToJoin = () => {
@@ -12,7 +11,6 @@ const useRequestsToJoin = () => {
     const [levelsToSelect, setlevelsToSelect] = useState<any[]>([])
     const { loading, getHandler, putHandlerById } = useRequestsHandlers()
     const { setErrorMessage, setSuccessMessage } = useAlert()
-    const [currentRequestId, setcurrentRequestId] = useState<String>()
     const [selectedLevel, setSelectedLevel] = useState<any>({
         error: false,
         helperText: '',
@@ -38,59 +36,59 @@ const useRequestsToJoin = () => {
                 userState.tokens!.accessToken!,
                 Urls.URL_TEACHERSTUDENT_REQUESTS,
             )
-             // this just for testing and must be deleted after reviewing code 
-             console.log(res)
-            const dummy: Array<Object> = [
-                {
-                    levelName: '1 sec ',
-                    students: [
-                        {
-                            id: 'mohamedragcccehb',
-                            name: 'mohamed',
-                            gender: 'gmail',
-                            image: 'https://platinumlist.net/guide/wp-content/uploads/2023/03/IMG-worlds-of-adventure.webp',
-                            groupName: 'tetdb',
-                            yearState: 'el3amEldarsi el 7ali',
-                        },
-                    ],
-                },
-                {
-                    levelName: '2 sec ',
-                    students: [
-                        {
-                            id: 'mohamedragehbaa',
-                            name: 'alaa',
-                            gender: 'gmail',
-                            image: 'https://platinumlist.net/guide/wp-content/uploads/2023/03/IMG-worlds-of-adventure.webp',
-                            groupName: 'tetdb',
-                            yearState: 'el3amEldarsi el 7ali',
-                        },
-                    ],
-                },
-                {
-                    levelName: '3 sec ',
-                    students: [
-                        {
-                            id: 'mohamedragehcccccb',
-                            name: 'eyad',
-                            gender: 'gmail',
-                            image: 'https://platinumlist.net/guide/wp-content/uploads/2023/03/IMG-worlds-of-adventure.webp',
-                            groupName: 'tetdb',
-                            yearState: 'el3amEldarsi el 7ali',
-                        },
-                        {
-                            id: 'mohamedragehb',
-                            name: 'eyad',
-                            gender: 'gmail',
-                            image: 'https://platinumlist.net/guide/wp-content/uploads/2023/03/IMG-worlds-of-adventure.webp',
-                            groupName: 'tetdb',
-                            yearState: 'el3amEldarsi el 7ali',
-                        },
-                    ],
-                },
-            ]
-            setOriginalData(dummy)
-            setFilters(dummy)
+            // this just for testing and must be deleted after reviewing code
+            // console.log(res)
+            // const dummy: Array<Object> = [
+            //     {
+            //         levelName: '1 sec ',
+            //         students: [
+            //             {
+            //                 id: 'mohamedragcccehb1',
+            //                 name: 'mohamed',
+            //                 gender: 'gmail',
+            //                 image: 'https://platinumlist.net/guide/wp-content/uploads/2023/03/IMG-worlds-of-adventure.webp',
+            //                 groupName: 'tetdb',
+            //                 yearState: 'el3amEldarsi el 7ali',
+            //             },
+            //         ],
+            //     },
+            //     {
+            //         levelName: '2 sec ',
+            //         students: [
+            //             {
+            //                 id: 'mohamedragehbaa2',
+            //                 name: 'alaa',
+            //                 gender: 'gmail',
+            //                 image: 'https://platinumlist.net/guide/wp-content/uploads/2023/03/IMG-worlds-of-adventure.webp',
+            //                 groupName: 'tetdb',
+            //                 yearState: 'el3amEldarsi el 7ali',
+            //             },
+            //         ],
+            //     },
+            //     {
+            //         levelName: '3 sec ',
+            //         students: [
+            //             {
+            //                 id: 'mohamedragehcccccb3',
+            //                 name: 'eyad',
+            //                 gender: 'gmail',
+            //                 image: 'https://platinumlist.net/guide/wp-content/uploads/2023/03/IMG-worlds-of-adventure.webp',
+            //                 groupName: 'tetdb',
+            //                 yearState: 'el3amEldarsi el 7ali',
+            //             },
+            //             {
+            //                 id: 'mohamedragehb4',
+            //                 name: 'eyad',
+            //                 gender: 'gmail',
+            //                 image: 'https://platinumlist.net/guide/wp-content/uploads/2023/03/IMG-worlds-of-adventure.webp',
+            //                 groupName: 'tetdb',
+            //                 yearState: 'el3amEldarsi el 7ali',
+            //             },
+            //         ],
+            //     },
+            // ]
+            setOriginalData(res)
+            setFilters(res)
         } catch (error) {
             setErrorMessage('حدث خطاء')
             console.log(error)
@@ -115,10 +113,10 @@ const useRequestsToJoin = () => {
             selectedLevelHandler()
         }
     }
-    const cancelRequest = async () => {
+    const cancelRequest = async (id: string) => {
         try {
             const res = await putHandlerById(
-                currentRequestId,
+                id,
                 userState.tokens!.accessToken!,
                 Urls.URL_REJECTTEACHERSTUDENT_REQUESTS,
             )
@@ -130,13 +128,13 @@ const useRequestsToJoin = () => {
         closeWarningDialogState()
     }
     // Open warning dialog
+
     const openWarningDialogState = (id: string) => {
-        setcurrentRequestId(id)
         setWarningDialog({
             state: true,
             actions: {
                 cancel: closeWarningDialogState,
-                submit: cancelRequest,
+                submit: () => cancelRequest(id),
             },
             content: {
                 body: 'برجاء تأكيد عملية رفض طلب الانضمام',
@@ -187,6 +185,7 @@ const useRequestsToJoin = () => {
             state: false,
         })
     }
+
     return {
         data: {
             filterdData,
