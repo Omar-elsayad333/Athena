@@ -5,7 +5,6 @@ import { useState, useEffect } from 'react'
 import { useUser } from 'context/userContext'
 import { useAlert } from 'context/AlertContext'
 import { yearsTypes } from 'constant/staticData'
-import { convertHashSign } from 'utils/converters'
 import useRequestsHandlers from 'hooks/useRequestsHandlers'
 import { errorInitialValues, ErrorProps } from 'interfaces/shared/errors'
 import {
@@ -18,6 +17,7 @@ import {
 const useAddStudent = () => {
     const { userState } = useUser()
     const router = useRouter()
+    const { id } = router.query
     const { loading, getHandlerById, postHandler } = useRequestsHandlers()
     const { setSuccessMessage, setWarningMessage, setErrorMessage } = useAlert()
     const [studentCode, setStudentCode] = useState<InputProps>(inputInitialValues)
@@ -43,63 +43,36 @@ const useAddStudent = () => {
             }
         }
     }, [selectedYear])
-
-    // Get the student code from user
-    const studentCodeHandler = (selectedStudentCode: string) => {
-        setStudentCode({
-            ...studentCode,
-            value: selectedStudentCode,
-            length: selectedStudentCode.length,
-            error: false,
-            helperText: '',
-        })
-        setCodeError({
-            ...codeError,
-            value: '',
-            error: false,
-        })
-    }
-
-    // Validate data before calling api
-    const studentCodeValidation = () => {
-        let validation: boolean = true
-
-        if (studentCode.length == 0) {
-            validation = false
-            setStudentCode({ ...studentCode, error: true, helperText: 'يجب ادخال كود الطالب' })
-        }
-
-        return validation
-    }
-
+    
+    useEffect(() => {
+        submitCode()
+    }, [id])
     // Call api to check if the student is exist
     const submitCode = async () => {
         setStudentData('')
-        if (studentCodeValidation()) {
-            try {
-                const res: any = await getHandlerById(
-                    convertHashSign(studentCode.value),
-                    userState.tokens!.accessToken!,
-                    Urls.URL_TEACHERSTUDENTS_CODE,
-                )
-                setStudentData(res)
-            } catch (error: any) {
-                console.log(error)
-                if (error.response.status == 404) {
-                    setCodeError({
-                        ...codeError,
-                        value: 'هذا الطالب غير موجود في المنظومه !',
-                        error: true,
-                    })
-                } else if (error.response.status == 409) {
-                    setCodeError({
-                        ...codeError,
-                        value: 'هذا الطالب تم اضافته مسبقا',
-                        error: true,
-                    })
-                } else {
-                    setErrorMessage('حدث خطاء')
-                }
+        try {
+            const res: any = await getHandlerById(
+                id,
+                userState.tokens!.accessToken!,
+                Urls.URL_TEACHER_GET_REQUEST_TO_JOIN_BY_ID,
+            )
+            setStudentData(res)
+        } catch (error: any) {
+            console.log(error)
+            if (error.response.status == 404) {
+                setCodeError({
+                    ...codeError,
+                    value: 'هذا الطالب غير موجود في المنظومه !',
+                    error: true,
+                })
+            } else if (error.response.status == 409) {
+                setCodeError({
+                    ...codeError,
+                    value: 'هذا الطالب تم اضافته مسبقا',
+                    error: true,
+                })
+            } else {
+                setErrorMessage('حدث خطاء')
             }
         }
     }
@@ -132,63 +105,33 @@ const useAddStudent = () => {
         ])
     }
 
-    // Validate data before submit it
-    const validation = () => {
-        let validationState: boolean = true
 
-        if (!selectedGroup.id) {
-            validationState = false
-            setPageError([
-                ...pageError,
-                {
-                    value: 'يجب اختيار مجموعه للطالب',
-                    error: true,
-                },
-            ])
-        }
-
-        return validationState
-    }
-
-    // Collect data to submit it
-    const collectData = () => {
-        const dataToSubmit = {
-            studnetId: studentData.id,
-            groupId: selectedGroup.id,
-        }
-
-        return dataToSubmit
-    }
 
     // Call api to submit data
     const submit = async () => {
-        if (validation()) {
-            try {
-                const data = collectData()
-                const res = await postHandler(
-                    userState.tokens!.accessToken!,
-                    Urls.URL_TEACHERSTUDENTS_ASSIGN,
-                    data,
-                )
-                console.log(res)
-                setSuccessMessage('تم اضافة الطالب بنجاح')
-                router.replace(`${Routes.teacherStudent}/${res}`)
-            } catch (error) {
-                setPageError([
-                    ...pageError,
-                    {
-                        value: 'خطاء في اضافة الطالب',
-                        error: true,
-                    },
-                ])
-            }
+        try {
+            const res = await postHandler(
+                userState.tokens!.accessToken!,
+                `${Urls.URL_TEACHER_GET_REQUEST_TO_JOIN_BY_ID}/${id}`,
+            )
+            console.log(res)
+            setSuccessMessage('تم اضافة الطالب بنجاح')
+            router.push(Routes.teacherStudentsRequests)
+        } catch (error) {
+            setPageError([
+                ...pageError,
+                {
+                    value: 'خطاء في اضافة الطالب',
+                    error: true,
+                },
+            ])
         }
     }
 
     // Cancle submit and redirect the user
     const cancelSubmit = () => {
         setWarningMessage('تم الغاء العمليه بنجاح')
-        router.push(Routes.teacherStudents)
+        router.push(Routes.teacherStudentsRequests)
     }
 
     return {
@@ -206,7 +149,6 @@ const useAddStudent = () => {
             pageError,
         },
         actions: {
-            studentCodeHandler,
             submitCode,
             yearHandler,
             groupHandler,

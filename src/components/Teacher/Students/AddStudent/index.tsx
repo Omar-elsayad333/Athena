@@ -1,7 +1,5 @@
 import Urls from 'constant/urls'
 import { IStyle } from 'styles/IStyle'
-import MyInput from 'components/MyInput'
-import MySelect from 'components/MySelect'
 import { useTheme } from 'context/ThemeContext'
 import MyButton from 'components/Buttons/MyButton'
 import PageError from 'components/Shared/PageError'
@@ -190,36 +188,10 @@ const AddStudentC: React.FC<Props> = ({ data, states, actions }) => {
 
     return (
         <Box sx={style.container}>
-            <Typography sx={style.title} variant="h3" color={mainColors.title.main}>
-                الكود الخاص بالطالب:-
-            </Typography>
-            <Box sx={style.codeContainer}>
-                <MyInput
-                    placeholder="أدخل كود الطالب"
-                    value={states.studentCode.value}
-                    error={states.studentCode.error}
-                    onChange={actions.studentCodeHandler}
-                    helperText={states.studentCode.helperText}
-                />
-                <Box sx={style.submitButton}>
-                    <MyButton
-                        loading={states.loading}
-                        content="تأكيد"
-                        onClick={actions.submitCode}
-                    />
-                </Box>
-            </Box>
-            {states.codeError.error && (
-                <Typography sx={style.title} variant="h4" color={mainColors.error.main}>
-                    {states.codeError.value}
-                </Typography>
-            )}
-            {data.studentData && (
                 <Typography sx={style.title} variant="h3" color={mainColors.title.main}>
                     بطاقة الطالب التعريفية:-
                 </Typography>
-            )}
-            {data.studentData && (
+   
                 <Box sx={style.studentCard}>
                     <Box sx={style.dataContainer}>
                         <Box sx={style.row}>
@@ -301,13 +273,12 @@ const AddStudentC: React.FC<Props> = ({ data, states, actions }) => {
                         </Typography>
                     </Box>
                 </Box>
-            )}
-            {data.studentData && (
+        
+
                 <Typography sx={style.title} variant="h3" color={mainColors.title.main}>
                     بيانات الطالب الشخصية:-
                 </Typography>
-            )}
-            {data.studentData && (
+
                 <Box sx={style.studentPersonalData}>
                     <Box sx={style.column}>
                         <Box sx={style.bigChip}>
@@ -436,32 +407,9 @@ const AddStudentC: React.FC<Props> = ({ data, states, actions }) => {
                         </Box>
                     </Box>
                 </Box>
-            )}
-            {data.studentData && (
-                <Typography sx={style.title} variant="h3" color={mainColors.title.main}>
-                    تحديد مجموعة الطالب:-
-                </Typography>
-            )}
-            {data.studentData && (
-                <Box sx={style.groupContainer}>
-                    <MySelect
-                        data={data.yearsTypes}
-                        value={states.selectedYear.value}
-                        error={states.selectedYear.error}
-                        placeholder={'الأعوام الدراسيه'}
-                        getSelected={actions.yearHandler}
-                    />
-                    <MySelect
-                        data={data.groups}
-                        placeholder={'المجموعات'}
-                        error={states.selectedGroup.error}
-                        value={states.selectedGroup.value}
-                        getSelected={actions.groupHandler}
-                        disabled={states.selectedYear.value ? false : true}
-                    />
-                </Box>
-            )}
-            {data.studentData && (
+            
+    
+            
                 <Box sx={style.buttonsContainer}>
                     <PageError errors={states.pageError} />
                     <Box sx={style.submitButton}>
@@ -479,7 +427,7 @@ const AddStudentC: React.FC<Props> = ({ data, states, actions }) => {
                         />
                     </Box>
                 </Box>
-            )}
+            
         </Box>
     )
 }
