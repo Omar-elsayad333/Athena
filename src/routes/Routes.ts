@@ -10,7 +10,7 @@ export class Routes {
     // =========================| Teacher |================================ //
 
     // Home
-    static teacherHome = '/teacher/home/'
+    static teacherHome = '/teacher/teacher-home/'
 
     // Profile
     static teacherProfile = '/teacher/profile/'

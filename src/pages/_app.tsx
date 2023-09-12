@@ -9,6 +9,7 @@ import Loading from 'components/Loading/Loading'
 import { AlertProvider } from 'context/AlertContext'
 import { DarkThemeProvider } from 'context/ThemeContext'
 import { UserContextProvider } from 'context/userContext'
+import { NotificationsProvider } from 'context/NotificationContext'
 
 function MyApp({ Component, pageProps }: AppProps) {
     const router = useRouter()
@@ -20,9 +21,11 @@ function MyApp({ Component, pageProps }: AppProps) {
                     <ThemeApp>
                         <UserContextProvider>
                             <AlertProvider>
-                                <Layout>
-                                    <Component {...pageProps} />
-                                </Layout>
+                                <NotificationsProvider>
+                                    <Layout>
+                                        <Component {...pageProps} />
+                                    </Layout>
+                                </NotificationsProvider>
                             </AlertProvider>
                         </UserContextProvider>
                     </ThemeApp>
