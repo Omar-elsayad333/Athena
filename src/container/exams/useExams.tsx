@@ -8,11 +8,13 @@ import { DropMenuProps, dropMenuInitialValues } from 'interfaces/shared/input'
 const useExams = () => {
     const { userState } = useUser()
     const { setErrorMessage } = useAlert()
-    const [originalData] = useState<any[]>([])
-    const [exams, setExams] = useState<any[]>([])
     const { loading, getHandler } = useRequestsHandlers()
-    const [examsData, setExamsData] = useState<any>([])
+
     const [examTypes, setExamTypes] = useState<any[]>([])
+
+    const [examsData, setExamsData] = useState<any[]>([])
+    const [filterdData, setFilterdData] = useState<any[]>([])
+
     const [selectedExamType, setSelectedExamType] = useState<DropMenuProps>(dropMenuInitialValues)
 
     // Get exams data if the user is authoruized
@@ -22,6 +24,13 @@ const useExams = () => {
             getExamsTypes()
         }
     }, [userState.tokens!.accessToken])
+
+    // Update filtared data if exams data changed
+    useEffect(() => {
+        if (examsData.length) {
+            setFilterdData(examsData)
+        }
+    }, [examsData])
 
     // Call api to get exam data
     const getExamsData = async () => {
@@ -55,8 +64,8 @@ const useExams = () => {
 
     // Get search value from user
     const searchHandler = (searchValue: string) => {
-        setExams(
-            originalData.filter((item: any) =>
+        setFilterdData(
+            examsData.filter((item: any) =>
                 item.name.toLowerCase().includes(searchValue.toLowerCase()),
             ),
         )
@@ -64,10 +73,11 @@ const useExams = () => {
 
     // Get selected exam type to filter exams for the user
     const filterByType = (selectedExamType: any) => {
+        console.log(selectedExamType)
         if (selectedExamType.name != 'all') {
-            setExams(originalData.filter((exam: any) => exam.examType == selectedExamType.name))
+            setFilterdData(examsData.filter((exam: any) => exam.examType == selectedExamType.name))
         } else {
-            setExams(originalData)
+            setFilterdData(examsData)
         }
     }
 
@@ -75,7 +85,7 @@ const useExams = () => {
         data: {
             examTypes,
             examsData,
-            exams,
+            filterdData,
         },
         states: {
             loading,
