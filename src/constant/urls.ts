@@ -33,6 +33,10 @@ class Urls {
     static URL_TEACHERSTUDENTS_EXAMS: string = '/api/teacher/teacherstudents/info/examsresult'
     static URL_TEACHER_EXAMS: string = '/api/teacher/exams'
     static URL_TEACHER_EXAMS_GROUPS: string = '/api/teacher/exams/groups'
+    static URL_TEACHER_EXAMS_RESULTS: string = '/api/teacher/exams/results'
+    static URL_TEACHER_EXAMS_CORRECTROOM: string = '/api/teacher/exams/results/correctroom'
+    static URL_TEACHER_EXAMS_STUDENT: string = '/api/teacher/exams/results/student'
+    static URL_TEACHER_EXAMS_READY: string = '/api/teacher/exams/results/ready'
 
     // App sections required urls
     static URL_YEARS_REQUIRED: string = '/api/teacher/years/required'
