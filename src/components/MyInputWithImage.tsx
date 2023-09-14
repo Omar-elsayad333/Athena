@@ -19,7 +19,7 @@ type Props = {
     placeholder: string
     type?: string
     addImage: Function
-    disabled: boolean
+    disabled?: boolean
 }
 
 const MyInputWithImage: React.FC<Props> = ({
