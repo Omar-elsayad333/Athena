@@ -1,4 +1,3 @@
-import MyTextArea from 'components/MyTextArea'
 import { useTheme } from 'context/ThemeContext'
 
 // MUI
@@ -7,19 +6,9 @@ import Typography from '@mui/material/Typography'
 
 type Props = {
     data: any
-    actions: any
-    grandParentIndex: number
-    parentIndex: number
-    openToEdit: boolean
 }
 
-const ShowAndEditWritten: React.FC<Props> = ({
-    data,
-    actions,
-    grandParentIndex,
-    parentIndex,
-    openToEdit,
-}) => {
+const ShowWritten: React.FC<Props> = ({ data }) => {
     const { mainColors } = useTheme()
     const style = {
         flexColumn: {
@@ -38,6 +27,13 @@ const ShowAndEditWritten: React.FC<Props> = ({
             columnGap: '32px',
             rowGap: '5px',
         },
+        paragraphContainer: {
+            width: '100%',
+            borderRadius: '10px',
+            padding: '19px 25px',
+            boxShadow: '0px 0px 10px 1px #B6D5F0',
+            backgroundColor: mainColors.paper.main,
+        },
     }
 
     return (
@@ -45,19 +41,13 @@ const ShowAndEditWritten: React.FC<Props> = ({
             <Typography variant="h4" fontWeight={700} color={mainColors.title.main}>
                 الاجابة الصحيحة (التقريبية):-
             </Typography>
-            <MyTextArea
-                helperText=""
-                placeholder=""
-                disabled={!openToEdit}
-                onChange={actions.questionAnswerHandler}
-                value={data.editedQuestion.answer ? data.editedQuestion.answer : data.answer}
-                indexes={{
-                    grandParent: grandParentIndex,
-                    parent: parentIndex,
-                }}
-            />
+            <Box sx={style.paragraphContainer}>
+                <Typography variant="h4" color={'primary'}>
+                    {data.answer && data.answer}
+                </Typography>
+            </Box>
         </Box>
     )
 }
 
-export default ShowAndEditWritten
+export default ShowWritten

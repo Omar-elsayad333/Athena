@@ -1,6 +1,6 @@
 import { IStyle } from 'styles/IStyle'
-import ShowAndEditDetails from './ShowAndEditDetails'
-import ShowAndEditSection from './ShowAndEditSection'
+import ShowSection from './ShowSection'
+import ShowDetails from './ShowDetails'
 
 // MUI
 import Box from '@mui/material/Box'
@@ -35,8 +35,8 @@ const ShowExamC: React.FC<Props> = ({ data, states, actions }) => {
 
     return (
         <Box sx={style.container}>
-            <ShowAndEditDetails data={data} states={states} actions={actions} />
-            <ShowAndEditSection data={data} states={states} actions={actions} />
+            <ShowDetails data={data} states={states} actions={actions} />
+            <ShowSection data={data} states={states} actions={actions} />
         </Box>
     )
 }

@@ -59,3 +59,13 @@ export const convertFileToBase64 = (file: any) => {
         reader.readAsDataURL(file)
     })
 }
+
+export const getTimePeriod = (time: any) => {
+    // Extract the hour part from the time string
+    const hour = parseInt(time?.split(':')[0], 10)
+
+    // Determine whether it's AM or PM
+    const period = hour >= 12 ? 'PM' : 'AM'
+
+    return period
+}
