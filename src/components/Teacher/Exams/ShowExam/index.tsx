@@ -9,7 +9,6 @@ type Props = {
     data: any
     states: any
     actions: any
-    dialogs: any
 }
 
 const ShowExamC: React.FC<Props> = ({ data, states, actions }) => {
