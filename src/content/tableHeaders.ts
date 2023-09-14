@@ -102,3 +102,34 @@ export const StudentExamsTable = [
         value: 'النقاط المكتسبة',
     },
 ]
+
+export const ExamsResultTable = [
+    {
+        name: 'image',
+        value: 'الصورة الشخصية',
+    },
+    {
+        name: 'name',
+        value: 'الاسم بالكامل',
+    },
+    {
+        name: 'groupName',
+        value: 'المجموعة',
+    },
+    {
+        name: 'finalDegree',
+        value: 'الدرجة النهائية',
+    },
+    {
+        name: 'studentDegree',
+        value: 'درجة الطالب',
+    },
+    {
+        name: 'percentage',
+        value: 'النسبة المئوية',
+    },
+    {
+        name: 'state',
+        value: 'حالة الطالب',
+    },
+]
