@@ -10,16 +10,16 @@ import MyIconButton from 'components/MyIconButton'
 import PageTitle from 'components/Shared/PageTitle'
 import ThemeSwitcher from 'components/ThemeSwitcher'
 import PageFooter from 'components/Shared/PageFooter'
+import useShowExam from 'container/exams/useShowExam'
+import ShowExamC from 'components/Teacher/Exams/ShowExam'
 import DesktopNavbar from 'components/Layout/DesktopNavbar'
-import ExamC from 'components/Teacher/Exams/ShowAndEditExam'
-import useEditAndShowExam from 'container/exams/useEditAndShowExam'
 
 // MUI
 import Box from '@mui/material/Box'
 
 const Exam: NextPage = () => {
     const { mainColors } = useTheme()
-    const { data, states, actions, dialogs } = useEditAndShowExam()
+    const { data, states, actions, dialogs } = useShowExam()
     const { msg, state, msgType, handleState } = useAlert()
     const style = {
         root: {
@@ -109,7 +109,7 @@ const Exam: NextPage = () => {
                             />
                         )}
                     </Box>
-                    <ExamC data={data} states={states} actions={actions} dialogs={dialogs} />
+                    <ShowExamC data={data} states={states} actions={actions} dialogs={dialogs} />
                 </Box>
             )}
             <Box sx={style.footerContainer}>

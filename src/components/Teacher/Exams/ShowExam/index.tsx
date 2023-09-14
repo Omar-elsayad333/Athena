@@ -12,7 +12,7 @@ type Props = {
     dialogs: any
 }
 
-const ExamC: React.FC<Props> = ({ data, states, actions }) => {
+const ShowExamC: React.FC<Props> = ({ data, states, actions }) => {
     const style: IStyle = {
         container: {
             gap: '95px',
@@ -41,4 +41,4 @@ const ExamC: React.FC<Props> = ({ data, states, actions }) => {
     )
 }
 
-export default ExamC
+export default ShowExamC
