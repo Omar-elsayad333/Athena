@@ -85,7 +85,7 @@ const StudentCard: React.FC<Props> = ({ data }) => {
                         >
                             <Box sx={classes.content}>
                                 <Typography textAlign={'center'} color="#E0EEFF" variant="h4">
-                                    {`${student.firstName} ${student.middleName} ${student.lastName}`}
+                                    {student.fullName}
                                 </Typography>
                                 <Box sx={classes.details}>
                                     <Typography color="#E0EEFF" variant="h6">
