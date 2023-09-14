@@ -15,7 +15,7 @@ type Props = {
     indexes?: any
     error?: boolean
     max?: number
-    disabled: boolean
+    disabled?: boolean
 }
 
 const MyTextArea: React.FC<Props> = ({
