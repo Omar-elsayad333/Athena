@@ -42,7 +42,7 @@ const ShowWritten: React.FC<Props> = ({ data }) => {
                 الاجابة الصحيحة (التقريبية):-
             </Typography>
             <Box sx={style.paragraphContainer}>
-                <Typography variant="h4" color={'primary'}>
+                <Typography variant="h4" fontWeight={700} color={'primary'}>
                     {data.answer && data.answer}
                 </Typography>
             </Box>
