@@ -20,7 +20,7 @@ const useAddGroup = () => {
     const { loading, getHandler, postHandler } = useRequestsHandlers()
     const { userState } = useUser()
     const { setSuccessMessage, setWarningMessage, setErrorMessage } = useAlert()
-    const [requiredData, setRequiredData] = useState<any>([])
+    const [requiredData, setRequiredData] = useState<any>('')
     const [name, setName] = useState<InputProps>(inputInitialValues)
     const [openYearsData, setOpenYearsData] = useState<any>([])
     const [preopenYearsData, setPreopenYearsData] = useState<any>([])

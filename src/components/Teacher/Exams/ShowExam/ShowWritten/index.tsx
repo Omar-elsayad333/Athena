@@ -12,7 +12,8 @@ const ShowWritten: React.FC<Props> = ({ data }) => {
     const { mainColors } = useTheme()
     const style = {
         flexColumn: {
-            width: '100%',
+            width: '580px',
+            maxWidth: '100%',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',

@@ -9,21 +9,20 @@ const useShowExam = () => {
     const router = useRouter()
     const { id } = router.query
     const { userState } = useUser()
-    const { setErrorMessage } = useAlert()
-    const { loading, getHandlerById } = useRequestsHandlers()
+    const { setErrorMessage, setWarningMessage, setSuccessMessage } = useAlert()
+    const { loading, getHandlerById, deleteHandler, postHandlerById } = useRequestsHandlers()
 
     const [examData, setExamData] = useState<any>('')
     const [examSections, setExamSections] = useState<any[]>([])
 
     const [groupsData, setGroupsData] = useState<any[]>([])
-    // const [newGroupsData, setNewGroupsData] = useState<any[]>([])
+    const [newGroupsData, setNewGroupsData] = useState<any[]>([])
     const [availableGroupsData, setAvailableGroupsData] = useState<any[]>([])
     const [openToEditGroups, setOpenToEditGroups] = useState<boolean>(false)
 
     useEffect(() => {
         if (userState.tokens?.accessToken && id) {
             getExamData()
-            getExamGroups()
             getAvailableGroups()
         }
     }, [userState.tokens?.accessToken, id])
@@ -38,22 +37,8 @@ const useShowExam = () => {
             )
             setExamData(res)
             setExamSections(res.sections)
+            setGroupsData(res.groups)
             adjuctSections(res.sections)
-        } catch (error) {
-            setErrorMessage('حدث خطاء')
-        }
-    }
-
-    // Call API to get exam groups
-    const getExamGroups = async () => {
-        try {
-            const response = await getHandlerById(
-                id,
-                userState.tokens?.accessToken!,
-                Urls.URL_TEACHER_EXAMS_GROUPS,
-                true,
-            )
-            setGroupsData(response)
         } catch (error) {
             setErrorMessage('حدث خطاء')
         }
@@ -65,7 +50,7 @@ const useShowExam = () => {
             const response = await getHandlerById(
                 id,
                 userState.tokens?.accessToken!,
-                Urls.URL_TEACHER_EXAMS_GROUPS,
+                Urls.URL_TEACHER_EXAMS_GROUP,
                 true,
             )
             setAvailableGroupsData(response)
@@ -101,6 +86,56 @@ const useShowExam = () => {
     // Close to edit groups handler
     const closeGroupsToEdit = () => {
         setOpenToEditGroups(false)
+        setNewGroupsData([])
+    }
+
+    // Get new groups handler
+    const getNewGroups = (groupId: string) => {
+        if (newGroupsData.includes(groupId)) {
+            setNewGroupsData((newGroupsData) => newGroupsData.filter((group) => group !== groupId))
+        } else {
+            setNewGroupsData((newGroupsData: any) => [...newGroupsData, groupId])
+        }
+    }
+
+    // Collect and adjust data for api
+    const collectNewGroupsData = () => {
+        const data = {
+            id: id,
+            groupIds: newGroupsData,
+        }
+        return data
+    }
+
+    // Submit new groups
+    const submitGroups = async () => {
+        try {
+            const data = collectNewGroupsData()
+            await postHandlerById(
+                id,
+                userState.tokens?.accessToken!,
+                Urls.URL_TEACHER_EXAMS_GROUP,
+                data,
+            )
+            router.reload()
+            setSuccessMessage('تم اضافه المجموعات بنجاح')
+        } catch (error) {
+            setErrorMessage('حدث خطاء')
+        }
+    }
+
+    // Remove group from exam
+    const removeGroup = async (groupId: string) => {
+        try {
+            await deleteHandler(
+                groupId,
+                userState.tokens?.accessToken!,
+                Urls.URL_TEACHER_EXAMS_GROUP,
+            )
+            setWarningMessage('تم حذف المجموعه بنجاح')
+        } catch (error) {
+            setErrorMessage('حدث خطاء')
+        }
     }
 
     return {
@@ -113,11 +148,15 @@ const useShowExam = () => {
         states: {
             loading,
             openToEditGroups,
+            newGroupsData,
         },
         actions: {
             openAndCloseSection,
             openGroupsToEdit,
             closeGroupsToEdit,
+            getNewGroups,
+            submitGroups,
+            removeGroup,
         },
     }
 }
