@@ -83,7 +83,7 @@ const AddStudentC: React.FC<Props> = ({ data, states, actions }) => {
             gridTemplateColumns: '1fr 1fr',
             columnGap: '40px',
             rowGap: '20px',
-            '@media screen and (max-width: 800px)': {
+            '@media screen and  (max-width: 800px)': {
                 gridTemplateColumns: '1fr',
             },
         },
@@ -150,7 +150,7 @@ const AddStudentC: React.FC<Props> = ({ data, states, actions }) => {
             gridTemplateColumns: '120px 170px',
             alignItems: 'center',
             gap: '10px',
-            '@media screen and (max-width: 500px)': {
+            '@media screen and  (max-width: 500px)': {
                 gridTemplateColumns: '170px',
             },
         },
@@ -171,7 +171,7 @@ const AddStudentC: React.FC<Props> = ({ data, states, actions }) => {
             borderRadius: '15px',
             background: mainColors.paper.main,
             border: `2px solid ${mainColors.paper.border}`,
-            '@media screen and (max-width: 450px)': {
+            '@media screen and  (max-width: 450px)': {
                 padding: '25px 30px',
             },
         },

@@ -71,10 +71,10 @@ const MySelect: React.FC<Props> = ({
                     border: darkMode ? 'none' : '1px solid transparent !important',
                 },
             },
-            '@media(max-width: 300px)': {
+            '@media screen and (max-width: 300px)': {
                 width: '200px',
             },
-            '@media(max-width: 250px)': {
+            '@media screen and (max-width: 250px)': {
                 width: '150px',
             },
         },

@@ -1,18 +1,17 @@
 // MUI
-import { styled } from '@mui/material/styles';
-import Button from '@mui/material/Button';
-import { useContext } from 'react';
-import { DarkThemeContext } from 'context/ThemeContext';
-import Link from 'next/link';
+import { styled } from '@mui/material/styles'
+import Button from '@mui/material/Button'
+import { useContext } from 'react'
+import { DarkThemeContext } from 'context/ThemeContext'
+import Link from 'next/link'
 
 type Props = {
-    content?: any;
-    path?: any;
+    content?: any
+    path?: any
 }
 
-const NavbarSecBut: React.FC<Props> = ({content, path}) => {
-
-    const {darkMode} = useContext(DarkThemeContext);
+const NavbarSecBut: React.FC<Props> = ({ content, path }) => {
+    const { darkMode } = useContext(DarkThemeContext)
 
     const MyButton = styled(Button)({
         width: '202px',
@@ -25,28 +24,28 @@ const NavbarSecBut: React.FC<Props> = ({content, path}) => {
         '&:hover': {
             color: darkMode ? '#1C364F' : '#E8F3FF',
         },
-        '@media(max-width: 1200px)': {
+        '@media screen and (max-width: 1200px)': {
             width: '170px',
             height: '40px',
             fontSize: '16px',
             padding: '9px 5px',
             borderRadius: '21px',
         },
-        '@media(max-width: 400px)': {
+        '@media screen and (max-width: 400px)': {
             width: '120px',
             fontSize: '13px',
         },
-    });
+    })
 
     return (
         <Link href={path || ''}>
-            <a>                
-                <MyButton variant="contained" color='secondary'>
+            <a>
+                <MyButton variant="contained" color="secondary">
                     {content}
                 </MyButton>
             </a>
         </Link>
-    );
+    )
 }
- 
-export default NavbarSecBut;
+
+export default NavbarSecBut

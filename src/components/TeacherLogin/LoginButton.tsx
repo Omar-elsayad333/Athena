@@ -20,14 +20,14 @@ const MyButton = styled(Button)({
     ':hover': {
         background: '#1C364F',
     },
-    '@media(max-width: 500px)': {
+    '@media screen and (max-width: 500px)': {
         fontSize: '27px',
         height: '53px',
     },
-    '@media(max-width: 400px)': {
+    '@media screen and (max-width: 400px)': {
         fontSize: '25px',
     },
-    '@media(max-width: 350px)': {
+    '@media screen and (max-width: 350px)': {
         fontSize: '20px',
     },
 })

@@ -58,10 +58,10 @@ const MyInputSmall: React.FC<Props> = ({
                 '&:hover .MuiOutlinedInput-notchedOutline': {
                     borderColor: 'unset',
                 },
-                '@media screen and (max-width: 300px)': {
+                '@media screen and  (max-width: 300px)': {
                     width: '170px',
                 },
-                '@media screen and (max-width: 250px)': {
+                '@media screen and  (max-width: 250px)': {
                     width: '150px',
                 },
             },

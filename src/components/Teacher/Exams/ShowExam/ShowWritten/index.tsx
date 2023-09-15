@@ -44,7 +44,7 @@ const ShowWritten: React.FC<Props> = ({ data }) => {
             </Typography>
             <Box sx={style.paragraphContainer}>
                 <Typography variant="h4" fontWeight={700} color={'primary'}>
-                    {data.answer && data.answer}
+                    {data.answer ? data.answer : 'لا يوجد اجابه تقريبية'}
                 </Typography>
             </Box>
         </Box>

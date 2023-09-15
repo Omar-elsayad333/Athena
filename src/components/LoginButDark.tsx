@@ -15,13 +15,13 @@ const LoginButDark: React.FC<Props> = ({ content, onClick, type }) => {
         fontWeight: '700',
         boxShadow: 'none',
         borderRadius: '6px',
-        '@media(max-width: 600px)': {
+        '@media screen and (max-width: 600px)': {
             fontSize: '27px',
         },
-        '@media(max-width: 400px)': {
+        '@media screen and (max-width: 400px)': {
             fontSize: '25px',
         },
-        '@media(max-width: 350px)': {
+        '@media screen and (max-width: 350px)': {
             fontSize: '20px',
         },
     }

@@ -50,7 +50,7 @@ const ClassesDialog: React.FC<Props> = ({ open, handleClose, getSelectedClasses,
                 gap: '20px',
                 borderBottom: '2px solid #3F72A4',
                 boxShadow: mainColors.dialog.titleShadow,
-                '@media(max-width: 450px)': {
+                '@media screen and (max-width: 450px)': {
                     '.MuiTypography-root': {
                         fontSize: '25px',
                     },
@@ -66,11 +66,11 @@ const ClassesDialog: React.FC<Props> = ({ open, handleClose, getSelectedClasses,
                 flexWrap: 'wrap',
                 gap: '40px',
                 boxShadow: 'inset 0px -20px 57px 4px rgb(63 114 164 / 25%)',
-                '@media(max-width: 400px)': {
+                '@media screen and (max-width: 400px)': {
                     padding: '35px 20px',
                     gap: '30px',
                 },
-                '@media(max-width: 300px)': {
+                '@media screen and (max-width: 300px)': {
                     padding: '35px 10px',
                     gap: '30px',
                 },
@@ -110,7 +110,7 @@ const ClassesDialog: React.FC<Props> = ({ open, handleClose, getSelectedClasses,
                 width: '40px',
                 height: '40px',
             },
-            '@media(max-width: 400px)': {
+            '@media screen and (max-width: 400px)': {
                 position: 'static',
                 '.MuiSvgIcon-root': {
                     width: '30px',
@@ -125,10 +125,10 @@ const ClassesDialog: React.FC<Props> = ({ open, handleClose, getSelectedClasses,
             fontWeight: '700',
             borderRadius: '5px',
             boxShadow: 'none',
-            '@media screen and (max-width: 825px) ': {
+            '@media screen and  (max-width: 825px) ': {
                 width: '343px',
             },
-            '@media screen and (max-width: 600px) ': {
+            '@media screen and  (max-width: 600px) ': {
                 width: '154px',
             },
         },

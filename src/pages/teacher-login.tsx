@@ -19,11 +19,11 @@ const style: any = {
         backgroundSize: 'cover',
         backgroundPosition: 'top',
         backgroundImage: 'url("./images/brad-pouncey-raV9BAKD1eE-unsplash.jpg")',
-        '@media (max-width: 600px)': {
+        '@media screen and  (max-width: 600px)': {
             justifyContent: 'center',
             padding: '0px 25px',
         },
-        '@media (max-width: 400px)': {
+        '@media screen and  (max-width: 400px)': {
             justifyContent: 'center',
             padding: '0px 20px',
         },
