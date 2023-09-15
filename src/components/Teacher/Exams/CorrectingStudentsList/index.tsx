@@ -46,10 +46,9 @@ const CorrectingStudentsListC: React.FC<Props> = ({ data, states, actions }) => 
                         <Link href={`${Routes.teacherCorrectingRoom}/${student.id}`}>
                             <StudentCard
                                 key={student.id}
-                                name={student.name}
-                                image={student.image}
-                                cardState={student.isFinish}
-                                stateAvailable={data.originalData.startCorrect}
+                                studentData={student}
+                                resultAvailable={data.originlData?.isFinished}
+                                stateAvailable={data.originalData?.startCorrect}
                             />
                         </Link>
                     ))

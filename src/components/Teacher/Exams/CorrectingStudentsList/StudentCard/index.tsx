@@ -7,21 +7,30 @@ import Box from '@mui/material/Box'
 import { Typography } from '@mui/material'
 
 type Props = {
-    name: string
-    image: string
-    cardState?: boolean
+    studentData: any
     stateAvailable?: boolean
+    resultAvailable: boolean
 }
 
-const StudentCard: React.FC<Props> = ({ name, image, cardState, stateAvailable }) => {
+const StudentCard: React.FC<Props> = ({ studentData, stateAvailable, resultAvailable }) => {
     const { mainColors } = useTheme()
 
     const cardStateHandler = () => {
         if (stateAvailable) {
-            if (cardState) {
-                return `2px solid ${mainColors.success.main}`
+            if (!resultAvailable) {
+                if (studentData.isFinish) {
+                    return `2px solid ${mainColors.success.main}`
+                } else {
+                    return `2px solid ${mainColors.error.main}`
+                }
             } else {
-                return `2px solid ${mainColors.error.main}`
+                if (studentData.state === 'Distinctive') {
+                    return `2px solid ${mainColors.warning.main}`
+                } else if (studentData.state === 'Successed') {
+                    return `2px solid ${mainColors.success.main}`
+                } else {
+                    return `2px solid ${mainColors.error.main}`
+                }
             }
         } else {
             return `2px solid ${mainColors.paper.border}`
@@ -40,24 +49,49 @@ const StudentCard: React.FC<Props> = ({ name, image, cardState, stateAvailable }
             border: cardStateHandler(),
             cursor: 'pointer',
         },
+        cardBody: {
+            gap: '16px',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+        },
+        detailedData: {
+            gap: '25px',
+            display: 'flex',
+            flexWrap: 'wrap',
+        },
     }
     return (
         <Box sx={style.card}>
-            {image ? (
+            {studentData.image ? (
                 <img
-                    style={{ objectFit: 'cover', flex: '1' }}
+                    style={{ objectFit: 'cover', flex: 1 }}
                     width={100}
                     height={100}
-                    src={`${Urls.URL_MAIN}/${image}`}
-                    alt={name}
+                    src={`${Urls.URL_MAIN}/${studentData.image}`}
+                    alt={studentData.name}
                 />
             ) : (
                 <Box width={100} height={100} sx={{ backgroundColor: mainColors.secondary.main }} />
             )}
-            <Box p={3}>
+            <Box sx={style.cardBody} p={3}>
                 <Typography variant="h3" color={'primary'}>
-                    {name}
+                    {studentData.name}
                 </Typography>
+                {resultAvailable && (
+                    <Box sx={style.detailedData}>
+                        <Typography
+                            color={'primary'}
+                            fontWeight={400}
+                            variant="h5"
+                        >{`الدرجة:${studentData.studentDegree}/${studentData.finalDegree}`}</Typography>
+                        <Typography
+                            color={'primary'}
+                            fontWeight={400}
+                            variant="h5"
+                        >{`النسبة المئوية:${studentData.percentage}`}</Typography>
+                    </Box>
+                )}
             </Box>
         </Box>
     )
