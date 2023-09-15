@@ -51,10 +51,21 @@ export const convertHashSign = (data: string) => {
 }
 
 export const convertFileToBase64 = (file: any) => {
+    if (!file) return false
     return new Promise(function (resolve, reject) {
         const reader = new FileReader()
         reader.onload = () => resolve(reader.result)
         reader.onerror = (error) => reject(error)
         reader.readAsDataURL(file)
     })
+}
+
+export const getTimePeriod = (time: any) => {
+    // Extract the hour part from the time string
+    const hour = parseInt(time?.split(':')[0], 10)
+
+    // Determine whether it's AM or PM
+    const period = hour >= 12 ? 'PM' : 'AM'
+
+    return period
 }

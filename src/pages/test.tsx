@@ -1,20 +1,19 @@
-import { useContext } from 'react';
-import useTest from 'container/useTest';
-import ThemeSwitcher from 'components/ThemeSwitcher';
-import { DarkThemeContext } from 'context/ThemeContext';
+import { useContext } from 'react'
+import useTest from 'container/useTest'
+import ThemeSwitcher from 'components/ThemeSwitcher'
+import { DarkThemeContext } from 'context/ThemeContext'
 
 // MUI
-import Box from '@mui/material/Box';
-import AlertNotify from 'components/AlertNotify';
+import Box from '@mui/material/Box'
+import AlertNotify from 'components/AlertNotify'
 
 const Test = () => {
-    
-    useTest();
-    const { mainColors } = useContext(DarkThemeContext);
+    useTest()
+    const { mainColors } = useContext(DarkThemeContext)
 
     const classes = {
         root: {
-            width:'100%',
+            width: '100%',
             height: '100vh',
             margin: 'auto',
             padding: '50px',
@@ -32,7 +31,7 @@ const Test = () => {
         <Box sx={classes.root}>
             <ThemeSwitcher />
         </Box>
-    );
+    )
 }
 
-export default Test;
+export default Test
