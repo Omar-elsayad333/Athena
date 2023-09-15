@@ -31,8 +31,8 @@ const ShowWritten: React.FC<Props> = ({ data }) => {
             width: '100%',
             borderRadius: '10px',
             padding: '19px 25px',
-            boxShadow: '0px 0px 10px 1px #B6D5F0',
             backgroundColor: mainColors.paper.main,
+            boxShadow: `0px 0px 10px 1px ${mainColors.icons.roundedAdd}`,
         },
     }
 

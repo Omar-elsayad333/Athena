@@ -40,6 +40,7 @@ class Urls {
     static URL_TEACHERSTUDENTS_EXAMS: string = '/api/teacher/teacherstudents/info/examsresult'
 
     static URL_TEACHER_EXAMS: string = '/api/teacher/exams'
+    static URL_TEACHER_EXAMS_GROUP: string = '/api/teacher/exams/group'
     static URL_TEACHER_EXAMS_GROUPS: string = '/api/teacher/exams/groups'
     static URL_TEACHER_EXAMS_SECTION: string = '/api/teacher/exams/section'
     static URL_TEACHER_EXAMS_SECTION_IMAGE: string = '/api/teacher/exams/section/sectionimage'

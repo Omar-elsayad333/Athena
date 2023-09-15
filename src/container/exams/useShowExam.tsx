@@ -15,9 +15,16 @@ const useShowExam = () => {
     const [examData, setExamData] = useState<any>('')
     const [examSections, setExamSections] = useState<any[]>([])
 
+    const [groupsData, setGroupsData] = useState<any[]>([])
+    // const [newGroupsData, setNewGroupsData] = useState<any[]>([])
+    const [availableGroupsData, setAvailableGroupsData] = useState<any[]>([])
+    const [openToEditGroups, setOpenToEditGroups] = useState<boolean>(false)
+
     useEffect(() => {
         if (userState.tokens?.accessToken && id) {
             getExamData()
+            getExamGroups()
+            getAvailableGroups()
         }
     }, [userState.tokens?.accessToken, id])
 
@@ -33,7 +40,36 @@ const useShowExam = () => {
             setExamSections(res.sections)
             adjuctSections(res.sections)
         } catch (error) {
-            console.log(error)
+            setErrorMessage('حدث خطاء')
+        }
+    }
+
+    // Call API to get exam groups
+    const getExamGroups = async () => {
+        try {
+            const response = await getHandlerById(
+                id,
+                userState.tokens?.accessToken!,
+                Urls.URL_TEACHER_EXAMS_GROUPS,
+                true,
+            )
+            setGroupsData(response)
+        } catch (error) {
+            setErrorMessage('حدث خطاء')
+        }
+    }
+
+    // Call API to get available groups for this exam
+    const getAvailableGroups = async () => {
+        try {
+            const response = await getHandlerById(
+                id,
+                userState.tokens?.accessToken!,
+                Urls.URL_TEACHER_EXAMS_GROUPS,
+                true,
+            )
+            setAvailableGroupsData(response)
+        } catch (error) {
             setErrorMessage('حدث خطاء')
         }
     }
@@ -57,16 +93,31 @@ const useShowExam = () => {
         ])
     }
 
+    // Open to edit groups handler
+    const openGroupsToEdit = () => {
+        setOpenToEditGroups(true)
+    }
+
+    // Close to edit groups handler
+    const closeGroupsToEdit = () => {
+        setOpenToEditGroups(false)
+    }
+
     return {
         data: {
             examData,
             examSections,
+            groupsData,
+            availableGroupsData,
         },
         states: {
             loading,
+            openToEditGroups,
         },
         actions: {
             openAndCloseSection,
+            openGroupsToEdit,
+            closeGroupsToEdit,
         },
     }
 }

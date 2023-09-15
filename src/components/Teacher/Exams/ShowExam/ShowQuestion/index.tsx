@@ -96,10 +96,18 @@ const ShowQuestion: React.FC<Props> = ({ data }) => {
                                 </Typography>
                             </Box>
                             <Box sx={style.degreeBox}>
-                                <Typography variant="h3" fontWeight={700} color={'secondary'}>
+                                <Typography
+                                    variant="h3"
+                                    fontWeight={700}
+                                    color={mainColors.backgroundColor.main}
+                                >
                                     {question.degree && question.degree}
                                 </Typography>
-                                <Typography variant="h4" fontWeight={700} color={'secondary'}>
+                                <Typography
+                                    variant="h4"
+                                    fontWeight={700}
+                                    color={mainColors.backgroundColor.main}
+                                >
                                     درجات
                                 </Typography>
                             </Box>
