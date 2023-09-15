@@ -7,7 +7,7 @@ import MySearchInput from 'components/MySearchInput'
 
 // MUI
 import Box from '@mui/material/Box'
-import { Typography } from '@mui/material'
+import Typography from '@mui/material/Typography'
 
 type Props = {
     data: any
@@ -44,12 +44,14 @@ const CorrectingStudentsListC: React.FC<Props> = ({ data, states, actions }) => 
                 {data.filterdData?.length > 0 ? (
                     data.filterdData.map((student: any) => (
                         <Link href={`${Routes.teacherCorrectingRoom}/${student.id}`}>
-                            <StudentCard
-                                key={student.id}
-                                studentData={student}
-                                resultAvailable={data.originlData?.isFinished}
-                                stateAvailable={data.originalData?.startCorrect}
-                            />
+                            <a>
+                                <StudentCard
+                                    key={student.id}
+                                    studentData={student}
+                                    resultAvailable={data.originlData?.isFinished}
+                                    stateAvailable={data.originalData?.startCorrect}
+                                />
+                            </a>
                         </Link>
                     ))
                 ) : (

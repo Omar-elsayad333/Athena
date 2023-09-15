@@ -1,12 +1,12 @@
-import InputError from './Shared/InputError';
+import InputError from './Shared/InputError'
 
 // MUI
-import IconButton from '@mui/material/IconButton';
-import FormControl from '@mui/material/FormControl';
-import Visibility from '@mui/icons-material/Visibility';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputAdornment from '@mui/material/InputAdornment';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import IconButton from '@mui/material/IconButton'
+import FormControl from '@mui/material/FormControl'
+import Visibility from '@mui/icons-material/Visibility'
+import OutlinedInput from '@mui/material/OutlinedInput'
+import InputAdornment from '@mui/material/InputAdornment'
+import VisibilityOff from '@mui/icons-material/VisibilityOff'
 
 const classes = {
     root: {
@@ -21,8 +21,8 @@ const classes = {
         '.MuiOutlinedInput-input': {
             '&::placeholder': {
                 color: 'rgb(63, 114, 164)',
-                opacity: .65,
-            }
+                opacity: 0.65,
+            },
         },
         '.MuiOutlinedInput-notchedOutline': {
             transition: '.2s ease-out',
@@ -37,43 +37,50 @@ const classes = {
             borderColor: '#E8F3FF',
         },
         '.MuiSvgIcon-root': {
-            color: '#81acd1'
+            color: '#81acd1',
         },
-        '@media(max-width: 300px)': {
+        '@media screen and (max-width: 300px)': {
             width: '200px',
         },
-        '@media(max-width: 250px)': {
+        '@media screen and (max-width: 250px)': {
             width: '150px',
         },
-    }
-};
-
-type Props = {
-    value: string;
-    show: boolean;
-    placeholder: string;
-    helperText: string;
-    showHandler: Function;
-    onChange: Function;
-    error: boolean;
+    },
 }
 
-const MyPassInput: React.FC<Props> = ({placeholder, helperText, value, showHandler, show, onChange, error}) => {
+type Props = {
+    value: string
+    show: boolean
+    placeholder: string
+    helperText: string
+    showHandler: Function
+    onChange: Function
+    error: boolean
+}
 
+const MyPassInput: React.FC<Props> = ({
+    placeholder,
+    helperText,
+    value,
+    showHandler,
+    show,
+    onChange,
+    error,
+}) => {
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault();
-    };
-    
+        event.preventDefault()
+    }
+
     return (
         <FormControl>
             <OutlinedInput
-                autoComplete='off'
-                error={error} 
+                autoComplete="off"
+                error={error}
                 sx={classes.root}
                 placeholder={placeholder}
                 type={show ? 'text' : 'password'}
                 value={value}
-                onChange={e => onChange(e.target.value)}
+                onChange={(e) => onChange(e.target.value)}
                 endAdornment={
                     <InputAdornment position="end">
                         <IconButton
@@ -86,9 +93,9 @@ const MyPassInput: React.FC<Props> = ({placeholder, helperText, value, showHandl
                     </InputAdornment>
                 }
             />
-            <InputError content={helperText} type='error' />
+            <InputError content={helperText} type="error" />
         </FormControl>
-    );
+    )
 }
 
-export default MyPassInput;
+export default MyPassInput

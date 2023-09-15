@@ -65,10 +65,10 @@ const MyInputWithImage: React.FC<Props> = ({
                 '&:hover .MuiOutlinedInput-notchedOutline': {
                     borderColor: 'unset',
                 },
-                '@media(max-width: 300px)': {
+                '@media screen and (max-width: 300px)': {
                     width: '200px',
                 },
-                '@media(max-width: 250px)': {
+                '@media screen and (max-width: 250px)': {
                     width: '150px',
                 },
             },

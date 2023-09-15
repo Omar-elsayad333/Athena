@@ -1,4 +1,4 @@
-import {lightColors} from "../../styles/colors";
+import { lightColors } from '../../styles/colors'
 
 const style: any = {
     StudentLoginCard: {
@@ -11,7 +11,7 @@ const style: any = {
         backdropFilter: 'blur(10px)',
         borderWidth: '10px 0px',
         borderStyle: 'solid',
-        borderColor: `${lightColors.primary.main}`,   
+        borderColor: `${lightColors.primary.main}`,
         color: lightColors.primary.main,
     },
     container: {
@@ -21,12 +21,12 @@ const style: any = {
         flexDirection: 'column',
         justifyContent: 'top',
         alignItems: 'center',
-        '@media (max-width: 600px)': {
-            padding: '30px'
+        '@media screen and  (max-width: 600px)': {
+            padding: '30px',
         },
-        '@media (max-width: 400px)': {
-            padding: '20px'
-        }
+        '@media screen and  (max-width: 400px)': {
+            padding: '20px',
+        },
     },
     headerText: {
         textAlign: 'center',
@@ -40,7 +40,7 @@ const style: any = {
         gap: '30px',
     },
     formLabels: {
-        padding: '13px 0'
+        padding: '13px 0',
     },
     formOptions: {
         width: '450px',
@@ -48,24 +48,24 @@ const style: any = {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        paddingTop: '16px'
+        paddingTop: '16px',
     },
     checkContainer: {
         fontWeight: '400',
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     logContainer: {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        gap: '11px'
+        gap: '11px',
     },
     link: {
         cursor: 'pointer',
-        color: lightColors.primary.dark
-    }
+        color: lightColors.primary.dark,
+    },
 }
 
-export default style;
+export default style

@@ -23,7 +23,7 @@ const MyRadioGroup: React.FC<Props> = ({ data, getSelected, indexes, value, disa
             '.MuiFormControlLabel-label': {
                 color: mainColors.primary.main,
                 fontSize: '20px',
-                '@media screen and (max-width: 500px)': {
+                '@media screen and  (max-width: 500px)': {
                     fontSize: '16px',
                 },
             },

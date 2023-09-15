@@ -61,10 +61,10 @@ const MyBigTimePicker: React.FC<Props> = ({
                         opacity: 0.65,
                     },
                 },
-                '@media(max-width: 300px)': {
+                '@media screen and (max-width: 300px)': {
                     width: '200px',
                 },
-                '@media(max-width: 250px)': {
+                '@media screen and (max-width: 250px)': {
                     width: '150px',
                 },
             },

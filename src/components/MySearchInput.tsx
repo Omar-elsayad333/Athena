@@ -44,7 +44,7 @@ const MySearchInput: React.FC<Props> = ({ value, onChange, error, placeholder, d
             ':hover .MuiOutlinedInput-notchedOutline': {
                 border: '1px solid #3F72A4',
             },
-            '@media(max-width: 450px)': {
+            '@media screen and (max-width: 450px)': {
                 fontSize: '14px',
             },
         },

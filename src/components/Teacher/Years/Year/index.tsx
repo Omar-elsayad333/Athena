@@ -46,7 +46,7 @@ const YearC: React.FC<Props> = ({ data, actions }) => {
             width: '2px',
             height: '100%',
             background: mainColors.paper.border,
-            '@media screen and (max-width: 500px)': {
+            '@media screen and  (max-width: 500px)': {
                 height: '2px',
                 width: '100%',
             },

@@ -35,10 +35,10 @@ const Years: NextPage = () => {
             display: 'flex',
             flexDirection: 'column',
             gap: '60px',
-            '@media(max-width: 450px)': {
+            '@media screen and (max-width: 450px)': {
                 padding: '40px',
             },
-            '@media(max-width: 350px)': {
+            '@media screen and (max-width: 350px)': {
                 padding: '20px',
             },
         },

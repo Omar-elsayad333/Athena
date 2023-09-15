@@ -35,10 +35,10 @@ const Exams: NextPage = () => {
             display: 'flex',
             flexDirection: 'column',
             gap: '60px',
-            '@media screen and (max-width: 450px)': {
+            '@media screen and  (max-width: 450px)': {
                 padding: '40px',
             },
-            '@media screen and (max-width: 350px)': {
+            '@media screen and  (max-width: 350px)': {
                 padding: '20px',
             },
         },
@@ -48,7 +48,7 @@ const Exams: NextPage = () => {
             alignItems: 'center',
         },
         pageLayer: {
-            '@media screen and (max-width: 800px)': {
+            '@media screen and  (max-width: 800px)': {
                 display: 'none',
             },
         },

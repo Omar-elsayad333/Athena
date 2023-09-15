@@ -22,7 +22,7 @@ const Layout: React.FC<IProps> = ({ children }) => {
     const style = {
         container: {
             display: 'flex',
-            '@media(max-width: 1200px)': {
+            '@media screen and (max-width: 1200px)': {
                 flexDirection: 'column',
             },
         },

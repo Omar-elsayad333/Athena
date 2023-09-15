@@ -1,20 +1,19 @@
-import {lightColors} from '../../styles/colors';
+import { lightColors } from '../../styles/colors'
 
 // MUI
-import TextField from '@mui/material/TextField';
-import FormControl from '@mui/material/FormControl';
-import InputError from 'components/Shared/InputError';
+import TextField from '@mui/material/TextField'
+import FormControl from '@mui/material/FormControl'
+import InputError from 'components/Shared/InputError'
 
 type Props = {
-    value?: any;
-    error?: any;
-    onChange?: any;
-    helperText?: any;
-    placeholder?: any;
+    value?: any
+    error?: any
+    onChange?: any
+    helperText?: any
+    placeholder?: any
 }
 
 const LoginInput: React.FC<Props> = ({ value, onChange, error, helperText }) => {
-    
     const classes = {
         root: {
             width: '100%',
@@ -37,7 +36,7 @@ const LoginInput: React.FC<Props> = ({ value, onChange, error, helperText }) => 
                     fontSize: '20px',
                     border: 'none',
                 },
-                '@media(max-width: 500px)': {   
+                '@media screen and (max-width: 500px)': {
                     fontSize: '13px',
                     height: '53px',
                 },
@@ -45,21 +44,21 @@ const LoginInput: React.FC<Props> = ({ value, onChange, error, helperText }) => 
             '.Mui-error': {
                 borderColor: '#9C1414 !important',
             },
-        }
-    };
-    
+        },
+    }
+
     return (
         <FormControl fullWidth>
             <TextField
-                autoComplete='off'      
+                autoComplete="off"
                 value={value}
                 error={error}
                 sx={classes.root}
-                onChange={e => onChange(e.target.value)}
-            />    
-            <InputError content={helperText} type='error' />
+                onChange={(e) => onChange(e.target.value)}
+            />
+            <InputError content={helperText} type="error" />
         </FormControl>
     )
 }
 
-export default LoginInput;
+export default LoginInput
