@@ -57,51 +57,51 @@ const ThemeApp: React.FC<IProps> = ({ children }) => {
             h1: {
                 fontWeight: '700',
                 fontSize: '30px',
-                '@media (min-width:600px)': {
+                '@media screen and  (min-width:600px)': {
                     fontSize: '32px',
                 },
-                '@media (min-width:1500px)': {
+                '@media screen and  (min-width:1500px)': {
                     fontSize: '35px',
                 },
             },
             h2: {
                 fontWeight: '700',
                 fontSize: '25px',
-                '@media (min-width:600px)': {
+                '@media screen and  (min-width:600px)': {
                     fontSize: '27px',
                 },
-                '@media (min-width:1500px)': {
+                '@media screen and  (min-width:1500px)': {
                     fontSize: '30px',
                 },
             },
             h3: {
                 fontWeight: '700',
                 fontSize: '20px',
-                '@media (min-width:600px)': {
+                '@media screen and  (min-width:600px)': {
                     fontSize: '23px',
                 },
-                '@media (min-width:1500px)': {
+                '@media screen and  (min-width:1500px)': {
                     fontSize: '25px',
                 },
             },
             h4: {
                 fontWeight: '400',
                 fontSize: '18px',
-                '@media (min-width:1500px)': {
+                '@media screen and  (min-width:1500px)': {
                     fontSize: '20px',
                 },
             },
             h5: {
                 fontWeight: '400',
                 fontSize: '13px',
-                '@media (min-width:1500px)': {
+                '@media screen and  (min-width:1500px)': {
                     fontSize: '14px',
                 },
             },
             h6: {
                 fontWeight: '300',
                 fontSize: '10px',
-                '@media (min-width:1500px)': {
+                '@media screen and  (min-width:1500px)': {
                     fontSize: '12px',
                 },
             },
@@ -154,51 +154,51 @@ const ThemeApp: React.FC<IProps> = ({ children }) => {
             h1: {
                 fontWeight: '700',
                 fontSize: '30px',
-                '@media (min-width:600px)': {
+                '@media screen and  (min-width:600px)': {
                     fontSize: '32px',
                 },
-                '@media (min-width:1500px)': {
+                '@media screen and  (min-width:1500px)': {
                     fontSize: '35px',
                 },
             },
             h2: {
                 fontWeight: '700',
                 fontSize: '25px',
-                '@media (min-width:600px)': {
+                '@media screen and  (min-width:600px)': {
                     fontSize: '27px',
                 },
-                '@media (min-width:1500px)': {
+                '@media screen and  (min-width:1500px)': {
                     fontSize: '30px',
                 },
             },
             h3: {
                 fontWeight: '700',
                 fontSize: '20px',
-                '@media (min-width:600px)': {
+                '@media screen and  (min-width:600px)': {
                     fontSize: '23px',
                 },
-                '@media (min-width:1500px)': {
+                '@media screen and  (min-width:1500px)': {
                     fontSize: '25px',
                 },
             },
             h4: {
                 fontWeight: '400',
                 fontSize: '18px',
-                '@media (min-width:1500px)': {
+                '@media screen and  (min-width:1500px)': {
                     fontSize: '20px',
                 },
             },
             h5: {
                 fontWeight: '400',
                 fontSize: '13px',
-                '@media (min-width:1500px)': {
+                '@media screen and  (min-width:1500px)': {
                     fontSize: '14px',
                 },
             },
             h6: {
                 fontWeight: '300',
                 fontSize: '10px',
-                '@media (min-width:1500px)': {
+                '@media screen and  (min-width:1500px)': {
                     fontSize: '12px',
                 },
             },

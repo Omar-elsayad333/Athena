@@ -1,13 +1,13 @@
-import { lightColors } from '../../styles/colors';
+import { lightColors } from '../../styles/colors'
 
 // MUI
-import IconButton from '@mui/material/IconButton';
-import FormControl from '@mui/material/FormControl';
-import InputError from 'components/Shared/InputError';
-import Visibility from '@mui/icons-material/Visibility';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputAdornment from '@mui/material/InputAdornment';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import IconButton from '@mui/material/IconButton'
+import FormControl from '@mui/material/FormControl'
+import InputError from 'components/Shared/InputError'
+import Visibility from '@mui/icons-material/Visibility'
+import OutlinedInput from '@mui/material/OutlinedInput'
+import InputAdornment from '@mui/material/InputAdornment'
+import VisibilityOff from '@mui/icons-material/VisibilityOff'
 
 const classes = {
     root: {
@@ -30,37 +30,43 @@ const classes = {
             border: 'none',
         },
         '.MuiSvgIcon-root': {
-            color: lightColors.primary.main
+            color: lightColors.primary.main,
         },
         '&.Mui-error': {
             borderColor: '#9C1414 !important',
         },
-        '@media(max-width: 500px)': {   
+        '@media screen and (max-width: 500px)': {
             fontSize: '13px',
             height: '53px',
         },
-    }
-};
-
-type Props = {
-    value: any;
-    show: boolean;
-    error: boolean;
-    helperText: string;
-    onChange: Function;
-    showHandler: Function;
+    },
 }
 
-const PasswordInput: React.FC<Props> = ({ value, onChange, show,  error, helperText, showHandler }) => {
+type Props = {
+    value: any
+    show: boolean
+    error: boolean
+    helperText: string
+    onChange: Function
+    showHandler: Function
+}
 
+const PasswordInput: React.FC<Props> = ({
+    value,
+    onChange,
+    show,
+    error,
+    helperText,
+    showHandler,
+}) => {
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault();
-    };
-    
+        event.preventDefault()
+    }
+
     return (
         <FormControl fullWidth>
             <OutlinedInput
-                autoComplete='off'   
+                autoComplete="off"
                 error={error}
                 sx={classes.root}
                 value={value.password}
@@ -78,9 +84,9 @@ const PasswordInput: React.FC<Props> = ({ value, onChange, show,  error, helperT
                     </InputAdornment>
                 }
             />
-            <InputError content={helperText} type='error' />
+            <InputError content={helperText} type="error" />
         </FormControl>
-    );
+    )
 }
 
-export default PasswordInput;
+export default PasswordInput

@@ -5,7 +5,7 @@ const TeacherAddExamLayer = () => {
     const style = {
         container: {
             maxwidth: '100%',
-            '@media screen and (max-width: 1700px)': {
+            '@media screen and  (max-width: 1700px)': {
                 display: 'none',
             },
         },

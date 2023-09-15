@@ -38,7 +38,7 @@ const DesktopNavbar: React.FC<Props> = ({ firstPath, secondPath, firstContent, s
             background: mainColors.linerGradient.primary,
             borderBottom: `1px solid ${darkMode ? 'none' : mainColors.primary.main}`,
             transition: '.2s',
-            '@media(max-width: 1200px)': {
+            '@media screen and (max-width: 1200px)': {
                 top: '80px',
                 height: '75px',
                 justifyContent: 'center',
@@ -46,7 +46,7 @@ const DesktopNavbar: React.FC<Props> = ({ firstPath, secondPath, firstContent, s
                 borderRadius: '0 0 20px 20px',
                 background: mainColors.linerGradient.secondary,
             },
-            '@media(max-width: 500px)': {
+            '@media screen and (max-width: 500px)': {
                 padding: '0 20px',
             },
         },
@@ -56,11 +56,11 @@ const DesktopNavbar: React.FC<Props> = ({ firstPath, secondPath, firstContent, s
             justifyContent: 'center',
             alignItems: 'center',
             gap: '25px',
-            '@media(max-width: 1200px)': {
+            '@media screen and (max-width: 1200px)': {
                 width: '100%',
                 justifyContent: 'space-between',
             },
-            '@media(max-width: 300px)': {
+            '@media screen and (max-width: 300px)': {
                 gap: '15px',
             },
         },
@@ -92,7 +92,7 @@ const DesktopNavbar: React.FC<Props> = ({ firstPath, secondPath, firstContent, s
                 border: '1px solid #3F72A4',
                 backgroundColor: mainColors.primary.main,
             },
-            '@media(max-width: 1200px)': {
+            '@media screen and (max-width: 1200px)': {
                 display: 'none',
             },
         },

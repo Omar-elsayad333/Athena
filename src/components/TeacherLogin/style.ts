@@ -1,4 +1,4 @@
-import {lightColors} from "../../styles/colors";
+import { lightColors } from '../../styles/colors'
 
 const style: any = {
     TeacherLoginCard: {
@@ -19,9 +19,9 @@ const style: any = {
         flexDirection: 'column',
         justifyContent: 'top',
         alignItems: 'center',
-        '@media (max-width: 600px)': {
+        '@media screen and  (max-width: 600px)': {
             padding: '30px',
-        }
+        },
     },
     imageContainer: {
         width: '60%',
@@ -30,7 +30,7 @@ const style: any = {
         textAlign: 'center',
         fontSize: '30px',
         paddingBottom: '20px',
-        '@media(max-width: 500px)': {
+        '@media screen and (max-width: 500px)': {
             fontSize: '15px',
         },
     },
@@ -44,7 +44,7 @@ const style: any = {
     formLabels: {
         fontSize: '20px',
         padding: '13px 0',
-        '@media(max-width: 500px)': {
+        '@media screen and (max-width: 500px)': {
             fontSize: '13px',
         },
     },
@@ -68,7 +68,7 @@ const style: any = {
     },
     logContainer: {
         width: '100%',
-    }
+    },
 }
 
-export default style;
+export default style

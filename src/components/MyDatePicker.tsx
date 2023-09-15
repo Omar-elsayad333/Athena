@@ -73,10 +73,10 @@ const MyDatePicker: React.FC<Props> = ({
                 height: '25px',
                 fill: '#81acd1',
             },
-            '@media(max-width: 300px)': {
+            '@media screen and (max-width: 300px)': {
                 width: '200px',
             },
-            '@media(max-width: 250px)': {
+            '@media screen and (max-width: 250px)': {
                 width: '150px',
             },
         },

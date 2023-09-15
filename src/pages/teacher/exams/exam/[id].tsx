@@ -34,10 +34,10 @@ const Exam: NextPage = () => {
             display: 'flex',
             flexDirection: 'column',
             gap: '60px',
-            '@media(max-width: 450px)': {
+            '@media screen and (max-width: 450px)': {
                 padding: '40px',
             },
-            '@media(max-width: 350px)': {
+            '@media screen and (max-width: 350px)': {
                 padding: '20px',
             },
         },
@@ -60,7 +60,7 @@ const Exam: NextPage = () => {
                 firstContent="الامتحانات المقررة "
                 firstPath={Routes.teacherExams}
                 secondContent="إنشاء امتحان"
-                secondPath={Routes.teacherAddHeadquarter}
+                secondPath={Routes.teacherAddExam}
             />
             {states.loading ? (
                 <Loading />

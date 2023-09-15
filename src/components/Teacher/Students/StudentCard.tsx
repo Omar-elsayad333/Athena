@@ -44,7 +44,7 @@ const StudentCard: React.FC<Props> = ({ data }) => {
                 border: mainColors.studentCard.hover,
                 backgroundColor: mainColors.studentCard.detailsCardHover,
             },
-            '@media(max-width: 400px)': {
+            '@media screen and (max-width: 400px)': {
                 gap: '25px',
                 padding: '10px',
             },

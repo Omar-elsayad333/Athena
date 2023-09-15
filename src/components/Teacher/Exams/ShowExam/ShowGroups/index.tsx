@@ -134,11 +134,11 @@ const ShowGroups: React.FC<Props> = ({ data, states, actions }) => {
                         )}
                     </Box>
                     <Box sx={style.actionBox}>
+                        <MyButtonSuccess onClick={actions.submitGroups} content="تأكيد التعديل" />
                         <MyButtonError
                             content="الغاء التعديلات"
                             onClick={actions.closeGroupsToEdit}
                         />
-                        <MyButtonSuccess onClick={actions.submitGroups} content="تأكيد التعديل" />
                     </Box>
                 </>
             )}
