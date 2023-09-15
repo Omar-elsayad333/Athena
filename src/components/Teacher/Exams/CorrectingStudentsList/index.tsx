@@ -1,3 +1,5 @@
+import Link from 'next/link'
+import { Routes } from 'routes/Routes'
 import { IStyle } from 'styles/IStyle'
 import StudentCard from './StudentCard'
 import FilterWedgit from 'components/FilterWedgit'
@@ -39,18 +41,22 @@ const CorrectingStudentsListC: React.FC<Props> = ({ data, states, actions }) => 
                 />
             )}
             <Box sx={style.cardContainer}>
-                {data.filterdData.length > 0 ? (
+                {data.filterdData?.length > 0 ? (
                     data.filterdData.map((student: any) => (
-                        <StudentCard
-                            key={student.id}
-                            name={student.name}
-                            image={student.image}
-                            cardState={student.isFinish}
-                            stateAvailable={data.originalData.startCorrect}
-                        />
+                        <Link href={`${Routes.teacherCorrectingRoom}/${student.id}`}>
+                            <StudentCard
+                                key={student.id}
+                                name={student.name}
+                                image={student.image}
+                                cardState={student.isFinish}
+                                stateAvailable={data.originalData.startCorrect}
+                            />
+                        </Link>
                     ))
                 ) : (
-                    <Typography>لا يوجد طلاب</Typography>
+                    <Typography color={'primary'} variant="h4" fontWeight={700}>
+                        لا يوجد طلاب
+                    </Typography>
                 )}
             </Box>
         </Box>

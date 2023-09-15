@@ -62,5 +62,7 @@ export class Routes {
 
     static teacherCorrectingStudentsList = '/teacher/exams/correcting-students-list/'
 
+    static teacherCorrectingRoom = '/teacher/exams/correcting-room/'
+
     // =========================| End Teacher |================================ //
 }

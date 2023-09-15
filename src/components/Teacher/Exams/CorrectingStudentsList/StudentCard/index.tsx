@@ -1,3 +1,4 @@
+import Urls from 'constant/urls'
 import { IStyle } from 'styles/IStyle'
 import { useTheme } from 'context/ThemeContext'
 
@@ -33,14 +34,26 @@ const StudentCard: React.FC<Props> = ({ name, image, cardState, stateAvailable }
             flexWrap: 'wrap',
             maxWidth: '100%',
             width: '500px',
-            height: '100px',
+            minHeight: '100px',
+            overflow: 'hidden',
             borderRadius: '11px',
             border: cardStateHandler(),
+            cursor: 'pointer',
         },
     }
     return (
         <Box sx={style.card}>
-            <img style={{ objectFit: 'cover' }} width={100} height={100} src={image} alt={name} />
+            {image ? (
+                <img
+                    style={{ objectFit: 'cover', flex: '1' }}
+                    width={100}
+                    height={100}
+                    src={`${Urls.URL_MAIN}/${image}`}
+                    alt={name}
+                />
+            ) : (
+                <Box width={100} height={100} sx={{ backgroundColor: mainColors.secondary.main }} />
+            )}
             <Box p={3}>
                 <Typography variant="h3" color={'primary'}>
                     {name}

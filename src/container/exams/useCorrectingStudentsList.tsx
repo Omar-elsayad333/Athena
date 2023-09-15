@@ -15,7 +15,7 @@ const useCorrectingStudentsList = () => {
     const { useSearchHandler } = useShard()
     const { loading, getHandlerById } = useRequestsHandlers()
 
-    const [originalData, setOriginalData] = useState<any>([])
+    const [originalData, setOriginalData] = useState<any>('')
     const [studentsData, setStudentsData] = useState<any[]>([])
     const [filterdData, setFilterdData] = useState<any[]>([])
 
@@ -34,6 +34,11 @@ const useCorrectingStudentsList = () => {
         updateStudents()
     }, [selectedGroup])
 
+    // Call adjuctData function if original data changed
+    useEffect(() => {
+        adjustData()
+    }, [originalData])
+
     // Call api to get Students data
     const getStudentsData = async () => {
         try {
@@ -42,26 +47,32 @@ const useCorrectingStudentsList = () => {
                 userState.tokens!.accessToken!,
                 Urls.URL_TEACHER_EXAMS_CORRECTROOM,
             )
-            adjustData(res)
             setOriginalData(res)
-            setSelectedGroup({
-                ...selectedGroup,
-                value: 'all',
-                id: 'all',
-            })
         } catch (error) {
             setErrorMessage('حدث خطاء')
         }
     }
 
     // Adjust data for eazy useage
-    const adjustData = (res: any) => {
+    const adjustData = () => {
+        setGroups([])
         setFilterdData([])
         setStudentsData([])
 
-        res.groups.map((group: any, index: any) => {
-            setGroups((groups: any) => [...groups, { name: group.name, id: index }])
-            setStudentsData((studentsData: any) => [...studentsData, group.students])
+        originalData &&
+            originalData.groups.map((group: any, index: any) => {
+                setGroups((groups: any) => [...groups, { name: group.name, id: index }])
+
+                group.students &&
+                    group.students.map((student: any) => {
+                        setStudentsData((studentsData: any) => [...studentsData, student])
+                    })
+            })
+
+        setSelectedGroup({
+            ...selectedGroup,
+            value: 'all',
+            id: 'all',
         })
     }
 
@@ -77,6 +88,7 @@ const useCorrectingStudentsList = () => {
 
     // Update the students according to the selected group
     const updateStudents = () => {
+        console.log(originalData.groups)
         if (selectedGroup.value) {
             setFilterdData([])
             selectedGroup.value === 'all'
@@ -91,6 +103,12 @@ const useCorrectingStudentsList = () => {
 
     // Get search value from user
     const searchHandler = (searchValue: string) => {
+        selectedGroup.value !== 'all' &&
+            setSelectedGroup({
+                ...selectedGroup,
+                value: 'all',
+                id: 'all',
+            })
         useSearchHandler('name', searchValue, studentsData, setFilterdData)
     }
 
