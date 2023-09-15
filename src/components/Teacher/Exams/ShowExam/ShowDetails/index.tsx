@@ -103,7 +103,14 @@ const ShowDetails: React.FC<Props> = ({ data }) => {
     return (
         <Box sx={style.container}>
             {data.examData && (
-                <Link key={data.examData.id} href={`${Routes.teacherExam}${data.examData.id}`}>
+                <Link
+                    key={data.examData.id}
+                    href={`${
+                        data.examData.state == 'Correcting'
+                            ? Routes.teacherCorrectingStudentsList
+                            : ''
+                    }${data.examData.id}`}
+                >
                     <Box sx={style.examCard}>
                         <Box sx={style.cardTitle}>
                             <Typography
