@@ -51,6 +51,10 @@ class Urls {
         '/api/teacher/exams/section/question/questionchoice'
     static URL_TEACHER_EXAMS_SECTION_QUESTION_CHOICE_IMAGE: string =
         '/api/teacher/exams/section/question/questionchoice/image'
+    static URL_TEACHER_EXAMS_RESULTS: string = '/api/teacher/exams/results'
+    static URL_TEACHER_EXAMS_CORRECTROOM: string = '/api/teacher/exams/results/correctroom'
+    static URL_TEACHER_EXAMS_STUDENT: string = '/api/teacher/exams/results/student'
+    static URL_TEACHER_EXAMS_READY: string = '/api/teacher/exams/results/ready'
 
     // App sections required urls
     static URL_YEARS_REQUIRED: string = '/api/teacher/years/required'

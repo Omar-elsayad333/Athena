@@ -60,11 +60,9 @@ export class Routes {
 
     static teacherAddExam = '/teacher/exams/add-exam/'
 
-    static teacherReviewExam = '/teacher/exams/review-exam/'
+    static teacherCorrectingStudentsList = '/teacher/exams/correcting-students-list/'
 
-    static teacherEditExam = '/teacher/exams/edit-exam/'
-
-    static teacherCorrectExam = '/teacher/exams/correct-exam/'
+    static teacherCorrectingRoom = '/teacher/exams/correcting-room/'
 
     // =========================| End Teacher |================================ //
 }
