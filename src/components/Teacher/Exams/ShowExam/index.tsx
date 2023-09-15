@@ -1,12 +1,13 @@
+import ShowGroups from './ShowGroups'
 import { IStyle } from 'styles/IStyle'
 import ShowSection from './ShowSection'
 import ShowDetails from './ShowDetails'
+import { useTheme } from 'context/ThemeContext'
 
 // MUI
 import Box from '@mui/material/Box'
 import Divider from '@mui/material/Divider'
 import { Typography } from '@mui/material'
-import ShowGroups from './ShowGroups'
 
 type Props = {
     data: any
@@ -15,6 +16,7 @@ type Props = {
 }
 
 const ShowExamC: React.FC<Props> = ({ data, states, actions }) => {
+    const { mainColors } = useTheme()
     const style: IStyle = {
         container: {
             gap: '95px',
@@ -40,11 +42,10 @@ const ShowExamC: React.FC<Props> = ({ data, states, actions }) => {
         <Box sx={style.container}>
             <ShowDetails data={data} states={states} actions={actions} />
             <ShowSection data={data} states={states} actions={actions} />
-            <Divider light={false} sx={{ width: '100%' }} color="primary">
-                <Typography variant="h3" color={'primary'} fontWeight={700}>
-                    المجموعات
-                </Typography>
-            </Divider>
+            <Divider sx={{ width: '100%', borderColor: mainColors.primary.main }} color="primary" />
+            <Typography variant="h3" color={'primary'} fontWeight={700}>
+                المجموعات:-
+            </Typography>
             <ShowGroups data={data} states={states} actions={actions} />
         </Box>
     )
