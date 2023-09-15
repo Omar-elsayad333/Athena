@@ -11,7 +11,7 @@ import ThemeSwitcher from 'components/ThemeSwitcher'
 import PageFooter from 'components/Shared/PageFooter'
 import DesktopNavbar from 'components/Layout/DesktopNavbar'
 import useCorrectingStudentsList from 'container/exams/useCorrectingStudentsList'
-import CorrectingStudentsListC from 'components/Teacher/Exams/CorrectingStudentsListC'
+import CorrectingStudentsListC from 'components/Teacher/Exams/CorrectingStudentsList'
 
 // MUI
 import Box from '@mui/material/Box'
