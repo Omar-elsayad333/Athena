@@ -143,15 +143,15 @@ const Questions: React.FC<Props> = ({ data, actions, parentIndex }) => {
                                         d="M17.28 2L2 17.28"
                                         stroke="inherit"
                                         strokeWidth="3.38"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                     <path
                                         d="M2 2L17.28 17.28"
                                         stroke="inherit"
                                         strokeWidth="3.38"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                 </svg>
                             )}

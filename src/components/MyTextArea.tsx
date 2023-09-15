@@ -15,6 +15,7 @@ type Props = {
     indexes?: any
     error?: boolean
     max?: number
+    disabled?: boolean
 }
 
 const MyTextArea: React.FC<Props> = ({
@@ -25,6 +26,7 @@ const MyTextArea: React.FC<Props> = ({
     placeholder,
     indexes,
     max = 5000,
+    disabled = false,
 }) => {
     const { mainColors, darkMode } = useTheme()
     const style = {
@@ -61,7 +63,8 @@ const MyTextArea: React.FC<Props> = ({
     return (
         <FormControl sx={{ maxWidth: '100%' }}>
             <textarea
-                value={value}
+                disabled={disabled}
+                value={value ? value : ''}
                 style={style.root}
                 name={name?.toString()}
                 placeholder={placeholder}
