@@ -117,8 +117,10 @@ const useShowExam = () => {
                 Urls.URL_TEACHER_EXAMS_GROUP,
                 data,
             )
-            router.reload()
             setSuccessMessage('تم اضافه المجموعات بنجاح')
+            setTimeout(() => {
+                router.reload()
+            }, 1000)
         } catch (error) {
             setErrorMessage('حدث خطاء')
         }
@@ -133,6 +135,9 @@ const useShowExam = () => {
                 Urls.URL_TEACHER_EXAMS_GROUP,
             )
             setWarningMessage('تم حذف المجموعه بنجاح')
+            setTimeout(() => {
+                router.reload()
+            }, 1000)
         } catch (error) {
             setErrorMessage('حدث خطاء')
         }

@@ -4,7 +4,7 @@ import { useTheme } from 'context/ThemeContext'
 
 // MUI
 import Box from '@mui/material/Box'
-import { Typography } from '@mui/material'
+import Typography from '@mui/material/Typography'
 
 type Props = {
     studentData: any
@@ -16,24 +16,24 @@ const StudentCard: React.FC<Props> = ({ studentData, stateAvailable, resultAvail
     const { mainColors } = useTheme()
 
     const cardStateHandler = () => {
-        if (stateAvailable) {
-            if (!resultAvailable) {
+        if (!resultAvailable) {
+            if (stateAvailable) {
                 if (studentData.isFinish) {
                     return `2px solid ${mainColors.success.main}`
                 } else {
                     return `2px solid ${mainColors.error.main}`
                 }
             } else {
-                if (studentData.state === 'Distinctive') {
-                    return `2px solid ${mainColors.warning.main}`
-                } else if (studentData.state === 'Successed') {
-                    return `2px solid ${mainColors.success.main}`
-                } else {
-                    return `2px solid ${mainColors.error.main}`
-                }
+                return `2px solid ${mainColors.paper.border}`
             }
         } else {
-            return `2px solid ${mainColors.paper.border}`
+            if (studentData.state === 'Distinctive') {
+                return `2px solid ${mainColors.warning.main}`
+            } else if (studentData.state === 'Successed') {
+                return `2px solid ${mainColors.success.main}`
+            } else {
+                return `2px solid ${mainColors.error.main}`
+            }
         }
     }
 
@@ -41,12 +41,12 @@ const StudentCard: React.FC<Props> = ({ studentData, stateAvailable, resultAvail
         card: {
             display: 'flex',
             flexWrap: 'wrap',
-            maxWidth: '100%',
             width: '500px',
-            minHeight: '100px',
+            maxWidth: '100%',
+            height: '100px',
             overflow: 'hidden',
             borderRadius: '11px',
-            border: cardStateHandler(),
+            border: cardStateHandler,
             cursor: 'pointer',
         },
         cardBody: {
@@ -65,7 +65,7 @@ const StudentCard: React.FC<Props> = ({ studentData, stateAvailable, resultAvail
         <Box sx={style.card}>
             {studentData.image ? (
                 <img
-                    style={{ objectFit: 'cover', flex: 1 }}
+                    style={{ objectFit: 'cover' }}
                     width={100}
                     height={100}
                     src={`${Urls.URL_MAIN}/${studentData.image}`}
@@ -74,7 +74,7 @@ const StudentCard: React.FC<Props> = ({ studentData, stateAvailable, resultAvail
             ) : (
                 <Box width={100} height={100} sx={{ backgroundColor: mainColors.secondary.main }} />
             )}
-            <Box sx={style.cardBody} p={3}>
+            <Box sx={style.cardBody} px={3} py={2}>
                 <Typography variant="h3" color={'primary'}>
                     {studentData.name}
                 </Typography>
@@ -82,14 +82,14 @@ const StudentCard: React.FC<Props> = ({ studentData, stateAvailable, resultAvail
                     <Box sx={style.detailedData}>
                         <Typography
                             color={'primary'}
-                            fontWeight={400}
+                            fontWeight={700}
                             variant="h5"
-                        >{`الدرجة:${studentData.studentDegree}/${studentData.finalDegree}`}</Typography>
+                        >{`الدرجة: ${studentData.studentDegree} / ${studentData.finalDegree}`}</Typography>
                         <Typography
                             color={'primary'}
-                            fontWeight={400}
+                            fontWeight={700}
                             variant="h5"
-                        >{`النسبة المئوية:${studentData.percentage}`}</Typography>
+                        >{`النسبة المئوية: ${studentData.percentage}%`}</Typography>
                     </Box>
                 )}
             </Box>

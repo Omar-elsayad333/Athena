@@ -55,7 +55,9 @@ const CorrectingRoomC: React.FC<Props> = ({ data, states, actions }) => {
         <Box sx={style.container}>
             <Box sx={style.containerHeader}>
                 <Typography color="primary" fontWeight={700} variant="h2">
-                    {`${'الطالب'} / ${data.examData.studentName}`}
+                    {`${data.examData.gender === 'male' ? 'الطالب' : 'الطالبه'} / ${
+                        data.examData.studentName
+                    }`}
                 </Typography>
             </Box>
             <Box sx={style.containerBody}>
@@ -63,7 +65,7 @@ const CorrectingRoomC: React.FC<Props> = ({ data, states, actions }) => {
             </Box>
 
             <Box sx={style.actionsContainer}>
-                <Link href={`${Routes.teacherCorrectingStudentsList}/${data.examData.id}`}>
+                <Link href={`${Routes.teacherCorrectingStudentsList}${data.examData.id}`}>
                     <a>
                         <MyButton content="الخروج من غرفه تصحيح الطالب" />
                     </a>

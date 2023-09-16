@@ -163,7 +163,7 @@ const ShowWritten: React.FC<Props> = ({ data, actions, grandParentIndex, parentI
                     value={
                         data.correctingDegree
                             ? data.correctingDegree
-                            : data.studentDegree !== -1
+                            : data.isCorrected
                             ? data.studentDegree
                             : ''
                     }
