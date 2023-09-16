@@ -15,7 +15,7 @@ import CorrectingRoomC from 'components/Teacher/Exams/CorrectingRoom'
 
 // MUI
 import Box from '@mui/material/Box'
-import { Typography } from '@mui/material'
+import Typography from '@mui/material/Typography'
 
 const CorrectingRoom: NextPage = () => {
     const { mainColors } = useTheme()
