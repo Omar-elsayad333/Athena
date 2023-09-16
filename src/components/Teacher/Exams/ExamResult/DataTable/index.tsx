@@ -1,5 +1,9 @@
 import Urls from 'constant/urls'
 import { useTheme } from 'context/ThemeContext'
+import SuccessedStudentIcon from 'components/Svgs/SuccessedStudentIcon'
+import AbsentStudentIcon from 'components/Svgs/AbsentStudentIcon'
+import DistinctiveStudentIcon from 'components/Svgs/DistinctiveStudentIcon'
+import FailedStudentIcon from 'components/Svgs/FailedStudentIcon'
 
 // MUI
 import Box from '@mui/material/Box'
@@ -62,7 +66,7 @@ const DataTable: React.FC<Props> = ({ headerData, bodyData }) => {
                         paddingY: '27px',
                         color: mainColors.table.contrastText,
                         fontSize: '14px',
-                        fontWeight: '400',
+                        fontWeight: '700',
                         background: mainColors.table.main,
                         borderBottom: `1px solid ${mainColors.table.border}`,
                         textAlign: 'right',
@@ -103,7 +107,97 @@ const DataTable: React.FC<Props> = ({ headerData, bodyData }) => {
                                                 />
                                             </TableCell>
                                         )
-                                    } else if (cell !== 'id' && cell !== 'middleName') {
+                                    } else if (cell === 'state') {
+                                        switch (cell) {
+                                            case 'Failed':
+                                                return (
+                                                    <TableCell align="right" key={keyIndex}>
+                                                        <FailedStudentIcon />
+                                                    </TableCell>
+                                                )
+                                            case 'Successed':
+                                                return (
+                                                    <TableCell align="right" key={keyIndex}>
+                                                        <SuccessedStudentIcon />
+                                                    </TableCell>
+                                                )
+                                            case 'Absent':
+                                                return (
+                                                    <TableCell align="right" key={keyIndex}>
+                                                        <AbsentStudentIcon />
+                                                    </TableCell>
+                                                )
+                                            case 'Distinctive':
+                                                return (
+                                                    <TableCell align="right" key={keyIndex}>
+                                                        <DistinctiveStudentIcon />
+                                                    </TableCell>
+                                                )
+                                            default:
+                                                return (
+                                                    <TableCell align="right" key={keyIndex}>
+                                                        {bodyItem[cell]}
+                                                    </TableCell>
+                                                )
+                                        }
+                                    } else if (cell === 'percentage' || cell === 'studentDegree') {
+                                        switch (bodyItem.state) {
+                                            case 'Failed':
+                                                return (
+                                                    <TableCell
+                                                        align="right"
+                                                        key={keyIndex}
+                                                        sx={{
+                                                            color: `${mainColors.error.main} !important`,
+                                                        }}
+                                                    >
+                                                        {bodyItem[cell]}
+                                                    </TableCell>
+                                                )
+                                            case 'Successed':
+                                                return (
+                                                    <TableCell
+                                                        align="right"
+                                                        key={keyIndex}
+                                                        sx={{
+                                                            color: `${mainColors.success.main} !important`,
+                                                        }}
+                                                    >
+                                                        {bodyItem[cell]}
+                                                    </TableCell>
+                                                )
+                                            case 'Absent':
+                                                return (
+                                                    <TableCell
+                                                        align="right"
+                                                        key={keyIndex}
+                                                        sx={{
+                                                            color: `${mainColors.error.main} !important`,
+                                                        }}
+                                                    >
+                                                        ------
+                                                    </TableCell>
+                                                )
+                                            case 'Distinctive':
+                                                return (
+                                                    <TableCell
+                                                        align="right"
+                                                        key={keyIndex}
+                                                        sx={{
+                                                            color: `${mainColors.warning.main} !important`,
+                                                        }}
+                                                    >
+                                                        <DistinctiveStudentIcon />
+                                                    </TableCell>
+                                                )
+                                            default:
+                                                return (
+                                                    <TableCell align="right" key={keyIndex}>
+                                                        {bodyItem[cell]}
+                                                    </TableCell>
+                                                )
+                                        }
+                                    } else if (cell !== 'id') {
                                         return (
                                             <TableCell align="right" key={keyIndex}>
                                                 {bodyItem[cell]}

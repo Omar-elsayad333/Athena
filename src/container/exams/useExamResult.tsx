@@ -11,9 +11,9 @@ const useExamResult = () => {
     const router = useRouter()
     const { id } = router.query
     const { userState } = useUser()
-    const { setErrorMessage } = useAlert()
     const { useSearchHandler } = useShard()
-    const { loading, getHandlerById } = useRequestsHandlers()
+    const { setErrorMessage, setSuccessMessage } = useAlert()
+    const { loading, getHandlerById, putHandlerById } = useRequestsHandlers()
 
     const [originalData, setOriginalData] = useState<any>([])
     const [studentsData, setStudentsData] = useState<any[]>([])
@@ -58,10 +58,15 @@ const useExamResult = () => {
     const adjustData = (res: any) => {
         setFilterdData([])
         setStudentsData([])
+        setGroups([])
 
         res.groups.map((group: any, index: any) => {
             setGroups((groups: any) => [...groups, { name: group.name, id: index }])
-            setStudentsData((studentsData: any) => [...studentsData, group.students])
+            if (group.students) {
+                group.students.map((student: any) => {
+                    setStudentsData((studentsData: any) => [...studentsData, student])
+                })
+            }
         })
     }
 
@@ -89,6 +94,18 @@ const useExamResult = () => {
         }
     }
 
+    const sendResults = async () => {
+        try {
+            await putHandlerById(id, userState.tokens!.accessToken!, Urls.URL_TEACHER_EXAMS_READY)
+            setSuccessMessage('تم ارسال النتائج للطلبه بنجاح')
+            setTimeout(() => {
+                router.reload()
+            }, 500)
+        } catch (error) {
+            setErrorMessage('حدث خطاء')
+        }
+    }
+
     // Get search value from user
     const searchHandler = (searchValue: string) => {
         useSearchHandler('name', searchValue, studentsData, setFilterdData)
@@ -107,6 +124,7 @@ const useExamResult = () => {
         actions: {
             selectedGroupHandler,
             searchHandler,
+            sendResults,
         },
     }
 }

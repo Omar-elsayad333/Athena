@@ -10,16 +10,16 @@ import PageTitle from 'components/Shared/PageTitle'
 import ThemeSwitcher from 'components/ThemeSwitcher'
 import PageFooter from 'components/Shared/PageFooter'
 import DesktopNavbar from 'components/Layout/DesktopNavbar'
-import useCorrectingStudentsList from 'container/exams/useCorrectingStudentsList'
-import CorrectingStudentsListC from 'components/Teacher/Exams/CorrectingStudentsList'
+import useCorrectingList from 'container/exams/useCorrectingList'
+import CorrectingListC from 'components/Teacher/Exams/CorrectingList'
 
 // MUI
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 
-const CorrectingStudentsList: NextPage = () => {
+const CorrectingList: NextPage = () => {
     const { mainColors } = useTheme()
-    const { data, states, actions } = useCorrectingStudentsList()
+    const { data, states, actions } = useCorrectingList()
     const { msg, state, msgType, handleState } = useAlert()
     const style = {
         root: {
@@ -103,7 +103,7 @@ const CorrectingStudentsList: NextPage = () => {
                             </Typography>
                         </Box>
                     </Box>
-                    <CorrectingStudentsListC data={data} states={states} actions={actions} />
+                    <CorrectingListC data={data} states={states} actions={actions} />
                 </Box>
             )}
             <Box sx={style.footerContainer}>
@@ -115,4 +115,4 @@ const CorrectingStudentsList: NextPage = () => {
     )
 }
 
-export default withAuth(CorrectingStudentsList)
+export default withAuth(CorrectingList)

@@ -106,9 +106,7 @@ const ShowDetails: React.FC<Props> = ({ data }) => {
                 <Link
                     key={data.examData.id}
                     href={`${
-                        data.examData.state == 'Correcting'
-                            ? Routes.teacherCorrectingStudentsList
-                            : ''
+                        data.examData.state == 'Correcting' ? Routes.teacherCorrectingList : ''
                     }${data.examData.id}`}
                 >
                     <Box sx={style.examCard}>

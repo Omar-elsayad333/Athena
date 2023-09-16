@@ -13,9 +13,7 @@ const MyAvatar: React.FC<Prop> = ({ alt, src, width, height }) => {
             src={src}
             width={width}
             height={height}
-            blurDataURL={src}
             objectFit="cover"
-            placeholder="blur"
             alt={alt || 'الصورة الشخصية'}
             style={{ borderRadius: '50%' }}
         />
