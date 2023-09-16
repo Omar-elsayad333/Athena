@@ -1,8 +1,10 @@
 import Urls from 'constant/urls'
+import { Routes } from 'routes/Routes'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import { useUser } from 'context/userContext'
 import { useAlert } from 'context/AlertContext'
+import { useTheme } from 'context/ThemeContext'
 import useRequestsHandlers from 'hooks/useRequestsHandlers'
 import { examSectionsNames } from 'constant/staticData'
 import { datePickerInitialValues, DatePickerProps } from 'interfaces/shared/datePicker'
@@ -22,8 +24,6 @@ import {
     radioInitialValues,
     RadioProps,
 } from 'interfaces/shared/input'
-import { Routes } from 'routes/Routes'
-import { useTheme } from 'context/ThemeContext'
 
 const useAddExam = () => {
     const router = useRouter()
@@ -40,7 +40,6 @@ const useAddExam = () => {
     const [sectionCount, setSectionCount] = useState<InputProps>(inputInitialValues)
     const [examStartTime, setExamStartTime] = useState<TimePickerProps>(timePickerInitialValues)
     const [examTime, setExamTime] = useState<InputProps>(inputInitialValues)
-    const [examDegree, setExamDegree] = useState<InputProps>(inputInitialValues)
     const [examReady, setExamReady] = useState<boolean>(false)
     const [examShowenDate, setExamShowenDate] = useState<any>('')
     const [spcialExam, setSpcialExam] = useState<boolean>(false)
@@ -194,16 +193,6 @@ const useAddExam = () => {
         })
     }
 
-    // Get exam degree from user
-    const examDegreeHandler = (degree: any) => {
-        setExamDegree({
-            value: degree,
-            length: degree.length,
-            error: false,
-            helperText: '',
-        })
-    }
-
     // Validate exam basic data
     const basicDataValidation = () => {
         let state = true
@@ -256,15 +245,6 @@ const useAddExam = () => {
                 ...examTime,
                 error: true,
                 helperText: 'يجب تحديد المده الزمنيه للأمتحان',
-            })
-        }
-
-        if (examDegree.length == 0 || parseInt(examTime.value) < 0) {
-            state = false
-            setExamDegree({
-                ...examDegree,
-                error: true,
-                helperText: 'يجب تحديد الدرجه الكليه للأمتحان',
             })
         }
 
@@ -645,7 +625,9 @@ const useAddExam = () => {
 
     // Adjust data to send it to api
     const adjustDataToSubmit = () => {
-        for (let section of sections) {
+        const newSections = structuredClone(sections)
+
+        for (let section of newSections) {
             delete section!.open
             delete section!.openToEdit
             delete section!.titleState
@@ -680,16 +662,17 @@ const useAddExam = () => {
                 }
             }
         }
+
+        return newSections
     }
 
     // Collect final data to send it
     const collectData = () => {
-        adjustDataToSubmit()
+        const sectionsData = adjustDataToSubmit()
 
         const finalData = {
             name: examName.value,
             description: null,
-            finalDegree: examDegree.value,
             allowedTime: examTime.value,
             publishedDate: examStartDate.value,
             publishedTime: convertTimeToDB(examStartTime.value),
@@ -697,7 +680,7 @@ const useAddExam = () => {
             levelId: selectedLevel.id,
             examTypeId: selectedExamType.id,
             groupIds: selectedGroups,
-            sections: sections,
+            sections: sectionsData,
         }
 
         return finalData
@@ -706,7 +689,6 @@ const useAddExam = () => {
     // Validate all data before send it
     const validateData = () => {
         let state = true
-        let calcedDegree: number = 0
 
         // Validate basic data
         if (!basicDataValidation()) state = false
@@ -718,24 +700,11 @@ const useAddExam = () => {
             }
         }
 
-        for (let section of sections) {
-            for (let question of section?.questions!) {
-                calcedDegree += +question!.degree
-            }
-        }
-
-        if (calcedDegree !== parseInt(examDegree.value)) {
+        if (selectedGroups.length == 0) {
             state = false
-            console.log(calcedDegree)
-            setErrorMessage('يجب التأكد من ان مجموع الدرجات = درجة الأمتحان الكليه')
+            setErrorMessage('يجب اختيار مجموعه واحده علي الأقل')
         }
 
-        // if (selectedGroups.length == 0) {
-        //     state = false
-        //     setErrorMessage('يجب اختيار مجموعه واحده علي الأقل')
-        // }
-
-        calcedDegree = 0
         return state
     }
 
@@ -790,7 +759,6 @@ const useAddExam = () => {
             sectionCount,
             examStartTime,
             examTime,
-            examDegree,
             examReady,
             examShowenDate,
             spcialExam,
@@ -803,7 +771,6 @@ const useAddExam = () => {
             examSectionCountsHandler,
             examStartTimeHandler,
             examTimeHandler,
-            examDegreeHandler,
             submitBasicData,
             spcialExamHandler,
             openSection,
