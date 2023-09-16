@@ -163,7 +163,7 @@ const Sections: React.FC<Props> = ({ data, actions }) => {
                                 placeholder="أكتب الفقرة الخاصة بالسؤال إن وجد:-"
                             />
                             <Box sx={style.paragraphImages}>
-                                {section.images.map((image: any, index: number) => (
+                                {section.images?.map((image: any, index: number) => (
                                     <Box
                                         key={index}
                                         sx={{
