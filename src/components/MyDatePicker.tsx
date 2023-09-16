@@ -16,6 +16,7 @@ type Props = {
     dateValue?: any
     extraData?: any
     handleDateValue: Function
+    readOnly?: boolean
 }
 
 const MyDatePicker: React.FC<Props> = ({
@@ -26,6 +27,7 @@ const MyDatePicker: React.FC<Props> = ({
     error,
     name,
     extraData,
+    readOnly = false,
 }) => {
     const { darkMode } = useTheme()
     const classes: SxProps = {
@@ -71,10 +73,10 @@ const MyDatePicker: React.FC<Props> = ({
                 height: '25px',
                 fill: '#81acd1',
             },
-            '@media(max-width: 300px)': {
+            '@media screen and (max-width: 300px)': {
                 width: '200px',
             },
-            '@media(max-width: 250px)': {
+            '@media screen and (max-width: 250px)': {
                 width: '150px',
             },
         },
@@ -116,6 +118,7 @@ const MyDatePicker: React.FC<Props> = ({
         <FormControl>
             <LocalizationProvider dateAdapter={DateFnsUtils}>
                 <DatePicker
+                    readOnly={readOnly}
                     value={new Date(dateValue)}
                     onChange={(newValue: any) => {
                         handleDateValue(newValue, name, extraData)

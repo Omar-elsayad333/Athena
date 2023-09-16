@@ -1,30 +1,38 @@
 import { useContext } from 'react'
-import InputError from './Shared/InputError';
-import { DarkThemeContext } from 'context/ThemeContext';
+import InputError from './Shared/InputError'
+import { DarkThemeContext } from 'context/ThemeContext'
 
 // MUI
-import { SxProps } from '@mui/material';
-import TextField from '@mui/material/TextField';
-import FormControl from '@mui/material/FormControl';
-import { TimePicker } from '@mui/x-date-pickers/TimePicker';
-import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { SxProps } from '@mui/material'
+import TextField from '@mui/material/TextField'
+import FormControl from '@mui/material/FormControl'
+import { TimePicker } from '@mui/x-date-pickers/TimePicker'
+import AccessAlarmIcon from '@mui/icons-material/AccessAlarm'
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 
 type Props = {
-    value: any;
-    day?: string;
-    name?: string;
-    readOnly?: boolean;
-    getSelectedTime: Function;
-    placeholder?: string;
-    error: boolean;
-    helperText: string;
+    value: any
+    day?: string
+    name?: string
+    readOnly?: boolean
+    getSelectedTime: Function
+    placeholder?: string
+    error: boolean
+    helperText: string
 }
 
-const MyBigTimePicker: React.FC<Props> = ({getSelectedTime, name, day, value, readOnly= false, placeholder, error, helperText}) => {
-    
-    const { mainColors, darkMode } = useContext(DarkThemeContext);
+const MyBigTimePicker: React.FC<Props> = ({
+    getSelectedTime,
+    name,
+    day,
+    value,
+    readOnly = false,
+    placeholder,
+    error,
+    helperText,
+}) => {
+    const { mainColors, darkMode } = useContext(DarkThemeContext)
     const classes = {
         root: {
             '.MuiOutlinedInput-root': {
@@ -49,14 +57,14 @@ const MyBigTimePicker: React.FC<Props> = ({getSelectedTime, name, day, value, re
                     '&::placeholder': {
                         fontSize: '14px',
                         fontWeight: '400',
-                        color: darkMode ? '#B6D5F0' :  '#3F72A4',
-                        opacity: .65,
-                    }
+                        color: darkMode ? '#B6D5F0' : '#3F72A4',
+                        opacity: 0.65,
+                    },
                 },
-                '@media(max-width: 300px)': {
+                '@media screen and (max-width: 300px)': {
                     width: '200px',
                 },
-                '@media(max-width: 250px)': {
+                '@media screen and (max-width: 250px)': {
                     width: '150px',
                 },
             },
@@ -67,14 +75,14 @@ const MyBigTimePicker: React.FC<Props> = ({getSelectedTime, name, day, value, re
                 borderColor: `${mainColors.error.main} !important`,
             },
             '.MuiSvgIcon-root': {
-                fill: "#81acd1",
+                fill: '#81acd1',
             },
             '.MuiIconButton-root': {
                 width: '20px ',
                 height: '20px',
             },
         },
-    };
+    }
 
     const popperStyle: SxProps = {
         '.MuiPaper-root': {
@@ -107,7 +115,7 @@ const MyBigTimePicker: React.FC<Props> = ({getSelectedTime, name, day, value, re
         '.MuiClock-pmButton:hover': {
             backgroundColor: darkMode ? '#E8F3FF' : '#3F72A4',
         },
-    };
+    }
 
     return (
         <FormControl>
@@ -115,40 +123,33 @@ const MyBigTimePicker: React.FC<Props> = ({getSelectedTime, name, day, value, re
                 <TimePicker
                     readOnly={readOnly}
                     value={value}
-                    onChange={(newValue) => 
-                        getSelectedTime(newValue, day, name)
-                    }
+                    onChange={(newValue) => getSelectedTime(newValue, day, name)}
                     renderInput={(params) => (
                         <TextField
                             {...params}
-                            autoComplete='off'   
+                            autoComplete="off"
                             error={error}
-                            sx={classes.root} 
-                            inputProps={
-                                {
-                                    ...params.inputProps,
-                                    placeholder: placeholder
-                                }
-                            }
-                        />                
+                            sx={classes.root}
+                            inputProps={{
+                                ...params.inputProps,
+                                placeholder: placeholder,
+                            }}
+                        />
                     )}
                     PopperProps={{
-                        sx: popperStyle
+                        sx: popperStyle,
                     }}
                     DialogProps={{
-                        sx: popperStyle
+                        sx: popperStyle,
                     }}
                     components={{
-                        OpenPickerIcon: AccessAlarmIcon
-                    }}            
+                        OpenPickerIcon: AccessAlarmIcon,
+                    }}
                 />
             </LocalizationProvider>
-            {
-                helperText &&
-                <InputError content={helperText} type='error' />
-            }
+            {helperText && <InputError content={helperText} type="error" />}
         </FormControl>
-    );
+    )
 }
 
-export default MyBigTimePicker;
+export default MyBigTimePicker

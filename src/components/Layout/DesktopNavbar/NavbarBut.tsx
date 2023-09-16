@@ -1,11 +1,11 @@
 // MUI
-import { styled } from '@mui/material/styles';
-import Button from "@mui/material/Button";
-import Link from 'next/link';
+import { styled } from '@mui/material/styles'
+import Button from '@mui/material/Button'
+import Link from 'next/link'
 
 type Props = {
-    content?: any;
-    path: any;
+    content?: any
+    path: any
 }
 
 const MyButton = styled(Button)({
@@ -15,29 +15,27 @@ const MyButton = styled(Button)({
     fontWeight: '700',
     borderRadius: '7px',
     boxShadow: 'none',
-    '@media(max-width: 1200px)': {
+    '@media screen and (max-width: 1200px)': {
         width: '170px',
         height: '40px',
         fontSize: '16px',
         padding: '9px 5px',
         borderRadius: '21px',
     },
-    '@media(max-width: 400px)': {
+    '@media screen and (max-width: 400px)': {
         width: '120px',
         fontSize: '13px',
     },
-});
+})
 
-const NavbarBut: React.FC<Props> = ({content, path}) => {
+const NavbarBut: React.FC<Props> = ({ content, path }) => {
     return (
         <Link href={path || ''}>
             <a>
-                <MyButton variant="contained">
-                    {content}
-                </MyButton>
+                <MyButton variant="contained">{content}</MyButton>
             </a>
         </Link>
-    );
+    )
 }
- 
-export default NavbarBut;
+
+export default NavbarBut

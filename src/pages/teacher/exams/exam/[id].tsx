@@ -1,26 +1,24 @@
-import Link from 'next/link'
 import { NextPage } from 'next'
 import { Routes } from 'routes/Routes'
 import { withAuth } from 'routes/withRoute'
-import useExam from 'container/exams/useExam'
 import { useAlert } from 'context/AlertContext'
 import { useTheme } from 'context/ThemeContext'
 import Loading from 'components/Loading/Loading'
 import AlertNotify from 'components/AlertNotify'
 import PageHead from 'components/Shared/PageHead'
-import MyIconButton from 'components/MyIconButton'
 import PageTitle from 'components/Shared/PageTitle'
 import ThemeSwitcher from 'components/ThemeSwitcher'
 import PageFooter from 'components/Shared/PageFooter'
+import useShowExam from 'container/exams/useShowExam'
+import ShowExamC from 'components/Teacher/Exams/ShowExam'
 import DesktopNavbar from 'components/Layout/DesktopNavbar'
-import ExamC from 'components/Teacher/Exams/ShowAndEditExam'
 
 // MUI
 import Box from '@mui/material/Box'
 
 const Exam: NextPage = () => {
     const { mainColors } = useTheme()
-    const { data, states, actions, dialogs } = useExam()
+    const { data, states, actions } = useShowExam()
     const { msg, state, msgType, handleState } = useAlert()
     const style = {
         root: {
@@ -36,10 +34,10 @@ const Exam: NextPage = () => {
             display: 'flex',
             flexDirection: 'column',
             gap: '60px',
-            '@media(max-width: 450px)': {
+            '@media screen and (max-width: 450px)': {
                 padding: '40px',
             },
-            '@media(max-width: 350px)': {
+            '@media screen and (max-width: 350px)': {
                 padding: '20px',
             },
         },
@@ -62,7 +60,7 @@ const Exam: NextPage = () => {
                 firstContent="الامتحانات المقررة "
                 firstPath={Routes.teacherExams}
                 secondContent="إنشاء امتحان"
-                secondPath={Routes.teacherAddHeadquarter}
+                secondPath={Routes.teacherAddExam}
             />
             {states.loading ? (
                 <Loading />
@@ -89,29 +87,8 @@ const Exam: NextPage = () => {
                                 />
                             </svg>
                         </PageTitle>
-                        <Link href={`${Routes.teacherEditExam}${data.examData.id}`}>
-                            <a>
-                                <MyIconButton
-                                    content="تعديل"
-                                    icon={
-                                        <svg
-                                            width="17"
-                                            height="17"
-                                            viewBox="0 0 15 15"
-                                            fill={mainColors.primary.main}
-                                            xmlns="http://www.w3.org/2000/svg"
-                                        >
-                                            <path
-                                                d="M14.3646 3.06073L11.8095 0.505645C11.476 0.192411 11.039 0.0126817 10.5817 0.000646004C10.1243 -0.0113897 9.67851 0.145108 9.32902 0.44037L0.93643 8.83297C0.63501 9.13693 0.447332 9.53534 0.404899 9.96131L0.0039193 13.8499C-0.00864259 13.9865 0.00908012 14.1241 0.0558239 14.2531C0.102568 14.382 0.177182 14.4991 0.274347 14.5959C0.361481 14.6823 0.464818 14.7507 0.578433 14.7971C0.692048 14.8435 0.813705 14.867 0.93643 14.8663H1.02036L4.90892 14.512C5.33489 14.4695 5.7333 14.2818 6.03726 13.9804L14.4299 5.58783C14.7556 5.2437 14.9316 4.78448 14.9194 4.31079C14.9072 3.8371 14.7077 3.38758 14.3646 3.06073ZM4.74107 12.6469L1.94354 12.908L2.19532 10.1105L7.464 4.9071L9.98178 7.42488L4.74107 12.6469ZM11.194 6.17531L8.69492 3.67618L10.5133 1.81116L13.0591 4.35691L11.194 6.17531Z"
-                                                fill="inherit"
-                                            />
-                                        </svg>
-                                    }
-                                />
-                            </a>
-                        </Link>
                     </Box>
-                    <ExamC data={data} states={states} actions={actions} dialogs={dialogs} />
+                    <ShowExamC data={data} states={states} actions={actions} />
                 </Box>
             )}
             <Box sx={style.footerContainer}>

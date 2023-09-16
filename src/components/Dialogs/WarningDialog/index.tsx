@@ -54,7 +54,7 @@ const BasicDialog: React.FC<Props> = ({ state, content, actions }) => {
                 gap: '20px',
                 borderBottom: '2px solid #3F72A4',
                 boxShadow: mainColors.dialog.titleShadow,
-                '@media(max-width: 400px)': {
+                '@media screen and (max-width: 400px)': {
                     '.MuiTypography-root': {
                         fontSize: '25px',
                     },
@@ -71,11 +71,11 @@ const BasicDialog: React.FC<Props> = ({ state, content, actions }) => {
                 flexWrap: 'wrap',
                 gap: '40px',
                 boxShadow: 'inset 0px -20px 57px 4px rgb(63 114 164 / 25%)',
-                '@media(max-width: 450px)': {
+                '@media screen and (max-width: 450px)': {
                     padding: '35px 20px',
                     gap: '20px',
                 },
-                '@media(max-width: 300px)': {
+                '@media screen and (max-width: 300px)': {
                     padding: '35px 10px',
                     gap: '20px',
                 },
@@ -117,7 +117,7 @@ const BasicDialog: React.FC<Props> = ({ state, content, actions }) => {
                 width: '40px',
                 height: '40px',
             },
-            '@media(max-width: 400px)': {
+            '@media screen and (max-width: 400px)': {
                 position: 'static',
                 '.MuiSvgIcon-root': {
                     width: '30px',

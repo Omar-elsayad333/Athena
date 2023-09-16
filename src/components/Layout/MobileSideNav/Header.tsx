@@ -28,7 +28,7 @@ const Header: React.FC<Props> = ({ controleMobileSideNav, mobileSideNavState }) 
             gap: '35px',
             borderBottom: `2px solid ${mainColors.primary.main}`,
             background: mainColors.linerGradient.primary,
-            '@media(max-width: 500px)': {
+            '@media screen and (max-width: 500px)': {
                 paddingX: '20px',
             },
         },
@@ -45,7 +45,7 @@ const Header: React.FC<Props> = ({ controleMobileSideNav, mobileSideNavState }) 
             justifyContent: 'center',
             alignItems: 'center',
             gap: '20px',
-            '@media(max-width: 250px)': {
+            '@media screen and (max-width: 250px)': {
                 gap: '10px',
             },
             meImage: {

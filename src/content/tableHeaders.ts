@@ -4,17 +4,9 @@ export const studentStudentTable = [
         value: 'الصورة الشخصية',
     },
     {
-        name: 'firstName',
-        value: 'الاسم الاول',
+        name: 'fullName',
+        value: 'الاسم بالكامل',
     },
-    {
-        name: 'lastName',
-        value: 'الاسم الاخير',
-    },
-    // {
-    //     name: 'fullName',
-    //     value: 'الاسم بالكامل',
-    // },
     {
         name: 'levelName',
         value: 'الصف الدراسي',
@@ -49,14 +41,6 @@ export const GroupStudentTable = [
     {
         name: 'image',
         value: 'الصورة الشخصية',
-    },
-    {
-        name: 'firstName',
-        value: 'الاسم الاول',
-    },
-    {
-        name: 'lastName',
-        value: 'الاسم الاخير',
     },
     {
         name: 'fullName',

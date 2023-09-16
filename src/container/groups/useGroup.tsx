@@ -50,8 +50,6 @@ const useGroup = () => {
                 ...groupStudents,
                 {
                     image: student.image,
-                    firstName: student.firstName,
-                    lastName: student.lastName,
                     fullName: student.fullName,
                     level: student.level,
                     code: student.code,

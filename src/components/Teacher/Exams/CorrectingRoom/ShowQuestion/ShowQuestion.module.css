@@ -1,0 +1,5 @@
+.questionNameContainer {
+    @media screen and screen and (max-width: 800px) {
+        max-width: calc(100% - 80px) !important;
+    }
+}

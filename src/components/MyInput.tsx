@@ -16,6 +16,7 @@ type Props = {
     helperText: string
     placeholder: string
     type?: string
+    disabled?: boolean
 }
 
 const MyInput: React.FC<Props> = ({
@@ -27,6 +28,7 @@ const MyInput: React.FC<Props> = ({
     value,
     name,
     indexes,
+    disabled = false,
 }) => {
     const { mainColors, darkMode } = useContext(DarkThemeContext)
     const classes: IStyle = {
@@ -58,10 +60,10 @@ const MyInput: React.FC<Props> = ({
                 '&:hover .MuiOutlinedInput-notchedOutline': {
                     borderColor: 'unset',
                 },
-                '@media(max-width: 300px)': {
+                '@media screen and (max-width: 300px)': {
                     width: '200px',
                 },
-                '@media(max-width: 250px)': {
+                '@media screen and (max-width: 250px)': {
                     width: '150px',
                 },
             },
@@ -87,6 +89,7 @@ const MyInput: React.FC<Props> = ({
         <FormControl required>
             <TextField
                 name={name}
+                disabled={disabled}
                 type={type}
                 value={value}
                 error={error}

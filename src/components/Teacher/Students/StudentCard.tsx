@@ -44,7 +44,7 @@ const StudentCard: React.FC<Props> = ({ data }) => {
                 border: mainColors.studentCard.hover,
                 backgroundColor: mainColors.studentCard.detailsCardHover,
             },
-            '@media(max-width: 400px)': {
+            '@media screen and (max-width: 400px)': {
                 gap: '25px',
                 padding: '10px',
             },
@@ -85,7 +85,7 @@ const StudentCard: React.FC<Props> = ({ data }) => {
                         >
                             <Box sx={classes.content}>
                                 <Typography textAlign={'center'} color="#E0EEFF" variant="h4">
-                                    {`${student.firstName} ${student.middleName} ${student.lastName}`}
+                                    {student.fullName}
                                 </Typography>
                                 <Box sx={classes.details}>
                                     <Typography color="#E0EEFF" variant="h6">

@@ -33,7 +33,7 @@ const CreateExam: React.FC<Props> = ({ data, states, actions }) => {
             gridTemplateColumns: '1fr 1fr',
             rowGap: '70px',
             columnGap: '70px',
-            '@media screen and (max-width: 700px)': {
+            '@media screen and  (max-width: 700px)': {
                 gridTemplateColumns: '1fr',
             },
         },
