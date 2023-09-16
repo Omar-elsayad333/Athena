@@ -65,7 +65,7 @@ const CorrectingRoomC: React.FC<Props> = ({ data, states, actions }) => {
             </Box>
 
             <Box sx={style.actionsContainer}>
-                <Link href={`${Routes.teacherCorrectingStudentsList}${data.examData.id}`}>
+                <Link href={`${Routes.teacherCorrectingList}${data.examData.id}`}>
                     <a>
                         <MyButton content="الخروج من غرفه تصحيح الطالب" />
                     </a>
