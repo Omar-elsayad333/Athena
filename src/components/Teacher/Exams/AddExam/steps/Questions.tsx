@@ -163,10 +163,10 @@ const Questions: React.FC<Props> = ({ data, actions, parentIndex }) => {
                         </Typography>
                         <MyInput
                             type="number"
-                            error={question.degreeError.error}
+                            error={question.degreeError?.error}
                             placeholder="حدد عدد درجات السؤال"
                             onChange={actions.questionDegreeHandler}
-                            helperText={question.degreeError.helperText}
+                            helperText={question.degreeError?.helperText}
                             indexes={{ parent: parentIndex, child: index }}
                             value={question.degree != 0 && question.degree}
                         />
@@ -197,7 +197,7 @@ const Questions: React.FC<Props> = ({ data, actions, parentIndex }) => {
                         />
                         {question.images.length > 0 && (
                             <Box sx={style.questionImages}>
-                                {question.images.map((image: any, index: number) => (
+                                {question.images?.map((image: any, index: number) => (
                                     <Box
                                         key={index}
                                         sx={{

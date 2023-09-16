@@ -120,6 +120,18 @@ const CreateExam: React.FC<Props> = ({ data, states, actions }) => {
                     </Box>
                     <Box sx={style.inputWithLabel}>
                         <Typography variant="h3" fontWeight={700} color={mainColors.title.main}>
+                            وقت بدأ الامتحان:-
+                        </Typography>
+                        <MyBigTimePicker
+                            error={states.examStartTime.error}
+                            placeholder="حدد وقت بدأ الامتحان"
+                            value={states.examStartTime.value}
+                            helperText={states.examStartTime.helperText}
+                            getSelectedTime={actions.examStartTimeHandler}
+                        />
+                    </Box>
+                    <Box sx={style.inputWithLabel}>
+                        <Typography variant="h3" fontWeight={700} color={mainColors.title.main}>
                             عدد الاسئلة الرئيسية:-
                         </Typography>
                         <MyInput
@@ -133,18 +145,6 @@ const CreateExam: React.FC<Props> = ({ data, states, actions }) => {
                     </Box>
                     <Box sx={style.inputWithLabel}>
                         <Typography variant="h3" fontWeight={700} color={mainColors.title.main}>
-                            وقت بدأ الامتحان:-
-                        </Typography>
-                        <MyBigTimePicker
-                            error={states.examStartTime.error}
-                            placeholder="حدد وقت بدأ الامتحان"
-                            value={states.examStartTime.value}
-                            helperText={states.examStartTime.helperText}
-                            getSelectedTime={actions.examStartTimeHandler}
-                        />
-                    </Box>
-                    <Box sx={style.inputWithLabel}>
-                        <Typography variant="h3" fontWeight={700} color={mainColors.title.main}>
                             المدة الزمنية:-
                         </Typography>
                         <MyInput
@@ -154,19 +154,6 @@ const CreateExam: React.FC<Props> = ({ data, states, actions }) => {
                             error={states.examTime.error}
                             onChange={actions.examTimeHandler}
                             helperText={states.examTime.helperText}
-                        />
-                    </Box>
-                    <Box sx={style.inputWithLabel}>
-                        <Typography variant="h3" fontWeight={700} color={mainColors.title.main}>
-                            الدرجة الكلية:-
-                        </Typography>
-                        <MyInput
-                            type="number"
-                            placeholder="حدد الدرجة الكلية"
-                            value={states.examDegree.value}
-                            error={states.examDegree.error}
-                            onChange={actions.examDegreeHandler}
-                            helperText={states.examDegree.helperText}
                         />
                     </Box>
                 </Box>
