@@ -16,7 +16,7 @@ type Props = {
     actions: any
 }
 
-const CorrectingStudentsListC: React.FC<Props> = ({ data, states, actions }) => {
+const CorrectingListC: React.FC<Props> = ({ data, states, actions }) => {
     const { mainColors } = useTheme()
     const style: IStyle = {
         container: {
@@ -57,7 +57,7 @@ const CorrectingStudentsListC: React.FC<Props> = ({ data, states, actions }) => 
                     onChange={actions.searchHandler}
                 />
                 {data.originalData.isFinished && (
-                    <Link href={'/'}>
+                    <Link href={`${Routes.teacherExamResult}${data.originalData?.examId}`}>
                         <a>
                             <Box sx={style.examNameBox}>
                                 <Typography variant="h4" color={'primary'} fontWeight={700}>
@@ -102,4 +102,4 @@ const CorrectingStudentsListC: React.FC<Props> = ({ data, states, actions }) => 
     )
 }
 
-export default CorrectingStudentsListC
+export default CorrectingListC

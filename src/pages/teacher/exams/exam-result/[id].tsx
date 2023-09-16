@@ -10,14 +10,14 @@ import PageTitle from 'components/Shared/PageTitle'
 import ThemeSwitcher from 'components/ThemeSwitcher'
 import PageFooter from 'components/Shared/PageFooter'
 import DesktopNavbar from 'components/Layout/DesktopNavbar'
-import useCorrectingStudentsList from 'container/exams/useCorrectingStudentsList'
-import CorrectingStudentsListC from 'components/Teacher/Exams/CorrectingStudentsList'
+import useCorrectingStudentsList from 'container/exams/useExamResult'
+import CorrectingStudentsListC from 'components/Teacher/Exams/ExamResult'
 
 // MUI
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 
-const CorrectingStudentsList: NextPage = () => {
+const ExamResult: NextPage = () => {
     const { mainColors } = useTheme()
     const { data, states, actions } = useCorrectingStudentsList()
     const { msg, state, msgType, handleState } = useAlert()
@@ -35,10 +35,10 @@ const CorrectingStudentsList: NextPage = () => {
             display: 'flex',
             flexDirection: 'column',
             gap: '60px',
-            '@media screen and (max-width: 450px)': {
+            '@media(max-width: 450px)': {
                 padding: '40px',
             },
-            '@media screen and (max-width: 350px)': {
+            '@media(max-width: 350px)': {
                 padding: '20px',
             },
         },
@@ -115,4 +115,4 @@ const CorrectingStudentsList: NextPage = () => {
     )
 }
 
-export default withAuth(CorrectingStudentsList)
+export default withAuth(ExamResult)
