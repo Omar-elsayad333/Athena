@@ -1,5 +1,3 @@
-import Link from 'next/link'
-import { Routes } from 'routes/Routes'
 import { IStyle } from 'styles/IStyle'
 import { useTheme } from 'context/ThemeContext'
 import { convertDateToShortDateNoAwait, getTimePeriod } from 'utils/converters'
