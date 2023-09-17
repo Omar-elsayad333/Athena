@@ -10,6 +10,7 @@ import PageTitle from 'components/Shared/PageTitle'
 import ThemeSwitcher from 'components/ThemeSwitcher'
 import PageFooter from 'components/Shared/PageFooter'
 import DesktopNavbar from 'components/Layout/DesktopNavbar'
+import HomeGarphComponent from 'components/Teacher/Home/HomeGarphComponent'
 
 // MUI
 import Box from '@mui/material/Box'
@@ -75,6 +76,7 @@ const TeacherHome: NextPage = () => {
                             />
                         </svg>
                     </PageTitle>
+                    <HomeGarphComponent/>
                 </Box>
             )}
             <Box sx={style.footerContainer}>
