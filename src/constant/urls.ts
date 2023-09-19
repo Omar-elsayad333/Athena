@@ -15,6 +15,7 @@ class Urls {
     static URL_DASHBOARD_TEACHERS_BASE: string = '/api/dashboard/teachers/base'
 
     // Teacher app sections urls
+    static URL_TEACHER_HOME: string = '/api/teacher/home'
     static URL_PROFILE: string = '/api/teacher/profile'
 
     static URL_YEARS: string = '/api/teacher/years'

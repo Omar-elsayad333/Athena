@@ -1,6 +1,5 @@
 import { NextPage } from 'next'
 import { withAuth } from 'routes/withRoute'
-import useHome from 'container/home/useHome'
 import { useTheme } from 'context/ThemeContext'
 import { useAlert } from 'context/AlertContext'
 import AlertNotify from 'components/AlertNotify'
@@ -9,6 +8,7 @@ import PageHead from 'components/Shared/PageHead'
 import PageTitle from 'components/Shared/PageTitle'
 import ThemeSwitcher from 'components/ThemeSwitcher'
 import PageFooter from 'components/Shared/PageFooter'
+import useTeacherHome from 'container/home/useTeacherHome'
 import DesktopNavbar from 'components/Layout/DesktopNavbar'
 import HomeGarphComponent from 'components/Teacher/Home/HomeGarphComponent'
 
@@ -17,7 +17,7 @@ import Box from '@mui/material/Box'
 
 const TeacherHome: NextPage = () => {
     const { mainColors } = useTheme()
-    const { states } = useHome()
+    const { data, states } = useTeacherHome()
     const { msg, state, msgType, handleState } = useAlert()
 
     const style = {
@@ -48,7 +48,7 @@ const TeacherHome: NextPage = () => {
 
     return (
         <Box sx={style.root}>
-            <PageHead title="Home" />
+            <PageHead title="Athena Home" />
             <DesktopNavbar firstPath={''} firstContent="" secondPath={''} secondContent="" />
             {states.loading ? (
                 <Loading />
@@ -76,7 +76,7 @@ const TeacherHome: NextPage = () => {
                             />
                         </svg>
                     </PageTitle>
-                    <HomeGarphComponent/>
+                    <HomeGarphComponent data={data} states={states} />
                 </Box>
             )}
             <Box sx={style.footerContainer}>
