@@ -69,3 +69,19 @@ export const getTimePeriod = (time: any) => {
 
     return period
 }
+
+export const convertTo12HourFormat = (timeString: string) => {
+    // Split the time string into hours, minutes, and seconds
+    const [hours, minutes]: any = timeString.split(':').map(Number)
+
+    // Determine whether it's AM or PM
+    const period = hours >= 12 ? 'PM' : 'AM'
+
+    // Convert to 12-hour format
+    const twelveHour = hours % 12 || 12 // Handle the case when hours is 0
+
+    // Create the formatted time string
+    const formattedTime = `${period} ${twelveHour}:${minutes.toString().padStart(2, '0')}`
+
+    return formattedTime
+}

@@ -101,8 +101,8 @@ const DesktopNavbar: React.FC<Props> = ({ firstPath, secondPath, firstContent, s
     return (
         <Box sx={style.container}>
             <Box sx={style.buttonsContainer}>
-                <NavbarBut content={firstContent} path={firstPath} />
-                <NavbarSecBut content={secondContent} path={secondPath} />
+                {firstPath && <NavbarBut content={firstContent} path={firstPath} />}
+                {secondPath && <NavbarSecBut content={secondContent} path={secondPath} />}
             </Box>
             <Box sx={style.teacherInfo}>
                 <svg
