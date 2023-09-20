@@ -4,6 +4,8 @@ import { useTheme } from 'context/ThemeContext'
 // MUI
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
+import HomeChartComponent from 'components/Charts/HomeChartComponent'
+import { convertTo12HourFormat } from 'utils/converters'
 
 type Props = {
     data: any
@@ -61,11 +63,11 @@ const HomeGraphComponent: React.FC<Props> = ({ data }) => {
             width: '249px',
             height: '125px',
             padding: '20px',
-            didplay: 'flex',
+            display: 'flex',
             gap: '27px',
             flexDirection: 'column',
             alignItems: 'center',
-            justifyContent: 'center',
+            justifyContent: 'space-around',
             backgroundColor: mainColors.paper.main,
             boxShadow: `0px 5px 15px 0px ${mainColors.backgroundColor.sideNav}`,
         },
@@ -73,11 +75,11 @@ const HomeGraphComponent: React.FC<Props> = ({ data }) => {
             width: '249px',
             height: '125px',
             padding: '20px',
-            didplay: 'flex',
+            display: 'flex',
             gap: '27px',
             flexDirection: 'column',
             alignItems: 'center',
-            justifyContent: 'center',
+            justifyContent: 'space-around',
             background: mainColors.linerGradient.primary,
         },
     }
@@ -214,22 +216,34 @@ const HomeGraphComponent: React.FC<Props> = ({ data }) => {
                             data.pageData.upcommingLessons.map((item: any, index: number) => (
                                 <Box key={index} className={moduleStyles.flip}>
                                     <Box className={moduleStyles.front} sx={style.flipCardFront}>
-                                        <Typography color={mainColors.title.main} variant="h3">
+                                        <Typography
+                                            fontWeight={400}
+                                            textAlign={'center'}
+                                            color={mainColors.title.main}
+                                            variant="h4"
+                                        >
                                             {item.groupName}
                                         </Typography>
                                         <Typography
+                                            textAlign={'center'}
                                             color={mainColors.primary.main}
                                             fontWeight={700}
-                                            fontSize={40}
+                                            fontSize={35}
                                         >
-                                            {item.time}
+                                            {convertTo12HourFormat(item.time)}
                                         </Typography>
                                     </Box>
                                     <Box className={moduleStyles.back} sx={style.flipCardBack}>
-                                        <Typography color={mainColors.title.main} variant="h3">
+                                        <Typography
+                                            fontWeight={400}
+                                            textAlign={'center'}
+                                            color={mainColors.title.main}
+                                            variant="h4"
+                                        >
                                             {item.groupName}
                                         </Typography>
                                         <Typography
+                                            textAlign={'center'}
                                             color={mainColors.primary.main}
                                             fontWeight={700}
                                             variant="h4"
@@ -370,10 +384,11 @@ const HomeGraphComponent: React.FC<Props> = ({ data }) => {
                     <Typography variant="h3" color={mainColors.title.main}>
                         حركة الامتحانات الشهرية:-
                     </Typography>
-                    <Box sx={style.rowBox}></Box>
+                    <Box sx={style.rowBox}>
+                        <HomeChartComponent examData={data.pageData.examReport} />
+                    </Box>
                 </Box>
             </Box>
-            <Box sx={style.calendarContainer}></Box>
         </Box>
     )
 }
