@@ -107,6 +107,7 @@ export const DarkThemeProvider: React.FC<Props> = ({ children }) => {
         },
         shadow: {
             main: darkMode ? '' : '5px 5px 10px 0px #B6D5F080',
+            secondary: darkMode ? '#3F72A4' : '#B6D5F0',
         },
         table: {
             main: darkMode ? '#1C364F' : '#E8F3FF',

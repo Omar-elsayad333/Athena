@@ -69,7 +69,7 @@ const HomeGraphComponent: React.FC<Props> = ({ data }) => {
             alignItems: 'center',
             justifyContent: 'space-around',
             backgroundColor: mainColors.paper.main,
-            boxShadow: `0px 5px 15px 0px ${mainColors.backgroundColor.sideNav}`,
+            boxShadow: `0px 5px 15px 0px ${mainColors.shadow.secondary}`,
         },
         flipCardBack: {
             width: '249px',
