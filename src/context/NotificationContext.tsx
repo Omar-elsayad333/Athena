@@ -66,7 +66,7 @@ export const NotificationsProvider: React.FC<NotificationsProviderProps> = ({ ch
 
     useEffect(() => {
         console.log(notificationsData)
-    }, [notificationsData])
+    }, [notificationsData]) 
 
     return (
         <NotificationsContext.Provider value={{ notificationsData, newNotification }}>
