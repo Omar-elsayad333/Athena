@@ -14,6 +14,7 @@ import Box from '@mui/material/Box'
 import Badge from '@mui/material/Badge'
 import Typography from '@mui/material/Typography'
 import IconButton from '@mui/material/IconButton'
+import { useNotifications } from 'context/NotificationContext'
 
 type Props = {
     firstPath?: any
@@ -25,6 +26,7 @@ type Props = {
 const DesktopNavbar: React.FC<Props> = ({ firstPath, secondPath, firstContent, secondContent }) => {
     const { userState } = useUser()
     const { darkMode, mainColors } = useTheme()
+    const { notificationsData } = useNotifications()
     const { states, actions } = useNotificationsMenu()
 
     const style: any = {
@@ -118,7 +120,7 @@ const DesktopNavbar: React.FC<Props> = ({ firstPath, secondPath, firstContent, s
                     aria-expanded={states.open ? 'true' : undefined}
                     onClick={actions.handleClick}
                 >
-                    <Badge color="primary" badgeContent={1000} max={999}>
+                    <Badge color="primary" badgeContent={notificationsData.length} max={999}>
                         <svg
                             width="33"
                             height="33"

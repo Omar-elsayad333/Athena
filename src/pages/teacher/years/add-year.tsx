@@ -2,6 +2,8 @@ import { NextPage } from 'next'
 import { Routes } from 'routes/Routes'
 import { withAuth } from 'routes/withRoute'
 import { useTheme } from 'context/ThemeContext'
+import { useAlert } from 'context/AlertContext'
+import AlertNotify from 'components/AlertNotify'
 import Loading from 'components/Loading/Loading'
 import PageHead from 'components/Shared/PageHead'
 import PageTitle from 'components/Shared/PageTitle'
@@ -17,6 +19,7 @@ import Box from '@mui/material/Box'
 const AddYear: NextPage = () => {
     const { mainColors } = useTheme()
     const { data, states, actions, dialog } = useAddYear()
+    const { msg, state, msgType, handleState } = useAlert()
 
     const style = {
         root: {
@@ -106,6 +109,7 @@ const AddYear: NextPage = () => {
                 <PageFooter />
             </Box>
             <ThemeSwitcher />
+            <AlertNotify msg={msg} state={state} handleState={handleState} msgType={msgType} />
         </Box>
     )
 }
