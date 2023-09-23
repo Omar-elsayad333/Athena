@@ -104,11 +104,19 @@ const NotificationsMenu: React.FC<Props> = ({ states, actions }) => {
                 notificationsData.map((notification: any) => (
                     <MenuItem
                         key={notification.id}
-                        onClick={actions.handleClose}
                         sx={[
                             notification.status === 'UnSeen' ? style.cardStatusStyle : {},
                             actions.getNotificationLabelStyle(notification.notificationLabel),
                         ]}
+                        onClick={() => {
+                            actions.handleClose
+                            actions.directNotification(
+                                notification.id,
+                                notification.type,
+                                notification.entityId,
+                                notification.status,
+                            )
+                        }}
                     >
                         {notification.image ? (
                             <Avatar
