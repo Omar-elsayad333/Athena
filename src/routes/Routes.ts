@@ -12,6 +12,9 @@ export class Routes {
     // Home
     static teacherHome = '/teacher/teacher-home/'
 
+    // Notifications
+    static teacherNotifications = '/teacher/notifications/'
+
     // Profile
     static teacherProfile = '/teacher/profile/'
 

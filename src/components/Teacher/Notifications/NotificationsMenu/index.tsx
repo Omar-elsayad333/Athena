@@ -1,5 +1,9 @@
+import Link from 'next/link'
+import { ar } from 'date-fns/locale'
+import { Routes } from 'routes/Routes'
 import { useTheme } from 'context/ThemeContext'
-// import { useNotifications } from 'context/NotificationContext'
+import { formatDistance, parseISO } from 'date-fns'
+import { useNotifications } from 'context/NotificationContext'
 
 // MUI
 import Box from '@mui/material/Box'
@@ -16,7 +20,7 @@ type Props = {
 
 const NotificationsMenu: React.FC<Props> = ({ states, actions }) => {
     const { mainColors } = useTheme()
-    // const { notificationsData } = useNotifications()
+    const { notificationsData } = useNotifications()
 
     const style = {
         root: {
@@ -45,9 +49,6 @@ const NotificationsMenu: React.FC<Props> = ({ states, actions }) => {
                 backgroundColor: mainColors.paper.main,
                 boxShadow: `5px 5px 15px 0px  ${mainColors.shadow.secondary}`,
             },
-            '.MuiTooltip-tooltip': {
-                fontSize: '20px',
-            },
         },
         headerBox: {
             width: '100%',
@@ -62,7 +63,16 @@ const NotificationsMenu: React.FC<Props> = ({ states, actions }) => {
             borderColor: mainColors.primary.main,
         },
         avatar: {
+            borderRadius: '50%',
+            width: '30px',
+            minWidth: '30px',
+            height: '30px',
+            display: 'grid',
+            placeItems: 'center',
             border: `1px solid ${mainColors.primary.main}`,
+        },
+        cardStatusStyle: {
+            backgroundColor: `${mainColors.backgroundColor.main} !important`,
         },
     }
 
@@ -81,22 +91,55 @@ const NotificationsMenu: React.FC<Props> = ({ states, actions }) => {
                 <Typography variant="h3" color={'primary'}>
                     الاشعارات
                 </Typography>
-                <Typography variant="h5" color={'primary'}>
-                    جميع الاشعارات الواردة
-                </Typography>
+                <Link href={Routes.teacherNotifications}>
+                    <a>
+                        <Typography variant="h5" color={'primary'}>
+                            جميع الاشعارات الواردة
+                        </Typography>
+                    </a>
+                </Link>
             </Box>
             <hr style={style.divider} />
-            <MenuItem onClick={actions.handleClose}>
-                <Avatar sx={style.avatar} src="" alt="" sizes="30" />
-                <Tooltip title="مرحبا! استاذ محمد لقد قمنا بتحديث سياسة الخصوصية الخاصة بنا">
-                    <Typography noWrap variant="h5" fontWeight={700} color={'primary'}>
-                        مرحبا! استاذ محمد لقد قمنا بتحديث سياسة الخصوصية الخاصة بنا
-                    </Typography>
-                </Tooltip>
-                <Typography variant="h5" color={mainColors.title.main}>
-                    منذ 10 ساعات
+            {notificationsData.length > 0 ? (
+                notificationsData.map((notification: any) => (
+                    <MenuItem
+                        key={notification.id}
+                        onClick={actions.handleClose}
+                        sx={[
+                            notification.status === 'UnSeen' ? style.cardStatusStyle : {},
+                            actions.getNotificationLabelStyle(notification.notificationLabel),
+                        ]}
+                    >
+                        {notification.image ? (
+                            <Avatar
+                                alt=""
+                                sizes="30"
+                                sx={style.avatar}
+                                src={actions.getNotificationAvatar(notification.type)}
+                            />
+                        ) : (
+                            <Box sx={style.avatar}>
+                                {actions.getNotificationAvatar(notification.type)}
+                            </Box>
+                        )}
+                        <Tooltip title="مرحبا! استاذ محمد لقد قمنا بتحديث سياسة الخصوصية الخاصة بنا">
+                            <Typography noWrap variant="h5" fontWeight={700} color={'primary'}>
+                                {notification.message}
+                            </Typography>
+                        </Tooltip>
+                        <Typography variant="h5" color={mainColors.title.main}>
+                            {formatDistance(parseISO(notification.createdOn), new Date(), {
+                                addSuffix: true,
+                                locale: ar,
+                            })}
+                        </Typography>
+                    </MenuItem>
+                ))
+            ) : (
+                <Typography variant="h3" color={'primary'}>
+                    لا يوجد اشعارات
                 </Typography>
-            </MenuItem>
+            )}
             <Typography variant="h5" color={mainColors.title.main}>
                 هذه هي كل إشعاراتك من آخر 7 أيام.
             </Typography>

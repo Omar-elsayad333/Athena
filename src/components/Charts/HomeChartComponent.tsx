@@ -98,7 +98,7 @@ const HomeChartComponent: React.FC<Props> = ({ examData }) => {
 
     const getAdjustedData = (type: string) => {
         const newData: any = []
-        if (examData) {
+        if (examData && examData.length > 0) {
             examData.map((month: any) => {
                 month.map((item: any) => {
                     newData.push[item[type]]
