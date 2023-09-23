@@ -1,8 +1,8 @@
 import { ReactNode } from 'react'
 
 export interface NotificatinosContextType {
-    newNotification: any
-    notificationsData: any
+    notificationsData: any[]
+    changeNotificationStatus: Function
 }
 
 export interface NotificationsProviderProps {

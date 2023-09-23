@@ -63,7 +63,7 @@ const HomeGraphComponent: React.FC<Props> = ({ data }) => {
             width: '249px',
             height: '125px',
             padding: '20px',
-            display: 'flex',
+            display: 'flex !important',
             gap: '27px',
             flexDirection: 'column',
             alignItems: 'center',
@@ -75,7 +75,7 @@ const HomeGraphComponent: React.FC<Props> = ({ data }) => {
             width: '249px',
             height: '125px',
             padding: '20px',
-            display: 'flex',
+            display: 'flex !important',
             gap: '27px',
             flexDirection: 'column',
             alignItems: 'center',
@@ -248,7 +248,7 @@ const HomeGraphComponent: React.FC<Props> = ({ data }) => {
                                             fontWeight={700}
                                             variant="h4"
                                         >
-                                            {item.headquarterName}
+                                            {item.headQuarterName}
                                         </Typography>
                                     </Box>
                                 </Box>

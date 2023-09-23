@@ -8,24 +8,41 @@ import {
 } from 'interfaces/notificatoins/notificationsInterface'
 
 const NotificationsContext = createContext<NotificatinosContextType>({
-    newNotification: [],
     notificationsData: [],
+    changeNotificationStatus: () => {},
 })
 
 export const NotificationsProvider: React.FC<NotificationsProviderProps> = ({ children }) => {
     const { userState } = useUser()
-    const [newNotification] = useState<any[]>([])
     const [notificationsData, setNotificationsData] = useState<any[]>([])
+
+    const hubConnection = new signalR.HubConnectionBuilder()
+        .withUrl(`${Urls.URL_MAIN}/notifications?access_token=${userState.tokens?.accessToken}`)
+        .withAutomaticReconnect()
+        .build()
+
+    const getNotifications = async () => {
+        try {
+            await hubConnection.invoke('GetNotifications')
+        } catch (err) {
+            console.error(err)
+        }
+    }
+
+    const changeNotificationStatus = async (notificationId: string) => {
+        await hubConnection.start()
+        console.log(hubConnection)
+        if (hubConnection.state === signalR.HubConnectionState.Connected) {
+            try {
+                await hubConnection.invoke('ChangeStatus', notificationId)
+            } catch (err) {
+                console.error(err)
+            }
+        }
+    }
 
     useEffect(() => {
         if (userState.tokens?.accessToken) {
-            const hubConnection = new signalR.HubConnectionBuilder()
-                .withUrl(
-                    `${Urls.URL_MAIN}/notifications?access_token=${userState.tokens?.accessToken}`,
-                )
-                .withAutomaticReconnect()
-                .build()
-
             const startConnection = async () => {
                 if (hubConnection.state === signalR.HubConnectionState.Disconnected) {
                     try {
@@ -37,39 +54,29 @@ export const NotificationsProvider: React.FC<NotificationsProviderProps> = ({ ch
                 }
             }
 
-            const getNotifications = async () => {
-                try {
-                    await hubConnection.invoke('GetNotifications')
-                } catch (err) {
-                    console.error(err)
-                }
-            }
-
             if (hubConnection) {
                 startConnection()
 
                 // Register event handlers for incoming messages from the hub
-                hubConnection.on('Notifications', (notificationDtos: any) => {
-                    setNotificationsData(notificationDtos)
+                hubConnection.on('Notifications', (notificationsData: any) => {
+                    setNotificationsData(notificationsData)
                 })
 
-                hubConnection.on('ChangeNotificationStatus', (notification: any) => {
-                    console.log('Notification Status Changed:', notification)
+                hubConnection.on('ChangeNotificationStatus', (notificationId: any) => {
+                    console.log('Notification Status Changed:', notificationId)
                 })
-            }
-
-            if (hubConnection.state === signalR.HubConnectionState.Disconnecting) {
-                hubConnection.stop().catch()
             }
         }
     }, [userState.tokens?.accessToken])
 
     useEffect(() => {
-        console.log(notificationsData)
-    }, [notificationsData]) 
+        if (hubConnection.state === signalR.HubConnectionState.Disconnecting) {
+            hubConnection.stop().catch((error) => console.log(error))
+        }
+    }, [hubConnection.state])
 
     return (
-        <NotificationsContext.Provider value={{ notificationsData, newNotification }}>
+        <NotificationsContext.Provider value={{ changeNotificationStatus, notificationsData }}>
             {children}
         </NotificationsContext.Provider>
     )
