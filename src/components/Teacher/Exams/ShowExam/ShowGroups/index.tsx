@@ -142,6 +142,7 @@ const ShowGroups: React.FC<Props> = ({ data, states, actions }) => {
                     </Box>
                 </>
             )}
+            <MyButtonError content="حذف الأمتحان" onClick={() => actions.deleteExam()} />
         </Box>
     )
 }
