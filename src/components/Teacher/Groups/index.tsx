@@ -8,9 +8,10 @@ import Typography from '@mui/material/Typography'
 
 type Props = {
     data: any
+    states: any
 }
 
-const GroupsC: React.FC<Props> = ({ data }) => {
+const GroupsC: React.FC<Props> = ({ data, states }) => {
     const { mainColors } = useTheme()
     const style = {
         container: {
@@ -55,8 +56,40 @@ const GroupsC: React.FC<Props> = ({ data }) => {
 
     return (
         <Box sx={style.container}>
-            {data.openGroupsData.length > 0 ? (
-                data.openGroupsData.map((item: any) => (
+            {!states.isPreopen ? (
+                data.openGroupsData.length > 0 ? (
+                    data.openGroupsData.map((item: any) => (
+                        <Link key={item.id} href={`${Routes.teacherGroup}${item.id}`}>
+                            <Box sx={style.card}>
+                                <Box sx={style.content}>
+                                    <Typography color="primary" variant="h1">
+                                        {item.name}
+                                    </Typography>
+                                    <Typography color="primary" variant="h5">
+                                        <span style={style.span}>الصف الدراسي :</span>
+                                        {` ${item.level}`}
+                                    </Typography>
+                                </Box>
+                                <Box sx={style.content}>
+                                    <Typography color="primary" variant="h5">
+                                        <span style={style.span}>عدد الطلاب :</span>
+                                        {` ${item.studentsCount}`}
+                                    </Typography>
+                                    <Typography color="primary" variant="h5">
+                                        <span style={style.span}>المقر :</span>
+                                        {` ${item.headQuarter}`}
+                                    </Typography>
+                                </Box>
+                            </Box>
+                        </Link>
+                    ))
+                ) : (
+                    <Typography variant="h3" color={'primary'} fontWeight={700}>
+                        لا يوجد مجموعات
+                    </Typography>
+                )
+            ) : data.preOpenGroupsData.length > 0 ? (
+                data.preOpenGroupsData.map((item: any) => (
                     <Link key={item.id} href={`${Routes.teacherGroup}${item.id}`}>
                         <Box sx={style.card}>
                             <Box sx={style.content}>
