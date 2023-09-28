@@ -16,6 +16,8 @@ import DesktopNavbar from 'components/Layout/DesktopNavbar'
 
 // MUI
 import Box from '@mui/material/Box'
+import Switch from '@mui/material/Switch'
+import FormControlLabel from '@mui/material/FormControlLabel'
 
 const Groups: NextPage = () => {
     const { mainColors } = useTheme()
@@ -91,12 +93,24 @@ const Groups: NextPage = () => {
                             />
                         </svg>
                     </PageTitle>
-                    <MySearchInput
-                        disabled={states.loading}
-                        onChange={actions.searchHandler}
-                        placeholder="هل تبحث عن مجموعة معينة ؟"
-                    />
-                    <GroupsC data={data} />
+                    <Box>
+                        <MySearchInput
+                            disabled={states.loading}
+                            onChange={actions.searchHandler}
+                            placeholder="هل تبحث عن مجموعة معينة ؟"
+                        />
+                        <FormControlLabel
+                            sx={{}}
+                            label="العام الدراسي القادم"
+                            control={
+                                <Switch
+                                    checked={states.isPreopen}
+                                    onChange={() => actions.closeAndOpenPreopen()}
+                                />
+                            }
+                        />
+                    </Box>
+                    <GroupsC data={data} states={states} />
                 </Box>
             )}
             <Box sx={style.footerContainer}>

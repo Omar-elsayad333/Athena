@@ -14,6 +14,8 @@ const useGroups = () => {
     const [openGroupsData, setOpenGroupsData] = useState<any>([])
     const [preOpenGroupsData, setPreOpenGroupsData] = useState<any>([])
 
+    const [isPreopen, setIsPreopen] = useState(false)
+
     // Call function to get page data if the user authorized
     useEffect(() => {
         if (userState.tokens!.accessToken) {
@@ -37,7 +39,16 @@ const useGroups = () => {
 
     // Get search value from user
     const searchHandler = (searchValue: string) => {
-        useSearchHandler('name', searchValue, originalData, setOpenGroupsData)
+        useSearchHandler(
+            'name',
+            searchValue,
+            isPreopen ? originalData.preOpen : originalData.open,
+            isPreopen ? setPreOpenGroupsData : setOpenGroupsData,
+        )
+    }
+
+    const closeAndOpenPreopen = () => {
+        setIsPreopen(!isPreopen)
     }
 
     return {
@@ -47,9 +58,11 @@ const useGroups = () => {
         },
         states: {
             loading,
+            isPreopen,
         },
         actions: {
             searchHandler,
+            closeAndOpenPreopen,
         },
     }
 }
