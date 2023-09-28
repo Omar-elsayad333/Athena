@@ -6,6 +6,7 @@ import MyRadioGroup from 'components/MyRadioGroup'
 import MyDatePicker from 'components/MyDatePicker'
 import MyBigTimePicker from 'components/MyBigTimePicker'
 import TeacherAddExamLayer from 'components/BigImages/TeacherAddExamLayer'
+import TeacherAddExamLayerDarkMode from 'components/BigImages/TeacherAddExamLayerDarkMode'
 
 // MUI
 import Box from '@mui/material/Box'
@@ -19,7 +20,7 @@ type Props = {
 }
 
 const CreateExam: React.FC<Props> = ({ data, states, actions }) => {
-    const { mainColors } = useTheme()
+    const { mainColors, darkMode } = useTheme()
     const style: IStyle = {
         container: {
             width: '100%',
@@ -218,7 +219,7 @@ const CreateExam: React.FC<Props> = ({ data, states, actions }) => {
                     </Box>
                 )}
             </Box>
-            <TeacherAddExamLayer />
+            {darkMode ? <TeacherAddExamLayerDarkMode /> : <TeacherAddExamLayer />}
         </Box>
     )
 }
