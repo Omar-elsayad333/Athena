@@ -1,4 +1,5 @@
 import Urls from 'constant/urls'
+import { Routes } from 'routes/Routes'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { useUser } from 'context/userContext'
@@ -143,6 +144,16 @@ const useShowExam = () => {
         }
     }
 
+    const deleteExam = async () => {
+        try {
+            await deleteHandler(id, userState.tokens?.accessToken!, Urls.URL_TEACHER_EXAMS)
+            setWarningMessage('تم حذف الأمتحان بنجاح')
+            router.push(Routes.teacherExams)
+        } catch (error) {
+            setErrorMessage('حدث خطاء')
+        }
+    }
+
     return {
         data: {
             examData,
@@ -162,6 +173,7 @@ const useShowExam = () => {
             getNewGroups,
             submitGroups,
             removeGroup,
+            deleteExam,
         },
     }
 }

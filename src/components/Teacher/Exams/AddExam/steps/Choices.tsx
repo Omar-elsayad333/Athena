@@ -7,6 +7,7 @@ import { examChoicesPlaceholder } from 'constant/staticData'
 import Box from '@mui/material/Box'
 import Checkbox from '@mui/material/Checkbox'
 import Typography from '@mui/material/Typography'
+import CloseIcon from '@mui/icons-material/Close'
 
 type Props = {
     data: any
@@ -33,6 +34,9 @@ const Choices: React.FC<Props> = ({ actions, grandParentIndex, parentIndex, data
             flexWrap: 'wrap',
             columnGap: '32px',
             rowGap: '5px',
+        },
+        deleteImageToggle: {
+            position: 'absloute',
         },
     }
 
@@ -71,8 +75,21 @@ const Choices: React.FC<Props> = ({ actions, grandParentIndex, parentIndex, data
                                         height: '46px',
                                         border: '2px solid #3F72A4',
                                         borderRadius: '10px',
+                                        position: 'relative',
                                     }}
-                                />
+                                >
+                                    <CloseIcon
+                                        sx={style.deleteImageToggle}
+                                        onClick={() =>
+                                            actions.deleteChoiceImageHandler({
+                                                grandParent: grandParentIndex,
+                                                parent: parentIndex,
+                                                child: index,
+                                            })
+                                        }
+                                        color="primary"
+                                    />
+                                </Box>
                             )}
                             <Checkbox
                                 checked={choice.isRightChoice}

@@ -338,6 +338,13 @@ const useAddExam = () => {
         }
     }
 
+    // Delete new question image
+    const deleteSectionImageHandler = async (index: any, imageIndex: number) => {
+        const newValue = sections[index]
+        newValue!.images?.splice(imageIndex, 1)
+        setSections([...sections.slice(0, index), newValue, ...sections.slice(index + 1)])
+    }
+
     // Set question to prime
     const primeQuestion = (sectionIndex: number, index: number) => {
         let newValue = sections[sectionIndex]
@@ -445,6 +452,17 @@ const useAddExam = () => {
         }
     }
 
+    // Delete new question image
+    const deleteChoiceImageHandler = async (indexes: any) => {
+        const newValue = sections[indexes.grandParent]
+        newValue!.questions[indexes.parent]!.choices![indexes.child]!.image = null
+        setSections([
+            ...sections.slice(0, indexes.parent),
+            newValue,
+            ...sections.slice(indexes.parent + 1),
+        ])
+    }
+
     // Get choice value from user
     const choiceNameHandler = (selectedName: string, indexes: any) => {
         const newValue = sections[indexes.grandParent]
@@ -517,6 +535,17 @@ const useAddExam = () => {
             ...sections.slice(0, indexes.grandParent),
             newValue,
             ...sections.slice(indexes.grandParent + 1),
+        ])
+    }
+
+    // Delete new question image
+    const deleteQuestionImageHandler = async (indexes: any, imageIndex: number) => {
+        const newValue = sections[indexes.parent]
+        newValue!.questions[indexes.child]?.images?.splice(imageIndex, 1)
+        setSections([
+            ...sections.slice(0, indexes.parent),
+            newValue,
+            ...sections.slice(indexes.parent + 1),
         ])
     }
 
@@ -798,6 +827,9 @@ const useAddExam = () => {
             groupHandler,
             submitExam,
             cancelProsses,
+            deleteQuestionImageHandler,
+            deleteSectionImageHandler,
+            deleteChoiceImageHandler,
         },
     }
 }

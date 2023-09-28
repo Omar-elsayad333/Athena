@@ -11,6 +11,7 @@ import MyButtonSuccess from 'components/Buttons/MyButtonSuccess'
 // MUI
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
+import CloseIcon from '@mui/icons-material/Close'
 
 type Props = {
     data: any
@@ -84,6 +85,9 @@ const Questions: React.FC<Props> = ({ data, actions, parentIndex }) => {
             display: 'flex',
             overflow: 'auto',
             gap: '35px',
+        },
+        deleteImageToggle: {
+            position: 'absloute',
         },
     }
 
@@ -197,19 +201,33 @@ const Questions: React.FC<Props> = ({ data, actions, parentIndex }) => {
                         />
                         {question.images.length > 0 && (
                             <Box sx={style.questionImages}>
-                                {question.images?.map((image: any, index: number) => (
-                                    <Box
-                                        key={index}
-                                        sx={{
-                                            backgroundImage: `url('${image.image.data}')`,
-                                            backgroundSize: 'cover',
-                                            backgroundPosition: 'center',
-                                            minWidth: '100px',
-                                            height: '100px',
-                                            border: '2px solid #3F72A4',
-                                            borderRadius: '10px',
-                                        }}
-                                    />
+                                {question.images?.map((image: any, imageIndex: number) => (
+                                    <>
+                                        <Box
+                                            key={imageIndex}
+                                            sx={{
+                                                backgroundImage: `url('${image.image.data}')`,
+                                                backgroundSize: 'cover',
+                                                backgroundPosition: 'center',
+                                                minWidth: '100px',
+                                                height: '100px',
+                                                border: '2px solid #3F72A4',
+                                                borderRadius: '10px',
+                                                position: 'relative',
+                                            }}
+                                        >
+                                            <CloseIcon
+                                                sx={style.deleteImageToggle}
+                                                onClick={() =>
+                                                    actions.deleteQuestionImageHandler(
+                                                        { parent: parentIndex, child: index },
+                                                        imageIndex,
+                                                    )
+                                                }
+                                                color="primary"
+                                            />
+                                        </Box>
+                                    </>
                                 ))}
                             </Box>
                         )}
