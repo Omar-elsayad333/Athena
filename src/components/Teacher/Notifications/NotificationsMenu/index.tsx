@@ -29,6 +29,8 @@ const NotificationsMenu: React.FC<Props> = ({ states, actions }) => {
                 padding: '20px',
                 width: '400px',
                 maxWidth: '80%',
+                maxHeight: '70vh',
+                overflow: 'auto',
                 borderRadius: '12px',
                 backgroundColor: mainColors.backgroundColor.main,
                 boxShadow: `5px 5px 22px 1px  ${mainColors.shadow.secondary}`,
