@@ -48,6 +48,14 @@ const Groups: NextPage = () => {
         footerContainer: {
             marginTop: 'auto',
         },
+        switchStyles: {
+            marginLeft: '20px',
+            '.MuiTypography-root': {
+                color: mainColors.primary.main,
+                fontSize: '16px',
+                fontWeight: '700',
+            },
+        },
     }
 
     return (
@@ -100,7 +108,7 @@ const Groups: NextPage = () => {
                             placeholder="هل تبحث عن مجموعة معينة ؟"
                         />
                         <FormControlLabel
-                            sx={{}}
+                            sx={style.switchStyles}
                             label="العام الدراسي القادم"
                             control={
                                 <Switch
