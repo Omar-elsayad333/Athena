@@ -272,7 +272,7 @@ const HomeGraphComponent: React.FC<Props> = ({ data }) => {
                             ]}
                         >
                             <Typography variant="h4" color={mainColors.title.main}>
-                                الطلاب المسجلين
+                                الامتحانات المسجلة
                             </Typography>
                             <Box sx={style.dataCardBody}>
                                 <Typography color={'primary'} fontSize={40}>
@@ -307,7 +307,7 @@ const HomeGraphComponent: React.FC<Props> = ({ data }) => {
                             ]}
                         >
                             <Typography variant="h4" color={mainColors.title.main}>
-                                الطلاب النشطين
+                                الامتحانات النشطة
                             </Typography>
                             <Box sx={style.dataCardBody}>
                                 <Typography color={'primary'} fontSize={40}>
@@ -342,7 +342,7 @@ const HomeGraphComponent: React.FC<Props> = ({ data }) => {
                             ]}
                         >
                             <Typography variant="h4" color={mainColors.title.main}>
-                                المجموعات الحاليه
+                                الامتحانات قيد التصحيح
                             </Typography>
                             <Box sx={style.dataCardBody}>
                                 <Typography color={'primary'} fontSize={40}>

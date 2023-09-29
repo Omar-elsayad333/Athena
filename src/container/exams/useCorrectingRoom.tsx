@@ -88,7 +88,7 @@ const useCorrectingRoom = () => {
     }
 
     // Call API to submit correcting degree
-    const submitCorrectingDegree = async (questionId: string, degree: any) => {
+    const submitCorrectingDegree = async (questionId: string, degree: any, indexes?: any) => {
         const data = {
             examGroupStudentId: id,
             questionId: questionId,
@@ -97,6 +97,9 @@ const useCorrectingRoom = () => {
         try {
             await putHandler(userState.tokens?.accessToken!, Urls.URL_TEACHER_EXAMS_STUDENT, data)
             setSuccessMessage('تم تصحيح السؤال بنجاح')
+            if (indexes) {
+                handleCorrectingDegree(degree, indexes)
+            }
         } catch (error) {
             setErrorMessage('حدث خطاء')
         }

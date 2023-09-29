@@ -27,6 +27,12 @@ export const NotificationsProvider: React.FC<NotificationsProviderProps> = ({ ch
         } catch (err) {}
     }
 
+    const getUnseenNotifications = async () => {
+        try {
+            await hubConnection.invoke('GetNotifications')
+        } catch (err) {}
+    }
+
     const changeNotificationStatus = async (notificationId: string) => {
         await hubConnection.start()
         if (hubConnection.state === signalR.HubConnectionState.Connected) {
@@ -43,6 +49,7 @@ export const NotificationsProvider: React.FC<NotificationsProviderProps> = ({ ch
                     try {
                         await hubConnection.start()
                         getNotifications()
+                        getUnseenNotifications()
                     } catch (err) {}
                 }
             }
@@ -53,6 +60,7 @@ export const NotificationsProvider: React.FC<NotificationsProviderProps> = ({ ch
                 // Register event handlers for incoming messages from the hub
                 hubConnection.on('Notifications', (notificationsData: any) => {
                     setNotificationsData(notificationsData)
+                    console.log(notificationsData)
                 })
 
                 hubConnection.on('ChangeNotificationStatus', () => {})
