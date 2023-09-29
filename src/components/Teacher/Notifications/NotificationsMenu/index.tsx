@@ -30,7 +30,7 @@ const NotificationsMenu: React.FC<Props> = ({ states, actions }) => {
                 width: '400px',
                 maxWidth: '80%',
                 maxHeight: '70vh',
-                overflow: 'auto',
+                overflowY: 'auto',
                 borderRadius: '12px',
                 backgroundColor: mainColors.backgroundColor.main,
                 boxShadow: `5px 5px 22px 1px  ${mainColors.shadow.secondary}`,
@@ -47,7 +47,10 @@ const NotificationsMenu: React.FC<Props> = ({ states, actions }) => {
                 alignItems: 'center',
                 width: '100%',
                 padding: '20px',
+                flexWrap: 'wrap',
+                justifyContent: 'space-between',
                 borderRadius: '12px',
+                maxWidth: '100%',
                 backgroundColor: mainColors.paper.main,
                 boxShadow: `5px 5px 15px 0px  ${mainColors.shadow.secondary}`,
             },
@@ -72,6 +75,12 @@ const NotificationsMenu: React.FC<Props> = ({ states, actions }) => {
             display: 'grid',
             placeItems: 'center',
             border: `1px solid ${mainColors.primary.main}`,
+        },
+        contentBody: {
+            display: 'flex',
+            alignItems: 'center',
+            gap: '10px',
+            maxWidth: '100%',
         },
         cardStatusStyle: {
             backgroundColor: `${mainColors.backgroundColor.main} !important`,
@@ -120,23 +129,25 @@ const NotificationsMenu: React.FC<Props> = ({ states, actions }) => {
                             )
                         }}
                     >
-                        {notification.image ? (
-                            <Avatar
-                                alt=""
-                                sizes="30"
-                                sx={style.avatar}
-                                src={actions.getNotificationAvatar(notification.type)}
-                            />
-                        ) : (
-                            <Box sx={style.avatar}>
-                                {actions.getNotificationAvatar(notification.type)}
-                            </Box>
-                        )}
-                        <Tooltip title="مرحبا! استاذ محمد لقد قمنا بتحديث سياسة الخصوصية الخاصة بنا">
-                            <Typography noWrap variant="h5" fontWeight={700} color={'primary'}>
-                                {notification.message}
-                            </Typography>
-                        </Tooltip>
+                        <Box sx={style.contentBody}>
+                            {notification.image ? (
+                                <Avatar
+                                    alt=""
+                                    sizes="30"
+                                    sx={style.avatar}
+                                    src={actions.getNotificationAvatar(notification.type)}
+                                />
+                            ) : (
+                                <Box sx={style.avatar}>
+                                    {actions.getNotificationAvatar(notification.type)}
+                                </Box>
+                            )}
+                            <Tooltip title="مرحبا! استاذ محمد لقد قمنا بتحديث سياسة الخصوصية الخاصة بنا">
+                                <Typography noWrap variant="h5" fontWeight={700} color={'primary'}>
+                                    {notification.message}
+                                </Typography>
+                            </Tooltip>
+                        </Box>
                         <Typography variant="h5" color={mainColors.title.main}>
                             {formatDistance(parseISO(notification.createdOn), new Date(), {
                                 addSuffix: true,
