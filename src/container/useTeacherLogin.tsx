@@ -112,10 +112,8 @@ const useTeacherLogin = () => {
                         refreshTokenExpiry: new Date(res.refreshTokenExpiryTime),
                     },
                 })
-                // await getUser()
                 router.replace(Routes.teacherHome)
             } catch (error) {
-                console.log(error)
                 setPasswordErrors([
                     {
                         name: 'loginError',

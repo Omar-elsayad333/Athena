@@ -55,7 +55,6 @@ const useEditHeadquarter = () => {
             setOriginalData(res)
             setHeadQuarterData(res)
         } catch (error) {
-            console.log(error)
             setErrorMessage('حدث خطاء')
         }
     }
@@ -198,7 +197,6 @@ const useEditHeadquarter = () => {
         }
 
         if (secondPhone.length > 0) {
-            console.log('omar')
             if (
                 !phoneNumberValidator(secondPhone.value) &&
                 !homeNumberValidator(secondPhone.value)
@@ -282,7 +280,6 @@ const useEditHeadquarter = () => {
                 setSuccessMessage('تمت التعديلات بنجاح')
                 router.push(`${Routes.teacherHeadquarter}${res}`)
             } catch (error) {
-                console.log(error)
                 setErrorMessage('حدث خطاء')
             }
         } else {
@@ -294,16 +291,14 @@ const useEditHeadquarter = () => {
     const deleteHeadquarter = async () => {
         try {
             closeWarningDialogState()
-            const res = await deleteHandler(
+            await deleteHandler(
                 id,
                 userState.tokens!.accessToken!,
                 Urls.URL_HEADQUARTERS,
             )
-            console.log(res)
             setWarningMessage('تم حذف المقر بنجاح')
             router.push(Routes.teacherheadquarters)
         } catch (error) {
-            console.log(error)
             setErrorMessage('حدث خطاء')
         }
     }

@@ -21,7 +21,6 @@ const useYears = () => {
             const res = await getHandler(userState.tokens!.accessToken!, Urls.URL_YEARS)
             setYearsData(res)
         } catch (error) {
-            console.log(error)
         }
     }
 

@@ -84,7 +84,6 @@ const useAddStudent = () => {
                 )
                 setStudentData(res)
             } catch (error: any) {
-                console.log(error)
                 if (error.response.status == 404) {
                     setCodeError({
                         ...codeError,
@@ -170,7 +169,6 @@ const useAddStudent = () => {
                     Urls.URL_TEACHERSTUDENTS_ASSIGN,
                     data,
                 )
-                console.log(res)
                 setSuccessMessage('تم اضافة الطالب بنجاح')
                 router.replace(`${Routes.teacherStudent}/${res}`)
             } catch (error) {

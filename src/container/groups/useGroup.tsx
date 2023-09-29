@@ -38,7 +38,6 @@ const useGroup = () => {
             )
             setGroupData(res)
         } catch (error) {
-            console.log(error)
             setErrorMessage('حدث خطاء')
         }
     }

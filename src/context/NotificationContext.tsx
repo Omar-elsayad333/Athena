@@ -24,20 +24,15 @@ export const NotificationsProvider: React.FC<NotificationsProviderProps> = ({ ch
     const getNotifications = async () => {
         try {
             await hubConnection.invoke('GetNotifications')
-        } catch (err) {
-            console.error(err)
-        }
+        } catch (err) {}
     }
 
     const changeNotificationStatus = async (notificationId: string) => {
         await hubConnection.start()
-        console.log(hubConnection)
         if (hubConnection.state === signalR.HubConnectionState.Connected) {
             try {
                 await hubConnection.invoke('ChangeStatus', notificationId)
-            } catch (err) {
-                console.error(err)
-            }
+            } catch (err) {}
         }
     }
 
@@ -48,9 +43,7 @@ export const NotificationsProvider: React.FC<NotificationsProviderProps> = ({ ch
                     try {
                         await hubConnection.start()
                         getNotifications()
-                    } catch (err) {
-                        console.error(err)
-                    }
+                    } catch (err) {}
                 }
             }
 
@@ -62,16 +55,14 @@ export const NotificationsProvider: React.FC<NotificationsProviderProps> = ({ ch
                     setNotificationsData(notificationsData)
                 })
 
-                hubConnection.on('ChangeNotificationStatus', (notificationId: any) => {
-                    console.log('Notification Status Changed:', notificationId)
-                })
+                hubConnection.on('ChangeNotificationStatus', () => {})
             }
         }
     }, [userState.tokens?.accessToken])
 
     useEffect(() => {
         if (hubConnection.state === signalR.HubConnectionState.Disconnecting) {
-            hubConnection.stop().catch((error) => console.log(error))
+            hubConnection.stop()
         }
     }, [hubConnection.state])
 

@@ -51,7 +51,6 @@ const useAddYear = () => {
             const res = await getHandler(userState.tokens!.accessToken!, Urls.URL_YEARS_REQUIRED)
             setRequiredData(res)
         } catch (error) {
-            console.log(error)
         }
     }
 
@@ -80,10 +79,8 @@ const useAddYear = () => {
 
     // Get the selected Classes
     const selectedLevelsHandler = (selected: any) => {
-        console.log(selected)
         setSelectedLevels([])
         for (let item of selected) {
-            console.log(item)
             setSelectedLevels((oldData: any) => [
                 ...oldData,
                 {
@@ -294,7 +291,6 @@ const useAddYear = () => {
                 setSuccessMessage('تم بدأ عام جديد بنجاح')
                 router.push(`${Routes.teacherYear}${res}`)
             } catch (error) {
-                console.log(error)
                 setErrorMessage('حدث خطاء اثناء اضاقة العام الدراسي')
             }
         }
