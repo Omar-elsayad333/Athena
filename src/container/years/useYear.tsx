@@ -36,9 +36,7 @@ const useYear = () => {
                 Urls.URL_YEARS,
             )
             setYearData(res)
-            console.log(res)
         } catch (error) {
-            console.log(error)
             setErrorMessage('حدث خطاء')
         }
     }

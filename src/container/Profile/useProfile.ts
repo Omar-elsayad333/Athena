@@ -19,7 +19,6 @@ const useProfile = () => {
             const response = await getHandler(userState.tokens?.accessToken!, Urls.URL_PROFILE)
             setPageData(response)
         } catch (error) {
-            console.log(error)
         }
     }
 

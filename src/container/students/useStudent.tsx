@@ -46,7 +46,6 @@ const useStudent = () => {
             setStudentData(res.info)
             setGroups(res.info.groups)
         } catch (error) {
-            console.log(error)
         }
     }
 
@@ -61,7 +60,6 @@ const useStudent = () => {
             setStudentData(res.info)
             setGroups(res.info.groups)
         } catch (error) {
-            console.log(error)
         }
     }
 
@@ -125,14 +123,9 @@ const useStudent = () => {
                 )
                 router.reload()
             } catch (error) {
-                console.log(error)
             }
         }
     }
-
-    useEffect(() => {
-        console.log(selectedSection)
-    }, [selectedSection])
 
     return {
         data: {

@@ -26,7 +26,6 @@ const useHeadquarters = () => {
             setOriginalData(res)
         } catch (error) {
             setErrorMessage('حدث خطاء')
-            console.log(error)
         }
     }
 

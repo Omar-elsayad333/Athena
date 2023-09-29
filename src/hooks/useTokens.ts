@@ -48,7 +48,6 @@ const useTokens = () => {
                 },
             })
         } catch (err) {
-            console.log(err)
             router.replace(Routes.teacherLogin)
         }
     }

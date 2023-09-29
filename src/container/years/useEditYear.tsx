@@ -41,7 +41,6 @@ const useEditYear = () => {
             setYearData(res)
             adjustLevelsData(res)
         } catch (error) {
-            console.log(error)
             setErrorMessage('حدث خطاء')
         }
     }
@@ -56,7 +55,6 @@ const useEditYear = () => {
             )
             setLevelsData(res)
         } catch (error) {
-            console.log(error)
             setErrorMessage('حدث خطاء')
         }
     }
@@ -91,7 +89,6 @@ const useEditYear = () => {
             )
             setLevelsData(res)
         } catch (error) {
-            console.log(error)
             setErrorMessage('حدث خطاء')
         }
     }
@@ -422,7 +419,6 @@ const useEditYear = () => {
                         startDate: semster.startDate,
                         endDate: semster.endDate,
                     })
-                    console.log('lkasdjflk')
                 }
                 levelData = {
                     id: level.id,
@@ -451,7 +447,6 @@ const useEditYear = () => {
                 setSuccessMessage('تم اضافة الفصل الدراسي بنجاح')
                 await getYearData()
             } catch (error) {
-                console.log(error)
                 setErrorMessage('حدث خطاء')
             }
         }
@@ -484,7 +479,6 @@ const useEditYear = () => {
             setWarningMessage('تم حذف العام الدراسي بنجاح')
             router.replace(Routes.teacherYears)
         } catch (error) {
-            console.log(error)
             setErrorMessage('حدث خطاء')
         }
     }
@@ -500,7 +494,6 @@ const useEditYear = () => {
             setWarningMessage('تم انهاء العام الدراسي بنجاح')
             router.replace(`${Routes.teacherYear}/${res}`)
         } catch (error) {
-            console.log(error)
             setErrorMessage('حدث خطاء')
         }
     }

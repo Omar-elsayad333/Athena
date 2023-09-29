@@ -28,10 +28,8 @@ const useHeadquarter = () => {
                 userState.tokens!.accessToken!,
                 Urls.URL_HEADQUARTERS,
             )
-            console.log(res)
             setHeadquarterData(res)
         } catch (error) {
-            console.log(error)
             setErrorMessage('حدث خطاء')
         }
     }

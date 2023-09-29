@@ -88,7 +88,6 @@ const useCorrectingStudentsList = () => {
 
     // Update the students according to the selected group
     const updateStudents = () => {
-        console.log(originalData.groups)
         if (selectedGroup.value) {
             setFilterdData([])
             selectedGroup.value === 'all'

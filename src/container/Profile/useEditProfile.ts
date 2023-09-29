@@ -19,7 +19,6 @@ const useEditProfile = () => {
 
     useEffect(() => {
         if (userState.tokens?.accessToken) {
-            console.log(state)
             getPageData()
         }
     }, [userState.tokens?.accessToken])
@@ -29,7 +28,6 @@ const useEditProfile = () => {
             const response = await getHandler(userState.tokens?.accessToken!, Urls.URL_PROFILE)
             setPageData(response)
         } catch (error) {
-            console.log(error)
         }
     }
 
@@ -128,19 +126,16 @@ const useEditProfile = () => {
             twitter: state.inputs.twitter.value || pageData.twitter,
             youtube: state.inputs.youtube.value || pageData.youtube,
         }
-        console.log(dataToSubmit)
         return dataToSubmit
     }
 
     const submit = async () => {
         try {
-            console.log(state)
             const data = collectData()
             await putHandler(userState.tokens?.accessToken!, Urls.URL_PROFILE, data)
             setSuccessMessage('تعديل البيانات بنجاح')
             router.push(Routes.teacherProfile)
         } catch (error) {
-            console.log(error)
             setErrorMessage('يوجد خطاء في البيانات')
         }
     }
