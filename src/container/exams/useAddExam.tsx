@@ -131,9 +131,16 @@ const useAddExam = () => {
 
     // Get the selected exam start date from user
     const examStartDateHandler = (selectedExamStartDate: any) => {
+        const date = new Date(selectedExamStartDate)
+
+        // Get the ISO date string by subtracting the offset
+        const ISODate: any = new Date(
+            date.getTime() - date.getTimezoneOffset() * 60000,
+        ).toISOString()
+
         setExamStartDate((examStartDate) => ({
             ...examStartDate,
-            value: selectedExamStartDate !== null ? selectedExamStartDate.toISOString() : null,
+            value: selectedExamStartDate !== null ? ISODate : null,
             error: false,
             helperText: '',
         }))
@@ -737,13 +744,14 @@ const useAddExam = () => {
     const submitExam = async () => {
         if (validateData()) {
             const data: any = collectData()
-            try {
-                await postHandler(userState.tokens!.accessToken!, Urls.URL_TEACHER_EXAMS, data)
-                setSuccessMessage('تم اضافة الأمتحان بنجاح')
-                router.push(Routes.teacherExams)
-            } catch (error) {
-                setErrorMessage('حدث خطاء اثناء اضافة الأمتحان')
-            }
+            console.log(data)
+            // try {
+            //     await postHandler(userState.tokens!.accessToken!, Urls.URL_TEACHER_EXAMS, data)
+            //     setSuccessMessage('تم اضافة الأمتحان بنجاح')
+            //     router.push(Routes.teacherExams)
+            // } catch (error) {
+            //     setErrorMessage('حدث خطاء اثناء اضافة الأمتحان')
+            // }
         }
     }
 
