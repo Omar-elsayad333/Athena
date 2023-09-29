@@ -744,14 +744,13 @@ const useAddExam = () => {
     const submitExam = async () => {
         if (validateData()) {
             const data: any = collectData()
-            console.log(data)
-            // try {
-            //     await postHandler(userState.tokens!.accessToken!, Urls.URL_TEACHER_EXAMS, data)
-            //     setSuccessMessage('تم اضافة الأمتحان بنجاح')
-            //     router.push(Routes.teacherExams)
-            // } catch (error) {
-            //     setErrorMessage('حدث خطاء اثناء اضافة الأمتحان')
-            // }
+            try {
+                await postHandler(userState.tokens!.accessToken!, Urls.URL_TEACHER_EXAMS, data)
+                setSuccessMessage('تم اضافة الأمتحان بنجاح')
+                router.push(Routes.teacherExams)
+            } catch (error) {
+                setErrorMessage('حدث خطاء اثناء اضافة الأمتحان')
+            }
         }
     }
 
