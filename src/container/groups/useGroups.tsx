@@ -25,12 +25,10 @@ const useGroups = () => {
     const getGroupsData = async () => {
         try {
             const res = await getHandler(userState.tokens!.accessToken!, Urls.URL_GROUPS)
-            console.log(res)
             setOpenGroupsData(res.open)
             setPreOpenGroupsData(res.preOpen)
             setOriginalData(res)
         } catch (error) {
-            console.log(error)
             setErrorMessage('حدث خطاء')
         }
     }

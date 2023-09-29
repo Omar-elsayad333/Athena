@@ -81,7 +81,6 @@ const useEditGroup = () => {
             const res = await getHandler(userState.tokens!.accessToken!, Urls.URL_GROUPS_REQUIRED)
             setRequiredData(res)
         } catch (error) {
-            console.log(error)
             setErrorMessage('حدث خطاء')
         }
     }
@@ -97,7 +96,6 @@ const useEditGroup = () => {
             const res = await getHandlerById(id, userState.tokens!.accessToken!, Urls.URL_GROUPS)
             setGroupData(res)
         } catch (error) {
-            console.log(error)
             setErrorMessage('حدث خطاء')
         }
     }
@@ -303,7 +301,6 @@ const useEditGroup = () => {
                 setSuccessMessage('تم تعديل بيانات المجموعه بنجاح')
                 router.push(`${Routes.teacherGroup}${res}`)
             } catch (error) {
-                console.log(error)
                 setErrorMessage('حدث خطاء')
             }
         } else {
@@ -319,7 +316,6 @@ const useEditGroup = () => {
             setWarningMessage('تم حذف المجموعه بنجاح')
             router.replace(Routes.teacherGroups)
         } catch (error) {
-            console.log(error)
             setErrorMessage('حدث خطاء')
         }
     }

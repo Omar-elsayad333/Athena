@@ -70,9 +70,7 @@ const useAddExam = () => {
             )
             setLevelsData(res.levels)
             updateExamType(res)
-        } catch (error) {
-            console.log(error)
-        }
+        } catch (error) {}
     }
 
     // Call api to get groups data
@@ -85,9 +83,7 @@ const useAddExam = () => {
                 true,
             )
             setGroupsData(res)
-        } catch (error) {
-            console.log(error)
-        }
+        } catch (error) {}
     }
 
     // Update exam types data
@@ -742,16 +738,10 @@ const useAddExam = () => {
         if (validateData()) {
             const data: any = collectData()
             try {
-                const res = await postHandler(
-                    userState.tokens!.accessToken!,
-                    Urls.URL_TEACHER_EXAMS,
-                    data,
-                )
-                console.log(res)
+                await postHandler(userState.tokens!.accessToken!, Urls.URL_TEACHER_EXAMS, data)
                 setSuccessMessage('تم اضافة الأمتحان بنجاح')
                 router.push(Routes.teacherExams)
             } catch (error) {
-                console.log(error)
                 setErrorMessage('حدث خطاء اثناء اضافة الأمتحان')
             }
         }

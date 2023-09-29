@@ -76,7 +76,6 @@ const useAddGroup = () => {
             )
             setRequiredData(res)
         } catch (error) {
-            console.log(error)
             setErrorMessage('حدث خطاء')
         }
     }
@@ -307,7 +306,6 @@ const useAddGroup = () => {
                 setSuccessMessage('تم اضافة المجموعه بنجاح')
                 router.push(`${Routes.teacherGroup}${res}`)
             } catch (error) {
-                console.log(error)
                 setErrorMessage('حدث خطاء اثناء الأضافه')
             }
         } else {

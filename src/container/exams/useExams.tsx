@@ -43,7 +43,6 @@ const useExams = () => {
                 id: 'all',
             })
         } catch (error) {
-            console.log(error)
             setErrorMessage('حدث خطاء')
         }
     }
@@ -57,7 +56,6 @@ const useExams = () => {
             )
             setExamTypes(res.examTypes)
         } catch (error) {
-            console.log(error)
             setErrorMessage('حدث خطاء')
         }
     }
@@ -73,7 +71,6 @@ const useExams = () => {
 
     // Get selected exam type to filter exams for the user
     const filterByType = (selectedExamType: any) => {
-        console.log(selectedExamType)
         if (selectedExamType.name != 'all') {
             setFilterdData(examsData.filter((exam: any) => exam.examType == selectedExamType.name))
         } else {
