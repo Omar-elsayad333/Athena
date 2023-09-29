@@ -58,11 +58,13 @@ const NotificationsC: React.FC<Props> = ({ data, actions }) => {
         card: {
             display: 'flex',
             gap: '10px',
+            justifyContent: 'space-between',
             alignItems: 'center',
             width: '100%',
             padding: '20px',
             borderRadius: '12px',
             backgroundColor: mainColors.paper.main,
+            flexWrap: 'wrap',
             boxShadow: `5px 5px 15px 0px  ${mainColors.shadow.secondary}`,
         },
         avatar: {
@@ -73,6 +75,11 @@ const NotificationsC: React.FC<Props> = ({ data, actions }) => {
             display: 'grid',
             placeItems: 'center',
             border: `1px solid ${mainColors.primary.main}`,
+        },
+        contentBody: {
+            display: 'flex',
+            alignItems: 'center',
+            gap: '10px',
         },
         cardStatusStyle: {
             backgroundColor: `${mainColors.backgroundColor.main} !important`,
@@ -119,28 +126,25 @@ const NotificationsC: React.FC<Props> = ({ data, actions }) => {
                                     ),
                                 ]}
                             >
-                                {notification.image ? (
-                                    <Avatar
-                                        alt=""
-                                        sizes="30"
-                                        sx={style.avatar}
-                                        src={actions.getNotificationAvatar(notification.type)}
-                                    />
-                                ) : (
-                                    <Box sx={style.avatar}>
-                                        {actions.getNotificationAvatar(notification.type)}
-                                    </Box>
-                                )}
-                                <Tooltip title="مرحبا! استاذ محمد لقد قمنا بتحديث سياسة الخصوصية الخاصة بنا">
-                                    <Typography
-                                        noWrap
-                                        variant="h5"
-                                        fontWeight={700}
-                                        color={'primary'}
-                                    >
-                                        {notification.message}
-                                    </Typography>
-                                </Tooltip>
+                                <Box sx={style.contentBody}>
+                                    {notification.image ? (
+                                        <Avatar
+                                            alt=""
+                                            sizes="30"
+                                            sx={style.avatar}
+                                            src={actions.getNotificationAvatar(notification.type)}
+                                        />
+                                    ) : (
+                                        <Box sx={style.avatar}>
+                                            {actions.getNotificationAvatar(notification.type)}
+                                        </Box>
+                                    )}
+                                    <Tooltip title={notification.message}>
+                                        <Typography variant="h5" fontWeight={700} color={'primary'}>
+                                            {notification.message}
+                                        </Typography>
+                                    </Tooltip>
+                                </Box>
                                 <Typography
                                     variant="h5"
                                     justifyItems={'end'}
