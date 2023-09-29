@@ -143,33 +143,37 @@ const ShowWritten: React.FC<Props> = ({ data, actions, grandParentIndex, parentI
             </Box>
             <Box sx={[style.flexRow, { justifyContent: 'start' }]}>
                 <MyButtonSuccess
-                    onClick={() => actions.submitCorrectingDegree(data.id, data.degree)}
+                    onClick={() =>
+                        actions.submitCorrectingDegree(data.id, data.degree, {
+                            grandParent: grandParentIndex,
+                            parent: parentIndex,
+                        })
+                    }
                     content="اجابة صحيحة"
                 />
                 <MyButtonError
-                    onClick={() => actions.submitCorrectingDegree(data.id, '0')}
+                    onClick={() =>
+                        actions.submitCorrectingDegree(data.id, '0', {
+                            grandParent: grandParentIndex,
+                            parent: parentIndex,
+                        })
+                    }
                     content="اجابة خاطئة"
                 />
             </Box>
             <Box sx={[style.flexRow, { justifyContent: 'start' }]}>
                 <MyInputSmall
                     type="number"
-                    placeholder="حدد الدرجة التقديرية"
+                    placeholder={data.isCorrected ? data.studentDegree : 'حدد الدرجة التقديرية'}
                     onChange={actions.handleCorrectingDegree}
                     indexes={{
                         grandParent: grandParentIndex,
                         parent: parentIndex,
                     }}
-                    value={
-                        data.correctingDegree
-                            ? data.correctingDegree
-                            : data.isCorrected
-                            ? data.studentDegree
-                            : ''
-                    }
+                    value={data.correctingDegree}
                 />
                 <MyButton
-                    onClick={() => actions.submitCorrectingDegree(data.id, '0')}
+                    onClick={() => actions.submitCorrectingDegree(data.id, data.correctingDegree)}
                     content="تأكيد الدرجه"
                 />
             </Box>
