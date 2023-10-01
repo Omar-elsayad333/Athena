@@ -57,7 +57,7 @@ const Students: NextPage = () => {
                 secondPath="/teacher/students/add-student"
                 secondContent="اضافة طالب"
             />
-            {states.loading ? (
+            {!states.loading ? (
                 <Box sx={style.container}>
                     <PageTitle content="جميع الطلاب الحاليين">
                         <svg
