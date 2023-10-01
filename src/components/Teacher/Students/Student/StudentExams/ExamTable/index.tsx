@@ -1,6 +1,10 @@
-import Urls from 'constant/urls'
 import { useTheme } from 'context/ThemeContext'
 import { convertDateToShortDate } from 'utils/converters'
+import { examStudentStatesTranslate } from 'utils/translateors'
+import AbsentStudentIcon from 'components/Svgs/AbsentStudentIcon'
+import FailedStudentIcon from 'components/Svgs/FailedStudentIcon'
+import SuccessedStudentIcon from 'components/Svgs/SuccessedStudentIcon'
+import DistinctiveStudentIcon from 'components/Svgs/DistinctiveStudentIcon'
 
 // MUI
 import Box from '@mui/material/Box'
@@ -9,11 +13,6 @@ import TableRow from '@mui/material/TableRow'
 import TableCell from '@mui/material/TableCell'
 import TableHead from '@mui/material/TableHead'
 import TableBody from '@mui/material/TableBody'
-import AbsentStudentIcon from 'components/Svgs/AbsentStudentIcon'
-import SuccessedStudentIcon from 'components/Svgs/SuccessedStudentIcon'
-import FailedStudentIcon from 'components/Svgs/FailedStudentIcon'
-import DistinctiveStudentIcon from 'components/Svgs/DistinctiveStudentIcon'
-import { examStudentStatesTranslate } from 'utils/translateors'
 
 type Props = {
     headerData: any
