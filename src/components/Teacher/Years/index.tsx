@@ -86,7 +86,7 @@ const YearsC: React.FC<Props> = ({ data }) => {
             <Typography sx={style.title} color={mainColors.title.main} variant="h3">
                 السنه الحاليه
             </Typography>
-            {data.yearsData &&
+            {data.yearsData && data.yearsData.open.length > 0 ? (
                 data.yearsData.open.map((item: any) => {
                     return (
                         <Link key={item.id} href={`${Routes.teacherYear}${item.id}`}>
@@ -96,17 +96,22 @@ const YearsC: React.FC<Props> = ({ data }) => {
                                         العام الدراسي
                                     </Typography>
                                     <Typography color="primary" variant="h1">
-                                        {`${item.end} / ${item.start}`}
+                                        {`${item.start} / ${item.end}`}
                                     </Typography>
                                 </Box>
                             </Box>
                         </Link>
                     )
-                })}
+                })
+            ) : (
+                <Typography color="primary" variant="h5" fontWeight={700}>
+                    لا يوجد اعوام دراسيه حاليه
+                </Typography>
+            )}
             <Typography sx={style.title} color={mainColors.title.main} variant="h3">
                 السنه القدمه
             </Typography>
-            {data.yearsData &&
+            {data.yearsData && data.yearsData.preopen.length > 0 ? (
                 data.yearsData.preopen.map((item: any) => {
                     return (
                         <Link key={item.id} href={`${Routes.teacherYear}${item.id}`}>
@@ -116,17 +121,22 @@ const YearsC: React.FC<Props> = ({ data }) => {
                                         العام الدراسي
                                     </Typography>
                                     <Typography color="primary" variant="h1">
-                                        {`${item.end} / ${item.start}`}
+                                        {`${item.start} / ${item.end}`}
                                     </Typography>
                                 </Box>
                             </Box>
                         </Link>
                     )
-                })}
+                })
+            ) : (
+                <Typography color="primary" variant="h5" fontWeight={700}>
+                    لا يوجد اعوام دراسيه قادمه
+                </Typography>
+            )}
             <Typography sx={style.title} color={mainColors.title.main} variant="h3">
                 السنوات المغلقه
             </Typography>
-            {data.yearsData &&
+            {data.yearsData && data.yearsData.finished.length > 0 ? (
                 data.yearsData.finished.map((item: any) => {
                     return (
                         <Link key={item.id} href={`${Routes.teacherYear}${item.id}`}>
@@ -136,13 +146,18 @@ const YearsC: React.FC<Props> = ({ data }) => {
                                         العام الدراسي
                                     </Typography>
                                     <Typography color="primary" variant="h1">
-                                        {`${item.end} / ${item.start}`}
+                                        {`${item.start} / ${item.end}`}
                                     </Typography>
                                 </Box>
                             </Box>
                         </Link>
                     )
-                })}
+                })
+            ) : (
+                <Typography color="primary" variant="h5" fontWeight={700}>
+                    لا يوجد اعوام دراسيه منتهيه
+                </Typography>
+            )}
         </Box>
     )
 }

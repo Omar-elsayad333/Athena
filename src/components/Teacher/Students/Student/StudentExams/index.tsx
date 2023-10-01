@@ -1,5 +1,5 @@
+import ExamTable from './ExamTable'
 import { IStyle } from 'styles/IStyle'
-import MyTable from 'components/MyTable'
 import { useTheme } from 'context/ThemeContext'
 import { StudentExamsTable } from 'content/tableHeaders'
 
@@ -9,11 +9,9 @@ import Typography from '@mui/material/Typography'
 
 type Props = {
     data: any
-    states: any
-    actions: any
 }
 
-const StudentExams: React.FC<Props> = ({}) => {
+const StudentExams: React.FC<Props> = ({ data }) => {
     const { mainColors } = useTheme()
     const style: IStyle = {
         container: {
@@ -32,7 +30,11 @@ const StudentExams: React.FC<Props> = ({}) => {
             <Typography sx={style.title} variant="h3" color={mainColors.title.main}>
                 نتائج الامتحانات الشهرية:-
             </Typography>
-            <MyTable headerData={StudentExamsTable} bodyData={[]} />
+            {data.length > 0 ? (
+                <ExamTable headerData={StudentExamsTable} bodyData={data} />
+            ) : (
+                <Typography>لا يوجدامتحانات للطالب</Typography>
+            )}
         </Box>
     )
 }

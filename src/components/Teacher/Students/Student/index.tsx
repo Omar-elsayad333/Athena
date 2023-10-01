@@ -1,11 +1,11 @@
 import { IStyle } from 'styles/IStyle'
 import StudentInfo from './StudentInfo'
+import StudentExams from './StudentExams'
 import FilterWedgit from 'components/FilterWedgit'
 
 // MUI
 import Box from '@mui/material/Box'
-import StudentAttendance from './StudentAttendance'
-import StudentExams from './StudentExams'
+import Typography from '@mui/material/Typography'
 
 type Props = {
     data: any
@@ -30,15 +30,10 @@ const StudentC: React.FC<Props> = ({ data, states, actions }) => {
                 getSelected={actions.selectedSectionHandler}
                 filters={data.studentSections}
             />
-            {states.selectedSection?.id === '1' && (
+            {states.selectedSection?.id === '1' && data.studentData && (
                 <StudentInfo data={data} states={states} actions={actions} />
             )}
-            {states.selectedSection?.id === '2' && (
-                <StudentAttendance data={data} states={states} actions={actions} />
-            )}
-            {states.selectedSection?.id === '3' && (
-                <StudentExams data={data} states={states} actions={actions} />
-            )}
+            {states.selectedSection?.id === '2' && <StudentExams data={data.studentExamsData} />}
         </Box>
     )
 }

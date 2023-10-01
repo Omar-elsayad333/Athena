@@ -1,23 +1,42 @@
+import Urls from 'constant/urls'
 import { Routes } from 'routes/Routes'
 import { useRouter } from 'next/router'
 import ExamIcon from 'assets/svgs/ExamIcon'
 import { useEffect, useState } from 'react'
+import { useUser } from 'context/userContext'
 import { useTheme } from 'context/ThemeContext'
+import { useAlert } from 'context/AlertContext'
 import useRequestsHandlers from 'hooks/useRequestsHandlers'
 import { useNotifications } from 'context/NotificationContext'
 
 const useShowNotifications = () => {
     const route = useRouter()
     const { mainColors } = useTheme()
-    const { loading } = useRequestsHandlers()
-    const { notificationsData, changeNotificationStatus } = useNotifications()
+    const { setErrorMessage } = useAlert()
+    const { userState } = useUser()
+    const { loading, getHandler } = useRequestsHandlers()
+    const { changeNotificationStatus } = useNotifications()
     const [filterdData, setFilterdData] = useState<any[]>([])
+    const [notificationsData, setNotificationsData] = useState<any[]>([])
 
     useEffect(() => {
-        if (notificationsData) {
-            setFilterdData(notificationsData)
+        if (userState.tokens?.accessToken) {
+            getNotifications()
         }
-    }, [notificationsData])
+    }, [userState.tokens?.accessToken])
+
+    const getNotifications = async () => {
+        try {
+            const response = await getHandler(
+                userState.tokens?.accessToken!,
+                Urls.URL_NOTIFICATIONS,
+            )
+            setNotificationsData(response)
+            setFilterdData(response)
+        } catch (error) {
+            setErrorMessage('حدث خطاء')
+        }
+    }
 
     const filterDataHandler = (filterType: string) => {
         if (filterType === 'all') {

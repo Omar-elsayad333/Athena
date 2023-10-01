@@ -14,6 +14,7 @@ const useStudent = () => {
     const { setErrorMessage } = useAlert()
     const { loading, getHandlerById, putHandler } = useRequestsHandlers()
     const [studentData, setStudentData] = useState<any>('')
+    const [studentExamsData, setStudentExamsData] = useState<any>('')
     const [editGroupState, setEditGroupState] = useState<boolean>(false)
     const [groups, setGroups] = useState<any[]>([])
     const [selectedSection, setSelectedSection] = useState<any>('')
@@ -23,7 +24,7 @@ const useStudent = () => {
     useEffect(() => {
         if ((userState.tokens!.accessToken, id)) {
             getStudentData()
-            // getStudentExams()
+            getStudentExams()
         }
     }, [userState.tokens!.accessToken, id])
 
@@ -53,19 +54,19 @@ const useStudent = () => {
     }
 
     // Call api to remove student from teacher
-    const removeStudent = async () => {
-        try {
-            const res: any = await getHandlerById(
-                id,
-                userState.tokens!.accessToken!,
-                Urls.URL_TEACHERSTUDENTS_INFO,
-            )
-            setStudentData(res.info)
-            setGroups(res.info.groups)
-        } catch (error) {
-            setErrorMessage('حدث خطاء')
-        }
-    }
+    // const removeStudent = async () => {
+    //     try {
+    //         const res: any = await getHandlerById(
+    //             id,
+    //             userState.tokens!.accessToken!,
+    //             Urls.URL_TEACHERSTUDENTS_INFO,
+    //         )
+    //         setStudentData(res.info)
+    //         setGroups(res.info.groups)
+    //     } catch (error) {
+    //         setErrorMessage('حدث خطاء')
+    //     }
+    // }
 
     // Call api to get student data
     const getStudentExams = async () => {
@@ -75,9 +76,10 @@ const useStudent = () => {
                 userState.tokens!.accessToken!,
                 Urls.URL_TEACHERSTUDENTS_EXAMS,
             )
-            setStudentData(res.info)
-            setGroups(res.info.groups)
-        } catch (error) {}
+            setStudentExamsData(res)
+        } catch (error) {
+            setErrorMessage('حدث خطاء')
+        }
     }
 
     // Get the selected level from user
@@ -148,6 +150,7 @@ const useStudent = () => {
             studentData,
             groups,
             studentSections,
+            studentExamsData,
         },
         states: {
             loading,
@@ -156,7 +159,7 @@ const useStudent = () => {
             selectedSection,
         },
         actions: {
-            removeStudent,
+            // removeStudent,
             selectedGroupHandler,
             editGroupStateHandler,
             selectedSectionHandler,

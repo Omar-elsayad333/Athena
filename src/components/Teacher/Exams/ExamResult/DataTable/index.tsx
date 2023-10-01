@@ -108,8 +108,8 @@ const DataTable: React.FC<Props> = ({ headerData, bodyData }) => {
                                             </TableCell>
                                         )
                                     } else if (cell === 'state') {
-                                        switch (cell) {
-                                            case 'Failed':
+                                        switch (bodyItem.state) {
+                                            case 'Failure':
                                                 return (
                                                     <TableCell align="right" key={keyIndex}>
                                                         <FailedStudentIcon />
@@ -172,7 +172,7 @@ const DataTable: React.FC<Props> = ({ headerData, bodyData }) => {
                                                         align="right"
                                                         key={keyIndex}
                                                         sx={{
-                                                            color: `${mainColors.error.main} !important`,
+                                                            fontSize: '20px',
                                                         }}
                                                     >
                                                         ------
