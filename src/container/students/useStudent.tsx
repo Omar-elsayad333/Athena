@@ -5,11 +5,13 @@ import { useUser } from 'context/userContext'
 import { studentSections } from 'constant/staticData'
 import useRequestsHandlers from 'hooks/useRequestsHandlers'
 import { DropMenuProps, dropMenuInitialValues } from 'interfaces/shared/input'
+import { useAlert } from 'context/AlertContext'
 
 const useStudent = () => {
     const { userState } = useUser()
     const router = useRouter()
     const { id } = router.query
+    const { setErrorMessage } = useAlert()
     const { loading, getHandlerById, putHandler } = useRequestsHandlers()
     const [studentData, setStudentData] = useState<any>('')
     const [editGroupState, setEditGroupState] = useState<boolean>(false)
@@ -46,6 +48,22 @@ const useStudent = () => {
             setStudentData(res.info)
             setGroups(res.info.groups)
         } catch (error) {
+            setErrorMessage('حدث خطاء')
+        }
+    }
+
+    // Call api to remove student from teacher
+    const removeStudent = async () => {
+        try {
+            const res: any = await getHandlerById(
+                id,
+                userState.tokens!.accessToken!,
+                Urls.URL_TEACHERSTUDENTS_INFO,
+            )
+            setStudentData(res.info)
+            setGroups(res.info.groups)
+        } catch (error) {
+            setErrorMessage('حدث خطاء')
         }
     }
 
@@ -59,8 +77,7 @@ const useStudent = () => {
             )
             setStudentData(res.info)
             setGroups(res.info.groups)
-        } catch (error) {
-        }
+        } catch (error) {}
     }
 
     // Get the selected level from user
@@ -122,8 +139,7 @@ const useStudent = () => {
                     data,
                 )
                 router.reload()
-            } catch (error) {
-            }
+            } catch (error) {}
         }
     }
 
@@ -140,6 +156,7 @@ const useStudent = () => {
             selectedSection,
         },
         actions: {
+            removeStudent,
             selectedGroupHandler,
             editGroupStateHandler,
             selectedSectionHandler,
