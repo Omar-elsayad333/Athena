@@ -66,10 +66,6 @@ export const StudentExamsTable = [
         value: 'تاريخ الإنشاء',
     },
     {
-        name: 'attendance',
-        value: 'الحضور',
-    },
-    {
         name: 'state',
         value: 'حالة الامتحان',
     },

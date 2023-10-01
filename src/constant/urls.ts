@@ -23,6 +23,8 @@ class Urls {
     static URL_YEARS_LEVEL: string = '/api/teacher/years/level'
     static URL_YEARS_LEVELS: string = '/api/teacher/years/levels'
 
+    static URL_NOTIFICATIONS: string = '/api/teacher/notifications'
+
     static URL_LEVELS: string = '/api/teacher/levels'
 
     static URL_COURSES: string = '/api/teacher/courses'

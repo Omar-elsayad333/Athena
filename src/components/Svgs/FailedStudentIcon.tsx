@@ -1,9 +1,14 @@
-const FailedStudentIcon = () => {
+type Props = {
+    width?: number
+    height?: number
+}
+
+const FailedStudentIcon: React.FC<Props> = ({ width, height }) => {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="27"
-            height="26"
+            width={width ? width : 27}
+            height={height ? height : 26}
             viewBox="0 0 27 26"
             fill="none"
         >

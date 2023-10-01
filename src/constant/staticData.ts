@@ -79,19 +79,7 @@ export const studentSections: any[] = [
     },
     {
         id: '2',
-        name: 'سجل الحضور',
-    },
-    {
-        id: '3',
         name: 'الامتحانات',
-    },
-    {
-        id: '4',
-        name: 'المصروفات',
-    },
-    {
-        id: '5',
-        name: 'التحذيرات',
     },
 ]
 

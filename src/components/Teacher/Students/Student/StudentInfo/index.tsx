@@ -4,6 +4,7 @@ import MySelect from 'components/MySelect'
 import { useTheme } from 'context/ThemeContext'
 import MyButton from 'components/Buttons/MyButton'
 import { genderTranslate } from 'utils/translateors'
+import MyButtonError from 'components/Buttons/MyButtonError'
 
 // MUI
 import Box from '@mui/material/Box'
@@ -109,8 +110,8 @@ const StudentInfo: React.FC<Props> = ({ data, states, actions }) => {
             width: '150px',
             height: '150px',
             background: () => {
-                if (data.studentData.image) {
-                    return `url(${Urls.URL_MAIN}/${data.studentData.image})`
+                if (data.studentData?.image) {
+                    return `url(${Urls.URL_MAIN}/${data.studentData?.image})`
                 } else {
                     return '#B6D5F0'
                 }
@@ -205,13 +206,13 @@ const StudentInfo: React.FC<Props> = ({ data, states, actions }) => {
                     <Box sx={style.row}>
                         <Box sx={style.studentName}>
                             <Typography color={'primary'} variant={'h3'}>
-                                {data.studentData.gender == 'male' ? 'الطالب' : 'الطالبه'}
-                                {` / ${data.studentData.firstName} ${data.studentData.middleName} ${data.studentData.lastName}`}
+                                {data.studentData?.gender == 'male' ? 'الطالب' : 'الطالبه'}
+                                {` / ${data.studentData?.firstName} ${data.studentData?.middleName} ${data.studentData?.lastName}`}
                             </Typography>
                         </Box>
                         <Box sx={style.dataCard}>
                             <Typography color={'primary'} variant="h5" fontWeight={700}>
-                                {data.studentData.code}
+                                {data.studentData?.code}
                             </Typography>
                         </Box>
                     </Box>
@@ -222,7 +223,7 @@ const StudentInfo: React.FC<Props> = ({ data, states, actions }) => {
                             </Typography>
                             <Box sx={style.infoChip}>
                                 <Typography variant="h5" color={'primary'} fontWeight={700}>
-                                    {data.studentData.levelName}
+                                    {data.studentData?.levelName}
                                 </Typography>
                             </Box>
                         </Box>
@@ -232,7 +233,7 @@ const StudentInfo: React.FC<Props> = ({ data, states, actions }) => {
                             </Typography>
                             <Box sx={style.infoChip}>
                                 <Typography variant="h5" color={'primary'} fontWeight={700}>
-                                    {data.studentData.userName}
+                                    {data.studentData?.userName}
                                 </Typography>
                             </Box>
                         </Box>
@@ -242,7 +243,7 @@ const StudentInfo: React.FC<Props> = ({ data, states, actions }) => {
                             </Typography>
                             <Box sx={style.infoChip}>
                                 <Typography variant="h5" color={'primary'} fontWeight={700}>
-                                    {data.studentData.educationClassificationName}
+                                    {data.studentData?.educationClassificationName}
                                 </Typography>
                             </Box>
                         </Box>
@@ -252,7 +253,7 @@ const StudentInfo: React.FC<Props> = ({ data, states, actions }) => {
                             </Typography>
                             <Box sx={style.infoChip}>
                                 <Typography variant="h5" color={'primary'} fontWeight={700}>
-                                    {data.studentData.email}
+                                    {data.studentData?.email}
                                 </Typography>
                             </Box>
                         </Box>
@@ -273,7 +274,7 @@ const StudentInfo: React.FC<Props> = ({ data, states, actions }) => {
                         </Typography>
                         <Box sx={style.bigInfoChip}>
                             <Typography variant="h5" color={'primary'} fontWeight={700}>
-                                {data.studentData.firstName}
+                                {data.studentData?.firstName}
                             </Typography>
                         </Box>
                     </Box>
@@ -283,7 +284,7 @@ const StudentInfo: React.FC<Props> = ({ data, states, actions }) => {
                         </Typography>
                         <Box sx={style.bigInfoChip}>
                             <Typography variant="h5" color={'primary'} fontWeight={700}>
-                                {data.studentData.lastName}
+                                {data.studentData?.lastName}
                             </Typography>
                         </Box>
                     </Box>
@@ -293,7 +294,7 @@ const StudentInfo: React.FC<Props> = ({ data, states, actions }) => {
                         </Typography>
                         <Box sx={style.bigInfoChip}>
                             <Typography variant="h5" color={'primary'} fontWeight={700}>
-                                {data.studentData.middleName}
+                                {data.studentData?.middleName}
                             </Typography>
                         </Box>
                     </Box>
@@ -303,7 +304,7 @@ const StudentInfo: React.FC<Props> = ({ data, states, actions }) => {
                         </Typography>
                         <Box sx={style.bigInfoChip}>
                             <Typography variant="h5" color={'primary'} fontWeight={700}>
-                                {`${data.studentData.firstName} ${data.studentData.middleName} ${data.studentData.lastName}`}
+                                {`${data.studentData?.firstName} ${data.studentData?.middleName} ${data.studentData?.lastName}`}
                             </Typography>
                         </Box>
                     </Box>
@@ -313,7 +314,7 @@ const StudentInfo: React.FC<Props> = ({ data, states, actions }) => {
                         </Typography>
                         <Box sx={style.bigInfoChip}>
                             <Typography variant="h5" color={'primary'} fontWeight={700}>
-                                {genderTranslate(data.studentData.gender)}
+                                {genderTranslate(data.studentData?.gender)}
                             </Typography>
                         </Box>
                     </Box>
@@ -323,7 +324,7 @@ const StudentInfo: React.FC<Props> = ({ data, states, actions }) => {
                         </Typography>
                         <Box sx={style.bigInfoChip}>
                             <Typography variant="h5" color={'primary'} fontWeight={700}>
-                                {new Date(data.studentData.birthDay).toLocaleDateString('en-US')}
+                                {new Date(data.studentData?.birthDay).toLocaleDateString('en-US')}
                             </Typography>
                         </Box>
                     </Box>
@@ -335,7 +336,7 @@ const StudentInfo: React.FC<Props> = ({ data, states, actions }) => {
                         </Typography>
                         <Box sx={style.bigInfoChip}>
                             <Typography variant="h5" color={'primary'} fontWeight={700}>
-                                {data.studentData.address}
+                                {data.studentData?.address}
                             </Typography>
                         </Box>
                     </Box>
@@ -345,7 +346,7 @@ const StudentInfo: React.FC<Props> = ({ data, states, actions }) => {
                         </Typography>
                         <Box sx={style.bigInfoChip}>
                             <Typography variant="h5" color={'primary'} fontWeight={700}>
-                                {data.studentData.phone}
+                                {data.studentData?.phone}
                             </Typography>
                         </Box>
                     </Box>
@@ -355,7 +356,7 @@ const StudentInfo: React.FC<Props> = ({ data, states, actions }) => {
                         </Typography>
                         <Box sx={style.bigInfoChip}>
                             <Typography variant="h5" color={'primary'} fontWeight={700}>
-                                {data.studentData.homePhone}
+                                {data.studentData?.homePhone}
                             </Typography>
                         </Box>
                     </Box>
@@ -365,7 +366,7 @@ const StudentInfo: React.FC<Props> = ({ data, states, actions }) => {
                         </Typography>
                         <Box sx={style.bigInfoChip}>
                             <Typography variant="h5" color={'primary'} fontWeight={700}>
-                                {data.studentData.parentName}
+                                {data.studentData?.parentName}
                             </Typography>
                         </Box>
                     </Box>
@@ -375,7 +376,7 @@ const StudentInfo: React.FC<Props> = ({ data, states, actions }) => {
                         </Typography>
                         <Box sx={style.bigInfoChip}>
                             <Typography variant="h5" color={'primary'} fontWeight={700}>
-                                {data.studentData.parentJob}
+                                {data.studentData?.parentJob}
                             </Typography>
                         </Box>
                     </Box>
@@ -385,7 +386,7 @@ const StudentInfo: React.FC<Props> = ({ data, states, actions }) => {
                         </Typography>
                         <Box sx={style.bigInfoChip}>
                             <Typography variant="h5" color={'primary'} fontWeight={700}>
-                                {data.studentData.parentPhone}
+                                {data.studentData?.parentPhone}
                             </Typography>
                         </Box>
                     </Box>
@@ -400,14 +401,14 @@ const StudentInfo: React.FC<Props> = ({ data, states, actions }) => {
                         data={data.groups}
                         value={states.selectedGroup.value}
                         error={states.selectedGroup.error}
-                        placeholder={data.studentData.groupName}
+                        placeholder={data.studentData?.groupName}
                         getSelected={actions.selectedGroupHandler}
                         helperText={states.selectedGroup.helperText}
                     />
                 ) : (
                     <Box sx={style.groupLabel}>
                         <Typography fontSize={'h4'} fontWeight={700} color={'primary'}>
-                            {data.studentData.groupName}
+                            {data.studentData?.groupName}
                         </Typography>
                     </Box>
                 )}
@@ -416,6 +417,9 @@ const StudentInfo: React.FC<Props> = ({ data, states, actions }) => {
                 ) : (
                     <MyButton content="تعديل المجموعة" onClick={actions.editGroupStateHandler} />
                 )}
+                <Box style={{ flex: '100%' }}>
+                    <MyButtonError content="حذف الطالب" />
+                </Box>
             </Box>
         </Box>
     )
