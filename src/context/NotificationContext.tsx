@@ -63,6 +63,13 @@ export const NotificationsProvider: React.FC<NotificationsProviderProps> = ({ ch
                     console.log(notificationsData)
                 })
 
+                hubConnection.on('NotificationFromServer', (notificationDtos: any) => {
+                    setNotificationsData((notificationsData) => [
+                        notificationDtos,
+                        ...notificationsData,
+                    ])
+                })
+
                 hubConnection.on('ChangeNotificationStatus', () => {})
             }
         }
