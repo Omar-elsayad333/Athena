@@ -5,7 +5,6 @@ import FilterWedgit from 'components/FilterWedgit'
 
 // MUI
 import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
 
 type Props = {
     data: any
