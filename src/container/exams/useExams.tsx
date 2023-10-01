@@ -72,8 +72,18 @@ const useExams = () => {
     // Get selected exam type to filter exams for the user
     const filterByType = (selectedExamType: any) => {
         if (selectedExamType.name != 'all') {
+            setSelectedExamType({
+                ...selectedExamType,
+                value: selectedExamType.name,
+                id: selectedExamType.id,
+            })
             setFilterdData(examsData.filter((exam: any) => exam.examType == selectedExamType.name))
         } else {
+            setSelectedExamType({
+                ...selectedExamType,
+                value: 'all',
+                id: 'all',
+            })
             setFilterdData(examsData)
         }
     }

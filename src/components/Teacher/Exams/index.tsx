@@ -85,7 +85,7 @@ const ExamsC: React.FC<Props> = ({ data, states, actions }) => {
                 filters={data.examTypes}
                 allFilter="جميع الامتحانات"
                 getSelected={actions.filterByType}
-                selected={states.selectedExamType}
+                selected={states.selectedExamType}w
             />
             <Box sx={style.examsCardContainer}>
                 {data.filterdData.length > 0 ? (
