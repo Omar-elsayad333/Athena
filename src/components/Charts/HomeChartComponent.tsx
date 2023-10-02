@@ -114,8 +114,7 @@ const HomeChartComponent: React.FC<Props> = ({ examData }) => {
         datasets: [
             {
                 label: 'عدد الطلاب المتميزين',
-                // data: getAdjustedData('distinctive'),
-                data: [65, 59, 80, 81, 56],
+                data: getAdjustedData('distinctive'),
 
                 hoverBackgroundColor: '#FFCC00',
                 backgroundColor: 'rgba(255, 204, 0, 0.25)',
