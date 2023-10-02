@@ -83,7 +83,7 @@ const MyTable: React.FC<Props> = ({ headerData, bodyData }) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {bodyData.length > 0 &&
+                    {bodyData?.length > 0 &&
                         bodyData.map((bodyItem: any, index: number) => (
                             <TableRow key={index}>
                                 {Object.keys(bodyItem).map((cell: any, keyIndex: number) => {

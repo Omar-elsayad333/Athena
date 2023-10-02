@@ -25,7 +25,7 @@ const Profile: NextPage = () => {
 
     return (
         <Box sx={pageStructureStyle.root}>
-            <PageHead title="Years" />
+            <PageHead title="Edit Profile" />
             <DesktopNavbar
                 firstPath={Routes.teacherProfile}
                 firstContent="ملف المدرس"
