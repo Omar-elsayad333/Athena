@@ -74,32 +74,40 @@ const StudentCard: React.FC<Props> = ({ data }) => {
 
     return (
         <Box sx={classes.container}>
-            {data.map((student: any) => {
-                return (
-                    <Link key={student.id} href={`/teacher/students/student/${student.id}`}>
-                        <Box
-                            sx={[
-                                classes.card,
-                                { backgroundImage: `url(${Urls.URL_MAIN}/${student.imagePath})` },
-                            ]}
-                        >
-                            <Box sx={classes.content}>
-                                <Typography textAlign={'center'} color="#E0EEFF" variant="h4">
-                                    {student.fullName}
-                                </Typography>
-                                <Box sx={classes.details}>
-                                    <Typography color="#E0EEFF" variant="h6">
-                                        {student.levelName}
+            {data?.length > 0 ? (
+                data.map((student: any) => {
+                    return (
+                        <Link key={student.id} href={`/teacher/students/student/${student.id}`}>
+                            <Box
+                                sx={[
+                                    classes.card,
+                                    {
+                                        backgroundImage: `url(${Urls.URL_MAIN}/${student.imagePath})`,
+                                    },
+                                ]}
+                            >
+                                <Box sx={classes.content}>
+                                    <Typography textAlign={'center'} color="#E0EEFF" variant="h4">
+                                        {student.fullName}
                                     </Typography>
-                                    <Typography color="#E0EEFF" variant="h6">
-                                        {student.groupName}
-                                    </Typography>
+                                    <Box sx={classes.details}>
+                                        <Typography color="#E0EEFF" variant="h6">
+                                            {student.levelName}
+                                        </Typography>
+                                        <Typography color="#E0EEFF" variant="h6">
+                                            {student.groupName}
+                                        </Typography>
+                                    </Box>
                                 </Box>
                             </Box>
-                        </Box>
-                    </Link>
-                )
-            })}
+                        </Link>
+                    )
+                })
+            ) : (
+                <Typography color="primary" variant="h3">
+                    لا يوجد طلاب
+                </Typography>
+            )}
         </Box>
     )
 }
