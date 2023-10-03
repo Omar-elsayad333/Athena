@@ -8,6 +8,7 @@ type Props = {
     content: string
     onClick?: any
     loading?: boolean
+    disabled?: boolean
 }
 
 const MyButton: React.FC<Props> = ({ content, onClick, loading }) => {
