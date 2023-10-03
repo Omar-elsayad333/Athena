@@ -15,6 +15,7 @@ type Props = {
     placeholder: string
     type?: string
     indexes?: any
+    disabled?: boolean
 }
 
 const MyInputSmall: React.FC<Props> = ({
@@ -26,6 +27,7 @@ const MyInputSmall: React.FC<Props> = ({
     name,
     type,
     indexes,
+    disabled,
 }) => {
     const { mainColors, darkMode } = useContext(DarkThemeContext)
 
@@ -103,6 +105,7 @@ const MyInputSmall: React.FC<Props> = ({
                 error={error}
                 placeholder={placeholder}
                 type={type}
+                disabled={disabled}
             />
             <label style={style.root}>{helperText}</label>
         </FormControl>
