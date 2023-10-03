@@ -170,10 +170,11 @@ const ShowWritten: React.FC<Props> = ({ data, actions, grandParentIndex, parentI
                         grandParent: grandParentIndex,
                         parent: parentIndex,
                     }}
-                    disabled={!data.isAnswerd && true}
+                    disabled={!data.isAnswered && true}
                     value={data.correctingDegree ? data.correctingDegree : 0}
                 />
                 <MyButton
+                    loading={!data.isAnswered && true}
                     onClick={() => actions.submitCorrectingDegree(data.id, data.correctingDegree)}
                     content="تأكيد الدرجه"
                 />
