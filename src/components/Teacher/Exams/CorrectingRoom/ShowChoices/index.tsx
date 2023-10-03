@@ -70,6 +70,22 @@ const ShowChoices: React.FC<Props> = ({ data, studentAnswer }) => {
                                     {choice.name && choice.name}
                                 </Typography>
                             </Box>
+
+                            {choice.image && (
+                                <Box sx={style.imageBox}>
+                                    <Box
+                                        sx={{
+                                            backgroundImage: `url('${Urls.URL_MAIN}/${choice.image}')`,
+                                            backgroundSize: 'cover',
+                                            backgroundPosition: 'center',
+                                            minWidth: '46px',
+                                            height: '46px',
+                                            border: '2px solid #3F72A4',
+                                            borderRadius: '10px',
+                                        }}
+                                    />
+                                </Box>
+                            )}
                             {studentAnswer === choice.id ? (
                                 choice.isRightChoice ? (
                                     <svg
@@ -109,21 +125,6 @@ const ShowChoices: React.FC<Props> = ({ data, studentAnswer }) => {
                                     </svg>
                                 )
                             ) : null}
-                            {choice.image && (
-                                <Box sx={style.imageBox}>
-                                    <Box
-                                        sx={{
-                                            backgroundImage: `url('${Urls.URL_MAIN}/${choice.image}')`,
-                                            backgroundSize: 'cover',
-                                            backgroundPosition: 'center',
-                                            minWidth: '46px',
-                                            height: '46px',
-                                            border: '2px solid #3F72A4',
-                                            borderRadius: '10px',
-                                        }}
-                                    />
-                                </Box>
-                            )}
                         </Box>
                     ))}
             </Box>
