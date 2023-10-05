@@ -150,7 +150,7 @@ const AddYearC: React.FC<Props> = ({ data, states, actions }) => {
                 )}
                 <Tooltip
                     sx={{ alignSelf: 'center' }}
-                    title="لا يمكن تعديل الصفوف الدراسيه لاحقا لذالك يجب التأكد من اختيارها جيدا"
+                    title="قم بإختيار الصفوف الدراسية جيداً علماً بأنك لم تستطيع حذفها لاحقاً"
                 >
                     <InfoOutlinedIcon color={'primary'} />
                 </Tooltip>

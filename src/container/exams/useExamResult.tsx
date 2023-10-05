@@ -50,7 +50,7 @@ const useExamResult = () => {
                 id: 'all',
             })
         } catch (error) {
-            setErrorMessage('حدث خطاء')
+            setErrorMessage('حدث خطأ')
         }
     }
 
@@ -102,7 +102,7 @@ const useExamResult = () => {
                 router.reload()
             }, 500)
         } catch (error) {
-            setErrorMessage('حدث خطاء')
+            setErrorMessage('حدث خطأ')
         }
     }
 

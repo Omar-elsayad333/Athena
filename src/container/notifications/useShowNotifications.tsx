@@ -34,7 +34,7 @@ const useShowNotifications = () => {
             setNotificationsData(response)
             setFilterdData(response)
         } catch (error) {
-            setErrorMessage('حدث خطاء')
+            setErrorMessage('حدث خطأ')
         }
     }
 

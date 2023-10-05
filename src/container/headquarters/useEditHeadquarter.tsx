@@ -55,7 +55,7 @@ const useEditHeadquarter = () => {
             setOriginalData(res)
             setHeadQuarterData(res)
         } catch (error) {
-            setErrorMessage('حدث خطاء')
+            setErrorMessage('حدث خطأ')
         }
     }
 
@@ -280,10 +280,10 @@ const useEditHeadquarter = () => {
                 setSuccessMessage('تمت التعديلات بنجاح')
                 router.push(`${Routes.teacherHeadquarter}${res}`)
             } catch (error) {
-                setErrorMessage('حدث خطاء')
+                setErrorMessage('حدث خطأ')
             }
         } else {
-            setErrorMessage('يوجد خطاء في المدخلات')
+            setErrorMessage('يوجد خطأ في المدخلات')
         }
     }
 
@@ -291,15 +291,11 @@ const useEditHeadquarter = () => {
     const deleteHeadquarter = async () => {
         try {
             closeWarningDialogState()
-            await deleteHandler(
-                id,
-                userState.tokens!.accessToken!,
-                Urls.URL_HEADQUARTERS,
-            )
+            await deleteHandler(id, userState.tokens!.accessToken!, Urls.URL_HEADQUARTERS)
             setWarningMessage('تم حذف المقر بنجاح')
             router.push(Routes.teacherheadquarters)
         } catch (error) {
-            setErrorMessage('حدث خطاء')
+            setErrorMessage('حدث خطأ')
         }
     }
 

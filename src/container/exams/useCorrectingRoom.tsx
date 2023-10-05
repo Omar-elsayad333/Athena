@@ -33,7 +33,7 @@ const useCorrectingRoom = () => {
             setExamSections(res.sections)
             adjuctSections(res.sections)
         } catch (error) {
-            setErrorMessage('حدث خطاء')
+            setErrorMessage('حدث خطأ')
         }
     }
 
@@ -101,7 +101,7 @@ const useCorrectingRoom = () => {
                 handleCorrectingDegree(degree, indexes)
             }
         } catch (error) {
-            setErrorMessage('حدث خطاء')
+            setErrorMessage('حدث خطأ')
         }
     }
 

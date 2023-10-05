@@ -41,7 +41,7 @@ const useEditYear = () => {
             setYearData(res)
             adjustLevelsData(res)
         } catch (error) {
-            setErrorMessage('حدث خطاء')
+            setErrorMessage('حدث خطأ')
         }
     }
 
@@ -55,7 +55,7 @@ const useEditYear = () => {
             )
             setLevelsData(res)
         } catch (error) {
-            setErrorMessage('حدث خطاء')
+            setErrorMessage('حدث خطأ')
         }
     }
 
@@ -89,7 +89,7 @@ const useEditYear = () => {
             )
             setLevelsData(res)
         } catch (error) {
-            setErrorMessage('حدث خطاء')
+            setErrorMessage('حدث خطأ')
         }
     }
 
@@ -447,7 +447,7 @@ const useEditYear = () => {
                 setSuccessMessage('تم اضافة الفصل الدراسي بنجاح')
                 await getYearData()
             } catch (error) {
-                setErrorMessage('حدث خطاء')
+                setErrorMessage('حدث خطأ')
             }
         }
     }
@@ -467,7 +467,7 @@ const useEditYear = () => {
                 setSuccessMessage('تم تعديل الفصل الدراسي بنجاح')
                 await getYearData()
             } catch (error) {
-                setErrorMessage('حدث خطاء')
+                setErrorMessage('حدث خطأ')
             }
         }
     }
@@ -479,7 +479,7 @@ const useEditYear = () => {
             setWarningMessage('تم حذف العام الدراسي بنجاح')
             router.replace(Routes.teacherYears)
         } catch (error) {
-            setErrorMessage('حدث خطاء')
+            setErrorMessage('حدث خطأ')
         }
     }
 
@@ -494,7 +494,7 @@ const useEditYear = () => {
             setWarningMessage('تم انهاء العام الدراسي بنجاح')
             router.replace(`${Routes.teacherYear}/${res}`)
         } catch (error) {
-            setErrorMessage('حدث خطاء')
+            setErrorMessage('حدث خطأ')
         }
     }
 

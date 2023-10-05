@@ -84,7 +84,7 @@ const YearsC: React.FC<Props> = ({ data }) => {
     return (
         <Box sx={style.container}>
             <Typography sx={style.title} color={mainColors.title.main} variant="h3">
-                السنه الحاليه
+                العام الدراسي الحالي
             </Typography>
             {data.yearsData && data.yearsData.open.length > 0 ? (
                 data.yearsData.open.map((item: any) => {
@@ -104,12 +104,18 @@ const YearsC: React.FC<Props> = ({ data }) => {
                     )
                 })
             ) : (
-                <Typography color="primary" variant="h5" fontWeight={700}>
-                    لا يوجد اعوام دراسيه حاليه
-                </Typography>
+                <Link href={Routes.teacherAddYear}>
+                    <Box sx={style.card}>
+                        <Box sx={style.content}>
+                            <Typography color="primary" variant="h4" fontWeight={700}>
+                                لا يوجد عام دراسي حالي
+                            </Typography>
+                        </Box>
+                    </Box>
+                </Link>
             )}
             <Typography sx={style.title} color={mainColors.title.main} variant="h3">
-                السنه القدمه
+                العام الدراسي القادم
             </Typography>
             {data.yearsData && data.yearsData.preopen.length > 0 ? (
                 data.yearsData.preopen.map((item: any) => {
@@ -129,12 +135,18 @@ const YearsC: React.FC<Props> = ({ data }) => {
                     )
                 })
             ) : (
-                <Typography color="primary" variant="h5" fontWeight={700}>
-                    لا يوجد اعوام دراسيه قادمه
-                </Typography>
+                <Link href={Routes.teacherAddYear}>
+                    <Box sx={style.card}>
+                        <Box sx={style.content}>
+                            <Typography color="primary" variant="h4" fontWeight={700}>
+                                لا يوجد عام دراسي قادم
+                            </Typography>
+                        </Box>
+                    </Box>
+                </Link>
             )}
             <Typography sx={style.title} color={mainColors.title.main} variant="h3">
-                السنوات المغلقه
+                الأعوام الدراسية السابقة
             </Typography>
             {data.yearsData && data.yearsData.finished.length > 0 ? (
                 data.yearsData.finished.map((item: any) => {
@@ -154,9 +166,13 @@ const YearsC: React.FC<Props> = ({ data }) => {
                     )
                 })
             ) : (
-                <Typography color="primary" variant="h5" fontWeight={700}>
-                    لا يوجد اعوام دراسيه منتهيه
-                </Typography>
+                <Box sx={style.card}>
+                    <Box sx={style.content}>
+                        <Typography color="primary" variant="h4" fontWeight={700}>
+                            لا يوجد اعوام دراسيه منتهيه
+                        </Typography>
+                    </Box>
+                </Box>
             )}
         </Box>
     )

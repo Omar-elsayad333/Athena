@@ -252,7 +252,7 @@ const useAddExam = () => {
         }
 
         if (!state) {
-            setErrorMessage('يوجد خطاء يرجي مراجعة المدخلات')
+            setErrorMessage('يوجد خطأ يرجي مراجعة المدخلات')
         }
 
         return state
@@ -623,10 +623,10 @@ const useAddExam = () => {
         }
 
         if (!state) {
-            setErrorMessage('يوجد خطاء يرجي مراجعة المدخلات')
+            setErrorMessage('يوجد خطأ يرجي مراجعة المدخلات')
         } else {
             selectedSection!.open = false
-            setSuccessMessage('لا يوجد اخطاء في السؤال الرئيسي')
+            setSuccessMessage('لا يوجد اخطأ في السؤال الرئيسي')
             setTimeout(() => {
                 if (selectedSection!.open == false) {
                     const nextSection = indexes.parent + 1

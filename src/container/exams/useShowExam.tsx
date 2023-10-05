@@ -41,7 +41,7 @@ const useShowExam = () => {
             setGroupsData(res.groups)
             adjuctSections(res.sections)
         } catch (error) {
-            setErrorMessage('حدث خطاء')
+            setErrorMessage('حدث خطأ')
         }
     }
 
@@ -56,7 +56,7 @@ const useShowExam = () => {
             )
             setAvailableGroupsData(response)
         } catch (error) {
-            setErrorMessage('حدث خطاء')
+            setErrorMessage('حدث خطأ')
         }
     }
 
@@ -123,7 +123,7 @@ const useShowExam = () => {
                 router.reload()
             }, 1000)
         } catch (error) {
-            setErrorMessage('حدث خطاء')
+            setErrorMessage('حدث خطأ')
         }
     }
 
@@ -140,7 +140,7 @@ const useShowExam = () => {
                 router.reload()
             }, 1000)
         } catch (error) {
-            setErrorMessage('حدث خطاء')
+            setErrorMessage('حدث خطأ')
         }
     }
 
@@ -150,7 +150,7 @@ const useShowExam = () => {
             setWarningMessage('تم حذف الأمتحان بنجاح')
             router.push(Routes.teacherExams)
         } catch (error) {
-            setErrorMessage('حدث خطاء')
+            setErrorMessage('حدث خطأ')
         }
     }
 
