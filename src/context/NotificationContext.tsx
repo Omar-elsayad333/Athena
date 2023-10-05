@@ -18,6 +18,7 @@ export const NotificationsProvider: React.FC<NotificationsProviderProps> = ({ ch
 
     const hubConnection = new signalR.HubConnectionBuilder()
         .withUrl(`${Urls.URL_MAIN}/notifications?access_token=${userState.tokens?.accessToken}`)
+        .configureLogging(signalR.LogLevel.Warning)
         .withAutomaticReconnect()
         .build()
 
