@@ -27,9 +27,9 @@ const StudentCard: React.FC<Props> = ({ studentData, stateAvailable, resultAvail
                 return `2px solid ${mainColors.paper.border}`
             }
         } else {
-            if (studentData.state === 'Distinctive') {
+            if (studentData.state === 'Excellent') {
                 return `2px solid ${mainColors.warning.main}`
-            } else if (studentData.state === 'Successed') {
+            } else if (studentData.state === 'Successful') {
                 return `2px solid ${mainColors.success.main}`
             } else {
                 return `2px solid ${mainColors.error.main}`
