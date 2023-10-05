@@ -49,7 +49,7 @@ const useStudent = () => {
             setStudentData(res.info)
             setGroups(res.info.groups)
         } catch (error) {
-            setErrorMessage('حدث خطاء')
+            setErrorMessage('حدث خطأ')
         }
     }
 
@@ -64,7 +64,7 @@ const useStudent = () => {
     //         setStudentData(res.info)
     //         setGroups(res.info.groups)
     //     } catch (error) {
-    //         setErrorMessage('حدث خطاء')
+    //         setErrorMessage('حدث خطأ')
     //     }
     // }
 
@@ -78,7 +78,7 @@ const useStudent = () => {
             )
             setStudentExamsData(res)
         } catch (error) {
-            setErrorMessage('حدث خطاء')
+            setErrorMessage('حدث خطأ')
         }
     }
 

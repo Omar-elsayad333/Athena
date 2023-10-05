@@ -50,8 +50,7 @@ const useAddYear = () => {
         try {
             const res = await getHandler(userState.tokens!.accessToken!, Urls.URL_YEARS_REQUIRED)
             setRequiredData(res)
-        } catch (error) {
-        }
+        } catch (error) {}
     }
 
     // Open and close cancel submit dialog
@@ -240,7 +239,7 @@ const useAddYear = () => {
                 ...oldArray,
                 {
                     name: 'semesterData',
-                    value: 'يجب التاكد ان بدية الفصول الدراسيه قبل نهايتها',
+                    value: 'حدث خطأ يرجى التأكد من تاريخ بداية الفصول الدراسية ونهايتها',
                 },
             ])
         }
@@ -291,7 +290,7 @@ const useAddYear = () => {
                 setSuccessMessage('تم بدأ عام جديد بنجاح')
                 router.push(`${Routes.teacherYear}${res}`)
             } catch (error) {
-                setErrorMessage('حدث خطاء اثناء اضاقة العام الدراسي')
+                setErrorMessage('حدث خطأ اثناء اضاقة العام الدراسي')
             }
         }
     }

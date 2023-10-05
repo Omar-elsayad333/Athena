@@ -38,7 +38,7 @@ const useGroup = () => {
             )
             setGroupData(res)
         } catch (error) {
-            setErrorMessage('حدث خطاء')
+            setErrorMessage('حدث خطأ')
         }
     }
 

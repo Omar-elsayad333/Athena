@@ -149,7 +149,7 @@ const AddGroupC: React.FC<Props> = ({ data, states, actions, dialogs }) => {
                     />
                     <Tooltip
                         sx={{ alignSelf: 'center' }}
-                        title="لا يمكن تعديل العام الدراسي لاحقا لذالك يجب التأكد من اختياره جيدا"
+                        title="قم بإختيار العام الدراسي جيداً علماً بأنك لم تستطيع تعديل هذا الحقل لاحقا"
                     >
                         <InfoOutlinedIcon color={'primary'} />
                     </Tooltip>
@@ -166,7 +166,7 @@ const AddGroupC: React.FC<Props> = ({ data, states, actions, dialogs }) => {
                     />
                     <Tooltip
                         sx={{ alignSelf: 'center' }}
-                        title="لا يمكن تعديل الصف الدراسي لاحقا لذالك يجب التأكد من اختياره جيدا"
+                        title="قم بإختيار الصف الدراسي جيداً علماً بأنك لم تستطيع تعديل هذا الحقل لاحقا"
                     >
                         <InfoOutlinedIcon color={'primary'} />
                     </Tooltip>

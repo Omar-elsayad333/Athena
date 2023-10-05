@@ -149,6 +149,7 @@ const ShowWritten: React.FC<Props> = ({ data, actions, grandParentIndex, parentI
                             parent: parentIndex,
                         })
                     }
+                    loading={!data.isAnswered && true}
                     content="اجابة صحيحة"
                 />
                 <MyButtonError
@@ -158,20 +159,21 @@ const ShowWritten: React.FC<Props> = ({ data, actions, grandParentIndex, parentI
                             parent: parentIndex,
                         })
                     }
+                    loading={!data.isAnswered && true}
                     content="اجابة خاطئة"
                 />
             </Box>
             <Box sx={[style.flexRow, { justifyContent: 'start' }]}>
                 <MyInputSmall
                     type="number"
-                    placeholder={data.isCorrected ? data.studentDegree : 'حدد الدرجة التقديرية'}
-                    onChange={actions.handleCorrectingDegree}
                     indexes={{
                         grandParent: grandParentIndex,
                         parent: parentIndex,
                     }}
                     disabled={!data.isAnswered && true}
-                    value={data.correctingDegree ? data.correctingDegree : 0}
+                    onChange={actions.handleCorrectingDegree}
+                    value={data.correctingDegree ? data.correctingDegree : ''}
+                    placeholder={data.isCorrected ? data.studentDegree : 'حدد الدرجة التقديرية'}
                 />
                 <MyButton
                     loading={!data.isAnswered && true}

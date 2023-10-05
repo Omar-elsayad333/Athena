@@ -97,7 +97,7 @@ const useAddStudent = () => {
                         error: true,
                     })
                 } else {
-                    setErrorMessage('حدث خطاء')
+                    setErrorMessage('حدث خطأ')
                 }
             }
         }
@@ -175,7 +175,7 @@ const useAddStudent = () => {
                 setPageError([
                     ...pageError,
                     {
-                        value: 'خطاء في اضافة الطالب',
+                        value: 'خطأ في اضافة الطالب',
                         error: true,
                     },
                 ])

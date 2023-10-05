@@ -38,8 +38,8 @@ const useAddGroup = () => {
     )
     const [daysDialog, setDaysDialog] = useState<Boolean>(false)
     const yearsData = [
-        { id: '1', name: 'عام دراسي' },
-        { id: '2', name: 'عام تجهيزي' },
+        { id: '1', name: 'العام الدراسي الحالي' },
+        { id: '2', name: 'العام الدراسي القادم' },
     ]
 
     // Call function to get required data if the user is authorized
@@ -76,7 +76,7 @@ const useAddGroup = () => {
             )
             setRequiredData(res)
         } catch (error) {
-            setErrorMessage('حدث خطاء')
+            setErrorMessage('حدث خطأ')
         }
     }
 
@@ -174,7 +174,7 @@ const useAddGroup = () => {
         const indexOfDay = selectedDays.findIndex((x: any) => x.name === day)
 
         if (indexOfDay === -1) {
-            setErrorMessage('حدث خطاء اثناء اضافة الوقت')
+            setErrorMessage('حدث خطأ اثناء اضافة الوقت')
         } else {
             const newValue = selectedDays[indexOfDay]
             newValue[name] = newTime
@@ -306,7 +306,7 @@ const useAddGroup = () => {
                 setSuccessMessage('تم اضافة المجموعه بنجاح')
                 router.push(`${Routes.teacherGroup}${res}`)
             } catch (error) {
-                setErrorMessage('حدث خطاء اثناء الأضافه')
+                setErrorMessage('حدث خطأ اثناء الأضافه')
             }
         } else {
             setErrorMessage('الرجاء التأكد أن المدخلات صحيحه')

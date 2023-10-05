@@ -280,10 +280,10 @@ const useAddHeadquarter = () => {
                 setSuccessMessage('تم اضافة المقر بنجاح')
                 router.push(`${Routes.teacherHeadquarter}${res}`)
             } catch (error) {
-                setErrorMessage('حدث خطاء')
+                setErrorMessage('حدث خطأ')
             }
         } else {
-            setErrorMessage('يوجد خطاء في المدخلات')
+            setErrorMessage('يوجد خطأ في المدخلات')
         }
     }
 

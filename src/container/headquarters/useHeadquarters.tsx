@@ -25,7 +25,7 @@ const useHeadquarters = () => {
             setHeadquartersData(res)
             setOriginalData(res)
         } catch (error) {
-            setErrorMessage('حدث خطاء')
+            setErrorMessage('حدث خطأ')
         }
     }
 

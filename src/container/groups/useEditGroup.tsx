@@ -81,7 +81,7 @@ const useEditGroup = () => {
             const res = await getHandler(userState.tokens!.accessToken!, Urls.URL_GROUPS_REQUIRED)
             setRequiredData(res)
         } catch (error) {
-            setErrorMessage('حدث خطاء')
+            setErrorMessage('حدث خطأ')
         }
     }
 
@@ -96,7 +96,7 @@ const useEditGroup = () => {
             const res = await getHandlerById(id, userState.tokens!.accessToken!, Urls.URL_GROUPS)
             setGroupData(res)
         } catch (error) {
-            setErrorMessage('حدث خطاء')
+            setErrorMessage('حدث خطأ')
         }
     }
 
@@ -154,7 +154,7 @@ const useEditGroup = () => {
         const indexOfDay = selectedDays.findIndex((x) => x.name === day)
 
         if (indexOfDay === -1) {
-            setErrorMessage('حدث خطاء اثناء اضافة الوقت')
+            setErrorMessage('حدث خطأ اثناء اضافة الوقت')
         } else {
             const newValue = selectedDays[indexOfDay]
             newValue[name] = newTime
@@ -301,7 +301,7 @@ const useEditGroup = () => {
                 setSuccessMessage('تم تعديل بيانات المجموعه بنجاح')
                 router.push(`${Routes.teacherGroup}${res}`)
             } catch (error) {
-                setErrorMessage('حدث خطاء')
+                setErrorMessage('حدث خطأ')
             }
         } else {
             setErrorMessage('الرجاء التأكد أن المدخلات صحيحه')
@@ -316,7 +316,7 @@ const useEditGroup = () => {
             setWarningMessage('تم حذف المجموعه بنجاح')
             router.replace(Routes.teacherGroups)
         } catch (error) {
-            setErrorMessage('حدث خطاء')
+            setErrorMessage('حدث خطأ')
         }
     }
 

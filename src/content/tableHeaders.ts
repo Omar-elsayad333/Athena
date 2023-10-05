@@ -13,7 +13,7 @@ export const studentStudentTable = [
     },
     {
         name: 'educationClassificationName',
-        value: 'الشعبة العلمي',
+        value: 'الشعبة العلمية',
     },
     {
         name: 'groupName',

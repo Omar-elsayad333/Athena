@@ -22,7 +22,7 @@ const useTeacherHome = () => {
             const res = await getHandler(userState.tokens?.accessToken!, Urls.URL_TEACHER_HOME)
             setPageData(res)
         } catch (error) {
-            setErrorMessage('حدث خطاء')
+            setErrorMessage('حدث خطأ')
         }
     }
 

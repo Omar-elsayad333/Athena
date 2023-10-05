@@ -31,7 +31,7 @@ const useGroups = () => {
             setPreOpenGroupsData(res.preOpen)
             setOriginalData(res)
         } catch (error) {
-            setErrorMessage('حدث خطاء')
+            setErrorMessage('حدث خطأ')
         }
     }
 

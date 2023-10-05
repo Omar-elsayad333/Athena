@@ -27,8 +27,7 @@ const useEditProfile = () => {
         try {
             const response = await getHandler(userState.tokens?.accessToken!, Urls.URL_PROFILE)
             setPageData(response)
-        } catch (error) {
-        }
+        } catch (error) {}
     }
 
     const handleInput = (value: string, index: any, name: string) => {
@@ -136,7 +135,7 @@ const useEditProfile = () => {
             setSuccessMessage('تعديل البيانات بنجاح')
             router.push(Routes.teacherProfile)
         } catch (error) {
-            setErrorMessage('يوجد خطاء في البيانات')
+            setErrorMessage('يوجد خطأ في البيانات')
         }
     }
 
