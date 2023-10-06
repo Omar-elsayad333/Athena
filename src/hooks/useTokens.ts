@@ -28,12 +28,12 @@ const useTokens = () => {
     }
 
     // Call api for new tokens
-    const refreshTokens = async () => {
+    const refreshTokens = async (tokens?: any) => {
         try {
             // Make API call to refresh tokens using the refresh token
             const res: any = await axiosInstance.post('/api/auth/tokens/refresh', {
-                token: userState.tokens?.accessToken,
-                refreshToken: userState.tokens?.refreshToken,
+                token: tokens.accessToken || userState.tokens?.accessToken,
+                refreshToken: tokens.refreshToken || userState.tokens?.refreshToken,
             })
             // Update tokens in local or session storage and UserContext
             const storage = localStorage.getItem('athena_access_token') ? true : false
@@ -48,6 +48,8 @@ const useTokens = () => {
                 },
             })
         } catch (err) {
+            clearUserTokens()
+            userDispatch({ type: 'clearTokens' })
             router.replace(Routes.teacherLogin)
         }
     }

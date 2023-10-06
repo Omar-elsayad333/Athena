@@ -15,6 +15,7 @@ import useShowNotifications from 'container/notifications/useShowNotifications'
 
 // MUI
 import Box from '@mui/material/Box'
+import BackdropComponent from 'components/Loading/BackdropComponent'
 
 const Notifications: NextPage = () => {
     const { mainColors } = useTheme()
@@ -49,6 +50,7 @@ const Notifications: NextPage = () => {
                         </svg>
                     </PageTitle>
                     <NotificationsC data={data} states={states} actions={actions} />
+                    <BackdropComponent open={states.notificationsLoading} />
                 </Box>
             )}
             <Box sx={pageStructureStyle.footerContainer}>

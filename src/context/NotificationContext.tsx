@@ -9,18 +9,28 @@ import {
 
 const NotificationsContext = createContext<NotificatinosContextType>({
     notificationsData: [],
+    notificationsLoading: false,
     changeNotificationStatus: () => {},
 })
 
 export const NotificationsProvider: React.FC<NotificationsProviderProps> = ({ children }) => {
     const { userState } = useUser()
     const [notificationsData, setNotificationsData] = useState<any[]>([])
+    const [notificationsLoading, setNotificationsLoading] = useState<boolean>(false)
 
-    const hubConnection = new signalR.HubConnectionBuilder()
-        .withUrl(`${Urls.URL_MAIN}/notifications?access_token=${userState.tokens?.accessToken}`)
-        .configureLogging(signalR.LogLevel.Warning)
-        .withAutomaticReconnect()
-        .build()
+    // const hubConnection = new signalR.HubConnectionBuilder()
+    //     .withUrl(`${Urls.URL_MAIN}/notifications?access_token=${userState.tokens?.accessToken}`)
+    //     .configureLogging(signalR.LogLevel.Warning)
+    //     .withAutomaticReconnect()
+    //     .build()
+
+    const [hubConnection] = useState(
+        new signalR.HubConnectionBuilder()
+            .withUrl(`${Urls.URL_MAIN}/notifications?access_token=${userState.tokens?.accessToken}`)
+            .configureLogging(signalR.LogLevel.Warning)
+            .withAutomaticReconnect()
+            .build(),
+    )
 
     const getNotifications = async () => {
         try {
@@ -29,11 +39,14 @@ export const NotificationsProvider: React.FC<NotificationsProviderProps> = ({ ch
     }
 
     const changeNotificationStatus = async (notificationId: string) => {
-        await hubConnection.start()
         if (hubConnection.state === signalR.HubConnectionState.Connected) {
             try {
+                setNotificationsLoading(true)
                 await hubConnection.invoke('ChangeStatus', notificationId)
-            } catch (err) {}
+            } catch (err) {
+            } finally {
+                setNotificationsLoading(false)
+            }
         }
     }
 
@@ -42,9 +55,13 @@ export const NotificationsProvider: React.FC<NotificationsProviderProps> = ({ ch
             const startConnection = async () => {
                 if (hubConnection.state === signalR.HubConnectionState.Disconnected) {
                     try {
+                        setNotificationsLoading(true)
                         await hubConnection.start()
                         getNotifications()
-                    } catch (err) {}
+                    } catch (err) {
+                    } finally {
+                        setNotificationsLoading(false)
+                    }
                 }
             }
 
@@ -76,7 +93,9 @@ export const NotificationsProvider: React.FC<NotificationsProviderProps> = ({ ch
     }, [hubConnection.state])
 
     return (
-        <NotificationsContext.Provider value={{ changeNotificationStatus, notificationsData }}>
+        <NotificationsContext.Provider
+            value={{ changeNotificationStatus, notificationsData, notificationsLoading }}
+        >
             {children}
         </NotificationsContext.Provider>
     )

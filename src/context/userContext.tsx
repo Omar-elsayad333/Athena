@@ -11,7 +11,7 @@ export const UserContext = createContext<UserContextType>({
 })
 
 export const UserContextProvider: React.FC<UserProviderProps> = ({ children }) => {
-    const { clearUserTokens } = useTokens()
+    const { clearUserTokens, refreshTokens } = useTokens()
     const { getUserData } = useUserRequestHandlers()
     const [userState, userDispatch] = useReducer(userReducer, initialState)
 
@@ -24,29 +24,23 @@ export const UserContextProvider: React.FC<UserProviderProps> = ({ children }) =
         const refreshTokenExpiry = storage.getItem('athena_refresh_exp')
 
         // Check if tokens are present and not expired
-        if (
-            accessToken &&
-            refreshToken &&
-            accessTokenExpiry &&
-            refreshTokenExpiry &&
-            new Date(accessTokenExpiry) > new Date() &&
-            new Date(refreshTokenExpiry) > new Date()
-        ) {
-            userDispatch({
-                type: 'setTokens',
-                payload: {
-                    accessToken: accessToken,
-                    refreshToken: refreshToken,
-                    accessTokenExpiry: new Date(accessTokenExpiry),
-                    refreshTokenExpiry: new Date(refreshTokenExpiry),
-                },
-            })
-            userDateHandler(accessToken)
+        if (accessToken && refreshToken && accessTokenExpiry && refreshTokenExpiry) {
+            if (new Date(accessTokenExpiry) > new Date()) {
+                userDispatch({
+                    type: 'setTokens',
+                    payload: {
+                        accessToken: accessToken,
+                        refreshToken: refreshToken,
+                        accessTokenExpiry: new Date(accessTokenExpiry),
+                        refreshTokenExpiry: new Date(refreshTokenExpiry),
+                    },
+                })
+                userDateHandler(accessToken)
+            } else if (new Date(refreshTokenExpiry) > new Date()) {
+                refreshTokens({ accessToken, refreshToken })
+            }
         } else {
-            storage.removeItem('athena_access_token')
-            storage.removeItem('athena_refresh_token')
-            storage.removeItem('athena_access_exp')
-            storage.removeItem('athena_refresh_exp')
+            logout()
         }
     }, [])
 

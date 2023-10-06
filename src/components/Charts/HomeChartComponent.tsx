@@ -18,13 +18,13 @@ const labels = [
     'March',
     'April',
     'May',
-    // 'June',
-    // 'July',
-    // 'August',
-    // 'September',
-    // 'October',
-    // 'November',
-    // 'December',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
 ]
 
 type Props = {
