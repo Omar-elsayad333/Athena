@@ -3,6 +3,8 @@ import { userReducer } from 'reducers/userReducer'
 import useUserRequestHandlers from 'hooks/useUserRequestHandlers'
 import { createContext, useContext, useEffect, useReducer } from 'react'
 import { initialState, UserContextType, UserProviderProps } from 'interfaces/testUserInterface'
+import { useRouter } from 'next/router'
+import { Routes } from 'routes/Routes'
 
 export const UserContext = createContext<UserContextType>({
     logout: () => {},
@@ -11,12 +13,17 @@ export const UserContext = createContext<UserContextType>({
 })
 
 export const UserContextProvider: React.FC<UserProviderProps> = ({ children }) => {
-    const { clearUserTokens, refreshTokens } = useTokens()
+    const router = useRouter()
     const { getUserData } = useUserRequestHandlers()
+    const { clearUserTokens, refreshTokens } = useTokens()
     const [userState, userDispatch] = useReducer(userReducer, initialState)
 
     // Check if there is any tokens in local or session stroage
     useEffect(() => {
+        checkForTokens()
+    }, [])
+
+    const checkForTokens = async () => {
         const storage = localStorage.getItem('athena_access_token') ? localStorage : sessionStorage
         const accessToken = storage.getItem('athena_access_token')
         const refreshToken = storage.getItem('athena_refresh_token')
@@ -24,25 +31,59 @@ export const UserContextProvider: React.FC<UserProviderProps> = ({ children }) =
         const refreshTokenExpiry = storage.getItem('athena_refresh_exp')
 
         // Check if tokens are present and not expired
-        if (accessToken && refreshToken && accessTokenExpiry && refreshTokenExpiry) {
-            if (new Date(accessTokenExpiry) > new Date()) {
+        if (
+            accessToken &&
+            refreshToken &&
+            accessTokenExpiry &&
+            refreshTokenExpiry &&
+            new Date(accessTokenExpiry) > new Date()
+        ) {
+            userDispatch({
+                type: 'setTokens',
+                payload: {
+                    accessToken: accessToken,
+                    refreshToken: refreshToken,
+                    accessTokenExpiry: new Date(accessTokenExpiry),
+                    refreshTokenExpiry: new Date(refreshTokenExpiry),
+                },
+            })
+            userDateHandler(accessToken)
+        } else if (
+            accessToken &&
+            refreshToken &&
+            refreshTokenExpiry &&
+            new Date(refreshTokenExpiry) > new Date()
+        ) {
+            try {
+                const res = await refreshTokens({
+                    accessToken: accessToken,
+                    refreshToken: refreshToken,
+                })
+                await userDateHandler(res.data.token)
                 userDispatch({
                     type: 'setTokens',
                     payload: {
-                        accessToken: accessToken,
-                        refreshToken: refreshToken,
-                        accessTokenExpiry: new Date(accessTokenExpiry),
-                        refreshTokenExpiry: new Date(refreshTokenExpiry),
+                        accessToken: res.data.token,
+                        refreshToken: res.data.refreshToken,
+                        accessTokenExpiry: new Date(res.data.tokenExpiryTime),
+                        refreshTokenExpiry: new Date(res.data.refreshTokenExpiryTime),
                     },
                 })
-                userDateHandler(accessToken)
-            } else if (new Date(refreshTokenExpiry) > new Date()) {
-                refreshTokens({ accessToken, refreshToken })
+            } catch {
+                clearUserTokens()
+                userDispatch({ type: 'clearTokens' })
+                router.replace(Routes.teacherLogin)
             }
+
+            console.log('finish refresh token')
         } else {
-            logout()
+            console.log('no tokens')
+            storage.removeItem('athena_access_token')
+            storage.removeItem('athena_refresh_token')
+            storage.removeItem('athena_access_exp')
+            storage.removeItem('athena_refresh_exp')
         }
-    }, [])
+    }
 
     const userDateHandler = async (token: string) => {
         try {

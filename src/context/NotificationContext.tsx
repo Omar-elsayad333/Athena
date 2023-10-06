@@ -23,14 +23,21 @@ export const NotificationsProvider: React.FC<NotificationsProviderProps> = ({ ch
     //     .configureLogging(signalR.LogLevel.Warning)
     //     .withAutomaticReconnect()
     //     .build()
+    const [hubConnection, setHubConnection] = useState<any>(null)
 
-    const [hubConnection] = useState(
-        new signalR.HubConnectionBuilder()
-            .withUrl(`${Urls.URL_MAIN}/notifications?access_token=${userState.tokens?.accessToken}`)
-            .configureLogging(signalR.LogLevel.Warning)
-            .withAutomaticReconnect()
-            .build(),
-    )
+    useEffect(() => {
+        if (userState.tokens?.accessToken) {
+            setHubConnection(
+                new signalR.HubConnectionBuilder()
+                    .withUrl(
+                        `${Urls.URL_MAIN}/notifications?access_token=${userState.tokens?.accessToken}`,
+                    )
+                    .configureLogging(signalR.LogLevel.Warning)
+                    .withAutomaticReconnect()
+                    .build(),
+            )
+        }
+    }, [userState.tokens?.accessToken])
 
     const getNotifications = async () => {
         try {
@@ -51,46 +58,45 @@ export const NotificationsProvider: React.FC<NotificationsProviderProps> = ({ ch
     }
 
     useEffect(() => {
-        if (userState.tokens?.accessToken) {
-            const startConnection = async () => {
-                if (hubConnection.state === signalR.HubConnectionState.Disconnected) {
-                    try {
-                        setNotificationsLoading(true)
-                        await hubConnection.start()
-                        getNotifications()
-                    } catch (err) {
-                    } finally {
-                        setNotificationsLoading(false)
-                    }
+        const startConnection = async () => {
+            if (hubConnection?.state === signalR.HubConnectionState.Disconnected) {
+                try {
+                    setNotificationsLoading(true)
+                    await hubConnection.start()
+                    getNotifications()
+                } catch (err) {
+                } finally {
+                    setNotificationsLoading(false)
                 }
             }
-
-            if (hubConnection) {
-                startConnection()
-
-                // Register event handlers for incoming messages from the hub
-                hubConnection.on('Notifications', (notificationsData: any) => {
-                    setNotificationsData(notificationsData)
-                    console.log(notificationsData)
-                })
-
-                hubConnection.on('NotificationFromServer', (notificationDtos: any) => {
-                    setNotificationsData((notificationsData) => [
-                        notificationDtos,
-                        ...notificationsData,
-                    ])
-                })
-
-                hubConnection.on('ChangeNotificationStatus', () => {})
-            }
         }
-    }, [userState.tokens?.accessToken])
+
+        if (hubConnection) {
+            startConnection()
+
+            // Register event handlers for incoming messages from the hub
+            hubConnection.on('Notifications', (notificationsData: any) => {
+                setNotificationsData(notificationsData)
+                console.log(notificationsData)
+            })
+
+            hubConnection.on('NotificationFromServer', (notificationDtos: any) => {
+                setNotificationsData((notificationsData) => [
+                    notificationDtos,
+                    ...notificationsData,
+                ])
+            })
+
+            hubConnection.on('ChangeNotificationStatus', () => {})
+        }
+    }, [hubConnection])
 
     useEffect(() => {
-        if (hubConnection.state === signalR.HubConnectionState.Disconnecting) {
+        if (hubConnection?.state === signalR.HubConnectionState.Disconnecting) {
             hubConnection.stop()
+            setHubConnection(null)
         }
-    }, [hubConnection.state])
+    }, [hubConnection?.state])
 
     return (
         <NotificationsContext.Provider

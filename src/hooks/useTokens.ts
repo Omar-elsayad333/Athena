@@ -5,10 +5,10 @@ import { useUser } from 'context/userContext'
 
 const useTokens = () => {
     const router = useRouter()
-    const { userState, userDispatch } = useUser()
+    const { userState } = useUser()
 
-    // Check the tokens expiry
-    const checkTokenExpiration = () => {
+    // Check the tokens expirys
+    const checkTokenExpiration = async () => {
         // Check if tokens are present and access token is expired
         if (
             userState.tokens &&
@@ -19,10 +19,15 @@ const useTokens = () => {
                 userState.tokens.refreshTokenExpiry &&
                 new Date(userState.tokens.refreshTokenExpiry) <= new Date()
             ) {
+                console.log('refresh token not good')
                 router.replace(Routes.teacherLogin)
             } else {
                 // Access token has expired, try refreshing tokens
-                refreshTokens()
+                console.log('refresh token good')
+                await refreshTokens({
+                    token: userState.tokens.accessToken,
+                    refreshToken: userState.tokens.refreshToken,
+                })
             }
         }
     }
@@ -30,6 +35,10 @@ const useTokens = () => {
     // Call api for new tokens
     const refreshTokens = async (tokens?: any) => {
         try {
+            console.log({
+                token: tokens.accessToken || userState.tokens?.accessToken,
+                refreshToken: tokens.refreshToken || userState.tokens?.refreshToken,
+            })
             // Make API call to refresh tokens using the refresh token
             const res: any = await axiosInstance.post('/api/auth/tokens/refresh', {
                 token: tokens.accessToken || userState.tokens?.accessToken,
@@ -38,19 +47,9 @@ const useTokens = () => {
             // Update tokens in local or session storage and UserContext
             const storage = localStorage.getItem('athena_access_token') ? true : false
             storeUserTokens(res.data, storage)
-            userDispatch({
-                type: 'setTokens',
-                payload: {
-                    accessToken: res.data.token,
-                    refreshToken: res.data.refreshToken,
-                    accessTokenExpiry: new Date(res.data.tokenExpiryTime),
-                    refreshTokenExpiry: new Date(res.data.refreshTokenExpiryTime),
-                },
-            })
-        } catch (err) {
-            clearUserTokens()
-            userDispatch({ type: 'clearTokens' })
-            router.replace(Routes.teacherLogin)
+            return res
+        } catch (err: any) {
+            throw Error(err)
         }
     }
 
