@@ -5,7 +5,6 @@ import ThemeApp from '../styles/theme'
 import { useRouter } from 'next/router'
 import type { AppProps } from 'next/app'
 import Loading from 'components/Loading/Loading'
-// import { UserProvider } from 'context/userContext'
 import { AlertProvider } from 'context/AlertContext'
 import { DarkThemeProvider } from 'context/ThemeContext'
 import { UserContextProvider } from 'context/userContext'
@@ -17,9 +16,9 @@ function MyApp({ Component, pageProps }: AppProps) {
     if (router.pathname.startsWith('/teacher/')) {
         return (
             <Suspense fallback={<Loading />}>
-                <DarkThemeProvider>
-                    <ThemeApp>
-                        <UserContextProvider>
+                <UserContextProvider>
+                    <DarkThemeProvider>
+                        <ThemeApp>
                             <AlertProvider>
                                 <NotificationsProvider>
                                     <Layout>
@@ -27,9 +26,9 @@ function MyApp({ Component, pageProps }: AppProps) {
                                     </Layout>
                                 </NotificationsProvider>
                             </AlertProvider>
-                        </UserContextProvider>
-                    </ThemeApp>
-                </DarkThemeProvider>
+                        </ThemeApp>
+                    </DarkThemeProvider>
+                </UserContextProvider>
             </Suspense>
         )
     } else {

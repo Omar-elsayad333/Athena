@@ -19,11 +19,11 @@ const useExams = () => {
 
     // Get exams data if the user is authoruized
     useEffect(() => {
-        if (userState.tokens!.accessToken) {
+        if (userState.tokens?.accessToken) {
             getExamsData()
             getExamsTypes()
         }
-    }, [userState.tokens!.accessToken])
+    }, [userState.tokens?.accessToken])
 
     // Update filtared data if exams data changed
     useEffect(() => {
@@ -35,7 +35,7 @@ const useExams = () => {
     // Call api to get exam data
     const getExamsData = async () => {
         try {
-            const res = await getHandler(userState.tokens!.accessToken!, Urls.URL_TEACHER_EXAMS)
+            const res = await getHandler(userState.tokens?.accessToken!, Urls.URL_TEACHER_EXAMS)
             setExamsData(res)
             setSelectedExamType({
                 ...selectedExamType,
@@ -51,7 +51,7 @@ const useExams = () => {
     const getExamsTypes = async () => {
         try {
             const res: any = await getHandler(
-                userState.tokens!.accessToken!,
+                userState.tokens?.accessToken!,
                 Urls.URL_TEACHER_EXAMS_REQUIRED,
             )
             setExamTypes(res.examTypes)

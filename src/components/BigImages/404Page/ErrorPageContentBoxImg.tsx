@@ -11,7 +11,7 @@ const ErrorPageContentBoxImg: React.FC<Props> = ({ width, height }) => {
             viewBox="0 0 170 145"
             fill="none"
         >
-            <g clip-path="url(#clip0_6037_21371)">
+            <g clipPath="url(#clip0_6037_21371)">
                 <path
                     opacity="0.3"
                     d="M169.22 99.9262C164.577 76.5123 137.375 57.799 132.069 33.3999C122.426 2.35765 90.6421 -2.55019 69.9881 10.9314C37.262 32.2933 72.174 37.5944 8.00872 88.1352C-7.83514 100.615 -2.78657 155.702 47.0573 143.06C73.881 136.256 82.0354 135.302 94.1009 134.181C124.512 131.358 177.014 139.23 169.22 99.9262Z"
@@ -139,8 +139,8 @@ const ErrorPageContentBoxImg: React.FC<Props> = ({ width, height }) => {
                     y2="67.9257"
                     gradientUnits="userSpaceOnUse"
                 >
-                    <stop stop-color="#4072A4" />
-                    <stop offset="1" stop-color="#1D3750" />
+                    <stop stopColor="#4072A4" />
+                    <stop offset="1" stopColor="#1D3750" />
                 </linearGradient>
                 <linearGradient
                     id="paint1_linear_6037_21371"
@@ -150,8 +150,8 @@ const ErrorPageContentBoxImg: React.FC<Props> = ({ width, height }) => {
                     y2="24.8746"
                     gradientUnits="userSpaceOnUse"
                 >
-                    <stop stop-color="#4072A4" />
-                    <stop offset="1" stop-color="#1D3750" />
+                    <stop stopColor="#4072A4" />
+                    <stop offset="1" stopColor="#1D3750" />
                 </linearGradient>
                 <linearGradient
                     id="paint2_linear_6037_21371"
@@ -161,8 +161,8 @@ const ErrorPageContentBoxImg: React.FC<Props> = ({ width, height }) => {
                     y2="24.8746"
                     gradientUnits="userSpaceOnUse"
                 >
-                    <stop stop-color="#4072A4" />
-                    <stop offset="1" stop-color="#1D3750" />
+                    <stop stopColor="#4072A4" />
+                    <stop offset="1" stopColor="#1D3750" />
                 </linearGradient>
                 <linearGradient
                     id="paint3_linear_6037_21371"
@@ -172,8 +172,8 @@ const ErrorPageContentBoxImg: React.FC<Props> = ({ width, height }) => {
                     y2="59.8813"
                     gradientUnits="userSpaceOnUse"
                 >
-                    <stop stop-color="#4072A4" />
-                    <stop offset="1" stop-color="#1D3750" />
+                    <stop stopColor="#4072A4" />
+                    <stop offset="1" stopColor="#1D3750" />
                 </linearGradient>
                 <linearGradient
                     id="paint4_linear_6037_21371"
@@ -183,8 +183,8 @@ const ErrorPageContentBoxImg: React.FC<Props> = ({ width, height }) => {
                     y2="59.8813"
                     gradientUnits="userSpaceOnUse"
                 >
-                    <stop stop-color="#4072A4" />
-                    <stop offset="1" stop-color="#1D3750" />
+                    <stop stopColor="#4072A4" />
+                    <stop offset="1" stopColor="#1D3750" />
                 </linearGradient>
                 <linearGradient
                     id="paint5_linear_6037_21371"
@@ -194,8 +194,8 @@ const ErrorPageContentBoxImg: React.FC<Props> = ({ width, height }) => {
                     y2="35.4368"
                     gradientUnits="userSpaceOnUse"
                 >
-                    <stop stop-color="#4072A4" />
-                    <stop offset="1" stop-color="#1D3750" />
+                    <stop stopColor="#4072A4" />
+                    <stop offset="1" stopColor="#1D3750" />
                 </linearGradient>
                 <linearGradient
                     id="paint6_linear_6037_21371"
@@ -205,8 +205,8 @@ const ErrorPageContentBoxImg: React.FC<Props> = ({ width, height }) => {
                     y2="85.0873"
                     gradientUnits="userSpaceOnUse"
                 >
-                    <stop stop-color="#4072A4" />
-                    <stop offset="1" stop-color="#1D3750" />
+                    <stop stopColor="#4072A4" />
+                    <stop offset="1" stopColor="#1D3750" />
                 </linearGradient>
                 <clipPath id="clip0_6037_21371">
                     <rect width="170" height="144.932" fill="white" />

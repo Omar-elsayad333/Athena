@@ -8,6 +8,7 @@ import ErrorPageHeaderImg from 'components/BigImages/404Page/ErrorPageHeaderImg'
 import MyButton from 'components/Buttons/MyButton'
 import ErrorPageContentBoxImg from 'components/BigImages/404Page/ErrorPageContentBoxImg'
 import PageFooter from 'components/Shared/PageFooter'
+import { Routes } from 'routes/Routes'
 
 const ErrorPage: NextPage = () => {
     const { mainColors } = useTheme()
@@ -110,7 +111,7 @@ const ErrorPage: NextPage = () => {
                     </Typography>
                 </Box>
                 <Box sx={{ marginTop: '30px' }}>
-                    <Link href="/teacher/home">
+                    <Link href={Routes.teacherHome}>
                         <MyButton content="العودة الى الرئيسية" />
                     </Link>
                 </Box>

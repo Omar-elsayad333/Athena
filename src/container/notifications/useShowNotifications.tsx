@@ -15,7 +15,7 @@ const useShowNotifications = () => {
     const { setErrorMessage } = useAlert()
     const { userState } = useUser()
     const { loading, getHandler } = useRequestsHandlers()
-    const { changeNotificationStatus } = useNotifications()
+    const { changeNotificationStatus, notificationsLoading } = useNotifications()
     const [filterdData, setFilterdData] = useState<any[]>([])
     const [notificationsData, setNotificationsData] = useState<any[]>([])
 
@@ -111,6 +111,7 @@ const useShowNotifications = () => {
         },
         states: {
             loading,
+            notificationsLoading,
         },
         actions: {
             getNotificationAvatar,

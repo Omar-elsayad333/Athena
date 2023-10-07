@@ -3,6 +3,8 @@ import { userReducer } from 'reducers/userReducer'
 import useUserRequestHandlers from 'hooks/useUserRequestHandlers'
 import { createContext, useContext, useEffect, useReducer } from 'react'
 import { initialState, UserContextType, UserProviderProps } from 'interfaces/testUserInterface'
+import { useRouter } from 'next/router'
+import { Routes } from 'routes/Routes'
 
 export const UserContext = createContext<UserContextType>({
     logout: () => {},
@@ -11,12 +13,17 @@ export const UserContext = createContext<UserContextType>({
 })
 
 export const UserContextProvider: React.FC<UserProviderProps> = ({ children }) => {
-    const { clearUserTokens } = useTokens()
+    const router = useRouter()
     const { getUserData } = useUserRequestHandlers()
+    const { clearUserTokens, refreshTokens } = useTokens()
     const [userState, userDispatch] = useReducer(userReducer, initialState)
 
     // Check if there is any tokens in local or session stroage
     useEffect(() => {
+        checkForTokens()
+    }, [])
+
+    const checkForTokens = async () => {
         const storage = localStorage.getItem('athena_access_token') ? localStorage : sessionStorage
         const accessToken = storage.getItem('athena_access_token')
         const refreshToken = storage.getItem('athena_refresh_token')
@@ -29,8 +36,7 @@ export const UserContextProvider: React.FC<UserProviderProps> = ({ children }) =
             refreshToken &&
             accessTokenExpiry &&
             refreshTokenExpiry &&
-            new Date(accessTokenExpiry) > new Date() &&
-            new Date(refreshTokenExpiry) > new Date()
+            new Date(accessTokenExpiry) > new Date()
         ) {
             userDispatch({
                 type: 'setTokens',
@@ -41,16 +47,40 @@ export const UserContextProvider: React.FC<UserProviderProps> = ({ children }) =
                     refreshTokenExpiry: new Date(refreshTokenExpiry),
                 },
             })
-            userDateHandler(accessToken)
+        } else if (
+            accessToken &&
+            refreshToken &&
+            refreshTokenExpiry &&
+            new Date(refreshTokenExpiry) > new Date()
+        ) {
+            const res = await refreshTokens({
+                accessToken: accessToken,
+                refreshToken: refreshToken,
+            })
+            if (res) {
+                userDispatch({
+                    type: 'setTokens',
+                    payload: {
+                        accessToken: res.data.token,
+                        refreshToken: res.data.refreshToken,
+                        accessTokenExpiry: new Date(res.data.tokenExpiryTime),
+                        refreshTokenExpiry: new Date(res.data.refreshTokenExpiryTime),
+                    },
+                })
+            } else {
+                clearUserTokens()
+                userDispatch({ type: 'clearTokens' })
+                router.replace(Routes.teacherLogin)
+            }
         } else {
             storage.removeItem('athena_access_token')
             storage.removeItem('athena_refresh_token')
             storage.removeItem('athena_access_exp')
             storage.removeItem('athena_refresh_exp')
         }
-    }, [])
+    }
 
-    const userDateHandler = async (token: string) => {
+    const userDataHandler = async (token: string) => {
         try {
             const userData = await getUserData(token)
             userDispatch({
@@ -62,15 +92,12 @@ export const UserContextProvider: React.FC<UserProviderProps> = ({ children }) =
         }
     }
 
-    // Print user tokens in console
+    // Get user data
     useEffect(() => {
-        console.table(userState.tokens)
-    }, [userState.tokens])
-
-    // Print user data in console
-    useEffect(() => {
-        console.table(userState.user)
-    }, [userState.user])
+        if (userState.tokens?.accessToken) {
+            userDataHandler(userState.tokens?.accessToken)
+        }
+    }, [userState.tokens?.accessToken])
 
     // Logout user
     const logout = () => {

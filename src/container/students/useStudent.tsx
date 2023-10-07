@@ -22,11 +22,11 @@ const useStudent = () => {
 
     // Get student data if the user is authorized
     useEffect(() => {
-        if ((userState.tokens!.accessToken, id)) {
+        if ((userState.tokens?.accessToken, id)) {
             getStudentData()
             getStudentExams()
         }
-    }, [userState.tokens!.accessToken, id])
+    }, [userState.tokens?.accessToken, id])
 
     // Select defalut section
     useEffect(() => {
@@ -43,7 +43,7 @@ const useStudent = () => {
         try {
             const res: any = await getHandlerById(
                 id,
-                userState.tokens!.accessToken!,
+                userState.tokens?.accessToken!,
                 Urls.URL_TEACHERSTUDENTS_INFO,
             )
             setStudentData(res.info)
@@ -58,7 +58,7 @@ const useStudent = () => {
     //     try {
     //         const res: any = await getHandlerById(
     //             id,
-    //             userState.tokens!.accessToken!,
+    //             userState.tokens?.accessToken!,
     //             Urls.URL_TEACHERSTUDENTS_INFO,
     //         )
     //         setStudentData(res.info)
@@ -73,7 +73,7 @@ const useStudent = () => {
         try {
             const res: any = await getHandlerById(
                 id,
-                userState.tokens!.accessToken!,
+                userState.tokens?.accessToken!,
                 Urls.URL_TEACHERSTUDENTS_EXAMS,
             )
             setStudentExamsData(res)
@@ -136,7 +136,7 @@ const useStudent = () => {
             try {
                 const data = collectData()
                 await putHandler(
-                    userState.tokens!.accessToken!,
+                    userState.tokens?.accessToken!,
                     Urls.URL_TEACHERSTUDENTS_GROUP,
                     data,
                 )

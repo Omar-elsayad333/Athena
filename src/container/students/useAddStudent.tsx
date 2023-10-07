@@ -79,7 +79,7 @@ const useAddStudent = () => {
             try {
                 const res: any = await getHandlerById(
                     convertHashSign(studentCode.value),
-                    userState.tokens!.accessToken!,
+                    userState.tokens?.accessToken!,
                     Urls.URL_TEACHERSTUDENTS_CODE,
                 )
                 setStudentData(res)
@@ -165,7 +165,7 @@ const useAddStudent = () => {
             try {
                 const data = collectData()
                 const res = await postHandler(
-                    userState.tokens!.accessToken!,
+                    userState.tokens?.accessToken!,
                     Urls.URL_TEACHERSTUDENTS_ASSIGN,
                     data,
                 )
