@@ -1,46 +1,32 @@
-import { Routes } from 'routes/Routes'
-import { useRouter } from 'next/router'
 import { axiosInstance } from 'config/axios'
+import Urls from 'constant/urls'
 import { useUser } from 'context/userContext'
 
 const useTokens = () => {
-    const router = useRouter()
     const { userState } = useUser()
 
-    // Check the tokens expirys
-    const checkTokenExpiration = async () => {
+    const checkAccessTokenExpiration = (tokens: any) => {
         // Check if tokens are present and access token is expired
-        if (
-            userState.tokens &&
-            userState.tokens!.accessTokenExpiry &&
-            new Date(userState.tokens!.accessTokenExpiry) <= new Date()
-        ) {
-            if (
-                userState.tokens.refreshTokenExpiry &&
-                new Date(userState.tokens.refreshTokenExpiry) <= new Date()
-            ) {
-                console.log('refresh token not good')
-                router.replace(Routes.teacherLogin)
-            } else {
-                // Access token has expired, try refreshing tokens
-                console.log('refresh token good')
-                await refreshTokens({
-                    token: userState.tokens.accessToken,
-                    refreshToken: userState.tokens.refreshToken,
-                })
-            }
+        if (tokens?.accessTokenExpiry && new Date(tokens?.accessTokenExpiry) <= new Date()) {
+            return false
+        } else {
+            return true
+        }
+    }
+
+    const checkRefreshTokenExpiration = (tokens: any) => {
+        if (tokens?.refreshTokenExpiry && new Date(tokens?.refreshTokenExpiry) <= new Date()) {
+            return false
+        } else {
+            return true
         }
     }
 
     // Call api for new tokens
     const refreshTokens = async (tokens?: any) => {
         try {
-            console.log({
-                token: tokens.accessToken || userState.tokens?.accessToken,
-                refreshToken: tokens.refreshToken || userState.tokens?.refreshToken,
-            })
             // Make API call to refresh tokens using the refresh token
-            const res: any = await axiosInstance.post('/api/auth/tokens/refresh', {
+            const res: any = await axiosInstance.post(Urls.URL_AUTH_TOKENS_REFRESH, {
                 token: tokens.accessToken || userState.tokens?.accessToken,
                 refreshToken: tokens.refreshToken || userState.tokens?.refreshToken,
             })
@@ -49,7 +35,7 @@ const useTokens = () => {
             storeUserTokens(res.data, storage)
             return res
         } catch (err: any) {
-            throw Error(err)
+            return false
         }
     }
 
@@ -77,10 +63,11 @@ const useTokens = () => {
     }
 
     return {
-        checkTokenExpiration,
         refreshTokens,
         storeUserTokens,
         clearUserTokens,
+        checkAccessTokenExpiration,
+        checkRefreshTokenExpiration,
     }
 }
 

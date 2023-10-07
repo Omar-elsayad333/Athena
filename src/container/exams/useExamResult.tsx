@@ -24,10 +24,10 @@ const useExamResult = () => {
 
     // Get students data if the user is authorized
     useEffect(() => {
-        if ((userState.tokens!.accessToken, id)) {
+        if ((userState.tokens?.accessToken, id)) {
             getStudentsData()
         }
-    }, [userState.tokens!.accessToken, id])
+    }, [userState.tokens?.accessToken, id])
 
     // Call updateStudents function if selected group changed
     useEffect(() => {
@@ -39,7 +39,7 @@ const useExamResult = () => {
         try {
             const res: any = await getHandlerById(
                 id,
-                userState.tokens!.accessToken!,
+                userState.tokens?.accessToken!,
                 Urls.URL_TEACHER_EXAMS_RESULTS,
             )
             adjustData(res)
@@ -96,7 +96,7 @@ const useExamResult = () => {
 
     const sendResults = async () => {
         try {
-            await putHandlerById(id, userState.tokens!.accessToken!, Urls.URL_TEACHER_EXAMS_READY)
+            await putHandlerById(id, userState.tokens?.accessToken!, Urls.URL_TEACHER_EXAMS_READY)
             setSuccessMessage('تم ارسال النتائج للطلبه بنجاح')
             setTimeout(() => {
                 router.reload()

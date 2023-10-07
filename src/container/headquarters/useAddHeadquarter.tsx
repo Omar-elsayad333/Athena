@@ -273,7 +273,7 @@ const useAddHeadquarter = () => {
             try {
                 const data = await collectData()
                 const res = await postHandler(
-                    userState.tokens!.accessToken!,
+                    userState.tokens?.accessToken!,
                     Urls.URL_HEADQUARTERS,
                     data,
                 )

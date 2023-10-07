@@ -15,7 +15,7 @@ export const withPublic = (WrappedComponent: ComponentNext) => (props: any) => {
 
     useEffect(() => {
         userState.tokens ? router.replace(Routes.teacherHome) : setIsLoading(false)
-    }, [userState.tokens])
+    }, [userState.tokens?.accessToken])
 
     if (isLoading) {
         return <Loading />
@@ -28,8 +28,9 @@ export const withPublic = (WrappedComponent: ComponentNext) => (props: any) => {
 export const withAuth = (WrappedComponent: React.ComponentType<any>) => {
     const WrapperComponent: React.FC<any> = (props) => {
         const router = useRouter()
-        const { userState } = useUser()
-        const { checkTokenExpiration } = useTokens()
+        const { userState, userDispatch } = useUser()
+        const { refreshTokens, checkAccessTokenExpiration, checkRefreshTokenExpiration } =
+            useTokens()
         const [isLoading, setIsLoading] = useState(true)
 
         useEffect(() => {
@@ -44,7 +45,25 @@ export const withAuth = (WrappedComponent: React.ComponentType<any>) => {
                 // Redirect to login page if user or tokens are not available
                 router.replace(Routes.teacherLogin)
             } else {
-                await checkTokenExpiration()
+                if (userState.tokens?.accessToken && checkAccessTokenExpiration(userState.tokens)) {
+                    setIsLoading(false)
+                } else if (
+                    userState.tokens?.refreshToken &&
+                    checkRefreshTokenExpiration(userState.tokens)
+                ) {
+                    const res = await refreshTokens(userState.tokens)
+                    res
+                        ? userDispatch({
+                              type: 'setTokens',
+                              payload: {
+                                  accessToken: res.data.token,
+                                  refreshToken: res.data.refreshToken,
+                                  accessTokenExpiry: new Date(res.data.tokenExpiryTime),
+                                  refreshTokenExpiry: new Date(res.data.refreshTokenExpiryTime),
+                              },
+                          })
+                        : router.replace(Routes.teacherLogin)
+                }
                 setIsLoading(false)
             }
         }

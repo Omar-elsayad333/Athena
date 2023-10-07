@@ -25,10 +25,10 @@ const useEditYear = () => {
 
     // Call getYearData and getRequiredData function if the user is authuraized
     useEffect(() => {
-        if (userState.tokens!.accessToken && id) {
+        if (userState.tokens?.accessToken && id) {
             getYearData()
         }
-    }, [userState.tokens!.accessToken, id])
+    }, [userState.tokens?.accessToken, id])
 
     useEffect(() => {
         yearData.id ? getRequiredData() : null
@@ -37,7 +37,7 @@ const useEditYear = () => {
     // Call api to get year data
     const getYearData = async () => {
         try {
-            const res = await getHandlerById(id, userState.tokens!.accessToken!, Urls.URL_YEARS)
+            const res = await getHandlerById(id, userState.tokens?.accessToken!, Urls.URL_YEARS)
             setYearData(res)
             adjustLevelsData(res)
         } catch (error) {
@@ -50,7 +50,7 @@ const useEditYear = () => {
         try {
             const res = await getHandlerById(
                 yearData.id,
-                userState.tokens!.accessToken!,
+                userState.tokens?.accessToken!,
                 Urls.URL_YEARS_LEVELS,
             )
             setLevelsData(res)
@@ -84,7 +84,7 @@ const useEditYear = () => {
         try {
             const res = await postHandlerById(
                 yearData.id,
-                userState.tokens!.accessToken!,
+                userState.tokens?.accessToken!,
                 Urls.URL_YEARS_LEVEL,
             )
             setLevelsData(res)
@@ -439,7 +439,7 @@ const useEditYear = () => {
                 const data = collectNewLevelData(selectedLevels, levelId)
                 await postHandlerById(
                     yearData.id,
-                    userState.tokens!.accessToken!,
+                    userState.tokens?.accessToken!,
                     Urls.URL_YEARS_LEVEL,
                     data,
                 )
@@ -459,7 +459,7 @@ const useEditYear = () => {
                 const data = collectEditedLevelData(levelId)
                 await putHandlerById(
                     levelId,
-                    userState.tokens!.accessToken!,
+                    userState.tokens?.accessToken!,
                     Urls.URL_YEARS_LEVEL,
                     data,
                 )
@@ -475,7 +475,7 @@ const useEditYear = () => {
     // Call api to Delete Year
     const deleteYear = async () => {
         try {
-            await deleteHandler(yearData.id, userState.tokens!.accessToken!, Urls.URL_YEARS)
+            await deleteHandler(yearData.id, userState.tokens?.accessToken!, Urls.URL_YEARS)
             setWarningMessage('تم حذف العام الدراسي بنجاح')
             router.replace(Routes.teacherYears)
         } catch (error) {
@@ -488,7 +488,7 @@ const useEditYear = () => {
         try {
             const res = await putHandlerById(
                 yearData.id,
-                userState.tokens!.accessToken!,
+                userState.tokens?.accessToken!,
                 Urls.URL_YEARS_END,
             )
             setWarningMessage('تم انهاء العام الدراسي بنجاح')

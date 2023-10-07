@@ -77,7 +77,6 @@ export const NotificationsProvider: React.FC<NotificationsProviderProps> = ({ ch
             // Register event handlers for incoming messages from the hub
             hubConnection.on('Notifications', (notificationsData: any) => {
                 setNotificationsData(notificationsData)
-                console.log(notificationsData)
             })
 
             hubConnection.on('NotificationFromServer', (notificationDtos: any) => {

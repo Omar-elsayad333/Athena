@@ -1,5 +1,7 @@
+import Link from 'next/link'
 import Urls from 'constant/urls'
 import Avatar from '../../MyAvatar'
+import { Routes } from 'routes/Routes'
 import { useUser } from 'context/userContext'
 import { useTheme } from 'context/ThemeContext'
 import InlineLogo from 'components/Svgs/InlineLogo'
@@ -152,14 +154,18 @@ const Header: React.FC<Props> = ({ controleMobileSideNav, mobileSideNavState }) 
                             </Badge>
                         </IconButton>
                         <NotificationsMenu states={states} actions={actions} />
-                        <Box sx={style.profile.meImage}>
-                            <Avatar
-                                alt={`أ / ${userState.user.firstName} ${userState.user.lastName}`}
-                                src={`${Urls.URL_MAIN}/${userState.user.imagePath}`}
-                                width={50}
-                                height={50}
-                            />
-                        </Box>
+                        <Link href={Routes.teacherProfile}>
+                            <a>
+                                <Box onClick={controleMobileSideNav} sx={style.profile.meImage}>
+                                    <Avatar
+                                        alt={`أ / ${userState.user.firstName} ${userState.user.lastName}`}
+                                        src={`${Urls.URL_MAIN}/${userState.user.imagePath}`}
+                                        width={50}
+                                        height={50}
+                                    />
+                                </Box>
+                            </a>
+                        </Link>
                     </Box>
                 </Box>
             )}

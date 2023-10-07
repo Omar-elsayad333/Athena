@@ -15,17 +15,17 @@ const useHeadquarter = () => {
 
     // Call function to get headquarter data if the user is authorized
     useEffect(() => {
-        if (id && userState.tokens!.accessToken) {
+        if (id && userState.tokens?.accessToken) {
             getHeadquarterData()
         }
-    }, [id, userState.tokens!.accessToken])
+    }, [id, userState.tokens?.accessToken])
 
     // Call api to get page data
     const getHeadquarterData = async () => {
         try {
             const res = await getHandlerById(
                 id,
-                userState.tokens!.accessToken!,
+                userState.tokens?.accessToken!,
                 Urls.URL_HEADQUARTERS,
             )
             setHeadquarterData(res)

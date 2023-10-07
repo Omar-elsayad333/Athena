@@ -16,10 +16,10 @@ const useYear = () => {
 
     // Get page data on load
     useEffect(() => {
-        if (userState.tokens!.accessToken && id) {
+        if (userState.tokens?.accessToken && id) {
             getYearData()
         }
-    }, [userState.tokens!.accessToken, id])
+    }, [userState.tokens?.accessToken, id])
 
     useEffect(() => {
         if (yearData) {
@@ -32,7 +32,7 @@ const useYear = () => {
         try {
             const res: any = await getHandlerById(
                 id,
-                userState.tokens!.accessToken!,
+                userState.tokens?.accessToken!,
                 Urls.URL_YEARS,
             )
             setYearData(res)

@@ -24,10 +24,10 @@ const useCorrectingStudentsList = () => {
 
     // Get students data if the user is authorized
     useEffect(() => {
-        if ((userState.tokens!.accessToken, id)) {
+        if ((userState.tokens?.accessToken, id)) {
             getStudentsData()
         }
-    }, [userState.tokens!.accessToken, id])
+    }, [userState.tokens?.accessToken, id])
 
     // Call updateStudents function if selected group changed
     useEffect(() => {
@@ -44,7 +44,7 @@ const useCorrectingStudentsList = () => {
         try {
             const res: any = await getHandlerById(
                 id,
-                userState.tokens!.accessToken!,
+                userState.tokens?.accessToken!,
                 Urls.URL_TEACHER_EXAMS_CORRECTROOM,
             )
             setOriginalData(res)
