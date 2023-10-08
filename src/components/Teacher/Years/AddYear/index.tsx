@@ -117,6 +117,11 @@ const AddYearC: React.FC<Props> = ({ data, states, actions }) => {
             width: '170px',
             height: '40px',
         },
+        inputsBox: {
+            display: 'flex',
+            gap: '20px',
+            flexWrap: 'wrap',
+        },
     }
 
     return (
@@ -218,47 +223,55 @@ const AddYearC: React.FC<Props> = ({ data, states, actions }) => {
                                                 <Box sx={style.classesLabel}>
                                                     الفصل الدراسي الاول
                                                 </Box>
-                                                <MyDatePicker
-                                                    name="first"
-                                                    helperText=""
-                                                    extraData={item.id}
-                                                    dateValue={item.fristSemeterStartDate}
-                                                    placeholder="حدد بداية الفصل الدراسي الأول"
-                                                    handleDateValue={
-                                                        actions.semesterStartDateHander
-                                                    }
-                                                />
-                                                <MyDatePicker
-                                                    name="first"
-                                                    helperText=""
-                                                    extraData={item.id}
-                                                    dateValue={item.fristSemeterEndDate}
-                                                    placeholder="حدد نهاية الفصل الدراسي الأول"
-                                                    handleDateValue={actions.semesterEndDateHander}
-                                                />
+                                                <Box sx={style.inputsBox}>
+                                                    <MyDatePicker
+                                                        name="first"
+                                                        helperText=""
+                                                        extraData={item.id}
+                                                        dateValue={item.fristSemeterStartDate}
+                                                        placeholder="حدد بداية الفصل الدراسي الأول"
+                                                        handleDateValue={
+                                                            actions.semesterStartDateHander
+                                                        }
+                                                    />
+                                                    <MyDatePicker
+                                                        name="first"
+                                                        helperText=""
+                                                        extraData={item.id}
+                                                        dateValue={item.fristSemeterEndDate}
+                                                        placeholder="حدد نهاية الفصل الدراسي الأول"
+                                                        handleDateValue={
+                                                            actions.semesterEndDateHander
+                                                        }
+                                                    />
+                                                </Box>
                                             </Box>
                                             <Box sx={styles.inputContaienr}>
                                                 <Box sx={style.classesLabel}>
                                                     الفصل الدراسي الثاني
                                                 </Box>
-                                                <MyDatePicker
-                                                    helperText=""
-                                                    name="second"
-                                                    extraData={item.id}
-                                                    dateValue={item.secondSemeterStartDate}
-                                                    placeholder="حدد بداية الفصل الدراسي الثاني"
-                                                    handleDateValue={
-                                                        actions.semesterStartDateHander
-                                                    }
-                                                />
-                                                <MyDatePicker
-                                                    helperText=""
-                                                    name="second"
-                                                    extraData={item.id}
-                                                    dateValue={item.secondSemeterEndDate}
-                                                    placeholder="حدد نهاية الفصل الدراسي الثاني"
-                                                    handleDateValue={actions.semesterEndDateHander}
-                                                />
+                                                <Box sx={style.inputsBox}>
+                                                    <MyDatePicker
+                                                        helperText=""
+                                                        name="second"
+                                                        extraData={item.id}
+                                                        dateValue={item.secondSemeterStartDate}
+                                                        placeholder="حدد بداية الفصل الدراسي الثاني"
+                                                        handleDateValue={
+                                                            actions.semesterStartDateHander
+                                                        }
+                                                    />
+                                                    <MyDatePicker
+                                                        helperText=""
+                                                        name="second"
+                                                        extraData={item.id}
+                                                        dateValue={item.secondSemeterEndDate}
+                                                        placeholder="حدد نهاية الفصل الدراسي الثاني"
+                                                        handleDateValue={
+                                                            actions.semesterEndDateHander
+                                                        }
+                                                    />
+                                                </Box>
                                             </Box>
                                         </Box>
                                     </Box>

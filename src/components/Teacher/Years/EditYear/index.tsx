@@ -145,6 +145,11 @@ const EditYearC: React.FC<Props> = ({ data, states, actions }) => {
             width: '170px',
             height: '40px',
         },
+        inputsBox: {
+            display: 'flex',
+            gap: '20px',
+            flexWrap: 'wrap',
+        },
     }
 
     return (
@@ -238,118 +243,122 @@ const EditYearC: React.FC<Props> = ({ data, states, actions }) => {
                                                 <Box sx={style.classesLabel}>
                                                     الفصل الدراسي الاول
                                                 </Box>
-                                                <Box sx={styles.inputContaienr}>
-                                                    <Typography
-                                                        variant="h5"
-                                                        color={mainColors.title.main}
-                                                    >
-                                                        بداية الفصل الدراسي الأول
-                                                    </Typography>
-                                                    <MyDatePicker
-                                                        name="first"
-                                                        helperText=""
-                                                        extraData={{
-                                                            levelId: item.id,
-                                                            levelType: 'old',
-                                                        }}
-                                                        dateValue={actions.filterNeededSemester(
-                                                            item.semsters,
-                                                            (data = {
-                                                                level: 'الفصل الدراسى الأول',
-                                                                name: 'start',
-                                                            }),
-                                                        )}
-                                                        placeholder="حدد بداية الفصل الدراسي الأول"
-                                                        handleDateValue={
-                                                            actions.semesterStartDateHander
-                                                        }
-                                                    />
-                                                </Box>
-                                                <Box sx={styles.inputContaienr}>
-                                                    <Typography
-                                                        variant="h5"
-                                                        color={mainColors.title.main}
-                                                    >
-                                                        نهاية الفصل الدراسي الأول
-                                                    </Typography>
-                                                    <MyDatePicker
-                                                        name="first"
-                                                        helperText=""
-                                                        extraData={{
-                                                            levelId: item.id,
-                                                            levelType: 'old',
-                                                        }}
-                                                        dateValue={actions.filterNeededSemester(
-                                                            item.semsters,
-                                                            (data = {
-                                                                level: 'الفصل الدراسى الأول',
-                                                                name: 'end',
-                                                            }),
-                                                        )}
-                                                        placeholder="حدد نهاية الفصل الدراسي الأول"
-                                                        handleDateValue={
-                                                            actions.semesterEndDateHander
-                                                        }
-                                                    />
+                                                <Box sx={style.inputsBox}>
+                                                    <Box sx={styles.inputContaienr}>
+                                                        <Typography
+                                                            variant="h5"
+                                                            color={mainColors.title.main}
+                                                        >
+                                                            بداية الفصل الدراسي الأول
+                                                        </Typography>
+                                                        <MyDatePicker
+                                                            name="first"
+                                                            helperText=""
+                                                            extraData={{
+                                                                levelId: item.id,
+                                                                levelType: 'old',
+                                                            }}
+                                                            dateValue={actions.filterNeededSemester(
+                                                                item.semsters,
+                                                                (data = {
+                                                                    level: 'الفصل الدراسى الأول',
+                                                                    name: 'start',
+                                                                }),
+                                                            )}
+                                                            placeholder="حدد بداية الفصل الدراسي الأول"
+                                                            handleDateValue={
+                                                                actions.semesterStartDateHander
+                                                            }
+                                                        />
+                                                    </Box>
+                                                    <Box sx={styles.inputContaienr}>
+                                                        <Typography
+                                                            variant="h5"
+                                                            color={mainColors.title.main}
+                                                        >
+                                                            نهاية الفصل الدراسي الأول
+                                                        </Typography>
+                                                        <MyDatePicker
+                                                            name="first"
+                                                            helperText=""
+                                                            extraData={{
+                                                                levelId: item.id,
+                                                                levelType: 'old',
+                                                            }}
+                                                            dateValue={actions.filterNeededSemester(
+                                                                item.semsters,
+                                                                (data = {
+                                                                    level: 'الفصل الدراسى الأول',
+                                                                    name: 'end',
+                                                                }),
+                                                            )}
+                                                            placeholder="حدد نهاية الفصل الدراسي الأول"
+                                                            handleDateValue={
+                                                                actions.semesterEndDateHander
+                                                            }
+                                                        />
+                                                    </Box>
                                                 </Box>
                                             </Box>
                                             <Box sx={styles.inputContaienr}>
                                                 <Box sx={style.classesLabel}>
                                                     الفصل الدراسي الثاني
                                                 </Box>
-                                                <Box sx={styles.inputContaienr}>
-                                                    <Typography
-                                                        variant="h5"
-                                                        color={mainColors.title.main}
-                                                    >
-                                                        بداية الفصل الدراسي الثاني
-                                                    </Typography>
-                                                    <MyDatePicker
-                                                        helperText=""
-                                                        name="second"
-                                                        extraData={{
-                                                            levelId: item.id,
-                                                            levelType: 'old',
-                                                        }}
-                                                        dateValue={actions.filterNeededSemester(
-                                                            item.semsters,
-                                                            (data = {
-                                                                level: 'الفصل الدراسى الثانى',
-                                                                name: 'start',
-                                                            }),
-                                                        )}
-                                                        placeholder="حدد بداية الفصل الدراسي الثاني"
-                                                        handleDateValue={
-                                                            actions.semesterStartDateHander
-                                                        }
-                                                    />
-                                                </Box>
-                                                <Box sx={styles.inputContaienr}>
-                                                    <Typography
-                                                        variant="h5"
-                                                        color={mainColors.title.main}
-                                                    >
-                                                        نهاية الفصل الدراسي الثاني
-                                                    </Typography>
-                                                    <MyDatePicker
-                                                        helperText=""
-                                                        name="second"
-                                                        extraData={{
-                                                            levelId: item.id,
-                                                            levelType: 'old',
-                                                        }}
-                                                        dateValue={actions.filterNeededSemester(
-                                                            item.semsters,
-                                                            (data = {
-                                                                level: 'الفصل الدراسى الثانى',
-                                                                name: 'end',
-                                                            }),
-                                                        )}
-                                                        placeholder="حدد نهاية الفصل الدراسي الثاني"
-                                                        handleDateValue={
-                                                            actions.semesterEndDateHander
-                                                        }
-                                                    />
+                                                <Box sx={style.inputsBox}>
+                                                    <Box sx={styles.inputContaienr}>
+                                                        <Typography
+                                                            variant="h5"
+                                                            color={mainColors.title.main}
+                                                        >
+                                                            بداية الفصل الدراسي الثاني
+                                                        </Typography>
+                                                        <MyDatePicker
+                                                            helperText=""
+                                                            name="second"
+                                                            extraData={{
+                                                                levelId: item.id,
+                                                                levelType: 'old',
+                                                            }}
+                                                            dateValue={actions.filterNeededSemester(
+                                                                item.semsters,
+                                                                (data = {
+                                                                    level: 'الفصل الدراسى الثانى',
+                                                                    name: 'start',
+                                                                }),
+                                                            )}
+                                                            placeholder="حدد بداية الفصل الدراسي الثاني"
+                                                            handleDateValue={
+                                                                actions.semesterStartDateHander
+                                                            }
+                                                        />
+                                                    </Box>
+                                                    <Box sx={styles.inputContaienr}>
+                                                        <Typography
+                                                            variant="h5"
+                                                            color={mainColors.title.main}
+                                                        >
+                                                            نهاية الفصل الدراسي الثاني
+                                                        </Typography>
+                                                        <MyDatePicker
+                                                            helperText=""
+                                                            name="second"
+                                                            extraData={{
+                                                                levelId: item.id,
+                                                                levelType: 'old',
+                                                            }}
+                                                            dateValue={actions.filterNeededSemester(
+                                                                item.semsters,
+                                                                (data = {
+                                                                    level: 'الفصل الدراسى الثانى',
+                                                                    name: 'end',
+                                                                }),
+                                                            )}
+                                                            placeholder="حدد نهاية الفصل الدراسي الثاني"
+                                                            handleDateValue={
+                                                                actions.semesterEndDateHander
+                                                            }
+                                                        />
+                                                    </Box>
                                                 </Box>
                                             </Box>
                                         </Box>

@@ -34,6 +34,7 @@ const MyInputSmall: React.FC<Props> = ({
     const classes: IStyle = {
         root: {
             '.MuiOutlinedInput-root': {
+                maxWidth: '100%',
                 width: '214px',
                 height: '46px',
                 fontSize: '14px',
