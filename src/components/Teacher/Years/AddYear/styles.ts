@@ -60,6 +60,7 @@ const useStyle = () => {
             rowGap: '52px',
             columnGap: '30px',
             justifyContent: 'space-between',
+            flexDirection: 'column',
             display: 'flex',
             borderRadius: '12px',
             flexWrap: 'wrap',
@@ -68,6 +69,7 @@ const useStyle = () => {
             display: 'flex',
             flexDirection: 'column',
             gap: '20px',
+            maxWidth: '100%',
         },
     }
 

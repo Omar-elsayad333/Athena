@@ -32,6 +32,7 @@ const MyDatePicker: React.FC<Props> = ({
     const { darkMode } = useTheme()
     const classes: SxProps = {
         root: {
+            maxWidth: '100%',
             width: '255px',
             fontSize: '14px',
             fontWeight: '400',
