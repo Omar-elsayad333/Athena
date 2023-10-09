@@ -25,7 +25,7 @@ export const convertDateToShortDate = (data: string) => {
         month = '0' + month
     }
 
-    const finalDate = `${year} / ${month} / ${day}`
+    const finalDate = `${year} / ${day} / ${month}`
     return finalDate
 }
 
@@ -41,7 +41,7 @@ export const convertDateToShortDateNoAwait = (data: string) => {
     if (month < 10) {
         month = '0' + month
     }
-    const finalDate = `${year} / ${month} / ${day}`
+    const finalDate = `${year} / ${day} / ${month}`
 
     return finalDate
 }
