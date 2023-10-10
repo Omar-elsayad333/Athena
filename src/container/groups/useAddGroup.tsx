@@ -61,7 +61,7 @@ const useAddGroup = () => {
     useEffect(() => {
         if (selectedYear.id) {
             setSelectedLevel(dropMenuInitialValues)
-            selectedYear.value === 'عام دراسي'
+            selectedYear.value === 'العام الدراسي الحالي'
                 ? setLevelsData(openYearsData)
                 : setLevelsData(preopenYearsData)
         }
