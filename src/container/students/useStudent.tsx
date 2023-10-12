@@ -1,24 +1,32 @@
 import Urls from 'constant/urls'
+import { Routes } from 'routes/Routes'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import { useUser } from 'context/userContext'
+import { useAlert } from 'context/AlertContext'
 import { studentSections } from 'constant/staticData'
 import useRequestsHandlers from 'hooks/useRequestsHandlers'
 import { DropMenuProps, dropMenuInitialValues } from 'interfaces/shared/input'
-import { useAlert } from 'context/AlertContext'
 
 const useStudent = () => {
-    const { userState } = useUser()
     const router = useRouter()
     const { id } = router.query
-    const { setErrorMessage } = useAlert()
-    const { loading, getHandlerById, putHandler } = useRequestsHandlers()
+    const { userState } = useUser()
+    const { setErrorMessage, setWarningMessage } = useAlert()
+    const { loading, getHandlerById, putHandler, deleteHandler } = useRequestsHandlers()
     const [studentData, setStudentData] = useState<any>('')
     const [studentExamsData, setStudentExamsData] = useState<any>('')
     const [editGroupState, setEditGroupState] = useState<boolean>(false)
     const [groups, setGroups] = useState<any[]>([])
     const [selectedSection, setSelectedSection] = useState<any>('')
     const [selectedGroup, setSelectedGroup] = useState<DropMenuProps>(dropMenuInitialValues)
+    const [dialogState, setDialogState] = useState<boolean>(false)
+    const dialogContent = {
+        title: 'حذف الطالب',
+        body: 'تأكيد حذف الطالب نهائيا',
+        submit: 'حذف',
+        cancel: 'إلغاء',
+    }
 
     // Get student data if the user is authorized
     useEffect(() => {
@@ -53,20 +61,30 @@ const useStudent = () => {
         }
     }
 
+    const handleDialogState = () => {
+        setDialogState(!dialogState)
+    }
+
+    const submitDelete = () => {
+        handleDialogState()
+        removeStudent()
+    }
+
+    const cancleSubmit = () => {
+        handleDialogState()
+        setDialogState(false)
+    }
+
     // Call api to remove student from teacher
-    // const removeStudent = async () => {
-    //     try {
-    //         const res: any = await getHandlerById(
-    //             id,
-    //             userState.tokens?.accessToken!,
-    //             Urls.URL_TEACHERSTUDENTS_INFO,
-    //         )
-    //         setStudentData(res.info)
-    //         setGroups(res.info.groups)
-    //     } catch (error) {
-    //         setErrorMessage('حدث خطأ')
-    //     }
-    // }
+    const removeStudent = async () => {
+        try {
+            await deleteHandler(id, userState.tokens!.accessToken!, Urls.URL_TEACHERSTUDENTS_INFO)
+            router.push(Routes.teacherStudents)
+            setWarningMessage('تم مسح الطالب بنجاح')
+        } catch (error) {
+            setErrorMessage('حدث خطأ')
+        }
+    }
 
     // Call api to get student data
     const getStudentExams = async () => {
@@ -147,24 +165,40 @@ const useStudent = () => {
 
     return {
         data: {
-            studentData,
             groups,
+            studentData,
             studentSections,
             studentExamsData,
+            dialogContent,
         },
         states: {
             loading,
             editGroupState,
             selectedGroup,
             selectedSection,
+            dialogState,
         },
         actions: {
-            // removeStudent,
             selectedGroupHandler,
             editGroupStateHandler,
             selectedSectionHandler,
             submitEditGroup,
             getStudentExams,
+            submitDelete,
+            cancleSubmit,
+            handleDialogState,
+        },
+        dialogs: {
+            content: {
+                title: 'حذف الطالب',
+                body: 'تأكيد حذف الطالب نهائيا',
+                submit: 'حذف',
+                cancel: 'إلغاء',
+            },
+            actions: {
+                submit: submitDelete,
+                cancel: cancleSubmit,
+            },
         },
     }
 }
