@@ -63,6 +63,7 @@ const useStyle = () => {
             display: 'flex',
             borderRadius: '12px',
             flexWrap: 'wrap',
+            flexDirection: 'column',
         },
         inputContaienr: {
             display: 'flex',

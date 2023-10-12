@@ -47,19 +47,17 @@ export const UserContextProvider: React.FC<UserProviderProps> = ({ children }) =
                     refreshTokenExpiry: new Date(refreshTokenExpiry),
                 },
             })
-            userDateHandler(accessToken)
         } else if (
             accessToken &&
             refreshToken &&
             refreshTokenExpiry &&
             new Date(refreshTokenExpiry) > new Date()
         ) {
-            try {
-                const res = await refreshTokens({
-                    accessToken: accessToken,
-                    refreshToken: refreshToken,
-                })
-                await userDateHandler(res.data.token)
+            const res = await refreshTokens({
+                accessToken: accessToken,
+                refreshToken: refreshToken,
+            })
+            if (res) {
                 userDispatch({
                     type: 'setTokens',
                     payload: {
@@ -69,15 +67,12 @@ export const UserContextProvider: React.FC<UserProviderProps> = ({ children }) =
                         refreshTokenExpiry: new Date(res.data.refreshTokenExpiryTime),
                     },
                 })
-            } catch {
+            } else {
                 clearUserTokens()
                 userDispatch({ type: 'clearTokens' })
                 router.replace(Routes.teacherLogin)
             }
-
-            console.log('finish refresh token')
         } else {
-            console.log('no tokens')
             storage.removeItem('athena_access_token')
             storage.removeItem('athena_refresh_token')
             storage.removeItem('athena_access_exp')
@@ -85,7 +80,7 @@ export const UserContextProvider: React.FC<UserProviderProps> = ({ children }) =
         }
     }
 
-    const userDateHandler = async (token: string) => {
+    const userDataHandler = async (token: string) => {
         try {
             const userData = await getUserData(token)
             userDispatch({
@@ -97,15 +92,12 @@ export const UserContextProvider: React.FC<UserProviderProps> = ({ children }) =
         }
     }
 
-    // Print user tokens in console
+    // Get user data
     useEffect(() => {
-        console.table(userState.tokens)
-    }, [userState.tokens])
-
-    // Print user data in console
-    useEffect(() => {
-        console.table(userState.user)
-    }, [userState.user])
+        if (userState.tokens?.accessToken) {
+            userDataHandler(userState.tokens?.accessToken)
+        }
+    }, [userState.tokens?.accessToken])
 
     // Logout user
     const logout = () => {

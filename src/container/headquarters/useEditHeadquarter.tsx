@@ -32,10 +32,10 @@ const useEditHeadquarter = () => {
 
     // Call function to get page data
     useEffect(() => {
-        if (userState.tokens!.accessToken && id) {
+        if (userState.tokens?.accessToken && id) {
             getHeadquarterData()
         }
-    }, [userState.tokens!.accessToken && id])
+    }, [userState.tokens?.accessToken && id])
 
     // Call function to check for third phone state after geting data from api
     useEffect(() => {
@@ -49,7 +49,7 @@ const useEditHeadquarter = () => {
         try {
             const res = await getHandlerById(
                 id,
-                userState.tokens!.accessToken!,
+                userState.tokens?.accessToken!,
                 Urls.URL_HEADQUARTERS,
             )
             setOriginalData(res)
@@ -273,7 +273,7 @@ const useEditHeadquarter = () => {
                 const data = await collectData()
                 const res = await putHandlerById(
                     id,
-                    userState.tokens!.accessToken!,
+                    userState.tokens?.accessToken!,
                     Urls.URL_HEADQUARTERS,
                     data,
                 )
@@ -291,7 +291,7 @@ const useEditHeadquarter = () => {
     const deleteHeadquarter = async () => {
         try {
             closeWarningDialogState()
-            await deleteHandler(id, userState.tokens!.accessToken!, Urls.URL_HEADQUARTERS)
+            await deleteHandler(id, userState.tokens?.accessToken!, Urls.URL_HEADQUARTERS)
             setWarningMessage('تم حذف المقر بنجاح')
             router.push(Routes.teacherheadquarters)
         } catch (error) {

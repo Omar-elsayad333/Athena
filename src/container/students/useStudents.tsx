@@ -25,10 +25,10 @@ const useStudents = () => {
 
     // Get years data if the user is authorized
     useEffect(() => {
-        if (userState.tokens!.accessToken) {
+        if (userState.tokens?.accessToken) {
             getStudentsData()
         }
-    }, [userState.tokens!.accessToken])
+    }, [userState.tokens?.accessToken])
 
     // Call updateStudents function is selected level changed
     useEffect(() => {
@@ -39,7 +39,7 @@ const useStudents = () => {
     const getStudentsData = async () => {
         try {
             const res: any = await getHandler(
-                userState.tokens!.accessToken!,
+                userState.tokens?.accessToken!,
                 Urls.URL_TEACHERSTUDENTS,
             )
             adjustData(res)
