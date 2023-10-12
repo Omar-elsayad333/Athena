@@ -15,9 +15,10 @@ type Props = {
     data: any
     states: any
     actions: any
+    dialogs: any
 }
 
-const StudentInfo: React.FC<Props> = ({ data, states, actions }) => {
+const StudentInfo: React.FC<Props> = ({ data, states, actions, dialogs }) => {
     const { mainColors } = useTheme()
     const style: IStyle = {
         container: {
@@ -427,8 +428,8 @@ const StudentInfo: React.FC<Props> = ({ data, states, actions }) => {
             </Box>
             <BasicDialog
                 state={states.dialogState}
-                content={data.dialogContent}
-                actions={{ submit: actions.submitDelete(), cancel: actions.cancleSubmit() }}
+                content={dialogs.content}
+                actions={dialogs.actions}
             />
         </Box>
     )

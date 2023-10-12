@@ -1,17 +1,18 @@
 import Urls from 'constant/urls'
+import { Routes } from 'routes/Routes'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import { useUser } from 'context/userContext'
+import { useAlert } from 'context/AlertContext'
 import { studentSections } from 'constant/staticData'
 import useRequestsHandlers from 'hooks/useRequestsHandlers'
 import { DropMenuProps, dropMenuInitialValues } from 'interfaces/shared/input'
-import { useAlert } from 'context/AlertContext'
 
 const useStudent = () => {
-    const { userState } = useUser()
     const router = useRouter()
     const { id } = router.query
-    const { setErrorMessage } = useAlert()
+    const { userState } = useUser()
+    const { setErrorMessage, setWarningMessage } = useAlert()
     const { loading, getHandlerById, putHandler, deleteHandler } = useRequestsHandlers()
     const [studentData, setStudentData] = useState<any>('')
     const [studentExamsData, setStudentExamsData] = useState<any>('')
@@ -77,13 +78,9 @@ const useStudent = () => {
     // Call api to remove student from teacher
     const removeStudent = async () => {
         try {
-            const res: any = await deleteHandler(
-                id,
-                userState.tokens!.accessToken!,
-                Urls.URL_TEACHERSTUDENTS_INFO,
-            )
-            setStudentData(res.info)
-            setGroups(res.info.groups)
+            await deleteHandler(id, userState.tokens!.accessToken!, Urls.URL_TEACHERSTUDENTS_INFO)
+            router.push(Routes.teacherStudents)
+            setWarningMessage('تم مسح الطالب بنجاح')
         } catch (error) {
             setErrorMessage('حدث خطأ')
         }
@@ -190,6 +187,18 @@ const useStudent = () => {
             submitDelete,
             cancleSubmit,
             handleDialogState,
+        },
+        dialogs: {
+            content: {
+                title: 'حذف الطالب',
+                body: 'تأكيد حذف الطالب نهائيا',
+                submit: 'حذف',
+                cancel: 'إلغاء',
+            },
+            actions: {
+                submit: submitDelete,
+                cancel: cancleSubmit,
+            },
         },
     }
 }
