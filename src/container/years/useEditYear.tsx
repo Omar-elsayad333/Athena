@@ -23,6 +23,8 @@ const useEditYear = () => {
     const [errorLabel, setErrorLabel] = useState<PageErrorProps[]>([])
     const [classesDialogState, setClassesDialogState] = useState<boolean>(false)
 
+    const [dialogState, setDialogState] = useState<boolean>(false)
+
     // Call getYearData and getRequiredData function if the user is authuraized
     useEffect(() => {
         if (userState.tokens?.accessToken && id) {
@@ -498,6 +500,20 @@ const useEditYear = () => {
         }
     }
 
+    const handleDialogState = () => {
+        setDialogState(!dialogState)
+    }
+
+    const submitDelete = () => {
+        handleDialogState()
+        deleteYear()
+    }
+
+    const cancleSubmit = () => {
+        handleDialogState()
+        setDialogState(false)
+    }
+
     return {
         data: {
             levels,
@@ -524,12 +540,20 @@ const useEditYear = () => {
             submitNewLevel,
             filterNeededSemester,
             submitOldLevel,
+            handleDialogState,
         },
         dialogs: {
             classesDialogState,
+            state: dialogState,
+            content: {
+                title: 'حذف العام',
+                body: 'تأكيد حذف العام الدراسي نهائيا',
+                submit: 'حذف',
+                cancel: 'إلغاء',
+            },
             actions: {
-                // handleDialogState,
-                submitDialog: deleteYear,
+                submit: submitDelete,
+                cancel: cancleSubmit,
             },
         },
     }
