@@ -10,9 +10,10 @@ type Props = {
     data: any
     states: any
     actions: any
+    dialogs: any
 }
 
-const StudentC: React.FC<Props> = ({ data, states, actions }) => {
+const StudentC: React.FC<Props> = ({ data, states, actions, dialogs }) => {
     const style: IStyle = {
         container: {
             display: 'flex',
@@ -30,7 +31,7 @@ const StudentC: React.FC<Props> = ({ data, states, actions }) => {
                 filters={data.studentSections}
             />
             {states.selectedSection?.id === '1' && data.studentData && (
-                <StudentInfo data={data} states={states} actions={actions} />
+                <StudentInfo data={data} states={states} actions={actions} dialogs={dialogs} />
             )}
             {states.selectedSection?.id === '2' && <StudentExams data={data.studentExamsData} />}
         </Box>

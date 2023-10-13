@@ -9,14 +9,16 @@ import MyButtonError from 'components/Buttons/MyButtonError'
 // MUI
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
+import BasicDialog from 'components/Dialogs/WarningDialog'
 
 type Props = {
     data: any
     states: any
     actions: any
+    dialogs: any
 }
 
-const StudentInfo: React.FC<Props> = ({ data, states, actions }) => {
+const StudentInfo: React.FC<Props> = ({ data, states, actions, dialogs }) => {
     const { mainColors } = useTheme()
     const style: IStyle = {
         container: {
@@ -418,9 +420,17 @@ const StudentInfo: React.FC<Props> = ({ data, states, actions }) => {
                     <MyButton content="تعديل المجموعة" onClick={actions.editGroupStateHandler} />
                 )}
                 <Box style={{ flex: '100%' }}>
-                    <MyButtonError content="حذف الطالب" />
+                    <MyButtonError
+                        onClick={() => actions.handleDialogState()}
+                        content="حذف الطالب"
+                    />
                 </Box>
             </Box>
+            <BasicDialog
+                state={states.dialogState}
+                content={dialogs.content}
+                actions={dialogs.actions}
+            />
         </Box>
     )
 }

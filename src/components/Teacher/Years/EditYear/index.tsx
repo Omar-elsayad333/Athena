@@ -16,6 +16,7 @@ import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
 import ControlPointIcon from '@mui/icons-material/ControlPoint'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
+import BasicDialog from 'components/Dialogs/WarningDialog'
 
 type Props = {
     data: any
@@ -24,7 +25,7 @@ type Props = {
     dialogs: any
 }
 
-const EditYearC: React.FC<Props> = ({ data, states, actions }) => {
+const EditYearC: React.FC<Props> = ({ data, states, actions, dialogs }) => {
     const styles = useStyle()
     const { mainColors } = useTheme()
 
@@ -423,7 +424,10 @@ const EditYearC: React.FC<Props> = ({ data, states, actions }) => {
                                 </Typography>
                             </Button>
                         )}
-                        <Button sx={style.deleteYearButton} onClick={actions.deleteYear}>
+                        <Button
+                            sx={style.deleteYearButton}
+                            onClick={() => actions.handleDialogState()}
+                        >
                             <Typography fontSize={'h4'} fontWeight={700}>
                                 حذف العام الدراسي
                             </Typography>
@@ -436,6 +440,11 @@ const EditYearC: React.FC<Props> = ({ data, states, actions }) => {
                 open={states.classesDialogState}
                 handleClose={actions.classesHandleDialog}
                 getSelectedClasses={actions.handleSelectedClasses}
+            />
+            <BasicDialog
+                state={dialogs.state}
+                content={dialogs.content}
+                actions={dialogs.actions}
             />
         </Box>
     )

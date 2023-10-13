@@ -5,6 +5,7 @@ const axiosInstance = axios.create({
     baseURL: 'https://athenaapi.azurewebsites.net/',
     headers: {
         'Content-Type': 'application/json',
+        'Accept-Language': 'ar',
     },
 })
 
@@ -15,6 +16,7 @@ const createAxiosInstance = (token: string) => {
         headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
+            'Accept-Language': 'ar',
         },
     })
 
