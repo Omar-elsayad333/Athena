@@ -18,11 +18,6 @@ export const NotificationsProvider: React.FC<NotificationsProviderProps> = ({ ch
     const [notificationsData, setNotificationsData] = useState<any[]>([])
     const [notificationsLoading, setNotificationsLoading] = useState<boolean>(false)
 
-    // const hubConnection = new signalR.HubConnectionBuilder()
-    //     .withUrl(`${Urls.URL_MAIN}/notifications?access_token=${userState.tokens?.accessToken}`)
-    //     .configureLogging(signalR.LogLevel.Warning)
-    //     .withAutomaticReconnect()
-    //     .build()
     const [hubConnection, setHubConnection] = useState<any>(null)
 
     useEffect(() => {
@@ -31,6 +26,11 @@ export const NotificationsProvider: React.FC<NotificationsProviderProps> = ({ ch
                 new signalR.HubConnectionBuilder()
                     .withUrl(
                         `${Urls.URL_MAIN}/notifications?access_token=${userState.tokens?.accessToken}`,
+                        {
+                            headers: {
+                                'Accept-Language': 'ar',
+                            },
+                        },
                     )
                     .configureLogging(signalR.LogLevel.Warning)
                     .withAutomaticReconnect()
