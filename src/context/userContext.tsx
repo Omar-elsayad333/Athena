@@ -73,10 +73,9 @@ export const UserContextProvider: React.FC<UserProviderProps> = ({ children }) =
                 router.replace(Routes.teacherLogin)
             }
         } else {
-            storage.removeItem('athena_access_token')
-            storage.removeItem('athena_refresh_token')
-            storage.removeItem('athena_access_exp')
-            storage.removeItem('athena_refresh_exp')
+            clearUserTokens()
+            userDispatch({ type: 'clearTokens' })
+            router.replace(Routes.teacherLogin)
         }
     }
 
@@ -101,9 +100,9 @@ export const UserContextProvider: React.FC<UserProviderProps> = ({ children }) =
 
     // Logout user
     const logout = () => {
+        router.replace(Routes.teacherLogin)
         clearUserTokens()
         userDispatch({ type: 'clearTokens' })
-        location.reload()
     }
 
     return (
