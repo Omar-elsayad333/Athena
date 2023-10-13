@@ -14,7 +14,7 @@ export const withPublic = (WrappedComponent: ComponentNext) => (props: any) => {
     const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
-        userState.tokens ? router.replace(Routes.teacherHome) : setIsLoading(false)
+        userState.tokens?.accessToken ? router.replace(Routes.teacherHome) : setIsLoading(false)
     }, [userState.tokens?.accessToken])
 
     if (isLoading) {
