@@ -1,11 +1,11 @@
-import moduleStyles from './HomeGarphComponent.module.css'
 import { useTheme } from 'context/ThemeContext'
+import { convertTo12HourFormat } from 'utils/converters'
+import moduleStyles from './HomeGarphComponent.module.css'
+import HomeChartComponent from 'components/Charts/HomeChartComponent'
 
 // MUI
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
-import HomeChartComponent from 'components/Charts/HomeChartComponent'
-import { convertTo12HourFormat } from 'utils/converters'
 
 type Props = {
     data: any
