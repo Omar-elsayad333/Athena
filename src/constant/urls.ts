@@ -5,8 +5,8 @@ class Urls {
     static URL_MAIN_STUDENT_LOGIN = 'https://athena-student.vercel.app/login'
 
     // Token urls
-    static URL_AUTH_TOKENS: string = '/api/auth/tokens'
-    static URL_AUTH_TOKENS_REFRESH: string = '/api/auth/tokens/refresh'
+    static URL_AUTH_TOKENS: string = '/api/teacher/auth'
+    static URL_AUTH_TOKENS_REFRESH: string = '/api/teacher/auth/refresh'
 
     // Users urls
     static URL_STUDENTS: string = '/api/students'
