@@ -158,8 +158,8 @@ const Header: React.FC<Props> = ({ controleMobileSideNav, mobileSideNavState }) 
                             <a>
                                 <Box onClick={controleMobileSideNav} sx={style.profile.meImage}>
                                     <Avatar
-                                        alt={`أ / ${userState.user.firstName} ${userState.user.lastName}`}
-                                        src={`${Urls.URL_MAIN}/${userState.user.imagePath}`}
+                                        alt={`أ / ${userState.user?.firstName} ${userState.user?.lastName}`}
+                                        src={`${Urls.URL_MAIN}/${userState.user?.imagePath}`}
                                         width={50}
                                         height={50}
                                     />

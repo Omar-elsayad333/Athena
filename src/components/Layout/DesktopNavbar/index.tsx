@@ -142,8 +142,8 @@ const DesktopNavbar: React.FC<Props> = ({ firstPath, secondPath, firstContent, s
                             <Box sx={style.teacherInfo.photo}>
                                 {userState.user && (
                                     <Avatar
-                                        alt={`أ / ${userState.user.firstName} ${userState.user.lastName}`}
-                                        src={`${Urls.URL_MAIN}/${userState.user.imagePath}`}
+                                        alt={`أ / ${userState.user?.firstName} ${userState.user?.lastName}`}
+                                        src={`${Urls.URL_MAIN}/${userState.user?.imagePath}`}
                                         width={34}
                                         height={34}
                                     />
@@ -152,7 +152,7 @@ const DesktopNavbar: React.FC<Props> = ({ firstPath, secondPath, firstContent, s
                             <Box>
                                 {userState.user ? (
                                     <Typography fontWeight={700} fontSize={14} color="primary">
-                                        {`أ / ${userState.user.firstName} ${userState.user.lastName}`}
+                                        {`أ / ${userState.user?.firstName} ${userState.user?.lastName}`}
                                     </Typography>
                                 ) : (
                                     <Typography fontWeight={700} fontSize={14} color="primary">

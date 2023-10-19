@@ -115,7 +115,7 @@ const DataTable: React.FC<Props> = ({ headerData, bodyData }) => {
                                                         <FailedStudentIcon />
                                                     </TableCell>
                                                 )
-                                            case 'Successed':
+                                            case 'Successful':
                                                 return (
                                                     <TableCell align="right" key={keyIndex}>
                                                         <SuccessedStudentIcon />
