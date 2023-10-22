@@ -5,6 +5,7 @@ import { createContext, useContext, useEffect, useReducer } from 'react'
 import { initialState, UserContextType, UserProviderProps } from 'interfaces/testUserInterface'
 import { useRouter } from 'next/router'
 import { Routes } from 'routes/Routes'
+import Loading from 'components/Loading/Loading'
 
 export const UserContext = createContext<UserContextType>({
     logout: () => {},
@@ -53,6 +54,7 @@ export const UserContextProvider: React.FC<UserProviderProps> = ({ children }) =
             refreshTokenExpiry &&
             new Date(refreshTokenExpiry) > new Date()
         ) {
+            userDispatch({ type: 'activeLoading' })
             const res = await refreshTokens({
                 accessToken: accessToken,
                 refreshToken: refreshToken,
@@ -67,9 +69,11 @@ export const UserContextProvider: React.FC<UserProviderProps> = ({ children }) =
                         refreshTokenExpiry: new Date(res.data.refreshTokenExpiryTime),
                     },
                 })
+                userDispatch({ type: 'disactiveLoading' })
             } else {
                 clearUserTokens()
                 userDispatch({ type: 'clearTokens' })
+                userDispatch({ type: 'disactiveLoading' })
                 router.replace(Routes.teacherLogin)
             }
         } else {
@@ -81,6 +85,7 @@ export const UserContextProvider: React.FC<UserProviderProps> = ({ children }) =
 
     const userDataHandler = async (token: string) => {
         try {
+            userDispatch({ type: 'activeLoading' })
             const userData = await getUserData(token)
             userDispatch({
                 type: 'setUser',
@@ -88,6 +93,8 @@ export const UserContextProvider: React.FC<UserProviderProps> = ({ children }) =
             })
         } catch (error) {
             logout()
+        } finally {
+            userDispatch({ type: 'disactiveLoading' })
         }
     }
 
@@ -107,7 +114,7 @@ export const UserContextProvider: React.FC<UserProviderProps> = ({ children }) =
 
     return (
         <UserContext.Provider value={{ userState, userDispatch, logout }}>
-            {children}
+            {userState.userLoading ? <Loading /> : children}
         </UserContext.Provider>
     )
 }

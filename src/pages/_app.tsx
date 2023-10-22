@@ -16,9 +16,9 @@ function MyApp({ Component, pageProps }: AppProps) {
     if (router.pathname.startsWith('/teacher/')) {
         return (
             <Suspense fallback={<Loading />}>
-                <UserContextProvider>
-                    <DarkThemeProvider>
-                        <ThemeApp>
+                <ThemeApp>
+                    <UserContextProvider>
+                        <DarkThemeProvider>
                             <AlertProvider>
                                 <NotificationsProvider>
                                     <Layout>
@@ -26,9 +26,9 @@ function MyApp({ Component, pageProps }: AppProps) {
                                     </Layout>
                                 </NotificationsProvider>
                             </AlertProvider>
-                        </ThemeApp>
-                    </DarkThemeProvider>
-                </UserContextProvider>
+                        </DarkThemeProvider>
+                    </UserContextProvider>
+                </ThemeApp>
             </Suspense>
         )
     } else {
