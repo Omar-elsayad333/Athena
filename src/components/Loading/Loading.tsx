@@ -7,7 +7,6 @@ import Box from '@mui/system/Box'
 
 const Loading: React.FC = () => {
     const { mainColors } = useTheme()
-
     const styles: IStyle = {
         container: {
             width: '100%',
@@ -19,6 +18,7 @@ const Loading: React.FC = () => {
             background: mainColors.loader && mainColors.loader.main,
         },
     }
+
     return (
         <Box sx={styles.container}>
             <AtomSpinner
