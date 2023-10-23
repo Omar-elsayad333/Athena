@@ -142,7 +142,7 @@ const useStudent = () => {
     // Collect data to send it to api
     const collectData = () => {
         const data = {
-            studentId: studentData.id,
+            teacherCourseLevelYearStudentId: studentData.id,
             groupId: selectedGroup.id,
         }
         return data
