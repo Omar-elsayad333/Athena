@@ -142,7 +142,7 @@ const NotificationsMenu: React.FC<Props> = ({ states, actions }) => {
                                     {actions.getNotificationAvatar(notification.type)}
                                 </Box>
                             )}
-                            <Tooltip title="مرحبا! استاذ محمد لقد قمنا بتحديث سياسة الخصوصية الخاصة بنا">
+                            <Tooltip title={notification.message}>
                                 <Typography noWrap variant="h5" fontWeight={700} color={'primary'}>
                                     {notification.message}
                                 </Typography>
