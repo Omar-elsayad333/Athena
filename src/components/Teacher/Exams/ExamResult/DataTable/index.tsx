@@ -127,7 +127,7 @@ const DataTable: React.FC<Props> = ({ headerData, bodyData }) => {
                                                         <AbsentStudentIcon />
                                                     </TableCell>
                                                 )
-                                            case 'Distinctive':
+                                            case 'Excellent':
                                                 return (
                                                     <TableCell align="right" key={keyIndex}>
                                                         <DistinctiveStudentIcon />
@@ -142,7 +142,7 @@ const DataTable: React.FC<Props> = ({ headerData, bodyData }) => {
                                         }
                                     } else if (cell === 'percentage' || cell === 'studentDegree') {
                                         switch (bodyItem.state) {
-                                            case 'Failed':
+                                            case 'Failure':
                                                 return (
                                                     <TableCell
                                                         align="right"
@@ -154,7 +154,7 @@ const DataTable: React.FC<Props> = ({ headerData, bodyData }) => {
                                                         {bodyItem[cell]}
                                                     </TableCell>
                                                 )
-                                            case 'Successed':
+                                            case 'Successful':
                                                 return (
                                                     <TableCell
                                                         align="right"
@@ -178,7 +178,7 @@ const DataTable: React.FC<Props> = ({ headerData, bodyData }) => {
                                                         ------
                                                     </TableCell>
                                                 )
-                                            case 'Distinctive':
+                                            case 'Excellent':
                                                 return (
                                                     <TableCell
                                                         align="right"
@@ -187,7 +187,7 @@ const DataTable: React.FC<Props> = ({ headerData, bodyData }) => {
                                                             color: `${mainColors.warning.main} !important`,
                                                         }}
                                                     >
-                                                        <DistinctiveStudentIcon />
+                                                        {bodyItem[cell]}
                                                     </TableCell>
                                                 )
                                             default:

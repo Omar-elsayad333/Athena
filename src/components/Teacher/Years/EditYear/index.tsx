@@ -418,7 +418,10 @@ const EditYearC: React.FC<Props> = ({ data, states, actions, dialogs }) => {
                     ))}
                     <Box sx={styles.actionButtons}>
                         {data.yearData && data.yearData.yearState === 'open' && (
-                            <Button sx={style.endYearButton} onClick={actions.endYear}>
+                            <Button
+                                sx={style.endYearButton}
+                                onClick={() => actions.handleEndYearDialogState()}
+                            >
                                 <Typography fontSize={'h4'} fontWeight={700}>
                                     إنهاء العام الدراسي
                                 </Typography>
@@ -445,6 +448,11 @@ const EditYearC: React.FC<Props> = ({ data, states, actions, dialogs }) => {
                 state={dialogs.state}
                 content={dialogs.content}
                 actions={dialogs.actions}
+            />
+            <BasicDialog
+                state={dialogs.endYearState}
+                content={dialogs.endYearContent}
+                actions={dialogs.endYearActions}
             />
         </Box>
     )
