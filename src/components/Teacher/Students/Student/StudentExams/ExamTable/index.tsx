@@ -122,7 +122,7 @@ const ExamTable: React.FC<Props> = ({ headerData, bodyData }) => {
                                         )
                                     } else if (
                                         cell == 'state' &&
-                                        bodyItem['state'] == 'Distinctive'
+                                        bodyItem['state'] == 'Excellent'
                                     ) {
                                         return (
                                             <TableCell
@@ -139,7 +139,7 @@ const ExamTable: React.FC<Props> = ({ headerData, bodyData }) => {
                                                 {` / `}
                                             </TableCell>
                                         )
-                                    } else if (cell == 'state' && bodyItem['state'] == 'Failed') {
+                                    } else if (cell == 'state' && bodyItem['state'] == 'Failure') {
                                         return (
                                             <TableCell
                                                 style={{
@@ -157,7 +157,7 @@ const ExamTable: React.FC<Props> = ({ headerData, bodyData }) => {
                                         )
                                     } else if (
                                         cell == 'state' &&
-                                        bodyItem['state'] == 'Successed'
+                                        bodyItem['state'] == 'Successful'
                                     ) {
                                         return (
                                             <TableCell

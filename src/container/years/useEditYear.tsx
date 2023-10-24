@@ -24,6 +24,7 @@ const useEditYear = () => {
     const [classesDialogState, setClassesDialogState] = useState<boolean>(false)
 
     const [dialogState, setDialogState] = useState<boolean>(false)
+    const [endYearDialogState, setEndYearDialogState] = useState<boolean>(false)
 
     // Call getYearData and getRequiredData function if the user is authuraized
     useEffect(() => {
@@ -514,6 +515,20 @@ const useEditYear = () => {
         setDialogState(false)
     }
 
+    const handleEndYearDialogState = () => {
+        setEndYearDialogState(!endYearDialogState)
+    }
+
+    const submitEndYear = () => {
+        handleEndYearDialogState()
+        endYear()
+    }
+
+    const cancleSubmitEndYear = () => {
+        handleEndYearDialogState()
+        setEndYearDialogState(false)
+    }
+
     return {
         data: {
             levels,
@@ -541,6 +556,7 @@ const useEditYear = () => {
             filterNeededSemester,
             submitOldLevel,
             handleDialogState,
+            handleEndYearDialogState,
         },
         dialogs: {
             classesDialogState,
@@ -554,6 +570,17 @@ const useEditYear = () => {
             actions: {
                 submit: submitDelete,
                 cancel: cancleSubmit,
+            },
+            endYearState: endYearDialogState,
+            endYearContent: {
+                title: 'انهاء العام',
+                body: 'تأكيد انهاء العام الدراسي نهائيا',
+                submit: 'تأكيد',
+                cancel: 'إلغاء',
+            },
+            endYearActions: {
+                submit: submitEndYear,
+                cancel: cancleSubmitEndYear,
             },
         },
     }

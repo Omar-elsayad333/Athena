@@ -39,13 +39,13 @@ export const genderTranslate = (gender: string) => {
 // Translate gender into arabic
 export const examStudentStatesTranslate = (state: string) => {
     switch (state) {
-        case 'Failed':
+        case 'Failure':
             return 'راسب'
         case 'Absent':
             return 'متغيب'
-        case 'Distinctive':
+        case 'Excellent':
             return 'متميز'
-        case 'Successed':
+        case 'Successful':
             return 'ناجح'
         default:
             return ''
