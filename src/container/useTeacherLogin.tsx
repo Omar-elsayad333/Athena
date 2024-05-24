@@ -12,7 +12,7 @@ const useTeacherLogin = () => {
   const [loading, setLoading] = useState<boolean>(false)
   const [pageErrors, setPasswordErrors] = useState<any>([])
   const [userName, setUserName] = useState<InputProps>({
-    value: 'User1',
+    value: 'testuser',
     length: 5,
     error: false,
     helperText: '',
