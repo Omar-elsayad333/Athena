@@ -2,7 +2,7 @@ import axios from 'axios'
 
 // Axios without token
 const axiosInstance = axios.create({
-    baseURL: 'https://athenaapi.azurewebsites.net/',
+    baseURL: 'https://athenaserver.azurewebsites.net/',
     headers: {
         'Content-Type': 'application/json',
         'Accept-Language': 'ar',
@@ -12,7 +12,8 @@ const axiosInstance = axios.create({
 // Axios with token
 const createAxiosInstance = (token: string) => {
     const instance = axios.create({
-        baseURL: 'https://athenaapi.azurewebsites.net/',
+        baseURL: 'https://athenaserver.azurewebsites.net/',
+        
         headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
@@ -24,3 +25,4 @@ const createAxiosInstance = (token: string) => {
 }
 
 export { createAxiosInstance, axiosInstance }
+

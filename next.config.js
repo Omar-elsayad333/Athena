@@ -5,8 +5,7 @@ module.exports = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'athenaapi.azurewebsites.net',
-        port: '',
+        hostname: 'athenaserver.azurewebsites.net',
       },
     ],
   },
