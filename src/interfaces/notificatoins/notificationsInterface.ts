@@ -1,5 +1,3 @@
-import { ReactNode } from 'react'
-
 export interface NotificatinosContextType {
     notificationsData: any[]
     notificationsLoading: boolean
@@ -7,5 +5,5 @@ export interface NotificatinosContextType {
 }
 
 export interface NotificationsProviderProps {
-    children: ReactNode
+    children: any
 }
